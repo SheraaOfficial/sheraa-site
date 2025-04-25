@@ -111,7 +111,7 @@ const ImpactNumbers = () => {
   };
 
   return (
-    <section className="py-24 bg-gradient-to-b from-white to-sheraa-light relative overflow-hidden">
+    <section className="py-24 bg-gradient-to-b from-sheraa-background-DEFAULT to-white relative overflow-hidden">
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
         <motion.div 
           initial={{ scale: 0.8, opacity: 0 }}
