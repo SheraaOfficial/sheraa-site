@@ -12,16 +12,18 @@ import PartnersSection from "@/components/PartnersSection";
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-white">
       <Navigation />
       <main className="flex-grow">
         <Hero />
-        <ImpactNumbers />
-        <ProgramsOverview />
-        <CommunitySection />
-        <SEFSection />
-        <WhySharjah />
-        <PartnersSection />
+        <div className="space-y-24">
+          <ImpactNumbers />
+          <ProgramsOverview />
+          <CommunitySection />
+          <SEFSection />
+          <WhySharjah />
+          <PartnersSection />
+        </div>
       </main>
       <Footer />
     </div>
