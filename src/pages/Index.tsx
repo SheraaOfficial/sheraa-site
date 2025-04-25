@@ -4,14 +4,13 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import ImpactNumbers from "@/components/ImpactNumbers";
+import QuoteSection from "@/components/QuoteSection";
 import ProgramsOverview from "@/components/ProgramsOverview";
 import CommunitySection from "@/components/CommunitySection";
 import SEFSection from "@/components/SEFSection";
 import WhySharjah from "@/components/WhySharjah";
 import PartnersSection from "@/components/PartnersSection";
 import EligibilityChecker from "@/components/EligibilityChecker";
-import MarqueeUpdates from "@/components/MarqueeUpdates";
-import QuoteSection from "@/components/QuoteSection";
 
 const Index = () => {
   return (
@@ -20,8 +19,8 @@ const Index = () => {
       <main className="flex-grow">
         <Hero />
         <div className="space-y-24">
-          <QuoteSection />
           <ImpactNumbers />
+          <QuoteSection />
           <ProgramsOverview />
           <EligibilityChecker />
           <CommunitySection />
