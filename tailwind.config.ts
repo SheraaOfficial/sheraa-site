@@ -12,10 +12,10 @@ export default {
   theme: {
     container: {
       center: true,
-      padding: '2rem',
+      padding: "2rem",
       screens: {
-        '2xl': '1400px'
-      }
+        "2xl": "1400px",
+      },
     },
     extend: {
       colors: {
@@ -65,9 +65,20 @@ export default {
         sheraa: {
           primary: '#0066A1',
           secondary: '#00A3A3',
-          accent: '#F2FCE2',
+          accent: {
+            DEFAULT: '#F2FCE2',
+            light: '#E5F4E3',
+            dark: '#D6ECD2'
+          },
           light: '#F1F0FB',
-          dark: '#1A1F2C'
+          dark: {
+            DEFAULT: '#1A1F2C',
+            lighter: '#2A3142'
+          },
+          background: {
+            DEFAULT: '#F8F9FA',
+            soft: '#F3F4F6'
+          }
         }
       },
       borderRadius: {
@@ -104,6 +115,14 @@ export default {
       },
       fontFamily: {
         'plus-jakarta': ['"Plus Jakarta Sans"', 'sans-serif'],
+      },
+      backgroundImage: {
+        'gradient-primary': 'linear-gradient(to right, #0066A1, #00A3A3)',
+        'gradient-secondary': 'linear-gradient(to right, #F2FCE2, #E5F4E3)',
+      },
+      boxShadow: {
+        'sheraa-soft': '0 4px 6px -1px rgba(0, 102, 161, 0.1), 0 2px 4px -1px rgba(0, 102, 161, 0.06)',
+        'sheraa-medium': '0 10px 15px -3px rgba(0, 102, 161, 0.1), 0 4px 6px -2px rgba(0, 102, 161, 0.05)'
       }
     }
   },
