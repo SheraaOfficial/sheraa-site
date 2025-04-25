@@ -1,32 +1,43 @@
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { motion, useInView } from "framer-motion";
+import { ArrowRight, TrendingUp } from "lucide-react";
 
-// Counter animation with enhanced easing
-const Counter = ({ end, duration = 2, prefix = "", suffix = "" }) => {
+// Enhanced Counter animation with better easing and controlled start
+const Counter = ({ 
+  end, 
+  duration = 2, 
+  prefix = "", 
+  suffix = "", 
+  startOnView = true 
+}) => {
   const [count, setCount] = useState(0);
+  const counterRef = useRef(null);
+  const isInView = useInView(counterRef, { once: true, margin: "-100px" });
+  const shouldStart = startOnView ? isInView : true;
 
   useEffect(() => {
+    if (!shouldStart) return;
+    
     let startTime = null;
-    const easeOutQuart = t => 1 - Math.pow(1 - t, 4); // Enhanced easing function
+    const easeOutExpo = t => (t === 1) ? 1 : 1 - Math.pow(2, -10 * t);
     
     const step = (timestamp) => {
       if (!startTime) startTime = timestamp;
       const progress = Math.min((timestamp - startTime) / (duration * 1000), 1);
-      setCount(Math.floor(easeOutQuart(progress) * end));
+      setCount(Math.floor(easeOutExpo(progress) * end));
       if (progress < 1) {
         window.requestAnimationFrame(step);
       }
     };
     window.requestAnimationFrame(step);
-  }, [end, duration]);
+  }, [end, duration, shouldStart]);
 
   return (
-    <span className="font-display">
+    <span className="font-display" ref={counterRef}>
       {prefix}
       {count.toLocaleString()}
       {suffix}
@@ -42,7 +53,8 @@ const ImpactNumbers = () => {
       title: "Startups Supported",
       description: "Empowering diverse entrepreneurs across industries",
       color: "from-blue-500/20 to-sheraa-primary/20",
-      icon: "🚀"
+      icon: "🚀",
+      growthText: "28% growth in the last year"
     },
     {
       value: 50,
@@ -51,7 +63,8 @@ const ImpactNumbers = () => {
       title: "Investment Secured",
       description: "Facilitating funding for innovative ventures",
       color: "from-green-500/20 to-sheraa-secondary/20",
-      icon: "💰"
+      icon: "💰",
+      growthText: "43% increase from previous year"
     },
     {
       value: 2500,
@@ -59,7 +72,8 @@ const ImpactNumbers = () => {
       title: "Jobs Created",
       description: "Contributing to economic growth in UAE",
       color: "from-purple-500/20 to-pink-500/20",
-      icon: "👥"
+      icon: "👥",
+      growthText: "1,100+ new jobs in 2024"
     },
     {
       value: 100,
@@ -67,7 +81,8 @@ const ImpactNumbers = () => {
       title: "Global Partners",
       description: "Building a worldwide innovation network",
       color: "from-orange-500/20 to-red-500/20",
-      icon: "🌍"
+      icon: "🌍",
+      growthText: "Expanded to 15 new countries"
     }
   ];
 
@@ -97,9 +112,11 @@ const ImpactNumbers = () => {
     }
   };
 
+  const decorationRef = useRef(null);
+  
   return (
     <section className="py-24 bg-gradient-to-b from-white to-sheraa-light relative overflow-hidden">
-      {/* Enhanced decorative elements */}
+      {/* Enhanced decorative elements with better animations */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
         <motion.div 
           initial={{ scale: 0.8, opacity: 0 }}
@@ -114,6 +131,13 @@ const ImpactNumbers = () => {
           className="absolute bottom-40 right-20 w-[30rem] h-[30rem] rounded-full bg-gradient-to-tl from-sheraa-primary/10 to-transparent blur-3xl"
         />
         <div className="absolute top-60 right-40 w-20 h-20 rounded-full bg-gradient-to-br from-sheraa-secondary/20 to-transparent blur-xl animate-pulse" />
+        
+        {/* Additional subtle patterns */}
+        <div ref={decorationRef} className="absolute inset-0 opacity-5">
+          <div className="absolute top-1/4 left-1/4 w-32 h-32 border border-sheraa-primary/20 rounded-full"></div>
+          <div className="absolute top-1/3 right-1/4 w-48 h-48 border-2 border-sheraa-secondary/20 rounded-full"></div>
+          <div className="absolute bottom-1/4 left-1/3 w-64 h-64 border border-purple-500/20 rounded-full"></div>
+        </div>
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
@@ -154,16 +178,22 @@ const ImpactNumbers = () => {
                     <Counter end={stat.value} prefix={stat.prefix || ""} suffix={stat.suffix || ""} />
                   </div>
                   <h3 className="text-xl font-semibold mb-3">{stat.title}</h3>
-                  <p className="text-gray-600">{stat.description}</p>
+                  <p className="text-gray-600 mb-4">{stat.description}</p>
+                  
+                  {/* Added growth indicator */}
+                  <div className="flex items-center justify-center text-sm font-medium text-green-600 bg-green-50 px-3 py-1 rounded-full">
+                    <TrendingUp className="w-3 h-3 mr-1" />
+                    <span>{stat.growthText}</span>
+                  </div>
                 </CardContent>
               </Card>
             </motion.div>
           ))}
         </motion.div>
 
-        {/* Enhanced CTA section with glassmorphism effect */}
+        {/* Enhanced CTA section with glassmorphism effect and responsive layout */}
         <motion.div 
-          className="mt-20 bg-white/80 backdrop-blur-lg rounded-2xl shadow-lg p-12 border border-gray-100"
+          className="mt-20 bg-white/80 backdrop-blur-lg rounded-2xl shadow-lg p-8 md:p-12 border border-gray-100"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2 }}
@@ -184,7 +214,7 @@ const ImpactNumbers = () => {
                 </Link>
               </Button>
             </div>
-            <div className="md:col-span-2 grid grid-cols-2 md:grid-cols-3 gap-6">
+            <div className="md:col-span-2 grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
               {[
                 { value: "30+", label: "Global Partnerships" },
                 { value: "12", label: "Industry Sectors" },
@@ -193,10 +223,18 @@ const ImpactNumbers = () => {
                 { value: "5K+", label: "Community Members" },
                 { value: "150+", label: "Expert Mentors" }
               ].map((item, index) => (
-                <div key={index} className="text-center p-4 bg-gradient-to-br from-gray-50 to-white rounded-xl border border-gray-100">
+                <motion.div 
+                  key={index} 
+                  className="text-center p-4 bg-gradient-to-br from-gray-50 to-white rounded-xl border border-gray-100"
+                  whileHover={{ 
+                    scale: 1.05, 
+                    boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" 
+                  }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
                   <div className="text-2xl font-bold text-sheraa-secondary mb-1">{item.value}</div>
                   <p className="text-gray-600 text-sm">{item.label}</p>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
