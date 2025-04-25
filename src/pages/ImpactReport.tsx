@@ -29,7 +29,62 @@ const ImpactReport = () => {
               </p>
             </motion.div>
 
-            {/* Content placeholder - this would be replaced with actual report content */}
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-16">
+              <motion.div 
+                className="p-6 rounded-xl bg-[#F2FCE2] bg-opacity-50"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <div className="text-3xl font-bold text-sheraa-primary mb-2">30+</div>
+                <div className="text-sm text-gray-600">Global Partnerships</div>
+              </motion.div>
+              
+              <motion.div 
+                className="p-6 rounded-xl bg-[#FEF7CD] bg-opacity-50"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <div className="text-3xl font-bold text-sheraa-primary mb-2">12</div>
+                <div className="text-sm text-gray-600">Industry Sectors</div>
+              </motion.div>
+              
+              <motion.div 
+                className="p-6 rounded-xl bg-[#E5DEFF] bg-opacity-50"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <div className="text-3xl font-bold text-sheraa-primary mb-2">4</div>
+                <div className="text-sm text-gray-600">Innovation Hubs</div>
+              </motion.div>
+              
+              <motion.div 
+                className="p-6 rounded-xl bg-[#FFDEE2] bg-opacity-50"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <div className="text-3xl font-bold text-sheraa-primary mb-2">25+</div>
+                <div className="text-sm text-gray-600">Corporate Partners</div>
+              </motion.div>
+              
+              <motion.div 
+                className="p-6 rounded-xl bg-[#FDE1D3] bg-opacity-50"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <div className="text-3xl font-bold text-sheraa-primary mb-2">5K+</div>
+                <div className="text-sm text-gray-600">Community Members</div>
+              </motion.div>
+              
+              <motion.div 
+                className="p-6 rounded-xl bg-[#D3E4FD] bg-opacity-50"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <div className="text-3xl font-bold text-sheraa-primary mb-2">150+</div>
+                <div className="text-sm text-gray-600">Expert Mentors</div>
+              </motion.div>
+            </div>
+
             <div className="bg-white rounded-2xl shadow-lg p-8">
               <p className="text-center text-gray-600">
                 Impact report content will be displayed here. This is a placeholder for the detailed impact report page.
