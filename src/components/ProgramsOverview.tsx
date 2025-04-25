@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -76,7 +75,7 @@ const ProgramsOverview = () => {
   };
 
   return (
-    <section className="py-24 bg-gradient-to-br from-white to-sheraa-background-soft relative overflow-hidden">
+    <section className="py-24 bg-white relative overflow-hidden">
       <div className="absolute inset-0 z-0">
         <div className="absolute top-0 right-0 w-96 h-96 bg-sheraa-primary/5 rounded-full blur-3xl" />
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-sheraa-secondary/5 rounded-full blur-3xl" />

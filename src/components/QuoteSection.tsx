@@ -4,7 +4,7 @@ import { Quote } from "lucide-react";
 
 const QuoteSection = () => {
   return (
-    <section className="py-16 bg-gradient-to-br from-sheraa-accent-light to-sheraa-accent relative overflow-hidden">
+    <section className="py-16 bg-gradient-to-br from-sheraa-primary/5 to-sheraa-secondary/5 relative overflow-hidden">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
