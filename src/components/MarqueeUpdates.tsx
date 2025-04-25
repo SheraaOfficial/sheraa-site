@@ -1,6 +1,5 @@
 
 import React from "react";
-import { motion } from "framer-motion";
 import { Clock, Calendar, Megaphone } from "lucide-react";
 
 const MarqueeUpdates = () => {
@@ -24,16 +23,16 @@ const MarqueeUpdates = () => {
   ];
 
   return (
-    <div className="bg-sheraa-primary/5 border-y border-sheraa-primary/10 sticky top-[72px] z-30 overflow-hidden py-2">
+    <div className="bg-sheraa-dark/95 border-y border-white/10 py-3 relative z-30 overflow-hidden">
       <div className="flex whitespace-nowrap animate-marquee">
         {[...updates, ...updates].map((update, index) => (
           <div
             key={index}
-            className="inline-flex items-center gap-2 text-sheraa-primary px-8"
+            className="inline-flex items-center gap-2 text-white/90 px-8"
           >
             {update.icon}
             <span className="text-sm font-medium">{update.text}</span>
-            <span className="mx-4 text-sheraa-primary/30">•</span>
+            <span className="mx-4 text-white/30">•</span>
           </div>
         ))}
       </div>
