@@ -10,11 +10,13 @@ import SEFSection from "@/components/SEFSection";
 import WhySharjah from "@/components/WhySharjah";
 import PartnersSection from "@/components/PartnersSection";
 import EligibilityChecker from "@/components/EligibilityChecker";
+import MarqueeUpdates from "@/components/MarqueeUpdates";
 
 const Index = () => {
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <Navigation />
+      <MarqueeUpdates />
       <main className="flex-grow">
         <Hero />
         <div className="space-y-24">
