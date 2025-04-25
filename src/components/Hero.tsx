@@ -1,7 +1,8 @@
-
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import AnimatedSailboat from "./AnimatedSailboat";
+import { motion } from "framer-motion";
 
 const Hero = () => {
   return (
@@ -11,8 +12,15 @@ const Hero = () => {
         <div className="absolute -left-48 bottom-0 w-96 h-96 bg-sheraa-secondary/5 rounded-full blur-3xl transform animate-pulse delay-700" />
       </div>
       
+      <AnimatedSailboat />
+      
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="max-w-3xl animate-fade-in">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="max-w-3xl"
+        >
           <div className="inline-block bg-sheraa-secondary/10 px-4 py-1 rounded-full text-sheraa-secondary text-sm font-medium mb-4 animate-fade-in">
             Empowering Innovation in Sharjah
           </div>
@@ -32,7 +40,12 @@ const Hero = () => {
             </Button>
           </div>
           
-          <div className="mt-12 pt-8 border-t border-gray-100 grid grid-cols-3 gap-8 animate-fade-in delay-500">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.8 }}
+            className="mt-12 pt-8 border-t border-gray-100 grid grid-cols-3 gap-8"
+          >
             <div>
               <div className="text-2xl font-bold text-sheraa-primary mb-1">500+</div>
               <div className="text-sm text-gray-600">Startups Supported</div>
@@ -45,8 +58,8 @@ const Hero = () => {
               <div className="text-2xl font-bold text-sheraa-primary mb-1">2,500+</div>
               <div className="text-sm text-gray-600">Jobs Created</div>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
     </div>
   );

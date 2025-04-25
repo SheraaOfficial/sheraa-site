@@ -9,6 +9,7 @@ import CommunitySection from "@/components/CommunitySection";
 import SEFSection from "@/components/SEFSection";
 import WhySharjah from "@/components/WhySharjah";
 import PartnersSection from "@/components/PartnersSection";
+import EligibilityChecker from "@/components/EligibilityChecker";
 
 const Index = () => {
   return (
@@ -19,6 +20,7 @@ const Index = () => {
         <div className="space-y-24">
           <ImpactNumbers />
           <ProgramsOverview />
+          <EligibilityChecker />
           <CommunitySection />
           <SEFSection />
           <WhySharjah />
