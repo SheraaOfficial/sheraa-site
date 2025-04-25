@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
@@ -50,7 +51,7 @@ const ImpactNumbers = () => {
       suffix: "+",
       title: "Startups Supported",
       description: "Empowering diverse entrepreneurs across industries",
-      bgColor: "bg-blue-50",
+      bgColor: "bg-blue-50/50",
       textColor: "text-blue-600",
       icon: "🚀",
       growthText: "28% growth in the last year"
@@ -61,7 +62,7 @@ const ImpactNumbers = () => {
       suffix: "M+",
       title: "Investment Secured",
       description: "Facilitating funding for innovative ventures",
-      bgColor: "bg-green-50",
+      bgColor: "bg-green-50/50",
       textColor: "text-green-600",
       icon: "💰",
       growthText: "43% increase from previous year"
@@ -71,7 +72,7 @@ const ImpactNumbers = () => {
       suffix: "+",
       title: "Jobs Created",
       description: "Contributing to economic growth in UAE",
-      bgColor: "bg-purple-50",
+      bgColor: "bg-purple-50/50",
       textColor: "text-purple-600",
       icon: "👥",
       growthText: "1,100+ new jobs in 2024"
@@ -81,7 +82,7 @@ const ImpactNumbers = () => {
       suffix: "+",
       title: "Global Partners",
       description: "Building a worldwide innovation network",
-      bgColor: "bg-orange-50",
+      bgColor: "bg-orange-50/50",
       textColor: "text-orange-600",
       icon: "🌍",
       growthText: "Expanded to 15 new countries"
@@ -146,8 +147,7 @@ const ImpactNumbers = () => {
           {stats.map((stat, index) => (
             <motion.div key={index} variants={itemVariants}>
               <Card className="relative border-none shadow-lg hover:shadow-xl transition-all duration-500 transform hover:-translate-y-2">
-                <div className={`absolute top-0 left-0 w-full h-2 ${stat.textColor}`} />
-                <CardContent className={`p-8 text-center relative ${stat.bgColor}`}>
+                <CardContent className={`p-8 text-center relative ${stat.bgColor} rounded-lg`}>
                   <span className="text-4xl mb-4 block">{stat.icon}</span>
                   <div className={`text-5xl font-bold ${stat.textColor} mb-4`}>
                     <Counter end={stat.value} prefix={stat.prefix || ""} suffix={stat.suffix || ""} />
