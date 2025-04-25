@@ -11,6 +11,7 @@ import WhySharjah from "@/components/WhySharjah";
 import PartnersSection from "@/components/PartnersSection";
 import EligibilityChecker from "@/components/EligibilityChecker";
 import MarqueeUpdates from "@/components/MarqueeUpdates";
+import QuoteSection from "@/components/QuoteSection";
 
 const Index = () => {
   return (
@@ -21,6 +22,7 @@ const Index = () => {
         <Hero />
         <div className="space-y-24">
           <ImpactNumbers />
+          <QuoteSection />
           <ProgramsOverview />
           <EligibilityChecker />
           <CommunitySection />
