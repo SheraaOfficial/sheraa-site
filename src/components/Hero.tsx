@@ -44,24 +44,42 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.8 }}
-            className="mt-12 pt-8 border-t border-gray-100 grid grid-cols-3 gap-8"
+            className="mt-12 pt-8 border-t border-gray-100 grid grid-cols-2 md:grid-cols-3 gap-6"
           >
-            <div className="relative group bg-sheraa-primary/5 rounded-lg">
+            <div className="relative group bg-[#D3E4FD] rounded-lg hover:scale-105 transition-transform duration-300">
               <div className="relative p-4">
-                <div className="text-3xl font-bold text-sheraa-primary mb-2 animate-pulse">500+</div>
-                <div className="text-sm text-gray-600">Startups Supported</div>
+                <div className="text-3xl font-bold text-sheraa-primary mb-2">30+</div>
+                <div className="text-sm text-gray-600">Global Partnerships</div>
               </div>
             </div>
-            <div className="relative group bg-purple-500/5 rounded-lg">
+            <div className="relative group bg-[#FDE1D3] rounded-lg hover:scale-105 transition-transform duration-300">
               <div className="relative p-4">
-                <div className="text-3xl font-bold text-purple-600 mb-2 animate-pulse">$50M+</div>
-                <div className="text-sm text-gray-600">Investment Raised</div>
+                <div className="text-3xl font-bold text-orange-600 mb-2">12</div>
+                <div className="text-sm text-gray-600">Industry Sectors</div>
               </div>
             </div>
-            <div className="relative group bg-green-500/5 rounded-lg">
+            <div className="relative group bg-[#E5DEFF] rounded-lg hover:scale-105 transition-transform duration-300">
               <div className="relative p-4">
-                <div className="text-3xl font-bold text-green-600 mb-2 animate-pulse">2,500+</div>
-                <div className="text-sm text-gray-600">Jobs Created</div>
+                <div className="text-3xl font-bold text-purple-600 mb-2">4</div>
+                <div className="text-sm text-gray-600">Innovation Hubs</div>
+              </div>
+            </div>
+            <div className="relative group bg-[#F2FCE2] rounded-lg hover:scale-105 transition-transform duration-300">
+              <div className="relative p-4">
+                <div className="text-3xl font-bold text-green-600 mb-2">25+</div>
+                <div className="text-sm text-gray-600">Corporate Partners</div>
+              </div>
+            </div>
+            <div className="relative group bg-[#FFDEE2] rounded-lg hover:scale-105 transition-transform duration-300">
+              <div className="relative p-4">
+                <div className="text-3xl font-bold text-pink-600 mb-2">5K+</div>
+                <div className="text-sm text-gray-600">Community Members</div>
+              </div>
+            </div>
+            <div className="relative group bg-[#FEF7CD] rounded-lg hover:scale-105 transition-transform duration-300">
+              <div className="relative p-4">
+                <div className="text-3xl font-bold text-yellow-600 mb-2">150+</div>
+                <div className="text-sm text-gray-600">Expert Mentors</div>
               </div>
             </div>
           </motion.div>
