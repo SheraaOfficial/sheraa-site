@@ -21,8 +21,8 @@ const Index = () => {
       <main className="flex-grow">
         <Hero />
         <div className="space-y-24">
-          <ImpactNumbers />
           <QuoteSection />
+          <ImpactNumbers />
           <ProgramsOverview />
           <EligibilityChecker />
           <CommunitySection />
