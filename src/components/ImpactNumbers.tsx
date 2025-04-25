@@ -3,9 +3,8 @@ import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { motion, useInView } from "framer-motion";
-import { ArrowRight, TrendingUp, Award, Users, Buildings, Briefcase } from "lucide-react";
+import { ArrowRight, TrendingUp, Award, Users, Building, Briefcase } from "lucide-react";
 
-// Enhanced Counter animation with better easing and controlled start
 const Counter = ({ 
   end, 
   duration = 2, 
@@ -62,7 +61,7 @@ const ImpactNumbers = () => {
       title: "Revenue Generated",
       description: "By our portfolio companies",
       color: "from-green-500/20 to-sheraa-secondary/20",
-      icon: Buildings,
+      icon: Building,
       growthText: "71% startup survival rate"
     },
     {
@@ -113,7 +112,6 @@ const ImpactNumbers = () => {
 
   return (
     <section className="py-24 bg-gradient-to-b from-white to-sheraa-light relative overflow-hidden">
-      {/* Enhanced decorative elements */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
         <motion.div 
           initial={{ scale: 0.8, opacity: 0 }}
