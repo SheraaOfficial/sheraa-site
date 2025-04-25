@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -47,24 +46,21 @@ const Hero = () => {
             transition={{ delay: 0.5, duration: 0.8 }}
             className="mt-12 pt-8 border-t border-gray-100 grid grid-cols-3 gap-8"
           >
-            <div className="relative group">
-              <div className="absolute inset-0 bg-gradient-to-br from-sheraa-primary/10 to-sheraa-secondary/10 rounded-lg transform group-hover:scale-105 transition-transform duration-300" />
+            <div className="relative group bg-sheraa-primary/5 rounded-lg">
               <div className="relative p-4">
-                <div className="text-3xl font-bold bg-gradient-to-r from-sheraa-primary to-sheraa-secondary bg-clip-text text-transparent mb-2 animate-pulse">500+</div>
+                <div className="text-3xl font-bold text-sheraa-primary mb-2 animate-pulse">500+</div>
                 <div className="text-sm text-gray-600">Startups Supported</div>
               </div>
             </div>
-            <div className="relative group">
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-lg transform group-hover:scale-105 transition-transform duration-300" />
+            <div className="relative group bg-purple-500/5 rounded-lg">
               <div className="relative p-4">
-                <div className="text-3xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent mb-2 animate-pulse">$50M+</div>
+                <div className="text-3xl font-bold text-purple-600 mb-2 animate-pulse">$50M+</div>
                 <div className="text-sm text-gray-600">Investment Raised</div>
               </div>
             </div>
-            <div className="relative group">
-              <div className="absolute inset-0 bg-gradient-to-br from-green-500/10 to-teal-500/10 rounded-lg transform group-hover:scale-105 transition-transform duration-300" />
+            <div className="relative group bg-green-500/5 rounded-lg">
               <div className="relative p-4">
-                <div className="text-3xl font-bold bg-gradient-to-r from-green-500 to-teal-500 bg-clip-text text-transparent mb-2 animate-pulse">2,500+</div>
+                <div className="text-3xl font-bold text-green-600 mb-2 animate-pulse">2,500+</div>
                 <div className="text-sm text-gray-600">Jobs Created</div>
               </div>
             </div>
