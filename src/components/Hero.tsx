@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import AnimatedSailboat from "./AnimatedSailboat";
 import { motion } from "framer-motion";
 import ParticleBackground from "./ParticleBackground";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Target, Rocket, Globe } from "lucide-react";
 
 const Hero = () => {
   const containerVariants = {
@@ -31,6 +31,12 @@ const Hero = () => {
       }
     }
   };
+
+  const impactIcons = [
+    { icon: Target, text: "180+ Startups Supported", color: "text-green-500" },
+    { icon: Rocket, text: "$248M+ Revenue Generated", color: "text-blue-500" },
+    { icon: Globe, text: "1,900+ Jobs Created", color: "text-purple-500" }
+  ];
 
   return (
     <div className="relative min-h-[90vh] flex items-center overflow-hidden bg-gradient-to-br from-white to-sheraa-light">
@@ -101,18 +107,12 @@ const Hero = () => {
             variants={itemVariants}
             className="mt-16 flex items-center gap-8 text-sm text-gray-500"
           >
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-green-500 rounded-full" />
-              <span>180+ Startups Supported</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-blue-500 rounded-full" />
-              <span>$248M+ Revenue Generated</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-purple-500 rounded-full" />
-              <span>1,900+ Jobs Created</span>
-            </div>
+            {impactIcons.map((item, index) => (
+              <div key={index} className="flex items-center gap-2">
+                <item.icon className={`w-5 h-5 ${item.color}`} />
+                <span>{item.text}</span>
+              </div>
+            ))}
           </motion.div>
         </motion.div>
       </div>
