@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 
 const SEFSection = () => {
   return (
-    <section className="py-16 bg-gradient-to-br from-sheraa-dark via-sheraa-dark to-sheraa-primary/90 text-white">
+    <section className="py-16 bg-gradient-to-br from-sheraa-dark-DEFAULT to-sheraa-dark-lighter text-white">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
           <div className="lg:col-span-3">

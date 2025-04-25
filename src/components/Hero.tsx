@@ -40,7 +40,7 @@ const Hero = () => {
 
   return (
     <div className="relative flex flex-col">
-      <div className="min-h-[90vh] flex items-center overflow-hidden bg-gradient-to-br from-white via-sheraa-background-soft to-sheraa-accent">
+      <div className="min-h-[90vh] flex items-center overflow-hidden bg-gradient-to-br from-white via-sheraa-background-soft to-sheraa-light">
         <ParticleBackground />
         <AnimatedSailboat />
         

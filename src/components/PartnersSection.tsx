@@ -66,7 +66,7 @@ const PartnersSection = () => {
   };
 
   return (
-    <section className="py-24 bg-gradient-to-tr from-white via-sheraa-light to-sheraa-accent/20">
+    <section className="py-24 bg-gradient-to-b from-sheraa-background-soft to-white">
       <div className="container mx-auto px-4">
         <motion.div 
           initial="hidden"
