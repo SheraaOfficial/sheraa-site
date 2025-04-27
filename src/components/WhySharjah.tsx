@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -51,7 +50,7 @@ const WhySharjah = () => {
             transition={{ duration: 0.5 }}
           >
             <div className="inline-block bg-sheraa-primary/10 px-4 py-1 rounded-full text-sheraa-primary text-sm font-medium mb-6">
-              Why Choose Sharjah
+              Where Heritage Meets Innovation
             </div>
             
             <h2 className="text-4xl font-bold mb-6">
@@ -111,21 +110,79 @@ const WhySharjah = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="relative"
           >
-            <div className="bg-white rounded-2xl p-12 shadow-lg border border-gray-100">
-              <div className="text-center">
-                <div className="text-6xl font-black text-sheraa-primary mb-4">#3</div>
-                <p className="text-xl font-medium mb-2">
-                  In MENA's Top Startup Ecosystems
-                </p>
-                <p className="text-gray-600">
-                  According to Startup Genome Report 2024
-                </p>
+            <div className="relative overflow-hidden bg-white rounded-2xl p-12 shadow-lg border border-gray-100 transform hover:scale-105 transition-transform duration-300">
+              <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-sheraa-primary to-sheraa-secondary" />
+              
+              <div className="text-center relative z-10">
+                <div className="relative inline-block">
+                  <span className="text-8xl font-black bg-clip-text text-transparent bg-gradient-to-r from-sheraa-primary to-sheraa-secondary mb-4">
+                    #3
+                  </span>
+                  <div className="absolute -right-4 -top-2">
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ 
+                        type: "spring",
+                        stiffness: 260,
+                        damping: 20,
+                        delay: 0.5 
+                      }}
+                      className="bg-sheraa-accent rounded-full p-2"
+                    >
+                      <svg className="w-6 h-6 text-sheraa-primary" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
+                      </svg>
+                    </motion.div>
+                  </div>
+                </div>
+                
+                <motion.p 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                  className="text-2xl font-bold text-sheraa-dark mb-4"
+                >
+                  MENA's Top Startup <br />Ecosystems
+                </motion.p>
+                
+                <motion.p 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.5 }}
+                  className="text-gray-600 font-medium"
+                >
+                  Startup Genome Report 2024
+                </motion.p>
               </div>
+
+              <motion.div 
+                className="absolute -bottom-6 -right-6 w-32 h-32 bg-sheraa-primary/10 rounded-full"
+                animate={{ 
+                  scale: [1, 1.2, 1],
+                  opacity: [0.3, 0.6, 0.3]
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              />
+              
+              <motion.div 
+                className="absolute -top-6 -left-6 w-24 h-24 bg-sheraa-secondary/10 rounded-full"
+                animate={{ 
+                  scale: [1, 1.1, 1],
+                  opacity: [0.2, 0.4, 0.2]
+                }}
+                transition={{
+                  duration: 2.5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 0.5
+                }}
+              />
             </div>
-            
-            {/* Decorative elements */}
-            <div className="absolute -top-6 -right-6 w-32 h-32 bg-sheraa-secondary/20 rounded-full blur-xl" />
-            <div className="absolute -bottom-6 -left-6 w-24 h-24 bg-sheraa-primary/20 rounded-full blur-xl" />
           </motion.div>
         </div>
       </div>
