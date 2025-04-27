@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { motion } from "framer-motion";
-import { Linkedin, Twitter, Instagram, Facebook, Mail, ArrowRight } from "lucide-react";
+import { Linkedin, Twitter, Instagram, Facebook, Mail, ArrowRight, Globe } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -185,6 +185,51 @@ const Footer = () => {
               Sitemap
             </Link>
           </div>
+        </div>
+      </div>
+
+      <div className="w-full bg-gradient-to-r from-[#0066A1] to-[#00A3A3] py-4">
+        <div className="container mx-auto flex justify-center items-center space-x-8">
+          <a 
+            href="https://www.linkedin.com/company/sheraa" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="text-white hover:text-blue-200 transition-colors"
+          >
+            <Linkedin className="w-6 h-6" />
+          </a>
+          <a 
+            href="https://twitter.com/sheraa_ae" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="text-white hover:text-blue-200 transition-colors"
+          >
+            <Twitter className="w-6 h-6" />
+          </a>
+          <a 
+            href="https://www.instagram.com/sheraa_ae/" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="text-white hover:text-blue-200 transition-colors"
+          >
+            <Instagram className="w-6 h-6" />
+          </a>
+          <a 
+            href="https://www.facebook.com/SheraaSharjah/" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="text-white hover:text-blue-200 transition-colors"
+          >
+            <Facebook className="w-6 h-6" />
+          </a>
+          <a 
+            href="https://www.sheraa.ae" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="text-white hover:text-blue-200 transition-colors"
+          >
+            <Globe className="w-6 h-6" />
+          </a>
         </div>
       </div>
     </footer>
