@@ -1,10 +1,9 @@
-
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { motion } from "framer-motion";
-import { LinkedIn, Twitter, Instagram, Facebook, Mail, ArrowRight } from "lucide-react";
+import { linkedin, Twitter, Instagram, Facebook, Mail, ArrowRight } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -43,7 +42,7 @@ const Footer = () => {
                 
                 <div className="flex space-x-4">
                   <a href="#" className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white hover:text-[#9b87f5] transition-all">
-                    <LinkedIn className="w-5 h-5" />
+                    <linkedin className="w-5 h-5" />
                   </a>
                   <a href="#" className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white hover:text-[#9b87f5] transition-all">
                     <Twitter className="w-5 h-5" />
