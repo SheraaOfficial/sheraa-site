@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Star, Quote } from "lucide-react";
 import { motion } from "framer-motion";
@@ -39,16 +38,16 @@ const StartupTestimonials = () => {
   const isMobile = useIsMobile();
 
   return (
-    <section className="py-16 md:py-24 relative overflow-hidden">
-      {/* Gradient Background */}
+    <section className="py-16 md:py-24 lg:py-32 relative overflow-hidden">
+      {/* Enhanced gradient background */}
       <div className="absolute inset-0 bg-gradient-to-br from-sheraa-primary/5 via-sheraa-teal/5 to-transparent" />
       
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 md:px-6 lg:px-8">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-12 md:mb-16"
+          className="text-center mb-12 md:mb-16 lg:mb-20"
         >
           <h2 className="text-3xl md:text-5xl font-bold text-sheraa-dark mb-4 md:mb-6">
             Hear from Our <span className="text-sheraa-primary">Startups</span>
@@ -65,33 +64,28 @@ const StartupTestimonials = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="h-full"
             >
               <div className="h-full relative group">
-                {/* Frosted Glass Panel */}
                 <div className="h-full backdrop-blur-lg bg-white/30 border border-white/20 rounded-2xl p-5 md:p-8 shadow-lg transition-all duration-300 hover:shadow-xl hover:bg-white/40">
-                  {/* Quote Icon */}
                   <div className="absolute -top-3 -left-3 bg-sheraa-primary text-white p-2 md:p-3 rounded-full shadow-lg">
                     <Quote className={isMobile ? "w-4 h-4" : "w-5 h-5"} />
                   </div>
 
-                  {/* Rating */}
                   <div className="flex items-center gap-1 mb-4 md:mb-6">
                     {[...Array(testimonial.rating)].map((_, i) => (
                       <Star key={i} className={`${isMobile ? "w-4 h-4" : "w-5 h-5"} fill-sheraa-orange text-sheraa-orange`} />
                     ))}
                   </div>
 
-                  {/* Quote */}
                   <blockquote className="text-sm md:text-base text-gray-700 mb-4 md:mb-6 italic line-clamp-4 md:line-clamp-none">
                     "{testimonial.quote}"
                   </blockquote>
 
-                  {/* Impact Metric */}
                   <div className="bg-sheraa-primary/10 text-sheraa-primary px-3 py-1 md:px-4 md:py-2 rounded-full text-xs md:text-sm font-medium mb-4 md:mb-6 inline-block">
                     {testimonial.impact}
                   </div>
 
-                  {/* Author Info */}
                   <div className="flex items-center gap-3 md:gap-4">
                     <Avatar className={`${isMobile ? "w-10 h-10" : "w-12 h-12"} border-2 border-white/50`}>
                       <AvatarImage src={testimonial.image} alt={testimonial.name} />

@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -55,19 +54,19 @@ const CommunitySection = () => {
   };
 
   return (
-    <section className="py-32 relative overflow-hidden bg-gradient-to-br from-white via-sheraa-background-soft to-white">
+    <section className="py-24 md:py-32 lg:py-40 relative overflow-hidden bg-gradient-to-br from-white via-sheraa-background-soft to-white">
       <div className="absolute inset-0">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-[#9b87f5]/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#D946EF]/5 rounded-full blur-3xl" />
+        <div className="absolute top-0 right-0 w-72 md:w-96 h-72 md:h-96 bg-[#9b87f5]/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-72 md:w-96 h-72 md:h-96 bg-[#D946EF]/5 rounded-full blur-3xl" />
       </div>
 
-      <div className="container mx-auto px-4 relative">
+      <div className="container mx-auto px-4 md:px-6 lg:px-8 relative">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start"
+          className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-start"
         >
           <motion.div variants={itemVariants}>
             <div className="inline-block bg-[#9b87f5]/10 px-6 py-2 rounded-full text-[#9b87f5] text-sm font-medium mb-8">

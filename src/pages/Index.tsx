@@ -21,7 +21,7 @@ const Index = () => {
       <Navigation />
       <main className="flex-grow">
         <Hero />
-        <div className="space-y-24">
+        <div className="space-y-16 md:space-y-24 lg:space-y-32">
           <ImpactNumbers />
           <QuoteSection />
           <ProgramsOverview />

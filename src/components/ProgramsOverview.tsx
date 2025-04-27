@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -76,19 +75,19 @@ const ProgramsOverview = () => {
   };
 
   return (
-    <section className="py-24 bg-gradient-to-br from-white to-sheraa-background-soft relative overflow-hidden">
+    <section className="py-16 md:py-24 lg:py-32 bg-gradient-to-br from-white to-sheraa-background-soft relative overflow-hidden">
       <div className="absolute inset-0 z-0">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-sheraa-primary/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-sheraa-secondary/5 rounded-full blur-3xl" />
+        <div className="absolute top-0 right-0 w-72 md:w-96 h-72 md:h-96 bg-sheraa-primary/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-72 md:w-96 h-72 md:h-96 bg-sheraa-secondary/5 rounded-full blur-3xl" />
       </div>
       
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center max-w-3xl mx-auto mb-16"
+          className="text-center max-w-3xl mx-auto mb-12 md:mb-16 lg:mb-20"
         >
           <div className="inline-block px-4 py-1 rounded-full bg-sheraa-light text-sheraa-primary text-sm font-medium mb-4">
             Your Journey Starts Here
@@ -106,15 +105,15 @@ const ProgramsOverview = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8"
+          className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 md:gap-8"
         >
           {programs.map((program, index) => (
             <motion.div 
               key={index}
               variants={itemVariants}
-              className="relative group"
+              className="relative group h-full"
             >
-              <Card className="h-full border-none shadow-lg hover:shadow-xl transition-all duration-500 bg-white">
+              <Card className="h-full border-none shadow-lg hover:shadow-xl transition-all duration-500 bg-white/80 backdrop-blur-sm">
                 <div className={`absolute inset-0 rounded-lg bg-gradient-to-br ${program.color} opacity-50 group-hover:opacity-70 transition-opacity`} />
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-sheraa-primary to-sheraa-secondary rounded-t-lg" />
                 

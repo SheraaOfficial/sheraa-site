@@ -111,7 +111,7 @@ const ImpactNumbers = () => {
   };
 
   return (
-    <section className="py-24 bg-gradient-to-b from-sheraa-background-DEFAULT to-white relative overflow-hidden">
+    <section className="py-16 md:py-24 lg:py-32 bg-gradient-to-b from-sheraa-background-DEFAULT to-white relative overflow-hidden">
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
         <motion.div 
           initial={{ scale: 0.8, opacity: 0 }}
@@ -128,9 +128,9 @@ const ImpactNumbers = () => {
         <div className="absolute top-60 right-40 w-20 h-20 rounded-full bg-gradient-to-br from-sheraa-secondary/20 to-transparent blur-xl animate-pulse" />
       </div>
 
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
         <motion.div 
-          className="text-center mb-16 max-w-3xl mx-auto"
+          className="text-center mb-12 md:mb-16 lg:mb-20 max-w-3xl mx-auto"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -148,7 +148,7 @@ const ImpactNumbers = () => {
         </motion.div>
 
         <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -156,7 +156,7 @@ const ImpactNumbers = () => {
         >
           {stats.map((stat, index) => (
             <motion.div key={index} variants={itemVariants}>
-              <Card className="relative border-none shadow-lg hover:shadow-xl transition-all duration-500 transform hover:-translate-y-2">
+              <Card className="relative h-full border-none shadow-lg hover:shadow-xl transition-all duration-500 transform hover:-translate-y-1">
                 <div className={`absolute inset-0 rounded-lg bg-gradient-to-br ${stat.color} opacity-50`} />
                 <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-sheraa-primary to-sheraa-secondary rounded-t-lg" />
                 <CardContent className="p-8 text-center relative">
@@ -178,7 +178,7 @@ const ImpactNumbers = () => {
         </motion.div>
 
         <motion.div 
-          className="mt-16 text-center"
+          className="mt-12 md:mt-16 lg:mt-20 text-center"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
