@@ -13,7 +13,7 @@ const QuoteSection = () => {
     <section className="py-16 md:py-32 relative overflow-hidden bg-gradient-to-br from-sheraa-primary/10 via-transparent to-sheraa-teal/10">
       {/* Decorative elements */}
       <motion.div 
-        className="absolute -left-20 top-20 w-40 h-40 rounded-full bg-sheraa-primary/20 blur-3xl"
+        className="absolute -left-20 top-20 w-40 h-40 rounded-full bg-sheraa-primary/20 blur-3xl hidden md:block"
         animate={{ 
           scale: [1, 1.2, 1],
           opacity: [0.3, 0.6, 0.3]
@@ -26,7 +26,7 @@ const QuoteSection = () => {
       />
       
       <motion.div 
-        className="absolute -right-20 bottom-20 w-60 h-60 rounded-full bg-sheraa-teal/20 blur-3xl"
+        className="absolute -right-20 bottom-20 w-60 h-60 rounded-full bg-sheraa-teal/20 blur-3xl hidden md:block"
         animate={{ 
           scale: [1, 1.1, 1],
           opacity: [0.2, 0.4, 0.2]
@@ -46,7 +46,7 @@ const QuoteSection = () => {
         >
           <AspectRatio 
             ratio={16/9} 
-            className="glass-card p-6 md:p-12 border border-sheraa-primary/20"
+            className="glass-card p-4 md:p-12 border border-sheraa-primary/20"
           >
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -55,7 +55,7 @@ const QuoteSection = () => {
               transition={{ duration: 0.8 }}
               className="relative h-full flex flex-col justify-center px-4 md:px-8"
             >
-              <div className="absolute -top-8 left-1/2 -translate-x-1/2">
+              <div className="absolute -top-6 md:-top-8 left-1/2 -translate-x-1/2">
                 <motion.div
                   animate={{ 
                     rotate: [0, 10, -10, 0],
@@ -67,11 +67,11 @@ const QuoteSection = () => {
                     ease: "easeInOut"
                   }}
                 >
-                  <Quote className="w-12 h-12 md:w-16 md:h-16 text-sheraa-orange opacity-60" />
+                  <Quote className="w-8 h-8 md:w-16 md:h-16 text-sheraa-orange opacity-60" />
                 </motion.div>
               </div>
               
-              <blockquote className="text-2xl md:text-3xl lg:text-4xl font-medium text-sheraa-primary leading-relaxed mb-6 md:mb-8">
+              <blockquote className="text-lg md:text-3xl lg:text-4xl font-medium text-sheraa-primary leading-relaxed mb-4 md:mb-8">
                 "At Sheraa, we believe in the transformative power of entrepreneurship. Our mission goes beyond building successful businesses – we're cultivating changemakers who will shape the future of Sharjah and the UAE."
               </blockquote>
               
@@ -80,12 +80,12 @@ const QuoteSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.3 }}
-                className="mt-4 md:mt-6"
+                className="mt-2 md:mt-6"
               >
-                <p className="text-lg md:text-xl font-semibold text-sheraa-orange">
+                <p className="text-base md:text-xl font-semibold text-sheraa-orange">
                   Sara Al Nuaimi
                 </p>
-                <p className="text-sm md:text-base text-sheraa-dark/60 font-medium">
+                <p className="text-xs md:text-base text-sheraa-dark/60 font-medium">
                   Chief Executive Officer, Sheraa
                 </p>
               </motion.div>
