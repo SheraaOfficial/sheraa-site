@@ -3,159 +3,187 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { motion } from "framer-motion";
+import { LinkedIn, Twitter, Instagram, Facebook, Mail, ArrowRight } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="sheraa-footer">
-      <div className="container mx-auto px-6 pt-12 pb-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+    <footer className="relative bg-gradient-to-br from-[#0A0D14] to-[#1F2937] overflow-hidden">
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#9b87f5]/50 to-transparent" />
+      
+      {/* Background decorations */}
+      <div className="absolute -top-40 -right-40 w-80 h-80 rounded-full bg-[#9b87f5]/10 blur-3xl" />
+      <div className="absolute -bottom-40 -left-40 w-80 h-80 rounded-full bg-[#D946EF]/10 blur-3xl" />
+      
+      <div className="container mx-auto px-6 pt-24 pb-12 relative">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12">
           {/* Column 1: About */}
-          <div className="lg:col-span-2">
-            <h2 className="text-xl font-bold mb-4 text-white">SHERAA</h2>
-            <p className="mb-6 text-gray-300">
-              Sharjah Entrepreneurship Center (Sheraa) is a government entity that 
-              aims to build a world-class entrepreneurship ecosystem in Sharjah, 
-              supporting entrepreneurs from ideation to growth.
-            </p>
-            <div className="flex space-x-4">
-              <a href="#" className="text-white hover:text-sheraa-secondary">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                  <rect width="4" height="12" x="2" y="9"></rect>
-                  <circle cx="4" cy="4" r="2"></circle>
-                </svg>
-              </a>
-              <a href="#" className="text-white hover:text-sheraa-secondary">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
-                </svg>
-              </a>
-              <a href="#" className="text-white hover:text-sheraa-secondary">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
-                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                  <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
-                </svg>
-              </a>
-              <a href="#" className="text-white hover:text-sheraa-secondary">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-                </svg>
-              </a>
-            </div>
+          <div className="lg:col-span-5">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              <h2 className="text-2xl font-bold mb-6 text-white">
+                <span className="text-[#9b87f5]">SH</span>
+                <span className="text-white">ERAA</span>
+              </h2>
+              <p className="mb-8 text-gray-300 text-lg leading-relaxed">
+                Sharjah Entrepreneurship Center (Sheraa) is a government entity that 
+                aims to build a world-class entrepreneurship ecosystem in Sharjah, 
+                supporting entrepreneurs from ideation to growth.
+              </p>
+              
+              <div className="flex flex-col space-y-6">
+                <div className="flex items-center space-x-2">
+                  <Mail className="w-5 h-5 text-[#9b87f5]" />
+                  <a href="mailto:info@sheraa.ae" className="text-gray-300 hover:text-white">info@sheraa.ae</a>
+                </div>
+                
+                <div className="flex space-x-4">
+                  <a href="#" className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white hover:text-[#9b87f5] transition-all">
+                    <LinkedIn className="w-5 h-5" />
+                  </a>
+                  <a href="#" className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white hover:text-[#9b87f5] transition-all">
+                    <Twitter className="w-5 h-5" />
+                  </a>
+                  <a href="#" className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white hover:text-[#9b87f5] transition-all">
+                    <Instagram className="w-5 h-5" />
+                  </a>
+                  <a href="#" className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white hover:text-[#9b87f5] transition-all">
+                    <Facebook className="w-5 h-5" />
+                  </a>
+                </div>
+              </div>
+            </motion.div>
           </div>
 
           {/* Column 2: Quick Links */}
-          <div>
-            <h3 className="text-lg font-medium mb-4 text-white">Quick Links</h3>
-            <ul className="space-y-2">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="lg:col-span-2"
+          >
+            <h3 className="text-lg font-semibold mb-6 text-white">Quick Links</h3>
+            <ul className="space-y-4">
               <li>
-                <Link to="/about" className="text-gray-300 hover:text-white">About Us</Link>
+                <Link to="/about" className="text-gray-300 hover:text-white transition-colors flex items-center">
+                  <span className="w-1 h-1 bg-[#9b87f5] rounded-full mr-2"></span>
+                  About Us
+                </Link>
               </li>
               <li>
-                <Link to="/programs" className="text-gray-300 hover:text-white">Programs</Link>
+                <Link to="/programs" className="text-gray-300 hover:text-white transition-colors flex items-center">
+                  <span className="w-1 h-1 bg-[#9b87f5] rounded-full mr-2"></span>
+                  Programs
+                </Link>
               </li>
               <li>
-                <Link to="/resources" className="text-gray-300 hover:text-white">Resources</Link>
+                <Link to="/resources" className="text-gray-300 hover:text-white transition-colors flex items-center">
+                  <span className="w-1 h-1 bg-[#9b87f5] rounded-full mr-2"></span>
+                  Resources
+                </Link>
               </li>
               <li>
-                <Link to="/events" className="text-gray-300 hover:text-white">Events & Media</Link>
+                <Link to="/events" className="text-gray-300 hover:text-white transition-colors flex items-center">
+                  <span className="w-1 h-1 bg-[#9b87f5] rounded-full mr-2"></span>
+                  Events & Media
+                </Link>
               </li>
               <li>
-                <Link to="/community" className="text-gray-300 hover:text-white">Community</Link>
+                <Link to="/community" className="text-gray-300 hover:text-white transition-colors flex items-center">
+                  <span className="w-1 h-1 bg-[#9b87f5] rounded-full mr-2"></span>
+                  Community
+                </Link>
               </li>
             </ul>
-          </div>
+          </motion.div>
 
           {/* Column 3: Programs */}
-          <div>
-            <h3 className="text-lg font-medium mb-4 text-white">Programs</h3>
-            <ul className="space-y-2">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="lg:col-span-2"
+          >
+            <h3 className="text-lg font-semibold mb-6 text-white">Programs</h3>
+            <ul className="space-y-4">
               <li>
-                <Link to="/programs/startup-dojo" className="text-gray-300 hover:text-white">Startup Dojo</Link>
+                <Link to="/programs/startup-dojo" className="text-gray-300 hover:text-white transition-colors flex items-center">
+                  <span className="w-1 h-1 bg-[#D946EF] rounded-full mr-2"></span>
+                  Startup Dojo
+                </Link>
               </li>
               <li>
-                <Link to="/programs/s3-incubator" className="text-gray-300 hover:text-white">S3 Incubator</Link>
+                <Link to="/programs/s3-incubator" className="text-gray-300 hover:text-white transition-colors flex items-center">
+                  <span className="w-1 h-1 bg-[#D946EF] rounded-full mr-2"></span>
+                  S3 Incubator
+                </Link>
               </li>
               <li>
-                <Link to="/programs/build-ventures" className="text-gray-300 hover:text-white">Build Ventures</Link>
+                <Link to="/programs/build-ventures" className="text-gray-300 hover:text-white transition-colors flex items-center">
+                  <span className="w-1 h-1 bg-[#D946EF] rounded-full mr-2"></span>
+                  Build Ventures
+                </Link>
               </li>
               <li>
-                <Link to="/programs/access-sharjah-challenge" className="text-gray-300 hover:text-white">Access Sharjah Challenge</Link>
+                <Link to="/programs/access-sharjah-challenge" className="text-gray-300 hover:text-white transition-colors flex items-center">
+                  <span className="w-1 h-1 bg-[#D946EF] rounded-full mr-2"></span>
+                  Access Sharjah
+                </Link>
               </li>
               <li>
-                <Link to="/events/sef" className="text-gray-300 hover:text-white">Entrepreneurship Festival</Link>
+                <Link to="/events/sef" className="text-gray-300 hover:text-white transition-colors flex items-center">
+                  <span className="w-1 h-1 bg-[#D946EF] rounded-full mr-2"></span>
+                  SEF
+                </Link>
               </li>
             </ul>
-          </div>
+          </motion.div>
 
           {/* Column 4: Newsletter */}
-          <div>
-            <h3 className="text-lg font-medium mb-4 text-white">Newsletter</h3>
-            <p className="text-gray-300 mb-4">Subscribe to our newsletter for updates.</p>
-            <div className="space-y-2">
-              <Input
-                type="email"
-                placeholder="Your email"
-                className="bg-gray-700 border-gray-600 text-white placeholder:text-gray-400"
-              />
-              <Button className="w-full bg-sheraa-secondary hover:bg-sheraa-secondary/90">
-                Subscribe
-              </Button>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="lg:col-span-3"
+          >
+            <h3 className="text-lg font-semibold mb-6 text-white">Stay Updated</h3>
+            <p className="text-gray-300 mb-6">Subscribe to our newsletter for updates on events, programs, and ecosystem news.</p>
+            <div className="space-y-4">
+              <div className="relative">
+                <Input
+                  type="email"
+                  placeholder="Your email address"
+                  className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 pl-4 pr-12 py-6 rounded-xl focus:ring-[#9b87f5] focus:border-[#9b87f5]"
+                />
+                <Button className="absolute right-1 top-1/2 -translate-y-1/2 h-9 w-9 rounded-lg bg-gradient-to-tr from-[#9b87f5] to-[#D946EF] hover:from-[#8B76E4] hover:to-[#C835DE] p-0">
+                  <ArrowRight className="h-4 w-4" />
+                </Button>
+              </div>
+              <p className="text-xs text-gray-400">By subscribing, you agree to our Privacy Policy.</p>
             </div>
-          </div>
+          </motion.div>
         </div>
 
-        <div className="mt-12 pt-6 border-t border-gray-700 flex flex-col md:flex-row justify-between items-center">
+        <div className="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center">
           <p className="text-sm text-gray-400">
             © {new Date().getFullYear()} Sheraa. All rights reserved.
           </p>
-          <div className="flex space-x-4 mt-4 md:mt-0">
+          <div className="flex space-x-6 mt-4 md:mt-0">
             <Link to="/privacy-policy" className="text-sm text-gray-400 hover:text-white">
               Privacy Policy
             </Link>
             <Link to="/terms" className="text-sm text-gray-400 hover:text-white">
               Terms of Use
+            </Link>
+            <Link to="/sitemap" className="text-sm text-gray-400 hover:text-white">
+              Sitemap
             </Link>
           </div>
         </div>
