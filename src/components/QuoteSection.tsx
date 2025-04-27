@@ -46,7 +46,7 @@ const QuoteSection = () => {
         >
           <AspectRatio 
             ratio={16/9} 
-            className="glass-card p-4 md:p-12 border border-sheraa-primary/20"
+            className="glass-card p-4 md:p-12 border border-sheraa-primary/20 bg-white/30 backdrop-blur-md shadow-lg"
           >
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -98,3 +98,4 @@ const QuoteSection = () => {
 };
 
 export default QuoteSection;
+
