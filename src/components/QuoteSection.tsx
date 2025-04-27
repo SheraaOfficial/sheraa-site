@@ -10,10 +10,10 @@ const QuoteSection = () => {
   const scale = useTransform(scrollYProgress, [0.2, 0.3], [0.95, 1]);
 
   return (
-    <section className="py-16 md:py-32 relative overflow-hidden bg-gradient-to-br from-sheraa-primary/5 via-transparent to-sheraa-teal/5">
+    <section className="py-16 md:py-32 relative overflow-hidden bg-gradient-to-br from-sheraa-primary/10 via-transparent to-sheraa-teal/10">
       {/* Decorative elements */}
       <motion.div 
-        className="absolute -left-20 top-20 w-40 h-40 rounded-full bg-sheraa-primary/10 blur-3xl"
+        className="absolute -left-20 top-20 w-40 h-40 rounded-full bg-sheraa-primary/20 blur-3xl"
         animate={{ 
           scale: [1, 1.2, 1],
           opacity: [0.3, 0.6, 0.3]
@@ -26,7 +26,7 @@ const QuoteSection = () => {
       />
       
       <motion.div 
-        className="absolute -right-20 bottom-20 w-60 h-60 rounded-full bg-sheraa-teal/10 blur-3xl"
+        className="absolute -right-20 bottom-20 w-60 h-60 rounded-full bg-sheraa-teal/20 blur-3xl"
         animate={{ 
           scale: [1, 1.1, 1],
           opacity: [0.2, 0.4, 0.2]
@@ -46,7 +46,7 @@ const QuoteSection = () => {
         >
           <AspectRatio 
             ratio={16/9} 
-            className="bg-white/90 backdrop-blur-xl rounded-3xl p-6 md:p-12 shadow-[0_8px_32px_rgba(0,51,102,0.1)] border border-sheraa-primary/10"
+            className="glass-card p-6 md:p-12 border border-sheraa-primary/20"
           >
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -67,11 +67,11 @@ const QuoteSection = () => {
                     ease: "easeInOut"
                   }}
                 >
-                  <Quote className="w-12 h-12 md:w-16 md:h-16 text-sheraa-primary opacity-20" />
+                  <Quote className="w-12 h-12 md:w-16 md:h-16 text-sheraa-orange opacity-60" />
                 </motion.div>
               </div>
               
-              <blockquote className="text-2xl md:text-3xl lg:text-4xl font-medium text-sheraa-dark leading-relaxed mb-6 md:mb-8">
+              <blockquote className="text-2xl md:text-3xl lg:text-4xl font-medium text-sheraa-primary leading-relaxed mb-6 md:mb-8">
                 "At Sheraa, we believe in the transformative power of entrepreneurship. Our mission goes beyond building successful businesses – we're cultivating changemakers who will shape the future of Sharjah and the UAE."
               </blockquote>
               
@@ -82,7 +82,7 @@ const QuoteSection = () => {
                 transition={{ delay: 0.3 }}
                 className="mt-4 md:mt-6"
               >
-                <p className="text-lg md:text-xl font-semibold text-sheraa-primary">
+                <p className="text-lg md:text-xl font-semibold text-sheraa-orange">
                   Sara Al Nuaimi
                 </p>
                 <p className="text-sm md:text-base text-sheraa-dark/60 font-medium">
