@@ -9,15 +9,15 @@ const SEFSection = () => {
   const sefFacts = [
     { 
       icon: Layers, 
-      label: "Startups Showcasing", 
-      value: "780+", 
+      label: "Global Participants", 
+      value: "14,000+", 
       color: "text-[#9b87f5]",
       delay: 0.1
     },
     { 
       icon: Award, 
-      label: "Dynamic Activities", 
-      value: "350+", 
+      label: "Featured Speakers", 
+      value: "300+", 
       color: "text-[#D946EF]",
       delay: 0.2
     }
@@ -64,13 +64,13 @@ const SEFSection = () => {
               viewport={{ once: true }}
             >
               <div className="inline-block bg-[#D946EF]/10 px-4 py-1 rounded-full text-[#D946EF] text-sm font-medium mb-4">
-                Annual Flagship Event
+                THE REGION'S LARGEST ENTREPRENEURSHIP FESTIVAL RETURNS JANUARY 2026
               </div>
               <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-[#9b87f5] to-[#D946EF] bg-clip-text text-transparent">
                 Sharjah Entrepreneurship Festival
               </h2>
               <p className="text-xl text-gray-600 mb-8 leading-relaxed max-w-2xl">
-                Experience two transformative days of inspiration, knowledge sharing, and meaningful connections.
+                Experience two transformative days of global innovation, knowledge sharing, and meaningful connections at SRTI Park, Sharjah.
               </p>
               
               <motion.div 
@@ -136,14 +136,14 @@ const SEFSection = () => {
               viewport={{ once: true }}
               className="bg-white rounded-2xl p-8 shadow-lg border border-[#9b87f5]/20"
             >
-              <h3 className="text-2xl font-bold mb-6 text-[#7E69AB]">SEF 2025</h3>
+              <h3 className="text-2xl font-bold mb-6 text-[#7E69AB]">SEF 2026</h3>
               
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
                   <Calendar className="w-5 h-5 text-[#9b87f5] mt-1" />
                   <div>
                     <div className="text-sm text-gray-500 mb-1">Date</div>
-                    <div className="font-medium">February 10-11, 2025</div>
+                    <div className="font-medium">January 31 - February 1, 2026</div>
                   </div>
                 </div>
                 
@@ -151,7 +151,7 @@ const SEFSection = () => {
                   <MapPin className="w-5 h-5 text-[#9b87f5] mt-1" />
                   <div>
                     <div className="text-sm text-gray-500 mb-1">Location</div>
-                    <div className="font-medium">Sharjah Research, Technology and Innovation Park</div>
+                    <div className="font-medium">SRTI Park, Sharjah</div>
                   </div>
                 </div>
                 
