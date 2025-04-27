@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -106,17 +105,14 @@ const Hero = () => {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="relative hidden lg:block"
+              className="absolute top-0 right-0 w-1/2 h-full hidden lg:block"
             >
-              <div className="relative">
-                <img 
-                  src="/lovable-uploads/91a7f993-9696-46a1-96a7-59d67803f50f.png" 
-                  alt="Sheraa entrepreneurs" 
-                  className="w-full h-auto object-cover rounded-2xl"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-white/20 to-transparent rounded-2xl" />
-              </div>
-              <div className="absolute -inset-4 bg-gradient-to-r from-sheraa-primary/5 to-sheraa-secondary/5 rounded-[2.5rem] -z-10 blur-xl" />
+              <img 
+                src="/lovable-uploads/91a7f993-9696-46a1-96a7-59d67803f50f.png" 
+                alt="Sheraa entrepreneurs" 
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-white via-transparent to-transparent" />
             </motion.div>
           </div>
         </div>
