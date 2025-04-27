@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -42,79 +43,82 @@ const Hero = () => {
     <div className="relative flex flex-col">
       <div className="min-h-[90vh] flex items-center overflow-hidden bg-gradient-to-br from-white via-sheraa-background-soft to-sheraa-light">
         <ParticleBackground />
-        <AnimatedSailboat />
         
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <motion.div 
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            className="max-w-3xl"
-          >
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <motion.div 
-              variants={itemVariants}
-              className="inline-block bg-sheraa-secondary/10 px-6 py-2 rounded-full text-sheraa-secondary text-sm font-medium mb-6"
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+              className="max-w-3xl"
             >
-              Creating the Next Wave of Entrepreneurs
-            </motion.div>
+              <motion.div variants={itemVariants} className="inline-block bg-sheraa-secondary/10 px-6 py-2 rounded-full text-sheraa-secondary text-sm font-medium mb-6">
+                Creating the Next Wave of Entrepreneurs
+              </motion.div>
 
-            <motion.h1 
-              variants={itemVariants}
-              className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-8"
-            >
-              <span className="block text-sheraa-dark mb-4">
-                Transform Your Vision
-              </span>
-              <span className="block bg-gradient-to-r from-sheraa-primary to-sheraa-secondary bg-clip-text text-transparent">
-                Into Reality
-              </span>
-            </motion.h1>
+              <motion.h1 variants={itemVariants} className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-8">
+                <span className="block text-sheraa-dark mb-4">
+                  Transform Your Vision
+                </span>
+                <span className="block bg-gradient-to-r from-sheraa-primary to-sheraa-secondary bg-clip-text text-transparent">
+                  Into Reality
+                </span>
+              </motion.h1>
 
-            <motion.p 
-              variants={itemVariants}
-              className="text-xl text-gray-600 mb-10 leading-relaxed"
-            >
-              Sharjah's official hub for aspiring founders and established ventures. 
-              We empower changemakers to build impactful businesses and shape the future 
-              through comprehensive support, expert mentorship, and a vibrant ecosystem.
-            </motion.p>
+              <motion.p variants={itemVariants} className="text-xl text-gray-600 mb-10 leading-relaxed">
+                Sharjah's official hub for aspiring founders and established ventures. 
+                We empower changemakers to build impactful businesses and shape the future 
+                through comprehensive support, expert mentorship, and a vibrant ecosystem.
+              </motion.p>
 
-            <motion.div 
-              variants={itemVariants}
-              className="flex flex-wrap gap-6"
-            >
-              <Button 
-                asChild 
-                size="lg" 
-                className="bg-sheraa-primary hover:bg-sheraa-primary/90 transform transition-all group px-8"
-              >
-                <Link to="/programs" className="flex items-center gap-2">
-                  Launch Your Startup
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform duration-300" />
-                </Link>
-              </Button>
-              <Button 
-                asChild 
-                variant="outline" 
-                size="lg" 
-                className="border-sheraa-primary text-sheraa-primary hover:bg-sheraa-light transform transition-all px-8"
-              >
-                <Link to="/community/join">Join Our Community</Link>
-              </Button>
+              <motion.div variants={itemVariants} className="flex flex-wrap gap-6">
+                <Button 
+                  asChild 
+                  size="lg" 
+                  className="bg-sheraa-primary hover:bg-sheraa-primary/90 transform transition-all group px-8"
+                >
+                  <Link to="/programs" className="flex items-center gap-2">
+                    Launch Your Startup
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform duration-300" />
+                  </Link>
+                </Button>
+                <Button 
+                  asChild 
+                  variant="outline" 
+                  size="lg" 
+                  className="border-sheraa-primary text-sheraa-primary hover:bg-sheraa-light transform transition-all px-8"
+                >
+                  <Link to="/community/join">Join Our Community</Link>
+                </Button>
+              </motion.div>
+
+              <motion.div variants={itemVariants} className="mt-16 flex items-center gap-8 text-sm text-gray-500">
+                {impactIcons.map((item, index) => (
+                  <div key={index} className="flex items-center gap-2">
+                    <item.icon className={`w-5 h-5 ${item.color}`} />
+                    <span>{item.text}</span>
+                  </div>
+                ))}
+              </motion.div>
             </motion.div>
 
             <motion.div
-              variants={itemVariants}
-              className="mt-16 flex items-center gap-8 text-sm text-gray-500"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="relative hidden lg:block"
             >
-              {impactIcons.map((item, index) => (
-                <div key={index} className="flex items-center gap-2">
-                  <item.icon className={`w-5 h-5 ${item.color}`} />
-                  <span>{item.text}</span>
-                </div>
-              ))}
+              <div className="relative">
+                <img 
+                  src="/lovable-uploads/91a7f993-9696-46a1-96a7-59d67803f50f.png" 
+                  alt="Sheraa entrepreneurs" 
+                  className="w-full h-auto object-cover rounded-2xl"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-white/20 to-transparent rounded-2xl" />
+              </div>
+              <div className="absolute -inset-4 bg-gradient-to-r from-sheraa-primary/5 to-sheraa-secondary/5 rounded-[2.5rem] -z-10 blur-xl" />
             </motion.div>
-          </motion.div>
+          </div>
         </div>
 
         {/* Decorative elements */}
