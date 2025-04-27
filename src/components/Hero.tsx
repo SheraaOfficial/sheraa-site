@@ -7,7 +7,6 @@ import ParticleBackground from "./ParticleBackground";
 import { ArrowRight, Target, Rocket, Globe } from "lucide-react";
 import MarqueeUpdates from "./MarqueeUpdates";
 import AnimatedSailboat from "./AnimatedSailboat";
-import ParallaxImage from "./ParallaxImage";
 
 const Hero = () => {
   const containerVariants = {
@@ -43,13 +42,6 @@ const Hero = () => {
   return (
     <div className="relative min-h-screen flex flex-col">
       <div className="flex-1 flex items-center overflow-hidden bg-gradient-to-br from-white via-sheraa-background-soft to-sheraa-light">
-        <ParallaxImage
-          src="https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5"
-          alt="Startup team collaboration"
-          speed={0.3}
-          overlay="gradient"
-          overlayStrength="medium"
-        />
         <ParticleBackground />
         <AnimatedSailboat />
         

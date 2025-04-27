@@ -1,10 +1,10 @@
+
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { GraduationCap, Rocket, Globe, Building2 } from "lucide-react";
-import ParallaxImage from "./ParallaxImage";
 
 const programs = [
   {
@@ -76,15 +76,7 @@ const ProgramsOverview = () => {
   };
 
   return (
-    <section className="py-24 relative overflow-hidden">
-      <ParallaxImage
-        src="https://images.unsplash.com/photo-1542744173-05336fcc7ad4"
-        alt="Startup workshop session"
-        speed={0.3}
-        overlay="light"
-        overlayStrength="light"
-        position="center"
-      />
+    <section className="py-24 bg-gradient-to-br from-white to-sheraa-background-soft relative overflow-hidden">
       <div className="absolute inset-0 z-0">
         <div className="absolute top-0 right-0 w-96 h-96 bg-sheraa-primary/5 rounded-full blur-3xl" />
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-sheraa-secondary/5 rounded-full blur-3xl" />
