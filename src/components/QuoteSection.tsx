@@ -10,7 +10,7 @@ const QuoteSection = () => {
   const scale = useTransform(scrollYProgress, [0.2, 0.3], [0.95, 1]);
   return <section className="py-24 md:py-32 relative overflow-hidden">
       {/* Background with stronger contrast */}
-      <div className="absolute inset-0 bg-gradient-to-br from-sheraa-primary/20 via-white to-sheraa-teal/20" />
+      <div className="absolute inset-40 bg-gradient-to-br from-sheraa-primary/20 via-white to-sheraa-teal/20 bg-slate-200" />
       
       {/* Background elements with increased opacity */}
       <motion.div className="absolute -left-20 top-20 w-40 h-40 rounded-full bg-sheraa-primary/20 blur-3xl" animate={{
@@ -32,12 +32,12 @@ const QuoteSection = () => {
       delay: 1
     }} />
 
-      <div className="container relative z-50 px-[60px] py-0 my-0 mx-0">
+      <div className="container relative z-0 my-0 mx-0 px-0 py-0">
         <motion.div style={{
         opacity,
         scale
       }} className="max-w-4xl mx-auto">
-          <AspectRatio ratio={16 / 9} className="glass-card p-8 md:p-16 border-2 border-sheraa-primary/20 backdrop-blur-lg shadow-xl bg-zinc-100 rounded-lg py-[58px] px-0">
+          <AspectRatio ratio={16 / 9} className="glass-card p-8 md:p-16 border-2 border-sheraa-primary/20 backdrop-blur-lg shadow-xl bg-zinc-100 rounded-lg px-0 py-0">
             <motion.div initial={{
             opacity: 0,
             y: 20
@@ -48,7 +48,7 @@ const QuoteSection = () => {
             once: true
           }} transition={{
             duration: 0.8
-          }} className="relative h-full flex flex-col justify-center items-center">
+          }} className=" flex-col justify-center items-center">
               <div className="absolute -top-8 md:-top-12">
                 <motion.div animate={{
                 rotate: [0, 10, -10, 0],
@@ -74,7 +74,7 @@ const QuoteSection = () => {
               }} transition={{
                 duration: 0.8,
                 delay: 0.2
-              }}>
+              }} className="my-0 font-bold text-2xl text-slate-900">
                   "At Sheraa, we believe in the transformative power of entrepreneurship. Our mission goes beyond building successful businesses – we're cultivating changemakers who will shape the future of Sharjah and the UAE."
                 </motion.span>
               </blockquote>
