@@ -10,10 +10,12 @@ const QuoteSection = () => {
   const scale = useTransform(scrollYProgress, [0.2, 0.3], [0.95, 1]);
 
   return (
-    <section className="py-16 md:py-32 relative overflow-hidden bg-gradient-to-br from-sheraa-primary/10 via-transparent to-sheraa-teal/10">
-      {/* Decorative elements */}
+    <section className="py-24 md:py-32 relative overflow-hidden">
+      {/* Background elements */}
+      <div className="absolute inset-0 bg-gradient-to-br from-sheraa-primary/5 via-white to-sheraa-teal/5" />
+      
       <motion.div 
-        className="absolute -left-20 top-20 w-40 h-40 rounded-full bg-sheraa-primary/20 blur-3xl hidden md:block"
+        className="absolute -left-20 top-20 w-40 h-40 rounded-full bg-sheraa-primary/10 blur-3xl"
         animate={{ 
           scale: [1, 1.2, 1],
           opacity: [0.3, 0.6, 0.3]
@@ -26,7 +28,7 @@ const QuoteSection = () => {
       />
       
       <motion.div 
-        className="absolute -right-20 bottom-20 w-60 h-60 rounded-full bg-sheraa-teal/20 blur-3xl hidden md:block"
+        className="absolute -right-20 bottom-20 w-60 h-60 rounded-full bg-sheraa-teal/10 blur-3xl"
         animate={{ 
           scale: [1, 1.1, 1],
           opacity: [0.2, 0.4, 0.2]
@@ -39,23 +41,23 @@ const QuoteSection = () => {
         }}
       />
 
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 relative z-10">
         <motion.div
           style={{ opacity, scale }}
-          className="max-w-4xl mx-auto text-center relative"
+          className="max-w-4xl mx-auto"
         >
           <AspectRatio 
             ratio={16/9} 
-            className="glass-card p-4 md:p-12 border border-sheraa-primary/20 bg-white/30 backdrop-blur-md shadow-lg"
+            className="glass-card p-8 md:p-16 border border-sheraa-primary/10 bg-white/80 backdrop-blur-lg rounded-2xl shadow-xl"
           >
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="relative h-full flex flex-col justify-center px-4 md:px-8"
+              className="relative h-full flex flex-col justify-center items-center"
             >
-              <div className="absolute -top-6 md:-top-8 left-1/2 -translate-x-1/2">
+              <div className="absolute -top-8 md:-top-12">
                 <motion.div
                   animate={{ 
                     rotate: [0, 10, -10, 0],
@@ -66,26 +68,34 @@ const QuoteSection = () => {
                     repeat: Infinity,
                     ease: "easeInOut"
                   }}
+                  className="bg-gradient-to-br from-sheraa-primary to-sheraa-teal p-4 rounded-full shadow-lg"
                 >
-                  <Quote className="w-8 h-8 md:w-16 md:h-16 text-sheraa-orange opacity-60" />
+                  <Quote className="w-8 h-8 md:w-12 md:h-12 text-white" />
                 </motion.div>
               </div>
               
-              <blockquote className="text-lg md:text-3xl lg:text-4xl font-medium text-sheraa-primary leading-relaxed mb-4 md:mb-8 min-h-[120px] md:min-h-[200px] flex items-center justify-center">
-                "At Sheraa, we believe in the transformative power of entrepreneurship. Our mission goes beyond building successful businesses – we're cultivating changemakers who will shape the future of Sharjah and the UAE."
+              <blockquote className="text-xl md:text-4xl lg:text-5xl font-medium text-sheraa-primary leading-relaxed mb-8 text-center max-w-3xl mx-auto">
+                <motion.span
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                >
+                  "At Sheraa, we believe in the transformative power of entrepreneurship. Our mission goes beyond building successful businesses – we're cultivating changemakers who will shape the future of Sharjah and the UAE."
+                </motion.span>
               </blockquote>
               
               <motion.div 
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.3 }}
-                className="mt-2 md:mt-6"
+                transition={{ delay: 0.4 }}
+                className="text-center"
               >
-                <p className="text-base md:text-xl font-semibold text-sheraa-orange">
+                <p className="text-xl md:text-2xl font-bold bg-gradient-to-r from-sheraa-primary to-sheraa-teal bg-clip-text text-transparent mb-2">
                   Sara Al Nuaimi
                 </p>
-                <p className="text-xs md:text-base text-sheraa-dark/60 font-medium">
+                <p className="text-sm md:text-base text-sheraa-dark/60">
                   Chief Executive Officer, Sheraa
                 </p>
               </motion.div>
