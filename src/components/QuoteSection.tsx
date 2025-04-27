@@ -11,14 +11,15 @@ const QuoteSection = () => {
 
   return (
     <section className="py-24 md:py-32 relative overflow-hidden">
-      {/* Background elements */}
-      <div className="absolute inset-0 bg-gradient-to-br from-sheraa-primary/5 via-white to-sheraa-teal/5" />
+      {/* Background with stronger contrast */}
+      <div className="absolute inset-0 bg-gradient-to-br from-sheraa-primary/20 via-white to-sheraa-teal/20" />
       
+      {/* Background elements with increased opacity */}
       <motion.div 
-        className="absolute -left-20 top-20 w-40 h-40 rounded-full bg-sheraa-primary/10 blur-3xl"
+        className="absolute -left-20 top-20 w-40 h-40 rounded-full bg-sheraa-primary/20 blur-3xl"
         animate={{ 
           scale: [1, 1.2, 1],
-          opacity: [0.3, 0.6, 0.3]
+          opacity: [0.4, 0.7, 0.4]
         }}
         transition={{
           duration: 4,
@@ -28,10 +29,10 @@ const QuoteSection = () => {
       />
       
       <motion.div 
-        className="absolute -right-20 bottom-20 w-60 h-60 rounded-full bg-sheraa-teal/10 blur-3xl"
+        className="absolute -right-20 bottom-20 w-60 h-60 rounded-full bg-sheraa-teal/20 blur-3xl"
         animate={{ 
           scale: [1, 1.1, 1],
-          opacity: [0.2, 0.4, 0.2]
+          opacity: [0.3, 0.5, 0.3]
         }}
         transition={{
           duration: 3,
@@ -48,7 +49,7 @@ const QuoteSection = () => {
         >
           <AspectRatio 
             ratio={16/9} 
-            className="glass-card p-8 md:p-16 border border-sheraa-primary/10 bg-white/80 backdrop-blur-lg rounded-2xl shadow-xl"
+            className="glass-card p-8 md:p-16 border-2 border-sheraa-primary/20 bg-white/90 backdrop-blur-lg rounded-2xl shadow-xl"
           >
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -74,7 +75,7 @@ const QuoteSection = () => {
                 </motion.div>
               </div>
               
-              <blockquote className="text-xl md:text-4xl lg:text-5xl font-medium text-sheraa-primary leading-relaxed mb-8 text-center max-w-3xl mx-auto">
+              <blockquote className="text-xl md:text-4xl lg:text-5xl font-semibold text-sheraa-dark leading-relaxed mb-8 text-center max-w-3xl mx-auto">
                 <motion.span
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -92,10 +93,10 @@ const QuoteSection = () => {
                 transition={{ delay: 0.4 }}
                 className="text-center"
               >
-                <p className="text-xl md:text-2xl font-bold bg-gradient-to-r from-sheraa-primary to-sheraa-teal bg-clip-text text-transparent mb-2">
+                <p className="text-xl md:text-2xl font-bold text-sheraa-primary mb-2">
                   Sara Al Nuaimi
                 </p>
-                <p className="text-sm md:text-base text-sheraa-dark/60">
+                <p className="text-base md:text-lg text-sheraa-dark/80 font-medium">
                   Chief Executive Officer, Sheraa
                 </p>
               </motion.div>
