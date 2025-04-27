@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import Globe from "@/components/ui/icons/Globe";
 
 const WhySharjah = () => {
   const advantages = [
@@ -54,11 +55,13 @@ const WhySharjah = () => {
             </div>
             
             <h2 className="text-4xl font-bold mb-6">
-              Sharjah
+              Why Sharjah
               <span className="block text-sheraa-primary mt-2 relative">
-                <span className="absolute -right-10 -top-4 text-sheraa-accent/50 text-6xl">●</span>
+                <Globe className="absolute -right-10 -top-4 text-sheraa-accent/50 w-12 h-12 animate-spin-slow" />
               </span>
             </h2>
+            
+            <div className="absolute -left-20 top-20 w-40 h-40 rounded-full bg-gradient-to-r from-blue-300/20 to-yellow-200/20 blur-3xl animate-pulse-slow" />
             
             <p className="text-lg text-gray-600 mb-12">
               Discover why Sharjah is the ideal destination for entrepreneurs and startups. 
