@@ -1,4 +1,3 @@
-
 import React from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -11,6 +10,7 @@ import SEFSection from "@/components/SEFSection";
 import WhySharjah from "@/components/WhySharjah";
 import PartnersSection from "@/components/PartnersSection";
 import EligibilityChecker from "@/components/EligibilityChecker";
+import ContactSection from "@/components/ContactSection";
 
 const Index = () => {
   return (
@@ -27,6 +27,7 @@ const Index = () => {
           <SEFSection />
           <WhySharjah />
           <PartnersSection />
+          <ContactSection />
         </div>
       </main>
       <Footer />
