@@ -97,31 +97,21 @@ const Hero = () => {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="relative h-[90vh] w-full"
+              className="hidden lg:block relative"
             >
-              <img 
-                src="/lovable-uploads/91a7f993-9696-46a1-96a7-59d67803f50f.png" 
-                alt="Sheraa entrepreneurs" 
-                className="w-full h-full object-cover object-center"
-                style={{ 
-                  mixBlendMode: 'luminosity',
-                  WebkitMaskImage: 'linear-gradient(to bottom, black 70%, transparent 100%)'
-                }}
-              />
-              <div 
-                className="absolute inset-0" 
-                style={{
-                  background: 'linear-gradient(105deg, transparent 0%, rgba(255,255,255,0.8) 100%)',
-                  mixBlendMode: 'overlay'
-                }}
-              />
+              {/* Placeholder for future image */}
+              <div className="h-full w-full rounded-2xl bg-gradient-to-br from-sheraa-primary/5 to-sheraa-secondary/10 p-1">
+                <div className="h-full w-full rounded-xl bg-white/50 backdrop-blur-sm flex items-center justify-center">
+                  <span className="text-sheraa-primary/40 text-lg">Image placeholder</span>
+                </div>
+              </div>
             </motion.div>
           </div>
         </div>
 
         <div className="absolute bottom-0 left-0 right-0 backdrop-blur-md bg-white/30 border-t border-white/20">
           <div className="container mx-auto px-4 py-6">
-            <div className="grid grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {impactIcons.map((item, index) => (
                 <motion.div 
                   key={index}

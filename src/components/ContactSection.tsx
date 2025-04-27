@@ -11,10 +11,12 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { MapPin, Phone, Mail } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
   email: z.string().email("Please enter a valid email"),
+  inquiryType: z.string().min(1, "Please select an inquiry type"),
   message: z.string().min(10, "Message must be at least 10 characters"),
 });
 
@@ -25,6 +27,7 @@ const ContactSection = () => {
     defaultValues: {
       name: "",
       email: "",
+      inquiryType: "",
       message: "",
     },
   });
@@ -55,8 +58,16 @@ const ContactSection = () => {
     },
   ];
 
+  const inquiryTypes = [
+    { value: "programs", label: "Programs & Incubation" },
+    { value: "partnerships", label: "Partnerships & Collaboration" },
+    { value: "events", label: "Events & Workshops" },
+    { value: "media", label: "Media & Press" },
+    { value: "other", label: "Other Inquiries" },
+  ];
+
   return (
-    <section className="py-24 bg-gradient-to-t from-sheraa-background-soft to-white">
+    <section id="contact" className="py-24 bg-gradient-to-t from-sheraa-background-soft to-white">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -65,35 +76,55 @@ const ContactSection = () => {
           transition={{ duration: 0.5 }}
           className="text-center max-w-2xl mx-auto mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">Get in Touch</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Get in Touch</h2>
+          <div className="h-1 w-20 bg-gradient-to-r from-sheraa-primary to-sheraa-secondary mx-auto mb-6"></div>
           <p className="text-lg text-gray-600">
             Have questions about our programs or want to explore partnership opportunities? 
             Reach out to us today.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-start">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
+            className="lg:col-span-2"
           >
-            <div className="space-y-8 mb-8">
-              {contactInfo.map((item, index) => (
-                <div key={index} className="flex items-start gap-4">
-                  <div className="p-3 rounded-full bg-sheraa-primary/10">
-                    <item.icon className="w-6 h-6 text-sheraa-primary" />
+            <div className="bg-white p-8 rounded-xl shadow-sheraa-soft mb-8">
+              <h3 className="text-2xl font-semibold mb-6 text-sheraa-dark">Contact Information</h3>
+              
+              <div className="space-y-8 mb-8">
+                {contactInfo.map((item, index) => (
+                  <div key={index} className="flex items-start gap-4 group">
+                    <div className="p-3 rounded-full bg-gradient-to-r from-sheraa-primary/10 to-sheraa-secondary/10 group-hover:from-sheraa-primary/20 group-hover:to-sheraa-secondary/20 transition-all">
+                      <item.icon className="w-6 h-6 text-sheraa-primary" />
+                    </div>
+                    <div>
+                      <h3 className="font-medium text-lg mb-1">{item.title}</h3>
+                      <p className="text-gray-600">{item.content}</p>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="font-medium text-lg mb-1">{item.title}</h3>
-                    <p className="text-gray-600">{item.content}</p>
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
+
+              <h3 className="text-xl font-semibold mb-4 text-sheraa-dark">Follow Us</h3>
+              <div className="flex gap-4">
+                {["twitter", "facebook", "linkedin", "instagram"].map((social) => (
+                  <a 
+                    key={social}
+                    href={`#${social}`} 
+                    className="w-10 h-10 rounded-full bg-sheraa-background flex items-center justify-center hover:bg-sheraa-primary hover:text-white transition-all"
+                  >
+                    <span className="sr-only">{social}</span>
+                    <i className={`fa fa-${social}`}></i>
+                  </a>
+                ))}
+              </div>
             </div>
 
-            <div className="aspect-video w-full rounded-lg overflow-hidden shadow-lg">
+            <div className="aspect-video w-full rounded-xl overflow-hidden shadow-sheraa-medium">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3607.2714799777614!2d55.53889631501241!3d25.287673983854937!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f5c3cf2462dbb%3A0x950298ae1f1d2c3f!2sSharjah%20Research%20Technology%20and%20Innovation%20Park!5e0!3m2!1sen!2sae!4v1627900000000!5m2!1sen!2sae"
                 width="100%"
@@ -111,46 +142,83 @@ const ContactSection = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
+            className="lg:col-span-3"
           >
-            <Card className="p-6">
+            <Card className="p-8 shadow-sheraa-medium border-none bg-gradient-to-br from-white to-sheraa-light">
+              <h3 className="text-2xl font-semibold mb-6 text-sheraa-dark">Send Us a Message</h3>
+              
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <FormField
+                      control={form.control}
+                      name="name"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-sheraa-dark">Full Name</FormLabel>
+                          <FormControl>
+                            <Input 
+                              placeholder="Your name" 
+                              className="border-gray-200 focus-visible:ring-sheraa-primary focus-visible:border-sheraa-primary" 
+                              {...field} 
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-sheraa-dark">Email Address</FormLabel>
+                          <FormControl>
+                            <Input 
+                              placeholder="your@email.com" 
+                              className="border-gray-200 focus-visible:ring-sheraa-primary focus-visible:border-sheraa-primary" 
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  
                   <FormField
                     control={form.control}
-                    name="name"
+                    name="inquiryType"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Name</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Your name" {...field} />
-                        </FormControl>
+                        <FormLabel className="text-sheraa-dark">Inquiry Type</FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <FormControl>
+                            <SelectTrigger className="border-gray-200 focus:ring-sheraa-primary">
+                              <SelectValue placeholder="Select the nature of your inquiry" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            {inquiryTypes.map((type) => (
+                              <SelectItem key={type.value} value={type.value}>{type.label}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
                         <FormMessage />
                       </FormItem>
                     )}
                   />
-                  <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Email</FormLabel>
-                        <FormControl>
-                          <Input placeholder="your@email.com" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+                  
                   <FormField
                     control={form.control}
                     name="message"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Message</FormLabel>
+                        <FormLabel className="text-sheraa-dark">Message</FormLabel>
                         <FormControl>
                           <Textarea 
                             placeholder="How can we help you?"
-                            className="min-h-[120px]"
+                            className="min-h-[160px] border-gray-200 focus-visible:ring-sheraa-primary focus-visible:border-sheraa-primary"
                             {...field}
                           />
                         </FormControl>
@@ -158,7 +226,11 @@ const ContactSection = () => {
                       </FormItem>
                     )}
                   />
-                  <Button type="submit" className="w-full bg-sheraa-primary hover:bg-sheraa-primary/90">
+                  
+                  <Button 
+                    type="submit" 
+                    className="w-full py-6 bg-gradient-to-r from-sheraa-primary to-sheraa-secondary hover:from-sheraa-primary/90 hover:to-sheraa-secondary/90"
+                  >
                     Send Message
                   </Button>
                 </form>
