@@ -71,7 +71,7 @@ const QuoteSection = () => {
                 </motion.div>
               </div>
               
-              <blockquote className="text-lg md:text-3xl lg:text-4xl font-medium text-sheraa-primary leading-relaxed mb-4 md:mb-8">
+              <blockquote className="text-lg md:text-3xl lg:text-4xl font-medium text-sheraa-primary leading-relaxed mb-4 md:mb-8 min-h-[120px] md:min-h-[200px] flex items-center justify-center">
                 "At Sheraa, we believe in the transformative power of entrepreneurship. Our mission goes beyond building successful businesses – we're cultivating changemakers who will shape the future of Sharjah and the UAE."
               </blockquote>
               
@@ -98,4 +98,3 @@ const QuoteSection = () => {
 };
 
 export default QuoteSection;
-
