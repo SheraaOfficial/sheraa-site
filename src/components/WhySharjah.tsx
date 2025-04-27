@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -43,7 +42,7 @@ const WhySharjah = () => {
       {/* Arabic calligraphy-inspired background pattern */}
       <div className="absolute inset-0 bg-[url('/arabesque.svg')] opacity-5" />
       
-      <div className="container mx-auto px-4 max-w-6xl"> {/* Reduced container width */}
+      <div className="container mx-auto px-4 max-w-6xl">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -51,13 +50,12 @@ const WhySharjah = () => {
             transition={{ duration: 0.5 }}
           >
             <div className="inline-block bg-sheraa-primary/10 px-4 py-1 rounded-full text-sheraa-primary text-sm font-medium mb-6">
-              Sharjah
+              Where Heritage Meets Innovation
             </div>
             
             <h2 className="text-4xl font-bold mb-6">
-              Where Heritage
+              Sharjah
               <span className="block text-sheraa-primary mt-2 relative">
-                Meets Innovation
                 <span className="absolute -right-10 -top-4 text-sheraa-accent/50 text-6xl">●</span>
               </span>
             </h2>
@@ -114,31 +112,43 @@ const WhySharjah = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="relative"
           >
-            <div className="relative overflow-hidden bg-white rounded-2xl p-12 shadow-lg border border-gray-100 transform hover:scale-105 transition-transform duration-300">
-              <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-sheraa-primary to-sheraa-secondary" />
-              
+            <div className="relative p-12">              
               <div className="text-center relative z-10">
                 <div className="relative inline-block">
-                  <span className="text-8xl font-black bg-clip-text text-transparent bg-gradient-to-r from-sheraa-primary to-sheraa-secondary mb-4">
+                  <motion.span 
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    className="text-[120px] font-black bg-clip-text text-transparent bg-gradient-to-r from-sheraa-primary to-sheraa-secondary leading-none"
+                  >
                     #3
-                  </span>
-                  <div className="absolute -right-4 -top-2">
-                    <motion.div
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ 
-                        type: "spring",
-                        stiffness: 260,
-                        damping: 20,
-                        delay: 0.5 
-                      }}
-                      className="bg-sheraa-accent rounded-full p-2"
-                    >
-                      <svg className="w-6 h-6 text-sheraa-primary" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
-                      </svg>
-                    </motion.div>
-                  </div>
+                  </motion.span>
+                  <motion.div
+                    initial={{ scale: 0, y: 0 }}
+                    animate={{ scale: 1, y: -20 }}
+                    transition={{ 
+                      type: "spring",
+                      stiffness: 260,
+                      damping: 20,
+                      delay: 0.5 
+                    }}
+                    className="absolute -right-8 -top-8"
+                  >
+                    <div className="relative">
+                      <span className="text-2xl font-bold text-sheraa-primary">+1</span>
+                      <motion.div
+                        initial={{ y: 0, opacity: 1 }}
+                        animate={{ y: -20, opacity: 0 }}
+                        transition={{
+                          duration: 1,
+                          repeat: Infinity,
+                          repeatDelay: 2
+                        }}
+                        className="absolute top-0 left-0"
+                      >
+                        <span className="text-2xl font-bold text-sheraa-primary">+1</span>
+                      </motion.div>
+                    </div>
+                  </motion.div>
                 </div>
                 
                 <motion.p 
