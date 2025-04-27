@@ -1,10 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Calendar, MapPin, Globe, Star, Users } from "lucide-react";
+import { Calendar, MapPin, Globe, Star, Users, Award, Target, ChartBar } from "lucide-react";
 import { motion } from "framer-motion";
 
 const SEFSection = () => {
+  const sefFacts = [
+    { icon: Users, label: "Attendees", value: "14,000+", color: "text-[#9b87f5]" },
+    { icon: Star, label: "Global Speakers", value: "300+", color: "text-[#D946EF]" },
+    { icon: Target, label: "Activities", value: "250+", color: "text-[#F97316]" },
+    { icon: ChartBar, label: "Countries", value: "45+", color: "text-[#06B6D4]" },
+    { icon: Award, label: "Funding Pool", value: "700K AED", color: "text-[#22C55E]" },
+  ];
+
   return (
     <section className="py-24 relative overflow-hidden bg-[#9b87f5]/5">
       {/* SEF pattern overlay */}
@@ -29,33 +37,18 @@ const SEFSection = () => {
                 Experience two transformative days of inspiration, knowledge sharing, and meaningful connections.
               </p>
               
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
-                <motion.div 
-                  whileHover={{ scale: 1.05 }}
-                  className="bg-white rounded-2xl p-8 shadow-lg border border-[#9b87f5]/20"
-                >
-                  <Users className="w-8 h-8 text-[#9b87f5] mb-4" />
-                  <div className="text-4xl font-black mb-2 text-[#7E69AB]">5,000+</div>
-                  <p className="text-gray-600">Attendees</p>
-                </motion.div>
-                
-                <motion.div 
-                  whileHover={{ scale: 1.05 }}
-                  className="bg-white rounded-2xl p-8 shadow-lg border border-[#D946EF]/20"
-                >
-                  <Star className="w-8 h-8 text-[#D946EF] mb-4" />
-                  <div className="text-4xl font-black mb-2 text-[#D946EF]">100+</div>
-                  <p className="text-gray-600">Speakers</p>
-                </motion.div>
-                
-                <motion.div 
-                  whileHover={{ scale: 1.05 }}
-                  className="bg-white rounded-2xl p-8 shadow-lg border border-[#F97316]/20"
-                >
-                  <Globe className="w-8 h-8 text-[#F97316] mb-4" />
-                  <div className="text-4xl font-black mb-2 text-[#F97316]">50+</div>
-                  <p className="text-gray-600">Sessions</p>
-                </motion.div>
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-10">
+                {sefFacts.map((fact, index) => (
+                  <motion.div 
+                    key={index}
+                    whileHover={{ scale: 1.05 }}
+                    className="bg-white rounded-2xl p-4 shadow-lg border border-[#9b87f5]/20 flex flex-col items-center text-center"
+                  >
+                    <fact.icon className={`w-6 h-6 ${fact.color} mb-2`} />
+                    <div className={`text-2xl font-black mb-1 ${fact.color}`}>{fact.value}</div>
+                    <p className="text-sm text-gray-600">{fact.label}</p>
+                  </motion.div>
+                ))}
               </div>
               
               <div className="flex flex-wrap gap-4">

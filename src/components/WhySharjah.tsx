@@ -40,7 +40,6 @@ const WhySharjah = () => {
 
   return (
     <section className="py-24 relative">
-      {/* Arabic calligraphy-inspired background pattern */}
       <div className="absolute inset-0 bg-[url('/arabesque.svg')] opacity-5" />
       
       <div className="container mx-auto px-4 max-w-6xl">
@@ -57,7 +56,7 @@ const WhySharjah = () => {
             <h2 className="text-4xl font-bold mb-6">
               Why Sharjah
               <span className="block text-sheraa-primary mt-2 relative">
-                <Globe className="absolute -right-10 -top-4 text-sheraa-accent/50 w-12 h-12 animate-spin-slow" />
+                <Globe className="absolute -right-2 sm:-right-10 -top-4 text-sheraa-accent/50 w-8 sm:w-12 h-8 sm:h-12 animate-spin-slow" />
               </span>
             </h2>
             
