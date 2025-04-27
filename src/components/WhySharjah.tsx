@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import Globe from "@/components/ui/icons/Globe";
+import ParallaxImage from "./ParallaxImage";
 
 const WhySharjah = () => {
   const advantages = [
@@ -39,10 +40,12 @@ const WhySharjah = () => {
   ];
 
   return (
-    <section className="py-24 relative">
-      {/* Arabic calligraphy-inspired background pattern */}
-      <div className="absolute inset-0 bg-[url('/arabesque.svg')] opacity-5" />
-      
+    <section className="py-24 relative overflow-hidden">
+      <ParallaxImage
+        src="https://images.unsplash.com/photo-1488972685288-c3fd157d7c7a"
+        alt="Sharjah architecture"
+        speed={0.4}
+      />
       <div className="container mx-auto px-4 max-w-6xl">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <motion.div

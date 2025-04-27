@@ -3,11 +3,16 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Calendar, MapPin, Globe, Star, Users } from "lucide-react";
 import { motion } from "framer-motion";
+import ParallaxImage from "./ParallaxImage";
 
 const SEFSection = () => {
   return (
-    <section className="py-24 relative overflow-hidden bg-[#9b87f5]/5">
-      {/* SEF pattern overlay */}
+    <section className="py-24 relative overflow-hidden">
+      <ParallaxImage
+        src="https://images.unsplash.com/photo-1605810230434-7631ac76ec81"
+        alt="Conference event"
+        speed={0.35}
+      />
       <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-5" />
       
       <div className="container mx-auto px-4">
@@ -122,7 +127,6 @@ const SEFSection = () => {
         </div>
       </div>
       
-      {/* Decorative elements */}
       <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-b from-transparent to-white pointer-events-none" />
     </section>
   );

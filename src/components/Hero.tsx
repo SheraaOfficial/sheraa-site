@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -7,6 +6,7 @@ import ParticleBackground from "./ParticleBackground";
 import { ArrowRight, Target, Rocket, Globe } from "lucide-react";
 import MarqueeUpdates from "./MarqueeUpdates";
 import AnimatedSailboat from "./AnimatedSailboat";
+import ParallaxImage from "./ParallaxImage";
 
 const Hero = () => {
   const containerVariants = {
@@ -42,6 +42,11 @@ const Hero = () => {
   return (
     <div className="relative min-h-screen flex flex-col">
       <div className="flex-1 flex items-center overflow-hidden bg-gradient-to-br from-white via-sheraa-background-soft to-sheraa-light">
+        <ParallaxImage
+          src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b"
+          alt="Technology background"
+          speed={0.3}
+        />
         <ParticleBackground />
         <AnimatedSailboat />
         

@@ -1,4 +1,3 @@
-
 import React from "react";
 import { motion } from "framer-motion";
 import { Card } from "@/components/ui/card";
@@ -12,6 +11,7 @@ import * as z from "zod";
 import { MapPin, Phone, Mail } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import ParallaxImage from "./ParallaxImage";
 
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -67,7 +67,13 @@ const ContactSection = () => {
   ];
 
   return (
-    <section id="contact" className="py-24 bg-gradient-to-t from-sheraa-background-soft to-white">
+    <section className="py-24 relative overflow-hidden">
+      <ParallaxImage
+        src="https://images.unsplash.com/photo-1527576539890-dfa815648363"
+        alt="Modern architecture"
+        speed={0.3}
+        overlay={false}
+      />
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
