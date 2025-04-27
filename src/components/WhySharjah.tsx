@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -42,7 +43,7 @@ const WhySharjah = () => {
       {/* Arabic calligraphy-inspired background pattern */}
       <div className="absolute inset-0 bg-[url('/arabesque.svg')] opacity-5" />
       
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 max-w-6xl"> {/* Reduced container width */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -50,12 +51,15 @@ const WhySharjah = () => {
             transition={{ duration: 0.5 }}
           >
             <div className="inline-block bg-sheraa-primary/10 px-4 py-1 rounded-full text-sheraa-primary text-sm font-medium mb-6">
-              Where Heritage Meets Innovation
+              Sharjah
             </div>
             
             <h2 className="text-4xl font-bold mb-6">
-              Where Heritage Meets
-              <span className="block text-sheraa-primary mt-2">Innovation</span>
+              Where Heritage
+              <span className="block text-sheraa-primary mt-2 relative">
+                Meets Innovation
+                <span className="absolute -right-10 -top-4 text-sheraa-accent/50 text-6xl">●</span>
+              </span>
             </h2>
             
             <p className="text-lg text-gray-600 mb-12">
