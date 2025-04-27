@@ -1,4 +1,3 @@
-
 import React from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -14,14 +13,12 @@ import EligibilityChecker from "@/components/EligibilityChecker";
 import ContactSection from "@/components/ContactSection";
 import StartupsShowcase from "@/components/StartupsShowcase";
 import StartupTestimonials from "@/components/StartupTestimonials";
-
 const Index = () => {
-  return (
-    <div className="min-h-screen flex flex-col bg-white">
+  return <div className="min-h-screen flex flex-col bg-white">
       <Navigation />
       <main className="flex-grow">
         <Hero />
-        <div className="space-y-16 md:space-y-24 lg:space-y-32">
+        <div className="space-y-0md:space-y-0 lg:space-y-0">
           <ImpactNumbers />
           <QuoteSection />
           <ProgramsOverview />
@@ -36,8 +33,6 @@ const Index = () => {
         </div>
       </main>
       <Footer />
-    </div>
-  );
+    </div>;
 };
-
 export default Index;
