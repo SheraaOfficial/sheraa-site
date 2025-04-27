@@ -1,8 +1,7 @@
-
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Calendar, MapPin, Star, ChartBar, Layers, Award, Store, Activity, Users } from "lucide-react";
+import { Calendar, MapPin, Star, ChartBar, Layers, Award, Store, Activity, Users, Infinity } from "lucide-react";
 import { motion } from "framer-motion";
 
 const SEFSection = () => {
@@ -41,6 +40,13 @@ const SEFSection = () => {
       value: "130+", 
       color: "text-[#9b87f5]",
       delay: 0.5
+    },
+    { 
+      icon: Infinity, 
+      label: "Experiences", 
+      value: "∞", 
+      color: "text-[#D946EF]",
+      delay: 0.6
     }
   ];
 
@@ -71,11 +77,11 @@ const SEFSection = () => {
   };
 
   return (
-    <section className="py-24 relative overflow-hidden bg-gradient-to-br from-[#1A1F2C] via-[#2D1A2C] to-[#3D1A2C]">
-      {/* SEF pattern overlay */}
-      <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-10" />
+    <section className="py-24 relative overflow-hidden bg-gradient-to-br from-[#1A1F2C] via-[#2D1A2C] to-[#3D1A2C] before:absolute before:inset-0 before:bg-gradient-to-t before:from-purple-900/30 before:via-fuchsia-900/30 before:to-transparent before:opacity-60">
+      <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-10 mix-blend-overlay animate-pulse-slow" />
+      <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-fuchsia-900/20 to-rose-900/20 animate-pulse-slow" />
       
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
           <div className="lg:col-span-3">
             <motion.div 
@@ -84,10 +90,10 @@ const SEFSection = () => {
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
             >
-              <div className="inline-block bg-[#D946EF]/10 px-4 py-1 rounded-full text-[#D946EF] text-sm font-medium mb-4">
+              <div className="inline-block bg-gradient-to-r from-[#D946EF]/20 to-purple-600/20 px-4 py-1 rounded-full text-[#D946EF] text-sm font-medium mb-4 border border-[#D946EF]/20 backdrop-blur-sm">
                 THE REGION'S LARGEST ENTREPRENEURSHIP FESTIVAL RETURNS JANUARY 2026
               </div>
-              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-white via-purple-100 to-fuchsia-100 bg-clip-text text-transparent">
                 Sharjah Entrepreneurship Festival
               </h2>
               <p className="text-xl text-gray-300 mb-8 leading-relaxed max-w-2xl">
@@ -109,7 +115,7 @@ const SEFSection = () => {
                       scale: 1.05,
                       transition: { duration: 0.2 }
                     }}
-                    className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 flex flex-col items-center text-center"
+                    className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-white/20 transition-all duration-300 hover:bg-white/10"
                   >
                     <motion.div
                       initial={{ rotate: 0 }}
@@ -155,9 +161,9 @@ const SEFSection = () => {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
               viewport={{ once: true }}
-              className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10"
+              className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:border-white/20 transition-all duration-300"
             >
-              <h3 className="text-2xl font-bold mb-6 text-[#9b87f5]">SEF 2026</h3>
+              <h3 className="text-2xl font-bold mb-6 bg-gradient-to-r from-[#9b87f5] to-[#D946EF] bg-clip-text text-transparent">SEF 2026</h3>
               
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
@@ -187,7 +193,7 @@ const SEFSection = () => {
               
               <Button 
                 asChild 
-                className="w-full mt-8 bg-[#9b87f5] hover:bg-[#7E69AB] transition-colors"
+                className="w-full mt-8 bg-gradient-to-r from-[#9b87f5] to-[#D946EF] hover:opacity-90 transition-opacity"
               >
                 <Link to="/events/sef/register">Register Now</Link>
               </Button>
@@ -196,8 +202,7 @@ const SEFSection = () => {
         </div>
       </div>
       
-      {/* Decorative elements */}
-      <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-b from-transparent to-[#1A1F2C] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-b from-transparent via-[#1A1F2C]/80 to-[#1A1F2C] pointer-events-none" />
     </section>
   );
 };
