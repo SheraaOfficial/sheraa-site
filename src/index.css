@@ -42,6 +42,13 @@
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Sheraa Brand Colors */
+    --sheraa-primary: 207 100% 20%;    /* #003366 */
+    --sheraa-orange: 24 100% 50%;      /* #FF6600 */
+    --sheraa-teal: 180 100% 25%;       /* #008080 */
+    --sheraa-coral: 16 100% 65%;       /* #FF7F50 */
+    --sheraa-gray: 0 0% 83%;           /* #D3D3D3 */
   }
 
   .dark {
@@ -94,7 +101,7 @@
   }
 
   body {
-    @apply bg-sheraa-background text-sheraa-dark font-plus-jakarta;
+    @apply bg-background text-sheraa-dark font-plus-jakarta;
     background: linear-gradient(to bottom right, 
       theme('colors.sheraa.background.DEFAULT'), 
       theme('colors.sheraa.background.soft')

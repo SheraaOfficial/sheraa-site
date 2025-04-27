@@ -12,7 +12,13 @@ export default {
   theme: {
     container: {
       center: true,
-      padding: "2rem",
+      padding: {
+        DEFAULT: '1rem',
+        sm: '2rem',
+        lg: '4rem',
+        xl: '5rem',
+        '2xl': '6rem',
+      },
       screens: {
         "2xl": "1400px",
       },
@@ -63,11 +69,14 @@ export default {
           ring: 'hsl(var(--sidebar-ring))'
         },
         sheraa: {
-          primary: '#0066A1',
-          secondary: '#00A3A3',
-          accent: '#F2FCE2',
-          light: '#F1F0FB',
-          dark: '#1A1F2C'
+          primary: '#003366',
+          orange: '#FF6600',
+          teal: '#008080',
+          coral: '#FF7F50',
+          gray: '#D3D3D3',
+          dark: '#1A1F2C',
+          light: '#F8F9FA',
+          'background-soft': '#F1F5F9'
         }
       },
       borderRadius: {
