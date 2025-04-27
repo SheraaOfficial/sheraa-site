@@ -27,8 +27,8 @@ const Index = () => {
           <ProgramsOverview />
           <EligibilityChecker />
           <StartupsShowcase />
-          <StartupTestimonials />
           <CommunitySection />
+          <StartupTestimonials />
           <SEFSection />
           <WhySharjah />
           <PartnersSection />
