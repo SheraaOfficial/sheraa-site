@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
@@ -97,20 +96,26 @@ const StartupsShowcase = () => {
                         </Badge>
                       </div>
 
-                      <div className="flex items-start justify-between mb-4 md:mb-6">
-                        <div className="flex items-center gap-3 md:gap-4">
-                          <Avatar className={`${isMobile ? "w-10 h-10" : "w-16 h-16"} border-2 border-sheraa-primary/10 flex-shrink-0`}>
-                            <AvatarImage src={startup.image} alt={startup.name} />
-                            <AvatarFallback className="bg-sheraa-primary/5 text-sheraa-primary font-semibold text-lg md:text-xl">
-                              {startup.name[0]}
-                            </AvatarFallback>
-                          </Avatar>
-                          <div className="min-w-0">
-                            <h3 className="text-base md:text-xl font-bold text-sheraa-primary truncate">
-                              {startup.name}
-                            </h3>
-                            <Badge variant="secondary" className="mt-1 md:mt-2 text-xs">
+                      <div className="flex items-center gap-3 md:gap-4 mb-4 md:mb-6">
+                        <Avatar className={`${isMobile ? "w-10 h-10" : "w-16 h-16"} border-2 border-sheraa-primary/10 flex-shrink-0`}>
+                          <AvatarImage src={startup.image} alt={startup.name} />
+                          <AvatarFallback className="bg-sheraa-primary/5 text-sheraa-primary font-semibold text-lg md:text-xl">
+                            {startup.name[0]}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div className="min-w-0">
+                          <h3 className="text-base md:text-xl font-bold text-sheraa-primary truncate">
+                            {startup.name}
+                          </h3>
+                          <div className="flex flex-wrap gap-2 mt-2">
+                            <Badge variant="secondary" className="text-xs">
                               {startup.sector}
+                            </Badge>
+                            <Badge variant="coral" className="text-xs">
+                              {startup.achievement}
+                            </Badge>
+                            <Badge variant="accent" className="text-xs">
+                              {startup.impact}
                             </Badge>
                           </div>
                         </div>
@@ -120,21 +125,9 @@ const StartupsShowcase = () => {
                         {startup.description}
                       </p>
 
-                      <div className="space-y-2 md:space-y-3">
-                        <div className="flex items-center gap-2 text-sheraa-orange">
-                          <Award className={`${isMobile ? "w-3.5 h-3.5" : "w-5 h-5"} flex-shrink-0`} />
-                          <span className="text-xs md:text-sm font-medium truncate">{startup.achievement}</span>
-                        </div>
-                        
-                        <div className="flex items-center gap-2 text-sheraa-teal">
-                          <TrendingUp className={`${isMobile ? "w-3.5 h-3.5" : "w-5 h-5"} flex-shrink-0`} />
-                          <span className="text-xs md:text-sm font-medium">{startup.impact}</span>
-                        </div>
-
-                        <div className="flex items-center gap-2 text-sheraa-primary">
-                          <Star className={`${isMobile ? "w-3.5 h-3.5" : "w-5 h-5"} flex-shrink-0`} />
-                          <span className="text-xs md:text-sm font-medium">{startup.stats}</span>
-                        </div>
+                      <div className="flex items-center gap-2 text-sheraa-primary">
+                        <Star className={`${isMobile ? "w-3.5 h-3.5" : "w-5 h-5"} flex-shrink-0`} />
+                        <span className="text-xs md:text-sm font-medium">{startup.stats}</span>
                       </div>
                     </div>
                   </motion.div>
@@ -150,7 +143,6 @@ const StartupsShowcase = () => {
               </div>
             </div>
             
-            {/* Mobile-specific indicators */}
             {isMobile && (
               <div className="flex justify-center mt-6 gap-2">
                 {featuredStartups.map((_, i) => (
