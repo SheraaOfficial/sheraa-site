@@ -1,7 +1,6 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import AnimatedSailboat from "./AnimatedSailboat";
 import { motion } from "framer-motion";
 import ParticleBackground from "./ParticleBackground";
 import { ArrowRight, Target, Rocket, Globe } from "lucide-react";
@@ -44,12 +43,12 @@ const Hero = () => {
         <ParticleBackground />
         
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
             <motion.div 
               variants={containerVariants}
               initial="hidden"
               animate="visible"
-              className="max-w-3xl"
+              className="lg:col-span-6 max-w-3xl"
             >
               <motion.div variants={itemVariants} className="inline-block bg-sheraa-secondary/10 px-6 py-2 rounded-full text-sheraa-secondary text-sm font-medium mb-6">
                 Creating the Next Wave of Entrepreneurs
@@ -105,19 +104,31 @@ const Hero = () => {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="absolute top-0 right-0 w-1/2 h-full hidden lg:block"
+              className="lg:col-span-6 relative h-[80vh]"
             >
               <img 
                 src="/lovable-uploads/91a7f993-9696-46a1-96a7-59d67803f50f.png" 
                 alt="Sheraa entrepreneurs" 
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover object-center mix-blend-luminosity"
+                style={{ WebkitMaskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)' }}
               />
-              <div className="absolute inset-0 bg-gradient-to-r from-white via-transparent to-transparent" />
             </motion.div>
           </div>
         </div>
 
-        {/* Decorative elements */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 backdrop-blur-md bg-white/30 z-20">
+          <div className="container mx-auto px-4 h-full flex items-center">
+            <div className="grid grid-cols-3 gap-8 w-full">
+              {impactIcons.map((item, index) => (
+                <div key={index} className="flex items-center gap-3 text-sheraa-dark/80">
+                  <item.icon className={`w-6 h-6 ${item.color}`} />
+                  <span className="font-medium">{item.text}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
         <div className="absolute inset-0 z-0">
           <div className="absolute right-0 top-20 w-96 h-96 bg-sheraa-primary/5 rounded-full blur-3xl transform animate-pulse" />
           <div className="absolute -left-48 bottom-0 w-96 h-96 bg-sheraa-secondary/5 rounded-full blur-3xl transform animate-pulse delay-700" />
