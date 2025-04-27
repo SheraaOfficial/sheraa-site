@@ -52,13 +52,13 @@ const StartupsShowcase = () => {
   const isMobile = useIsMobile();
 
   return (
-    <section className="py-16 md:py-24 bg-gradient-to-br from-sheraa-primary/5 to-sheraa-teal/5 overflow-hidden">
+    <section className="py-12 md:py-24 bg-gradient-to-br from-sheraa-primary/5 to-sheraa-teal/5 overflow-hidden">
       <div className="container mx-auto px-4">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-12 md:mb-16"
+          className="text-center mb-10 md:mb-16"
         >
           <span className="inline-block bg-sheraa-primary/10 px-3 py-1 md:px-4 md:py-1.5 rounded-full text-sheraa-primary text-xs md:text-sm font-medium mb-3 md:mb-4">
             Transforming Ideas into Impact
@@ -73,7 +73,7 @@ const StartupsShowcase = () => {
           </p>
         </motion.div>
 
-        <div className="mb-10 md:mb-16">
+        <div className="mb-10 md:mb-16 max-w-full">
           <Carousel
             opts={{
               align: "start",
@@ -90,8 +90,8 @@ const StartupsShowcase = () => {
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                     className="relative group"
                   >
-                    <div className="bg-white rounded-2xl p-4 md:p-6 shadow-sheraa-soft group-hover:shadow-sheraa-medium transition-all duration-300 border border-gray-100">
-                      <div className="absolute -top-2 -right-2 md:-top-3 md:-right-3">
+                    <div className="bg-white rounded-2xl p-4 md:p-6 shadow-sheraa-soft group-hover:shadow-sheraa-medium transition-all duration-300 border border-gray-100 overflow-hidden">
+                      <div className="absolute -top-2 -right-2 md:-top-3 md:-right-3 z-10">
                         <Badge variant="accent" className="shadow-lg text-xs">
                           Featured
                         </Badge>
@@ -99,14 +99,14 @@ const StartupsShowcase = () => {
 
                       <div className="flex items-start justify-between mb-4 md:mb-6">
                         <div className="flex items-center gap-3 md:gap-4">
-                          <Avatar className={`${isMobile ? "w-12 h-12" : "w-16 h-16"} border-2 border-sheraa-primary/10`}>
+                          <Avatar className={`${isMobile ? "w-10 h-10" : "w-16 h-16"} border-2 border-sheraa-primary/10 flex-shrink-0`}>
                             <AvatarImage src={startup.image} alt={startup.name} />
                             <AvatarFallback className="bg-sheraa-primary/5 text-sheraa-primary font-semibold text-lg md:text-xl">
                               {startup.name[0]}
                             </AvatarFallback>
                           </Avatar>
-                          <div>
-                            <h3 className="text-base md:text-xl font-bold text-sheraa-primary">
+                          <div className="min-w-0">
+                            <h3 className="text-base md:text-xl font-bold text-sheraa-primary truncate">
                               {startup.name}
                             </h3>
                             <Badge variant="secondary" className="mt-1 md:mt-2 text-xs">
@@ -120,19 +120,19 @@ const StartupsShowcase = () => {
                         {startup.description}
                       </p>
 
-                      <div className="space-y-2 md:space-y-4">
+                      <div className="space-y-2 md:space-y-3">
                         <div className="flex items-center gap-2 text-sheraa-orange">
-                          <Award className={`${isMobile ? "w-4 h-4" : "w-5 h-5"}`} />
+                          <Award className={`${isMobile ? "w-3.5 h-3.5" : "w-5 h-5"} flex-shrink-0`} />
                           <span className="text-xs md:text-sm font-medium truncate">{startup.achievement}</span>
                         </div>
                         
                         <div className="flex items-center gap-2 text-sheraa-teal">
-                          <TrendingUp className={`${isMobile ? "w-4 h-4" : "w-5 h-5"}`} />
+                          <TrendingUp className={`${isMobile ? "w-3.5 h-3.5" : "w-5 h-5"} flex-shrink-0`} />
                           <span className="text-xs md:text-sm font-medium">{startup.impact}</span>
                         </div>
 
                         <div className="flex items-center gap-2 text-sheraa-primary">
-                          <Star className={`${isMobile ? "w-4 h-4" : "w-5 h-5"}`} />
+                          <Star className={`${isMobile ? "w-3.5 h-3.5" : "w-5 h-5"} flex-shrink-0`} />
                           <span className="text-xs md:text-sm font-medium">{startup.stats}</span>
                         </div>
                       </div>
@@ -142,10 +142,10 @@ const StartupsShowcase = () => {
               ))}
             </CarouselContent>
             <div className="hidden md:block">
-              <div className="absolute -right-4 top-1/2 -translate-y-1/2">
+              <div className="absolute -right-4 md:right-0 top-1/2 -translate-y-1/2 z-10">
                 <CarouselNext className="bg-white" />
               </div>
-              <div className="absolute -left-4 top-1/2 -translate-y-1/2">
+              <div className="absolute -left-4 md:left-0 top-1/2 -translate-y-1/2 z-10">
                 <CarouselPrevious className="bg-white" />
               </div>
             </div>
@@ -153,7 +153,7 @@ const StartupsShowcase = () => {
             {/* Mobile-specific indicators */}
             {isMobile && (
               <div className="flex justify-center mt-6 gap-2">
-                {[...Array(featuredStartups.length)].map((_, i) => (
+                {featuredStartups.map((_, i) => (
                   <div key={i} className={`w-2 h-2 rounded-full ${i === 0 ? 'bg-sheraa-primary' : 'bg-gray-300'}`} />
                 ))}
               </div>
@@ -161,14 +161,14 @@ const StartupsShowcase = () => {
           </Carousel>
         </div>
 
-        <div className="flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-6 px-4">
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-6">
           <Button 
             asChild
             size={isMobile ? "default" : "xl"}
             className="bg-sheraa-primary hover:bg-sheraa-primary/90 w-full sm:w-auto text-xs md:text-base"
           >
             <Link to="/community/startups" className="flex items-center gap-2">
-              <Star className={`${isMobile ? "w-4 h-4" : "w-5 h-5"}`} />
+              <Star className={`${isMobile ? "w-4 h-4" : "w-5 h-5"} flex-shrink-0`} />
               Explore All Startups
             </Link>
           </Button>
@@ -180,7 +180,7 @@ const StartupsShowcase = () => {
             className="border-sheraa-primary text-sheraa-primary hover:bg-sheraa-primary/10 w-full sm:w-auto text-xs md:text-base"
           >
             <Link to="/community/join" className="flex items-center gap-2">
-              <Users className={`${isMobile ? "w-4 h-4" : "w-5 h-5"}`} />
+              <Users className={`${isMobile ? "w-4 h-4" : "w-5 h-5"} flex-shrink-0`} />
               Join Our Community
             </Link>
           </Button>
