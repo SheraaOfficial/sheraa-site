@@ -23,13 +23,13 @@ const Index = () => {
         <Hero />
         <div className="space-y-24">
           <ImpactNumbers />
+          <SEFSection />
           <QuoteSection />
           <ProgramsOverview />
           <EligibilityChecker />
           <StartupsShowcase />
           <CommunitySection />
           <StartupTestimonials />
-          <SEFSection />
           <WhySharjah />
           <PartnersSection />
           <ContactSection />
