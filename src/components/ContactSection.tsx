@@ -84,13 +84,13 @@ const ContactSection = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="lg:col-span-2"
+            className="lg:col-span-5"
           >
             <div className="bg-white p-8 rounded-xl shadow-sheraa-soft mb-8">
               <h3 className="text-2xl font-semibold mb-6 text-sheraa-dark">Contact Information</h3>
@@ -115,7 +115,7 @@ const ContactSection = () => {
                   <a 
                     key={social}
                     href={`#${social}`} 
-                    className="w-10 h-10 rounded-full bg-sheraa-background flex items-center justify-center hover:bg-sheraa-primary hover:text-white transition-all"
+                    className="w-12 h-12 rounded-full bg-gradient-to-r from-sheraa-primary/5 to-sheraa-secondary/5 flex items-center justify-center hover:from-sheraa-primary/10 hover:to-sheraa-secondary/10 transition-all"
                   >
                     <span className="sr-only">{social}</span>
                     <i className={`fa fa-${social}`}></i>
@@ -133,6 +133,7 @@ const ContactSection = () => {
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
+                className="w-full h-full"
               />
             </div>
           </motion.div>
@@ -142,10 +143,10 @@ const ContactSection = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="lg:col-span-3"
+            className="lg:col-span-7"
           >
-            <Card className="p-8 shadow-sheraa-medium border-none bg-gradient-to-br from-white to-sheraa-light">
-              <h3 className="text-2xl font-semibold mb-6 text-sheraa-dark">Send Us a Message</h3>
+            <Card className="p-8 shadow-sheraa-medium border-none bg-gradient-to-br from-white to-sheraa-light backdrop-blur-sm">
+              <h3 className="text-2xl font-semibold mb-8 text-sheraa-dark">Send Us a Message</h3>
               
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -155,11 +156,11 @@ const ContactSection = () => {
                       name="name"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-sheraa-dark">Full Name</FormLabel>
+                          <FormLabel className="text-sheraa-dark font-medium">Full Name</FormLabel>
                           <FormControl>
                             <Input 
                               placeholder="Your name" 
-                              className="border-gray-200 focus-visible:ring-sheraa-primary focus-visible:border-sheraa-primary" 
+                              className="border-gray-200 focus-visible:ring-sheraa-primary focus-visible:border-sheraa-primary bg-white/50" 
                               {...field} 
                             />
                           </FormControl>
@@ -172,11 +173,11 @@ const ContactSection = () => {
                       name="email"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-sheraa-dark">Email Address</FormLabel>
+                          <FormLabel className="text-sheraa-dark font-medium">Email Address</FormLabel>
                           <FormControl>
                             <Input 
                               placeholder="your@email.com" 
-                              className="border-gray-200 focus-visible:ring-sheraa-primary focus-visible:border-sheraa-primary" 
+                              className="border-gray-200 focus-visible:ring-sheraa-primary focus-visible:border-sheraa-primary bg-white/50" 
                               {...field}
                             />
                           </FormControl>
@@ -191,10 +192,10 @@ const ContactSection = () => {
                     name="inquiryType"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-sheraa-dark">Inquiry Type</FormLabel>
+                        <FormLabel className="text-sheraa-dark font-medium">Inquiry Type</FormLabel>
                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                           <FormControl>
-                            <SelectTrigger className="border-gray-200 focus:ring-sheraa-primary">
+                            <SelectTrigger className="border-gray-200 focus:ring-sheraa-primary bg-white/50">
                               <SelectValue placeholder="Select the nature of your inquiry" />
                             </SelectTrigger>
                           </FormControl>
@@ -214,11 +215,11 @@ const ContactSection = () => {
                     name="message"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-sheraa-dark">Message</FormLabel>
+                        <FormLabel className="text-sheraa-dark font-medium">Message</FormLabel>
                         <FormControl>
                           <Textarea 
                             placeholder="How can we help you?"
-                            className="min-h-[160px] border-gray-200 focus-visible:ring-sheraa-primary focus-visible:border-sheraa-primary"
+                            className="min-h-[160px] border-gray-200 focus-visible:ring-sheraa-primary focus-visible:border-sheraa-primary bg-white/50"
                             {...field}
                           />
                         </FormControl>
@@ -229,7 +230,7 @@ const ContactSection = () => {
                   
                   <Button 
                     type="submit" 
-                    className="w-full py-6 bg-gradient-to-r from-sheraa-primary to-sheraa-secondary hover:from-sheraa-primary/90 hover:to-sheraa-secondary/90"
+                    className="w-full py-6 bg-gradient-to-r from-sheraa-primary to-sheraa-secondary hover:from-sheraa-primary/90 hover:to-sheraa-secondary/90 text-lg font-medium"
                   >
                     Send Message
                   </Button>
