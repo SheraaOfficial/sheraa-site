@@ -13,6 +13,7 @@ import PartnersSection from "@/components/PartnersSection";
 import EligibilityChecker from "@/components/EligibilityChecker";
 import ContactSection from "@/components/ContactSection";
 import StartupsShowcase from "@/components/StartupsShowcase";
+import StartupTestimonials from "@/components/StartupTestimonials";
 
 const Index = () => {
   return (
@@ -26,6 +27,7 @@ const Index = () => {
           <ProgramsOverview />
           <EligibilityChecker />
           <StartupsShowcase />
+          <StartupTestimonials />
           <CommunitySection />
           <SEFSection />
           <WhySharjah />

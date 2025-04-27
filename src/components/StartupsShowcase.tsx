@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
@@ -49,13 +48,13 @@ const featuredStartups = [
 
 const StartupsShowcase = () => {
   return (
-    <section className="py-24 bg-gradient-to-br from-sheraa-primary/5 to-sheraa-teal/5">
+    <section className="py-16 md:py-24 bg-gradient-to-br from-sheraa-primary/5 to-sheraa-teal/5">
       <div className="container mx-auto px-4">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-16"
+          className="text-center mb-12 md:mb-16"
         >
           <span className="inline-block bg-sheraa-primary/10 px-4 py-1.5 rounded-full text-sheraa-primary text-sm font-medium mb-4">
             Transforming Ideas into Impact
@@ -65,12 +64,12 @@ const StartupsShowcase = () => {
             Our <span className="text-sheraa-primary">Startups</span>
           </h2>
           
-          <p className="text-gray-600 max-w-3xl mx-auto text-lg">
+          <p className="text-gray-600 max-w-3xl mx-auto text-base md:text-lg px-4">
             Meet the innovative ventures shaping the future through Sheraa's ecosystem. These companies are creating real impact, driving innovation, and transforming Sharjah's entrepreneurial landscape.
           </p>
         </motion.div>
 
-        <div className="mb-16">
+        <div className="mb-12 md:mb-16">
           <Carousel
             opts={{
               align: "start",
@@ -138,18 +137,20 @@ const StartupsShowcase = () => {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <div className="hidden md:block">
-              <CarouselPrevious className="-left-4 bg-white" />
-              <CarouselNext className="-right-4 bg-white" />
+            <div className="absolute -right-4 top-1/2 -translate-y-1/2 hidden md:block">
+              <CarouselNext className="bg-white" />
+            </div>
+            <div className="absolute -left-4 top-1/2 -translate-y-1/2 hidden md:block">
+              <CarouselPrevious className="bg-white" />
             </div>
           </Carousel>
         </div>
 
-        <div className="flex flex-col md:flex-row justify-center items-center gap-6">
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6 px-4">
           <Button 
             asChild
             size="xl"
-            className="bg-sheraa-primary hover:bg-sheraa-primary/90 w-full md:w-auto"
+            className="bg-sheraa-primary hover:bg-sheraa-primary/90 w-full sm:w-auto"
           >
             <Link to="/community/startups" className="flex items-center gap-2">
               <Star className="w-5 h-5" />
@@ -161,7 +162,7 @@ const StartupsShowcase = () => {
             asChild
             variant="outline"
             size="xl"
-            className="border-sheraa-primary text-sheraa-primary hover:bg-sheraa-primary/10 w-full md:w-auto"
+            className="border-sheraa-primary text-sheraa-primary hover:bg-sheraa-primary/10 w-full sm:w-auto"
           >
             <Link to="/community/join" className="flex items-center gap-2">
               <Users className="w-5 h-5" />
