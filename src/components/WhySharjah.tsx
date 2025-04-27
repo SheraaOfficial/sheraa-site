@@ -42,9 +42,12 @@ const WhySharjah = () => {
   return (
     <section className="py-24 relative overflow-hidden">
       <ParallaxImage
-        src="https://images.unsplash.com/photo-1488972685288-c3fd157d7c7a"
-        alt="Sharjah architecture"
+        src="https://images.unsplash.com/photo-1577563908411-5077b6dc7624"
+        alt="Sharjah skyline"
         speed={0.4}
+        overlay="light"
+        overlayStrength="light"
+        position="center"
       />
       <div className="container mx-auto px-4 max-w-6xl">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">

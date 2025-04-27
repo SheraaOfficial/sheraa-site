@@ -78,10 +78,12 @@ const ProgramsOverview = () => {
   return (
     <section className="py-24 relative overflow-hidden">
       <ParallaxImage
-        src="https://images.unsplash.com/photo-1519389950473-47ba0277781c"
-        alt="People collaborating"
+        src="https://images.unsplash.com/photo-1542744173-05336fcc7ad4"
+        alt="Startup workshop session"
         speed={0.3}
-        overlay={false}
+        overlay="light"
+        overlayStrength="light"
+        position="center"
       />
       <div className="absolute inset-0 z-0">
         <div className="absolute top-0 right-0 w-96 h-96 bg-sheraa-primary/5 rounded-full blur-3xl" />

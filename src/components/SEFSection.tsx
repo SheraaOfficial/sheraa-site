@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -9,9 +10,12 @@ const SEFSection = () => {
   return (
     <section className="py-24 relative overflow-hidden">
       <ParallaxImage
-        src="https://images.unsplash.com/photo-1605810230434-7631ac76ec81"
-        alt="Conference event"
+        src="https://images.unsplash.com/photo-1540575467063-178a50c2df87"
+        alt="Large entrepreneurship conference"
         speed={0.35}
+        overlay="gradient"
+        overlayStrength="medium"
+        position="center"
       />
       <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-5" />
       

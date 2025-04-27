@@ -69,10 +69,12 @@ const ContactSection = () => {
   return (
     <section className="py-24 relative overflow-hidden">
       <ParallaxImage
-        src="https://images.unsplash.com/photo-1527576539890-dfa815648363"
-        alt="Modern architecture"
+        src="https://images.unsplash.com/photo-1557426272-fc759fdf7a8d"
+        alt="Modern business district"
         speed={0.3}
-        overlay={false}
+        overlay="light"
+        overlayStrength="light"
+        position="center"
       />
       <div className="container mx-auto px-4">
         <motion.div
