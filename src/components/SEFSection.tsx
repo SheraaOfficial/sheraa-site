@@ -2,24 +2,45 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Calendar, MapPin, Star, ChartBar, Layers, Award } from "lucide-react";
+import { Calendar, MapPin, Star, ChartBar, Layers, Award, Store, Activity, Users } from "lucide-react";
 import { motion } from "framer-motion";
 
 const SEFSection = () => {
   const sefFacts = [
     { 
-      icon: Layers, 
-      label: "Global Participants", 
+      icon: Users, 
+      label: "Attendees", 
       value: "14,000+", 
       color: "text-[#9b87f5]",
       delay: 0.1
     },
     { 
       icon: Award, 
-      label: "Featured Speakers", 
-      value: "300+", 
+      label: "Visionary Speakers", 
+      value: "780+", 
       color: "text-[#D946EF]",
       delay: 0.2
+    },
+    { 
+      icon: Store, 
+      label: "Startup Showcases", 
+      value: "350+", 
+      color: "text-[#9b87f5]",
+      delay: 0.3
+    },
+    { 
+      icon: Activity, 
+      label: "Dynamic Activities", 
+      value: "250+", 
+      color: "text-[#D946EF]",
+      delay: 0.4
+    },
+    { 
+      icon: Users, 
+      label: "Exclusive Investor Meetings", 
+      value: "130+", 
+      color: "text-[#9b87f5]",
+      delay: 0.5
     }
   ];
 
@@ -28,8 +49,8 @@ const SEFSection = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3
+        staggerChildren: 0.15,
+        delayChildren: 0.2
       }
     }
   };
@@ -50,9 +71,9 @@ const SEFSection = () => {
   };
 
   return (
-    <section className="py-24 relative overflow-hidden bg-[#9b87f5]/5">
+    <section className="py-24 relative overflow-hidden bg-gradient-to-br from-[#1A1F2C] via-[#2D1A2C] to-[#3D1A2C]">
       {/* SEF pattern overlay */}
-      <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-5" />
+      <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-10" />
       
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
@@ -66,10 +87,10 @@ const SEFSection = () => {
               <div className="inline-block bg-[#D946EF]/10 px-4 py-1 rounded-full text-[#D946EF] text-sm font-medium mb-4">
                 THE REGION'S LARGEST ENTREPRENEURSHIP FESTIVAL RETURNS JANUARY 2026
               </div>
-              <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-[#9b87f5] to-[#D946EF] bg-clip-text text-transparent">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
                 Sharjah Entrepreneurship Festival
               </h2>
-              <p className="text-xl text-gray-600 mb-8 leading-relaxed max-w-2xl">
+              <p className="text-xl text-gray-300 mb-8 leading-relaxed max-w-2xl">
                 Experience two transformative days of global innovation, knowledge sharing, and meaningful connections at SRTI Park, Sharjah.
               </p>
               
@@ -78,7 +99,7 @@ const SEFSection = () => {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
-                className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10"
+                className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-10"
               >
                 {sefFacts.map((fact, index) => (
                   <motion.div 
@@ -88,7 +109,7 @@ const SEFSection = () => {
                       scale: 1.05,
                       transition: { duration: 0.2 }
                     }}
-                    className="bg-white rounded-2xl p-6 shadow-lg border border-[#9b87f5]/20 flex flex-col items-center text-center"
+                    className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 flex flex-col items-center text-center"
                   >
                     <motion.div
                       initial={{ rotate: 0 }}
@@ -101,11 +122,11 @@ const SEFSection = () => {
                       initial={{ scale: 0.5, opacity: 0 }}
                       whileInView={{ scale: 1, opacity: 1 }}
                       transition={{ delay: fact.delay, duration: 0.3 }}
-                      className={`text-4xl font-black mb-2 ${fact.color}`}
+                      className={`text-3xl font-black mb-2 ${fact.color}`}
                     >
                       {fact.value}
                     </motion.div>
-                    <p className="text-gray-600 font-medium">{fact.label}</p>
+                    <p className="text-gray-300 font-medium text-sm">{fact.label}</p>
                   </motion.div>
                 ))}
               </motion.div>
@@ -134,32 +155,32 @@ const SEFSection = () => {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
               viewport={{ once: true }}
-              className="bg-white rounded-2xl p-8 shadow-lg border border-[#9b87f5]/20"
+              className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10"
             >
-              <h3 className="text-2xl font-bold mb-6 text-[#7E69AB]">SEF 2026</h3>
+              <h3 className="text-2xl font-bold mb-6 text-[#9b87f5]">SEF 2026</h3>
               
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
                   <Calendar className="w-5 h-5 text-[#9b87f5] mt-1" />
                   <div>
-                    <div className="text-sm text-gray-500 mb-1">Date</div>
-                    <div className="font-medium">January 31 - February 1, 2026</div>
+                    <div className="text-sm text-gray-400 mb-1">Date</div>
+                    <div className="font-medium text-white">January 31 - February 1, 2026</div>
                   </div>
                 </div>
                 
                 <div className="flex items-start gap-4">
                   <MapPin className="w-5 h-5 text-[#9b87f5] mt-1" />
                   <div>
-                    <div className="text-sm text-gray-500 mb-1">Location</div>
-                    <div className="font-medium">SRTI Park, Sharjah</div>
+                    <div className="text-sm text-gray-400 mb-1">Location</div>
+                    <div className="font-medium text-white">SRTI Park, Sharjah</div>
                   </div>
                 </div>
                 
                 <div className="flex items-start gap-4">
                   <Star className="w-5 h-5 text-[#D946EF] mt-1" />
                   <div>
-                    <div className="text-sm text-gray-500 mb-1">Theme</div>
-                    <div className="font-medium">Building the Future of Entrepreneurship</div>
+                    <div className="text-sm text-gray-400 mb-1">Theme</div>
+                    <div className="font-medium text-white">Building the Future of Entrepreneurship</div>
                   </div>
                 </div>
               </div>
@@ -176,7 +197,7 @@ const SEFSection = () => {
       </div>
       
       {/* Decorative elements */}
-      <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-b from-transparent to-white pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-b from-transparent to-[#1A1F2C] pointer-events-none" />
     </section>
   );
 };
