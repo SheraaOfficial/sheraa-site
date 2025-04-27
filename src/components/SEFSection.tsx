@@ -1,17 +1,53 @@
+
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Calendar, MapPin, Globe, Star, Users, Award, Target, ChartBar } from "lucide-react";
+import { Calendar, MapPin, Star, ChartBar, Layers, Award } from "lucide-react";
 import { motion } from "framer-motion";
 
 const SEFSection = () => {
   const sefFacts = [
-    { icon: Users, label: "Attendees", value: "14,000+", color: "text-[#9b87f5]" },
-    { icon: Star, label: "Global Speakers", value: "300+", color: "text-[#D946EF]" },
-    { icon: Target, label: "Activities", value: "250+", color: "text-[#F97316]" },
-    { icon: ChartBar, label: "Countries", value: "45+", color: "text-[#06B6D4]" },
-    { icon: Award, label: "Funding Pool", value: "700K AED", color: "text-[#22C55E]" },
+    { 
+      icon: Layers, 
+      label: "Startups Showcasing", 
+      value: "780+", 
+      color: "text-[#9b87f5]",
+      delay: 0.1
+    },
+    { 
+      icon: Award, 
+      label: "Dynamic Activities", 
+      value: "350+", 
+      color: "text-[#D946EF]",
+      delay: 0.2
+    }
   ];
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.3
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { 
+      opacity: 0,
+      y: 20
+    },
+    visible: { 
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    }
+  };
 
   return (
     <section className="py-24 relative overflow-hidden bg-[#9b87f5]/5">
@@ -25,6 +61,7 @@ const SEFSection = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
             >
               <div className="inline-block bg-[#D946EF]/10 px-4 py-1 rounded-full text-[#D946EF] text-sm font-medium mb-4">
                 Annual Flagship Event
@@ -33,23 +70,45 @@ const SEFSection = () => {
                 Sharjah Entrepreneurship Festival
               </h2>
               <p className="text-xl text-gray-600 mb-8 leading-relaxed max-w-2xl">
-                The region's largest celebration of entrepreneurs, changemakers, and creative thinkers. 
                 Experience two transformative days of inspiration, knowledge sharing, and meaningful connections.
               </p>
               
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-10">
+              <motion.div 
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10"
+              >
                 {sefFacts.map((fact, index) => (
                   <motion.div 
                     key={index}
-                    whileHover={{ scale: 1.05 }}
-                    className="bg-white rounded-2xl p-4 shadow-lg border border-[#9b87f5]/20 flex flex-col items-center text-center"
+                    variants={itemVariants}
+                    whileHover={{ 
+                      scale: 1.05,
+                      transition: { duration: 0.2 }
+                    }}
+                    className="bg-white rounded-2xl p-6 shadow-lg border border-[#9b87f5]/20 flex flex-col items-center text-center"
                   >
-                    <fact.icon className={`w-6 h-6 ${fact.color} mb-2`} />
-                    <div className={`text-2xl font-black mb-1 ${fact.color}`}>{fact.value}</div>
-                    <p className="text-sm text-gray-600">{fact.label}</p>
+                    <motion.div
+                      initial={{ rotate: 0 }}
+                      whileHover={{ rotate: 360 }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      <fact.icon className={`w-8 h-8 ${fact.color} mb-3`} />
+                    </motion.div>
+                    <motion.div 
+                      initial={{ scale: 0.5, opacity: 0 }}
+                      whileInView={{ scale: 1, opacity: 1 }}
+                      transition={{ delay: fact.delay, duration: 0.3 }}
+                      className={`text-4xl font-black mb-2 ${fact.color}`}
+                    >
+                      {fact.value}
+                    </motion.div>
+                    <p className="text-gray-600 font-medium">{fact.label}</p>
                   </motion.div>
                 ))}
-              </div>
+              </motion.div>
               
               <div className="flex flex-wrap gap-4">
                 <Button 
@@ -74,6 +133,7 @@ const SEFSection = () => {
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
+              viewport={{ once: true }}
               className="bg-white rounded-2xl p-8 shadow-lg border border-[#9b87f5]/20"
             >
               <h3 className="text-2xl font-bold mb-6 text-[#7E69AB]">SEF 2025</h3>
