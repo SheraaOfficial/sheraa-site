@@ -8,7 +8,7 @@ const QuoteSection = () => {
   } = useScroll();
   const opacity = useTransform(scrollYProgress, [0.2, 0.3], [0, 1]);
   const scale = useTransform(scrollYProgress, [0.2, 0.3], [0.95, 1]);
-  return <section className="py-24 md:py-32 relative overflow-hidden">
+  return <section className="">
       {/* Background with stronger contrast */}
       <div className="absolute inset-40 bg-gradient-to-br from-sheraa-primary/20 via-white to-sheraa-teal/20 bg-slate-200" />
       
