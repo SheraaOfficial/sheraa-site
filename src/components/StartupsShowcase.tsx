@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Award, Star, TrendingUp, Users } from "lucide-react";
+import { Star, Users } from "lucide-react";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "./ui/carousel";
 import { Avatar, AvatarImage, AvatarFallback } from "./ui/avatar";
 import { Badge } from "./ui/badge";
@@ -90,12 +90,6 @@ const StartupsShowcase = () => {
                     className="relative group"
                   >
                     <div className="bg-white rounded-2xl p-4 md:p-6 shadow-sheraa-soft group-hover:shadow-sheraa-medium transition-all duration-300 border border-gray-100 overflow-hidden">
-                      <div className="absolute -top-2 -right-2 md:-top-3 md:-right-3 z-10">
-                        <Badge variant="accent" className="shadow-lg text-xs">
-                          Featured
-                        </Badge>
-                      </div>
-
                       <div className="flex items-center gap-3 md:gap-4 mb-4 md:mb-6">
                         <Avatar className={`${isMobile ? "w-10 h-10" : "w-16 h-16"} border-2 border-sheraa-primary/10 flex-shrink-0`}>
                           <AvatarImage src={startup.image} alt={startup.name} />
@@ -108,13 +102,13 @@ const StartupsShowcase = () => {
                             {startup.name}
                           </h3>
                           <div className="flex flex-wrap gap-2 mt-2">
-                            <Badge variant="secondary" className="text-xs">
+                            <Badge variant="outline" className="text-xs bg-sheraa-primary/5">
                               {startup.sector}
                             </Badge>
-                            <Badge variant="coral" className="text-xs">
+                            <Badge variant="coral" className="text-xs bg-sheraa-coral/10 text-sheraa-coral border-sheraa-coral/20">
                               {startup.achievement}
                             </Badge>
-                            <Badge variant="accent" className="text-xs">
+                            <Badge variant="secondary" className="text-xs bg-sheraa-teal/10 text-sheraa-teal border-sheraa-teal/20">
                               {startup.impact}
                             </Badge>
                           </div>
