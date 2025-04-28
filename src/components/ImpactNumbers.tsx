@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
@@ -8,7 +7,6 @@ import { ArrowRight, TrendingUp, Award, Users, Building, Briefcase } from "lucid
 import { useIsMobile } from "@/hooks/use-mobile";
 import { TextShimmer } from "./ui/text-shimmer";
 import { AnimatedGradient } from "@/components/ui/animated-gradient-with-svg";
-
 const Counter = ({
   end,
   duration = 2,
@@ -23,7 +21,6 @@ const Counter = ({
     margin: "-100px"
   });
   const shouldStart = startOnView ? isInView : true;
-  
   useEffect(() => {
     if (!shouldStart) return;
     let startTime = null;
@@ -38,140 +35,115 @@ const Counter = ({
     };
     window.requestAnimationFrame(step);
   }, [end, duration, shouldStart]);
-  
   return <TextShimmer className="font-display" ref={counterRef}>
       {prefix}
       {count.toLocaleString()}
       {suffix}
     </TextShimmer>;
 };
-
 const ImpactNumbers = () => {
   const isMobile = useIsMobile();
   
-  const stats = [{
-    value: 180,
-    suffix: "+",
-    title: "Startups",
-    description: isMobile ? "Supported" : "Building impactful ventures across sectors",
-    colors: ["#4F46E5", "#9089FC", "#C7D2FE"],
-    icon: Award,
-    growthText: "52% women-led"
-  }, {
-    value: 248,
-    prefix: "$",
-    suffix: "M+",
-    title: "Revenue",
-    description: isMobile ? "Generated" : "By our portfolio companies",
-    colors: ["#10B981", "#34D399", "#A7F3D0"],
-    icon: Building,
-    growthText: "71% survival rate"
-  }, {
-    value: 1900,
-    suffix: "+",
-    title: "Jobs",
-    description: isMobile ? "Created" : "Contributing to economic growth",
-    colors: ["#8B5CF6", "#A78BFA", "#DDD6FE"],
-    icon: Users,
-    growthText: "Regional impact"
-  }, {
-    value: 140,
-    suffix: "+",
-    title: "Partners",
-    description: isMobile ? "Connected" : "Strong network of collaborators",
-    colors: ["#F59E0B", "#FBBF24", "#FDE68A"],
-    icon: Briefcase,
-    growthText: "18k+ youth trained"
-  }];
-  
-  const containerVariants = {
-    hidden: {
-      opacity: 0
+  const stats = [
+    {
+      value: 180,
+      suffix: "+",
+      title: "Startups",
+      description: isMobile ? "Supported" : "Building impactful ventures across sectors",
+      colors: ["#FED700", "#FFE55C", "#FFB800"],
+      icon: Award,
+      growthText: "52% women-led"
     },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2
-      }
-    }
-  };
-  
-  const itemVariants = {
-    hidden: {
-      y: 20,
-      opacity: 0,
-      scale: 0.95
+    {
+      value: 248,
+      prefix: "$",
+      suffix: "M+",
+      title: "Revenue",
+      description: isMobile ? "Generated" : "By our portfolio companies",
+      colors: ["#FFB800", "#FED700", "#FFE55C"],
+      icon: Building,
+      growthText: "71% survival rate"
     },
-    visible: {
-      y: 0,
-      opacity: 1,
-      scale: 1,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 15
-      }
+    {
+      value: 1900,
+      suffix: "+",
+      title: "Jobs",
+      description: isMobile ? "Created" : "Contributing to economic growth",
+      colors: ["#FFE55C", "#FFB800", "#FED700"],
+      icon: Users,
+      growthText: "Regional impact"
+    },
+    {
+      value: 140,
+      suffix: "+",
+      title: "Partners",
+      description: isMobile ? "Connected" : "Strong network of collaborators",
+      colors: ["#FED700", "#FFB800", "#FFE55C"],
+      icon: Briefcase,
+      growthText: "18k+ youth trained"
     }
-  };
-  
-  return <section className="py-8 md:py-16 lg:py-24 bg-white relative overflow-hidden">
+  ];
+
+  return (
+    <section className="py-8 md:py-16 lg:py-24 bg-sheraa-background-DEFAULT relative overflow-hidden">
       <div className="container mx-auto px-4">
-        <motion.div className="text-center mb-8 md:mb-12 max-w-3xl mx-auto" initial={{
-        opacity: 0,
-        y: 20
-      }} whileInView={{
-        opacity: 1,
-        y: 0
-      }} viewport={{
-        once: true
-      }} transition={{
-        duration: 0.8
-      }}>
+        <motion.div 
+          className="text-center mb-8 md:mb-12 max-w-3xl mx-auto"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
           <h2 className="text-3xl md:text-4xl font-bold mb-3 bg-gradient-to-r from-sheraa-dark to-sheraa-primary bg-clip-text text-transparent">
             Creating Lasting Change
           </h2>
-          {!isMobile && <p className="text-gray-600 leading-relaxed">
+          {!isMobile && (
+            <p className="text-gray-600 leading-relaxed">
               We measure our success through the achievements of our founders and ecosystem growth.
-            </p>}
+            </p>
+          )}
         </motion.div>
 
-        <motion.div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6" variants={containerVariants} initial="hidden" whileInView="visible" viewport={{
-        once: true,
-        margin: "-100px"
-      }}>
-          {stats.map((stat, index) => <motion.div key={index} variants={itemVariants}>
-              <Card className="relative h-full border-none rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300">
-                <div className="absolute inset-0 z-0">
-                  <AnimatedGradient colors={stat.colors} speed={3} blur="medium" />
-                </div>
-                <CardContent className="p-4 md:p-5 text-center relative z-10 backdrop-blur-sm">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+          {stats.map((stat, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ delay: index * 0.1 }}
+            >
+              <Card className="relative h-full overflow-hidden rounded-xl border-none shadow-lg">
+                <AnimatedGradient colors={stat.colors} speed={8} blur="medium" />
+                <div className="relative z-10 p-4 md:p-6 backdrop-blur-sm">
                   <stat.icon className="w-6 h-6 mx-auto mb-2 text-sheraa-primary" />
-                  <div className="text-4xl md:text-4xl font-bold text-sheraa-primary mb-1">
-                    <Counter end={stat.value} prefix={stat.prefix || ""} suffix={stat.suffix || ""} />
+                  <div className="text-4xl md:text-5xl font-bold text-sheraa-dark mb-2">
+                    <Counter
+                      end={stat.value}
+                      prefix={stat.prefix || ""}
+                      suffix={stat.suffix || ""}
+                    />
                   </div>
-                  <h3 className="text-base font-semibold mb-1">{stat.title}</h3>
-                  <p className="text-xs text-gray-600 mb-2">{stat.description}</p>
+                  <h3 className="text-lg font-semibold mb-1 text-sheraa-dark">{stat.title}</h3>
+                  <p className="text-sm text-gray-600 mb-3">{stat.description}</p>
                   
                   <div className="inline-flex items-center text-xs font-medium text-green-600 bg-green-50 px-2 py-0.5 rounded-full">
                     <TrendingUp className="w-3 h-3 mr-1" />
                     <span>{stat.growthText}</span>
                   </div>
-                </CardContent>
+                </div>
               </Card>
-            </motion.div>)}
-        </motion.div>
+            </motion.div>
+          ))}
+        </div>
 
-        <motion.div className="mt-6 md:mt-12 text-center" initial={{
-        opacity: 0,
-        y: 20
-      }} whileInView={{
-        opacity: 1,
-        y: 0
-      }} viewport={{
-        once: true
-      }} transition={{
-        duration: 0.5
-      }}>
+        <motion.div 
+          className="mt-8 md:mt-12 text-center"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
           <Button asChild size="sm" className="bg-sheraa-primary hover:bg-sheraa-primary/90 group">
             <Link to="/about/impact" className="flex items-center gap-2">
               View Impact Report 
@@ -180,7 +152,8 @@ const ImpactNumbers = () => {
           </Button>
         </motion.div>
       </div>
-    </section>;
+    </section>
+  );
 };
 
 export default ImpactNumbers;
