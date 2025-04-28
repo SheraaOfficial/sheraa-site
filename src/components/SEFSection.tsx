@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -6,6 +5,7 @@ import { Calendar, MapPin, Users, Award, Book } from "lucide-react";
 import { motion } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Particles } from "@/components/ui/particles";
+import { BeamsBackground } from "@/components/ui/beams-background";
 
 const SEFSection = () => {
   const isMobile = useIsMobile();
@@ -19,6 +19,7 @@ const SEFSection = () => {
 
   return (
     <section className="py-12 md:py-20 relative overflow-hidden bg-[#1A1F2C]">
+      <BeamsBackground intensity="subtle" />
       <Particles
         className="absolute inset-0"
         quantity={100}
