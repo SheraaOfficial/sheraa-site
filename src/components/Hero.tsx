@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -6,6 +7,7 @@ import { ArrowRight } from "lucide-react";
 import { Glow } from "./ui/glow";
 import { TextShimmer } from "./ui/text-shimmer";
 import { Badge } from "./ui/badge";
+import ParticleBackground from "./ParticleBackground";
 
 const Hero = () => {
   const [titleIndex, setTitleIndex] = useState(0);
@@ -23,6 +25,8 @@ const Hero = () => {
 
   return (
     <section className="relative min-h-[90vh] overflow-hidden bg-background text-foreground py-12 sm:py-24 md:py-32 px-4">
+      <ParticleBackground />
+      
       <div className="container mx-auto relative z-10">
         <div className="max-w-3xl mx-auto text-center space-y-8">
           <motion.div 

@@ -38,10 +38,12 @@ const ParticleBackground = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       particles.forEach(particle => {
-        // Draw particle
+        // Draw particle with Sheraa brand colors
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(0, 102, 161, 0.1)'; // sheraa-primary with low opacity
+        ctx.fillStyle = Math.random() > 0.5 
+          ? 'rgba(0, 51, 102, 0.1)'  // sheraa-primary with low opacity
+          : 'rgba(255, 102, 0, 0.1)'; // sheraa-orange with low opacity
         ctx.fill();
 
         // Update position
