@@ -22,7 +22,6 @@ const Index = () => {
       <Navigation />
       <main className="flex-grow">
         <Hero />
-        <PodcastSection />
         <div className="space-y-0 md:space-y-0 lg:space-y-0">
           <ImpactNumbers />
           <QuoteSection />
@@ -30,6 +29,7 @@ const Index = () => {
           <EligibilityChecker />
           <SEFSection />
           <StartupsShowcase />
+          <PodcastSection />
           <CommunitySection />
           <StartupTestimonials />
           <WhySharjah />
