@@ -1,82 +1,83 @@
-import React from "react";
+
+import React, { useState, useEffect, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight, Target, Rocket, Globe } from "lucide-react";
-import MarqueeUpdates from "./MarqueeUpdates";
-import AnimatedSailboat from "./AnimatedSailboat";
-import { useIsMobile } from "@/hooks/use-mobile";
+import { ArrowRight } from "lucide-react";
 import { AnimatedBackground } from "./ui/animated-background";
 import { TextShimmer } from "./ui/text-shimmer";
 
 const Hero = () => {
-  const isMobile = useIsMobile();
-  
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3
-      }
-    }
-  };
+  const [titleIndex, setTitleIndex] = useState(0);
+  const titles = useMemo(
+    () => ["Innovate", "Create", "Scale", "Transform", "Grow"],
+    []
+  );
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 10
-      }
-    }
-  };
-
-  const impactIcons = [
-    { icon: Target, text: "180+ Startups Supported", color: "text-green-500" },
-    { icon: Rocket, text: "$248M+ Revenue Generated", color: "text-blue-500" },
-    { icon: Globe, text: "1,900+ Jobs Created", color: "text-purple-500" }
-  ];
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setTitleIndex((prev) => (prev === titles.length - 1 ? 0 : prev + 1));
+    }, 2000);
+    return () => clearTimeout(timeoutId);
+  }, [titleIndex, titles]);
 
   return (
-    <div className="relative min-h-screen flex flex-col">
-      <AnimatedBackground className="flex-1 flex items-center overflow-hidden">
-        <AnimatedSailboat />
-        
+    <div className="relative min-h-[90vh] flex flex-col">
+      <AnimatedBackground className="flex-1 flex items-center">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <motion.div 
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            className="max-w-3xl mx-auto text-center"
-          >
-            <motion.div variants={itemVariants} className="inline-block bg-sheraa-secondary/10 px-6 py-2 rounded-full text-sheraa-secondary text-sm font-medium mb-6">
+          <div className="max-w-3xl mx-auto text-center space-y-8">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="inline-block bg-sheraa-primary/10 px-6 py-2 rounded-full text-sheraa-primary text-sm font-medium"
+            >
               Creating the Next Wave of Entrepreneurs
             </motion.div>
 
-            <motion.h1 variants={itemVariants} className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-8">
-              <span className="block text-sheraa-dark mb-4">
-                Transform Your Vision
-              </span>
-              <TextShimmer>
-                Into Reality
-              </TextShimmer>
-            </motion.h1>
+            <div className="space-y-4">
+              <h1 className="text-5xl md:text-7xl font-bold tracking-tight">
+                <span className="block text-sheraa-dark mb-4">
+                  Dream to
+                </span>
+                <div className="h-[1.2em] relative flex justify-center overflow-hidden">
+                  {titles.map((title, index) => (
+                    <motion.span
+                      key={index}
+                      className="absolute font-bold"
+                      initial={{ opacity: 0, y: 50 }}
+                      animate={{
+                        y: titleIndex === index ? 0 : titleIndex > index ? -50 : 50,
+                        opacity: titleIndex === index ? 1 : 0
+                      }}
+                      transition={{ type: "spring", stiffness: 50 }}
+                    >
+                      <TextShimmer>{title}</TextShimmer>
+                    </motion.span>
+                  ))}
+                </div>
+              </h1>
 
-            <motion.p variants={itemVariants} className="text-xl text-gray-600 mb-10 leading-relaxed max-w-2xl mx-auto">
-              Sharjah's official hub for aspiring founders and established ventures. 
-              We empower changemakers to build impactful businesses and shape the future.
-            </motion.p>
+              <motion.p 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="text-xl text-gray-600 max-w-2xl mx-auto"
+              >
+                Sharjah's official hub for aspiring founders and established ventures. 
+                We empower changemakers to build impactful businesses and shape the future.
+              </motion.p>
+            </div>
 
-            <motion.div variants={itemVariants} className="flex flex-wrap gap-6 justify-center">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="flex flex-wrap gap-4 justify-center"
+            >
               <Button 
                 asChild 
                 size="lg" 
-                className="bg-sheraa-primary hover:bg-sheraa-primary/90 transform transition-all group px-8"
+                className="bg-sheraa-primary hover:bg-sheraa-primary/90 transform transition-all group"
               >
                 <Link to="/programs" className="flex items-center gap-2">
                   Launch Your Startup
@@ -87,34 +88,14 @@ const Hero = () => {
                 asChild 
                 variant="outline" 
                 size="lg" 
-                className="border-sheraa-primary text-sheraa-primary hover:bg-sheraa-light transform transition-all px-8"
+                className="border-sheraa-primary text-sheraa-primary hover:bg-sheraa-light"
               >
                 <Link to="/community/join">Join Our Community</Link>
               </Button>
             </motion.div>
-          </motion.div>
-        </div>
-
-        <div className="absolute bottom-0 left-0 right-0 backdrop-blur-md bg-white/30 border-t border-white/20">
-          <div className="container mx-auto px-4 py-6">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {impactIcons.map((item, index) => (
-                <motion.div 
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5 + index * 0.1 }}
-                  className="flex items-center justify-center gap-3 text-sheraa-dark/80"
-                >
-                  <item.icon className={`w-6 h-6 ${item.color}`} />
-                  <span className="font-medium">{item.text}</span>
-                </motion.div>
-              ))}
-            </div>
           </div>
         </div>
       </AnimatedBackground>
-      <MarqueeUpdates />
     </div>
   );
 };
