@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -21,7 +22,7 @@ const SEFSection = () => {
       <Particles
         className="absolute inset-0"
         quantity={100}
-        color="#D946EF"
+        color="#FED700"
         ease={80}
         staticity={30}
         size={0.6}
@@ -37,11 +38,11 @@ const SEFSection = () => {
             viewport={{ once: true, margin: "-100px" }}
             className="relative z-10"
           >
-            <div className="inline-block bg-gradient-to-r from-[#D946EF]/20 to-purple-600/20 px-4 py-1 rounded-full text-[#D946EF] text-sm font-medium mb-5 border border-[#D946EF]/20">
+            <div className="inline-block bg-[#FED700]/20 px-4 py-1 rounded-full text-[#FED700] text-sm font-medium mb-5 border border-[#FED700]/20">
               THE REGION'S PREMIER ENTREPRENEURSHIP FESTIVAL
             </div>
             
-            <h2 className="text-3xl md:text-4xl font-bold mb-5 bg-gradient-to-r from-white via-purple-100 to-fuchsia-100 bg-clip-text text-transparent">
+            <h2 className="text-3xl md:text-4xl font-bold mb-5 bg-gradient-to-r from-white via-[#FED700]/90 to-[#FED700]/70 bg-clip-text text-transparent">
               Sharjah Entrepreneurship Festival 2026
             </h2>
             
@@ -60,7 +61,7 @@ const SEFSection = () => {
                   viewport={{ once: true, margin: "-100px" }}
                   className="flex flex-col items-center text-center p-2"
                 >
-                  <stat.icon className="w-5 h-5 text-[#D946EF] mb-2" />
+                  <stat.icon className="w-5 h-5 text-[#FED700] mb-2" />
                   <div className="text-xl font-bold text-white">{stat.value}</div>
                   <div className="text-xs text-gray-400">{stat.label}</div>
                 </motion.div>
@@ -70,14 +71,14 @@ const SEFSection = () => {
             <div className="flex flex-wrap gap-4">
               <Button 
                 asChild 
-                className="bg-[#D946EF] hover:bg-[#D946EF]/90"
+                className="bg-[#FED700] hover:bg-[#FED700]/90 text-black"
               >
                 <Link to="/events/sef">Learn More</Link>
               </Button>
               <Button 
                 asChild 
                 variant="outline" 
-                className="border-[#D946EF] text-[#D946EF] hover:bg-[#D946EF]/10"
+                className="border-[#FED700] text-[#FED700] hover:bg-[#FED700]/10"
               >
                 <Link to="/events/sef/register">Get Your Pass</Link>
               </Button>
@@ -94,17 +95,17 @@ const SEFSection = () => {
           >
             {/* Subtle background pattern */}
             <div className="absolute inset-0 opacity-5">
-              <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-purple-500 to-fuchsia-500 rounded-full blur-xl" />
-              <div className="absolute bottom-0 left-0 w-40 h-40 bg-gradient-to-tr from-purple-500 to-fuchsia-500 rounded-full blur-xl" />
+              <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-[#FED700] to-[#FED700]/50 rounded-full blur-xl" />
+              <div className="absolute bottom-0 left-0 w-40 h-40 bg-gradient-to-tr from-[#FED700] to-[#FED700]/50 rounded-full blur-xl" />
             </div>
 
-            <h3 className="text-2xl font-bold mb-6 bg-gradient-to-r from-[#D946EF] to-purple-400 bg-clip-text text-transparent relative z-10">
+            <h3 className="text-2xl font-bold mb-6 bg-gradient-to-r from-[#FED700] to-[#FED700]/70 bg-clip-text text-transparent relative z-10">
               Event Details
             </h3>
             
             <div className="space-y-6 relative z-10">
               <div className="flex items-center gap-4">
-                <Calendar className="w-5 h-5 text-[#D946EF]" />
+                <Calendar className="w-5 h-5 text-[#FED700]" />
                 <div>
                   <div className="text-sm text-gray-400">Date</div>
                   <div className="font-medium text-white">January 31 - February 1, 2026</div>
@@ -112,7 +113,7 @@ const SEFSection = () => {
               </div>
               
               <div className="flex items-center gap-4">
-                <MapPin className="w-5 h-5 text-[#D946EF]" />
+                <MapPin className="w-5 h-5 text-[#FED700]" />
                 <div>
                   <div className="text-sm text-gray-400">Location</div>
                   <div className="font-medium text-white">SRTI Park, Sharjah</div>
@@ -127,7 +128,7 @@ const SEFSection = () => {
             
             <Button 
               asChild 
-              className="w-full mt-8 bg-gradient-to-r from-[#D946EF] to-purple-600 hover:opacity-90 relative z-10"
+              className="w-full mt-8 bg-gradient-to-r from-[#FED700] to-[#FED700]/80 hover:opacity-90 relative z-10 text-black"
             >
               <Link to="/events/sef/register">Register Now</Link>
             </Button>
