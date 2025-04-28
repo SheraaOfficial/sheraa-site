@@ -44,13 +44,11 @@ const SEFSection = () => {
           once: true,
           margin: "-100px"
         }} className="relative z-10 my-0 mx-0 py-0 px-[45px]">
-            <div className="inline-block bg-[#FED700]/20 px-4 py-1 rounded-full text-[#FED700] text-sm font-medium mb-5 border border-[#FED700]/20">
-              THE REGION'S PREMIER ENTREPRENEURSHIP FESTIVAL
-            </div>
+            <div className="inline-block bg-[#FED700]/20 px-4 py-1 rounded-full text-[#FED700] text-sm font-medium mb-5 border border-[#FED700]/20">THE REGION'S LARGEST ENTREPRENEURSHIP FESTIVAL</div>
             
-            <h2 className="text-3xl md:text-4xl font-bold mb-5 bg-gradient-to-r from-white via-[#FED700]/90 to-[#FED700]/70 bg-clip-text text-transparent">
-              Sharjah Entrepreneurship Festival 2026
-            </h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-5 bg-gradient-to-r from-white via-[#FED700]/90 to-[#FED700]/70 bg-clip-text text-transparent mx-[64px]">SHARJAH 
+ENTREPRENEURSHIP
+FESTIVAL</h2>
             
             <p className="text-gray-300 mb-6">
               Experience two electrifying days of innovation and meaningful connections at SRTI Park, Sharjah.
