@@ -14,6 +14,7 @@ import EligibilityChecker from "@/components/EligibilityChecker";
 import ContactSection from "@/components/ContactSection";
 import StartupsShowcase from "@/components/StartupsShowcase";
 import StartupTestimonials from "@/components/StartupTestimonials";
+import PodcastSection from "@/components/PodcastSection";
 
 const Index = () => {
   return (
@@ -21,6 +22,7 @@ const Index = () => {
       <Navigation />
       <main className="flex-grow">
         <Hero />
+        <PodcastSection />
         <div className="space-y-0 md:space-y-0 lg:space-y-0">
           <ImpactNumbers />
           <QuoteSection />
