@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { Play, Mic, Calendar, ArrowRight } from "lucide-react";
+import { Headphones, Rss } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
@@ -23,15 +23,14 @@ const PodcastSection = () => {
           </p>
         </motion.div>
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Yalsat Nwakhtha Podcast */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
-            className="group"
           >
-            <div className="bg-white rounded-xl p-6 border border-gray-100 hover:border-sheraa-primary/20 transition-all">
+            <div className="bg-white rounded-xl p-6 border border-gray-200 hover:border-sheraa-primary/20 transition-all">
               <div className="flex items-start gap-6">
                 <div className="w-24 h-24 rounded-lg overflow-hidden bg-sheraa-primary/5 flex-shrink-0">
                   <img 
@@ -40,7 +39,7 @@ const PodcastSection = () => {
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <div>
+                <div className="flex-1">
                   <span className="text-xs font-medium text-sheraa-primary bg-sheraa-primary/5 px-3 py-1 rounded-full">
                     NEW EPISODE
                   </span>
@@ -50,13 +49,22 @@ const PodcastSection = () => {
                   <p className="text-sm text-gray-600 mb-4 line-clamp-2">
                     Join H.E. Sheikha Lubna Al Qasimi in an inspiring conversation about leadership, courage, and creating lasting change.
                   </p>
-                  <Button 
-                    size="sm"
-                    className="bg-sheraa-primary hover:bg-sheraa-primary/90"
-                  >
-                    <Play className="w-4 h-4 mr-2" />
-                    Listen Now
-                  </Button>
+                  <div className="flex gap-3">
+                    <Button 
+                      size="sm"
+                      className="bg-sheraa-primary hover:bg-sheraa-primary/90"
+                    >
+                      <Headphones className="w-4 h-4 mr-2" />
+                      Listen Now
+                    </Button>
+                    <Button 
+                      variant="outline"
+                      size="sm"
+                    >
+                      <Rss className="w-4 h-4 mr-2" />
+                      Subscribe
+                    </Button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -67,14 +75,17 @@ const PodcastSection = () => {
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="group"
           >
-            <div className="bg-white rounded-xl p-6 border border-gray-100 hover:border-sheraa-orange/20 transition-all">
+            <div className="bg-white rounded-xl p-6 border border-gray-200 hover:border-sheraa-orange/20 transition-all">
               <div className="flex items-start gap-6">
                 <div className="w-24 h-24 rounded-lg overflow-hidden bg-sheraa-orange/5 flex-shrink-0 flex items-center justify-center">
-                  <Mic className="w-10 h-10 text-sheraa-orange/40" />
+                  <img 
+                    src="/sef-podcast-cover.jpg" 
+                    alt="SEF Backstage Podcast"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
-                <div>
+                <div className="flex-1">
                   <span className="text-xs font-medium text-sheraa-orange bg-sheraa-orange/5 px-3 py-1 rounded-full">
                     COMING SOON
                   </span>
@@ -89,7 +100,7 @@ const PodcastSection = () => {
                     size="sm"
                     className="border-sheraa-orange text-sheraa-orange hover:bg-sheraa-orange/5"
                   >
-                    <Calendar className="w-4 h-4 mr-2" />
+                    <Rss className="w-4 h-4 mr-2" />
                     Get Notified
                   </Button>
                 </div>
@@ -97,12 +108,19 @@ const PodcastSection = () => {
             </div>
           </motion.div>
         </div>
-        
-        <div className="mt-8 text-center">
-          <Link to="/resources/podcasts" className="inline-flex items-center text-sheraa-primary hover:text-sheraa-primary/80 text-sm font-medium transition-colors">
-            Explore All Episodes
-            <ArrowRight className="w-4 h-4 ml-1" />
-          </Link>
+
+        <div className="mt-12 text-center">
+          <div className="max-w-2xl mx-auto">
+            <p className="text-sm text-gray-600 mb-4">
+              Listen to our podcasts on Buzzsprout, alongside other inspiring entrepreneurship and innovation-focused shows.
+            </p>
+            <div className="flex flex-wrap gap-2 justify-center text-xs">
+              <span className="bg-gray-100 px-3 py-1 rounded-full text-gray-600">StartUp Stories</span>
+              <span className="bg-gray-100 px-3 py-1 rounded-full text-gray-600">Tech Talks MENA</span>
+              <span className="bg-gray-100 px-3 py-1 rounded-full text-gray-600">Innovation Hub</span>
+              <span className="bg-gray-100 px-3 py-1 rounded-full text-gray-600">Entrepreneur's Journey</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
