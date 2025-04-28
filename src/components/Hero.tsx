@@ -7,8 +7,11 @@ import ParticleBackground from "./ParticleBackground";
 import { ArrowRight, Target, Rocket, Globe } from "lucide-react";
 import MarqueeUpdates from "./MarqueeUpdates";
 import AnimatedSailboat from "./AnimatedSailboat";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const Hero = () => {
+  const isMobile = useIsMobile();
+  
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
