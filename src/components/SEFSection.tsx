@@ -1,10 +1,10 @@
-
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Calendar, MapPin, Users, Award, Book } from "lucide-react";
 import { motion } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { Particles } from "@/components/ui/particles";
 
 const SEFSection = () => {
   const isMobile = useIsMobile();
@@ -17,35 +17,14 @@ const SEFSection = () => {
   ];
 
   return (
-    <section className="py-12 md:py-20 relative overflow-hidden bg-gradient-to-br from-[#1A1F2C] via-[#2D1A2C] to-[#3D1A2C]">
-      <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-10 mix-blend-overlay" />
-      
-      {/* Background gradient blobs */}
-      <motion.div 
-        className="absolute top-10 right-10 w-64 h-64 rounded-full bg-purple-600/10 blur-3xl"
-        animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.3, 0.5, 0.3]
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      />
-      
-      <motion.div 
-        className="absolute bottom-10 left-10 w-80 h-80 rounded-full bg-fuchsia-500/10 blur-3xl"
-        animate={{
-          scale: [1, 1.1, 1],
-          opacity: [0.2, 0.4, 0.2]
-        }}
-        transition={{
-          duration: 6,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 2
-        }}
+    <section className="py-12 md:py-20 relative overflow-hidden bg-[#1A1F2C]">
+      <Particles
+        className="absolute inset-0"
+        quantity={100}
+        color="#D946EF"
+        ease={80}
+        staticity={30}
+        size={0.6}
       />
       
       <div className="container mx-auto px-4 relative z-10">
@@ -56,6 +35,7 @@ const SEFSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true, margin: "-100px" }}
+            className="relative z-10"
           >
             <div className="inline-block bg-gradient-to-r from-[#D946EF]/20 to-purple-600/20 px-4 py-1 rounded-full text-[#D946EF] text-sm font-medium mb-5 border border-[#D946EF]/20">
               THE REGION'S PREMIER ENTREPRENEURSHIP FESTIVAL
