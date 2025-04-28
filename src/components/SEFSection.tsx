@@ -30,7 +30,7 @@ const SEFSection = () => {
       <Particles className="absolute inset-0" quantity={100} color="#FED700" ease={80} staticity={30} size={0.6} />
       
       <div className="container mx-auto px-4 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center py-0 px-[100px] my-[41px] mx-[39px]">
           {/* Content Section */}
           <motion.div initial={{
           opacity: 0,
@@ -43,12 +43,10 @@ const SEFSection = () => {
         }} viewport={{
           once: true,
           margin: "-100px"
-        }} className="relative z-10 my-0 mx-0 py-0 px-[45px]">
+        }} className="relative z-10 my-0 mx-0 py-0 px-0">
             <div className="inline-block bg-[#FED700]/20 px-4 py-1 rounded-full text-[#FED700] text-sm font-medium mb-5 border border-[#FED700]/20">THE REGION'S LARGEST ENTREPRENEURSHIP FESTIVAL</div>
             
-            <h2 className="text-3xl md:text-4xl font-bold mb-5 bg-gradient-to-r from-white via-[#FED700]/90 to-[#FED700]/70 bg-clip-text text-transparent mx-[64px]">SHARJAH 
-ENTREPRENEURSHIP
-FESTIVAL</h2>
+            <h2 className="text-3xl font-bold mb-5 bg-gradient-to-r from-white via-[#FED700]/90 to-[#FED700]/70 bg-clip-text text-transparent mx-0 md:text-7xl">SHARJAH          ENTREPRENEURSHIP          FESTIVAL 2026</h2>
             
             <p className="text-gray-300 mb-6">
               Experience two electrifying days of innovation and meaningful connections at SRTI Park, Sharjah.
@@ -67,21 +65,14 @@ FESTIVAL</h2>
             }} viewport={{
               once: true,
               margin: "-100px"
-            }} className="flex flex-col items-center text-center p-2">
+            }} className="flex flex-col items-center text-center p-2 px-[141px] py-0 my-0">
                   <stat.icon className="w-5 h-5 text-[#FED700] mb-2" />
                   <div className="text-xl font-bold text-white">{stat.value}</div>
                   <div className="text-xs text-gray-400">{stat.label}</div>
                 </motion.div>)}
             </div>
 
-            <div className="flex flex-wrap gap-4">
-              <Button asChild className="bg-[#FED700] hover:bg-[#FED700]/90 text-black">
-                <Link to="/events/sef">Learn More</Link>
-              </Button>
-              <Button asChild variant="outline" className="border-[#FED700] text-[#FED700] hover:bg-[#FED700]/10">
-                <Link to="/events/sef/register">Get Your Pass</Link>
-              </Button>
-            </div>
+            
           </motion.div>
 
           {/* Event Details Card */}
@@ -99,7 +90,7 @@ FESTIVAL</h2>
           margin: "-100px"
         }} className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 overflow-hidden relative">
             {/* Subtle background pattern */}
-            <div className="absolute inset-0 opacity-5">
+            <div className="absolute inset-0 opacity-5 my-0 mx-0 px-0">
               <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-[#FED700] to-[#FED700]/50 rounded-full blur-xl" />
               <div className="absolute bottom-0 left-0 w-40 h-40 bg-gradient-to-tr from-[#FED700] to-[#FED700]/50 rounded-full blur-xl" />
             </div>
