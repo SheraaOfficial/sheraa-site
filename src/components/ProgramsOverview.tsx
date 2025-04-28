@@ -1,9 +1,10 @@
+
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { motion } from "framer-motion";
-import { GraduationCap, Rocket, Globe, Building2 } from "lucide-react";
+import { GraduationCap, Rocket, Globe, Building2, ArrowRight } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const ProgramsOverview = () => {

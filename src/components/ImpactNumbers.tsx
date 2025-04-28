@@ -1,9 +1,11 @@
+
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { motion, useInView } from "framer-motion";
 import { ArrowRight, TrendingUp, Award, Users, Building, Briefcase } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const Counter = ({ 
   end, 
@@ -44,6 +46,8 @@ const Counter = ({
 };
 
 const ImpactNumbers = () => {
+  const isMobile = useIsMobile();
+  
   const stats = [
     {
       value: 180,
