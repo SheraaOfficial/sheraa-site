@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
@@ -6,6 +7,8 @@ import { motion, useInView } from "framer-motion";
 import { ArrowRight, TrendingUp, Award, Users, Building, Briefcase } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { TextShimmer } from "./ui/text-shimmer";
+import { AnimatedGradient } from "@/components/ui/animated-gradient-with-svg";
+
 const Counter = ({
   end,
   duration = 2,
@@ -20,6 +23,7 @@ const Counter = ({
     margin: "-100px"
   });
   const shouldStart = startOnView ? isInView : true;
+  
   useEffect(() => {
     if (!shouldStart) return;
     let startTime = null;
@@ -34,20 +38,23 @@ const Counter = ({
     };
     window.requestAnimationFrame(step);
   }, [end, duration, shouldStart]);
+  
   return <TextShimmer className="font-display" ref={counterRef}>
       {prefix}
       {count.toLocaleString()}
       {suffix}
     </TextShimmer>;
 };
+
 const ImpactNumbers = () => {
   const isMobile = useIsMobile();
+  
   const stats = [{
     value: 180,
     suffix: "+",
     title: "Startups",
     description: isMobile ? "Supported" : "Building impactful ventures across sectors",
-    color: "from-blue-500/20 to-sheraa-primary/20",
+    colors: ["#4F46E5", "#9089FC", "#C7D2FE"],
     icon: Award,
     growthText: "52% women-led"
   }, {
@@ -56,7 +63,7 @@ const ImpactNumbers = () => {
     suffix: "M+",
     title: "Revenue",
     description: isMobile ? "Generated" : "By our portfolio companies",
-    color: "from-green-500/20 to-sheraa-secondary/20",
+    colors: ["#10B981", "#34D399", "#A7F3D0"],
     icon: Building,
     growthText: "71% survival rate"
   }, {
@@ -64,7 +71,7 @@ const ImpactNumbers = () => {
     suffix: "+",
     title: "Jobs",
     description: isMobile ? "Created" : "Contributing to economic growth",
-    color: "from-purple-500/20 to-pink-500/20",
+    colors: ["#8B5CF6", "#A78BFA", "#DDD6FE"],
     icon: Users,
     growthText: "Regional impact"
   }, {
@@ -72,10 +79,11 @@ const ImpactNumbers = () => {
     suffix: "+",
     title: "Partners",
     description: isMobile ? "Connected" : "Strong network of collaborators",
-    color: "from-orange-500/20 to-red-500/20",
+    colors: ["#F59E0B", "#FBBF24", "#FDE68A"],
     icon: Briefcase,
     growthText: "18k+ youth trained"
   }];
+  
   const containerVariants = {
     hidden: {
       opacity: 0
@@ -87,6 +95,7 @@ const ImpactNumbers = () => {
       }
     }
   };
+  
   const itemVariants = {
     hidden: {
       y: 20,
@@ -104,32 +113,8 @@ const ImpactNumbers = () => {
       }
     }
   };
-  return <section className="py-8 md:py-16 lg:py-24 bg-gradient-to-b from-sheraa-background-DEFAULT to-white relative overflow-hidden">
-      <div className="absolute top-0 left-0 w-250 h-full overflow-hidden z-0 px-0">
-        <motion.div initial={{
-        scale: 0.8,
-        opacity: 0
-      }} animate={{
-        scale: 1,
-        opacity: 1
-      }} transition={{
-        duration: 1.5,
-        ease: "easeOut"
-      }} className="absolute -top-20 -left-20 w-96 h-96 rounded-full bg-gradient-to-br from-sheraa-secondary/10 to-transparent blur-3xl" />
-        <motion.div initial={{
-        scale: 0.8,
-        opacity: 0
-      }} animate={{
-        scale: 1,
-        opacity: 1
-      }} transition={{
-        duration: 1.5,
-        delay: 0.2,
-        ease: "easeOut"
-      }} className="absolute bottom-40 right-20 w-[30rem] h-[30rem] rounded-full bg-gradient-to-tl from-sheraa-primary/10 to-transparent blur-3xl" />
-        <div className="absolute top-60 right-40 w-20 h-20 rounded-full bg-gradient-to-br from-sheraa-secondary/20 to-transparent blur-xl animate-pulse" />
-      </div>
-
+  
+  return <section className="py-8 md:py-16 lg:py-24 bg-white relative overflow-hidden">
       <div className="container mx-auto px-4">
         <motion.div className="text-center mb-8 md:mb-12 max-w-3xl mx-auto" initial={{
         opacity: 0,
@@ -150,16 +135,18 @@ const ImpactNumbers = () => {
             </p>}
         </motion.div>
 
-        <motion.div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6" variants={containerVariants} initial="hidden" whileInView="visible" viewport={{
+        <motion.div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6" variants={containerVariants} initial="hidden" whileInView="visible" viewport={{
         once: true,
         margin: "-100px"
       }}>
           {stats.map((stat, index) => <motion.div key={index} variants={itemVariants}>
-              <Card className="relative h-full border-none shadow-md hover:shadow-lg transition-all duration-300">
-                <div className={`absolute inset-0 rounded-lg bg-gradient-to-br ${stat.color} opacity-40`} />
-                <CardContent className="p-4 md:p-4 text-center relative">
+              <Card className="relative h-full border-none rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300">
+                <div className="absolute inset-0 z-0">
+                  <AnimatedGradient colors={stat.colors} speed={3} blur="medium" />
+                </div>
+                <CardContent className="p-4 md:p-5 text-center relative z-10 backdrop-blur-sm">
                   <stat.icon className="w-6 h-6 mx-auto mb-2 text-sheraa-primary" />
-                  <div className="text-6xl md:text-4xl font-bold text-sheraa-primary mb-1">
+                  <div className="text-4xl md:text-4xl font-bold text-sheraa-primary mb-1">
                     <Counter end={stat.value} prefix={stat.prefix || ""} suffix={stat.suffix || ""} />
                   </div>
                   <h3 className="text-base font-semibold mb-1">{stat.title}</h3>
@@ -195,4 +182,5 @@ const ImpactNumbers = () => {
       </div>
     </section>;
 };
+
 export default ImpactNumbers;
