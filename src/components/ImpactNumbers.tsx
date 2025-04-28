@@ -116,17 +116,17 @@ const ImpactNumbers = () => {
             >
               <GlowingStarsBackgroundCard className="h-full">
                 <div className="flex flex-col items-center text-center space-y-3 pt-4">
-                  <div className="text-5xl md:text-6xl font-bold">
+                  <div className="text-5xl md:text-6xl font-bold text-sheraa-primary">
                     <Counter
                       end={stat.value}
                       prefix={stat.prefix || ""}
                       suffix={stat.suffix || ""}
-                      className="text-white"
+                      className="text-sheraa-primary"
                     />
                   </div>
                   <GlowingStarsTitle className="mt-2">{stat.title}</GlowingStarsTitle>
                   <GlowingStarsDescription>{stat.description}</GlowingStarsDescription>
-                  <div className="inline-flex items-center text-xs font-medium text-blue-400 bg-blue-900/30 px-3 py-1 rounded-full mt-2">
+                  <div className="inline-flex items-center text-xs font-medium text-sheraa-primary bg-sheraa-primary/10 px-3 py-1 rounded-full mt-2">
                     <span>{stat.growthText}</span>
                   </div>
                 </div>
