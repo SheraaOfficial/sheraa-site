@@ -107,6 +107,11 @@
 }
 
 @layer utilities {
+  .max-w-container {
+    max-width: 1400px;
+    width: 100%;
+  }
+  
   .bg-soft-gradient {
     background: linear-gradient(
       to bottom right, 
