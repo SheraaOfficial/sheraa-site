@@ -13,7 +13,7 @@ const randomInt = (min: number, max: number) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-const AnimatedGradient: React.FC<AnimatedGradientProps> = ({
+export const AnimatedGradient: React.FC<AnimatedGradientProps> = ({
   colors,
   speed = 5,
   blur = "light",
@@ -72,5 +72,3 @@ const AnimatedGradient: React.FC<AnimatedGradientProps> = ({
     </div>
   );
 };
-
-export { AnimatedGradient };
