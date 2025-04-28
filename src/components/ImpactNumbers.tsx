@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
@@ -6,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { motion, useInView } from "framer-motion";
 import { ArrowRight, TrendingUp, Award, Users, Building, Briefcase } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { TextShimmer } from "./ui/text-shimmer";
 
 const Counter = ({ 
   end, 
@@ -37,11 +37,11 @@ const Counter = ({
   }, [end, duration, shouldStart]);
 
   return (
-    <span className="font-display" ref={counterRef}>
+    <TextShimmer className="font-display" ref={counterRef}>
       {prefix}
       {count.toLocaleString()}
       {suffix}
-    </span>
+    </TextShimmer>
   );
 };
 

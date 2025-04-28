@@ -1,13 +1,13 @@
-
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import ParticleBackground from "./ParticleBackground";
 import { ArrowRight, Target, Rocket, Globe } from "lucide-react";
 import MarqueeUpdates from "./MarqueeUpdates";
 import AnimatedSailboat from "./AnimatedSailboat";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { AnimatedBackground } from "./ui/animated-background";
+import { TextShimmer } from "./ui/text-shimmer";
 
 const Hero = () => {
   const isMobile = useIsMobile();
@@ -44,8 +44,7 @@ const Hero = () => {
 
   return (
     <div className="relative min-h-screen flex flex-col">
-      <div className="flex-1 flex items-center overflow-hidden bg-gradient-to-br from-white via-sheraa-background-soft to-sheraa-light">
-        <ParticleBackground />
+      <AnimatedBackground className="flex-1 flex items-center overflow-hidden">
         <AnimatedSailboat />
         
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -63,9 +62,9 @@ const Hero = () => {
               <span className="block text-sheraa-dark mb-4">
                 Transform Your Vision
               </span>
-              <span className="block bg-gradient-to-r from-sheraa-primary to-sheraa-secondary bg-clip-text text-transparent">
+              <TextShimmer>
                 Into Reality
-              </span>
+              </TextShimmer>
             </motion.h1>
 
             <motion.p variants={itemVariants} className="text-xl text-gray-600 mb-10 leading-relaxed max-w-2xl mx-auto">
@@ -114,7 +113,7 @@ const Hero = () => {
             </div>
           </div>
         </div>
-      </div>
+      </AnimatedBackground>
       <MarqueeUpdates />
     </div>
   );
