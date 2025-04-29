@@ -62,24 +62,7 @@ export const Illustration = ({
     }, 3000);
     return () => clearInterval(interval);
   }, []);
-  return <div className="h-48 p-1 w-full" style={{
-    display: "grid",
-    gridTemplateColumns: `repeat(${columns}, 1fr)`,
-    gap: `1px`
-  }}>
-      {[...Array(stars)].map((_, starIdx) => {
-      const isGlowing = glowingStars.includes(starIdx);
-      const delay = starIdx % 10 * 0.1;
-      const staticDelay = starIdx * 0.01;
-      return <div key={`matrix-col-${starIdx}`} className="relative flex items-center justify-center my-[46px] px-[59px] py-[12px] mx-[31px]">
-            <Star isGlowing={mouseEnter ? true : isGlowing} delay={mouseEnter ? staticDelay : delay} />
-            {mouseEnter && <Glow delay={staticDelay} />}
-            <AnimatePresence mode="wait">
-              {isGlowing && <Glow delay={delay} />}
-            </AnimatePresence>
-          </div>;
-    })}
-    </div>;
+  return;
 };
 const Star = ({
   isGlowing,

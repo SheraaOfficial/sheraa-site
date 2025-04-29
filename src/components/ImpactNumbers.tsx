@@ -69,8 +69,8 @@ const ImpactNumbers = () => {
     description: isMobile ? "Connected" : "Strong network of collaborators",
     growthText: "18k+ youth trained"
   }];
-  return <section className="py-16 md:py-24 lg:py-32 bg-sheraa-background-DEFAULT relative overflow-hidden">
-      <div className="container mx-auto px-4">
+  return <section className="py-16 md:py-24 bg-sheraa-background-DEFAULT relative overflow-hidden lg:py-[63px]">
+      <div className="container mx-auto px-[60px]">
         <motion.div className="text-center mb-12 md:mb-16 max-w-3xl mx-auto" initial={{
         opacity: 0,
         y: 20
@@ -104,7 +104,7 @@ const ImpactNumbers = () => {
           delay: index * 0.1
         }}>
               <GlowingStarsBackgroundCard className="h-full">
-                <div className="flex flex-col items-center text-center space-y-3 pt-4 mx-0 bg-transparent py-0">
+                <div className="flex flex-col items-center text-center space-y- pt-4 mx-0 bg-transparent py-[41px]">
                   <div className="text-5xl md:text-6xl font-bold text-sheraa-primary">
                     <Counter end={stat.value} prefix={stat.prefix || ""} suffix={stat.suffix || ""} className="text-sheraa-primary" />
                   </div>

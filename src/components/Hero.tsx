@@ -16,7 +16,7 @@ const Hero = () => {
     }, 2000);
     return () => clearTimeout(timeoutId);
   }, [titleIndex, titles]);
-  return <section className="relative min-h-[70vh] overflow-hidden bg-background text-foreground py- sm:py-24 px-4 rounded-sm md:py-[125px]">
+  return <section className="relative min-h-[70vh] overflow-hidden bg-background text-foreground py- sm:py-24 px-4 rounded-sm md:py-[125px] py-[63px]">
       <ParticleBackground />
       
       <div className="container mx-auto relative z-10">
