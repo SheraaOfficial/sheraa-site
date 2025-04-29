@@ -163,6 +163,8 @@
   position: relative;
   overflow: hidden;
   box-shadow: 0 5px 15px rgba(0, 51, 102, 0.15);
+  color: white;
+  font-weight: 700;
 }
 
 .gradient-button::before {
@@ -192,6 +194,7 @@
 .gradient-button > * {
   position: relative;
   z-index: 1;
+  color: white;
 }
 
 /* Original styles below */
