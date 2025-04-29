@@ -15,12 +15,14 @@ import ContactSection from "@/components/ContactSection";
 import StartupsShowcase from "@/components/StartupsShowcase";
 import StartupTestimonials from "@/components/StartupTestimonials";
 import PodcastSection from "@/components/PodcastSection";
+import MarqueeUpdates from "@/components/MarqueeUpdates";
 
 const Index = () => {
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <Navigation />
-      <main className="flex-grow">
+      <MarqueeUpdates />
+      <main className="flex-grow pt-12">
         <Hero />
         <div className="space-y-0 md:space-y-0 lg:space-y-0">
           <ImpactNumbers />
