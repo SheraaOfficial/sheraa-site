@@ -1,5 +1,5 @@
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
@@ -16,22 +16,48 @@ import StartupsShowcase from "@/components/StartupsShowcase";
 import StartupTestimonials from "@/components/StartupTestimonials";
 import PodcastSection from "@/components/PodcastSection";
 import MarqueeUpdates from "@/components/MarqueeUpdates";
-import {
-  ParallaxSection,
-  ParallaxBackground,
-  ParallaxOrbs,
-  ParallaxStars,
-  ParallaxOverlay
-} from "@/components/ParallaxProvider";
 import ScrollProgressIndicator from "@/components/ScrollProgressIndicator";
-import { motion, useScroll } from "framer-motion";
-import { useIsMobile } from "@/hooks/use-mobile";
+import { motion } from "framer-motion";
+import { useIsMobile, useOptimizedScroll } from "@/hooks/use-mobile";
+
+// Lazy load heavy component sections for better mobile performance
+const LazyComponent = ({ component: Component, ...props }) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = React.useRef(null);
+  
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "200px" }
+    );
+    
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+    
+    return () => observer.disconnect();
+  }, []);
+  
+  return (
+    <div ref={ref} style={{ minHeight: 100 }}>
+      {isVisible ? <Component {...props} /> : null}
+    </div>
+  );
+};
 
 const Index = () => {
   const isMobile = useIsMobile();
+  const { scrollY, isScrolling } = useOptimizedScroll();
   
   // Add smooth scroll behavior on navigation clicks
   useEffect(() => {
+    if (isMobile) return; // Skip on mobile for performance
+    
     const handleAnchorClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       if (target.tagName === 'A' && target.getAttribute('href')?.startsWith('#')) {
@@ -49,169 +75,136 @@ const Index = () => {
     
     document.addEventListener('click', handleAnchorClick);
     return () => document.removeEventListener('click', handleAnchorClick);
-  }, []);
+  }, [isMobile]);
 
-  // Get scroll progress for conditional effects
-  const { scrollYProgress } = useScroll();
+  // Dynamic background based on scroll
+  const backgroundStyle = {
+    background: `linear-gradient(${
+      140 + (scrollY / (document.body.scrollHeight - window.innerHeight)) * 60
+    }deg, rgba(0,51,102,${
+      isMobile ? 0.03 : 0.05 + (scrollY / document.body.scrollHeight) * 0.1
+    }) 0%, rgba(0,128,128,${
+      isMobile ? 0.02 : 0.03 + (scrollY / document.body.scrollHeight) * 0.07
+    }) 50%, rgba(255,102,0,${
+      isMobile ? 0.01 : 0.02 + (scrollY / document.body.scrollHeight) * 0.05
+    }) 100%)`,
+  };
   
-  // Use smaller multipliers on mobile for better performance
-  const mobileMultiplier = 0.05;
+  // Track scroll direction for enhanced parallax
+  const [scrollDirection, setScrollDirection] = useState("down");
+  const lastScrollY = React.useRef(0);
   
+  useEffect(() => {
+    if (scrollY > lastScrollY.current) {
+      setScrollDirection("down");
+    } else if (scrollY < lastScrollY.current) {
+      setScrollDirection("up");
+    }
+    lastScrollY.current = scrollY;
+  }, [scrollY]);
+
   return (
     <div className="min-h-screen flex flex-col bg-white relative overflow-x-hidden perspective-1000">
       <ScrollProgressIndicator />
       <Navigation />
       <MarqueeUpdates />
       
-      {/* Conditionally render heavy parallax effects for desktop only */}
-      {!isMobile && <ParallaxStars />}
-      {!isMobile && <ParallaxOrbs />}
-      <ParallaxOverlay opacity={isMobile ? 0.02 : 0.05} />
+      <div className="fixed inset-0 pointer-events-none z-0" style={backgroundStyle} />
       
-      <ParallaxBackground>
-        <main className="flex-grow pt-12 relative z-10">
-          <ParallaxSection 
-            direction="up" 
-            scrollMultiplier={isMobile ? mobileMultiplier : 0.15} 
-            spring={!isMobile} 
-            className="z-10"
+      <main className="flex-grow pt-12 relative z-10">
+        {/* Hero section is critical, don't lazy load */}
+        <motion.section
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+        >
+          <Hero />
+        </motion.section>
+        
+        <div className="space-y-0 md:space-y-0 lg:space-y-0 relative z-10">
+          {/* Start using the better optimized motion component directly */}
+          <motion.section
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.5 }}
           >
-            <Hero />
-          </ParallaxSection>
+            <ImpactNumbers />
+          </motion.section>
           
-          <div className="space-y-0 md:space-y-0 lg:space-y-0 relative z-10">
-            <ParallaxSection 
-              direction="up" 
-              scrollMultiplier={isMobile ? mobileMultiplier : 0.25} 
-              spring={!isMobile}
-            >
-              <ImpactNumbers />
-            </ParallaxSection>
-            
-            <ParallaxSection 
-              direction="down" 
-              scrollMultiplier={isMobile ? mobileMultiplier : 0.2} 
-              spring={!isMobile} 
-              stiffness={40} 
-              damping={20}
-            >
-              <QuoteSection />
-            </ParallaxSection>
-            
-            <motion.div 
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 1.2 }}
-              className="relative z-20"
-            >
-              <ParallaxSection 
-                direction="up" 
-                scrollMultiplier={isMobile ? mobileMultiplier : 0.1} 
-                spring={!isMobile}
-              >
-                <ProgramsOverview />
-              </ParallaxSection>
-            </motion.div>
-            
-            <ParallaxSection 
-              direction="up" 
-              scrollMultiplier={isMobile ? mobileMultiplier : 0.15} 
-              spring={!isMobile} 
-              stiffness={60}
-            >
-              <EligibilityChecker />
-            </ParallaxSection>
-            
-            <ParallaxSection 
-              direction="down" 
-              scrollMultiplier={isMobile ? mobileMultiplier : 0.25} 
-              spring={!isMobile}
-            >
-              <SEFSection />
-            </ParallaxSection>
-            
-            <motion.div 
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8 }}
-              className="relative z-20"
-            >
-              <ParallaxSection 
-                direction={isMobile ? "up" : "left"} 
-                scrollMultiplier={isMobile ? mobileMultiplier : 0.15} 
-                spring={!isMobile}
-              >
-                <StartupsShowcase />
-              </ParallaxSection>
-            </motion.div>
-            
-            <ParallaxSection 
-              direction={isMobile ? "up" : "right"} 
-              scrollMultiplier={isMobile ? mobileMultiplier : 0.2} 
-              spring={!isMobile} 
-              stiffness={30} 
-              damping={25}
-            >
-              <PodcastSection />
-            </ParallaxSection>
-            
-            <ParallaxSection 
-              direction="up" 
-              scrollMultiplier={isMobile ? mobileMultiplier : 0.18} 
-              spring={!isMobile} 
-              damping={30}
-            >
-              <CommunitySection />
-            </ParallaxSection>
-            
-            <motion.div 
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8 }}
-              className="relative z-20"
-            >
-              <ParallaxSection 
-                direction="down" 
-                scrollMultiplier={isMobile ? mobileMultiplier : 0.12} 
-                spring={!isMobile}
-              >
-                <StartupTestimonials />
-              </ParallaxSection>
-            </motion.div>
-            
-            <ParallaxSection 
-              direction={isMobile ? "up" : "right"} 
-              scrollMultiplier={isMobile ? mobileMultiplier : 0.22} 
-              spring={!isMobile}
-            >
-              <WhySharjah />
-            </ParallaxSection>
-            
-            <ParallaxSection 
-              direction={isMobile ? "up" : "left"} 
-              scrollMultiplier={isMobile ? mobileMultiplier : 0.2} 
-              spring={!isMobile} 
-              stiffness={50} 
-              damping={20}
-            >
-              <PartnersSection />
-            </ParallaxSection>
-            
-            <motion.div 
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8 }}
-              className="relative z-20"
-            >
-              <ContactSection />
-            </motion.div>
-          </div>
-        </main>
-      </ParallaxBackground>
+          <motion.section
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7 }}
+          >
+            <QuoteSection />
+          </motion.section>
+          
+          <motion.section
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+          >
+            <ProgramsOverview />
+          </motion.section>
+          
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.5 }}
+          >
+            <EligibilityChecker />
+          </motion.section>
+          
+          <LazyComponent component={SEFSection} />
+          
+          <motion.section
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+            className={`relative ${isScrolling ? 'will-change-transform' : ''}`}
+          >
+            <StartupsShowcase />
+          </motion.section>
+          
+          <LazyComponent component={PodcastSection} />
+          
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.5 }}
+          >
+            <CommunitySection />
+          </motion.section>
+          
+          <LazyComponent component={StartupTestimonials} />
+          
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+          >
+            <WhySharjah />
+          </motion.section>
+          
+          <LazyComponent component={PartnersSection} />
+          
+          <motion.section
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7 }}
+          >
+            <ContactSection />
+          </motion.section>
+        </div>
+      </main>
       
       <Footer />
     </div>

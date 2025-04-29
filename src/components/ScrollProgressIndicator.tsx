@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const ScrollProgressIndicator: React.FC = () => {
@@ -8,52 +8,38 @@ const ScrollProgressIndicator: React.FC = () => {
   const [showProgress, setShowProgress] = useState(false);
   const isMobile = useIsMobile();
   
-  // Simpler transform for mobile
-  const scaleX = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [0, 1]
-  );
-  
-  // Simpler color transformation for mobile
-  const barColor = isMobile 
-    ? "linear-gradient(90deg, #003366 0%, #008080 100%)"
-    : useTransform(
-        scrollYProgress,
-        [0, 0.5, 1],
-        [
-          "linear-gradient(90deg, #003366 0%, #008080 100%)",
-          "linear-gradient(90deg, #008080 0%, #FF6600 100%)",
-          "linear-gradient(90deg, #FF6600 0%, #003366 100%)",
-        ]
-      );
-  
+  // Optimize scroll event listener with throttling
   useEffect(() => {
+    let lastKnownScrollPosition = 0;
     let ticking = false;
     
     const handleScroll = () => {
+      lastKnownScrollPosition = window.scrollY;
+      
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          setShowProgress(window.scrollY > 100);
+          setShowProgress(lastKnownScrollPosition > 50);
           ticking = false;
         });
         ticking = true;
       }
     };
     
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Simple gradient for all devices - avoid complex animations on mobile
+  const barGradient = "linear-gradient(90deg, #003366 0%, #008080 50%, #FF6600 100%)";
+
   return (
     <motion.div
-      className={`fixed top-0 left-0 right-0 h-1.5 z-[100] origin-left ${
+      className={`fixed top-0 left-0 right-0 h-1 z-[100] origin-left ${
         showProgress ? "opacity-100" : "opacity-0"
-      } transition-opacity duration-500 will-change-transform`}
-      style={{ 
-        scaleX, 
-        background: isMobile ? barColor : barColor,
-        boxShadow: isMobile ? 'none' : '0 0 10px rgba(0, 128, 128, 0.4)',
+      } transition-opacity duration-300 will-change-transform gpu-accelerated`}
+      style={{
+        scaleX: scrollYProgress,
+        background: barGradient,
       }}
     />
   );

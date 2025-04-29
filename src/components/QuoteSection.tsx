@@ -1,8 +1,7 @@
 
 import React from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll } from "framer-motion";
 import { Quote } from "lucide-react";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const QuoteSection = () => {
@@ -12,64 +11,43 @@ const QuoteSection = () => {
     target: containerRef,
     offset: ["start end", "end start"]
   });
-  
-  // Simplified transformations for mobile
-  const opacity = useTransform(
-    scrollYProgress, 
-    isMobile ? [0.1, 0.3, 0.8, 1] : [0.1, 0.25, 0.75, 0.9], 
-    [0, 1, 1, 0]
-  );
-  
-  const scale = isMobile ? 1 : useTransform(
-    scrollYProgress, 
-    [0.1, 0.3, 0.7, 0.9], 
-    [0.8, 1, 1, 0.9]
-  );
-  
-  const rotate = isMobile ? 0 : useTransform(
-    scrollYProgress, 
-    [0, 0.5, 1], 
-    [-2, 0, 2]
-  );
-  
-  const blur = isMobile ? 0 : useTransform(
-    scrollYProgress, 
-    [0, 0.4, 0.6, 1], 
-    [3, 0, 0, 3]
-  );
-  
-  const y = isMobile ? 0 : useTransform(
-    scrollYProgress, 
-    [0.1, 0.3, 0.7, 0.9], 
-    [50, 0, 0, 50]
-  );
+
+  // Generate sparkle positions
+  const sparklePositions = React.useMemo(() => {
+    return Array.from({ length: isMobile ? 5 : 15 }, () => ({
+      x: Math.random() * 100,
+      y: Math.random() * 100,
+      size: Math.random() * (isMobile ? 3 : 6) + 1,
+      delay: Math.random() * 2
+    }));
+  }, [isMobile]);
   
   return (
-    <section ref={containerRef} className="relative py-32 overflow-hidden">
-      {/* Simplified background elements for mobile */}
-      {!isMobile && (
-        <motion.div 
-          className="absolute inset-0 z-0"
-          style={{ 
-            opacity: useTransform(scrollYProgress, [0, 0.5, 1], [0.3, 0.7, 0.3]),
-            backgroundImage: "radial-gradient(circle at 50% 50%, rgba(0,51,102,0.08) 0%, rgba(255,255,255,0) 70%)",
-            scale: useTransform(scrollYProgress, [0, 0.5, 1], [0.9, 1.1, 0.9]),
-          }}
-        />
-      )}
+    <section ref={containerRef} className="relative py-20 md:py-32 overflow-hidden">
+      {/* Simple gradient backdrop for mobile, more effects for desktop */}
+      <div 
+        className="absolute inset-0 z-0"
+        style={{ 
+          background: isMobile 
+            ? "radial-gradient(circle at 50% 50%, rgba(0,51,102,0.03) 0%, rgba(255,255,255,0) 70%)"
+            : "radial-gradient(circle at 50% 50%, rgba(0,51,102,0.08) 0%, rgba(255,255,255,0) 70%)"
+        }}
+      />
       
       {/* Container for the quote */}
-      <motion.div 
-        className="container relative z-10"
-        style={{ 
-          opacity, 
-          scale: isMobile ? 1 : scale, 
-          rotateZ: rotate, 
-          y,
-          filter: isMobile ? "none" : `blur(${blur}px)`
-        }}
-      >
-        <div className="max-w-4xl mx-auto bg-white/95 backdrop-blur-sm p-8 md:p-12 rounded-xl border-2 border-sheraa-primary/20 shadow-xl">
+      <div className="container relative z-10">
+        <motion.div 
+          className="max-w-4xl mx-auto bg-white/95 backdrop-blur-sm p-8 md:p-12 rounded-xl border-2 border-sheraa-primary/20 shadow-xl"
+          initial={{ y: 100, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ 
+            duration: 0.8,
+            type: "spring",
+            damping: 15,
+            stiffness: 70
+          }}
+        >
           <motion.div
             initial={{ scale: 0, rotate: -10 }}
             whileInView={{ scale: 1, rotate: 0 }}
@@ -79,8 +57,33 @@ const QuoteSection = () => {
               damping: 12, 
               stiffness: 100 
             }}
+            className="relative"
           >
             <Quote className="text-sheraa-primary h-14 w-14 mb-6 opacity-70" />
+            
+            {/* Sparkles - only rendered for non-mobile */}
+            {!isMobile && sparklePositions.map((sparkle, index) => (
+              <motion.div
+                key={index}
+                className="absolute rounded-full bg-sheraa-primary"
+                style={{
+                  top: `${sparkle.y}%`,
+                  left: `${sparkle.x}%`,
+                  width: `${sparkle.size}px`,
+                  height: `${sparkle.size}px`,
+                }}
+                animate={{
+                  opacity: [0, 0.8, 0],
+                  scale: [0, 1, 0]
+                }}
+                transition={{
+                  duration: 2 + sparkle.delay,
+                  repeat: Infinity,
+                  delay: sparkle.delay * 2,
+                  ease: "easeInOut"
+                }}
+              />
+            ))}
           </motion.div>
           
           <blockquote>
@@ -103,69 +106,12 @@ const QuoteSection = () => {
               — H.E. Sheikha Bodour Bint Sultan Al Qasimi, Chairperson
             </motion.footer>
           </blockquote>
-        </div>
-      </motion.div>
+        </motion.div>
+      </div>
       
-      {/* Conditionally render background elements based on device */}
-      {!isMobile ? (
-        <>
-          <motion.div 
-            className="absolute -left-20 top-20 w-60 h-60 rounded-full bg-sheraa-primary/20 blur-3xl" 
-            animate={{
-              scale: [1, 1.2, 1],
-              opacity: [0.4, 0.7, 0.4]
-            }} 
-            transition={{
-              duration: 8,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-            style={{
-              x: useTransform(scrollYProgress, [0, 0.5, 1], [-20, -60, 20]),
-              y: useTransform(scrollYProgress, [0, 0.5, 1], [0, 40, 80]),
-            }}
-          />
-          
-          <motion.div 
-            className="absolute -right-20 bottom-20 w-80 h-80 rounded-full bg-sheraa-teal/20 blur-3xl" 
-            animate={{
-              scale: [1, 1.1, 1],
-              opacity: [0.3, 0.6, 0.3]
-            }} 
-            transition={{
-              duration: 7,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 1
-            }}
-            style={{
-              x: useTransform(scrollYProgress, [0, 0.5, 1], [20, -30, -80]),
-              y: useTransform(scrollYProgress, [0, 0.5, 1], [0, -60, -20]),
-            }}
-          />
-          
-          <motion.div 
-            className="absolute left-1/2 top-1/3 w-40 h-40 rounded-full bg-sheraa-orange/10 blur-3xl" 
-            animate={{
-              scale: [1, 1.3, 1],
-              opacity: [0.2, 0.5, 0.2]
-            }} 
-            transition={{
-              duration: 10,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 2
-            }}
-            style={{
-              x: useTransform(scrollYProgress, [0, 0.5, 1], [0, 100, 0]),
-              y: useTransform(scrollYProgress, [0, 0.5, 1], [0, -30, 0]),
-            }}
-          />
-        </>
-      ) : (
-        // Simplified background for mobile - just one subtle element
-        <div className="absolute right-0 bottom-0 w-32 h-32 rounded-full bg-sheraa-teal/10 blur-2xl opacity-30" />
-      )}
+      {/* Simplified decorative elements */}
+      <div className={`absolute -left-20 top-20 w-40 h-40 rounded-full bg-sheraa-primary/10 blur-3xl opacity-30`} />
+      <div className={`absolute -right-20 bottom-20 w-40 h-40 rounded-full bg-sheraa-teal/10 blur-3xl opacity-20`} />
     </section>
   );
 };

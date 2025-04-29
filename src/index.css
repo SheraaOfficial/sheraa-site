@@ -82,145 +82,77 @@
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
-  /* Enhanced Parallax Animation Settings - Mobile optimized */
+  /* Mobile-first approach for animations */
   @keyframes float-slow {
-    0% { transform: translateY(0px) translateX(0px) rotate(0deg); }
-    25% { transform: translateY(-10px) translateX(5px) rotate(1deg); }
-    50% { transform: translateY(-15px) translateX(10px) rotate(0deg); }
-    75% { transform: translateY(-5px) translateX(15px) rotate(-1deg); }
-    100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-5px); }
+    100% { transform: translateY(0px); }
   }
 
-  /* Slower animations for mobile */
-  @media (max-width: 768px) {
-    .float-animation, .float-animation-alt, .float-animation-delay {
-      animation-duration: 30s; /* Slower on mobile */
+  /* More complex animations for desktop only */
+  @media (min-width: 769px) {
+    @keyframes float-slow {
+      0% { transform: translateY(0px) translateX(0px) rotate(0deg); }
+      25% { transform: translateY(-10px) translateX(5px) rotate(1deg); }
+      50% { transform: translateY(-15px) translateX(10px) rotate(0deg); }
+      75% { transform: translateY(-5px) translateX(15px) rotate(-1deg); }
+      100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
     }
   }
 
   .float-animation {
-    animation: float-slow 15s ease-in-out infinite;
+    animation: float-slow 8s ease-in-out infinite;
   }
 
-  .float-animation-alt {
-    animation: float-slow 18s ease-in-out infinite reverse;
-  }
-
-  .float-animation-delay {
-    animation: float-slow 12s ease-in-out infinite;
-    animation-delay: 2s;
-  }
-
-  /* New parallax animations */
-  @keyframes float-vertical {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
-    100% { transform: translateY(0px); }
-  }
-  
-  @keyframes float-horizontal {
-    0% { transform: translateX(0px); }
-    50% { transform: translateX(20px); }
-    100% { transform: translateX(0px); }
-  }
-  
-  @keyframes rotate-slow {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-  
-  /* Mobile optimized animations */
+  /* Mobile optimizations */
   @media (max-width: 768px) {
-    @keyframes float-vertical {
-      0% { transform: translateY(0px); }
-      50% { transform: translateY(-10px); }
-      100% { transform: translateY(0px); }
+    .float-animation {
+      animation-duration: 6s; /* Faster on mobile for better performance */
     }
-    
-    @keyframes float-horizontal {
-      0% { transform: translateX(0px); }
-      50% { transform: translateX(10px); }
-      100% { transform: translateX(0px); }
-    }
-    
-    @keyframes rotate-slow {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-  }
-  
-  .float-vertical {
-    animation: float-vertical 15s ease-in-out infinite;
-  }
-  
-  .float-horizontal {
-    animation: float-horizontal 12s ease-in-out infinite;
-  }
-  
-  .rotate-slow {
-    animation: rotate-slow 60s linear infinite;
   }
 
-  /* 3D perspective settings - reduced on mobile */
-  .perspective-1000 {
-    perspective: 1000px;
+  /* Micro-interaction animations - simplified for mobile */
+  @keyframes pulse-subtle {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
   }
-  
-  @media (max-width: 768px) {
-    .perspective-1000 {
-      perspective: 600px;
-    }
+
+  @keyframes shimmer-light {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
   }
-  
-  .preserve-3d {
-    transform-style: preserve-3d;
-  }
-  
-  .backface-hidden {
+
+  /* Simplified transformations for mobile */
+  .gpu-accelerated {
+    transform: translateZ(0);
+    will-change: transform;
     backface-visibility: hidden;
   }
 
-  /* Stars background for parallax - optimized for mobile */
-  .stars-sm {
-    background-image: radial-gradient(1px 1px at 50% 20%, #fff, rgba(0, 0, 0, 0)),
-                     radial-gradient(1px 1px at 20% 40%, #fff, rgba(0, 0, 0, 0)),
-                     radial-gradient(1px 1px at 30% 30%, #fff, rgba(0, 0, 0, 0)),
-                     radial-gradient(2px 2px at 70% 60%, #fff, rgba(0, 0, 0, 0));
-    background-size: 550px 550px;
-    opacity: 0.3;
-    height: 100%;
-    width: 100%;
-  }
-  
-  .stars-md {
-    background-image: radial-gradient(2px 2px at 10% 10%, #fff, rgba(0, 0, 0, 0)),
-                     radial-gradient(2px 2px at 40% 60%, #fff, rgba(0, 0, 0, 0)),
-                     radial-gradient(1px 1px at 60% 30%, #fff, rgba(0, 0, 0, 0));
-    background-size: 750px 750px;
-    opacity: 0.2;
-    height: 100%;
-    width: 100%;
-  }
-  
-  .stars-lg {
-    background-image: radial-gradient(2px 2px at 80% 20%, #fff, rgba(0, 0, 0, 0)),
-                     radial-gradient(3px 3px at 20% 80%, #fff, rgba(0, 0, 0, 0));
-    background-size: 950px 950px;
-    opacity: 0.25;
-    height: 100%;
-    width: 100%;
+  /* Reduced motion settings for accessibility and performance */
+  @media (prefers-reduced-motion: reduce) {
+    *, ::before, ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 
-  /* Smooth scroll behavior */
-  html {
-    scroll-behavior: smooth;
-    overflow-x: hidden;
-  }
-
-  /* Use passive scroll behavior for mobile */
+  /* Force reduced motion on mobile for better performance */
   @media (max-width: 768px) {
+    .reduce-motion-mobile {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+  
+  /* Smooth scroll behavior - but only on desktop */
+  @media (min-width: 769px) {
     html {
-      scroll-behavior: auto;
+      scroll-behavior: smooth;
     }
   }
 
@@ -228,212 +160,134 @@
     @apply bg-white text-sheraa-dark font-plus-jakarta;
     overflow-x: hidden;
     min-height: 100vh;
+    /* Add overscroll behavior for smoother mobile scrolling */
+    overscroll-behavior: none;
+    -webkit-overflow-scrolling: touch; /* Smoother scrolling on iOS */
   }
 
-  /* Parallax Content Optimization */
-  .parallax-content {
-    will-change: transform;
-    transition: transform 0.05s linear;
-  }
-
-  /* Faster transition on mobile */
-  @media (max-width: 768px) {
-    .parallax-content {
-      transition: none;
-    }
-  }
-
-  /* Animate Marquee - Slow down on mobile */
-  @keyframes marquee {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-50%);
-    }
-  }
-
-  .animate-marquee {
-    animation: marquee 40s linear infinite;
-  }
-
-  @media (max-width: 768px) {
-    .animate-marquee {
-      animation: marquee 60s linear infinite;
-    }
-  }
-
-  /* Custom scrollbar - Enhanced but hidden on mobile */
-  @media (min-width: 769px) {
-    ::-webkit-scrollbar {
-      width: 12px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background-color: #f1f1f1;
-      border-radius: 10px;
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: linear-gradient(135deg, #003366 0%, #008080 50%, #FF6600 100%);
-      border-radius: 10px;
-      border: 2px solid #f1f1f1;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background: linear-gradient(135deg, #002255 0%, #007070 50%, #DD5500 100%);
-    }
-  }
-  
-  /* Simplified scrollbar for mobile */
+  /* Scrollbar optimization - hide on mobile */
   @media (max-width: 768px) {
     ::-webkit-scrollbar {
-      width: 0px;
+      width: 0;
+      height: 0;
       background: transparent;
     }
   }
-  
-  /* Shimmering text effect - slower on mobile */
-  .text-shimmer {
-    background: linear-gradient(
-      90deg,
-      rgba(0, 51, 102, 1) 0%,
-      rgba(0, 128, 128, 1) 25%,
-      rgba(0, 51, 102, 1) 50%,
-      rgba(0, 128, 128, 1) 75%,
-      rgba(0, 51, 102, 1) 100%
+
+  /* Custom animated loader for lazy-loaded sections */
+  .lazy-section-loading::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, 
+      transparent, 
+      rgba(0, 51, 102, 0.05), 
+      transparent
     );
-    background-size: 200% auto;
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: shimmer 8s linear infinite;
-  }
-  
-  @media (max-width: 768px) {
-    .text-shimmer {
-      animation: shimmer 12s linear infinite;
-    }
-  }
-  
-  @keyframes shimmer {
-    to {
-      background-position: 200% center;
-    }
+    animation: shimmer-light 1.5s infinite;
+    background-size: 200% 100%;
   }
 
-  /* Performance optimization classes */
-  .will-change-transform {
-    will-change: transform;
+  /* Optimize motion for intersection observed elements */
+  .observed-element {
+    will-change: opacity, transform;
   }
   
-  .will-change-opacity {
-    will-change: opacity;
-  }
-  
-  .will-change-background {
-    will-change: background;
+  /* Add minimal loading state for lazy components */
+  .lazy-loading {
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(
+      to right,
+      rgba(0, 51, 102, 0.02) 0%,
+      rgba(0, 51, 102, 0.05) 50%,
+      rgba(0, 51, 102, 0.02) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer-light 2s infinite;
+    border-radius: 8px;
   }
 }
 
-@layer base {
-  * {
-    @apply border-border;
-  }
-
-  body {
-    @apply bg-white text-sheraa-dark font-plus-jakarta;
-    overflow-x: hidden;
-    min-height: 100vh;
-  }
-
-  .section-background {
-    @apply bg-white/50 backdrop-blur-lg border border-white/20 rounded-2xl shadow-sheraa-soft;
-  }
-
-  .gradient-overlay {
-    background: linear-gradient(
-      135deg, 
-      #FF6600 0%,  /* Vibrant Orange */
-      #FF7F50 100% /* Soft Coral */
-    );
-  }
-}
-
+/* Utility classes for optimized rendering */
 @layer utilities {
-  .max-w-container {
-    max-width: 1400px;
-    width: 100%;
-  }
-  
-  .bg-soft-gradient {
-    background: linear-gradient(
-      to bottom right, 
-      #F8F9FA,
-      #F1F5F9
-    );
-  }
-
-  .bg-primary-gradient {
-    background: linear-gradient(to right, #003366, #008080);  /* Deep Blue to Teal */
-    color: white;
-  }
-
-  .bg-secondary-gradient {
-    background: linear-gradient(to right, #FF6600, #FF7F50);  /* Vibrant Orange to Soft Coral */
-    color: white;
-  }
-
-  .text-gradient-primary {
-    background: linear-gradient(to right, #003366, #008080);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    color: transparent;
-  }
-  
-  .text-gradient-secondary {
-    background: linear-gradient(to right, #FF6600, #FF7F50);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    color: transparent;
-  }
-  
-  .animate-pulse-slow {
-    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  }
-  
-  /* New parallax utilities */
-  .translate-z {
+  /* Use this class on elements that need GPU acceleration */
+  .hardware-accelerated {
     transform: translateZ(0);
-  }
-  
-  .translate-z-50 {
-    transform: translateZ(50px);
-  }
-  
-  .translate-z-100 {
-    transform: translateZ(100px);
-  }
-  
-  .rotate-parallax {
-    transform: rotate3d(1, 1, 0, 15deg);
-  }
-  
-  /* GPU acceleration utilities */
-  .gpu-accelerated {
-    transform: translateZ(0);
+    will-change: transform;
     backface-visibility: hidden;
   }
   
-  /* Reduced motion for mobile */
-  @media (max-width: 768px) {
-    .mobile-no-animation {
-      animation: none !important;
-      transition: none !important;
-      transform: none !important;
+  /* Style specifically optimized for mobile performance */
+  .mobile-optimized {
+    transition: none !important;
+    animation: none !important;
+    transform: none !important;
+  }
+  
+  /* Simple hover effect that works well even on low-end devices */
+  .hover-lift {
+    transition: transform 0.2s ease;
+  }
+  
+  @media (min-width: 769px) {
+    .hover-lift:hover {
+      transform: translateY(-2px);
     }
+  }
+}
+
+/* Original styles - keeping important styles */
+.sheraa-navbar {
+  @apply sticky top-0 z-40 w-full border-b bg-white border-gray-200;
+}
+
+.sheraa-footer {
+  @apply bg-sheraa-primary text-white;
+}
+
+/* Button styles with Sheraa brand colors */
+.btn-primary {
+  @apply bg-sheraa-primary hover:bg-opacity-90 text-white transition-colors;
+}
+
+.btn-accent {
+  @apply bg-sheraa-orange hover:bg-opacity-90 text-white transition-colors;
+}
+
+.btn-outline-primary {
+  @apply border border-sheraa-primary text-sheraa-primary hover:bg-sheraa-primary hover:text-white transition-all;
+}
+
+.btn-outline-accent {
+  @apply border border-sheraa-orange text-sheraa-orange hover:bg-sheraa-orange hover:text-white transition-all;
+}
+
+/* Card styles */
+.sheraa-card {
+  @apply bg-white rounded-xl shadow-sheraa-soft border border-gray-100 hover:shadow-sheraa-medium transition-shadow;
+}
+
+.sheraa-card-accent {
+  @apply border-l-4 border-l-sheraa-orange;
+}
+
+/* Standard section spacing */
+.section-padding {
+  @apply py-16 md:py-24;
+}
+
+/* Glassmorphism effects */
+.glass-card {
+  @apply bg-white/70 backdrop-blur-md border border-white/20 rounded-xl shadow-sheraa-soft;
+}
+
+/* Mobile optimizations */
+@media (max-width: 640px) {
+  .section-padding {
+    @apply py-12;
   }
 }
 
@@ -503,54 +357,31 @@
   color: white;
 }
 
-/* Original styles below */
-.sheraa-navbar {
-  @apply sticky top-0 z-40 w-full border-b bg-white border-gray-200;
+/* Shimmering text effect - slower on mobile */
+.text-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(0, 51, 102, 1) 0%,
+    rgba(0, 128, 128, 1) 25%,
+    rgba(0, 51, 102, 1) 50%,
+    rgba(0, 128, 128, 1) 75%,
+    rgba(0, 51, 102, 1) 100%
+  );
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 8s linear infinite;
 }
 
-.sheraa-footer {
-  @apply bg-sheraa-primary text-white;
+@media (max-width: 768px) {
+  .text-shimmer {
+    animation: shimmer 12s linear infinite;
+  }
 }
 
-/* Button styles with Sheraa brand colors */
-.btn-primary {
-  @apply bg-sheraa-primary hover:bg-opacity-90 text-white transition-colors;
-}
-
-.btn-accent {
-  @apply bg-sheraa-orange hover:bg-opacity-90 text-white transition-colors;
-}
-
-.btn-outline-primary {
-  @apply border border-sheraa-primary text-sheraa-primary hover:bg-sheraa-primary hover:text-white transition-all;
-}
-
-.btn-outline-accent {
-  @apply border border-sheraa-orange text-sheraa-orange hover:bg-sheraa-orange hover:text-white transition-all;
-}
-
-/* Card styles */
-.sheraa-card {
-  @apply bg-white rounded-xl shadow-sheraa-soft border border-gray-100 hover:shadow-sheraa-medium transition-shadow;
-}
-
-.sheraa-card-accent {
-  @apply border-l-4 border-l-sheraa-orange;
-}
-
-/* Standard section spacing */
-.section-padding {
-  @apply py-16 md:py-24;
-}
-
-/* Glassmorphism effects */
-.glass-card {
-  @apply bg-white/70 backdrop-blur-md border border-white/20 rounded-xl shadow-sheraa-soft;
-}
-
-/* Mobile optimizations */
-@media (max-width: 640px) {
-  .section-padding {
-    @apply py-12;
+@keyframes shimmer {
+  to {
+    background-position: 200% center;
   }
 }
