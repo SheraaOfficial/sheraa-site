@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -174,6 +175,11 @@ export default {
             opacity: "1",
             transform: "scale(1)"
           }
+        },
+        "border-beam": {
+          "100%": {
+            "offset-distance": "100%"
+          }
         }
       },
       animation: {
@@ -192,6 +198,7 @@ export default {
         fifth: "moveInCircle 20s ease infinite",
         "appear": "appear 0.6s ease-out forwards",
         "appear-zoom": "appear-zoom 0.6s ease-out forwards",
+        "border-beam": "border-beam var(--duration, 15)s linear infinite"
       },
       fontFamily: {
         'plus-jakarta': ['"Plus Jakarta Sans"', 'sans-serif'],
