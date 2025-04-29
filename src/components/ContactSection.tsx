@@ -1,8 +1,6 @@
-
 import React from "react";
 import { motion } from "framer-motion";
 import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
@@ -12,6 +10,7 @@ import * as z from "zod";
 import { MapPin, Phone, Mail } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { ButtonCta } from "./ui/button-cta";
 
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -228,12 +227,11 @@ const ContactSection = () => {
                     )}
                   />
                   
-                  <Button 
-                    type="submit" 
-                    className="w-full py-6 bg-gradient-to-r from-sheraa-primary to-sheraa-secondary hover:from-sheraa-primary/90 hover:to-sheraa-secondary/90 text-lg font-medium"
-                  >
-                    Send Message
-                  </Button>
+                  <ButtonCta 
+                    label="Send Message" 
+                    className="w-full py-6"
+                    type="submit"
+                  />
                 </form>
               </Form>
             </Card>
