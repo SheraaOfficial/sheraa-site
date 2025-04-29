@@ -139,7 +139,7 @@ const Footer = () => {
                 placeholder="Your email"
                 className="bg-gray-700 border-gray-600 text-white placeholder:text-gray-400"
               />
-              <Button className="w-full bg-sheraa-secondary hover:bg-sheraa-secondary/90">
+              <Button variant="gradient" className="w-full">
                 Subscribe
               </Button>
             </div>

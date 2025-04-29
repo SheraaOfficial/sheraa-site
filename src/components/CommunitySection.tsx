@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -105,8 +106,8 @@ const CommunitySection = () => {
 
             <Button 
               asChild 
-              size="lg"
-              className="bg-[#9b87f5] hover:bg-[#7E69AB] transition-all group"
+              variant="gradient"
+              className="group"
             >
               <Link to="/community/join" className="flex items-center gap-2">
                 Become a Member
@@ -147,9 +148,8 @@ const CommunitySection = () => {
 
               <Button 
                 asChild 
-                variant="outline" 
-                size="lg"
-                className="w-full border-[#D946EF] text-[#D946EF] hover:bg-[#D946EF]/10 group"
+                variant="gradientAccent"
+                className="w-full group"
               >
                 <Link to="/community/partnerships" className="flex items-center justify-center gap-2">
                   Explore Partnerships

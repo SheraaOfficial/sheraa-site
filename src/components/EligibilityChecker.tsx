@@ -33,11 +33,11 @@ const EligibilityChecker = () => {
               whileTap={{ scale: 0.95 }}
             >
               <Button 
-                variant="gradientAccent"
-                className="flex items-center gap-2 w-full md:w-auto"
+                variant="gradient"
+                className="flex items-center gap-2 w-full md:w-auto group"
               >
                 Try Eligibility Checker
-                <ArrowRight className="w-5 h-5" />
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
               </Button>
             </motion.div>
           </div>

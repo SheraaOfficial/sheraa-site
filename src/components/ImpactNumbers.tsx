@@ -113,7 +113,11 @@ const ImpactNumbers = () => {
             duration: 0.5
           }}
         >
-          <Button asChild size="lg" className="bg-sheraa-primary hover:bg-sheraa-primary/90 group">
+          <Button 
+            asChild 
+            variant="gradient" 
+            className="group"
+          >
             <Link to="/about/impact" className="flex items-center gap-2">
               View Impact Report 
               <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform duration-300" />

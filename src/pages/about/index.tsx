@@ -153,10 +153,10 @@ const DefaultAboutSection = () => (
           </div>
 
           <div className="mt-6 text-center">
-            <Button asChild variant="gradient" size="lg">
+            <Button asChild variant="gradient" className="group">
               <Link to="/about/impact" className="flex items-center gap-2">
                 Full Impact Report
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform duration-300" />
               </Link>
             </Button>
           </div>
