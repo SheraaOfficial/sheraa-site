@@ -21,6 +21,8 @@ const buttonVariants = cva(
           "bg-sheraa-orange text-white hover:bg-sheraa-orange/90",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-sheraa-primary underline-offset-4 hover:underline",
+        gradient: "gradient-button px-9 py-4 rounded-[11px] min-w-[132px] font-bold text-base",
+        gradientAccent: "gradient-button gradient-button-variant px-9 py-4 rounded-[11px] min-w-[132px] font-bold text-base",
       },
       size: {
         default: "h-10 px-4 py-2",

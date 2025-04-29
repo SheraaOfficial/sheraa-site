@@ -1,5 +1,5 @@
 
-import { ArrowRight, Target } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "./ui/button";
 import { motion } from "framer-motion";
 
@@ -8,8 +8,7 @@ const EligibilityChecker = () => {
     <section className="py-16 bg-white">
       <div className="container mx-auto px-4">
         <div className="bg-sheraa-light rounded-2xl p-8 md:p-12 relative overflow-hidden">
-          <div className="inline-block bg-sheraa-primary/10 px-4 py-1 rounded-full text-sheraa
--primary text-sm font-medium mb-6">
+          <div className="inline-block bg-sheraa-primary/10 px-4 py-1 rounded-full text-sheraa-primary text-sm font-medium mb-6">
             Program Assessment
           </div>
           
@@ -33,7 +32,8 @@ const EligibilityChecker = () => {
               whileTap={{ scale: 0.95 }}
             >
               <Button 
-                className="bg-sheraa-primary hover:bg-sheraa-primary/90 text-white px-8 py-6 text-lg rounded-full flex items-center gap-2"
+                variant="gradientAccent"
+                className="flex items-center gap-2"
               >
                 Try Eligibility Checker
                 <ArrowRight className="w-5 h-5" />
