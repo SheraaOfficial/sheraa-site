@@ -22,10 +22,9 @@ const Hero = () => {
   }, [titleIndex, titles]);
   
   return (
-    <section className="relative min-h-[70vh] overflow-hidden bg-background text-foreground py- sm:py-24 px-4 rounded-lg md:py-[125px] py-[63px]">
+    <section className="relative min-h-[70vh] overflow-hidden bg-background text-foreground py-16 md:py-24 px-4">
       <ParticleBackground />
       
-      {/* Add BorderBeam to the section container itself */}
       <BorderBeam 
         size={400} 
         duration={25} 
@@ -54,7 +53,7 @@ const Hero = () => {
           </motion.div>
 
           <div className="space-y-4">
-            <h1 className="text-5xl md:text-7xl font-bold tracking-tight">
+            <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight">
               <span className="block text-sheraa-dark mb-4">
                 Dream to
               </span>
@@ -94,7 +93,7 @@ const Hero = () => {
               transition={{
                 delay: 0.2
               }} 
-              className="text-xl text-muted-foreground max-w-2xl mx-auto"
+              className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto"
             >
               Sharjah's official hub for aspiring founders and established ventures. 
               We empower changemakers to build impactful businesses and shape the future.

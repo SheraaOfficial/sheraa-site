@@ -1,8 +1,8 @@
 
-import React, { useRef } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { cn } from "@/lib/utils";
@@ -53,8 +53,8 @@ const ImpactNumbers = () => {
   ];
   
   return (
-    <section className="py-16 md:py-24 bg-sheraa-background-DEFAULT relative overflow-hidden lg:py-[63px]">
-      <div className="container mx-auto px-[60px]">
+    <section className="py-16 md:py-24 bg-sheraa-background-DEFAULT relative overflow-hidden">
+      <div className="container mx-auto px-4 md:px-6">
         <motion.div 
           className="text-center mb-12 md:mb-16 max-w-3xl mx-auto"
           initial={{
@@ -147,7 +147,7 @@ const Feature = ({
       viewport={{ once: true, margin: "-100px" }}
       transition={{ delay: index * 0.1 }}
       className={cn(
-        "flex flex-col lg:border-r py-10 relative group/feature",
+        "flex flex-col lg:border-r py-10 px-4 relative group/feature",
         (index === 0 || index === 4) && "lg:border-l",
         index < 4 && "lg:border-b",
         "border-gray-100 dark:border-neutral-800"
@@ -159,22 +159,22 @@ const Feature = ({
       {index >= 4 && (
         <div className="opacity-0 group-hover/feature:opacity-100 transition duration-200 absolute inset-0 h-full w-full bg-gradient-to-b from-sheraa-background-soft to-transparent pointer-events-none" />
       )}
-      <div className="mb-2 relative z-10 px-10 text-sheraa-primary">
+      <div className="mb-2 relative z-10 px-6 text-sheraa-primary">
         {icon}
       </div>
-      <div className="text-5xl md:text-6xl font-bold mb-2 relative z-10 px-10 text-sheraa-primary">
+      <div className="text-4xl md:text-5xl lg:text-6xl font-bold mb-2 relative z-10 px-6 text-sheraa-primary">
         {value}
       </div>
-      <div className="text-lg font-bold mb-2 relative z-10 px-10">
+      <div className="text-lg font-bold mb-2 relative z-10 px-6">
         <div className="absolute left-0 inset-y-0 h-6 group-hover/feature:h-8 w-1 rounded-tr-full rounded-br-full bg-gray-200 dark:bg-neutral-700 group-hover/feature:bg-sheraa-primary transition-all duration-200 origin-center" />
         <span className="group-hover/feature:translate-x-2 transition duration-200 inline-block text-sheraa-dark">
           {title}
         </span>
       </div>
-      <p className="text-sm text-gray-600 max-w-xs relative z-10 px-10">
+      <p className="text-sm text-gray-600 max-w-xs relative z-10 px-6">
         {description}
       </p>
-      <div className="inline-flex items-center text-xs font-medium text-sheraa-primary bg-sheraa-primary/10 px-3 py-1 rounded-full mt-2 mx-10">
+      <div className="inline-flex items-center text-xs font-medium text-sheraa-primary bg-sheraa-primary/10 px-3 py-1 rounded-full mt-2 mx-6">
         <span>{subtext}</span>
       </div>
     </motion.div>
