@@ -86,13 +86,13 @@ const getPageSubtitle = (section?: string): string => {
     case 'vision':
       return 'Establishing Sharjah as a leading global hub for entrepreneurship and innovation.';
     case 'hubs':
-      return 'Strategically located at the heart of innovation within Sharjah's academic and research landscape.';
+      return 'Strategically located at the heart of innovation within Sharjah\'s academic and research landscape.';
     case 'leadership':
-      return 'Meet the visionary team guiding Sheraa's mission and impact.';
+      return 'Meet the visionary team guiding Sheraa\'s mission and impact.';
     case 'board':
       return 'Distinguished leaders providing strategic guidance and expertise.';
     default:
-      return 'Empowering entrepreneurs, building Sharjah's future.';
+      return 'Empowering entrepreneurs, building Sharjah\'s future.';
   }
 };
 
