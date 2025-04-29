@@ -25,17 +25,18 @@ const Hero = () => {
     <section className="relative min-h-[70vh] overflow-hidden bg-background text-foreground py- sm:py-24 px-4 rounded-lg md:py-[125px] py-[63px]">
       <ParticleBackground />
       
+      {/* Add BorderBeam to the section container itself */}
+      <BorderBeam 
+        size={400} 
+        duration={25} 
+        colorFrom="#003366" 
+        colorTo="#008080" 
+        borderWidth={3} 
+        delay={2}
+      />
+      
       <div className="container mx-auto relative z-10">
         <div className="max-w-3xl mx-auto text-center space-y-8 relative">
-          <BorderBeam 
-            size={300} 
-            duration={20} 
-            colorFrom="#003366" 
-            colorTo="#008080" 
-            borderWidth={2} 
-            delay={5} 
-          />
-          
           <motion.div 
             initial={{
               opacity: 0,
