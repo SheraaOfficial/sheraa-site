@@ -6,6 +6,7 @@ import { ArrowRight } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { TextShimmer } from "./ui/text-shimmer";
 import { GlowingStarsBackgroundCard, GlowingStarsTitle, GlowingStarsDescription } from "./ui/glowing-stars-card";
+
 const Counter = ({
   end,
   duration = 2,
@@ -21,6 +22,7 @@ const Counter = ({
     margin: "-100px"
   });
   const shouldStart = startOnView ? isInView : true;
+  
   useEffect(() => {
     if (!shouldStart) return;
     let startTime = null;
@@ -35,12 +37,14 @@ const Counter = ({
     };
     window.requestAnimationFrame(step);
   }, [end, duration, shouldStart]);
+  
   return <TextShimmer className={`font-display ${className}`} ref={counterRef}>
       {prefix}
       {count.toLocaleString()}
       {suffix}
     </TextShimmer>;
 };
+
 const ImpactNumbers = () => {
   const isMobile = useIsMobile();
   const stats = [{
@@ -69,6 +73,7 @@ const ImpactNumbers = () => {
     description: isMobile ? "Connected" : "Strong network of collaborators",
     growthText: "18k+ youth trained"
   }];
+  
   return <section className="py-16 md:py-24 bg-sheraa-background-DEFAULT relative overflow-hidden lg:py-[63px]">
       <div className="container mx-auto px-[60px]">
         <motion.div className="text-center mb-12 md:mb-16 max-w-3xl mx-auto" initial={{
@@ -103,7 +108,7 @@ const ImpactNumbers = () => {
         }} transition={{
           delay: index * 0.1
         }}>
-              <GlowingStarsBackgroundCard className="h-full">
+              <GlowingStarsBackgroundCard className="h-full bg-white rounded-lg shadow-sm border border-gray-100">
                 <div className="flex flex-col items-center text-center space-y- pt-4 mx-0 bg-transparent py-[41px]">
                   <div className="text-5xl md:text-6xl font-bold text-sheraa-primary">
                     <Counter end={stat.value} prefix={stat.prefix || ""} suffix={stat.suffix || ""} className="text-sheraa-primary" />
@@ -139,4 +144,5 @@ const ImpactNumbers = () => {
       </div>
     </section>;
 };
+
 export default ImpactNumbers;
