@@ -82,13 +82,20 @@
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
-  /* Enhanced Parallax Animation Settings */
+  /* Enhanced Parallax Animation Settings - Mobile optimized */
   @keyframes float-slow {
     0% { transform: translateY(0px) translateX(0px) rotate(0deg); }
     25% { transform: translateY(-10px) translateX(5px) rotate(1deg); }
     50% { transform: translateY(-15px) translateX(10px) rotate(0deg); }
     75% { transform: translateY(-5px) translateX(15px) rotate(-1deg); }
     100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
+  }
+
+  /* Slower animations for mobile */
+  @media (max-width: 768px) {
+    .float-animation, .float-animation-alt, .float-animation-delay {
+      animation-duration: 30s; /* Slower on mobile */
+    }
   }
 
   .float-animation {
@@ -122,6 +129,26 @@
     100% { transform: rotate(360deg); }
   }
   
+  /* Mobile optimized animations */
+  @media (max-width: 768px) {
+    @keyframes float-vertical {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+    
+    @keyframes float-horizontal {
+      0% { transform: translateX(0px); }
+      50% { transform: translateX(10px); }
+      100% { transform: translateX(0px); }
+    }
+    
+    @keyframes rotate-slow {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  }
+  
   .float-vertical {
     animation: float-vertical 15s ease-in-out infinite;
   }
@@ -134,9 +161,15 @@
     animation: rotate-slow 60s linear infinite;
   }
 
-  /* 3D perspective settings */
+  /* 3D perspective settings - reduced on mobile */
   .perspective-1000 {
     perspective: 1000px;
+  }
+  
+  @media (max-width: 768px) {
+    .perspective-1000 {
+      perspective: 600px;
+    }
   }
   
   .preserve-3d {
@@ -147,7 +180,7 @@
     backface-visibility: hidden;
   }
 
-  /* Stars background for parallax */
+  /* Stars background for parallax - optimized for mobile */
   .stars-sm {
     background-image: radial-gradient(1px 1px at 50% 20%, #fff, rgba(0, 0, 0, 0)),
                      radial-gradient(1px 1px at 20% 40%, #fff, rgba(0, 0, 0, 0)),
@@ -184,6 +217,13 @@
     overflow-x: hidden;
   }
 
+  /* Use passive scroll behavior for mobile */
+  @media (max-width: 768px) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
   body {
     @apply bg-white text-sheraa-dark font-plus-jakarta;
     overflow-x: hidden;
@@ -196,7 +236,14 @@
     transition: transform 0.05s linear;
   }
 
-  /* Animate Marquee */
+  /* Faster transition on mobile */
+  @media (max-width: 768px) {
+    .parallax-content {
+      transition: none;
+    }
+  }
+
+  /* Animate Marquee - Slow down on mobile */
   @keyframes marquee {
     0% {
       transform: translateX(0);
@@ -210,27 +257,43 @@
     animation: marquee 40s linear infinite;
   }
 
-  /* Custom scrollbar - Enhanced */
-  ::-webkit-scrollbar {
-    width: 12px;
+  @media (max-width: 768px) {
+    .animate-marquee {
+      animation: marquee 60s linear infinite;
+    }
   }
 
-  ::-webkit-scrollbar-track {
-    background-color: #f1f1f1;
-    border-radius: 10px;
-  }
+  /* Custom scrollbar - Enhanced but hidden on mobile */
+  @media (min-width: 769px) {
+    ::-webkit-scrollbar {
+      width: 12px;
+    }
 
-  ::-webkit-scrollbar-thumb {
-    background: linear-gradient(135deg, #003366 0%, #008080 50%, #FF6600 100%);
-    border-radius: 10px;
-    border: 2px solid #f1f1f1;
-  }
+    ::-webkit-scrollbar-track {
+      background-color: #f1f1f1;
+      border-radius: 10px;
+    }
 
-  ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(135deg, #002255 0%, #007070 50%, #DD5500 100%);
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, #003366 0%, #008080 50%, #FF6600 100%);
+      border-radius: 10px;
+      border: 2px solid #f1f1f1;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(135deg, #002255 0%, #007070 50%, #DD5500 100%);
+    }
   }
   
-  /* Shimmering text effect */
+  /* Simplified scrollbar for mobile */
+  @media (max-width: 768px) {
+    ::-webkit-scrollbar {
+      width: 0px;
+      background: transparent;
+    }
+  }
+  
+  /* Shimmering text effect - slower on mobile */
   .text-shimmer {
     background: linear-gradient(
       90deg,
@@ -247,10 +310,29 @@
     animation: shimmer 8s linear infinite;
   }
   
+  @media (max-width: 768px) {
+    .text-shimmer {
+      animation: shimmer 12s linear infinite;
+    }
+  }
+  
   @keyframes shimmer {
     to {
       background-position: 200% center;
     }
+  }
+
+  /* Performance optimization classes */
+  .will-change-transform {
+    will-change: transform;
+  }
+  
+  .will-change-opacity {
+    will-change: opacity;
+  }
+  
+  .will-change-background {
+    will-change: background;
   }
 }
 
@@ -337,6 +419,21 @@
   
   .rotate-parallax {
     transform: rotate3d(1, 1, 0, 15deg);
+  }
+  
+  /* GPU acceleration utilities */
+  .gpu-accelerated {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+  
+  /* Reduced motion for mobile */
+  @media (max-width: 768px) {
+    .mobile-no-animation {
+      animation: none !important;
+      transition: none !important;
+      transform: none !important;
+    }
   }
 }
 

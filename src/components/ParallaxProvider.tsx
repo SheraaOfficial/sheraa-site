@@ -1,6 +1,7 @@
 
 import React, { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform, useMotionValueEvent, useMotionValue, useSpring } from "framer-motion";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface ParallaxProps {
   children: React.ReactNode;
@@ -26,6 +27,7 @@ export const ParallaxSection: React.FC<ParallaxProps> = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const [elementTop, setElementTop] = useState(0);
   const { scrollY } = useScroll();
+  const isMobile = useIsMobile();
   
   useEffect(() => {
     if (containerRef.current) {
@@ -39,57 +41,87 @@ export const ParallaxSection: React.FC<ParallaxProps> = ({
       // Initial measurement
       updateElementTop();
       
-      // Update on resize
-      window.addEventListener('resize', updateElementTop);
-      return () => window.removeEventListener('resize', updateElementTop);
+      // Optimize resize listener with debounce
+      let resizeTimer: NodeJS.Timeout;
+      const handleResize = () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(updateElementTop, 100);
+      };
+      
+      window.addEventListener('resize', handleResize);
+      return () => {
+        window.removeEventListener('resize', handleResize);
+        clearTimeout(resizeTimer);
+      };
     }
   }, []);
   
   // Calculate transform distance based on viewport height for more consistent parallax
+  // Use smaller transform distance on mobile
   const viewportHeight = typeof window !== 'undefined' ? window.innerHeight : 1000;
-  const transformDistance = viewportHeight * (scrollMultiplier * 0.4);
+  const transformDistance = isMobile 
+    ? viewportHeight * (scrollMultiplier * 0.2) 
+    : viewportHeight * (scrollMultiplier * 0.4);
   
   let rawTransformValue;
   
-  switch (direction) {
-    case "up":
-      rawTransformValue = useTransform(
-        scrollY,
-        [elementTop - viewportHeight, elementTop + viewportHeight],
-        [transformDistance, -transformDistance]
-      );
-      break;
-    case "down":
-      rawTransformValue = useTransform(
-        scrollY,
-        [elementTop - viewportHeight, elementTop + viewportHeight],
-        [-transformDistance, transformDistance]
-      );
-      break;
-    case "left":
-      rawTransformValue = useTransform(
-        scrollY,
-        [elementTop - viewportHeight, elementTop + viewportHeight],
-        [transformDistance, -transformDistance]
-      );
-      break;
-    case "right":
-      rawTransformValue = useTransform(
-        scrollY,
-        [elementTop - viewportHeight, elementTop + viewportHeight],
-        [-transformDistance, transformDistance]
-      );
-      break;
-    default:
-      rawTransformValue = useTransform(
-        scrollY,
-        [elementTop - viewportHeight, elementTop + viewportHeight],
-        [transformDistance, -transformDistance]
-      );
+  // Skip expensive calculations if on mobile and spring is disabled
+  if (isMobile && !spring) {
+    // Simplified transformations for mobile
+    switch (direction) {
+      case "up":
+      case "down":
+        rawTransformValue = useTransform(
+          scrollY,
+          [elementTop - viewportHeight, elementTop + viewportHeight],
+          [transformDistance/2, -transformDistance/2]
+        );
+        break;
+      default:
+        rawTransformValue = 0;
+    }
+  } else {
+    // Standard transformations for desktop
+    switch (direction) {
+      case "up":
+        rawTransformValue = useTransform(
+          scrollY,
+          [elementTop - viewportHeight, elementTop + viewportHeight],
+          [transformDistance, -transformDistance]
+        );
+        break;
+      case "down":
+        rawTransformValue = useTransform(
+          scrollY,
+          [elementTop - viewportHeight, elementTop + viewportHeight],
+          [-transformDistance, transformDistance]
+        );
+        break;
+      case "left":
+        rawTransformValue = useTransform(
+          scrollY,
+          [elementTop - viewportHeight, elementTop + viewportHeight],
+          [transformDistance, -transformDistance]
+        );
+        break;
+      case "right":
+        rawTransformValue = useTransform(
+          scrollY,
+          [elementTop - viewportHeight, elementTop + viewportHeight],
+          [-transformDistance, transformDistance]
+        );
+        break;
+      default:
+        rawTransformValue = useTransform(
+          scrollY,
+          [elementTop - viewportHeight, elementTop + viewportHeight],
+          [transformDistance, -transformDistance]
+        );
+    }
   }
   
-  // Apply spring physics for smoother transitions if spring is enabled
-  const transformValue = spring 
+  // Apply spring physics for smoother transitions if spring is enabled and not on mobile
+  const transformValue = (spring && !isMobile)
     ? useSpring(rawTransformValue, { stiffness, damping }) 
     : rawTransformValue;
 
@@ -104,7 +136,7 @@ export const ParallaxSection: React.FC<ParallaxProps> = ({
           x: direction === "left" || direction === "right" ? transformValue : 0,
           willChange: "transform",
         }}
-        className="parallax-content"
+        className="parallax-content will-change-transform"
       >
         {children}
       </motion.div>
@@ -118,27 +150,37 @@ export const ParallaxBackground: React.FC<{
 }> = ({ children, className = "" }) => {
   const { scrollYProgress } = useScroll();
   const [scrollPosition, setScrollPosition] = useState(0);
+  const isMobile = useIsMobile();
   
-  // Use spring for smoother gradient transitions
-  const springScrollPosition = useSpring(scrollYProgress, { stiffness: 50, damping: 15 });
+  // Use spring only on desktop for smoother gradient transitions
+  const springConfig = isMobile ? { stiffness: 100, damping: 30 } : { stiffness: 50, damping: 15 };
+  const springScrollPosition = useSpring(scrollYProgress, springConfig);
   
+  // Optimize updates by skipping some frames on mobile
   useMotionValueEvent(springScrollPosition, "change", (latest) => {
-    setScrollPosition(latest);
+    // On mobile, update less frequently
+    if (isMobile) {
+      if (Math.abs(scrollPosition - latest) > 0.05) {
+        setScrollPosition(latest);
+      }
+    } else {
+      setScrollPosition(latest);
+    }
   });
 
   return (
     <div className={`parallax-background ${className}`}>
       <div
-        className="parallax-gradient absolute inset-0 pointer-events-none z-0"
+        className="parallax-gradient absolute inset-0 pointer-events-none z-0 will-change-background"
         style={{
           background: `linear-gradient(${
             140 + scrollPosition * 60
-          }deg, rgba(0,51,102,${0.1 + scrollPosition * 0.2}) 0%, rgba(0,128,128,${
-            0.05 + scrollPosition * 0.15
+          }deg, rgba(0,51,102,${isMobile ? 0.05 : 0.1 + scrollPosition * 0.2}) 0%, rgba(0,128,128,${
+            isMobile ? 0.03 : 0.05 + scrollPosition * 0.15
           }) 50%, rgba(255,102,0,${
-            0.03 + scrollPosition * 0.1
+            isMobile ? 0.02 : 0.03 + scrollPosition * 0.1
           }) 100%)`,
-          transition: "background 0.1s ease-out",
+          transition: isMobile ? "none" : "background 0.1s ease-out",
         }}
       />
       {children}
@@ -148,6 +190,12 @@ export const ParallaxBackground: React.FC<{
 
 export const ParallaxOrbs: React.FC = () => {
   const { scrollYProgress } = useScroll();
+  const isMobile = useIsMobile();
+  
+  // Simplified rendering for mobile - exit early
+  if (isMobile) {
+    return null;
+  }
   
   // Apply spring for smoother orb movements
   const springScroll = useSpring(scrollYProgress, { stiffness: 30, damping: 20 });
@@ -210,7 +258,7 @@ export const ParallaxOrbs: React.FC = () => {
   return (
     <>
       <motion.div
-        className="fixed left-[10%] w-[350px] h-[350px] rounded-full bg-sheraa-primary/10 blur-[120px] pointer-events-none z-0"
+        className="fixed left-[10%] w-[350px] h-[350px] rounded-full bg-sheraa-primary/10 blur-[120px] pointer-events-none z-0 will-change-transform"
         style={{
           top: orbPos1,
           scale: orbScale1,
@@ -219,7 +267,7 @@ export const ParallaxOrbs: React.FC = () => {
         }}
       />
       <motion.div
-        className="fixed right-[15%] w-[300px] h-[300px] rounded-full bg-sheraa-teal/10 blur-[100px] pointer-events-none z-0"
+        className="fixed right-[15%] w-[300px] h-[300px] rounded-full bg-sheraa-teal/10 blur-[100px] pointer-events-none z-0 will-change-transform"
         style={{
           top: orbPos2,
           scale: orbScale2,
@@ -228,7 +276,7 @@ export const ParallaxOrbs: React.FC = () => {
         }}
       />
       <motion.div
-        className="fixed left-[60%] w-[250px] h-[250px] rounded-full bg-sheraa-orange/10 blur-[80px] pointer-events-none z-0"
+        className="fixed left-[60%] w-[250px] h-[250px] rounded-full bg-sheraa-orange/10 blur-[80px] pointer-events-none z-0 will-change-transform"
         style={{
           top: orbPos3,
           scale: orbScale3,
@@ -237,7 +285,7 @@ export const ParallaxOrbs: React.FC = () => {
         }}
       />
       <motion.div
-        className="fixed left-[30%] w-[200px] h-[200px] rounded-full bg-indigo-500/10 blur-[90px] pointer-events-none z-0"
+        className="fixed left-[30%] w-[200px] h-[200px] rounded-full bg-indigo-500/10 blur-[90px] pointer-events-none z-0 will-change-transform"
         style={{
           top: orbPos4,
           scale: orbScale4,
@@ -246,7 +294,7 @@ export const ParallaxOrbs: React.FC = () => {
         }}
       />
       <motion.div
-        className="fixed right-[25%] w-[270px] h-[270px] rounded-full bg-rose-400/10 blur-[110px] pointer-events-none z-0"
+        className="fixed right-[25%] w-[270px] h-[270px] rounded-full bg-rose-400/10 blur-[110px] pointer-events-none z-0 will-change-transform"
         style={{
           top: orbPos5,
           scale: useTransform(springScroll, [0, 0.5, 1], [0.7, 1.2, 0.8]),
@@ -258,9 +306,16 @@ export const ParallaxOrbs: React.FC = () => {
   );
 };
 
-// New component for parallax stars background
+// Optimized stars background component
 export const ParallaxStars: React.FC = () => {
   const { scrollYProgress } = useScroll();
+  const isMobile = useIsMobile();
+  
+  // Don't render on mobile
+  if (isMobile) {
+    return null;
+  }
+  
   const springScroll = useSpring(scrollYProgress, { stiffness: 20, damping: 30 });
   
   const starsY1 = useTransform(springScroll, [0, 1], ["0%", "-30%"]);
@@ -272,19 +327,19 @@ export const ParallaxStars: React.FC = () => {
     <>
       <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
         <motion.div 
-          className="absolute inset-0"
+          className="absolute inset-0 will-change-transform"
           style={{ y: starsY1, opacity: starsOpacity }}
         >
           <div className="stars-sm" />
         </motion.div>
         <motion.div 
-          className="absolute inset-0"
+          className="absolute inset-0 will-change-transform"
           style={{ y: starsY2, opacity: starsOpacity }}
         >
           <div className="stars-md" />
         </motion.div>
         <motion.div 
-          className="absolute inset-0"
+          className="absolute inset-0 will-change-transform"
           style={{ y: starsY3, opacity: starsOpacity }}
         >
           <div className="stars-lg" />
@@ -294,23 +349,32 @@ export const ParallaxStars: React.FC = () => {
   );
 };
 
-// New component for parallax overlays
+// Optimize overlay component
 export const ParallaxOverlay: React.FC<{
   className?: string;
   opacity?: number;
 }> = ({ className = "", opacity = 0.1 }) => {
   const { scrollYProgress } = useScroll();
-  const springScroll = useSpring(scrollYProgress, { stiffness: 30, damping: 30 });
+  const isMobile = useIsMobile();
+  
+  // Use simplified spring on mobile
+  const springScroll = useSpring(scrollYProgress, { 
+    stiffness: isMobile ? 100 : 30, 
+    damping: isMobile ? 50 : 30 
+  });
+  
+  // Reduce opacity on mobile
+  const actualOpacity = isMobile ? opacity * 0.5 : opacity;
   
   const overlayOpacity = useTransform(
     springScroll,
     [0, 0.3, 0.7, 1],
-    [0, opacity, opacity, 0]
+    [0, actualOpacity, actualOpacity, 0]
   );
   
   return (
     <motion.div
-      className={`fixed inset-0 pointer-events-none z-0 ${className}`}
+      className={`fixed inset-0 pointer-events-none z-0 will-change-opacity ${className}`}
       style={{ 
         opacity: overlayOpacity,
         backgroundImage: "url('/placeholder.svg')",
@@ -321,4 +385,3 @@ export const ParallaxOverlay: React.FC<{
     />
   );
 };
-

@@ -25,8 +25,11 @@ import {
 } from "@/components/ParallaxProvider";
 import ScrollProgressIndicator from "@/components/ScrollProgressIndicator";
 import { motion, useScroll } from "framer-motion";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const Index = () => {
+  const isMobile = useIsMobile();
+  
   // Add smooth scroll behavior on navigation clicks
   useEffect(() => {
     const handleAnchorClick = (e: MouseEvent) => {
@@ -51,29 +54,47 @@ const Index = () => {
   // Get scroll progress for conditional effects
   const { scrollYProgress } = useScroll();
   
+  // Use smaller multipliers on mobile for better performance
+  const mobileMultiplier = 0.05;
+  
   return (
     <div className="min-h-screen flex flex-col bg-white relative overflow-x-hidden perspective-1000">
       <ScrollProgressIndicator />
       <Navigation />
       <MarqueeUpdates />
       
-      {/* Enhanced parallax elements */}
-      <ParallaxStars />
-      <ParallaxOrbs />
-      <ParallaxOverlay opacity={0.05} />
+      {/* Conditionally render heavy parallax effects for desktop only */}
+      {!isMobile && <ParallaxStars />}
+      {!isMobile && <ParallaxOrbs />}
+      <ParallaxOverlay opacity={isMobile ? 0.02 : 0.05} />
       
       <ParallaxBackground>
         <main className="flex-grow pt-12 relative z-10">
-          <ParallaxSection direction="up" scrollMultiplier={0.15} spring={true} className="z-10">
+          <ParallaxSection 
+            direction="up" 
+            scrollMultiplier={isMobile ? mobileMultiplier : 0.15} 
+            spring={!isMobile} 
+            className="z-10"
+          >
             <Hero />
           </ParallaxSection>
           
           <div className="space-y-0 md:space-y-0 lg:space-y-0 relative z-10">
-            <ParallaxSection direction="up" scrollMultiplier={0.25} spring={true}>
+            <ParallaxSection 
+              direction="up" 
+              scrollMultiplier={isMobile ? mobileMultiplier : 0.25} 
+              spring={!isMobile}
+            >
               <ImpactNumbers />
             </ParallaxSection>
             
-            <ParallaxSection direction="down" scrollMultiplier={0.2} spring={true} stiffness={40} damping={20}>
+            <ParallaxSection 
+              direction="down" 
+              scrollMultiplier={isMobile ? mobileMultiplier : 0.2} 
+              spring={!isMobile} 
+              stiffness={40} 
+              damping={20}
+            >
               <QuoteSection />
             </ParallaxSection>
             
@@ -84,16 +105,29 @@ const Index = () => {
               transition={{ duration: 1.2 }}
               className="relative z-20"
             >
-              <ParallaxSection direction="up" scrollMultiplier={0.1} spring={true}>
+              <ParallaxSection 
+                direction="up" 
+                scrollMultiplier={isMobile ? mobileMultiplier : 0.1} 
+                spring={!isMobile}
+              >
                 <ProgramsOverview />
               </ParallaxSection>
             </motion.div>
             
-            <ParallaxSection direction="up" scrollMultiplier={0.15} spring={true} stiffness={60}>
+            <ParallaxSection 
+              direction="up" 
+              scrollMultiplier={isMobile ? mobileMultiplier : 0.15} 
+              spring={!isMobile} 
+              stiffness={60}
+            >
               <EligibilityChecker />
             </ParallaxSection>
             
-            <ParallaxSection direction="down" scrollMultiplier={0.25} spring={true}>
+            <ParallaxSection 
+              direction="down" 
+              scrollMultiplier={isMobile ? mobileMultiplier : 0.25} 
+              spring={!isMobile}
+            >
               <SEFSection />
             </ParallaxSection>
             
@@ -104,16 +138,31 @@ const Index = () => {
               transition={{ duration: 0.8 }}
               className="relative z-20"
             >
-              <ParallaxSection direction="left" scrollMultiplier={0.15} spring={true}>
+              <ParallaxSection 
+                direction={isMobile ? "up" : "left"} 
+                scrollMultiplier={isMobile ? mobileMultiplier : 0.15} 
+                spring={!isMobile}
+              >
                 <StartupsShowcase />
               </ParallaxSection>
             </motion.div>
             
-            <ParallaxSection direction="right" scrollMultiplier={0.2} spring={true} stiffness={30} damping={25}>
+            <ParallaxSection 
+              direction={isMobile ? "up" : "right"} 
+              scrollMultiplier={isMobile ? mobileMultiplier : 0.2} 
+              spring={!isMobile} 
+              stiffness={30} 
+              damping={25}
+            >
               <PodcastSection />
             </ParallaxSection>
             
-            <ParallaxSection direction="up" scrollMultiplier={0.18} spring={true} damping={30}>
+            <ParallaxSection 
+              direction="up" 
+              scrollMultiplier={isMobile ? mobileMultiplier : 0.18} 
+              spring={!isMobile} 
+              damping={30}
+            >
               <CommunitySection />
             </ParallaxSection>
             
@@ -124,16 +173,30 @@ const Index = () => {
               transition={{ duration: 0.8 }}
               className="relative z-20"
             >
-              <ParallaxSection direction="down" scrollMultiplier={0.12} spring={true}>
+              <ParallaxSection 
+                direction="down" 
+                scrollMultiplier={isMobile ? mobileMultiplier : 0.12} 
+                spring={!isMobile}
+              >
                 <StartupTestimonials />
               </ParallaxSection>
             </motion.div>
             
-            <ParallaxSection direction="right" scrollMultiplier={0.22} spring={true}>
+            <ParallaxSection 
+              direction={isMobile ? "up" : "right"} 
+              scrollMultiplier={isMobile ? mobileMultiplier : 0.22} 
+              spring={!isMobile}
+            >
               <WhySharjah />
             </ParallaxSection>
             
-            <ParallaxSection direction="left" scrollMultiplier={0.2} spring={true} stiffness={50} damping={20}>
+            <ParallaxSection 
+              direction={isMobile ? "up" : "left"} 
+              scrollMultiplier={isMobile ? mobileMultiplier : 0.2} 
+              spring={!isMobile} 
+              stiffness={50} 
+              damping={20}
+            >
               <PartnersSection />
             </ParallaxSection>
             

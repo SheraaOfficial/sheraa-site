@@ -3,42 +3,70 @@ import React from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Quote } from "lucide-react";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const QuoteSection = () => {
   const containerRef = React.useRef<HTMLElement>(null);
+  const isMobile = useIsMobile();
   const { scrollYProgress } = useScroll({ 
     target: containerRef,
     offset: ["start end", "end start"]
   });
   
-  // Enhance the scroll reveal timing for smoother transitions
-  const opacity = useTransform(scrollYProgress, [0.1, 0.25, 0.75, 0.9], [0, 1, 1, 0]);
-  const scale = useTransform(scrollYProgress, [0.1, 0.3, 0.7, 0.9], [0.8, 1, 1, 0.9]);
-  const rotate = useTransform(scrollYProgress, [0, 0.5, 1], [-2, 0, 2]);
-  const blur = useTransform(scrollYProgress, [0, 0.4, 0.6, 1], [3, 0, 0, 3]);
-  const y = useTransform(scrollYProgress, [0.1, 0.3, 0.7, 0.9], [50, 0, 0, 50]);
+  // Simplified transformations for mobile
+  const opacity = useTransform(
+    scrollYProgress, 
+    isMobile ? [0.1, 0.3, 0.8, 1] : [0.1, 0.25, 0.75, 0.9], 
+    [0, 1, 1, 0]
+  );
+  
+  const scale = isMobile ? 1 : useTransform(
+    scrollYProgress, 
+    [0.1, 0.3, 0.7, 0.9], 
+    [0.8, 1, 1, 0.9]
+  );
+  
+  const rotate = isMobile ? 0 : useTransform(
+    scrollYProgress, 
+    [0, 0.5, 1], 
+    [-2, 0, 2]
+  );
+  
+  const blur = isMobile ? 0 : useTransform(
+    scrollYProgress, 
+    [0, 0.4, 0.6, 1], 
+    [3, 0, 0, 3]
+  );
+  
+  const y = isMobile ? 0 : useTransform(
+    scrollYProgress, 
+    [0.1, 0.3, 0.7, 0.9], 
+    [50, 0, 0, 50]
+  );
   
   return (
     <section ref={containerRef} className="relative py-32 overflow-hidden">
-      {/* Add parallax background elements */}
-      <motion.div 
-        className="absolute inset-0 z-0"
-        style={{ 
-          opacity: useTransform(scrollYProgress, [0, 0.5, 1], [0.3, 0.7, 0.3]),
-          backgroundImage: "radial-gradient(circle at 50% 50%, rgba(0,51,102,0.08) 0%, rgba(255,255,255,0) 70%)",
-          scale: useTransform(scrollYProgress, [0, 0.5, 1], [0.9, 1.1, 0.9]),
-        }}
-      />
+      {/* Simplified background elements for mobile */}
+      {!isMobile && (
+        <motion.div 
+          className="absolute inset-0 z-0"
+          style={{ 
+            opacity: useTransform(scrollYProgress, [0, 0.5, 1], [0.3, 0.7, 0.3]),
+            backgroundImage: "radial-gradient(circle at 50% 50%, rgba(0,51,102,0.08) 0%, rgba(255,255,255,0) 70%)",
+            scale: useTransform(scrollYProgress, [0, 0.5, 1], [0.9, 1.1, 0.9]),
+          }}
+        />
+      )}
       
       {/* Container for the quote */}
       <motion.div 
         className="container relative z-10"
         style={{ 
           opacity, 
-          scale, 
+          scale: isMobile ? 1 : scale, 
           rotateZ: rotate, 
           y,
-          filter: `blur(${blur}px)`
+          filter: isMobile ? "none" : `blur(${blur}px)`
         }}
       >
         <div className="max-w-4xl mx-auto bg-white/95 backdrop-blur-sm p-8 md:p-12 rounded-xl border-2 border-sheraa-primary/20 shadow-xl">
@@ -78,59 +106,66 @@ const QuoteSection = () => {
         </div>
       </motion.div>
       
-      {/* Enhanced background elements with increased opacity and parallax effect */}
-      <motion.div 
-        className="absolute -left-20 top-20 w-60 h-60 rounded-full bg-sheraa-primary/20 blur-3xl" 
-        animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.4, 0.7, 0.4]
-        }} 
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-        style={{
-          x: useTransform(scrollYProgress, [0, 0.5, 1], [-20, -60, 20]),
-          y: useTransform(scrollYProgress, [0, 0.5, 1], [0, 40, 80]),
-        }}
-      />
-      
-      <motion.div 
-        className="absolute -right-20 bottom-20 w-80 h-80 rounded-full bg-sheraa-teal/20 blur-3xl" 
-        animate={{
-          scale: [1, 1.1, 1],
-          opacity: [0.3, 0.6, 0.3]
-        }} 
-        transition={{
-          duration: 7,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 1
-        }}
-        style={{
-          x: useTransform(scrollYProgress, [0, 0.5, 1], [20, -30, -80]),
-          y: useTransform(scrollYProgress, [0, 0.5, 1], [0, -60, -20]),
-        }}
-      />
-      
-      <motion.div 
-        className="absolute left-1/2 top-1/3 w-40 h-40 rounded-full bg-sheraa-orange/10 blur-3xl" 
-        animate={{
-          scale: [1, 1.3, 1],
-          opacity: [0.2, 0.5, 0.2]
-        }} 
-        transition={{
-          duration: 10,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 2
-        }}
-        style={{
-          x: useTransform(scrollYProgress, [0, 0.5, 1], [0, 100, 0]),
-          y: useTransform(scrollYProgress, [0, 0.5, 1], [0, -30, 0]),
-        }}
-      />
+      {/* Conditionally render background elements based on device */}
+      {!isMobile ? (
+        <>
+          <motion.div 
+            className="absolute -left-20 top-20 w-60 h-60 rounded-full bg-sheraa-primary/20 blur-3xl" 
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [0.4, 0.7, 0.4]
+            }} 
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+            style={{
+              x: useTransform(scrollYProgress, [0, 0.5, 1], [-20, -60, 20]),
+              y: useTransform(scrollYProgress, [0, 0.5, 1], [0, 40, 80]),
+            }}
+          />
+          
+          <motion.div 
+            className="absolute -right-20 bottom-20 w-80 h-80 rounded-full bg-sheraa-teal/20 blur-3xl" 
+            animate={{
+              scale: [1, 1.1, 1],
+              opacity: [0.3, 0.6, 0.3]
+            }} 
+            transition={{
+              duration: 7,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 1
+            }}
+            style={{
+              x: useTransform(scrollYProgress, [0, 0.5, 1], [20, -30, -80]),
+              y: useTransform(scrollYProgress, [0, 0.5, 1], [0, -60, -20]),
+            }}
+          />
+          
+          <motion.div 
+            className="absolute left-1/2 top-1/3 w-40 h-40 rounded-full bg-sheraa-orange/10 blur-3xl" 
+            animate={{
+              scale: [1, 1.3, 1],
+              opacity: [0.2, 0.5, 0.2]
+            }} 
+            transition={{
+              duration: 10,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 2
+            }}
+            style={{
+              x: useTransform(scrollYProgress, [0, 0.5, 1], [0, 100, 0]),
+              y: useTransform(scrollYProgress, [0, 0.5, 1], [0, -30, 0]),
+            }}
+          />
+        </>
+      ) : (
+        // Simplified background for mobile - just one subtle element
+        <div className="absolute right-0 bottom-0 w-32 h-32 rounded-full bg-sheraa-teal/10 blur-2xl opacity-30" />
+      )}
     </section>
   );
 };
