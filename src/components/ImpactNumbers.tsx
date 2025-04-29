@@ -1,8 +1,8 @@
 
-import React from "react";
+import React, { useRef } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { cn } from "@/lib/utils";
@@ -19,6 +19,14 @@ import {
 
 const ImpactNumbers = () => {
   const isMobile = useIsMobile();
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"]
+  });
+  
+  const bgOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.5, 1, 0.5]);
+  const rotate = useTransform(scrollYProgress, [0, 1], [0, 8]);
   
   // Convert the previous stats into the format needed for the new feature component
   const features = [
@@ -53,8 +61,37 @@ const ImpactNumbers = () => {
   ];
   
   return (
-    <section className="py-16 md:py-24 bg-sheraa-background-DEFAULT relative overflow-hidden">
-      <div className="container mx-auto px-4 md:px-6">
+    <section 
+      ref={sectionRef}
+      className="py-16 md:py-24 relative overflow-hidden"
+    >
+      <motion.div 
+        className="absolute inset-0 -z-10"
+        style={{ 
+          opacity: bgOpacity,
+          background: "radial-gradient(circle at center, rgba(0,51,102,0.08) 0%, rgba(255,255,255,0) 70%)"
+        }}
+      />
+      
+      <motion.div
+        className="absolute -z-10 w-[800px] h-[800px] border border-sheraa-primary/10 rounded-full left-1/2 top-1/2"
+        style={{
+          x: "-50%",
+          y: "-50%",
+          rotate,
+        }}
+      />
+      
+      <motion.div
+        className="absolute -z-10 w-[600px] h-[600px] border border-sheraa-secondary/10 rounded-full left-1/2 top-1/2"
+        style={{
+          x: "-50%",
+          y: "-50%",
+          rotate: useTransform(scrollYProgress, [0, 1], [0, -12]),
+        }}
+      />
+      
+      <div className="container mx-auto px-4 md:px-6 relative z-10">
         <motion.div 
           className="text-center mb-12 md:mb-16 max-w-3xl mx-auto"
           initial={{
@@ -150,6 +187,7 @@ const Feature = ({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ delay: index * 0.1 }}
+      whileHover={{ scale: 1.03 }}
       className={cn(
         "flex flex-col lg:border-r py-10 px-4 relative group/feature",
         (index === 0 || index === 4) && "lg:border-l",
@@ -163,12 +201,27 @@ const Feature = ({
       {index >= 4 && (
         <div className="opacity-0 group-hover/feature:opacity-100 transition duration-200 absolute inset-0 h-full w-full bg-gradient-to-b from-sheraa-background-soft to-transparent pointer-events-none" />
       )}
-      <div className="mb-2 relative z-10 px-6 text-sheraa-primary">
+      <motion.div 
+        className="mb-2 relative z-10 px-6 text-sheraa-primary"
+        whileHover={{ 
+          rotate: [0, -10, 10, -10, 0],
+          transition: { duration: 0.5 }
+        }}
+      >
         {icon}
-      </div>
-      <div className="text-4xl md:text-5xl lg:text-6xl font-bold mb-2 relative z-10 px-6 text-sheraa-primary">
+      </motion.div>
+      <motion.div 
+        className="text-4xl md:text-5xl lg:text-6xl font-bold mb-2 relative z-10 px-6 text-sheraa-primary"
+        initial={{ opacity: 0, scale: 0.5 }}
+        whileInView={{ 
+          opacity: 1, 
+          scale: 1, 
+          transition: { delay: 0.2 + index * 0.1, type: "spring" } 
+        }}
+        viewport={{ once: true }}
+      >
         {value}
-      </div>
+      </motion.div>
       <div className="text-lg font-bold mb-2 relative z-10 px-6">
         <div className="absolute left-0 inset-y-0 h-6 group-hover/feature:h-8 w-1 rounded-tr-full rounded-br-full bg-gray-200 dark:bg-neutral-700 group-hover/feature:bg-sheraa-primary transition-all duration-200 origin-center" />
         <span className="group-hover/feature:translate-x-2 transition duration-200 inline-block text-sheraa-dark">
@@ -178,9 +231,12 @@ const Feature = ({
       <p className="text-sm text-gray-600 max-w-xs relative z-10 px-6">
         {description}
       </p>
-      <div className="inline-flex items-center text-xs font-medium text-sheraa-primary bg-sheraa-primary/10 px-3 py-1 rounded-full mt-2 mx-6">
+      <motion.div 
+        className="inline-flex items-center text-xs font-medium text-sheraa-primary bg-sheraa-primary/10 px-3 py-1 rounded-full mt-2 mx-6"
+        whileHover={{ scale: 1.05 }}
+      >
         <span>{subtext}</span>
-      </div>
+      </motion.div>
     </motion.div>
   );
 };
