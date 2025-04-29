@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -71,7 +70,6 @@ export default {
         },
         sheraa: {
           primary: '#003366',     // Deep Blue
-          secondary: '#7E69AB',   // Purple - Adding this color
           orange: '#FF6600',      // Vibrant Orange
           teal: '#008080',        // Teal Green
           coral: '#FF7F50',       // Soft Coral

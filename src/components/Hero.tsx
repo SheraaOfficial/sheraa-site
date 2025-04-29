@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect, useMemo } from "react";
+import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
@@ -8,7 +9,6 @@ import { TextShimmer } from "./ui/text-shimmer";
 import { Badge } from "./ui/badge";
 import ParticleBackground from "./ParticleBackground";
 import { BorderBeam } from "./ui/border-beam";
-import { ButtonCta } from "./ui/button-cta";
 
 const Hero = () => {
   const [titleIndex, setTitleIndex] = useState(0);
@@ -25,17 +25,14 @@ const Hero = () => {
     <section className="relative min-h-[70vh] overflow-hidden bg-background text-foreground py-16 md:py-24 px-4">
       <ParticleBackground />
       
-      <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
-        <BorderBeam 
-          size={600} 
-          duration={15} 
-          colorFrom="#C787F6" 
-          colorTo="#654358" 
-          borderWidth={2} 
-          delay={2}
-          className="animate-spin-slow"
-        />
-      </div>
+      <BorderBeam 
+        size={400} 
+        duration={25} 
+        colorFrom="#003366" 
+        colorTo="#008080" 
+        borderWidth={3} 
+        delay={2}
+      />
       
       <div className="container mx-auto relative z-10">
         <div className="max-w-3xl mx-auto text-center space-y-8 relative">
@@ -117,16 +114,15 @@ const Hero = () => {
             }} 
             className="flex flex-wrap gap-4 justify-center"
           >
-            <ButtonCta 
-              label="Launch Your Startup" 
-              className="w-auto min-w-[200px]"
-              onClick={() => window.location.href = "/programs"}
-            />
-            <ButtonCta 
-              label="Join Our Community" 
-              className="w-auto min-w-[200px]"
-              onClick={() => window.location.href = "/community/join"}
-            />
+            <Button asChild variant="gradient" className="group">
+              <Link to="/programs" className="flex items-center gap-2">
+                Launch Your Startup
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform duration-300" />
+              </Link>
+            </Button>
+            <Button asChild variant="outline" size="lg" className="border-sheraa-primary text-sheraa-primary hover:bg-sheraa-light">
+              <Link to="/community/join">Join Our Community</Link>
+            </Button>
           </motion.div>
         </div>
       </div>

@@ -1,8 +1,8 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ButtonCta } from "./ui/button-cta";
 
 const Footer = () => {
   return (
@@ -139,10 +139,9 @@ const Footer = () => {
                 placeholder="Your email"
                 className="bg-gray-700 border-gray-600 text-white placeholder:text-gray-400"
               />
-              <ButtonCta 
-                label="Subscribe" 
-                className="w-full"
-              />
+              <Button variant="gradient" className="w-full">
+                Subscribe
+              </Button>
             </div>
           </div>
         </div>

@@ -1,8 +1,9 @@
 
 import React from "react";
-import { Users, Calendar, Target } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Users, Calendar, Target, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
-import { ButtonCta } from "./ui/button-cta";
 
 const CommunitySection = () => {
   const features = [
@@ -103,11 +104,16 @@ const CommunitySection = () => {
               ))}
             </div>
 
-            <ButtonCta 
-              label="Become a Member"
-              className="w-auto"
-              onClick={() => window.location.href = "/community/join"}
-            />
+            <Button 
+              asChild 
+              variant="gradient"
+              className="group"
+            >
+              <Link to="/community/join" className="flex items-center gap-2">
+                Become a Member
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform duration-300" />
+              </Link>
+            </Button>
           </motion.div>
           
           <motion.div variants={itemVariants}>
@@ -140,11 +146,16 @@ const CommunitySection = () => {
                 ))}
               </div>
 
-              <ButtonCta
-                label="Explore Partnerships"
-                className="w-auto"
-                onClick={() => window.location.href = "/community/partnerships"}
-              />
+              <Button 
+                asChild 
+                variant="gradientAccent"
+                className="w-full group"
+              >
+                <Link to="/community/partnerships" className="flex items-center justify-center gap-2">
+                  Explore Partnerships
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform duration-300" />
+                </Link>
+              </Button>
             </div>
           </motion.div>
         </motion.div>

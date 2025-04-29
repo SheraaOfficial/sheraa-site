@@ -1,7 +1,7 @@
 
 import { ArrowRight } from "lucide-react";
+import { Button } from "./ui/button";
 import { motion } from "framer-motion";
-import { ButtonCta } from "./ui/button-cta";
 
 const EligibilityChecker = () => {
   return (
@@ -32,10 +32,13 @@ const EligibilityChecker = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <ButtonCta 
-                label="Try Eligibility Checker"
-                className="w-auto"
-              />
+              <Button 
+                variant="gradient"
+                className="flex items-center gap-2 w-full md:w-auto group"
+              >
+                Try Eligibility Checker
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
+              </Button>
             </motion.div>
           </div>
         </div>

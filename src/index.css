@@ -1,177 +1,250 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-  html {
-    @apply antialiased;
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 207 100% 20%;  /* #003366 - Sheraa Deep Blue */
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 180 100% 25%;  /* #008080 - Sheraa Teal */
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 24 100% 50%;  /* #FF6600 - Sheraa Orange */
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
-  body {
-    @apply bg-background text-foreground;
-  }
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
 
-  @keyframes shimmer {
-    0% {
-      backgroundPosition: -200% 0;
-    }
-    100% {
-      backgroundPosition: 200% 0;
-    }
-  }
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
 
-  @keyframes appear {
-    0% {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
 
-  .animate-appear {
-    animation: appear 0.5s ease-out forwards;
-  }
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
 
-  @keyframes appear-zoom {
-    0% {
-      opacity: 0;
-      transform: scale(0.9);
-    }
-    100% {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
 
-  .animate-appear-zoom {
-    animation: appear-zoom 0.5s ease-out forwards;
-  }
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
 
-  @keyframes first {
-    0% {
-      transform: translate(100px, -100px);
-    }
-    25% {
-      transform: translate(-50px, 50px);
-    }
-    50% {
-      transform: translate(-100px, 100px);
-    }
-    75% {
-      transform: translate(50px, -50px);
-    }
-    100% {
-      transform: translate(100px, -100px);
-    }
-  }
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
 
-  @keyframes second {
-    0% {
-      transform: translate(-100px, 100px);
-    }
-    25% {
-      transform: translate(50px, -50px);
-    }
-    50% {
-      transform: translate(100px, -100px);
-    }
-    75% {
-      transform: translate(-50px, 50px);
-    }
-    100% {
-      transform: translate(-100px, 100px);
-    }
-  }
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
 
-  @keyframes third {
-    0% {
-      transform: translate(50px, -50px);
-    }
-    25% {
-      transform: translate(100px, -100px);
-    }
-    50% {
-      transform: translate(-50px, 50px);
-    }
-    75% {
-      transform: translate(-100px, 100px);
-    }
-    100% {
-      transform: translate(50px, -50px);
-    }
-  }
-
-  @keyframes fourth {
-    0% {
-      transform: translate(-50px, 50px);
-    }
-    25% {
-      transform: translate(-100px, 100px);
-    }
-    50% {
-      transform: translate(50px, -50px);
-    }
-    75% {
-      transform: translate(100px, -100px);
-    }
-    100% {
-      transform: translate(-50px, 50px);
-    }
-  }
-
-  .animate-first {
-    animation: first 10s linear infinite;
-  }
-
-  .animate-second {
-    animation: second 10s linear infinite;
-  }
-
-  .animate-third {
-    animation: third 10s linear infinite;
-  }
-
-  .animate-fourth {
-    animation: fourth 10s linear infinite;
-  }
-
-  @keyframes border-beam {
-    to {
-      rotate: 360deg;
-    }
-  }
-
-  @keyframes spin-slow {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-
-  .animate-spin-slow {
-    animation: spin-slow 20s linear infinite;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
 
-@layer components {
-  .sheraa-navbar {
-    @apply bg-white border-b border-neutral-100 sticky top-0 z-50;
-  }
-  
-  .sheraa-footer {
-    @apply bg-sheraa-primary text-white pt-12 pb-8;
-  }
-  
-  .gradient-button {
-    @apply bg-gradient-to-r from-sheraa-primary to-sheraa-secondary;
+@layer base {
+  * {
+    @apply border-border;
   }
 
-  .gradient-button-variant {
-    @apply from-sheraa-secondary to-sheraa-teal;
+  body {
+    @apply bg-white text-sheraa-dark font-plus-jakarta;
+  }
+
+  .section-background {
+    @apply bg-white/50 backdrop-blur-lg border border-white/20 rounded-2xl shadow-sheraa-soft;
+  }
+
+  .gradient-overlay {
+    background: linear-gradient(
+      135deg, 
+      #FF6600 0%,  /* Vibrant Orange */
+      #FF7F50 100% /* Soft Coral */
+    );
+  }
+}
+
+@layer utilities {
+  .max-w-container {
+    max-width: 1400px;
+    width: 100%;
+  }
+  
+  .bg-soft-gradient {
+    background: linear-gradient(
+      to bottom right, 
+      #F8F9FA,
+      #F1F5F9
+    );
+  }
+
+  .bg-primary-gradient {
+    background: linear-gradient(to right, #003366, #008080);  /* Deep Blue to Teal */
+    color: white;
+  }
+
+  .bg-secondary-gradient {
+    background: linear-gradient(to right, #FF6600, #FF7F50);  /* Vibrant Orange to Soft Coral */
+    color: white;
+  }
+
+  .text-gradient-primary {
+    background: linear-gradient(to right, #003366, #008080);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+  }
+  
+  .animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+}
+
+/* Add keyframes for the animated gradient */
+@keyframes moveGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Gradient Button Styles */
+.gradient-button {
+  background: linear-gradient(92deg, #003366 0%, #008080 100%);
+  transition: all 0.3s ease-in-out;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 51, 102, 0.15);
+  color: white;
+  font-weight: 700;
+}
+
+.gradient-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(92deg, #008080 0%, #003366 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.gradient-button:hover::before {
+  opacity: 1;
+}
+
+.gradient-button-variant {
+  background: linear-gradient(92deg, #FF6600 0%, #FF7F50 100%);
+}
+
+.gradient-button-variant::before {
+  background: linear-gradient(92deg, #FF7F50 0%, #FF6600 100%);
+}
+
+.gradient-button > * {
+  position: relative;
+  z-index: 1;
+  color: white;
+}
+
+/* Original styles below */
+.sheraa-navbar {
+  @apply sticky top-0 z-40 w-full border-b bg-white border-gray-200;
+}
+
+.sheraa-footer {
+  @apply bg-sheraa-primary text-white;
+}
+
+/* Button styles with Sheraa brand colors */
+.btn-primary {
+  @apply bg-sheraa-primary hover:bg-opacity-90 text-white transition-colors;
+}
+
+.btn-accent {
+  @apply bg-sheraa-orange hover:bg-opacity-90 text-white transition-colors;
+}
+
+.btn-outline-primary {
+  @apply border border-sheraa-primary text-sheraa-primary hover:bg-sheraa-primary hover:text-white transition-all;
+}
+
+.btn-outline-accent {
+  @apply border border-sheraa-orange text-sheraa-orange hover:bg-sheraa-orange hover:text-white transition-all;
+}
+
+/* Card styles */
+.sheraa-card {
+  @apply bg-white rounded-xl shadow-sheraa-soft border border-gray-100 hover:shadow-sheraa-medium transition-shadow;
+}
+
+.sheraa-card-accent {
+  @apply border-l-4 border-l-sheraa-orange;
+}
+
+/* Standard section spacing */
+.section-padding {
+  @apply py-16 md:py-24;
+}
+
+/* Glassmorphism effects */
+.glass-card {
+  @apply bg-white/70 backdrop-blur-md border border-white/20 rounded-xl shadow-sheraa-soft;
+}
+
+/* Mobile optimizations */
+@media (max-width: 640px) {
+  .section-padding {
+    @apply py-12;
   }
 }

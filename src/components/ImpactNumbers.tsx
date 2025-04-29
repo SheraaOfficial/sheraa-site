@@ -1,4 +1,7 @@
+
 import React from "react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -13,7 +16,6 @@ import {
   IconRouteAltLeft,
   IconTerminal2,
 } from "@tabler/icons-react";
-import { ButtonCta } from "./ui/button-cta";
 
 const ImpactNumbers = () => {
   const isMobile = useIsMobile();
@@ -111,11 +113,16 @@ const ImpactNumbers = () => {
             duration: 0.5
           }}
         >
-          <ButtonCta 
-            label="View Impact Report"
-            className="w-auto mx-auto"
-            onClick={() => window.location.href = "/about/impact"}
-          />
+          <Button 
+            asChild 
+            variant="gradient" 
+            className="group"
+          >
+            <Link to="/about/impact" className="flex items-center gap-2">
+              View Impact Report 
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform duration-300" />
+            </Link>
+          </Button>
         </motion.div>
       </div>
     </section>
