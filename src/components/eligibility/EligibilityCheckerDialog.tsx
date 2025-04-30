@@ -384,9 +384,20 @@ const EligibilityCheckerDialog: React.FC<EligibilityCheckerDialogProps> = ({
             }
           } else {
             // This is for boolean criteria
-            // Make sure we're comparing the same types
-            const booleanAnswer = answers[criteriaKey] === "true" || answers[criteriaKey] === true;
-            if (allowedValues !== booleanAnswer) {
+            // Fix: Handle boolean comparison properly by converting to boolean type
+            const booleanValue = typeof allowedValues === 'boolean' ? allowedValues : false;
+            let answerAsBool = false;
+            
+            const currentAnswer = answers[criteriaKey];
+            if (typeof currentAnswer === 'string') {
+              answerAsBool = currentAnswer === 'true';
+            } else {
+              // If it's an array, we can't compare with boolean
+              isMatch = false;
+              break;
+            }
+            
+            if (booleanValue !== answerAsBool) {
               isMatch = false;
               break;
             }
@@ -481,7 +492,6 @@ const EligibilityCheckerDialog: React.FC<EligibilityCheckerDialogProps> = ({
                               checked={currentAnswers.includes(option.id)}
                               onCheckedChange={(checked) => {
                                 if (checked) {
-                                  // Fixed: Pass array to handleAnswerChange for checkbox
                                   handleAnswerChange(
                                     currentQuestion.id,
                                     [...(currentAnswers), option.id]
