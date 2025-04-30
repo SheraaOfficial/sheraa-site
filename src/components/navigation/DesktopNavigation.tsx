@@ -2,6 +2,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { GradientButton } from "@/components/ui/gradient-button";
 import {
   NavigationMenu,
   NavigationMenuList,
@@ -9,7 +10,6 @@ import {
 } from "@/components/ui/navigation-menu";
 import MegaMenuComponent from "./MegaMenuComponent";
 import { NavigationMenuItem } from "@radix-ui/react-navigation-menu";
-// Removed incorrect import
 
 interface DesktopNavigationProps {
   aboutLinks: { title: string; href: string; description?: string }[];
@@ -47,9 +47,9 @@ const DesktopNavigation: React.FC<DesktopNavigationProps> = ({
         <Button variant="outline" size="sm">
           Login
         </Button>
-        <Button className="bg-sheraa-primary hover:bg-sheraa-primary/90" size="sm">
+        <GradientButton size="sm">
           Get Started
-        </Button>
+        </GradientButton>
       </div>
     </div>
   );

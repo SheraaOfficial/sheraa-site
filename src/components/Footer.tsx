@@ -1,7 +1,6 @@
-
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
+import { GradientButton } from "@/components/ui/gradient-button";
 import { Input } from "@/components/ui/input";
 
 const Footer = () => {
@@ -139,9 +138,9 @@ const Footer = () => {
                 placeholder="Your email"
                 className="bg-gray-700 border-gray-600 text-white placeholder:text-gray-400"
               />
-              <Button variant="gradient" className="w-full">
+              <GradientButton variant="default" size="default" className="w-full">
                 Subscribe
-              </Button>
+              </GradientButton>
             </div>
           </div>
         </div>

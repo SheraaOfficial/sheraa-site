@@ -1,8 +1,7 @@
-
 import React from "react";
 import { motion } from "framer-motion";
 import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { GradientButton } from "@/components/ui/gradient-button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
@@ -228,12 +227,13 @@ const ContactSection = () => {
                     )}
                   />
                   
-                  <Button 
+                  <GradientButton 
                     type="submit" 
-                    className="w-full py-6 bg-gradient-to-r from-sheraa-primary to-sheraa-secondary hover:from-sheraa-primary/90 hover:to-sheraa-secondary/90 text-lg font-medium"
+                    size="xl"
+                    className="w-full"
                   >
                     Send Message
-                  </Button>
+                  </GradientButton>
                 </form>
               </Form>
             </Card>

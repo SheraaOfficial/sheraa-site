@@ -144,6 +144,9 @@ export default {
       backgroundImage: {
         'gradient-primary': 'linear-gradient(to right, #003366, #008080)',
         'gradient-secondary': 'linear-gradient(to right, #FF6600, #FF7F50)',
+        'gradient-purple': 'linear-gradient(to right, #9b87f5, #D946EF)',
+        'gradient-accent': 'linear-gradient(to right, #FF6600, #FF7F50)',
+        'gradient-blue': 'linear-gradient(to right, #0EA5E9, #33C3F0)',
       },
       boxShadow: {
         'sheraa-soft': '0 4px 6px -1px rgba(0, 51, 102, 0.1), 0 2px 4px -1px rgba(0, 51, 102, 0.06)',
@@ -153,4 +156,3 @@ export default {
   },
   plugins: [require("tailwindcss-animate")],
 } satisfies Config;
-

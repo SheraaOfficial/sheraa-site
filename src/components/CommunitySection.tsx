@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
+import { GradientButton } from "@/components/ui/gradient-button";
 import { Users, Calendar, Target, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -104,16 +104,16 @@ const CommunitySection = () => {
               ))}
             </div>
 
-            <Button 
+            <GradientButton 
               asChild 
-              variant="gradient"
+              size="lg"
               className="group"
             >
               <Link to="/community/join" className="flex items-center gap-2">
                 Become a Member
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform duration-300" />
               </Link>
-            </Button>
+            </GradientButton>
           </motion.div>
           
           <motion.div variants={itemVariants}>
@@ -146,16 +146,17 @@ const CommunitySection = () => {
                 ))}
               </div>
 
-              <Button 
+              <GradientButton 
                 asChild 
-                variant="gradientAccent"
+                variant="accent"
+                size="lg"
                 className="w-full group"
               >
                 <Link to="/community/partnerships" className="flex items-center justify-center gap-2">
                   Explore Partnerships
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform duration-300" />
                 </Link>
-              </Button>
+              </GradientButton>
             </div>
           </motion.div>
         </motion.div>

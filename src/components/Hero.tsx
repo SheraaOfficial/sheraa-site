@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect, useMemo } from "react";
 import { Button } from "@/components/ui/button";
+import { GradientButton } from "@/components/ui/gradient-button";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
@@ -117,15 +118,15 @@ const Hero = () => {
             }} 
             className="flex flex-wrap gap-4 justify-center"
           >
-            <Button asChild variant="gradient" className="group">
+            <GradientButton asChild size="lg" className="group">
               <Link to="/programs" className="flex items-center gap-2">
                 Launch Your Startup
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform duration-300" />
               </Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="border-sheraa-primary text-sheraa-primary hover:bg-sheraa-light">
+            </GradientButton>
+            <GradientButton asChild variant="outline" size="lg" className="border-sheraa-primary text-sheraa-primary">
               <Link to="/community/join">Join Our Community</Link>
-            </Button>
+            </GradientButton>
           </motion.div>
         </div>
       </div>
