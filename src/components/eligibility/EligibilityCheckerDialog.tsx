@@ -352,7 +352,7 @@ const EligibilityCheckerDialog: React.FC<EligibilityCheckerDialogProps> = ({
   };
 
   // Handle answer selection
-  const handleAnswerChange = (questionId: string, value: string) => {
+  const handleAnswerChange = (questionId: string, value: string | string[]) => {
     setAnswers(prev => ({ ...prev, [questionId]: value }));
   };
 
@@ -364,15 +364,32 @@ const EligibilityCheckerDialog: React.FC<EligibilityCheckerDialogProps> = ({
       for (const [criteriaKey, allowedValues] of Object.entries(program.criteria)) {
         if (answers[criteriaKey] !== undefined) {
           if (Array.isArray(allowedValues)) {
-            // Fix: Check if the current answer is included in the allowed values array
-            if (!allowedValues.includes(answers[criteriaKey] as string)) {
+            const currentAnswer = answers[criteriaKey];
+            // Check if the answer is an array or single string and handle accordingly
+            if (Array.isArray(currentAnswer)) {
+              // For multi-select answers
+              const matchFound = currentAnswer.some(ans => 
+                allowedValues.includes(ans)
+              );
+              if (!matchFound) {
+                isMatch = false;
+                break;
+              }
+            } else {
+              // For single-value answers
+              if (!allowedValues.includes(currentAnswer as string)) {
+                isMatch = false;
+                break;
+              }
+            }
+          } else {
+            // This is for boolean criteria
+            // Make sure we're comparing the same types
+            const booleanAnswer = answers[criteriaKey] === "true" || answers[criteriaKey] === true;
+            if (allowedValues !== booleanAnswer) {
               isMatch = false;
               break;
             }
-          } else if (allowedValues !== answers[criteriaKey]) {
-            // This is for boolean criteria
-            isMatch = false;
-            break;
           }
         }
       }
@@ -464,14 +481,15 @@ const EligibilityCheckerDialog: React.FC<EligibilityCheckerDialogProps> = ({
                               checked={currentAnswers.includes(option.id)}
                               onCheckedChange={(checked) => {
                                 if (checked) {
+                                  // Fixed: Pass array to handleAnswerChange for checkbox
                                   handleAnswerChange(
                                     currentQuestion.id,
-                                    [...(currentAnswers as string[]), option.id]
+                                    [...(currentAnswers), option.id]
                                   );
                                 } else {
                                   handleAnswerChange(
                                     currentQuestion.id,
-                                    (currentAnswers as string[]).filter(id => id !== option.id)
+                                    (currentAnswers).filter(id => id !== option.id)
                                   );
                                 }
                               }}
