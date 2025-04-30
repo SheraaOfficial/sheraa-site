@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import MegaMenuComponent from "./MegaMenuComponent";
 import { NavigationMenuItem } from "@radix-ui/react-navigation-menu";
-import { navLinks } from "./navigationData";
+// Removed incorrect import
 
 interface DesktopNavigationProps {
   aboutLinks: { title: string; href: string; description?: string }[];
