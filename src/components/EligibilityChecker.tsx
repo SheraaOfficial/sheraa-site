@@ -1,9 +1,8 @@
 
 import React from "react";
-import { ArrowRight } from "lucide-react";
-import { Button } from "./ui/button";
 import { motion } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
+import EligibilityCheckerButton from "./eligibility/EligibilityCheckerButton";
 
 const EligibilityChecker = () => {
   const containerRef = React.useRef<HTMLDivElement>(null);
@@ -26,16 +25,6 @@ const EligibilityChecker = () => {
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.4 } }
-  };
-
-  // Optimized pulse animation that works well on mobile
-  const pulseAnimation = {
-    scale: [1, 1.02, 1],
-    boxShadow: [
-      "0 0 0 0 rgba(0,51,102,0)",
-      "0 0 0 10px rgba(0,51,102,0.1)",
-      "0 0 0 0 rgba(0,51,102,0)"
-    ]
   };
 
   return (
@@ -68,23 +57,8 @@ const EligibilityChecker = () => {
               </p>
             </motion.div>
 
-            <motion.div 
-              variants={itemVariants}
-              animate={isMobile ? {} : pulseAnimation}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                repeatType: "reverse"
-              }}
-            >
-              <Button
-                variant="gradient"
-                size="lg"
-                className="flex items-center gap-2 w-full md:w-auto group relative overflow-hidden"
-              >
-                <span className="relative z-10">Try Eligibility Checker</span>
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300 relative z-10" />
-              </Button>
+            <motion.div variants={itemVariants}>
+              <EligibilityCheckerButton size="lg" />
             </motion.div>
           </div>
 
