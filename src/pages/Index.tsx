@@ -1,6 +1,5 @@
 
 import React, { useEffect } from "react";
-import { motion } from "framer-motion";
 import MainLayout from "@/components/layouts/MainLayout";
 import HomePageSections from "@/components/home/HomePageSections";
 import { useIsMobile, useOptimizedScroll } from "@/hooks/use-mobile";

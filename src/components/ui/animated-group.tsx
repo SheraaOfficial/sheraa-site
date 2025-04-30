@@ -2,11 +2,11 @@
 "use client"
 
 import React from "react";
-import { motion, MotionProps } from "framer-motion";
+import { motion, MotionProps, Variants } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 interface AnimatedGroupProps extends React.HTMLAttributes<HTMLDivElement> {
-  variants?: MotionProps["variants"];
+  variants?: Variants;
   initial?: MotionProps["initial"];
   animate?: MotionProps["animate"];
   transition?: MotionProps["transition"];
@@ -18,7 +18,7 @@ export function AnimatedGroup({
   variants = {
     container: {
       hidden: { opacity: 0 },
-      visible: {
+      show: {
         opacity: 1,
         transition: {
           staggerChildren: 0.1,
@@ -28,7 +28,7 @@ export function AnimatedGroup({
     },
     item: {
       hidden: { opacity: 0, y: 20 },
-      visible: {
+      show: {
         opacity: 1,
         y: 0,
         transition: {
@@ -40,7 +40,7 @@ export function AnimatedGroup({
     },
   },
   initial = "hidden",
-  animate = "visible",
+  animate = "show",
   transition,
   className,
   children,

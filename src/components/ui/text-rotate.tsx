@@ -1,3 +1,4 @@
+
 "use client"
 
 import {
@@ -10,9 +11,7 @@ import {
 } from "react"
 import {
   AnimatePresence,
-  AnimatePresenceProps,
   motion,
-  MotionProps,
   Transition,
 } from "framer-motion"
 
@@ -21,16 +20,16 @@ import { cn } from "@/lib/utils"
 interface TextRotateProps {
   texts: string[]
   rotationInterval?: number
-  initial?: MotionProps["initial"]
-  animate?: MotionProps["animate"]
-  exit?: MotionProps["exit"]
-  animatePresenceMode?: AnimatePresenceProps["mode"]
+  initial?: any
+  animate?: any
+  exit?: any
+  animatePresenceMode?: "sync" | "wait" | "popLayout" 
   animatePresenceInitial?: boolean
   staggerDuration?: number
   staggerFrom?: "first" | "last" | "center" | number | "random"
   transition?: Transition
-  loop?: boolean // Whether to start from the first text when the last one is reached
-  auto?: boolean // Whether to start the animation automatically
+  loop?: boolean 
+  auto?: boolean
   splitBy?: "words" | "characters" | "lines" | string
   onNext?: (index: number) => void
   mainClassName?: string
@@ -78,8 +77,22 @@ const TextRotate = forwardRef<TextRotateRef, TextRotateProps>(
 
     // handy function to split text into characters with support for unicode and emojis
     const splitIntoCharacters = (text: string): string[] => {
-      // Use standard Array.from for character segmentation since Intl.Segmenter isn't available in all browsers
-      return Array.from(text);
+      // Use the Intl.Segmenter if available (modern browsers)
+      if (typeof window !== "undefined" && 
+          typeof Intl !== "undefined" && 
+          "Segmenter" in Intl) {
+        try {
+          // @ts-ignore - TypeScript doesn't know about Intl.Segmenter yet
+          const segmenter = new Intl.Segmenter("en", { granularity: "grapheme" })
+          // @ts-ignore
+          return Array.from(segmenter.segment(text), ({ segment }) => segment)
+        } catch (e) {
+          // Fallback for browsers that don't support Intl.Segmenter
+          return Array.from(text)
+        }
+      }
+      // Fallback for browsers that don't support Intl.Segmenter
+      return Array.from(text)
     }
 
     const elements = useMemo(() => {
@@ -111,7 +124,10 @@ const TextRotate = forwardRef<TextRotateRef, TextRotateProps>(
           const randomIndex = Math.floor(Math.random() * total)
           return Math.abs(randomIndex - index) * staggerDuration
         }
-        return Math.abs(staggerFrom - index) * staggerDuration
+        if (typeof staggerFrom === "number") {
+          return Math.abs(staggerFrom - index) * staggerDuration
+        }
+        return index * staggerDuration // Default to "first"
       },
       [staggerFrom, staggerDuration]
     )
@@ -162,7 +178,6 @@ const TextRotate = forwardRef<TextRotateRef, TextRotateProps>(
       jumpTo,
       reset,
     }), [next, previous, jumpTo, reset])
-
 
     useEffect(() => {
       if (!auto) return
