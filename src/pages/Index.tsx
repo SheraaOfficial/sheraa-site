@@ -1,7 +1,6 @@
 
 import React, { useEffect } from "react";
 import { motion } from "framer-motion";
-import Hero from "@/components/Hero";
 import MainLayout from "@/components/layouts/MainLayout";
 import HomePageSections from "@/components/home/HomePageSections";
 import { useIsMobile, useOptimizedScroll } from "@/hooks/use-mobile";
@@ -42,15 +41,6 @@ const Index = () => {
     <MainLayout backgroundStyle={backgroundStyle}>
       {/* Add the progress bar */}
       <ProgressBar />
-      
-      {/* Hero section is critical, don't lazy load */}
-      <motion.section
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-      >
-        <Hero />
-      </motion.section>
       
       <HomePageSections 
         isScrolling={isScrolling}

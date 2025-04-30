@@ -1,7 +1,6 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import Hero from "@/components/Hero";
 import ImpactNumbers from "@/components/ImpactNumbers";
 import QuoteSection from "@/components/QuoteSection";
 import ProgramsOverview from "@/components/ProgramsOverview";
@@ -27,7 +26,7 @@ const HomePageSections: React.FC<HomePageSectionsProps> = ({ isScrolling, scroll
   
   return (
     <div className="space-y-0 md:space-y-0 lg:space-y-0 relative z-10">
-      {/* Start with non-lazy loaded essential content */}
+      {/* Start with ImpactNumbers as the first section */}
       <motion.section
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
