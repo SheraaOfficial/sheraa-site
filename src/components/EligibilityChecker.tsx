@@ -3,6 +3,8 @@ import React from "react";
 import { motion } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
 import EligibilityCheckerButton from "./eligibility/EligibilityCheckerButton";
+import { Link } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 
 const EligibilityChecker = () => {
   const containerRef = React.useRef<HTMLDivElement>(null);
@@ -52,13 +54,25 @@ const EligibilityChecker = () => {
               <h2 className="text-2xl md:text-4xl font-bold text-sheraa-dark mb-4">
                 Not sure which program fits you?
               </h2>
-              <p className="text-gray-600 text-base md:text-lg">
+              <p className="text-gray-600 text-base md:text-lg mb-4">
                 Take our quick assessment to find the perfect program for your entrepreneurial journey
               </p>
+              
+              <div className="flex items-center text-sm text-sheraa-primary">
+                <Link to="/eligibility" className="flex items-center hover:underline">
+                  <span>View detailed assessment</span>
+                  <ArrowRight className="ml-1 w-3 h-3" />
+                </Link>
+              </div>
             </motion.div>
 
             <motion.div variants={itemVariants}>
-              <EligibilityCheckerButton size="lg" />
+              {/* On mobile, use dialog for better UX */}
+              {isMobile ? (
+                <EligibilityCheckerButton size="lg" useDialog={true} />
+              ) : (
+                <EligibilityCheckerButton size="lg" useDialog={false} />
+              )}
             </motion.div>
           </div>
 

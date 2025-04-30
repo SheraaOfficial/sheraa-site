@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -16,6 +17,7 @@ import CommunityPage from "./pages/community";
 import ContactPage from "./pages/contact";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfUse from "./pages/TermsOfUse";
+import EligibilityCheckerPage from "./pages/eligibility/EligibilityCheckerPage";
 
 const queryClient = new QueryClient();
 
@@ -47,6 +49,9 @@ const App = () => (
           <Route path="/programs/build-ventures" element={<ProgramsPage section="build-ventures" />} />
           <Route path="/programs/access-sharjah-challenge" element={<ProgramsPage section="access-sharjah-challenge" />} />
           <Route path="/programs/sme-support" element={<ProgramsPage section="sme-support" />} />
+          
+          {/* Eligibility Checker Page */}
+          <Route path="/eligibility" element={<EligibilityCheckerPage />} />
 
           {/* Resources Routes */}
           <Route path="/resources" element={<ResourcesPage />} />

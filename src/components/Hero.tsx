@@ -6,11 +6,10 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Glow } from "./ui/glow";
-import { TextShimmer } from "./ui/text-shimmer";
 import { Badge } from "./ui/badge";
 import ParticleBackground from "./ParticleBackground";
 import { BorderBeam } from "./ui/border-beam";
-import { Sparkles } from "./ui/sparkles";
+import RotatingWordsWithIcons from "./hero/RotatingWordsWithIcons";
 
 const Hero = () => {
   const [titleIndex, setTitleIndex] = useState(0);
@@ -59,30 +58,10 @@ const Hero = () => {
               <span className="block text-sheraa-dark mb-4">
                 Dream to
               </span>
-              <div className="h-[1.2em] relative flex justify-center overflow-hidden">
-                {titles.map((title, index) => (
-                  <motion.span 
-                    key={index} 
-                    className="absolute font-bold" 
-                    initial={{
-                      opacity: 0,
-                      y: 50
-                    }} 
-                    animate={{
-                      y: titleIndex === index ? 0 : titleIndex > index ? -50 : 50,
-                      opacity: titleIndex === index ? 1 : 0
-                    }} 
-                    transition={{
-                      type: "spring",
-                      stiffness: 50
-                    }}
-                  >
-                    <Sparkles>
-                      <TextShimmer>{title}</TextShimmer>
-                    </Sparkles>
-                  </motion.span>
-                ))}
-              </div>
+              <RotatingWordsWithIcons 
+                words={titles} 
+                activeIndex={titleIndex} 
+              />
             </h1>
 
             <motion.p 
