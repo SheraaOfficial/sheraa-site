@@ -364,11 +364,13 @@ const EligibilityCheckerDialog: React.FC<EligibilityCheckerDialogProps> = ({
       for (const [criteriaKey, allowedValues] of Object.entries(program.criteria)) {
         if (answers[criteriaKey] !== undefined) {
           if (Array.isArray(allowedValues)) {
+            // Fix: Check if the current answer is included in the allowed values array
             if (!allowedValues.includes(answers[criteriaKey] as string)) {
               isMatch = false;
               break;
             }
           } else if (allowedValues !== answers[criteriaKey]) {
+            // This is for boolean criteria
             isMatch = false;
             break;
           }
@@ -462,11 +464,14 @@ const EligibilityCheckerDialog: React.FC<EligibilityCheckerDialogProps> = ({
                               checked={currentAnswers.includes(option.id)}
                               onCheckedChange={(checked) => {
                                 if (checked) {
-                                  handleAnswerChange(currentQuestion.id, [...currentAnswers, option.id]);
+                                  handleAnswerChange(
+                                    currentQuestion.id,
+                                    [...(currentAnswers as string[]), option.id]
+                                  );
                                 } else {
                                   handleAnswerChange(
                                     currentQuestion.id,
-                                    currentAnswers.filter(id => id !== option.id)
+                                    (currentAnswers as string[]).filter(id => id !== option.id)
                                   );
                                 }
                               }}
