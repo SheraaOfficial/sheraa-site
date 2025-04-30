@@ -1,387 +1,90 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-
+    --foreground: 20 14.3% 4.1%;
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-
+    --card-foreground: 20 14.3% 4.1%;
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-
-    --primary: 207 100% 20%;  /* #003366 - Sheraa Deep Blue */
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 180 100% 25%;  /* #008080 - Sheraa Teal */
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 24 100% 50%;  /* #FF6600 - Sheraa Orange */
-    --accent-foreground: 0 0% 100%;
-
+    --popover-foreground: 20 14.3% 4.1%;
+    --primary: 47.9 95.8% 53.1%;
+    --primary-foreground: 26 83.3% 14.1%;
+    --secondary: 60 4.8% 95.9%;
+    --secondary-foreground: 24 9.8% 10%;
+    --muted: 60 4.8% 95.9%;
+    --muted-foreground: 25 5.3% 44.7%;
+    --accent: 60 4.8% 95.9%;
+    --accent-foreground: 24 9.8% 10%;
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
+    --destructive-foreground: 60 9.1% 97.8%;
+    --border: 20 5.9% 90%;
+    --input: 20 5.9% 90%;
+    --ring: 20 14.3% 4.1%;
     --radius: 0.5rem;
-
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sheraa-primary: 267 100% 50%;
+    --sheraa-orange: 25 100% 50%;
+    --sheraa-teal: 180 100% 30%;
+    --sheraa-dark: 240 20% 2%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
+    --background: 20 14.3% 4.1%;
+    --foreground: 60 9.1% 97.8%;
+    --card: 20 14.3% 4.1%;
+    --card-foreground: 60 9.1% 97.8%;
+    --popover: 20 14.3% 4.1%;
+    --popover-foreground: 60 9.1% 97.8%;
+    --primary: 47.9 95.8% 53.1%;
+    --primary-foreground: 26 83.3% 14.1%;
+    --secondary: 12 6.5% 15.1%;
+    --secondary-foreground: 60 9.1% 97.8%;
+    --muted: 12 6.5% 15.1%;
+    --muted-foreground: 24 5.4% 63.9%;
+    --accent: 12 6.5% 15.1%;
+    --accent-foreground: 60 9.1% 97.8%;
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --destructive-foreground: 60 9.1% 97.8%;
+    --border: 12 6.5% 15.1%;
+    --input: 12 6.5% 15.1%;
+    --ring: 35.5 91.7% 32.9%;
   }
+}
 
-  /* Mobile-first approach for animations */
-  @keyframes float-slow {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-5px); }
-    100% { transform: translateY(0px); }
+@layer base {
+  * {
+    @apply border-border;
   }
-
-  /* More complex animations for desktop only */
-  @media (min-width: 769px) {
-    @keyframes float-slow {
-      0% { transform: translateY(0px) translateX(0px) rotate(0deg); }
-      25% { transform: translateY(-10px) translateX(5px) rotate(1deg); }
-      50% { transform: translateY(-15px) translateX(10px) rotate(0deg); }
-      75% { transform: translateY(-5px) translateX(15px) rotate(-1deg); }
-      100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
-    }
-  }
-
-  .float-animation {
-    animation: float-slow 8s ease-in-out infinite;
-  }
-
-  /* Mobile optimizations */
-  @media (max-width: 768px) {
-    .float-animation {
-      animation-duration: 6s; /* Faster on mobile for better performance */
-    }
-  }
-
-  /* Micro-interaction animations - simplified for mobile */
-  @keyframes pulse-subtle {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.02); }
-    100% { transform: scale(1); }
-  }
-
-  @keyframes shimmer-light {
-    0% { background-position: -200% center; }
-    100% { background-position: 200% center; }
-  }
-
-  /* Simplified transformations for mobile */
-  .gpu-accelerated {
-    transform: translateZ(0);
-    will-change: transform;
-    backface-visibility: hidden;
-  }
-
-  /* Reduced motion settings for accessibility and performance */
-  @media (prefers-reduced-motion: reduce) {
-    *, ::before, ::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-      scroll-behavior: auto !important;
-    }
-  }
-
-  /* Force reduced motion on mobile for better performance */
-  @media (max-width: 768px) {
-    .reduce-motion-mobile {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-    }
-  }
-  
-  /* Smooth scroll behavior - but only on desktop */
-  @media (min-width: 769px) {
-    html {
-      scroll-behavior: smooth;
-    }
-  }
-
   body {
-    @apply bg-white text-sheraa-dark font-plus-jakarta;
-    overflow-x: hidden;
-    min-height: 100vh;
-    /* Add overscroll behavior for smoother mobile scrolling */
-    overscroll-behavior: none;
-    -webkit-overflow-scrolling: touch; /* Smoother scrolling on iOS */
-  }
-
-  /* Scrollbar optimization - hide on mobile */
-  @media (max-width: 768px) {
-    ::-webkit-scrollbar {
-      width: 0;
-      height: 0;
-      background: transparent;
-    }
-  }
-
-  /* Custom animated loader for lazy-loaded sections */
-  .lazy-section-loading::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(90deg, 
-      transparent, 
-      rgba(0, 51, 102, 0.05), 
-      transparent
-    );
-    animation: shimmer-light 1.5s infinite;
-    background-size: 200% 100%;
-  }
-
-  /* Optimize motion for intersection observed elements */
-  .observed-element {
-    will-change: opacity, transform;
-  }
-  
-  /* Add minimal loading state for lazy components */
-  .lazy-loading {
-    min-height: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(
-      to right,
-      rgba(0, 51, 102, 0.02) 0%,
-      rgba(0, 51, 102, 0.05) 50%,
-      rgba(0, 51, 102, 0.02) 100%
-    );
-    background-size: 200% 100%;
-    animation: shimmer-light 2s infinite;
-    border-radius: 8px;
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
 
-/* Utility classes for optimized rendering */
+/* Add the custom blur utility class */
 @layer utilities {
-  /* Use this class on elements that need GPU acceleration */
-  .hardware-accelerated {
-    transform: translateZ(0);
-    will-change: transform;
-    backface-visibility: hidden;
+  .blur-xs {
+    filter: blur(2px);
   }
   
-  /* Style specifically optimized for mobile performance */
-  .mobile-optimized {
-    transition: none !important;
-    animation: none !important;
-    transform: none !important;
+  .inset-shadow-2xs {
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
   }
   
-  /* Simple hover effect that works well even on low-end devices */
-  .hover-lift {
-    transition: transform 0.2s ease;
+  .dark .inset-shadow-white\/20 {
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
   }
   
-  @media (min-width: 769px) {
-    .hover-lift:hover {
-      transform: translateY(-2px);
-    }
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  
+  .contain-strict {
+    contain: strict;
   }
 }
 
-/* Original styles - keeping important styles */
-.sheraa-navbar {
-  @apply sticky top-0 z-40 w-full border-b bg-white border-gray-200;
-}
-
-.sheraa-footer {
-  @apply bg-sheraa-primary text-white;
-}
-
-/* Button styles with Sheraa brand colors */
-.btn-primary {
-  @apply bg-sheraa-primary hover:bg-opacity-90 text-white transition-colors;
-}
-
-.btn-accent {
-  @apply bg-sheraa-orange hover:bg-opacity-90 text-white transition-colors;
-}
-
-.btn-outline-primary {
-  @apply border border-sheraa-primary text-sheraa-primary hover:bg-sheraa-primary hover:text-white transition-all;
-}
-
-.btn-outline-accent {
-  @apply border border-sheraa-orange text-sheraa-orange hover:bg-sheraa-orange hover:text-white transition-all;
-}
-
-/* Card styles */
-.sheraa-card {
-  @apply bg-white rounded-xl shadow-sheraa-soft border border-gray-100 hover:shadow-sheraa-medium transition-shadow;
-}
-
-.sheraa-card-accent {
-  @apply border-l-4 border-l-sheraa-orange;
-}
-
-/* Standard section spacing */
-.section-padding {
-  @apply py-16 md:py-24;
-}
-
-/* Glassmorphism effects */
-.glass-card {
-  @apply bg-white/70 backdrop-blur-md border border-white/20 rounded-xl shadow-sheraa-soft;
-}
-
-/* Mobile optimizations */
-@media (max-width: 640px) {
-  .section-padding {
-    @apply py-12;
-  }
-}
-
-/* Add keyframes for the animated gradient */
-@keyframes moveGradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-/* Enhanced Gradient Button Styles */
-.gradient-button {
-  background: linear-gradient(92deg, #003366 0%, #008080 100%);
-  background-size: 200% auto;
-  transition: all 0.4s ease-in-out;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 5px 15px rgba(0, 51, 102, 0.2);
-  color: white;
-  font-weight: 700;
-  z-index: 1;
-}
-
-.gradient-button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(92deg, #008080 0%, #003366 100%);
-  background-size: 200% auto;
-  opacity: 0;
-  transition: opacity 0.4s ease-in-out;
-  z-index: -1;
-}
-
-.gradient-button:hover {
-  background-position: right center;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0, 51, 102, 0.25);
-}
-
-.gradient-button:hover::before {
-  opacity: 1;
-}
-
-.gradient-button-variant {
-  background: linear-gradient(92deg, #FF6600 0%, #FF7F50 100%);
-  background-size: 200% auto;
-}
-
-.gradient-button-variant::before {
-  background: linear-gradient(92deg, #FF7F50 0%, #FF6600 100%);
-  background-size: 200% auto;
-}
-
-.gradient-button > * {
-  position: relative;
-  z-index: 1;
-  color: white;
-}
-
-/* Shimmering text effect - slower on mobile */
-.text-shimmer {
-  background: linear-gradient(
-    90deg,
-    rgba(0, 51, 102, 1) 0%,
-    rgba(0, 128, 128, 1) 25%,
-    rgba(0, 51, 102, 1) 50%,
-    rgba(0, 128, 128, 1) 75%,
-    rgba(0, 51, 102, 1) 100%
-  );
-  background-size: 200% auto;
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: shimmer 8s linear infinite;
-}
-
-@media (max-width: 768px) {
-  .text-shimmer {
-    animation: shimmer 12s linear infinite;
-  }
-}
-
-@keyframes shimmer {
-  to {
-    background-position: 200% center;
-  }
-}
+/* Add any additional styles needed */

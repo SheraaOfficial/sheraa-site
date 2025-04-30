@@ -7,6 +7,7 @@ import { useIsMobile, useOptimizedScroll } from "@/hooks/use-mobile";
 import { useBackgroundAnimation } from "@/hooks/use-background-animation";
 import { useScrollDirection } from "@/hooks/use-scroll-direction";
 import ProgressBar from "@/components/ProgressBar";
+import { HeroSection } from "@/components/HeroSection";
 
 const Index = () => {
   const isMobile = useIsMobile();
@@ -41,6 +42,9 @@ const Index = () => {
     <MainLayout backgroundStyle={backgroundStyle}>
       {/* Add the progress bar */}
       <ProgressBar />
+
+      {/* Add the new Hero section */}
+      <HeroSection />
       
       <HomePageSections 
         isScrolling={isScrolling}
