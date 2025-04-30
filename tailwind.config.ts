@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -120,6 +121,11 @@ export default {
         shimmer: {
           from: { backgroundPosition: "0 0" },
           to: { backgroundPosition: "-200% 0" }
+        },
+        sparkle: {
+          '0%': { transform: 'scale(0)', opacity: '0' },
+          '50%': { transform: 'scale(1)', opacity: '1' },
+          '100%': { transform: 'scale(0)', opacity: '0' },
         }
       },
       animation: {
@@ -130,6 +136,7 @@ export default {
         'marquee': 'marquee 40s linear infinite',
         'spin-slow': 'spin 8s linear infinite',
         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'sparkle': 'sparkle 800ms ease-in-out forwards'
       },
       fontFamily: {
         'plus-jakarta': ['"Plus Jakarta Sans"', 'sans-serif'],
@@ -146,3 +153,4 @@ export default {
   },
   plugins: [require("tailwindcss-animate")],
 } satisfies Config;
+

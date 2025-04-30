@@ -9,6 +9,7 @@ import { TextShimmer } from "./ui/text-shimmer";
 import { Badge } from "./ui/badge";
 import ParticleBackground from "./ParticleBackground";
 import { BorderBeam } from "./ui/border-beam";
+import { Sparkles } from "./ui/sparkles";
 
 const Hero = () => {
   const [titleIndex, setTitleIndex] = useState(0);
@@ -75,7 +76,9 @@ const Hero = () => {
                       stiffness: 50
                     }}
                   >
-                    <TextShimmer>{title}</TextShimmer>
+                    <Sparkles>
+                      <TextShimmer>{title}</TextShimmer>
+                    </Sparkles>
                   </motion.span>
                 ))}
               </div>
