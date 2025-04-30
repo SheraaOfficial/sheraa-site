@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
@@ -71,10 +71,41 @@ ListItem.displayName = "ListItem";
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSticky, setIsSticky] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  // Add scroll event listener to track when to make the nav sticky
+  useEffect(() => {
+    const handleScroll = () => {
+      // Make the nav sticky after scrolling past 100px
+      const scrollPosition = window.scrollY;
+      if (scrollPosition > 100) {
+        setIsSticky(true);
+      } else {
+        setIsSticky(false);
+      }
+    };
+
+    // Throttle the scroll event for better performance
+    let timeout: NodeJS.Timeout;
+    const throttledHandleScroll = () => {
+      if (!timeout) {
+        timeout = setTimeout(() => {
+          handleScroll();
+          timeout = undefined;
+        }, 100); // Throttle to once every 100ms
+      }
+    };
+
+    window.addEventListener('scroll', throttledHandleScroll);
+    return () => {
+      window.removeEventListener('scroll', throttledHandleScroll);
+      if (timeout) clearTimeout(timeout);
+    };
+  }, []);
 
   const aboutLinks = [
     { title: "Introduction", href: "/about", description: "Learn about Sheraa's mission and values" },
@@ -125,7 +156,7 @@ const Navigation = () => {
   ];
 
   return (
-    <header className="sheraa-navbar">
+    <header className={`sheraa-navbar ${isSticky ? 'fixed top-0 left-0 w-full bg-white shadow-md z-50 transition-all duration-300 animate-fade-in' : ''}`}>
       <div className="container flex h-16 items-center px-4 sm:px-6">
         <div className="mr-4 flex items-center">
           <Link to="/" className="flex items-center">
