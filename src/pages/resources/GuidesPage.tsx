@@ -1,227 +1,206 @@
 
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import MainLayout from '@/components/layouts/MainLayout';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Download, File, FileText, Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Card, CardContent } from '@/components/ui/card';
+import { FileText, Download, Search, Filter } from 'lucide-react';
 
-const GuidesPage: React.FC = () => {
+const GuidesPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  
+  const [activeCategory, setActiveCategory] = useState('All');
+
   const categories = [
     'All', 
     'Business Planning', 
-    'Financial Management',
-    'Marketing & Sales',
-    'Legal & Compliance',
-    'Operations & HR',
+    'Financial Management', 
+    'Marketing & Sales', 
+    'Legal & Compliance', 
+    'Operations & HR', 
     'Pitching & Fundraising',
-    'Tech & Product'
+    'Technology & Product'
   ];
-  
+
   const resources = [
     {
-      title: "Pitch Deck Template",
-      description: "Structure your winning investor pitch with this proven template.",
+      title: "Ultimate Pitch Deck Template",
+      description: "Structure your winning investor pitch with this proven template. Includes key sections, design tips, and examples.",
+      type: "Template",
       category: "Pitching & Fundraising",
-      type: "template",
-      icon: <FileText className="h-8 w-8 text-purple-500" />,
+      icon: <FileText className="h-10 w-10 text-blue-500" />
     },
     {
       title: "Lean Canvas Template",
-      description: "Map out your business model quickly and effectively.",
+      description: "Map out your business model quickly and effectively with this single-page business plan alternative.",
+      type: "Template",
       category: "Business Planning",
-      type: "template",
-      icon: <FileText className="h-8 w-8 text-blue-500" />,
+      icon: <FileText className="h-10 w-10 text-green-500" />
     },
     {
-      title: "Guide to Setting SMART Goals",
-      description: "Define actionable objectives for your startup.",
-      category: "Business Planning",
-      type: "guide",
-      icon: <File className="h-8 w-8 text-green-500" />,
-    },
-    {
-      title: "Financial Model Template",
-      description: "Track your startup's finances with this comprehensive spreadsheet.",
+      title: "Financial Model for Early-Stage Startups",
+      description: "A comprehensive Excel template for projecting revenues, expenses, and cash flow for your startup.",
+      type: "Template",
       category: "Financial Management",
-      type: "template",
-      icon: <FileText className="h-8 w-8 text-blue-500" />,
+      icon: <FileText className="h-10 w-10 text-orange-500" />
     },
     {
-      title: "Content Audit Checklist",
-      description: "Evaluate and optimize your website content strategy.",
-      category: "Marketing & Sales",
-      type: "checklist",
-      icon: <File className="h-8 w-8 text-orange-500" />,
-    },
-    {
-      title: "Term Sheet Explainer",
-      description: "Understand the key terms in investment agreements.",
+      title: "Legal Compliance Checklist",
+      description: "Essential checklist for startups to ensure compliance with UAE regulations and business requirements.",
+      type: "Checklist",
       category: "Legal & Compliance",
-      type: "guide",
-      icon: <File className="h-8 w-8 text-green-500" />,
+      icon: <FileText className="h-10 w-10 text-red-500" />
     },
     {
-      title: "Hiring Process Toolkit",
-      description: "Templates and processes for building your team effectively.",
+      title: "Marketing Strategy Guide",
+      description: "Step-by-step guide to developing an effective marketing strategy for your startup.",
+      type: "Guide",
+      category: "Marketing & Sales",
+      icon: <FileText className="h-10 w-10 text-purple-500" />
+    },
+    {
+      title: "Startup Hiring Toolkit",
+      description: "Resources for building your team including job description templates, interview questions, and onboarding checklists.",
+      type: "Toolkit",
       category: "Operations & HR",
-      type: "toolkit",
-      icon: <FileText className="h-8 w-8 text-red-500" />,
+      icon: <FileText className="h-10 w-10 text-teal-500" />
     },
     {
-      title: "Customer Discovery Questionnaire",
-      description: "Validate your product with effective customer interviews.",
-      category: "Marketing & Sales",
-      type: "template",
-      icon: <FileText className="h-8 w-8 text-blue-500" />,
-    },
-    {
-      title: "Investor Outreach Email Templates",
-      description: "Professionally approach potential investors with these templates.",
-      category: "Pitching & Fundraising",
-      type: "template",
-      icon: <FileText className="h-8 w-8 text-blue-500" />,
-    },
-    {
-      title: "Product Roadmap Template",
-      description: "Plan your product development with this strategic template.",
-      category: "Tech & Product",
-      type: "template",
-      icon: <FileText className="h-8 w-8 text-blue-500" />,
-    },
-    {
-      title: "Legal Compliance Checklist for UAE Startups",
-      description: "Ensure your startup meets all legal requirements in the UAE.",
-      category: "Legal & Compliance",
-      type: "checklist",
-      icon: <File className="h-8 w-8 text-orange-500" />,
-    },
-    {
-      title: "Sharjah Business Setup Guide",
-      description: "Step-by-step guide to establishing your business in Sharjah.",
+      title: "SMART Goals Framework",
+      description: "Template and guide for setting Specific, Measurable, Achievable, Relevant, and Time-bound goals.",
+      type: "Guide",
       category: "Business Planning",
-      type: "guide",
-      icon: <File className="h-8 w-8 text-green-500" />,
+      icon: <FileText className="h-10 w-10 text-blue-500" />
     },
+    {
+      title: "UAE Business Setup Guide",
+      description: "Comprehensive guide to setting up your business in the UAE, including free zone vs. mainland options.",
+      type: "Guide",
+      category: "Legal & Compliance",
+      icon: <FileText className="h-10 w-10 text-red-500" />
+    },
+    {
+      title: "Product Development Roadmap",
+      description: "Template for planning your product development process from concept to launch.",
+      type: "Template",
+      category: "Technology & Product",
+      icon: <FileText className="h-10 w-10 text-indigo-500" />
+    },
+    {
+      title: "Customer Acquisition Cost Calculator",
+      description: "Excel template for calculating and tracking your customer acquisition costs across channels.",
+      type: "Tool",
+      category: "Marketing & Sales",
+      icon: <FileText className="h-10 w-10 text-purple-500" />
+    },
+    {
+      title: "Investment Readiness Checklist",
+      description: "Assess your startup's readiness for investment and prepare for due diligence.",
+      type: "Checklist",
+      category: "Pitching & Fundraising",
+      icon: <FileText className="h-10 w-10 text-blue-500" />
+    },
+    {
+      title: "Social Media Content Calendar",
+      description: "Template for planning and organizing your social media content strategy.",
+      type: "Template",
+      category: "Marketing & Sales",
+      icon: <FileText className="h-10 w-10 text-purple-500" />
+    }
   ];
-  
-  const filteredResources = resources.filter(resource => 
-    resource.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
-    resource.description.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-  
+
+  const filteredResources = resources.filter(resource => {
+    const matchesSearch = resource.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                          resource.description.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesCategory = activeCategory === 'All' || resource.category === activeCategory;
+    
+    return matchesSearch && matchesCategory;
+  });
+
   return (
     <MainLayout>
       <div className="container mx-auto px-4 py-12">
-        <div className="max-w-3xl mx-auto mb-12">
+        <div className="mb-8">
           <h1 className="text-4xl font-bold text-sheraa-primary mb-4">Practical Resources for Building Your Business</h1>
-          <p className="text-lg text-gray-600">
-            Access a library of downloadable guides, templates, checklists, and toolkits designed to streamline 
-            your startup operations. These resources cover key areas essential for entrepreneurial success.
+          <p className="text-lg text-gray-600 max-w-4xl">
+            Access a library of downloadable guides, templates, checklists, and toolkits designed to streamline your startup operations. 
+            These resources cover key areas essential for entrepreneurial success.
           </p>
         </div>
-        
-        <div className="mb-8">
-          <div className="relative max-w-xl mx-auto">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+
+        <div className="mb-8 flex flex-col md:flex-row gap-4">
+          <div className="relative flex-grow">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
             <Input 
               placeholder="Search resources..." 
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)} 
             />
           </div>
-        </div>
-        
-        <Tabs defaultValue="All" className="mb-12">
-          <div className="flex items-center justify-center mb-8">
-            <TabsList className="overflow-x-auto">
-              {categories.map((category) => (
-                <TabsTrigger key={category} value={category}>
-                  {category}
-                </TabsTrigger>
-              ))}
-            </TabsList>
+          <div className="flex-shrink-0">
+            <Button variant="outline" className="gap-2">
+              <Filter className="h-4 w-4" />
+              <span>Filter</span>
+            </Button>
           </div>
-          
+        </div>
+
+        <div className="mb-8 flex flex-wrap gap-2">
           {categories.map((category) => (
-            <TabsContent key={category} value={category}>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredResources
-                  .filter(resource => category === 'All' || resource.category === category)
-                  .map((resource, idx) => (
-                    <ResourceCard key={idx} resource={resource} />
-                  ))}
-              </div>
-              
-              {filteredResources.filter(r => category === 'All' || r.category === category).length === 0 && (
-                <div className="text-center py-12">
-                  <p className="text-gray-500">No resources found. Try a different search or category.</p>
-                </div>
-              )}
-            </TabsContent>
+            <Button 
+              key={category}
+              variant={activeCategory === category ? "default" : "outline"}
+              size="sm"
+              onClick={() => setActiveCategory(category)}
+              className="mb-2"
+            >
+              {category}
+            </Button>
           ))}
-        </Tabs>
-        
-        <div className="bg-sheraa-light p-8 rounded-lg max-w-3xl mx-auto">
-          <h2 className="text-xl font-semibold mb-4">Need a Specific Resource?</h2>
-          <p className="text-gray-600 mb-6">
-            Can't find what you're looking for? Let us know what resources would be helpful for your business.
-          </p>
-          <Button>Suggest a Resource</Button>
+        </div>
+
+        {filteredResources.length === 0 ? (
+          <div className="text-center py-16">
+            <h3 className="text-xl font-medium mb-2">No resources found</h3>
+            <p className="text-gray-600">Try adjusting your search or filter criteria</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredResources.map((resource, idx) => (
+              <Card key={idx} className="border hover:shadow-md transition-all">
+                <CardContent className="p-6">
+                  <div className="flex items-start gap-4">
+                    <div className="mt-1 bg-gray-50 p-2 rounded-md">
+                      {resource.icon}
+                    </div>
+                    <div>
+                      <span className="inline-block bg-sheraa-light text-sheraa-primary px-2 py-0.5 rounded text-xs font-medium mb-2">
+                        {resource.type}
+                      </span>
+                      <h3 className="text-lg font-semibold mb-2">{resource.title}</h3>
+                      <p className="text-gray-600 text-sm mb-4">{resource.description}</p>
+                      <Button variant="outline" size="sm" className="w-full gap-2">
+                        <Download className="h-4 w-4" />
+                        Download
+                      </Button>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        )}
+
+        <div className="mt-16 bg-sheraa-light rounded-lg p-8 text-center">
+          <h3 className="text-2xl font-bold mb-4">Can't find what you need?</h3>
+          <p className="text-gray-600 mb-6">Let us know what resources would be helpful for your entrepreneurial journey.</p>
+          <Button asChild>
+            <Link to="/contact?inquiry=resource-request">Suggest a Resource</Link>
+          </Button>
         </div>
       </div>
     </MainLayout>
-  );
-};
-
-interface ResourceCardProps {
-  resource: {
-    title: string;
-    description: string;
-    category: string;
-    type: string;
-    icon: React.ReactNode;
-  };
-}
-
-const ResourceCard: React.FC<ResourceCardProps> = ({ resource }) => {
-  const { title, description, category, type, icon } = resource;
-  
-  const getBgColor = (type: string) => {
-    switch (type) {
-      case 'template': return 'bg-blue-50';
-      case 'guide': return 'bg-green-50';
-      case 'checklist': return 'bg-orange-50';
-      case 'toolkit': return 'bg-red-50';
-      default: return 'bg-gray-50';
-    }
-  };
-  
-  return (
-    <Card className="hover:shadow-md transition-shadow overflow-hidden h-full">
-      <CardContent className="p-0 flex flex-col h-full">
-        <div className={`p-6 ${getBgColor(type)} flex items-center justify-between`}>
-          <div className="flex items-center">
-            {icon}
-            <span className="ml-3 text-xs uppercase font-semibold text-gray-500">{type}</span>
-          </div>
-          <span className="text-xs bg-white py-1 px-2 rounded-full text-gray-600">{category}</span>
-        </div>
-        
-        <div className="p-6 flex flex-col flex-grow">
-          <h3 className="text-lg font-semibold mb-2">{title}</h3>
-          <p className="text-gray-600 mb-4 text-sm flex-grow">{description}</p>
-          
-          <Button className="w-full mt-auto" variant="outline">
-            <Download className="mr-2 h-4 w-4" /> Download
-          </Button>
-        </div>
-      </CardContent>
-    </Card>
   );
 };
 
