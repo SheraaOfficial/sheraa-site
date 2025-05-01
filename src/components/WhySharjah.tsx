@@ -123,7 +123,7 @@ const WhySharjah = () => {
                   delay: 0.5
                 }} className="absolute -right-8 -top-8">
                     <div className="relative">
-                      <span className="text-2xl font-bold text-sheraa-primary">+1</span>
+                      
                       <motion.div initial={{
                       y: 0,
                       opacity: 1
@@ -135,7 +135,7 @@ const WhySharjah = () => {
                       repeat: Infinity,
                       repeatDelay: 2
                     }} className="absolute top-0 left-0">
-                        <span className="text-2xl font-bold text-sheraa-primary">+1</span>
+                        
                       </motion.div>
                     </div>
                   </motion.div>
