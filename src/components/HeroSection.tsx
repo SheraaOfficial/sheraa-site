@@ -11,8 +11,8 @@ import { Sparkles } from "@/components/ui/sparkles";
 
 const transitionVariants = {
   container: {
-    initial: { opacity: 0 },
-    animate: {
+    hidden: { opacity: 0 },
+    show: {
       opacity: 1,
       transition: {
         delayChildren: 0.3,
@@ -21,12 +21,12 @@ const transitionVariants = {
     }
   },
   item: {
-    initial: {
+    hidden: {
       opacity: 0,
       filter: "blur(12px)",
       y: 12,
     },
-    animate: {
+    show: {
       opacity: 1,
       filter: "blur(0px)",
       y: 0,
@@ -50,7 +50,7 @@ export function HeroSection() {
           className="text-center max-w-4xl mx-auto"
         >
           <motion.div variants={transitionVariants.item} className="inline-block bg-sheraa-primary/15 px-4 py-1 rounded-full text-sheraa-primary text-sm font-medium mb-6 backdrop-blur-sm">
-            <Sparkles>Sharjah Entrepreneurship Center</Sparkles>
+            <Sparkles count={10} speed={1000}>Sharjah Entrepreneurship Center</Sparkles>
           </motion.div>
           
           <motion.h1

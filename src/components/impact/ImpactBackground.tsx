@@ -6,8 +6,9 @@ interface ImpactBackgroundProps {
   springScroll: MotionValue<number>;
 }
 
-const ImpactBackground: React.FC<ImpactBackgroundProps> = ({ springScroll }) => {
-  // Enhanced background effects
+// Optimized Impact Background using React.memo for better performance
+const ImpactBackground: React.FC<ImpactBackgroundProps> = React.memo(({ springScroll }) => {
+  // Enhanced background effects with optimized transforms
   const bgOpacity = useTransform(springScroll, [0, 0.5, 1], [0.3, 1, 0.3]);
   const rotate = useTransform(springScroll, [0, 0.5, 1], [0, 12, 24]);
   const rotate2 = useTransform(springScroll, [0, 0.5, 1], [0, -8, -16]);
@@ -53,7 +54,7 @@ const ImpactBackground: React.FC<ImpactBackgroundProps> = ({ springScroll }) => 
         }}
       />
       
-      {/* Added pulsing background orbs */}
+      {/* Added fewer pulsing background orbs for better performance */}
       <motion.div
         className="absolute -z-10 w-32 h-32 rounded-full bg-sheraa-primary/5 blur-2xl"
         style={{
@@ -94,6 +95,8 @@ const ImpactBackground: React.FC<ImpactBackgroundProps> = ({ springScroll }) => 
       />
     </>
   );
-};
+});
+
+ImpactBackground.displayName = 'ImpactBackground';
 
 export default ImpactBackground;

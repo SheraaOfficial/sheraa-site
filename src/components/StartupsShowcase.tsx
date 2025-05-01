@@ -9,6 +9,55 @@ import { Avatar, AvatarImage, AvatarFallback } from "./ui/avatar";
 import { Badge } from "./ui/badge";
 import { useIsMobile } from "@/hooks/use-mobile";
 
+// Using React.memo for performance optimization
+const StartupCard = React.memo(({ startup, index, isMobile }: { startup: any, index: number, isMobile: boolean }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5, delay: index * 0.1 }}
+    className="relative group"
+  >
+    <div className="bg-white rounded-2xl p-4 md:p-6 shadow-sheraa-soft group-hover:shadow-sheraa-medium transition-all duration-300 border border-gray-100 overflow-hidden">
+      <div className="flex items-center gap-3 md:gap-4 mb-4 md:mb-6">
+        <Avatar className={`${isMobile ? "w-10 h-10" : "w-16 h-16"} border-2 border-sheraa-primary/10 flex-shrink-0`}>
+          <AvatarImage src={startup.image} alt={startup.name} />
+          <AvatarFallback className="bg-sheraa-primary/5 text-sheraa-primary font-semibold text-lg md:text-xl">
+            {startup.name[0]}
+          </AvatarFallback>
+        </Avatar>
+        <div className="min-w-0">
+          <h3 className="text-base md:text-xl font-bold text-sheraa-primary truncate">
+            {startup.name}
+          </h3>
+          <div className="flex flex-wrap gap-2 mt-2">
+            {/* Using our enhanced badges */}
+            <Badge variant="soft-primary" animation="none" size="sm">
+              {startup.sector}
+            </Badge>
+            <Badge variant="gradient-warm" animation="none" size="sm">
+              {startup.achievement}
+            </Badge>
+            <Badge variant="soft-teal" animation="none" size="sm">
+              {startup.impact}
+            </Badge>
+          </div>
+        </div>
+      </div>
+
+      <p className="text-gray-600 mb-4 md:mb-6 line-clamp-3 text-xs md:text-base">
+        {startup.description}
+      </p>
+
+      <div className="flex items-center gap-2 text-sheraa-primary">
+        <Star className={`${isMobile ? "w-3.5 h-3.5" : "w-5 h-5"} flex-shrink-0`} />
+        <span className="text-xs md:text-sm font-medium">{startup.stats}</span>
+      </div>
+    </div>
+  </motion.div>
+));
+
+StartupCard.displayName = 'StartupCard';
+
 const featuredStartups = [
   {
     name: "Green Future Project",
@@ -60,9 +109,9 @@ const StartupsShowcase = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-10 md:mb-16"
         >
-          <span className="inline-block bg-sheraa-primary/10 px-3 py-1 md:px-4 md:py-1.5 rounded-full text-sheraa-primary text-xs md:text-sm font-medium mb-3 md:mb-4">
+          <Badge variant="gradient" animation="shimmer" className="mb-3 md:mb-4">
             Transforming Ideas into Impact
-          </span>
+          </Badge>
           
           <h2 className="text-3xl md:text-5xl font-bold text-sheraa-dark mb-4 md:mb-6 leading-tight px-2">
             Our <span className="text-sheraa-primary">Startups</span>
@@ -78,54 +127,14 @@ const StartupsShowcase = () => {
             opts={{
               align: "start",
               loop: true,
+              dragFree: true, // Allow free-form dragging for smoother experience
             }}
             className="w-full"
           >
             <CarouselContent className="-ml-2 md:-ml-4">
               {featuredStartups.map((startup, index) => (
                 <CarouselItem key={startup.name} className="pl-2 md:pl-4 basis-full sm:basis-1/2 lg:basis-1/3">
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    className="relative group"
-                  >
-                    <div className="bg-white rounded-2xl p-4 md:p-6 shadow-sheraa-soft group-hover:shadow-sheraa-medium transition-all duration-300 border border-gray-100 overflow-hidden">
-                      <div className="flex items-center gap-3 md:gap-4 mb-4 md:mb-6">
-                        <Avatar className={`${isMobile ? "w-10 h-10" : "w-16 h-16"} border-2 border-sheraa-primary/10 flex-shrink-0`}>
-                          <AvatarImage src={startup.image} alt={startup.name} />
-                          <AvatarFallback className="bg-sheraa-primary/5 text-sheraa-primary font-semibold text-lg md:text-xl">
-                            {startup.name[0]}
-                          </AvatarFallback>
-                        </Avatar>
-                        <div className="min-w-0">
-                          <h3 className="text-base md:text-xl font-bold text-sheraa-primary truncate">
-                            {startup.name}
-                          </h3>
-                          <div className="flex flex-wrap gap-2 mt-2">
-                            <Badge variant="outline" className="text-xs bg-sheraa-primary/5">
-                              {startup.sector}
-                            </Badge>
-                            <Badge variant="coral" className="text-xs bg-sheraa-coral/10 text-sheraa-coral border-sheraa-coral/20">
-                              {startup.achievement}
-                            </Badge>
-                            <Badge variant="secondary" className="text-xs bg-sheraa-teal/10 text-sheraa-teal border-sheraa-teal/20">
-                              {startup.impact}
-                            </Badge>
-                          </div>
-                        </div>
-                      </div>
-
-                      <p className="text-gray-600 mb-4 md:mb-6 line-clamp-3 text-xs md:text-base">
-                        {startup.description}
-                      </p>
-
-                      <div className="flex items-center gap-2 text-sheraa-primary">
-                        <Star className={`${isMobile ? "w-3.5 h-3.5" : "w-5 h-5"} flex-shrink-0`} />
-                        <span className="text-xs md:text-sm font-medium">{startup.stats}</span>
-                      </div>
-                    </div>
-                  </motion.div>
+                  <StartupCard startup={startup} index={index} isMobile={isMobile} />
                 </CarouselItem>
               ))}
             </CarouselContent>
@@ -151,7 +160,7 @@ const StartupsShowcase = () => {
         <div className="flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-6">
           <Button 
             asChild
-            size={isMobile ? "default" : "xl"}
+            size={isMobile ? "default" : "lg"} // Changed from xl to lg for better performance
             className="bg-sheraa-primary hover:bg-sheraa-primary/90 w-full sm:w-auto text-xs md:text-base"
           >
             <Link to="/community/startups" className="flex items-center gap-2">
@@ -163,7 +172,7 @@ const StartupsShowcase = () => {
           <Button 
             asChild
             variant="outline"
-            size={isMobile ? "default" : "xl"}
+            size={isMobile ? "default" : "lg"} // Changed from xl to lg
             className="border-sheraa-primary text-sheraa-primary hover:bg-sheraa-primary/10 w-full sm:w-auto text-xs md:text-base"
           >
             <Link to="/community/join" className="flex items-center gap-2">
@@ -177,4 +186,4 @@ const StartupsShowcase = () => {
   );
 };
 
-export default StartupsShowcase;
+export default React.memo(StartupsShowcase);
