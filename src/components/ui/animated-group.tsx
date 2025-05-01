@@ -17,8 +17,8 @@ interface AnimatedGroupProps extends Omit<HTMLMotionProps<"div">, "variants"> {
 export function AnimatedGroup({
   variants = {
     container: {
-      hidden: { opacity: 0 },
-      show: {
+      initial: { opacity: 0 },
+      animate: {
         opacity: 1,
         transition: {
           staggerChildren: 0.1,
@@ -27,8 +27,8 @@ export function AnimatedGroup({
       },
     },
     item: {
-      hidden: { opacity: 0, y: 20 },
-      show: {
+      initial: { opacity: 0, y: 20 },
+      animate: {
         opacity: 1,
         y: 0,
         transition: {
@@ -39,8 +39,8 @@ export function AnimatedGroup({
       },
     },
   },
-  initial = "hidden",
-  animate = "show",
+  initial = "initial",
+  animate = "animate",
   transition,
   className,
   children,
