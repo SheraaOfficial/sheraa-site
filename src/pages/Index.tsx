@@ -1,35 +1,66 @@
 
-import React, { useEffect, Suspense } from "react";
+import React, { useEffect, lazy, Suspense, useState } from "react";
 import MainLayout from "@/components/layouts/MainLayout";
 import { useIsMobile, useOptimizedScroll } from "@/hooks/use-mobile";
 import { useBackgroundAnimation } from "@/hooks/use-background-animation";
 import { useScrollDirection } from "@/hooks/use-scroll-direction";
 import ProgressBar from "@/components/ProgressBar";
 import { HeroSection } from "@/components/HeroSection";
-import MarqueeUpdates from "@/components/MarqueeUpdates";
-import ImpactNumbers from "@/components/ImpactNumbers";
-import QuoteSection from "@/components/QuoteSection";
-import ProgramsOverview from "@/components/ProgramsOverview";
-import EligibilityChecker from "@/components/EligibilityChecker";
-import CommunitySection from "@/components/CommunitySection";
-import SEFSection from "@/components/SEFSection";
-import WhySharjah from "@/components/WhySharjah";
-import PartnersSection from "@/components/PartnersSection";
-import ContactSection from "@/components/ContactSection";
 
-// Components that can be lazy loaded separately if needed
-const StartupsShowcase = React.lazy(() => import("@/components/StartupsShowcase"));
-const StartupTestimonials = React.lazy(() => import("@/components/StartupTestimonials"));
-const PodcastSection = React.lazy(() => import("@/components/PodcastSection"));
+// Simple section loading component
+const SectionLoading = () => <div className="min-h-[100px] flex items-center justify-center"></div>;
 
-// Simple fallback loading component
-const SectionLoading = () => <div className="min-h-[300px] flex items-center justify-center">Loading section...</div>;
+// First priority components load immediately
+const MarqueeUpdates = lazy(() => import("@/components/MarqueeUpdates"));
+const ImpactNumbers = lazy(() => import("@/components/ImpactNumbers"));
+const QuoteSection = lazy(() => import("@/components/QuoteSection"));
+
+// Second priority components load after first interaction/scroll
+const ProgramsOverview = lazy(() => import("@/components/ProgramsOverview"));
+const EligibilityChecker = lazy(() => import("@/components/EligibilityChecker"));
+const SEFSection = lazy(() => import("@/components/SEFSection"));
+const WhySharjah = lazy(() => import("@/components/WhySharjah"));
+
+// Lowest priority components - load last
+const PartnersSection = lazy(() => import("@/components/PartnersSection"));
+const ContactSection = lazy(() => import("@/components/ContactSection"));
+const StartupsShowcase = lazy(() => import("@/components/StartupsShowcase"));
+const PodcastSection = lazy(() => import("@/components/PodcastSection"));
+const CommunitySection = lazy(() => import("@/components/CommunitySection"));
+const StartupTestimonials = lazy(() => import("@/components/StartupTestimonials"));
 
 const Index = () => {
   const isMobile = useIsMobile();
   const { scrollY, isScrolling } = useOptimizedScroll();
   const backgroundStyle = useBackgroundAnimation(scrollY);
   const scrollDirection = useScrollDirection(scrollY);
+  const [firstInteraction, setFirstInteraction] = useState(false);
+  const [deepScroll, setDeepScroll] = useState(false);
+  
+  // Track user interaction and deep scroll
+  useEffect(() => {
+    const handleInteraction = () => setFirstInteraction(true);
+    
+    // Consider first scroll or click as first interaction
+    window.addEventListener('scroll', handleInteraction, { once: true });
+    window.addEventListener('click', handleInteraction, { once: true });
+    
+    // Track deep scroll for the lowest priority components
+    const handleScroll = () => {
+      if (window.scrollY > window.innerHeight * 0.5) {
+        setDeepScroll(true);
+        window.removeEventListener('scroll', handleScroll);
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    return () => {
+      window.removeEventListener('scroll', handleInteraction);
+      window.removeEventListener('click', handleInteraction);
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
   
   // Add smooth scroll behavior on navigation clicks - with optimized debounce
   useEffect(() => {
@@ -74,51 +105,69 @@ const Index = () => {
       {/* Hero section - load immediately */}
       <HeroSection />
       
-      {/* Marquee Updates - moved right after hero section */}
-      <MarqueeUpdates />
+      {/* First priority components */}
+      <Suspense fallback={<SectionLoading />}>
+        <MarqueeUpdates />
+      </Suspense>
       
-      <div className="space-y-0 md:space-y-0 lg:space-y-0 relative z-10">
-        {/* Impact Numbers Section */}
-        <ImpactNumbers />
-        
-        {/* Quote Section */}
-        <QuoteSection />
-        
-        {/* Programs Overview */}
-        <ProgramsOverview />
-        
-        {/* Eligibility Checker */}
-        <EligibilityChecker />
-        
-        {/* SEF Section */}
-        <SEFSection />
-        
-        {/* Startups Showcase - Lazy loaded */}
+      <div className="space-y-0 relative z-10">
         <Suspense fallback={<SectionLoading />}>
-          <StartupsShowcase />
+          <ImpactNumbers />
         </Suspense>
         
-        {/* Podcast Section - Lazy loaded */}
         <Suspense fallback={<SectionLoading />}>
-          <PodcastSection />
+          <QuoteSection />
         </Suspense>
         
-        {/* Community Section */}
-        <CommunitySection />
+        {/* Second priority components - load after interaction */}
+        {(firstInteraction || !isMobile) && (
+          <>
+            <Suspense fallback={<SectionLoading />}>
+              <ProgramsOverview />
+            </Suspense>
+            
+            <Suspense fallback={<SectionLoading />}>
+              <EligibilityChecker />
+            </Suspense>
+            
+            <Suspense fallback={<SectionLoading />}>
+              <SEFSection />
+            </Suspense>
+            
+            <Suspense fallback={<SectionLoading />}>
+              <WhySharjah />
+            </Suspense>
+          </>
+        )}
         
-        {/* Startup Testimonials - Lazy loaded */}
-        <Suspense fallback={<SectionLoading />}>
-          <StartupTestimonials />
-        </Suspense>
-        
-        {/* Why Sharjah */}
-        <WhySharjah />
-        
-        {/* Partners Section */}
-        <PartnersSection />
-        
-        {/* Contact Section */}
-        <ContactSection />
+        {/* Lowest priority components - load after deep scroll */}
+        {(deepScroll || !isMobile) && (
+          <>
+            <Suspense fallback={<SectionLoading />}>
+              <StartupsShowcase />
+            </Suspense>
+            
+            <Suspense fallback={<SectionLoading />}>
+              <PodcastSection />
+            </Suspense>
+            
+            <Suspense fallback={<SectionLoading />}>
+              <CommunitySection />
+            </Suspense>
+            
+            <Suspense fallback={<SectionLoading />}>
+              <StartupTestimonials />
+            </Suspense>
+            
+            <Suspense fallback={<SectionLoading />}>
+              <PartnersSection />
+            </Suspense>
+            
+            <Suspense fallback={<SectionLoading />}>
+              <ContactSection />
+            </Suspense>
+          </>
+        )}
       </div>
     </MainLayout>
   );

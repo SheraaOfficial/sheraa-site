@@ -1,12 +1,8 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect, lazy, Suspense } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
-
-// Import refactored components
-import DesktopNavigation from "./navigation/DesktopNavigation";
-import MobileNavigation from "./navigation/MobileNavigation";
 import { useScrollNavigation } from "./navigation/useScrollNavigation";
 import {
   homeLinks,
@@ -17,9 +13,19 @@ import {
   applyLinks
 } from "./navigation/navigationData";
 
+// Lazy load components
+const DesktopNavigation = lazy(() => import("./navigation/DesktopNavigation"));
+const MobileNavigation = lazy(() => import("./navigation/MobileNavigation"));
+
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isSticky } = useScrollNavigation();
+  const [hydrated, setHydrated] = useState(false);
+
+  // Mark as hydrated after initial render
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -51,27 +57,35 @@ const Navigation = () => {
         </Button>
 
         {/* Desktop Navigation */}
-        <DesktopNavigation 
-          homeLinks={homeLinks}
-          discoverLinks={discoverLinks}
-          growLinks={growLinks}
-          communityLinks={communityLinks}
-          insightsLinks={insightsLinks}
-          applyLinks={applyLinks}
-        />
+        {hydrated && (
+          <Suspense fallback={<div className="hidden md:flex md:flex-1"></div>}>
+            <DesktopNavigation 
+              homeLinks={homeLinks}
+              discoverLinks={discoverLinks}
+              growLinks={growLinks}
+              communityLinks={communityLinks}
+              insightsLinks={insightsLinks}
+              applyLinks={applyLinks}
+            />
+          </Suspense>
+        )}
 
         {/* Mobile Navigation - Overlay Menu */}
-        <MobileNavigation
-          isMenuOpen={isMenuOpen}
-          setIsMenuOpen={setIsMenuOpen}
-          toggleMenu={toggleMenu}
-          homeLinks={homeLinks}
-          discoverLinks={discoverLinks}
-          growLinks={growLinks}
-          communityLinks={communityLinks}
-          insightsLinks={insightsLinks}
-          applyLinks={applyLinks}
-        />
+        {hydrated && isMenuOpen && (
+          <Suspense fallback={null}>
+            <MobileNavigation
+              isMenuOpen={isMenuOpen}
+              setIsMenuOpen={setIsMenuOpen}
+              toggleMenu={toggleMenu}
+              homeLinks={homeLinks}
+              discoverLinks={discoverLinks}
+              growLinks={growLinks}
+              communityLinks={communityLinks}
+              insightsLinks={insightsLinks}
+              applyLinks={applyLinks}
+            />
+          </Suspense>
+        )}
       </div>
     </header>
   );

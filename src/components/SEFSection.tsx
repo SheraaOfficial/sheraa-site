@@ -1,30 +1,21 @@
 
-import React, { useEffect, useRef, useState } from "react";
-import { useInView, useScroll, useTransform } from "framer-motion";
-import { useIsMobile } from "@/hooks/use-mobile";
+import React, { useEffect, useRef, useState, lazy, Suspense } from "react";
+import { useInView } from "framer-motion";
 import { BeamsBackground } from "./ui/beams-background";
 import { SEFHeader } from "./sef/SEFHeader";
-import { SEFDescription } from "./sef/SEFDescription";
-import { SEFStats } from "./sef/SEFStats";
-import { SEFEventCard } from "./sef/SEFEventCard";
+
+// Lazy load components that aren't immediately visible
+const SEFDescription = lazy(() => import("./sef/SEFDescription").then(mod => ({ default: mod.SEFDescription })));
+const SEFStats = lazy(() => import("./sef/SEFStats"));
+const SEFEventCard = lazy(() => import("./sef/SEFEventCard"));
+
+// Simple loading fallback
+const LoadingFallback = () => <div className="h-24 w-full animate-pulse bg-gray-800/30 rounded-lg"></div>;
 
 const SEFSection = () => {
-  const isMobile = useIsMobile();
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: false, margin: "-100px 0px" });
   const [hasRevealed, setHasRevealed] = useState(false);
-  
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"]
-  });
-  
-  // Subtle parallax effect that's efficient on mobile
-  const bgPositionY = useTransform(
-    scrollYProgress,
-    [0, 1],
-    isMobile ? ["0%", "0%"] : ["0%", "20%"]
-  );
   
   useEffect(() => {
     if (isInView && !hasRevealed) {
@@ -51,13 +42,27 @@ const SEFSection = () => {
           {/* Content Section - Takes more space on desktop */}
           <div className="lg:col-span-7 text-white">
             <SEFHeader isInView={isInView} hasRevealed={hasRevealed} />
-            <SEFDescription isInView={isInView} />
-            <SEFStats hasRevealed={hasRevealed} />
+            
+            {isInView && (
+              <Suspense fallback={<LoadingFallback />}>
+                <SEFDescription isInView={isInView} />
+              </Suspense>
+            )}
+            
+            {isInView && hasRevealed && (
+              <Suspense fallback={<LoadingFallback />}>
+                <SEFStats hasRevealed={hasRevealed} />
+              </Suspense>
+            )}
           </div>
           
           {/* Event Details Card - Side section */}
           <div className="lg:col-span-5">
-            <SEFEventCard hasRevealed={hasRevealed} />
+            {isInView && (
+              <Suspense fallback={<LoadingFallback />}>
+                <SEFEventCard hasRevealed={hasRevealed} />
+              </Suspense>
+            )}
           </div>
         </div>
       </div>
