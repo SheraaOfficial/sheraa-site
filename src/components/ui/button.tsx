@@ -10,19 +10,22 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-sheraa-primary text-white hover:bg-sheraa-primary/90",
+        default: "bg-sheraa-primary text-white hover:bg-sheraa-primary/90 shadow-sm hover:shadow-md transition-all duration-200",
         destructive:
-          "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+          "bg-destructive text-destructive-foreground hover:bg-destructive/90 shadow-destructive/20 shadow-sm hover:shadow-md",
         outline:
-          "border border-sheraa-primary bg-transparent text-sheraa-primary hover:bg-sheraa-primary/10",
+          "border border-sheraa-primary bg-transparent text-sheraa-primary hover:bg-sheraa-primary/10 transition-all duration-200",
         secondary:
-          "bg-sheraa-teal text-white hover:bg-sheraa-teal/90",
+          "bg-sheraa-teal text-white hover:bg-sheraa-teal/90 shadow-sm hover:shadow-md transition-all duration-200",
         accent: 
-          "bg-sheraa-orange text-white hover:bg-sheraa-orange/90",
+          "bg-sheraa-orange text-white hover:bg-sheraa-orange/90 shadow-sheraa-orange/20 shadow-sm hover:shadow-md",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-sheraa-primary underline-offset-4 hover:underline",
-        gradient: "gradient-button px-9 py-4 rounded-[11px] min-w-[132px] font-bold text-base text-white",
-        gradientAccent: "gradient-button gradient-button-variant px-9 py-4 rounded-[11px] min-w-[132px] font-bold text-base text-white",
+        gradient: "gradient-button px-9 py-4 rounded-[11px] min-w-[132px] font-bold text-base text-white shadow-md hover:shadow-lg transform hover:scale-[1.01] transition-all",
+        gradientAccent: "gradient-button gradient-button-variant px-9 py-4 rounded-[11px] min-w-[132px] font-bold text-base text-white shadow-md hover:shadow-lg transform hover:scale-[1.01] transition-all",
+        elevated: "bg-white text-sheraa-primary border border-gray-100 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all",
+        shimmer: "relative bg-sheraa-primary text-white overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:-translate-x-full hover:before:animate-shimmer",
+        neo: "bg-sheraa-primary text-white rounded-md shadow-[5px_5px_0px_0px_rgba(109,40,217)] border-purple-600 border-2 hover:shadow-none hover:translate-x-[5px] hover:translate-y-[5px] transition-all",
       },
       size: {
         default: "h-10 px-4 py-2",
@@ -31,10 +34,17 @@ const buttonVariants = cva(
         xl: "h-12 rounded-md px-10 text-base",
         icon: "h-10 w-10",
       },
+      animation: {
+        none: "",
+        pulse: "animate-pulse",
+        bounce: "animate-bounce",
+        float: "hover:animate-float",
+      },
     },
     defaultVariants: {
       variant: "default",
       size: "default",
+      animation: "none",
     },
   }
 )
@@ -46,11 +56,11 @@ export interface ButtonProps
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
+  ({ className, variant, size, animation, asChild = false, ...props }, ref) => {
     const Comp = asChild ? Slot : "button"
     return (
       <Comp
-        className={cn(buttonVariants({ variant, size, className }))}
+        className={cn(buttonVariants({ variant, size, animation, className }))}
         ref={ref}
         {...props}
       />

@@ -6,7 +6,8 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-// Add the following CSS styles to your stylesheet or tailwind.config.js
+// These animations are used by the enhanced badges and buttons
+// Add the following CSS styles to the tailwind config
 // @keyframes float {
 //   0% { transform: translateY(0); }
 //   50% { transform: translateY(-5px); }
