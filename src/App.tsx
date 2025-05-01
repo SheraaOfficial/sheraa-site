@@ -11,7 +11,7 @@ import NotFound from "./pages/NotFound";
 import ImpactReport from "./pages/ImpactReport";
 import AboutPage from "./pages/about";
 import ProgramsPage from "./pages/programs";
-import ResourcesPage from "./pages/resources";
+import ResourcesRouter from "./pages/resources/ResourcesRouter";
 import EventsPage from "./pages/events";
 import CommunityPage from "./pages/community";
 import ContactPage from "./pages/contact";
@@ -21,8 +21,10 @@ import EligibilityCheckerPage from "./pages/eligibility/EligibilityCheckerPage";
 
 // Programs pages imports
 import StartupDojo from "./pages/programs/StartupDojo";
+import StartupDojoPlus from "./pages/programs/StartupDojoPlus";
 import S3Incubator from "./pages/programs/S3Incubator";
 import AccessSharjahChallenge from "./pages/programs/AccessSharjahChallenge";
+import SMESupport from "./pages/programs/SMESupport";
 
 // SEF Page imports
 import SEFRegisterPage from "./pages/events/sef/SEFRegisterPage";
@@ -57,22 +59,22 @@ const App = () => (
           <Route path="/programs" element={<ProgramsPage />} />
           <Route path="/programs/start-young" element={<ProgramsPage section="start-young" />} />
           <Route path="/programs/startup-dojo" element={<StartupDojo />} />
-          <Route path="/programs/startup-dojo-plus" element={<ProgramsPage section="startup-dojo-plus" />} />
+          <Route path="/programs/startup-dojo-plus" element={<StartupDojoPlus />} />
           <Route path="/programs/grow-smart" element={<ProgramsPage section="grow-smart" />} />
           <Route path="/programs/s3-incubator" element={<S3Incubator />} />
           <Route path="/programs/build-ventures" element={<ProgramsPage section="build-ventures" />} />
           <Route path="/programs/access-sharjah-challenge" element={<AccessSharjahChallenge />} />
-          <Route path="/programs/sme-support" element={<ProgramsPage section="sme-support" />} />
+          <Route path="/programs/sme-support" element={<SMESupport />} />
           
           {/* Eligibility Checker Page */}
           <Route path="/eligibility" element={<EligibilityCheckerPage />} />
 
           {/* Resources Routes */}
-          <Route path="/resources" element={<ResourcesPage />} />
-          <Route path="/resources/guides" element={<ResourcesPage section="guides" />} />
-          <Route path="/resources/advisory" element={<ResourcesPage section="advisory" />} />
-          <Route path="/resources/articles" element={<ResourcesPage section="articles" />} />
-          <Route path="/resources/impact-reports" element={<ResourcesPage section="impact-reports" />} />
+          <Route path="/resources" element={<ResourcesRouter />} />
+          <Route path="/resources/guides" element={<ResourcesRouter section="guides" />} />
+          <Route path="/resources/advisory" element={<ResourcesRouter section="advisory" />} />
+          <Route path="/resources/articles" element={<ResourcesRouter section="articles" />} />
+          <Route path="/resources/impact-reports" element={<ResourcesRouter section="impact-reports" />} />
 
           {/* Events Routes */}
           <Route path="/events" element={<EventsPage />} />
