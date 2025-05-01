@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from "react";
 import { useInView } from "framer-motion";
 import { ParallaxSection } from "./parallax";
@@ -6,6 +7,8 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Calendar, MapPin, Users, Star, Layout, Mic, Award, Ticket, BookOpen } from "lucide-react";
+import { toast } from "@/components/ui/sonner";
+
 const SEFSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, {
@@ -14,6 +17,7 @@ const SEFSection = () => {
   });
   const [hasRevealed, setHasRevealed] = useState(false);
   const isMobile = useIsMobile();
+
   useEffect(() => {
     if (isInView && !hasRevealed) {
       const timer = setTimeout(() => {
@@ -22,6 +26,69 @@ const SEFSection = () => {
       return () => clearTimeout(timer);
     }
   }, [isInView, hasRevealed]);
+
+  const handleAddToCalendar = () => {
+    // Create calendar event details
+    const eventTitle = "Sharjah Entrepreneurship Festival (SEF'26)";
+    const eventLocation = "SRTI Park, Sharjah";
+    const eventDescription = "The region's largest entrepreneurship festival returns for SEF'26. Join thousands of entrepreneurs, innovators, and investors for two days of inspiration, learning, and connection.";
+    const startDate = "20260131T080000"; // Jan 31, 2026, 8:00 AM
+    const endDate = "20260201T180000"; // Feb 1, 2026, 6:00 PM
+
+    // Create Google Calendar URL
+    const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(eventTitle)}&dates=${startDate}/${endDate}&details=${encodeURIComponent(eventDescription)}&location=${encodeURIComponent(eventLocation)}`;
+    
+    // Create iCal file content
+    const icalContent = `BEGIN:VCALENDAR
+VERSION:2.0
+BEGIN:VEVENT
+SUMMARY:${eventTitle}
+DTSTART:${startDate}
+DTEND:${endDate}
+DESCRIPTION:${eventDescription}
+LOCATION:${eventLocation}
+END:VEVENT
+END:VCALENDAR`;
+    
+    // Create calendar options
+    const calendarOptions = [
+      { name: "Google Calendar", action: () => window.open(googleCalendarUrl, '_blank') },
+      { name: "iCal / Outlook", action: () => {
+        const blob = new Blob([icalContent], { type: 'text/calendar;charset=utf-8' });
+        const link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = `SEF26_${startDate}.ics`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }},
+      { name: "Add to device calendar", action: () => {
+        if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+          // For mobile devices, attempt to use the native calendar
+          window.open(googleCalendarUrl, '_blank');
+        } else {
+          // Fallback to Google Calendar for desktop
+          window.open(googleCalendarUrl, '_blank');
+        }
+      }}
+    ];
+
+    // Show toast with calendar options
+    toast("Add to calendar", {
+      description: "Choose your calendar app",
+      action: (
+        <div className="flex flex-col space-y-2 mt-2">
+          {calendarOptions.map((option, i) => (
+            <Button key={i} variant="outline" size="sm" onClick={option.action} className="w-full">
+              {option.name}
+            </Button>
+          ))}
+        </div>
+      ),
+      duration: 5000
+    });
+  };
+
   const stats = [{
     value: "14,000+",
     label: "Attendees",
@@ -39,6 +106,7 @@ const SEFSection = () => {
     label: "Zones",
     icon: Layout
   }];
+  
   const experienceZones = [{
     name: "STARTUP TOWN",
     description: "Building the Future Together",
@@ -64,6 +132,7 @@ const SEFSection = () => {
     description: "Where Inspiration Meets Purpose",
     icon: Star
   }];
+
   return <ParallaxSection direction="up" scrollMultiplier={0.2} className="py-16 md:py-24 px-4 md:px-8 lg:px-12">
       <section ref={sectionRef} className="relative bg-gradient-to-br from-sheraa-light to-white rounded-3xl shadow-lg overflow-hidden" id="sef-section">
         <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-sheraa-primary via-sheraa-teal to-sheraa-primary"></div>
@@ -129,7 +198,14 @@ const SEFSection = () => {
                 <CardHeader className="pb-2">
                   <CardTitle className="text-xl font-bold flex items-center justify-between">
                     <span>SEF'26</span>
-                    <span className="text-sm font-normal text-sheraa-primary px-2 py-1 bg-sheraa-primary/5 rounded-md">Mark Your Calenders</span>
+                    <Button 
+                      onClick={handleAddToCalendar}
+                      variant="outline" 
+                      size="sm" 
+                      className="text-sm font-normal text-sheraa-primary px-2 py-1 bg-sheraa-primary/5 rounded-md hover:bg-sheraa-primary/10"
+                    >
+                      Mark Your Calendar
+                    </Button>
                   </CardTitle>
                   <CardDescription>Where We Belong</CardDescription>
                 </CardHeader>
