@@ -1,4 +1,3 @@
-
 import React from "react";
 import { motion, LayoutGroup } from "framer-motion";
 import { Link } from "react-router-dom";
@@ -23,7 +22,7 @@ export function HeroContent() {
           animation="float" 
           className="py-1.5 px-4 text-sm"
         >
-          Sharjah Entrepreneurship Festival
+          Sharjah Entrepreneurship Center
         </Badge>
       </motion.div>
       
