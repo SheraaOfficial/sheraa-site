@@ -137,8 +137,8 @@ const ProgramsOverview: React.FC = () => {
           {[
             { title: 'Founder-Focused', description: 'We prioritize your needs, offering equity-free support in many programs and flexible engagement models.' },
             { title: 'Ecosystem Access', description: 'Gain unparalleled access to mentors, investors, corporate partners, government entities, and a vibrant community of peers.' },
-            { title: 'Stage-Specific Support', description: 'Whether you're a student exploring an idea, a startup validating your product, aiming for market expansion, or an established SME seeking innovation, we have a program for you.' },
-            { title: 'Sharjah Advantage', description: 'Leverage Sharjah's strategic location, business-friendly environment, and thriving innovation clusters.' }
+            { title: 'Stage-Specific Support', description: 'Whether you are a student exploring an idea, a startup validating your product, aiming for market expansion, or an established SME seeking innovation, we have a program for you.' },
+            { title: 'Sharjah Advantage', description: 'Leverage Sharjah strategic location, business-friendly environment, and thriving innovation clusters.' }
           ].map((item, idx) => (
             <Card key={idx} className="p-6 border border-gray-200 hover:shadow-lg transition-shadow">
               <h3 className="text-xl font-semibold mb-2 text-sheraa-primary">{item.title}</h3>
