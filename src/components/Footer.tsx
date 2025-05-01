@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Link } from "react-router-dom";
 import { GradientButton } from "@/components/ui/gradient-button";
@@ -10,7 +11,14 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Column 1: About */}
           <div className="lg:col-span-2">
-            <h2 className="text-xl font-bold mb-4 text-white">SHERAA</h2>
+            <div className="flex items-center mb-4">
+              <img
+                src="/lovable-uploads/9927fa13-2911-40c1-98c4-7c733bbe84bd.png"
+                alt="Sheraa Logo"
+                className="h-8 w-auto mr-2"
+              />
+              <h2 className="text-xl font-bold text-white">SHERAA</h2>
+            </div>
             <p className="mb-6 text-gray-300">
               Sharjah Entrepreneurship Center (Sheraa) is a government entity that 
               aims to build a world-class entrepreneurship ecosystem in Sharjah, 

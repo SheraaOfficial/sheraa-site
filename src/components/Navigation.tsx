@@ -29,6 +29,12 @@ const Navigation = () => {
       <div className="container flex h-16 items-center px-4 sm:px-6">
         <div className="mr-4 flex items-center">
           <Link to="/" className="flex items-center">
+            <img 
+              src="/lovable-uploads/9927fa13-2911-40c1-98c4-7c733bbe84bd.png" 
+              alt="Sheraa Logo" 
+              className="h-8 w-auto mr-2" 
+              style={{ filter: "invert(14%) sepia(39%) saturate(3515%) hue-rotate(198deg) brightness(93%) contrast(101%)" }}
+            />
             <span className="text-xl font-bold text-sheraa-primary">SHERAA</span>
           </Link>
         </div>
