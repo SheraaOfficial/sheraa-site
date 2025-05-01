@@ -6,9 +6,11 @@ import {
   NavigationMenuContent,
 } from "@/components/ui/navigation-menu";
 import { ListItem } from "./ListItem";
+import { LucideIcon } from "lucide-react";
 
 interface MegaMenuProps {
   title: string;
+  icon: LucideIcon;
   links: {
     title: string;
     href: string;
@@ -16,11 +18,14 @@ interface MegaMenuProps {
   }[];
 }
 
-const MegaMenuComponent: React.FC<MegaMenuProps> = ({ title, links }) => {
+const MegaMenuComponent: React.FC<MegaMenuProps> = ({ title, icon: Icon, links }) => {
   return (
     <NavigationMenuItem>
       <NavigationMenuTrigger className="bg-transparent hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent">
-        {title}
+        <div className="flex items-center gap-2">
+          <Icon className="h-4 w-4" />
+          <span>{title}</span>
+        </div>
       </NavigationMenuTrigger>
       <NavigationMenuContent>
         <ul className="grid w-[400px] gap-2 p-4 md:grid-cols-1">

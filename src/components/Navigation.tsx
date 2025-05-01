@@ -9,11 +9,12 @@ import DesktopNavigation from "./navigation/DesktopNavigation";
 import MobileNavigation from "./navigation/MobileNavigation";
 import { useScrollNavigation } from "./navigation/useScrollNavigation";
 import {
-  aboutLinks,
-  programsLinks,
-  resourcesLinks,
-  eventsLinks,
-  communityLinks
+  homeLinks,
+  discoverLinks,
+  growLinks,
+  communityLinks,
+  insightsLinks,
+  applyLinks
 } from "./navigation/navigationData";
 
 const Navigation = () => {
@@ -51,11 +52,12 @@ const Navigation = () => {
 
         {/* Desktop Navigation */}
         <DesktopNavigation 
-          aboutLinks={aboutLinks}
-          programsLinks={programsLinks}
-          resourcesLinks={resourcesLinks}
-          eventsLinks={eventsLinks}
+          homeLinks={homeLinks}
+          discoverLinks={discoverLinks}
+          growLinks={growLinks}
           communityLinks={communityLinks}
+          insightsLinks={insightsLinks}
+          applyLinks={applyLinks}
         />
 
         {/* Mobile Navigation - Overlay Menu */}
@@ -63,11 +65,12 @@ const Navigation = () => {
           isMenuOpen={isMenuOpen}
           setIsMenuOpen={setIsMenuOpen}
           toggleMenu={toggleMenu}
-          aboutLinks={aboutLinks}
-          programsLinks={programsLinks}
-          resourcesLinks={resourcesLinks}
-          eventsLinks={eventsLinks}
+          homeLinks={homeLinks}
+          discoverLinks={discoverLinks}
+          growLinks={growLinks}
           communityLinks={communityLinks}
+          insightsLinks={insightsLinks}
+          applyLinks={applyLinks}
         />
       </div>
     </header>

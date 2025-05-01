@@ -2,28 +2,31 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { Home, Compass, TrendingUp, Users, Info, ArrowRight } from "lucide-react";
 import MobileDropdown from "./MobileDropdown";
 
 interface MobileNavigationProps {
   isMenuOpen: boolean;
   setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
   toggleMenu: () => void;
-  aboutLinks: { title: string; href: string; description?: string }[];
-  programsLinks: { title: string; href: string; description?: string }[];
-  resourcesLinks: { title: string; href: string; description?: string }[];
-  eventsLinks: { title: string; href: string; description?: string }[];
+  homeLinks: { title: string; href: string; description?: string }[];
+  discoverLinks: { title: string; href: string; description?: string }[];
+  growLinks: { title: string; href: string; description?: string }[];
   communityLinks: { title: string; href: string; description?: string }[];
+  insightsLinks: { title: string; href: string; description?: string }[];
+  applyLinks: { title: string; href: string; description?: string }[];
 }
 
 const MobileNavigation: React.FC<MobileNavigationProps> = ({
   isMenuOpen,
   setIsMenuOpen,
   toggleMenu,
-  aboutLinks,
-  programsLinks,
-  resourcesLinks,
-  eventsLinks,
+  homeLinks,
+  discoverLinks,
+  growLinks,
   communityLinks,
+  insightsLinks,
+  applyLinks,
 }) => {
   if (!isMenuOpen) return null;
 
@@ -58,18 +61,19 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({
           </Button>
         </div>
         <div className="space-y-4">
-          <MobileDropdown title="About Us" items={aboutLinks} />
-          <MobileDropdown title="Programs" items={programsLinks} />
-          <MobileDropdown title="Resources" items={resourcesLinks} />
-          <MobileDropdown title="Events & Media" items={eventsLinks} />
-          <MobileDropdown title="Community & Partnerships" items={communityLinks} />
+          <MobileDropdown title="Home" icon={Home} items={homeLinks} />
+          <MobileDropdown title="Discover" icon={Compass} items={discoverLinks} />
+          <MobileDropdown title="Grow" icon={TrendingUp} items={growLinks} />
+          <MobileDropdown title="Community" icon={Users} items={communityLinks} />
+          <MobileDropdown title="Insights" icon={Info} items={insightsLinks} />
           <div className="py-2">
             <Link
-              to="/contact"
-              className="block py-2 text-base"
+              to="/eligibility"
+              className="flex items-center gap-2 py-2 text-base"
               onClick={() => setIsMenuOpen(false)}
             >
-              Contact Us
+              <ArrowRight className="h-4 w-4" />
+              <span>Apply</span>
             </Link>
           </div>
           <div className="pt-4 space-y-2">

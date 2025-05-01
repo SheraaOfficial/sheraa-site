@@ -2,13 +2,15 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { ChevronDown } from "lucide-react";
+import { LucideIcon } from "lucide-react";
 
 interface MobileDropdownProps {
   title: string;
+  icon: LucideIcon;
   items: { title: string; href: string }[];
 }
 
-const MobileDropdown: React.FC<MobileDropdownProps> = ({ title, items }) => {
+const MobileDropdown: React.FC<MobileDropdownProps> = ({ title, icon: Icon, items }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -17,7 +19,10 @@ const MobileDropdown: React.FC<MobileDropdownProps> = ({ title, items }) => {
         className="flex w-full items-center justify-between py-2 text-base"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <span>{title}</span>
+        <div className="flex items-center gap-2">
+          <Icon className="h-4 w-4" />
+          <span>{title}</span>
+        </div>
         <ChevronDown
           className={`h-4 w-4 transition-transform ${isOpen ? "rotate-180" : ""}`}
         />
