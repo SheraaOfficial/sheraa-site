@@ -2,7 +2,6 @@
 import React from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import MarqueeUpdates from "@/components/MarqueeUpdates";
 import ScrollProgressIndicator from "@/components/ScrollProgressIndicator";
 
 interface MainLayoutProps {
@@ -15,9 +14,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, backgroundStyle }) =>
     <div className="min-h-screen flex flex-col bg-white relative overflow-x-hidden perspective-1000">
       <ScrollProgressIndicator />
       <Navigation />
-      {/* Moved MarqueeUpdates below Navigation to prevent it from blocking dropdowns */}
       <div className="h-16"></div> {/* Spacer for navigation height */}
-      <MarqueeUpdates />
       
       {/* Background with style passed from parent */}
       <div className="fixed inset-0 pointer-events-none z-0" style={backgroundStyle} />

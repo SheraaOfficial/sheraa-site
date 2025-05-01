@@ -1,15 +1,9 @@
 
 import React from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { Calendar, Clock, Megaphone, Award, Star, Users } from "lucide-react";
 
 const MarqueeUpdates = () => {
-  const { scrollYProgress } = useScroll();
-  
-  // This will make the marquee fade out after passing the quote section
-  // Assuming the quote section is roughly 30-50% down the page
-  const opacity = useTransform(scrollYProgress, [0.3, 0.4], [1, 0]);
-  
   const updates = [
     {
       icon: <Calendar className="w-4 h-4" />,
@@ -42,10 +36,7 @@ const MarqueeUpdates = () => {
   ];
 
   return (
-    <motion.div 
-      className="bg-sheraa-dark/95 border-y border-white/10 py-3 fixed top-16 w-full z-10"
-      style={{ opacity }}
-    >
+    <div className="bg-sheraa-dark/95 border-y border-white/10 py-3 w-full">
       <div className="flex whitespace-nowrap animate-marquee">
         {[...updates, ...updates].map((update, index) => (
           <div
@@ -58,7 +49,7 @@ const MarqueeUpdates = () => {
           </div>
         ))}
       </div>
-    </motion.div>
+    </div>
   );
 };
 

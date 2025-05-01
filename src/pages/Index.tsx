@@ -6,6 +6,7 @@ import { useBackgroundAnimation } from "@/hooks/use-background-animation";
 import { useScrollDirection } from "@/hooks/use-scroll-direction";
 import ProgressBar from "@/components/ProgressBar";
 import { HeroSection } from "@/components/HeroSection";
+import MarqueeUpdates from "@/components/MarqueeUpdates";
 import ImpactNumbers from "@/components/ImpactNumbers";
 import QuoteSection from "@/components/QuoteSection";
 import ProgramsOverview from "@/components/ProgramsOverview";
@@ -72,6 +73,9 @@ const Index = () => {
 
       {/* Hero section - load immediately */}
       <HeroSection />
+      
+      {/* Marquee Updates - moved right after hero section */}
+      <MarqueeUpdates />
       
       <div className="space-y-0 md:space-y-0 lg:space-y-0 relative z-10">
         {/* Impact Numbers Section */}
