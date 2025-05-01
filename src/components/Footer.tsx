@@ -1,7 +1,9 @@
+
 import React from "react";
 import { Link } from "react-router-dom";
 import { GradientButton } from "@/components/ui/gradient-button";
 import { Input } from "@/components/ui/input";
+
 const Footer = () => {
   return <footer className="sheraa-footer">
       <div className="container mx-auto px-6 pt-12 pb-8 bg-blue-950">
@@ -9,8 +11,7 @@ const Footer = () => {
           {/* Column 1: About */}
           <div className="lg:col-span-2">
             <div className="flex items-center mb-4">
-              <img src="/lovable-uploads/9927fa13-2911-40c1-98c4-7c733bbe84bd.png" alt="Sheraa Logo" className="h-8 w-auto mr-2" />
-              <h2 className="text-xl font-bold text-white">SHERAA</h2>
+              <img src="/lovable-uploads/72e23f21-5be1-45e9-9961-8e4e7755826b.png" alt="Sheraa Logo" className="h-8 w-auto mr-2" />
             </div>
             <p className="mb-6 text-gray-300">
               Sharjah Entrepreneurship Center (Sheraa) is a government entity that 
@@ -118,4 +119,5 @@ const Footer = () => {
       </div>
     </footer>;
 };
+
 export default Footer;
