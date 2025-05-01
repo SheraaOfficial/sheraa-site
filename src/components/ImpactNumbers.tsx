@@ -3,7 +3,7 @@ import React, { useRef } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, FileDown } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 import FeatureItem from "./impact/FeatureItem";
@@ -113,17 +113,31 @@ const ImpactNumbers = () => {
             stiffness: 70
           }}
         >
-          <Button 
-            asChild 
-            variant="gradient" 
-            className="group"
-            size="lg"
-          >
-            <Link to="/about/impact" className="flex items-center gap-2">
-              View Impact Report 
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform duration-300" />
-            </Link>
-          </Button>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Button 
+              asChild 
+              variant="gradient" 
+              className="group flex items-center gap-2"
+              size="lg"
+            >
+              <Link to="/about/impact" className="flex items-center gap-2">
+                View Impact Report 
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform duration-300" />
+              </Link>
+            </Button>
+            
+            <Button
+              asChild
+              variant="shimmer"
+              size="lg"
+              className="min-w-[200px] group"
+            >
+              <Link to="/lovable-uploads/sheraa-impact-report-2024.pdf" target="_blank" download="Sheraa-Impact-Report-2024.pdf">
+                <FileDown className="mr-2 h-4 w-4 group-hover:scale-110 transition-transform" />
+                Download Report
+              </Link>
+            </Button>
+          </div>
         </motion.div>
       </div>
     </section>
