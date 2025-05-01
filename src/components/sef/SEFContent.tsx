@@ -6,6 +6,7 @@ import SEFDescription from "./SEFDescription";
 import SEFStats from "./SEFStats";
 import SEFEventCard from "./SEFEventCard";
 import { cn } from "@/lib/utils";
+import { GlowingStarsBackgroundCard } from "../ui/glowing-stars-card";
 
 interface SEFContentProps {
   isInView: boolean;

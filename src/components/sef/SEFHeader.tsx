@@ -16,10 +16,10 @@ const SEFHeader: React.FC<SEFHeaderProps> = ({ isInView, hasRevealed }) => {
         initial={{ opacity: 0, y: 20, scale: 0.95 }}
         animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 20, scale: 0.95 }}
         transition={{ duration: 0.6, type: "spring", stiffness: 50, damping: 12 }}
-        className="inline-block backdrop-blur-sm py-2 rounded-full mb-6 border border-[#FED700]/20 px-6 bg-gradient-to-r from-violet-950 via-violet-900 to-violet-950"
+        className="inline-block backdrop-blur-sm py-2 rounded-full mb-6 border border-indigo-400/30 px-6 bg-gradient-to-r from-indigo-900/90 via-purple-900/90 to-indigo-900/90"
       >
-        <span className="text-[#FED700] text-sm md:text-base font-medium tracking-wide">
-          THE REGION'S LARGEST ENTREPRENEURSHIP FESTIVAL
+        <span className="text-indigo-300 text-sm md:text-base font-medium tracking-wide">
+          SHARJAH ENTREPRENEURSHIP FESTIVAL
         </span>
       </motion.div>
       
@@ -34,12 +34,12 @@ const SEFHeader: React.FC<SEFHeaderProps> = ({ isInView, hasRevealed }) => {
           <span 
             className={cn(
               "inline-block relative",
-              hasRevealed ? "bg-gradient-to-r from-white via-[#FED700] to-white bg-clip-text text-transparent" : "text-white"
+              hasRevealed ? "bg-gradient-to-r from-white via-indigo-300 to-white bg-clip-text text-transparent" : "text-white"
             )} 
-            style={{ textShadow: hasRevealed ? "0 10px 20px rgba(254, 215, 0, 0.2)" : "none" }}
+            style={{ textShadow: hasRevealed ? "0 10px 20px rgba(129, 140, 248, 0.3)" : "none" }}
           >
-            SHARJAH ENTREPRENEURSHIP
-            <br />FESTIVAL 2026
+            WHERE INNOVATION
+            <br />MEETS OPPORTUNITY
           </span>
         </motion.h2>
       </div>

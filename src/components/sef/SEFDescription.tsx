@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { GradientButton } from "@/components/ui/gradient-button";
 
 interface SEFDescriptionProps {
   isInView: boolean;
@@ -16,11 +17,11 @@ const SEFDescription: React.FC<SEFDescriptionProps> = ({ isInView }) => {
         initial={{ opacity: 0, y: 20 }}
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ duration: 0.5, delay: 0.2 }}
-        className="text-lg text-gray-200 leading-relaxed"
+        className="text-lg text-indigo-100 leading-relaxed"
       >
-        Experience two electrifying days of innovation, inspiration, and meaningful connections 
-        at SRTI Park, Sharjah. Join thousands of entrepreneurs, investors, and innovators from across 
-        the globe to shape the future of entrepreneurship in the region.
+        Join thousands of entrepreneurs, investors, and thought leaders at Sharjah's flagship
+        innovation event. Two days of inspiration, connection, and opportunity to transform
+        your entrepreneurial journey.
       </motion.p>
       
       {/* CTA Buttons - Enhanced with dual options */}
@@ -30,25 +31,26 @@ const SEFDescription: React.FC<SEFDescriptionProps> = ({ isInView }) => {
         transition={{ duration: 0.5, delay: 0.4 }}
         className="mt-8 flex flex-col sm:flex-row gap-4"
       >
-        <Button 
+        <GradientButton 
           asChild 
           size="lg" 
-          className="bg-[#FED700] text-black hover:bg-[#FED700]/90 shadow-lg hover:shadow-xl hover:shadow-[#FED700]/20 transition-all"
+          variant="shimmer"
+          className="group"
         >
           <Link to="/events/sef/register" className="flex items-center gap-2 my-0 font-medium">
-            <span>REGISTER YOUR INTEREST</span>
+            <span>REGISTER FOR SEF 2026</span>
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </Link>
-        </Button>
+        </GradientButton>
         
         <Button 
           asChild 
           size="lg" 
           variant="outline" 
-          className="border-[#FED700] text-[#FED700] hover:bg-[#FED700]/10 transition-all"
+          className="border-indigo-400/30 text-indigo-200 hover:bg-indigo-500/10 transition-all"
         >
           <Link to="/events/sef/agenda" className="flex items-center gap-2 my-0">
-            <span>VIEW AGENDA</span>
+            <span>EXPLORE THE AGENDA</span>
             <ArrowRight className="w-4 h-4" />
           </Link>
         </Button>
