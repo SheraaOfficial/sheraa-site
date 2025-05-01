@@ -4,159 +4,104 @@ import MainLayout from '@/components/layouts/MainLayout';
 import { Sparkles } from '@/components/ui/sparkles';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Check, Users, ArrowRight } from 'lucide-react';
+import { ArrowRight, Users, Briefcase, Globe, GraduationCap, Lightbulb, Handshake } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 type AttendeeGroup = {
   id: string;
   title: string;
   description: string;
+  icon: React.ElementType;
   benefits: string[];
-  quote?: {
-    text: string;
-    author: string;
-    role: string;
-  };
+  color: string;
 };
 
 const SEFWhoShouldAttendPage: React.FC = () => {
-  // Attendee groups data
+  // Define attendee groups
   const attendeeGroups: AttendeeGroup[] = [
     {
       id: "founders",
-      title: "Startup Founders",
-      description: "Entrepreneurs at all stages, from ideation to scaling, looking to grow their ventures, connect with investors, and learn from industry experts.",
+      title: "Startup Founders & Entrepreneurs",
+      description: "From aspiring founders with a nascent idea to seasoned entrepreneurs scaling their ventures, SEF provides inspiration, practical knowledge, and vital connections.",
+      icon: Lightbulb,
       benefits: [
         "Connect with investors and potential funding sources",
-        "Learn from successful founders who've been in your shoes",
-        "Gain visibility for your startup through exhibition opportunities",
-        "Access specialized workshops focused on startup growth challenges",
-        "Join a community of like-minded entrepreneurs for support and collaboration"
+        "Learn from successful founders' experiences and mistakes",
+        "Discover resources and support available in Sharjah's ecosystem",
+        "Meet potential co-founders, team members, and advisors",
+        "Showcase your startup to a diverse audience"
       ],
-      quote: {
-        text: "SEF gave me the connections I needed to raise our seed round and introduced me to mentors who have been invaluable to our growth journey.",
-        author: "Ahmed Al Zarooni",
-        role: "Founder & CEO, FinEdge"
-      }
+      color: "bg-blue-100 text-blue-700 border-blue-200"
     },
     {
       id: "investors",
-      title: "Investors",
-      description: "Angels, VCs, corporate investors, and family offices seeking promising investment opportunities and insights on emerging market trends.",
+      title: "Investors & VCs",
+      description: "Angel investors, venture capitalists, family offices, and corporate investors seeking promising opportunities in the region's most innovative startups.",
+      icon: Briefcase,
       benefits: [
-        "Discover high-potential startups across diverse sectors",
+        "Discover emerging startups across diverse sectors",
         "Connect with fellow investors for co-investment opportunities",
-        "Gain insights on emerging market trends and opportunities",
-        "Participate in exclusive investor-focused sessions and roundtables",
-        "Access the Investors Lounge for curated matchmaking with startups"
+        "Gain insights into regional market trends and opportunities",
+        "Meet face-to-face with startup founders through curated matchmaking",
+        "Participate as judges or mentors in pitch competitions"
       ],
-      quote: {
-        text: "The quality of startups at SEF is consistently impressive. I've made two investments from connections at last year's event, both performing exceptionally well.",
-        author: "Sarah Khan",
-        role: "Managing Partner, Horizon Ventures"
-      }
+      color: "bg-purple-100 text-purple-700 border-purple-200"
     },
     {
       id: "corporate",
-      title: "Corporate Innovators",
-      description: "Innovation leaders, R&D professionals, and corporate strategists looking to stay ahead of disruption and connect with potential startup partners.",
+      title: "Corporate Innovation Teams",
+      description: "Innovation leaders, R&D teams, and corporate strategists looking to engage with startups, discover new technologies, and foster a culture of innovation.",
+      icon: Globe,
       benefits: [
-        "Scout innovative solutions to your organization's challenges",
-        "Discover potential startup partners for corporate innovation initiatives",
-        "Learn about emerging technologies reshaping your industry",
-        "Network with other corporate innovation leaders",
-        "Participate in corporate innovation workshops and masterclasses"
+        "Scout potential startup partners and acquisition targets",
+        "Understand disruptive trends affecting your industry",
+        "Learn innovation methodologies from agile startups",
+        "Build relationships for potential pilot programs and POCs",
+        "Connect with other corporations focused on innovation"
       ],
-      quote: {
-        text: "SEF has become our go-to event for identifying potential startup partners. The quality of conversations and innovations on display is unmatched in the region.",
-        author: "Fatima Al Suwaidi",
-        role: "Chief Innovation Officer, Global Enterprises"
-      }
+      color: "bg-green-100 text-green-700 border-green-200"
     },
     {
       id: "students",
-      title: "Students & Young Entrepreneurs",
-      description: "University students and young professionals interested in entrepreneurship, gaining practical skills, and exploring startup opportunities.",
+      title: "Students & Young Talents",
+      description: "University students, recent graduates, and young professionals interested in entrepreneurship and building skills for the innovation economy.",
+      icon: GraduationCap,
       benefits: [
-        "Get inspired by successful entrepreneurs and change-makers",
-        "Develop practical entrepreneurial skills through dedicated workshops",
-        "Connect with mentors who can guide your entrepreneurial journey",
-        "Explore internship and job opportunities with innovative companies",
-        "Showcase your ideas through student-focused competitions and exhibitions"
+        "Explore entrepreneurship as a career path",
+        "Connect with mentors and role models",
+        "Discover internship and job opportunities at startups",
+        "Participate in hands-on workshops and skill-building sessions",
+        "Network with other ambitious young innovators"
       ],
-      quote: {
-        text: "My first SEF experience as a student completely changed my career trajectory. The workshops, connections, and inspiration led me to start my own venture rather than pursuing a traditional job path.",
-        author: "Layla Mahmoud",
-        role: "Student-Entrepreneur, American University of Sharjah"
-      }
-    },
-    {
-      id: "government",
-      title: "Government & Policy Makers",
-      description: "Public sector leaders and policy makers working on economic development, innovation ecosystems, and entrepreneurship support initiatives.",
-      benefits: [
-        "Connect with the innovation ecosystem you aim to support",
-        "Discover best practices in entrepreneurship policy and support programs",
-        "Engage with entrepreneurs to understand their needs and challenges",
-        "Network with international ecosystem builders for knowledge exchange",
-        "Showcase your initiatives and collect feedback from stakeholders"
-      ],
-      quote: {
-        text: "SEF provides us with direct insights into the entrepreneurial ecosystem, helping shape more effective policies and support programs for startups in our region.",
-        author: "Mohammed Al Najjar",
-        role: "Director of Economic Development, Government Entity"
-      }
+      color: "bg-orange-100 text-orange-700 border-orange-200"
     },
     {
       id: "ecosystem",
       title: "Ecosystem Enablers",
-      description: "Accelerators, incubators, co-working spaces, university programs, and other organizations supporting entrepreneurial growth.",
+      description: "Accelerators, incubators, government entities, academic institutions, and service providers that support entrepreneurial growth.",
+      icon: Handshake,
       benefits: [
-        "Connect with potential startups for your programs",
-        "Network with complementary ecosystem players for potential collaborations",
-        "Gain visibility for your support programs and offerings",
-        "Learn about international best practices in startup support",
-        "Engage with policy makers and corporate partners interested in ecosystem building"
+        "Connect with startups that can benefit from your services",
+        "Network with complementary ecosystem players",
+        "Share knowledge and best practices",
+        "Discover partnership opportunities",
+        "Increase visibility within the regional innovation community"
       ],
-      quote: {
-        text: "As ecosystem builders, SEF gives us the perfect platform to connect with startups, partners, and supporters all in one place, accelerating our impact.",
-        author: "Rania El-Sherbini",
-        role: "CEO, Startup Hub"
-      }
+      color: "bg-pink-100 text-pink-700 border-pink-200"
     },
     {
-      id: "creatives",
-      title: "Creatives & Content Creators",
-      description: "Artists, designers, content creators, and creative entrepreneurs looking to build sustainable businesses in the creative economy.",
+      id: "community",
+      title: "Creative & Tech Community",
+      description: "Designers, developers, creators, and tech enthusiasts looking to connect with like-minded individuals and explore the intersection of creativity and entrepreneurship.",
+      icon: Users,
       benefits: [
-        "Connect with platforms, brands, and funding sources for creative ventures",
-        "Learn about monetization strategies for creative content",
-        "Network with fellow creators for potential collaborations",
-        "Gain insights on the business side of creative entrepreneurship",
-        "Showcase your work in the Creative Zone"
+        "Connect with founders looking for technical and creative talent",
+        "Discover the latest tools and technologies",
+        "Participate in creative and technical workshops",
+        "Find collaborators for side projects and new ventures",
+        "Get inspired by innovative applications of technology and design"
       ],
-      quote: {
-        text: "SEF helped me transform my creative passion into a sustainable business. The connections and business knowledge I gained were game-changing for my career.",
-        author: "Omar Farooq",
-        role: "Founder, Creative Studio"
-      }
-    },
-    {
-      id: "tech",
-      title: "Tech Professionals",
-      description: "Developers, engineers, product managers, and tech specialists interested in startup opportunities, innovation trends, and networking.",
-      benefits: [
-        "Discover potential startup opportunities matching your technical expertise",
-        "Stay current on emerging tech trends across industries",
-        "Connect with tech-focused founders and innovation leaders",
-        "Participate in technical workshops and coding challenges",
-        "Network with potential collaborators and employers"
-      ],
-      quote: {
-        text: "As a software engineer, SEF opened my eyes to how my skills could be applied to solving real-world problems through entrepreneurship. I joined a startup I met at the event and haven't looked back.",
-        author: "Priya Sharma",
-        role: "CTO, TechSolutions"
-      }
+      color: "bg-indigo-100 text-indigo-700 border-indigo-200"
     }
   ];
 
@@ -180,283 +125,190 @@ const SEFWhoShouldAttendPage: React.FC = () => {
               </h1>
             </Sparkles>
             <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
-              The Sharjah Entrepreneurship Festival brings together a diverse ecosystem of changemakers, each finding unique value and opportunities
+              Whether you're a founder, investor, student, or ecosystem supporter, SEF'26 offers value for everyone in the entrepreneurial community
             </p>
           </motion.div>
         </div>
 
-        {/* Overview */}
-        <div className="bg-white rounded-3xl shadow-sheraa-soft p-8 md:p-12 mb-16">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-2xl md:text-3xl font-bold text-sheraa-primary mb-6">SEF is for Everyone Who...</h2>
-              <ul className="space-y-4">
-                <li className="flex items-start gap-3">
-                  <div className="mt-1 text-sheraa-teal">
-                    <Check className="h-5 w-5" />
+        {/* Attendee Groups */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+          {attendeeGroups.map((group, index) => (
+            <motion.div
+              key={group.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100"
+            >
+              <div className={`h-2 ${group.color.split(' ')[0]}`}></div>
+              <div className="p-6">
+                <div className="flex items-start gap-4 mb-4">
+                  <div className={`p-3 rounded-lg ${group.color}`}>
+                    <group.icon className="h-5 w-5" />
                   </div>
-                  <p className="text-gray-700">Is passionate about entrepreneurship, innovation, and driving positive change</p>
-                </li>
+                  <h3 className="text-xl font-semibold text-sheraa-primary">{group.title}</h3>
+                </div>
                 
-                <li className="flex items-start gap-3">
-                  <div className="mt-1 text-sheraa-teal">
-                    <Check className="h-5 w-5" />
-                  </div>
-                  <p className="text-gray-700">Wants to connect with a vibrant community of like-minded change-makers</p>
-                </li>
+                <p className="text-gray-600 mb-5">{group.description}</p>
                 
-                <li className="flex items-start gap-3">
-                  <div className="mt-1 text-sheraa-teal">
-                    <Check className="h-5 w-5" />
-                  </div>
-                  <p className="text-gray-700">Seeks inspiration, knowledge, and practical tools to build or grow ventures</p>
-                </li>
-                
-                <li className="flex items-start gap-3">
-                  <div className="mt-1 text-sheraa-teal">
-                    <Check className="h-5 w-5" />
-                  </div>
-                  <p className="text-gray-700">Is looking to invest in, partner with, or support innovative startups</p>
-                </li>
-                
-                <li className="flex items-start gap-3">
-                  <div className="mt-1 text-sheraa-teal">
-                    <Check className="h-5 w-5" />
-                  </div>
-                  <p className="text-gray-700">Wants to stay ahead of industry trends and emerging technologies</p>
-                </li>
-              </ul>
-              
-              <div className="mt-8">
-                <Button asChild size="lg">
-                  <Link to="/events/sef/register">
-                    Register Now
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
+                <div className="mb-3">
+                  <h4 className="text-sm uppercase text-gray-500 font-medium mb-3">Why Attend:</h4>
+                  <ul className="space-y-2">
+                    {group.benefits.map((benefit, idx) => (
+                      <li key={idx} className="text-sm text-gray-700 flex items-start gap-2">
+                        <span className="text-sheraa-teal mt-1">•</span>
+                        <span>{benefit}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+        
+        {/* Testimonials Section */}
+        <div className="mb-20">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-bold text-sheraa-primary mb-4">What Attendees Say</h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Hear from past attendees about their experience at the Sharjah Entrepreneurship Festival
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+              <div className="mb-4 text-sheraa-primary">
+                <svg className="h-8 w-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M9.13,9.13V13.5H5A9,9,0,0,1,14,4.5V5a8.5,8.5,0,0,0-8.5,8.5V18H14V9.13Z" fill="currentColor" />
+                  <path d="M19.13,9.13V13.5H15A9,9,0,0,1,24,4.5V5a8.5,8.5,0,0,0-8.5,8.5V18H24V9.13Z" fill="currentColor" />
+                </svg>
+              </div>
+              <p className="italic text-gray-700 mb-6">
+                "As a first-time founder, SEF provided me with invaluable connections and insights. The energy was incredible, and I left with specific action steps to grow my business. One conversation during the networking session led to our first major customer!"
+              </p>
+              <div className="flex items-center">
+                <div className="w-10 h-10 rounded-full bg-sheraa-primary/10 flex items-center justify-center text-sheraa-primary font-bold">AS</div>
+                <div className="ml-3">
+                  <p className="font-medium text-gray-800">Ahmed Saleh</p>
+                  <p className="text-sm text-gray-500">Founder & CEO, EcoTech Solutions</p>
+                </div>
               </div>
             </div>
             
-            <div className="bg-sheraa-primary/5 rounded-2xl p-6 border border-sheraa-primary/20">
-              <h3 className="text-xl font-semibold text-sheraa-primary mb-4">2025 Attendee Breakdown</h3>
-              
-              <div className="space-y-5">
-                <div>
-                  <div className="flex justify-between mb-1 text-sm">
-                    <span className="text-gray-700">Entrepreneurs & Startup Teams</span>
-                    <span className="text-sheraa-primary font-medium">42%</span>
-                  </div>
-                  <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-                    <div className="h-full bg-sheraa-primary rounded-full" style={{ width: "42%" }}></div>
-                  </div>
-                </div>
-                
-                <div>
-                  <div className="flex justify-between mb-1 text-sm">
-                    <span className="text-gray-700">Students & Young Professionals</span>
-                    <span className="text-sheraa-primary font-medium">28%</span>
-                  </div>
-                  <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-                    <div className="h-full bg-sheraa-primary rounded-full" style={{ width: "28%" }}></div>
-                  </div>
-                </div>
-                
-                <div>
-                  <div className="flex justify-between mb-1 text-sm">
-                    <span className="text-gray-700">Corporate Leaders & Innovators</span>
-                    <span className="text-sheraa-primary font-medium">15%</span>
-                  </div>
-                  <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-                    <div className="h-full bg-sheraa-primary rounded-full" style={{ width: "15%" }}></div>
-                  </div>
-                </div>
-                
-                <div>
-                  <div className="flex justify-between mb-1 text-sm">
-                    <span className="text-gray-700">Investors</span>
-                    <span className="text-sheraa-primary font-medium">8%</span>
-                  </div>
-                  <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-                    <div className="h-full bg-sheraa-primary rounded-full" style={{ width: "8%" }}></div>
-                  </div>
-                </div>
-                
-                <div>
-                  <div className="flex justify-between mb-1 text-sm">
-                    <span className="text-gray-700">Ecosystem Partners & Government</span>
-                    <span className="text-sheraa-primary font-medium">7%</span>
-                  </div>
-                  <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-                    <div className="h-full bg-sheraa-primary rounded-full" style={{ width: "7%" }}></div>
-                  </div>
+            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+              <div className="mb-4 text-sheraa-primary">
+                <svg className="h-8 w-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M9.13,9.13V13.5H5A9,9,0,0,1,14,4.5V5a8.5,8.5,0,0,0-8.5,8.5V18H14V9.13Z" fill="currentColor" />
+                  <path d="M19.13,9.13V13.5H15A9,9,0,0,1,24,4.5V5a8.5,8.5,0,0,0-8.5,8.5V18H24V9.13Z" fill="currentColor" />
+                </svg>
+              </div>
+              <p className="italic text-gray-700 mb-6">
+                "The quality of startups and founders at SEF is impressive. As an investor, I appreciate the curation and organization that allows for meaningful connections. I've made two investments from connections initiated at last year's festival."
+              </p>
+              <div className="flex items-center">
+                <div className="w-10 h-10 rounded-full bg-sheraa-primary/10 flex items-center justify-center text-sheraa-primary font-bold">LK</div>
+                <div className="ml-3">
+                  <p className="font-medium text-gray-800">Layla Khan</p>
+                  <p className="text-sm text-gray-500">Partner, Gulf Ventures Capital</p>
                 </div>
               </div>
-              
-              <div className="mt-6 pt-4 border-t border-gray-200">
-                <div className="flex items-center justify-between text-sm">
-                  <span className="text-gray-500">Total Attendance:</span>
-                  <span className="font-semibold text-gray-800">14,000+</span>
+            </div>
+            
+            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+              <div className="mb-4 text-sheraa-primary">
+                <svg className="h-8 w-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M9.13,9.13V13.5H5A9,9,0,0,1,14,4.5V5a8.5,8.5,0,0,0-8.5,8.5V18H14V9.13Z" fill="currentColor" />
+                  <path d="M19.13,9.13V13.5H15A9,9,0,0,1,24,4.5V5a8.5,8.5,0,0,0-8.5,8.5V18H24V9.13Z" fill="currentColor" />
+                </svg>
+              </div>
+              <p className="italic text-gray-700 mb-6">
+                "As a student interested in entrepreneurship, SEF opened my eyes to the possibilities. The workshops were practical, and I was able to connect with mentors who continue to guide me. Six months later, I'm working on my first startup!"
+              </p>
+              <div className="flex items-center">
+                <div className="w-10 h-10 rounded-full bg-sheraa-primary/10 flex items-center justify-center text-sheraa-primary font-bold">MN</div>
+                <div className="ml-3">
+                  <p className="font-medium text-gray-800">Mariam Nasser</p>
+                  <p className="text-sm text-gray-500">Student, American University of Sharjah</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
         
-        {/* Attendee Groups */}
+        {/* Key Statistics */}
         <div className="mb-20">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-sheraa-primary mb-4">Find Your Place at SEF</h2>
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-bold text-sheraa-primary mb-4">SEF Audience Breakdown</h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              SEF offers tailored experiences and benefits for different members of the entrepreneurial ecosystem
+              A diverse community of innovators, investors, and industry leaders
             </p>
           </div>
           
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {attendeeGroups.map((group, index) => (
-              <motion.div
-                key={group.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-white rounded-xl shadow-sheraa-soft overflow-hidden border border-gray-100"
-              >
-                <div className="p-8">
-                  <h3 className="text-2xl font-semibold text-sheraa-primary mb-3">{group.title}</h3>
-                  <p className="text-gray-600 mb-6">{group.description}</p>
-                  
-                  <div className="mb-6">
-                    <h4 className="text-sm uppercase text-gray-500 font-medium mb-3">Key Benefits</h4>
-                    <ul className="space-y-2">
-                      {group.benefits.map((benefit, idx) => (
-                        <li key={idx} className="flex items-start gap-3">
-                          <div className="mt-1 text-sheraa-teal">
-                            <Check className="h-4 w-4" />
-                          </div>
-                          <p className="text-gray-700 text-sm">{benefit}</p>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  
-                  {group.quote && (
-                    <div className="bg-gradient-purple/5 rounded-lg p-4 border border-purple-100">
-                      <p className="italic text-gray-700 text-sm mb-3">"{group.quote.text}"</p>
-                      <div className="flex items-center">
-                        <div className="flex-shrink-0 h-8 w-8 rounded-full bg-sheraa-primary/20 flex items-center justify-center text-sheraa-primary font-bold text-sm">
-                          {group.quote.author.split(' ').map(n => n[0]).join('')}
-                        </div>
-                        <div className="ml-3">
-                          <p className="text-sm font-medium text-gray-800">{group.quote.author}</p>
-                          <p className="text-xs text-gray-500">{group.quote.role}</p>
-                        </div>
-                      </div>
-                    </div>
-                  )}
+          <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 p-6 md:p-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="text-center">
+                <div className="inline-flex items-center justify-center p-4 bg-blue-100 rounded-full text-blue-700 mb-4">
+                  <Lightbulb className="h-8 w-8" />
                 </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-        
-        {/* Companies Showcase */}
-        <div className="mb-20">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-sheraa-primary mb-4">Who You'll Meet</h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              SEF'26 brings together top organizations, startups, and individuals from across the entrepreneurial ecosystem
-            </p>
-          </div>
-          
-          <div className="bg-white rounded-xl shadow-sheraa-soft overflow-hidden border border-gray-100 p-6 md:p-10">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div>
-                <h3 className="text-xl font-semibold text-sheraa-primary mb-4">Companies & Investors</h3>
-                <ul className="space-y-3">
-                  <li className="flex items-center gap-2">
-                    <Users className="h-4 w-4 text-sheraa-teal" />
-                    <span className="text-gray-700">Global Tech Companies</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Users className="h-4 w-4 text-sheraa-teal" />
-                    <span className="text-gray-700">Regional Enterprise Leaders</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Users className="h-4 w-4 text-sheraa-teal" />
-                    <span className="text-gray-700">Venture Capital Firms</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Users className="h-4 w-4 text-sheraa-teal" />
-                    <span className="text-gray-700">Angel Investor Networks</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Users className="h-4 w-4 text-sheraa-teal" />
-                    <span className="text-gray-700">Corporate Innovation Teams</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Users className="h-4 w-4 text-sheraa-teal" />
-                    <span className="text-gray-700">Family Offices</span>
-                  </li>
-                </ul>
+                <h3 className="text-4xl font-bold text-sheraa-primary mb-2">42%</h3>
+                <p className="text-gray-600">Founders & Entrepreneurs</p>
               </div>
               
-              <div>
-                <h3 className="text-xl font-semibold text-sheraa-primary mb-4">Startups & Innovators</h3>
-                <ul className="space-y-3">
-                  <li className="flex items-center gap-2">
-                    <Users className="h-4 w-4 text-sheraa-teal" />
-                    <span className="text-gray-700">Tech Startups</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Users className="h-4 w-4 text-sheraa-teal" />
-                    <span className="text-gray-700">Social Enterprises</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Users className="h-4 w-4 text-sheraa-teal" />
-                    <span className="text-gray-700">Creative Entrepreneurs</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Users className="h-4 w-4 text-sheraa-teal" />
-                    <span className="text-gray-700">Student Founders</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Users className="h-4 w-4 text-sheraa-teal" />
-                    <span className="text-gray-700">Product Innovators</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Users className="h-4 w-4 text-sheraa-teal" />
-                    <span className="text-gray-700">Industry Disruptors</span>
-                  </li>
-                </ul>
+              <div className="text-center">
+                <div className="inline-flex items-center justify-center p-4 bg-purple-100 rounded-full text-purple-700 mb-4">
+                  <Briefcase className="h-8 w-8" />
+                </div>
+                <h3 className="text-4xl font-bold text-sheraa-primary mb-2">18%</h3>
+                <p className="text-gray-600">Investors & Corporate Executives</p>
               </div>
               
-              <div>
-                <h3 className="text-xl font-semibold text-sheraa-primary mb-4">Ecosystem & Support</h3>
-                <ul className="space-y-3">
-                  <li className="flex items-center gap-2">
-                    <Users className="h-4 w-4 text-sheraa-teal" />
-                    <span className="text-gray-700">Accelerators & Incubators</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Users className="h-4 w-4 text-sheraa-teal" />
-                    <span className="text-gray-700">Government Representatives</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Users className="h-4 w-4 text-sheraa-teal" />
-                    <span className="text-gray-700">University Programs</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Users className="h-4 w-4 text-sheraa-teal" />
-                    <span className="text-gray-700">Service Providers</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Users className="h-4 w-4 text-sheraa-teal" />
-                    <span className="text-gray-700">Mentors & Coaches</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Users className="h-4 w-4 text-sheraa-teal" />
-                    <span className="text-gray-700">Media & Press</span>
-                  </li>
-                </ul>
+              <div className="text-center">
+                <div className="inline-flex items-center justify-center p-4 bg-green-100 rounded-full text-green-700 mb-4">
+                  <GraduationCap className="h-8 w-8" />
+                </div>
+                <h3 className="text-4xl font-bold text-sheraa-primary mb-2">25%</h3>
+                <p className="text-gray-600">Students & Young Professionals</p>
+              </div>
+              
+              <div className="text-center">
+                <div className="inline-flex items-center justify-center p-4 bg-orange-100 rounded-full text-orange-700 mb-4">
+                  <Handshake className="h-8 w-8" />
+                </div>
+                <h3 className="text-4xl font-bold text-sheraa-primary mb-2">15%</h3>
+                <p className="text-gray-600">Ecosystem Enablers & Support</p>
+              </div>
+            </div>
+            
+            <div className="mt-10 pt-8 border-t border-gray-200">
+              <div className="flex flex-col sm:flex-row justify-between items-center">
+                <div className="text-gray-600 mb-6 sm:mb-0">
+                  <p className="font-medium text-sheraa-primary">SEF'25 Demographics:</p>
+                  <ul className="mt-2 space-y-1">
+                    <li className="flex items-center gap-2">
+                      <span className="text-sheraa-teal">•</span>
+                      <span>50+ Countries Represented</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="text-sheraa-teal">•</span>
+                      <span>52% Women Attendees</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="text-sheraa-teal">•</span>
+                      <span>300+ Startups Represented</span>
+                    </li>
+                  </ul>
+                </div>
+                
+                <div className="text-center sm:text-right">
+                  <p className="text-gray-500 mb-3">Register now to be part of SEF'26</p>
+                  <Button asChild size="lg">
+                    <Link to="/events/sef/register">
+                      Secure Your Spot
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
@@ -465,27 +317,60 @@ const SEFWhoShouldAttendPage: React.FC = () => {
         {/* CTA Section */}
         <div className="mb-16">
           <div className="bg-gradient-purple/10 backdrop-blur-sm rounded-3xl p-8 md:p-12">
-            <div className="text-center max-w-2xl mx-auto">
-              <h2 className="text-2xl md:text-3xl font-bold text-sheraa-primary mb-4">
-                Join the SEF'26 Community
-              </h2>
-              <p className="text-lg text-gray-600 mb-8">
-                Whether you're a founder, investor, corporate innovator, student, or ecosystem builder - SEF'26 has something valuable for you. Secure your spot at the region's premier entrepreneurship festival.
-              </p>
-              
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button asChild size="lg">
-                  <Link to="/events/sef/register">
-                    Register Now
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+              <div>
+                <h2 className="text-2xl md:text-3xl font-bold text-sheraa-primary mb-4">
+                  Join us at SEF'26
+                </h2>
+                <p className="text-lg text-gray-600 mb-6">
+                  Whatever your role in the entrepreneurial ecosystem, SEF'26 offers unique value and opportunities designed for your specific needs and interests.
+                </p>
                 
-                <Button variant="outline" size="lg" asChild>
-                  <Link to="/events/sef/agenda">
-                    Explore the Agenda
-                  </Link>
-                </Button>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Button asChild size="lg">
+                    <Link to="/events/sef/register">
+                      Register Now
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  </Button>
+                  
+                  <Button variant="outline" size="lg" asChild>
+                    <Link to="/events/sef/agenda">
+                      View Full Agenda
+                    </Link>
+                  </Button>
+                </div>
+              </div>
+              
+              <div className="order-first lg:order-last">
+                <div className="bg-white/80 rounded-2xl p-6">
+                  <h3 className="text-xl font-semibold text-sheraa-primary mb-4">Group Registration</h3>
+                  
+                  <p className="text-gray-600 mb-4">
+                    Attending with a team? We offer special rates for groups of 5+ people from the same organization, including:
+                  </p>
+                  
+                  <ul className="space-y-2 mb-5">
+                    <li className="text-sm text-gray-700 flex items-start gap-2">
+                      <span className="text-sheraa-teal mt-1">•</span>
+                      <span>Discounted ticket pricing</span>
+                    </li>
+                    <li className="text-sm text-gray-700 flex items-start gap-2">
+                      <span className="text-sheraa-teal mt-1">•</span>
+                      <span>Reserved seating at keynote sessions</span>
+                    </li>
+                    <li className="text-sm text-gray-700 flex items-start gap-2">
+                      <span className="text-sheraa-teal mt-1">•</span>
+                      <span>Dedicated group networking opportunities</span>
+                    </li>
+                  </ul>
+                  
+                  <Button variant="secondary" className="w-full" asChild>
+                    <Link to="/events/sef/register?group=true">
+                      Request Group Registration
+                    </Link>
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
@@ -511,9 +396,9 @@ const SEFWhoShouldAttendPage: React.FC = () => {
               <p className="text-gray-600 mt-2 text-sm">Discover the unique zones and experiences at SEF'26.</p>
             </Link>
             
-            <Link to="/events/sef/faq" className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all group">
-              <h4 className="font-medium text-lg text-sheraa-primary group-hover:text-sheraa-teal transition-colors">FAQs</h4>
-              <p className="text-gray-600 mt-2 text-sm">Find answers to commonly asked questions about the festival.</p>
+            <Link to="/events/sef/register" className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all group">
+              <h4 className="font-medium text-lg text-sheraa-primary group-hover:text-sheraa-teal transition-colors">Register Now</h4>
+              <p className="text-gray-600 mt-2 text-sm">Secure your spot at the region's premier entrepreneurship festival.</p>
             </Link>
           </div>
         </div>

@@ -14,6 +14,7 @@ export const SEFQuickLinks: React.FC<SEFQuickLinksProps> = ({ hasRevealed }) => 
     { title: "Experience", path: "/events/sef/experience" },
     { title: "Who Should Attend", path: "/events/sef/who-should-attend" },
     { title: "Be Part of SEF", path: "/events/sef/be-part-of-sef" },
+    { title: "FAQ", path: "/events/sef/faq" },
     { title: "Register", path: "/events/sef/register" }
   ];
   
