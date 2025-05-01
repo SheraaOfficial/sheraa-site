@@ -1,27 +1,45 @@
+
 import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Calendar, MapPin, ArrowRight } from "lucide-react";
+
 interface SEFEventCardProps {
   hasRevealed: boolean;
 }
+
 export function SEFEventCard({
   hasRevealed
 }: SEFEventCardProps) {
-  return <motion.div initial={{
-    opacity: 0,
-    x: 30
-  }} animate={hasRevealed ? {
-    opacity: 1,
-    x: 0
-  } : {
-    opacity: 0,
-    x: 30
-  }} transition={{
-    duration: 0.6,
-    delay: 0.5
-  }} className="bg-white/5 backdrop-blur-md rounded-xl border border-white/10 overflow-hidden">
+  return (
+    <motion.div 
+      initial={{
+        opacity: 0,
+        x: 30,
+        y: 10
+      }} 
+      animate={hasRevealed ? {
+        opacity: 1,
+        x: 0,
+        y: 0
+      } : {
+        opacity: 0,
+        x: 30,
+        y: 10
+      }} 
+      transition={{
+        type: "spring",
+        stiffness: 60,
+        damping: 20,
+        delay: 0.5
+      }}
+      whileHover={{ 
+        y: -5,
+        transition: { duration: 0.3 }
+      }}
+      className="bg-white/5 backdrop-blur-md rounded-xl border border-white/10 overflow-hidden shadow-xl"
+    >
       {/* Card Header */}
       <div className="bg-gradient-to-r from-[#FED700]/30 to-transparent p-6 border-b border-white/10 my-[38px]">
         <h3 className="text-2xl font-bold text-white">Event Details</h3>
@@ -52,14 +70,16 @@ export function SEFEventCard({
         {/* Multiple CTAs for increased flexibility */}
         <div className="pt-4">
           <Button asChild className="w-full mb-3 bg-[#FED700] hover:bg-[#FED700]/80 text-black">
-            <Link to="/events/sef/register" className="flex items-center justify-center gap-2">
+            <Link to="/events/sef/register" className="flex items-center justify-center gap-2 group">
               <span>REGISTER YOUR INTEREST</span>
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
             </Link>
           </Button>
           
           <Button asChild variant="outline" className="w-full border-white/20 text-white hover:bg-white/5">
-            <Link to="/events/sef/agenda">View Full Agenda</Link>
+            <Link to="/events/sef/agenda" className="group">
+              <span className="group-hover:text-[#FED700] transition-colors duration-300">View Full Agenda</span>
+            </Link>
           </Button>
         </div>
         
@@ -68,5 +88,6 @@ export function SEFEventCard({
           Last updated: April 28, 2025
         </div>
       </div>
-    </motion.div>;
+    </motion.div>
+  );
 }

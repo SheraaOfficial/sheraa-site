@@ -3,6 +3,8 @@ import React, { useEffect, useRef, useState, lazy, Suspense } from "react";
 import { useInView } from "framer-motion";
 import { BeamsBackground } from "./ui/beams-background";
 import { SEFHeader } from "./sef/SEFHeader";
+import { ParallaxSection } from "./ParallaxProvider";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 // Lazy load components that aren't immediately visible
 const SEFDescription = lazy(() => import("./sef/SEFDescription").then(mod => ({ default: mod.SEFDescription })));
@@ -18,57 +20,67 @@ const SEFSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: false, margin: "-100px 0px" });
   const [hasRevealed, setHasRevealed] = useState(false);
+  const isMobile = useIsMobile();
   
   useEffect(() => {
     if (isInView && !hasRevealed) {
       const timer = setTimeout(() => {
         setHasRevealed(true);
-      }, 800);
+      }, 400);
       return () => clearTimeout(timer);
     }
   }, [isInView, hasRevealed]);
   
   return (
-    <section
-      ref={sectionRef}
+    <ParallaxSection 
+      direction="up" 
+      scrollMultiplier={0.2}
+      spring={true}
+      stiffness={50}
+      damping={15}
       className="relative py-16 md:py-24 overflow-hidden"
-      id="sef-section"
     >
-      {/* Use BeamsBackground for background */}
-      <BeamsBackground intensity="strong">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#001A33]/90 to-[#1A1F2C]/95" />
-      </BeamsBackground>
-      
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          {/* Content Section - Takes more space on desktop */}
-          <div className="lg:col-span-7 text-white">
-            <SEFHeader isInView={isInView} hasRevealed={hasRevealed} />
+      <section
+        ref={sectionRef}
+        className="relative overflow-hidden"
+        id="sef-section"
+      >
+        {/* Use BeamsBackground for background */}
+        <BeamsBackground intensity={isMobile ? "medium" : "strong"}>
+          <div className="absolute inset-0 bg-gradient-to-b from-[#001A33]/90 to-[#1A1F2C]/95" />
+        </BeamsBackground>
+        
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            {/* Content Section - Takes more space on desktop */}
+            <div className="lg:col-span-7 text-white">
+              <SEFHeader isInView={isInView} hasRevealed={hasRevealed} />
+              
+              {isInView && (
+                <Suspense fallback={<LoadingFallback />}>
+                  <SEFDescription isInView={isInView} />
+                </Suspense>
+              )}
+              
+              {isInView && hasRevealed && (
+                <Suspense fallback={<LoadingFallback />}>
+                  <SEFStats hasRevealed={hasRevealed} />
+                </Suspense>
+              )}
+            </div>
             
-            {isInView && (
-              <Suspense fallback={<LoadingFallback />}>
-                <SEFDescription isInView={isInView} />
-              </Suspense>
-            )}
-            
-            {isInView && hasRevealed && (
-              <Suspense fallback={<LoadingFallback />}>
-                <SEFStats hasRevealed={hasRevealed} />
-              </Suspense>
-            )}
-          </div>
-          
-          {/* Event Details Card - Side section */}
-          <div className="lg:col-span-5">
-            {isInView && (
-              <Suspense fallback={<LoadingFallback />}>
-                <SEFEventCard hasRevealed={hasRevealed} />
-              </Suspense>
-            )}
+            {/* Event Details Card - Side section */}
+            <div className="lg:col-span-5">
+              {isInView && (
+                <Suspense fallback={<LoadingFallback />}>
+                  <SEFEventCard hasRevealed={hasRevealed} />
+                </Suspense>
+              )}
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </ParallaxSection>
   );
 };
 
