@@ -11,8 +11,8 @@ import { Sparkles } from "@/components/ui/sparkles";
 
 const transitionVariants = {
   container: {
-    hidden: { opacity: 0 },
-    show: {
+    initial: { opacity: 0 },
+    animate: {
       opacity: 1,
       transition: {
         delayChildren: 0.3,
@@ -21,12 +21,12 @@ const transitionVariants = {
     }
   },
   item: {
-    hidden: {
+    initial: {
       opacity: 0,
       filter: "blur(12px)",
       y: 12,
     },
-    show: {
+    animate: {
       opacity: 1,
       filter: "blur(0px)",
       y: 0,
