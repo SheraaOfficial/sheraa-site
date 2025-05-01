@@ -19,6 +19,11 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfUse from "./pages/TermsOfUse";
 import EligibilityCheckerPage from "./pages/eligibility/EligibilityCheckerPage";
 
+// Programs pages imports
+import StartupDojo from "./pages/programs/StartupDojo";
+import S3Incubator from "./pages/programs/S3Incubator";
+import AccessSharjahChallenge from "./pages/programs/AccessSharjahChallenge";
+
 // SEF Page imports
 import SEFRegisterPage from "./pages/events/sef/SEFRegisterPage";
 import SEFAgendaPage from "./pages/events/sef/SEFAgendaPage";
@@ -51,12 +56,12 @@ const App = () => (
           {/* Programs Routes */}
           <Route path="/programs" element={<ProgramsPage />} />
           <Route path="/programs/start-young" element={<ProgramsPage section="start-young" />} />
-          <Route path="/programs/startup-dojo" element={<ProgramsPage section="startup-dojo" />} />
+          <Route path="/programs/startup-dojo" element={<StartupDojo />} />
           <Route path="/programs/startup-dojo-plus" element={<ProgramsPage section="startup-dojo-plus" />} />
           <Route path="/programs/grow-smart" element={<ProgramsPage section="grow-smart" />} />
-          <Route path="/programs/s3-incubator" element={<ProgramsPage section="s3-incubator" />} />
+          <Route path="/programs/s3-incubator" element={<S3Incubator />} />
           <Route path="/programs/build-ventures" element={<ProgramsPage section="build-ventures" />} />
-          <Route path="/programs/access-sharjah-challenge" element={<ProgramsPage section="access-sharjah-challenge" />} />
+          <Route path="/programs/access-sharjah-challenge" element={<AccessSharjahChallenge />} />
           <Route path="/programs/sme-support" element={<ProgramsPage section="sme-support" />} />
           
           {/* Eligibility Checker Page */}
