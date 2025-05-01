@@ -2,15 +2,13 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import MainLayout from "@/components/layouts/MainLayout";
+import { Check } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, ArrowRight, Check } from "lucide-react";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
-import QuestionRenderer from "@/components/eligibility/QuestionRenderer";
-import { EligibilityResult } from "@/components/eligibility/EligibilityResult";
 import { eligibilityQuestions, programRecommendations } from "@/components/eligibility/eligibilityData";
 import { getCurrentQuestion, getRecommendedProgram, getTotalQuestionsForPersona } from "@/components/eligibility/eligibilityUtils";
 import { useToast } from "@/hooks/use-toast";
+import EligibilityCheckerPageContent from "@/components/eligibility/EligibilityCheckerPageContent";
 
 const EligibilityCheckerPage = () => {
   const { toast } = useToast();
@@ -104,6 +102,9 @@ const EligibilityCheckerPage = () => {
     setPersona(null);
   };
 
+  // Get recommended program
+  const recommendedProgram = getRecommendedProgram(answers, programRecommendations);
+
   return (
     <MainLayout>
       <div className="container mx-auto px-4 py-12 md:py-16">
@@ -123,70 +124,21 @@ const EligibilityCheckerPage = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           <div className="lg:col-span-8">
-            <Card className="shadow-lg border-sheraa-primary/20">
-              {!showResult ? (
-                <>
-                  <CardHeader>
-                    <CardTitle className="text-2xl">
-                      {!persona ? "Tell us about yourself" : `Question ${currentStep + 1} of ${totalSteps}`}
-                    </CardTitle>
-                    <CardDescription>
-                      {!persona
-                        ? "Let's start by understanding which entrepreneurial path you're on."
-                        : "Help us understand your specific needs and goals."}
-                    </CardDescription>
-                    
-                    {persona && (
-                      <div className="mt-4 space-y-2">
-                        <div className="flex justify-between text-sm">
-                          <span>Progress</span>
-                          <span>{Math.round(((currentStep + 1) / totalSteps) * 100)}%</span>
-                        </div>
-                        <Progress value={((currentStep + 1) / totalSteps) * 100} className="h-2" />
-                      </div>
-                    )}
-                  </CardHeader>
-
-                  <CardContent className="pt-4">
-                    {currentQuestion && (
-                      <QuestionRenderer
-                        question={currentQuestion}
-                        answers={answers}
-                        onAnswerChange={handleAnswerChange}
-                      />
-                    )}
-                  </CardContent>
-
-                  <CardFooter className="flex justify-between border-t pt-6">
-                    <Button
-                      variant="outline"
-                      onClick={handleBack}
-                      disabled={currentStep === 0 && !persona}
-                      className="flex items-center gap-2"
-                    >
-                      <ArrowLeft className="h-4 w-4" /> Back
-                    </Button>
-
-                    <Button 
-                      onClick={handleNext} 
-                      disabled={!hasValidAnswers}
-                      className="bg-sheraa-primary text-white hover:bg-sheraa-primary/90 flex items-center gap-2"
-                    >
-                      {isLastQuestion ? "See Results" : "Next"}
-                      <ArrowRight className="h-4 w-4" />
-                    </Button>
-                  </CardFooter>
-                </>
-              ) : (
-                <div className="p-6">
-                  <EligibilityResult 
-                    program={getRecommendedProgram(answers, programRecommendations)} 
-                    onReset={handleReset}
-                    onClose={() => {}}
-                  />
-                </div>
-              )}
-            </Card>
+            <EligibilityCheckerPageContent
+              currentQuestion={currentQuestion}
+              answers={answers}
+              currentStep={currentStep}
+              totalSteps={totalSteps}
+              persona={persona}
+              showResult={showResult}
+              hasValidAnswers={hasValidAnswers}
+              isLastQuestion={isLastQuestion}
+              onAnswerChange={handleAnswerChange}
+              handleNext={handleNext}
+              handleBack={handleBack}
+              handleReset={handleReset}
+              recommendedProgram={recommendedProgram}
+            />
           </div>
 
           <div className="lg:col-span-4">

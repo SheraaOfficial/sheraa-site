@@ -1,4 +1,3 @@
-
 import React, { useEffect } from "react";
 import MainLayout from "@/components/layouts/MainLayout";
 import HomePageSections from "@/components/home/HomePageSections";
@@ -7,6 +6,7 @@ import { useBackgroundAnimation } from "@/hooks/use-background-animation";
 import { useScrollDirection } from "@/hooks/use-scroll-direction";
 import ProgressBar from "@/components/ProgressBar";
 import { HeroSection } from "@/components/HeroSection";
+import EligibilityChecker from "@/components/EligibilityChecker";
 
 const Index = () => {
   const isMobile = useIsMobile();
@@ -42,9 +42,13 @@ const Index = () => {
       {/* Add the progress bar */}
       <ProgressBar />
 
-      {/* Add the new Hero section */}
+      {/* Hero section */}
       <HeroSection />
       
+      {/* Eligibility checker */}
+      <EligibilityChecker />
+      
+      {/* Other home page sections */}
       <HomePageSections 
         isScrolling={isScrolling}
         scrollDirection={scrollDirection}

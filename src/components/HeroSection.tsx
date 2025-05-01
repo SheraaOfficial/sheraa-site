@@ -10,6 +10,16 @@ import { GradientButton } from "@/components/ui/gradient-button";
 import { Sparkles } from "@/components/ui/sparkles";
 
 const transitionVariants = {
+  container: {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        delayChildren: 0.3,
+        staggerChildren: 0.15
+      }
+    }
+  },
   item: {
     hidden: {
       opacity: 0,
@@ -32,30 +42,16 @@ const transitionVariants = {
 export function HeroSection() {
   return (
     <section className="relative min-h-[85vh] flex flex-col justify-center overflow-hidden">
-      <RetroGrid />
+      <RetroGrid fadeDirection="bottom" fadeSize="lg" />
       <div className="absolute inset-0 -z-10 size-full [background:radial-gradient(125%_125%_at_50%_10%,transparent_40%,var(--background)_100%)]" />
       <div className="container mx-auto px-4 py-24 sm:px-6 relative z-10">
         <AnimatedGroup 
-          variants={{
-            container: {
-              hidden: { opacity: 0 },
-              show: {
-                opacity: 1,
-                transition: {
-                  delayChildren: 0.3,
-                  staggerChildren: 0.15
-                }
-              }
-            },
-            item: transitionVariants.item
-          }}
+          variants={transitionVariants}
           className="text-center max-w-4xl mx-auto"
         >
-          <div className="inline-block bg-sheraa-primary/15 px-4 py-1 rounded-full text-sheraa-primary text-sm font-medium mb-6 backdrop-blur-sm">
-            <motion.span variants={transitionVariants.item}>
-              <Sparkles>Sharjah Entrepreneurship Center</Sparkles>
-            </motion.span>
-          </div>
+          <motion.div variants={transitionVariants.item} className="inline-block bg-sheraa-primary/15 px-4 py-1 rounded-full text-sheraa-primary text-sm font-medium mb-6 backdrop-blur-sm">
+            <Sparkles>Sharjah Entrepreneurship Center</Sparkles>
+          </motion.div>
           
           <motion.h1
             variants={transitionVariants.item}

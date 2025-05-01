@@ -50,7 +50,7 @@ export function AnimatedGroup({
     <motion.div
       initial={initial}
       animate={animate}
-      variants={variants}
+      variants={variants as any}
       transition={transition}
       className={cn(className)}
       {...props}

@@ -4,9 +4,23 @@ import { cn } from "@/lib/utils";
 
 interface RetroGridProps {
   className?: string;
+  fadeDirection?: "top" | "bottom";
+  fadeSize?: "sm" | "md" | "lg";
 }
 
-export function RetroGrid({ className }: RetroGridProps) {
+export function RetroGrid({ 
+  className,
+  fadeDirection = "top", 
+  fadeSize = "md"
+}: RetroGridProps) {
+  const fadeSizes = {
+    sm: "30%",
+    md: "70%",
+    lg: "90%"
+  };
+  
+  const fadeHeight = fadeSizes[fadeSize];
+  
   return (
     <div className={cn("absolute inset-0 -z-10 overflow-hidden", className)}>
       <div className="retro-grid">
@@ -53,11 +67,11 @@ export function RetroGrid({ className }: RetroGridProps) {
           
           .grid-overlay {
             position: absolute;
-            bottom: 0;
+            ${fadeDirection === "bottom" ? "bottom" : "top"}: 0;
             left: 0;
             right: 0;
-            height: 70%;
-            background: linear-gradient(to top, var(--background) 0%, transparent 100%);
+            height: ${fadeHeight};
+            background: linear-gradient(to ${fadeDirection === "bottom" ? "bottom" : "top"}, transparent 0%, var(--background) 100%);
             z-index: 2;
           }
           
