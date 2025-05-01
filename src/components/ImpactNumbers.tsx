@@ -7,7 +7,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import FeatureItem from "./impact/FeatureItem";
 import ImpactBackground from "./impact/ImpactBackground";
 import { getImpactFeatures } from "./impact/impactData";
-import { ParallaxSection } from "./ParallaxProvider";
+import { ParallaxSection } from "./parallax";
 
 const ImpactNumbers = () => {
   const isMobile = useIsMobile();

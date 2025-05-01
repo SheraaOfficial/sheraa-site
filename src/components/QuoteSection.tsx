@@ -4,7 +4,7 @@ import { motion, useScroll } from "framer-motion";
 import { Quote } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Glow } from "@/components/ui/glow-effect";
-import { ParallaxSection } from "./ParallaxProvider";
+import { ParallaxSection } from "./parallax";
 
 const QuoteSection = () => {
   const containerRef = React.useRef<HTMLDivElement>(null);

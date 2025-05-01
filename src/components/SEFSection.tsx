@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState, lazy, Suspense } from "react";
 import { useInView } from "framer-motion";
 import { BeamsBackground } from "./ui/beams-background";
 import { SEFHeader } from "./sef/SEFHeader";
-import { ParallaxSection } from "./ParallaxProvider";
+import { ParallaxSection } from "./parallax";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 // Lazy load components that aren't immediately visible

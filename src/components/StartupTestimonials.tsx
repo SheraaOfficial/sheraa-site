@@ -3,7 +3,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { TestimonialCard } from "./ui/testimonial-card";
-import { ParallaxSection } from "./ParallaxProvider";
+import { ParallaxSection } from "./parallax";
 
 const testimonials = [
   {
