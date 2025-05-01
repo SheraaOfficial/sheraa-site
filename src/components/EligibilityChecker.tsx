@@ -40,25 +40,25 @@ const EligibilityChecker = () => {
           variants={containerVariants}
           whileHover={!isMobile ? { scale: 1.01 } : undefined}
         >
-          {/* Single optimized background gradient for all devices */}
+          {/* Optimized background gradient for all devices */}
           <div className="absolute inset-0 bg-gradient-to-br from-sheraa-primary/5 to-sheraa-light opacity-60" />
 
           <motion.div variants={itemVariants} className="relative z-10">
-            <div className="inline-block bg-sheraa-primary/15 px-4 py-1 rounded-full text-sheraa-primary text-sm font-medium mb-6 backdrop-blur-sm">
+            <div className="inline-block bg-sheraa-primary/15 px-4 py-1 rounded-full text-sheraa-primary text-sm font-medium mb-4 backdrop-blur-sm">
               Program Assessment
             </div>
           </motion.div>
 
-          <div className="relative flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8">
-            <motion.div className="flex-1" variants={itemVariants}>
-              <h2 className="text-2xl md:text-4xl font-bold text-sheraa-dark mb-4">
+          <div className="relative flex flex-col md:flex-row items-center justify-between gap-5 md:gap-8">
+            <motion.div className="flex-1 w-full" variants={itemVariants}>
+              <h2 className="text-2xl md:text-4xl font-bold text-sheraa-dark mb-3">
                 Not sure which program fits you?
               </h2>
-              <p className="text-gray-600 text-base md:text-lg mb-4">
+              <p className="text-gray-600 text-base mb-4">
                 Take our quick assessment to find the perfect program for your entrepreneurial journey
               </p>
               
-              <div className="flex items-center text-sm text-sheraa-primary">
+              <div className="flex items-center text-sm text-sheraa-primary mb-4 md:mb-0">
                 <Link to="/eligibility" className="flex items-center hover:underline">
                   <span>View detailed assessment</span>
                   <ArrowRight className="ml-1 w-3 h-3" />
@@ -66,29 +66,21 @@ const EligibilityChecker = () => {
               </div>
             </motion.div>
 
-            <motion.div variants={itemVariants}>
-              {/* On mobile, use dialog for better UX */}
-              {isMobile ? (
-                <EligibilityCheckerButton 
-                  size="lg" 
-                  useDialog={true} 
-                  text="Find Your Program"
-                  className="w-full min-w-[200px]"
-                />
-              ) : (
-                <EligibilityCheckerButton 
-                  size="lg" 
-                  useDialog={false} 
-                  text="Find Your Program"
-                />
-              )}
+            <motion.div variants={itemVariants} className="w-full md:w-auto">
+              {/* Enhanced mobile experience with improved button display */}
+              <EligibilityCheckerButton 
+                size={isMobile ? "lg" : "lg"} 
+                useDialog={isMobile} 
+                text="Find Your Program"
+                className={isMobile ? "w-full min-w-[200px]" : ""}
+              />
             </motion.div>
           </div>
 
-          {/* Minimal decorative dots - work well on mobile */}
+          {/* Decorative dots optimized for mobile */}
           {Array.from({ length: 3 }).map((_, index) => (
             <div 
-              key={index}
+              key={`dot-left-${index}`}
               className="absolute w-2 h-2 rounded-full bg-sheraa-primary/30"
               style={{
                 top: `${20 + index * 25}%`,
@@ -100,7 +92,7 @@ const EligibilityChecker = () => {
           
           {Array.from({ length: 3 }).map((_, index) => (
             <div 
-              key={index}
+              key={`dot-right-${index}`}
               className="absolute w-2 h-2 rounded-full bg-sheraa-teal/40"
               style={{
                 bottom: `${15 + index * 20}%`,

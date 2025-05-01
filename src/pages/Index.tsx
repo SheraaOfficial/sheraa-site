@@ -7,7 +7,7 @@ import { useScrollDirection } from "@/hooks/use-scroll-direction";
 import ProgressBar from "@/components/ProgressBar";
 import { HeroSection } from "@/components/HeroSection";
 
-// Simple section loading component with subtle animation
+// Enhanced section loading component with subtle animation
 const SectionLoading = () => (
   <div className="min-h-[100px] flex items-center justify-center">
     <div className="w-8 h-8 border-t-2 border-sheraa-primary rounded-full animate-spin"></div>
@@ -41,15 +41,15 @@ const Index = () => {
   const [firstInteraction, setFirstInteraction] = useState(false);
   const [deepScroll, setDeepScroll] = useState(false);
   
-  // Track user interaction and deep scroll with optimization
+  // Enhanced track user interaction and deep scroll with optimization
   useEffect(() => {
     const handleInteraction = () => setFirstInteraction(true);
     
-    // Consider first scroll or click as first interaction
+    // Consider first scroll or click as first interaction with passive event listeners
     window.addEventListener('scroll', handleInteraction, { once: true, passive: true });
     window.addEventListener('click', handleInteraction, { once: true });
     
-    // Track deep scroll for the lowest priority components with throttling
+    // Optimized tracking of deep scroll for the lowest priority components with throttling
     let scrollTimeout: number | null = null;
     const handleScroll = () => {
       if (scrollTimeout === null) {
@@ -73,7 +73,7 @@ const Index = () => {
     };
   }, []);
   
-  // Add smooth scroll behavior on navigation clicks - with optimized debounce
+  // Optimized smooth scroll behavior on navigation clicks - with enhanced debounce
   useEffect(() => {
     if (isMobile) return; // Skip on mobile for performance
     
@@ -82,7 +82,9 @@ const Index = () => {
     
     const handleAnchorClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      if (target.tagName === 'A' && target.getAttribute('href')?.startsWith('#')) {
+      const closestAnchor = target.closest('a');
+      
+      if (closestAnchor && closestAnchor.getAttribute('href')?.startsWith('#')) {
         if (isScrolling) return; // Prevent multiple rapid scrolls
         
         if (clickTimeout) clearTimeout(clickTimeout);
@@ -91,7 +93,7 @@ const Index = () => {
           e.preventDefault();
           isScrolling = true;
           
-          const id = target.getAttribute('href')?.substring(1);
+          const id = closestAnchor.getAttribute('href')?.substring(1);
           const element = document.getElementById(id || '');
           if (element) {
             window.scrollTo({
@@ -167,7 +169,7 @@ const Index = () => {
 
   return (
     <MainLayout backgroundStyle={backgroundStyle}>
-      {/* Add the progress bar */}
+      {/* Progress bar for scrolling */}
       <ProgressBar />
 
       {/* Hero section - load immediately */}

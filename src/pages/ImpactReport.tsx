@@ -3,7 +3,7 @@ import React from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
-import { ArrowRight, FileDown } from "lucide-react";
+import { FileDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 

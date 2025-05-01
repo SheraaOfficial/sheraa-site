@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import { TextRotate } from "@/components/ui/text-rotate";
 import { Sparkles } from "@/components/ui/sparkles";
 import { GlowingStarsBackgroundCard, GlowingStarsTitle, GlowingStarsDescription } from "@/components/ui/glowing-stars-card";
+import { programBenefits } from "./eligibilityData";
 
 interface ProgramRecommendation {
   id: string;
@@ -42,66 +43,6 @@ export const EligibilityResult: React.FC<EligibilityResultProps> = ({
       </div>
     );
   }
-
-  // Program recommendations based on the program ID
-  const programBenefits: { [key: string]: string[] } = {
-    "startup-dojo": [
-      "8-week intensive entrepreneurial training",
-      "Mentorship from industry experts",
-      "Networking with peers and ecosystem players",
-      "Pathway to further Sheraa programs",
-      "Top teams may receive grants and business licenses"
-    ],
-    "startup-dojo-plus": [
-      "Focused accelerator for promising ideas",
-      "Bespoke mentorship and guidance",
-      "Funding opportunities for top teams",
-      "Fast-track to S3 Incubator consideration",
-      "Showcase opportunities to partners and investors"
-    ],
-    "student-membership": [
-      "Access to co-working spaces",
-      "Networking with student entrepreneurs",
-      "Specialized workshops and events",
-      "Mentorship from industry experts",
-      "Potential for summer program consideration"
-    ],
-    "s3-incubator": [
-      "$30,000 equity-free pre-seed funding",
-      "6-month customized growth program",
-      "Expert mentorship and operational support",
-      "Free 1-year Sharjah business license",
-      "Access to 30+ experienced mentors and Entrepreneurs-in-Residence"
-    ],
-    "early-stage-program": [
-      "Idea validation framework and support",
-      "MVP development guidance",
-      "Market research and customer discovery tools",
-      "Networking with potential co-founders",
-      "Path to S3 Incubator application"
-    ],
-    "access-sharjah": [
-      "Equity-free POC grants (up to AED 250,000)",
-      "Direct access to major industry clients",
-      "Validation and credibility in the UAE market",
-      "Support with licensing and setup in Sharjah",
-      "Visibility at major regional tech events"
-    ],
-    "sme-support": [
-      "Access to finance through preferential terms",
-      "Market access and export development support",
-      "Innovation and technology adoption assistance",
-      "Capacity building and expert mentorship",
-      "Integration into Sheraa's ecosystem network"
-    ],
-    "community-membership": [
-      "Free co-working space access at Sheraa hubs",
-      "Community platform access for networking",
-      "Investor and partner introductions",
-      "Expert mentor network access",
-      "Subsidized free zone incorporation options"
-    ]
-  };
 
   // Fun, witty messages based on program type
   const wittyMessages: { [key: string]: string[] } = {
@@ -147,7 +88,7 @@ export const EligibilityResult: React.FC<EligibilityResultProps> = ({
     ]
   };
 
-  // Get benefits based on program ID with fallback
+  // Get benefits from programBenefits imported from eligibilityData
   const benefits = programBenefits[program.id] || [];
   const wittyMessageOptions = wittyMessages[program.id] || ["We've found the perfect program for you!"];
   const randomWittyMessage = wittyMessageOptions[Math.floor(Math.random() * wittyMessageOptions.length)];
