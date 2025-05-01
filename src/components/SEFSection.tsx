@@ -6,8 +6,10 @@ import { SEFHeader } from "./sef/SEFHeader";
 
 // Lazy load components that aren't immediately visible
 const SEFDescription = lazy(() => import("./sef/SEFDescription").then(mod => ({ default: mod.SEFDescription })));
-const SEFStats = lazy(() => import("./sef/SEFStats"));
-const SEFEventCard = lazy(() => import("./sef/SEFEventCard"));
+
+// Fix imports for named exports to work with lazy loading
+const SEFStats = lazy(() => import("./sef/SEFStats").then(mod => ({ default: mod.SEFStats })));
+const SEFEventCard = lazy(() => import("./sef/SEFEventCard").then(mod => ({ default: mod.SEFEventCard })));
 
 // Simple loading fallback
 const LoadingFallback = () => <div className="h-24 w-full animate-pulse bg-gray-800/30 rounded-lg"></div>;
