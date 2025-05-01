@@ -1,6 +1,7 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 type SEFQuickLinksProps = {
   hasRevealed: boolean;
@@ -9,20 +10,51 @@ type SEFQuickLinksProps = {
 export const SEFQuickLinks: React.FC<SEFQuickLinksProps> = ({ hasRevealed }) => {
   const links = ["Agenda", "Speakers", "Experience", "Who Should Attend", "Be Part of SEF"];
   
+  const containerVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: {
+        delayChildren: 0.3,
+        staggerChildren: 0.1
+      } 
+    }
+  };
+  
+  const itemVariants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: { opacity: 1, y: 0 }
+  };
+  
   return (
-    <div className={`transition-all duration-1000 delay-600 ${hasRevealed ? "opacity-100 transform-none" : "opacity-0 translate-y-4"}`}>
-      <h3 className="text-xl font-semibold mb-4 text-white">Quick Links</h3>
-      <div className="flex flex-wrap gap-2">
+    <motion.div
+      initial="hidden"
+      animate={hasRevealed ? "visible" : "hidden"}
+      variants={containerVariants}
+      className="mt-8"
+    >
+      <h3 className="text-xl font-semibold mb-4 text-white drop-shadow-glow">Quick Links</h3>
+      <motion.div 
+        className="flex flex-wrap gap-3"
+      >
         {links.map((link, index) => (
-          <Link 
-            key={index} 
-            to={`/events/sef/${link.toLowerCase().replace(/\s+/g, '-')}`} 
-            className="px-3 py-1.5 bg-white/20 hover:bg-white/30 text-white rounded-full text-sm transition-all hover:shadow-md"
+          <motion.div
+            key={index}
+            variants={itemVariants}
+            transition={{ duration: 0.5 }}
           >
-            {link}
-          </Link>
+            <Link 
+              to={`/events/sef/${link.toLowerCase().replace(/\s+/g, '-')}`} 
+              className="px-4 py-2 bg-white/15 hover:bg-white/25 text-white rounded-full text-sm transition-all 
+                duration-300 hover:shadow-glow flex items-center justify-center border border-white/20
+                backdrop-blur-md transform hover:scale-105 hover:shadow-lg"
+            >
+              {link}
+            </Link>
+          </motion.div>
         ))}
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };

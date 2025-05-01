@@ -85,6 +85,12 @@ export default {
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)'
       },
+      boxShadow: {
+        'sheraa-soft': '0 4px 6px -1px rgba(0, 51, 102, 0.1), 0 2px 4px -1px rgba(0, 51, 102, 0.06)',
+        'sheraa-medium': '0 10px 15px -3px rgba(0, 51, 102, 0.1), 0 4px 6px -2px rgba(0, 51, 102, 0.05)',
+        'glow': '0 0 20px rgba(155, 135, 245, 0.35)',
+        'glow-sm': '0 0 10px rgba(155, 135, 245, 0.25)'
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
@@ -126,7 +132,21 @@ export default {
           '0%': { transform: 'scale(0)', opacity: '0' },
           '50%': { transform: 'scale(1)', opacity: '1' },
           '100%': { transform: 'scale(0)', opacity: '0' },
-        }
+        },
+        "border-beam": {
+          "100%": {
+            "offset-distance": "100%",
+          },
+        },
+        "float": {
+          "0%": { transform: "translateY(0px)" },
+          "50%": { transform: "translateY(-10px)" },
+          "100%": { transform: "translateY(0px)" }
+        },
+        "pulse-glow": {
+          "0%, 100%": { opacity: "0.6", transform: "scale(0.95)" },
+          "50%": { opacity: "1", transform: "scale(1)" }
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -136,7 +156,10 @@ export default {
         'marquee': 'marquee 40s linear infinite',
         'spin-slow': 'spin 8s linear infinite',
         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        'sparkle': 'sparkle 800ms ease-in-out forwards'
+        'sparkle': 'sparkle 800ms ease-in-out forwards',
+        "border-beam": "border-beam calc(var(--duration) * 1s) infinite linear",
+        "float": "float 6s ease-in-out infinite",
+        "pulse-glow": "pulse-glow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
       },
       fontFamily: {
         'plus-jakarta': ['"Plus Jakarta Sans"', 'sans-serif'],
@@ -148,9 +171,8 @@ export default {
         'gradient-accent': 'linear-gradient(to right, #FF6600, #FF7F50)',
         'gradient-blue': 'linear-gradient(to right, #0EA5E9, #33C3F0)',
       },
-      boxShadow: {
-        'sheraa-soft': '0 4px 6px -1px rgba(0, 51, 102, 0.1), 0 2px 4px -1px rgba(0, 51, 102, 0.06)',
-        'sheraa-medium': '0 10px 15px -3px rgba(0, 51, 102, 0.1), 0 4px 6px -2px rgba(0, 51, 102, 0.05)'
+      dropShadow: {
+        'glow': '0 0 10px rgba(214, 188, 250, 0.5)',
       }
     },
   },
