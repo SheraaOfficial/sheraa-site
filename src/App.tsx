@@ -19,6 +19,15 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfUse from "./pages/TermsOfUse";
 import EligibilityCheckerPage from "./pages/eligibility/EligibilityCheckerPage";
 
+// SEF Page imports
+import SEFRegisterPage from "./pages/events/sef/SEFRegisterPage";
+import SEFAgendaPage from "./pages/events/sef/SEFAgendaPage";
+import SEFSpeakersPage from "./pages/events/sef/SEFSpeakersPage";
+import SEFExperiencePage from "./pages/events/sef/SEFExperiencePage";
+import SEFWhoShouldAttendPage from "./pages/events/sef/SEFWhoShouldAttendPage";
+import SEFBePartPage from "./pages/events/sef/SEFBePartPage";
+import SEFFAQPage from "./pages/events/sef/SEFFAQPage";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -63,10 +72,17 @@ const App = () => (
           {/* Events Routes */}
           <Route path="/events" element={<EventsPage />} />
           <Route path="/events/sef" element={<EventsPage section="sef" />} />
-          <Route path="/events/sef/agenda" element={<EventsPage section="sef-agenda" />} />
-          <Route path="/events/sef/registration" element={<EventsPage section="sef-registration" />} />
-          <Route path="/events/sef/register" element={<EventsPage section="sef-registration" />} />
-          <Route path="/events/sef/faq" element={<EventsPage section="sef-faq" />} />
+          
+          {/* SEF Sub-pages */}
+          <Route path="/events/sef/agenda" element={<SEFAgendaPage />} />
+          <Route path="/events/sef/speakers" element={<SEFSpeakersPage />} />
+          <Route path="/events/sef/experience" element={<SEFExperiencePage />} />
+          <Route path="/events/sef/who-should-attend" element={<SEFWhoShouldAttendPage />} />
+          <Route path="/events/sef/be-part-of-sef" element={<SEFBePartPage />} />
+          <Route path="/events/sef/register" element={<SEFRegisterPage />} />
+          <Route path="/events/sef/registration" element={<SEFRegisterPage />} />
+          <Route path="/events/sef/faq" element={<SEFFAQPage />} />
+          
           <Route path="/events/upcoming" element={<EventsPage section="upcoming" />} />
           <Route path="/events/news" element={<EventsPage section="news" />} />
 

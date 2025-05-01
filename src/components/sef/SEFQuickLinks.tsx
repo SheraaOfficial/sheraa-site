@@ -8,7 +8,14 @@ type SEFQuickLinksProps = {
 };
 
 export const SEFQuickLinks: React.FC<SEFQuickLinksProps> = ({ hasRevealed }) => {
-  const links = ["Agenda", "Speakers", "Experience", "Who Should Attend", "Be Part of SEF"];
+  const links = [
+    { title: "Agenda", path: "/events/sef/agenda" },
+    { title: "Speakers", path: "/events/sef/speakers" },
+    { title: "Experience", path: "/events/sef/experience" },
+    { title: "Who Should Attend", path: "/events/sef/who-should-attend" },
+    { title: "Be Part of SEF", path: "/events/sef/be-part-of-sef" },
+    { title: "Register", path: "/events/sef/register" }
+  ];
   
   const containerVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -45,12 +52,12 @@ export const SEFQuickLinks: React.FC<SEFQuickLinksProps> = ({ hasRevealed }) => 
             transition={{ duration: 0.5 }}
           >
             <Link 
-              to={`/events/sef/${link.toLowerCase().replace(/\s+/g, '-')}`} 
+              to={link.path} 
               className="px-4 py-2 bg-white/15 hover:bg-white/25 text-white rounded-full text-sm transition-all 
                 duration-300 hover:shadow-glow flex items-center justify-center border border-white/20
                 backdrop-blur-md transform hover:scale-105 hover:shadow-lg"
             >
-              {link}
+              {link.title}
             </Link>
           </motion.div>
         ))}
