@@ -30,14 +30,14 @@ const StartupCard = React.memo(({ startup, index, isMobile }: { startup: any, in
             {startup.name}
           </h3>
           <div className="flex flex-wrap gap-2 mt-2">
-            {/* Using our enhanced badges */}
-            <Badge variant="soft-primary" animation="none" size="sm">
+            {/* Updated badge styles */}
+            <Badge variant="soft-coral" animation="none" size="sm">
               {startup.sector}
             </Badge>
             <Badge variant="gradient-warm" animation="none" size="sm">
               {startup.achievement}
             </Badge>
-            <Badge variant="soft-teal" animation="none" size="sm">
+            <Badge variant="purple" animation="none" size="sm">
               {startup.impact}
             </Badge>
           </div>
@@ -101,7 +101,7 @@ const StartupsShowcase = () => {
   const isMobile = useIsMobile();
 
   return (
-    <section className="py-12 md:py-24 bg-gradient-to-br from-sheraa-primary/5 to-sheraa-teal/5 overflow-hidden">
+    <section className="py-12 md:py-24 bg-gradient-to-br from-purple-100 to-pink-50 overflow-hidden">
       <div className="container mx-auto px-4">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
@@ -109,12 +109,12 @@ const StartupsShowcase = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-10 md:mb-16"
         >
-          <Badge variant="gradient" animation="shimmer" className="mb-3 md:mb-4">
+          <Badge variant="gradient-warm" animation="shimmer" className="mb-3 md:mb-4">
             Transforming Ideas into Impact
           </Badge>
           
           <h2 className="text-3xl md:text-5xl font-bold text-sheraa-dark mb-4 md:mb-6 leading-tight px-2">
-            Our <span className="text-sheraa-primary">Startups</span>
+            Our <span className="text-sheraa-coral">Startups</span>
           </h2>
           
           <p className="text-gray-600 max-w-3xl mx-auto text-sm md:text-lg px-2">
@@ -150,7 +150,7 @@ const StartupsShowcase = () => {
             {isMobile && (
               <div className="flex justify-center mt-6 gap-2">
                 {featuredStartups.map((_, i) => (
-                  <div key={i} className={`w-2 h-2 rounded-full ${i === 0 ? 'bg-sheraa-primary' : 'bg-gray-300'}`} />
+                  <div key={i} className={`w-2 h-2 rounded-full ${i === 0 ? 'bg-sheraa-coral' : 'bg-gray-300'}`} />
                 ))}
               </div>
             )}
@@ -160,8 +160,8 @@ const StartupsShowcase = () => {
         <div className="flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-6">
           <Button 
             asChild
-            size={isMobile ? "default" : "lg"} // Changed from xl to lg for better performance
-            className="bg-sheraa-primary hover:bg-sheraa-primary/90 w-full sm:w-auto text-xs md:text-base"
+            size={isMobile ? "default" : "lg"}
+            className="bg-sheraa-coral hover:bg-sheraa-coral/90 w-full sm:w-auto text-xs md:text-base"
           >
             <Link to="/community/startups" className="flex items-center gap-2">
               <Star className={`${isMobile ? "w-4 h-4" : "w-5 h-5"} flex-shrink-0`} />
@@ -172,8 +172,8 @@ const StartupsShowcase = () => {
           <Button 
             asChild
             variant="outline"
-            size={isMobile ? "default" : "lg"} // Changed from xl to lg
-            className="border-sheraa-primary text-sheraa-primary hover:bg-sheraa-primary/10 w-full sm:w-auto text-xs md:text-base"
+            size={isMobile ? "default" : "lg"}
+            className="border-sheraa-coral text-sheraa-coral hover:bg-sheraa-coral/10 w-full sm:w-auto text-xs md:text-base"
           >
             <Link to="/community/join" className="flex items-center gap-2">
               <Users className={`${isMobile ? "w-4 h-4" : "w-5 h-5"} flex-shrink-0`} />

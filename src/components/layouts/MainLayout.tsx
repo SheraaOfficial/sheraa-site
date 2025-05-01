@@ -15,6 +15,8 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, backgroundStyle }) =>
     <div className="min-h-screen flex flex-col bg-white relative overflow-x-hidden perspective-1000">
       <ScrollProgressIndicator />
       <Navigation />
+      {/* Moved MarqueeUpdates below Navigation to prevent it from blocking dropdowns */}
+      <div className="h-16"></div> {/* Spacer for navigation height */}
       <MarqueeUpdates />
       
       {/* Background with style passed from parent */}

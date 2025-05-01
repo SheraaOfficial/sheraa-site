@@ -7,7 +7,6 @@ import ProgressBar from "@/components/ProgressBar";
 import { HeroSection } from "@/components/HeroSection";
 
 // Lazy load components to improve initial page load performance
-const EligibilityChecker = lazy(() => import("@/components/EligibilityChecker"));
 const HomePageSections = lazy(() => import("@/components/home/HomePageSections"));
 
 // Simple fallback loading component
@@ -64,10 +63,7 @@ const Index = () => {
       
       {/* Lazy loaded components with Suspense */}
       <Suspense fallback={<PageSectionLoading />}>
-        {/* Eligibility checker */}
-        <EligibilityChecker />
-        
-        {/* Other home page sections */}
+        {/* Other home page sections - EligibilityChecker moved directly to HomePageSections */}
         <HomePageSections 
           isScrolling={isScrolling}
           scrollDirection={scrollDirection}

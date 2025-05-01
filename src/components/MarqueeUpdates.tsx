@@ -43,7 +43,7 @@ const MarqueeUpdates = () => {
 
   return (
     <motion.div 
-      className="bg-sheraa-dark/95 border-y border-white/10 py-3 fixed top-16 w-full z-20"
+      className="bg-sheraa-dark/95 border-y border-white/10 py-3 fixed top-16 w-full z-10"
       style={{ opacity }}
     >
       <div className="flex whitespace-nowrap animate-marquee">
