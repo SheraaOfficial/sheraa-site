@@ -1,16 +1,28 @@
-import React, { useEffect, Suspense, lazy } from "react";
+
+import React, { useEffect, Suspense } from "react";
 import MainLayout from "@/components/layouts/MainLayout";
 import { useIsMobile, useOptimizedScroll } from "@/hooks/use-mobile";
 import { useBackgroundAnimation } from "@/hooks/use-background-animation";
 import { useScrollDirection } from "@/hooks/use-scroll-direction";
 import ProgressBar from "@/components/ProgressBar";
 import { HeroSection } from "@/components/HeroSection";
+import ImpactNumbers from "@/components/ImpactNumbers";
+import QuoteSection from "@/components/QuoteSection";
+import ProgramsOverview from "@/components/ProgramsOverview";
+import EligibilityChecker from "@/components/EligibilityChecker";
+import CommunitySection from "@/components/CommunitySection";
+import SEFSection from "@/components/SEFSection";
+import WhySharjah from "@/components/WhySharjah";
+import PartnersSection from "@/components/PartnersSection";
+import ContactSection from "@/components/ContactSection";
 
-// Lazy load components to improve initial page load performance
-const HomePageSections = lazy(() => import("@/components/home/HomePageSections"));
+// Components that can be lazy loaded separately if needed
+const StartupsShowcase = React.lazy(() => import("@/components/StartupsShowcase"));
+const StartupTestimonials = React.lazy(() => import("@/components/StartupTestimonials"));
+const PodcastSection = React.lazy(() => import("@/components/PodcastSection"));
 
 // Simple fallback loading component
-const PageSectionLoading = () => <div className="min-h-[300px] flex items-center justify-center">Loading...</div>;
+const SectionLoading = () => <div className="min-h-[300px] flex items-center justify-center">Loading section...</div>;
 
 const Index = () => {
   const isMobile = useIsMobile();
@@ -61,14 +73,49 @@ const Index = () => {
       {/* Hero section - load immediately */}
       <HeroSection />
       
-      {/* Lazy loaded components with Suspense */}
-      <Suspense fallback={<PageSectionLoading />}>
-        {/* Other home page sections - EligibilityChecker moved directly to HomePageSections */}
-        <HomePageSections 
-          isScrolling={isScrolling}
-          scrollDirection={scrollDirection}
-        />
-      </Suspense>
+      <div className="space-y-0 md:space-y-0 lg:space-y-0 relative z-10">
+        {/* Impact Numbers Section */}
+        <ImpactNumbers />
+        
+        {/* Quote Section */}
+        <QuoteSection />
+        
+        {/* Programs Overview */}
+        <ProgramsOverview />
+        
+        {/* Eligibility Checker */}
+        <EligibilityChecker />
+        
+        {/* SEF Section */}
+        <SEFSection />
+        
+        {/* Startups Showcase - Lazy loaded */}
+        <Suspense fallback={<SectionLoading />}>
+          <StartupsShowcase />
+        </Suspense>
+        
+        {/* Podcast Section - Lazy loaded */}
+        <Suspense fallback={<SectionLoading />}>
+          <PodcastSection />
+        </Suspense>
+        
+        {/* Community Section */}
+        <CommunitySection />
+        
+        {/* Startup Testimonials - Lazy loaded */}
+        <Suspense fallback={<SectionLoading />}>
+          <StartupTestimonials />
+        </Suspense>
+        
+        {/* Why Sharjah */}
+        <WhySharjah />
+        
+        {/* Partners Section */}
+        <PartnersSection />
+        
+        {/* Contact Section */}
+        <ContactSection />
+      </div>
     </MainLayout>
   );
 };
