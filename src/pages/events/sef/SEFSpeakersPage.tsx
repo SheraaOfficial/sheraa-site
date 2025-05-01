@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import MainLayout from '@/components/layouts/MainLayout';
 import { Sparkles } from '@/components/ui/sparkles';
@@ -23,6 +22,7 @@ type Speaker = {
     twitter?: string;
     linkedin?: string;
     website?: string;
+    instagram?: string; // Added Instagram property
   };
 };
 
@@ -280,6 +280,14 @@ const SEFSpeakersPage: React.FC = () => {
                               <ExternalLink className="h-5 w-5" />
                             </a>
                           )}
+                          
+                          {speaker.socialLinks.instagram && (
+                            <a href={speaker.socialLinks.instagram} target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-sheraa-primary">
+                              <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M15.5 15.5a3.5 3.5 0 0 1-4.9-4.9A3.5 3.5 0 0 1 15.5 15.5zm-4.9-4.9a3.5 3.5 0 0 0-4.9 4.9A3.5 3.5 0 0 0 15.5 15.5zm-4.9-4.9a3.5 3.5 0 0 1-4.9 4.9A3.5 3.5 0 0 1 15.5 15.5zm4.9 4.9a3.5 3.5 0 0 0 4.9-4.9A3.5 3.5 0 0 0 15.5 15.5zm4.9 4.9a3.5 3.5 0 0 1 4.9-4.9A3.5 3.5 0 0 1 15.5 15.5z" />
+                              </svg>
+                            </a>
+                          )}
                         </div>
                       )}
                     </div>
@@ -355,6 +363,14 @@ const SEFSpeakersPage: React.FC = () => {
                       {speaker.socialLinks.website && (
                         <a href={speaker.socialLinks.website} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-sheraa-primary">
                           <ExternalLink className="h-4 w-4" />
+                        </a>
+                      )}
+                      
+                      {speaker.socialLinks.instagram && (
+                        <a href={speaker.socialLinks.instagram} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-sheraa-primary">
+                          <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M15.5 15.5a3.5 3.5 0 0 1-4.9-4.9A3.5 3.5 0 0 1 15.5 15.5zm-4.9-4.9a3.5 3.5 0 0 0-4.9 4.9A3.5 3.5 0 0 0 15.5 15.5zm-4.9-4.9a3.5 3.5 0 0 1-4.9 4.9A3.5 3.5 0 0 1 15.5 15.5zm4.9 4.9a3.5 3.5 0 0 0 4.9-4.9A3.5 3.5 0 0 0 15.5 15.5zm4.9 4.9a3.5 3.5 0 0 1 4.9-4.9A3.5 3.5 0 0 1 15.5 15.5z" />
+                          </svg>
                         </a>
                       )}
                     </div>
