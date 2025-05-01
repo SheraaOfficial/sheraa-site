@@ -3,6 +3,7 @@ import React from "react";
 import { motion, useScroll } from "framer-motion";
 import { Quote } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { Glow } from "@/components/ui/glow-effect";
 
 const QuoteSection = () => {
   const containerRef = React.useRef<HTMLElement>(null);
@@ -37,7 +38,7 @@ const QuoteSection = () => {
       {/* Container for the quote */}
       <div className="container relative z-10">
         <motion.div 
-          className="max-w-4xl mx-auto bg-white/95 backdrop-blur-sm p-8 md:p-12 rounded-xl border-2 border-sheraa-primary/20 shadow-xl"
+          className="max-w-4xl mx-auto bg-white/95 backdrop-blur-sm p-8 md:p-12 rounded-xl border-2 border-sheraa-primary/20 shadow-xl relative"
           initial={{ y: 100, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           viewport={{ once: true, margin: "-100px" }}
@@ -48,6 +49,9 @@ const QuoteSection = () => {
             stiffness: 70
           }}
         >
+          {/* Add the Glow component under the quote */}
+          <Glow variant="center" className="-z-10" />
+          
           <motion.div
             initial={{ scale: 0, rotate: -10 }}
             whileInView={{ scale: 1, rotate: 0 }}
