@@ -11,13 +11,15 @@ interface EligibilityCheckerButtonProps {
   size?: "default" | "sm" | "lg" | "xl";
   className?: string;
   useDialog?: boolean;
+  text?: string;
 }
 
 const EligibilityCheckerButton: React.FC<EligibilityCheckerButtonProps> = ({
   variant = "gradient",
   size = "default",
   className = "",
-  useDialog = true
+  useDialog = true,
+  text = "Try Eligibility Checker"
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -28,6 +30,13 @@ const EligibilityCheckerButton: React.FC<EligibilityCheckerButtonProps> = ({
     // If not using dialog, the link will navigate directly
   };
 
+  const buttonContent = (
+    <>
+      <span>{text}</span>
+      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+    </>
+  );
+
   if (useDialog) {
     return (
       <>
@@ -37,8 +46,7 @@ const EligibilityCheckerButton: React.FC<EligibilityCheckerButtonProps> = ({
             className={`flex items-center gap-2 group ${className}`}
             onClick={handleClick}
           >
-            <span>Try Eligibility Checker</span>
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+            {buttonContent}
           </GradientButton>
         ) : (
           <Button
@@ -46,8 +54,7 @@ const EligibilityCheckerButton: React.FC<EligibilityCheckerButtonProps> = ({
             className={`flex items-center gap-2 group ${className}`}
             onClick={handleClick}
           >
-            <span>Try Eligibility Checker</span>
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+            {buttonContent}
           </Button>
         )}
 
@@ -65,8 +72,7 @@ const EligibilityCheckerButton: React.FC<EligibilityCheckerButtonProps> = ({
           className={`flex items-center gap-2 group ${className}`}
         >
           <Link to="/eligibility">
-            <span>Try Eligibility Checker</span>
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+            {buttonContent}
           </Link>
         </GradientButton>
       ) : (
@@ -76,8 +82,7 @@ const EligibilityCheckerButton: React.FC<EligibilityCheckerButtonProps> = ({
           className={`flex items-center gap-2 group ${className}`}
         >
           <Link to="/eligibility">
-            <span>Try Eligibility Checker</span>
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+            {buttonContent}
           </Link>
         </Button>
       )}

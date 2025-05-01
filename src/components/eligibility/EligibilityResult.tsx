@@ -59,12 +59,26 @@ export const EligibilityResult: React.FC<EligibilityResultProps> = ({
       "Fast-track to S3 Incubator consideration",
       "Showcase opportunities to partners and investors"
     ],
+    "student-membership": [
+      "Access to co-working spaces",
+      "Networking with student entrepreneurs",
+      "Specialized workshops and events",
+      "Mentorship from industry experts",
+      "Potential for summer program consideration"
+    ],
     "s3-incubator": [
       "$30,000 equity-free pre-seed funding",
       "6-month customized growth program",
       "Expert mentorship and operational support",
       "Free 1-year Sharjah business license",
       "Access to 30+ experienced mentors and Entrepreneurs-in-Residence"
+    ],
+    "early-stage-program": [
+      "Idea validation framework and support",
+      "MVP development guidance",
+      "Market research and customer discovery tools",
+      "Networking with potential co-founders",
+      "Path to S3 Incubator application"
     ],
     "access-sharjah": [
       "Equity-free POC grants (up to AED 250,000)",
@@ -120,12 +134,26 @@ export const EligibilityResult: React.FC<EligibilityResultProps> = ({
       "Welcome to the club where connections become opportunities!",
       "Sometimes all you need is the right room - welcome in!",
       "You're officially part of Sharjah's innovation community!"
+    ],
+    "student-membership": [
+      "Your student ID just got a whole new level of power!",
+      "Campus entrepreneur? We've got your back!",
+      "Learning and building - the ultimate student double major!"
+    ],
+    "early-stage-program": [
+      "Every great business starts with that first crucial step!",
+      "Ideas are great, but execution is everything - we're here to help!",
+      "From concept to company - your journey begins now!"
     ]
   };
 
+  // Get benefits based on program ID with fallback
   const benefits = programBenefits[program.id] || [];
   const wittyMessageOptions = wittyMessages[program.id] || ["We've found the perfect program for you!"];
   const randomWittyMessage = wittyMessageOptions[Math.floor(Math.random() * wittyMessageOptions.length)];
+
+  // Make sure we have a valid link to redirect to
+  const programLink = program.link || "/programs";
 
   return (
     <>
@@ -207,9 +235,8 @@ export const EligibilityResult: React.FC<EligibilityResultProps> = ({
           <GradientButton 
             asChild 
             className="flex items-center gap-2 w-full sm:w-auto"
-            onClick={onClose}
           >
-            <Link to={program.link}>
+            <Link to={programLink}>
               Learn More
               <ArrowRight className="h-4 w-4" />
             </Link>

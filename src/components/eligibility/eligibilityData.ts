@@ -262,7 +262,7 @@ export const programRecommendations: ProgramRecommendation[] = [
     id: "startup-dojo",
     title: "Startup Dojo",
     description: "An 8-week summer incubation program focused on transforming student ideas into viable entrepreneurial solutions through hands-on training and mentorship.",
-    link: "/programs/start-young",
+    link: "/programs/startup-dojo",
     criteria: {
       persona: ["student"],
       studentStage: ["concept", "prototype"],
@@ -273,7 +273,7 @@ export const programRecommendations: ProgramRecommendation[] = [
     id: "startup-dojo-plus",
     title: "Startup Dojo+",
     description: "An intensive accelerator program for top-performing teams emerging from Startup Dojo, offering bespoke attention to help validate and build concepts further.",
-    link: "/programs/start-young",
+    link: "/programs/startup-dojo-plus",
     criteria: {
       persona: ["student"],
       studentStage: ["validated"],
@@ -317,7 +317,7 @@ export const programRecommendations: ProgramRecommendation[] = [
     id: "access-sharjah",
     title: "Access Sharjah Challenge",
     description: "A global competition inviting growth-stage startups to address real-world challenges faced by leading entities in Sharjah, with POC grants and direct market access.",
-    link: "/programs/access-sharjah",
+    link: "/programs/access-sharjah-challenge",
     criteria: {
       persona: ["global"],
       globalMarket: ["yes", "limited"],

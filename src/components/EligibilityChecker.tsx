@@ -69,9 +69,18 @@ const EligibilityChecker = () => {
             <motion.div variants={itemVariants}>
               {/* On mobile, use dialog for better UX */}
               {isMobile ? (
-                <EligibilityCheckerButton size="lg" useDialog={true} />
+                <EligibilityCheckerButton 
+                  size="lg" 
+                  useDialog={true} 
+                  text="Find Your Program"
+                  className="w-full min-w-[200px]"
+                />
               ) : (
-                <EligibilityCheckerButton size="lg" useDialog={false} />
+                <EligibilityCheckerButton 
+                  size="lg" 
+                  useDialog={false} 
+                  text="Find Your Program"
+                />
               )}
             </motion.div>
           </div>

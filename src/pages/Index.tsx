@@ -7,8 +7,12 @@ import { useScrollDirection } from "@/hooks/use-scroll-direction";
 import ProgressBar from "@/components/ProgressBar";
 import { HeroSection } from "@/components/HeroSection";
 
-// Simple section loading component
-const SectionLoading = () => <div className="min-h-[100px] flex items-center justify-center"></div>;
+// Simple section loading component with subtle animation
+const SectionLoading = () => (
+  <div className="min-h-[100px] flex items-center justify-center">
+    <div className="w-8 h-8 border-t-2 border-sheraa-primary rounded-full animate-spin"></div>
+  </div>
+);
 
 // First priority components load immediately
 const MarqueeUpdates = lazy(() => import("@/components/MarqueeUpdates"));
@@ -37,19 +41,25 @@ const Index = () => {
   const [firstInteraction, setFirstInteraction] = useState(false);
   const [deepScroll, setDeepScroll] = useState(false);
   
-  // Track user interaction and deep scroll
+  // Track user interaction and deep scroll with optimization
   useEffect(() => {
     const handleInteraction = () => setFirstInteraction(true);
     
     // Consider first scroll or click as first interaction
-    window.addEventListener('scroll', handleInteraction, { once: true });
+    window.addEventListener('scroll', handleInteraction, { once: true, passive: true });
     window.addEventListener('click', handleInteraction, { once: true });
     
-    // Track deep scroll for the lowest priority components
+    // Track deep scroll for the lowest priority components with throttling
+    let scrollTimeout: number | null = null;
     const handleScroll = () => {
-      if (window.scrollY > window.innerHeight * 0.5) {
-        setDeepScroll(true);
-        window.removeEventListener('scroll', handleScroll);
+      if (scrollTimeout === null) {
+        scrollTimeout = window.setTimeout(() => {
+          if (window.scrollY > window.innerHeight * 0.5) {
+            setDeepScroll(true);
+            window.removeEventListener('scroll', handleScroll);
+          }
+          scrollTimeout = null;
+        }, 100);
       }
     };
     
@@ -59,6 +69,7 @@ const Index = () => {
       window.removeEventListener('scroll', handleInteraction);
       window.removeEventListener('click', handleInteraction);
       window.removeEventListener('scroll', handleScroll);
+      if (scrollTimeout) window.clearTimeout(scrollTimeout);
     };
   }, []);
   
@@ -67,35 +78,92 @@ const Index = () => {
     if (isMobile) return; // Skip on mobile for performance
     
     let isScrolling = false;
+    let clickTimeout: number | null = null;
+    
     const handleAnchorClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       if (target.tagName === 'A' && target.getAttribute('href')?.startsWith('#')) {
         if (isScrolling) return; // Prevent multiple rapid scrolls
         
-        e.preventDefault();
-        isScrolling = true;
+        if (clickTimeout) clearTimeout(clickTimeout);
         
-        const id = target.getAttribute('href')?.substring(1);
-        const element = document.getElementById(id || '');
-        if (element) {
-          window.scrollTo({
-            top: element.offsetTop - 100,
-            behavior: 'smooth'
-          });
+        clickTimeout = window.setTimeout(() => {
+          e.preventDefault();
+          isScrolling = true;
           
-          // Reset scrolling flag after animation completes
-          setTimeout(() => {
+          const id = target.getAttribute('href')?.substring(1);
+          const element = document.getElementById(id || '');
+          if (element) {
+            window.scrollTo({
+              top: element.offsetTop - 100,
+              behavior: 'smooth'
+            });
+            
+            // Reset scrolling flag after animation completes
+            setTimeout(() => {
+              isScrolling = false;
+            }, 1000);
+          } else {
             isScrolling = false;
-          }, 1000);
-        } else {
-          isScrolling = false;
-        }
+          }
+        }, 50);
       }
     };
     
     document.addEventListener('click', handleAnchorClick, { passive: false });
-    return () => document.removeEventListener('click', handleAnchorClick);
+    return () => {
+      document.removeEventListener('click', handleAnchorClick);
+      if (clickTimeout) clearTimeout(clickTimeout);
+    }
   }, [isMobile]);
+
+  // Enhanced error boundary for component loading
+  const ErrorFallback = () => (
+    <div className="py-8 text-center">
+      <p className="text-gray-600">Something went wrong loading this section.</p>
+    </div>
+  );
+
+  // Custom error boundary wrapper for lazy components
+  const SafeSuspense = ({ children }: { children: React.ReactNode }) => {
+    const [hasError, setHasError] = useState(false);
+    
+    if (hasError) return <ErrorFallback />;
+    
+    return (
+      <React.Fragment>
+        <ErrorBoundary onError={() => setHasError(true)}>
+          <Suspense fallback={<SectionLoading />}>
+            {children}
+          </Suspense>
+        </ErrorBoundary>
+      </React.Fragment>
+    );
+  };
+
+  // Simple error boundary component
+  class ErrorBoundary extends React.Component<{
+    children: React.ReactNode;
+    onError: () => void;
+  }, { hasError: boolean }> {
+    constructor(props: { children: React.ReactNode; onError: () => void }) {
+      super(props);
+      this.state = { hasError: false };
+    }
+    
+    static getDerivedStateFromError() {
+      return { hasError: true };
+    }
+    
+    componentDidCatch() {
+      this.props.onError();
+    }
+    
+    render() {
+      if (this.state.hasError) return null;
+      return this.props.children;
+    }
+  }
 
   return (
     <MainLayout backgroundStyle={backgroundStyle}>
@@ -106,66 +174,66 @@ const Index = () => {
       <HeroSection />
       
       {/* First priority components */}
-      <Suspense fallback={<SectionLoading />}>
+      <SafeSuspense>
         <MarqueeUpdates />
-      </Suspense>
+      </SafeSuspense>
       
       <div className="space-y-0 relative z-10">
-        <Suspense fallback={<SectionLoading />}>
+        <SafeSuspense>
           <ImpactNumbers />
-        </Suspense>
+        </SafeSuspense>
         
-        <Suspense fallback={<SectionLoading />}>
+        <SafeSuspense>
           <QuoteSection />
-        </Suspense>
+        </SafeSuspense>
         
-        {/* Second priority components - load after interaction */}
+        {/* Second priority components - load after interaction or immediately on desktop */}
         {(firstInteraction || !isMobile) && (
           <>
-            <Suspense fallback={<SectionLoading />}>
+            <SafeSuspense>
               <ProgramsOverview />
-            </Suspense>
+            </SafeSuspense>
             
-            <Suspense fallback={<SectionLoading />}>
+            <SafeSuspense>
               <EligibilityChecker />
-            </Suspense>
+            </SafeSuspense>
             
-            <Suspense fallback={<SectionLoading />}>
+            <SafeSuspense>
               <SEFSection />
-            </Suspense>
+            </SafeSuspense>
             
-            <Suspense fallback={<SectionLoading />}>
+            <SafeSuspense>
               <WhySharjah />
-            </Suspense>
+            </SafeSuspense>
           </>
         )}
         
-        {/* Lowest priority components - load after deep scroll */}
+        {/* Lowest priority components - load after deep scroll or immediately on desktop */}
         {(deepScroll || !isMobile) && (
           <>
-            <Suspense fallback={<SectionLoading />}>
+            <SafeSuspense>
               <StartupsShowcase />
-            </Suspense>
+            </SafeSuspense>
             
-            <Suspense fallback={<SectionLoading />}>
+            <SafeSuspense>
               <PodcastSection />
-            </Suspense>
+            </SafeSuspense>
             
-            <Suspense fallback={<SectionLoading />}>
+            <SafeSuspense>
               <CommunitySection />
-            </Suspense>
+            </SafeSuspense>
             
-            <Suspense fallback={<SectionLoading />}>
+            <SafeSuspense>
               <StartupTestimonials />
-            </Suspense>
+            </SafeSuspense>
             
-            <Suspense fallback={<SectionLoading />}>
+            <SafeSuspense>
               <PartnersSection />
-            </Suspense>
+            </SafeSuspense>
             
-            <Suspense fallback={<SectionLoading />}>
+            <SafeSuspense>
               <ContactSection />
-            </Suspense>
+            </SafeSuspense>
           </>
         )}
       </div>

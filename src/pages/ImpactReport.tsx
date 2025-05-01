@@ -107,20 +107,7 @@ const ImpactReport = () => {
             </div>
 
             <div className="bg-white rounded-2xl shadow-lg p-8">
-              <div className="text-center mb-8">
-                <Button
-                  asChild
-                  variant="neo"
-                  size="xl"
-                  className="group"
-                >
-                  <Link to="/lovable-uploads/sheraa-impact-report-2024.pdf" target="_blank" download="Sheraa-Impact-Report-2024.pdf">
-                    <FileDown className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
-                    Download Full Report (PDF)
-                  </Link>
-                </Button>
-              </div>
-              <p className="text-center text-gray-600">
+              <p className="text-center text-gray-600 mb-8">
                 Impact report content will be displayed here. This is a placeholder for the detailed impact report page.
               </p>
             </div>
