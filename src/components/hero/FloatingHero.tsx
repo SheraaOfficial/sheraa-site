@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { GradientButton } from "@/components/ui/gradient-button";
 import Floating, { FloatingElement } from "@/components/ui/parallax-floating";
 import { TextRotate } from "@/components/ui/text-rotate";
+import { Badge } from "@/components/ui/badge";
 
 // Images relevant to Sheraa and entrepreneurship
 const sheraaImages = [
@@ -107,6 +108,23 @@ function FloatingHero() {
       </Floating>
 
       <div className="flex flex-col justify-center items-center w-[250px] sm:w-[300px] md:w-[500px] lg:w-[700px] z-50 pointer-events-auto mx-auto">
+        {/* Added Festival Badge */}
+        <motion.div
+          className="mb-6" 
+          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.3, ease: "easeOut", delay: 0.2 }}
+        >
+          <Badge 
+            variant="gradient-warm" 
+            size="lg" 
+            animation="float" 
+            className="py-1.5 px-4 text-sm"
+          >
+            Sharjah Entrepreneurship Festival
+          </Badge>
+        </motion.div>
+        
         <motion.h1
           className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl text-center w-full justify-center items-center flex-col flex whitespace-pre leading-tight font-bold tracking-tight space-y-1 md:space-y-4"
           animate={{ opacity: 1, y: 0 }}
