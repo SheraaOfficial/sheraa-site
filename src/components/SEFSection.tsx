@@ -1,25 +1,13 @@
-import React, { useEffect, useRef, useState, lazy, Suspense } from "react";
+
+import React, { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
-import { BeamsBackground } from "./ui/beams-background";
-import { SEFHeader } from "./sef/SEFHeader";
+import { Glow } from "./ui/glow";
+import { RetroGrid } from "./ui/retro-grid";
+import { BorderBeam } from "./ui/border-beam";
 import { ParallaxSection } from "./parallax";
 import { useIsMobile } from "@/hooks/use-mobile";
+import SEFContent from "./sef/SEFContent";
 
-// Lazy load components that aren't immediately visible
-const SEFDescription = lazy(() => import("./sef/SEFDescription").then(mod => ({
-  default: mod.SEFDescription
-})));
-
-// Fix imports for named exports to work with lazy loading
-const SEFStats = lazy(() => import("./sef/SEFStats").then(mod => ({
-  default: mod.SEFStats
-})));
-const SEFEventCard = lazy(() => import("./sef/SEFEventCard").then(mod => ({
-  default: mod.SEFEventCard
-})));
-
-// Simple loading fallback
-const LoadingFallback = () => <div className="h-24 w-full animate-pulse bg-gray-800/30 rounded-lg"></div>;
 const SEFSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, {
@@ -28,6 +16,7 @@ const SEFSection = () => {
   });
   const [hasRevealed, setHasRevealed] = useState(false);
   const isMobile = useIsMobile();
+  
   useEffect(() => {
     if (isInView && !hasRevealed) {
       const timer = setTimeout(() => {
@@ -36,19 +25,42 @@ const SEFSection = () => {
       return () => clearTimeout(timer);
     }
   }, [isInView, hasRevealed]);
-  return <ParallaxSection direction="up" scrollMultiplier={0.2} spring={true} stiffness={50} damping={15} className="relative py-16 md:py-32 overflow-hidden">
-      <section ref={sectionRef} className="relative overflow-hidden" id="sef-section">
-        {/* Enhanced background with overlay gradient */}
-        <BeamsBackground intensity={isMobile ? "medium" : "strong"}>
-          
-          
-          {/* Add decorative elements */}
-          
-        </BeamsBackground>
+
+  return (
+    <ParallaxSection 
+      direction="up" 
+      scrollMultiplier={0.2} 
+      spring={true} 
+      stiffness={50} 
+      damping={15} 
+      className="relative py-16 md:py-32 overflow-hidden"
+    >
+      <section 
+        ref={sectionRef} 
+        className="relative overflow-hidden rounded-3xl mx-4 md:mx-12 lg:mx-24" 
+        id="sef-section"
+      >
+        {/* Decorative elements */}
+        <RetroGrid fadeDirection="bottom" fadeSize="lg" className="z-0 opacity-30" />
+        <Glow variant="top" className="opacity-30" />
         
-        {/* Main content container with enhanced spacing */}
-        
+        {/* Shimmering border effect */}
+        <div className="relative z-10 bg-gradient-to-b from-violet-950/90 via-violet-900/90 to-violet-950/90 rounded-3xl overflow-hidden border border-white/10">
+          <BorderBeam 
+            colorFrom="#FED700" 
+            colorTo="#9061F9"
+            size={300}
+            duration={20}
+            className="opacity-60"
+          />
+          
+          <div className="container mx-auto px-4 py-16 md:py-20 relative z-10">
+            <SEFContent isInView={isInView} hasRevealed={hasRevealed} />
+          </div>
+        </div>
       </section>
-    </ParallaxSection>;
+    </ParallaxSection>
+  );
 };
+
 export default SEFSection;
