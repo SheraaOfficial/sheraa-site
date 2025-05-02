@@ -85,7 +85,7 @@ export const SEFHeader: React.FC<SEFHeaderProps> = ({
         
         <Button asChild size="lg" variant="outline" className="bg-white/15 text-white border-white/40 hover:bg-white/25 
             backdrop-blur-xl hover:border-white/60 transition-all duration-300">
-          <Link to="/events/sef/agenda" className="mx-0 px-[79px]">Explore SEF'25 agenda</Link>
+          <Link to="/events/sef/agenda" className="mx-0 px-[33px]">Explore SEF'25 agenda</Link>
         </Button>
       </motion.div>
     </div>;
