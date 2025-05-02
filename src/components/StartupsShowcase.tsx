@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
@@ -10,13 +9,24 @@ import { Badge } from "./ui/badge";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 // Using React.memo for performance optimization
-const StartupCard = React.memo(({ startup, index, isMobile }: { startup: any, index: number, isMobile: boolean }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.5, delay: index * 0.1 }}
-    className="relative group"
-  >
+const StartupCard = React.memo(({
+  startup,
+  index,
+  isMobile
+}: {
+  startup: any;
+  index: number;
+  isMobile: boolean;
+}) => <motion.div initial={{
+  opacity: 0,
+  y: 20
+}} whileInView={{
+  opacity: 1,
+  y: 0
+}} transition={{
+  duration: 0.5,
+  delay: index * 0.1
+}} className="relative group">
     <div className="bg-white rounded-2xl p-4 md:p-6 shadow-sheraa-soft group-hover:shadow-sheraa-medium transition-all duration-300 border border-gray-100 overflow-hidden">
       <div className="flex items-center gap-3 md:gap-4 mb-4 md:mb-6">
         <Avatar className={`${isMobile ? "w-10 h-10" : "w-16 h-16"} border-2 border-sheraa-primary/10 flex-shrink-0`}>
@@ -53,68 +63,60 @@ const StartupCard = React.memo(({ startup, index, isMobile }: { startup: any, in
         <span className="text-xs md:text-sm font-medium">{startup.stats}</span>
       </div>
     </div>
-  </motion.div>
-));
-
+  </motion.div>);
 StartupCard.displayName = 'StartupCard';
-
-const featuredStartups = [
-  {
-    name: "Green Future Project",
-    description: "Pioneering sustainable solutions for environmental challenges across the UAE. Our innovative approach combines technology with eco-conscious practices.",
-    sector: "Sustainability",
-    achievement: "Winner - Access Sharjah Challenge",
-    impact: "Reduced carbon emissions by 40%",
-    image: "/placeholder.svg",
-    stats: "Raised $2.5M"
-  },
-  {
-    name: "Arabee",
-    description: "Revolutionary Arabic language learning platform using AI and gamification to make education engaging and effective for modern learners.",
-    sector: "EdTech",
-    achievement: "Successfully scaled across MENA",
-    impact: "100,000+ Active Users",
-    image: "/placeholder.svg",
-    stats: "Present in 5 Countries"
-  },
-  {
-    name: "KRISPR",
-    description: "Transforming the future of food technology with innovative solutions for sustainable agriculture and food production systems.",
-    sector: "FoodTech",
-    achievement: "Raised $2M in funding",
-    impact: "30% Yield Improvement",
-    image: "/placeholder.svg",
-    stats: "8 Patents Filed"
-  },
-  {
-    name: "Manhat",
-    description: "Innovative water technology solutions addressing water scarcity through sustainable desalination processes.",
-    sector: "WaterTech",
-    achievement: "Patent-pending technology",
-    impact: "2M Liters Saved",
-    image: "/placeholder.svg",
-    stats: "Featured by UNESCO"
-  }
-];
-
+const featuredStartups = [{
+  name: "Green Future Project",
+  description: "Pioneering sustainable solutions for environmental challenges across the UAE. Our innovative approach combines technology with eco-conscious practices.",
+  sector: "Sustainability",
+  achievement: "Winner - Access Sharjah Challenge",
+  impact: "Reduced carbon emissions by 40%",
+  image: "/placeholder.svg",
+  stats: "Raised $2.5M"
+}, {
+  name: "Arabee",
+  description: "Revolutionary Arabic language learning platform using AI and gamification to make education engaging and effective for modern learners.",
+  sector: "EdTech",
+  achievement: "Successfully scaled across MENA",
+  impact: "100,000+ Active Users",
+  image: "/placeholder.svg",
+  stats: "Present in 5 Countries"
+}, {
+  name: "KRISPR",
+  description: "Transforming the future of food technology with innovative solutions for sustainable agriculture and food production systems.",
+  sector: "FoodTech",
+  achievement: "Raised $2M in funding",
+  impact: "30% Yield Improvement",
+  image: "/placeholder.svg",
+  stats: "8 Patents Filed"
+}, {
+  name: "Manhat",
+  description: "Innovative water technology solutions addressing water scarcity through sustainable desalination processes.",
+  sector: "WaterTech",
+  achievement: "Patent-pending technology",
+  impact: "2M Liters Saved",
+  image: "/placeholder.svg",
+  stats: "Featured by UNESCO"
+}];
 const StartupsShowcase = () => {
   const isMobile = useIsMobile();
-
-  return (
-    <section className="py-12 md:py-24 bg-gradient-to-br from-purple-100 to-pink-50 overflow-hidden">
-      <div className="container mx-auto px-4">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-10 md:mb-16"
-        >
+  return <section className="py-12 md:py-24 bg-gradient-to-br from-purple-100 to-pink-50 overflow-hidden">
+      <div className="container mx-auto px-[122px]">
+        <motion.div initial={{
+        opacity: 0,
+        y: 20
+      }} whileInView={{
+        opacity: 1,
+        y: 0
+      }} transition={{
+        duration: 0.5
+      }} className="text-center mb-10 md:mb-16">
           <Badge variant="gradient-warm" animation="shimmer" className="mb-3 md:mb-4">
             Transforming Ideas into Impact
           </Badge>
           
           <h2 className="text-3xl md:text-5xl font-bold text-sheraa-dark mb-4 md:mb-6 leading-tight px-2">
-            Our <span className="text-sheraa-coral">Startups</span>
+            Our <span className="text-sheraa-primary">Startups</span>
           </h2>
           
           <p className="text-gray-600 max-w-3xl mx-auto text-sm md:text-lg px-2">
@@ -123,20 +125,15 @@ const StartupsShowcase = () => {
         </motion.div>
 
         <div className="mb-10 md:mb-16 max-w-full">
-          <Carousel
-            opts={{
-              align: "start",
-              loop: true,
-              dragFree: true, // Allow free-form dragging for smoother experience
-            }}
-            className="w-full"
-          >
+          <Carousel opts={{
+          align: "start",
+          loop: true,
+          dragFree: true // Allow free-form dragging for smoother experience
+        }} className="w-full">
             <CarouselContent className="-ml-2 md:-ml-4">
-              {featuredStartups.map((startup, index) => (
-                <CarouselItem key={startup.name} className="pl-2 md:pl-4 basis-full sm:basis-1/2 lg:basis-1/3">
+              {featuredStartups.map((startup, index) => <CarouselItem key={startup.name} className="pl-2 md:pl-4 basis-full sm:basis-1/2 lg:basis-1/3">
                   <StartupCard startup={startup} index={index} isMobile={isMobile} />
-                </CarouselItem>
-              ))}
+                </CarouselItem>)}
             </CarouselContent>
             <div className="hidden md:block">
               <div className="absolute -right-4 md:right-0 top-1/2 -translate-y-1/2 z-10">
@@ -147,34 +144,21 @@ const StartupsShowcase = () => {
               </div>
             </div>
             
-            {isMobile && (
-              <div className="flex justify-center mt-6 gap-2">
-                {featuredStartups.map((_, i) => (
-                  <div key={i} className={`w-2 h-2 rounded-full ${i === 0 ? 'bg-sheraa-coral' : 'bg-gray-300'}`} />
-                ))}
-              </div>
-            )}
+            {isMobile && <div className="flex justify-center mt-6 gap-2">
+                {featuredStartups.map((_, i) => <div key={i} className={`w-2 h-2 rounded-full ${i === 0 ? 'bg-sheraa-coral' : 'bg-gray-300'}`} />)}
+              </div>}
           </Carousel>
         </div>
 
         <div className="flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-6">
-          <Button 
-            asChild
-            size={isMobile ? "default" : "lg"}
-            className="bg-sheraa-coral hover:bg-sheraa-coral/90 w-full sm:w-auto text-xs md:text-base"
-          >
+          <Button asChild size={isMobile ? "default" : "lg"} className="bg-sheraa-coral hover:bg-sheraa-coral/90 w-full sm:w-auto text-xs md:text-base">
             <Link to="/community/startups" className="flex items-center gap-2">
               <Star className={`${isMobile ? "w-4 h-4" : "w-5 h-5"} flex-shrink-0`} />
               Explore All Startups
             </Link>
           </Button>
           
-          <Button 
-            asChild
-            variant="outline"
-            size={isMobile ? "default" : "lg"}
-            className="border-sheraa-coral text-sheraa-coral hover:bg-sheraa-coral/10 w-full sm:w-auto text-xs md:text-base"
-          >
+          <Button asChild variant="outline" size={isMobile ? "default" : "lg"} className="border-sheraa-coral text-sheraa-coral hover:bg-sheraa-coral/10 w-full sm:w-auto text-xs md:text-base">
             <Link to="/community/join" className="flex items-center gap-2">
               <Users className={`${isMobile ? "w-4 h-4" : "w-5 h-5"} flex-shrink-0`} />
               Join Our Community
@@ -182,8 +166,6 @@ const StartupsShowcase = () => {
           </Button>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default React.memo(StartupsShowcase);
