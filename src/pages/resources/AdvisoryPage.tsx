@@ -1,11 +1,10 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import MainLayout from '@/components/layouts/MainLayout';
 import { Button } from '@/components/ui/button';
 import { GradientButton } from '@/components/ui/gradient-button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Users, Calendar, Briefcase, Code, BarChart, FileText, Bulb } from 'lucide-react';
+import { Users, Calendar, Briefcase, Code, BarChart, FileText, Lightbulb } from 'lucide-react';
 
 const AdvisoryPage = () => {
   // Sample advisors data
@@ -51,7 +50,7 @@ const AdvisoryPage = () => {
   const expertiseAreas = [
     { name: "Legal", icon: Briefcase, color: "text-blue-500", bgColor: "bg-blue-50" },
     { name: "Finance & Fundraising", icon: BarChart, color: "text-green-500", bgColor: "bg-green-50" },
-    { name: "Marketing & Sales", icon: Bulb, color: "text-purple-500", bgColor: "bg-purple-50" },
+    { name: "Marketing & Sales", icon: Lightbulb, color: "text-purple-500", bgColor: "bg-purple-50" },
     { name: "Technology & Product", icon: Code, color: "text-red-500", bgColor: "bg-red-50" },
     { name: "HR & Talent", icon: Users, color: "text-amber-500", bgColor: "bg-amber-50" },
     { name: "Operations & Strategy", icon: FileText, color: "text-teal-500", bgColor: "bg-teal-50" }
@@ -196,7 +195,7 @@ const AdvisoryPage = () => {
           <p className="mb-8 max-w-2xl mx-auto">
             Take the first step toward solving your business challenges with guidance from experienced professionals.
           </p>
-          <GradientButton asChild variant="white" size="lg">
+          <GradientButton asChild variant="default" size="lg">
             <Link to="/contact?inquiry=advisory">Contact Us About Advisory</Link>
           </GradientButton>
         </div>

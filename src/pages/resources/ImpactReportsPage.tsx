@@ -96,7 +96,7 @@ const ImpactReportsPage = () => {
                     </div>
                   ))}
                 </div>
-                <Button asChild variant="white" size="lg" className="w-fit">
+                <Button asChild variant="outline" size="lg" className="w-fit bg-white text-sheraa-primary hover:bg-white/90">
                   <Link to="#" className="flex items-center gap-2">
                     <Download className="h-4 w-4" />
                     Download Full Report
