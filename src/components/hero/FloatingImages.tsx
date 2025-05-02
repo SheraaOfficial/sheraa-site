@@ -3,27 +3,27 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Floating, { FloatingElement } from "@/components/ui/parallax-floating";
 
-// Images relevant to Sheraa and entrepreneurship with lower resolution
+// Replace with Sheraa uploaded images
 const sheraaImages = [
   {
-    url: "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=800&auto=format&fit=crop",
-    title: "Business Meeting",
+    url: "/lovable-uploads/a7594ccb-820e-40d4-addc-1cf4dfebadfe.png",
+    title: "Sheraa Team Member",
   },
   {
-    url: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?q=80&w=800&auto=format&fit=crop",
-    title: "Startup Team",
+    url: "/lovable-uploads/962e9262-6759-495c-ad9e-5f8fc0043698.png",
+    title: "Sheraa Workshop Session",
   },
   {
-    url: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=800&auto=format&fit=crop",
-    title: "Collaboration",
+    url: "/lovable-uploads/67019a34-88c0-4c00-ba3f-2e89761a0678.png",
+    title: "Sheraa Panel Discussion",
   },
   {
-    url: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=800&auto=format&fit=crop",
-    title: "Entrepreneur",
+    url: "/lovable-uploads/1461e9a9-fd41-4085-86e1-6765d0fd4f59.png",
+    title: "Sheraa Startup Team",
   },
   {
-    url: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=800&auto=format&fit=crop",
-    title: "Tech Innovation",
+    url: "/lovable-uploads/78dc4101-2481-4c13-a19f-62dbefeae768.png",
+    title: "Sheraa Award Ceremony",
   },
 ];
 
