@@ -14,12 +14,10 @@ export const SafeSuspense: React.FC<SafeSuspenseProps> = ({ children }) => {
   if (hasError) return <ErrorFallback />;
   
   return (
-    <React.Fragment>
-      <ErrorBoundary onError={() => setHasError(true)}>
-        <Suspense fallback={<SectionLoading />}>
-          {children}
-        </Suspense>
-      </ErrorBoundary>
-    </React.Fragment>
+    <ErrorBoundary onError={() => setHasError(true)}>
+      <Suspense fallback={<SectionLoading />}>
+        {children}
+      </Suspense>
+    </ErrorBoundary>
   );
 };

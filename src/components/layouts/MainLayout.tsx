@@ -26,7 +26,9 @@ const MainLayout: React.FC<MainLayoutProps> = ({
       <div className="fixed inset-0 pointer-events-none z-0" style={backgroundStyle} />
       
       <main className="flex-grow pt-16 relative z-10 bg-[sheraa-background-soft] bg-sheraa-light">
-        {children}
+        <div className="relative">
+          {children}
+        </div>
       </main>
       
       <Footer />
