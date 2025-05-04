@@ -11,7 +11,7 @@ interface PostsSectionProps {
 const PostsSection = ({ userId }: PostsSectionProps) => {
   return (
     <>
-      <Card>
+      <Card className="mb-6">
         <CardContent className="p-6">
           <PostForm />
         </CardContent>

@@ -1,9 +1,11 @@
+
 import React from "react";
 import { useLocalStorage } from "@/hooks/use-local-storage";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Heart, MessageSquare, Share, Bookmark } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface PostsListProps {
   userId?: string | number; // Updated to accept both string and number
@@ -11,6 +13,7 @@ interface PostsListProps {
 
 const PostsList: React.FC<PostsListProps> = ({ userId }) => {
   const [users] = useLocalStorage<any[]>("users", []);
+  const isMobile = useIsMobile();
   
   // Get all posts from all users
   const allPosts = users.reduce((posts, user) => {
@@ -58,17 +61,17 @@ const PostsList: React.FC<PostsListProps> = ({ userId }) => {
         
         return (
           <Card key={post.id} className="overflow-hidden">
-            <CardContent className="p-6">
-              <div className="flex items-start space-x-4 mb-4">
-                <div className="h-12 w-12 rounded-full bg-sheraa-primary/10 flex items-center justify-center text-xl font-bold text-sheraa-primary flex-shrink-0">
+            <CardContent className={`${isMobile ? 'p-4' : 'p-6'}`}>
+              <div className="flex items-start space-x-3 mb-4">
+                <div className={`${isMobile ? 'h-10 w-10' : 'h-12 w-12'} rounded-full bg-sheraa-primary/10 flex items-center justify-center text-xl font-bold text-sheraa-primary flex-shrink-0`}>
                   {author.firstName[0]}{author.lastName[0]}
                 </div>
-                <div>
-                  <p className="font-medium">
+                <div className="min-w-0">
+                  <p className="font-medium truncate">
                     {author.firstName} {author.lastName}
                   </p>
                   {author.profile?.headline && (
-                    <p className="text-sm text-gray-500">{author.profile.headline}</p>
+                    <p className="text-sm text-gray-500 truncate">{author.profile.headline}</p>
                   )}
                   <p className="text-xs text-gray-400">
                     {formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })}
@@ -76,29 +79,29 @@ const PostsList: React.FC<PostsListProps> = ({ userId }) => {
                 </div>
               </div>
               
-              <div className="whitespace-pre-line">
+              <div className="whitespace-pre-line break-words">
                 {post.content}
               </div>
             </CardContent>
             
-            <CardFooter className="px-6 py-4 bg-gray-50 border-t flex justify-between">
-              <div className="flex space-x-4">
-                <Button variant="ghost" size="sm" className="text-gray-600 hover:text-red-500">
-                  <Heart className="h-5 w-5 mr-1" />
+            <CardFooter className={`${isMobile ? 'px-3 py-2' : 'px-6 py-4'} bg-gray-50 border-t flex justify-between`}>
+              <div className="flex space-x-2 md:space-x-4">
+                <Button variant="ghost" size={isMobile ? "sm" : "sm"} className="text-gray-600 hover:text-red-500">
+                  <Heart className={`${isMobile ? 'h-4 w-4' : 'h-5 w-5'} mr-1`} />
                   <span>{post.likes || 0}</span>
                 </Button>
-                <Button variant="ghost" size="sm" className="text-gray-600">
-                  <MessageSquare className="h-5 w-5 mr-1" />
+                <Button variant="ghost" size={isMobile ? "sm" : "sm"} className="text-gray-600">
+                  <MessageSquare className={`${isMobile ? 'h-4 w-4' : 'h-5 w-5'} mr-1`} />
                   <span>{post.comments?.length || 0}</span>
                 </Button>
               </div>
               
-              <div className="flex space-x-2">
-                <Button variant="ghost" size="sm" className="text-gray-600">
-                  <Share className="h-5 w-5" />
+              <div className="flex space-x-1 md:space-x-2">
+                <Button variant="ghost" size={isMobile ? "sm" : "sm"} className="text-gray-600">
+                  <Share className={`${isMobile ? 'h-4 w-4' : 'h-5 w-5'}`} />
                 </Button>
-                <Button variant="ghost" size="sm" className="text-gray-600">
-                  <Bookmark className="h-5 w-5" />
+                <Button variant="ghost" size={isMobile ? "sm" : "sm"} className="text-gray-600">
+                  <Bookmark className={`${isMobile ? 'h-4 w-4' : 'h-5 w-5'}`} />
                 </Button>
               </div>
             </CardFooter>
