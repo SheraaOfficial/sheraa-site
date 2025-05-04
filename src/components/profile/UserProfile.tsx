@@ -15,7 +15,8 @@ import {
   MessageSquare,
   Share,
   Bookmark,
-  Globe
+  Globe,
+  Plus
 } from "lucide-react";
 import PostForm from "../posts/PostForm";
 import PostsList from "../posts/PostsList";
