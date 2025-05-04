@@ -20,7 +20,7 @@ interface MegaMenuProps {
 
 const MegaMenuComponent: React.FC<MegaMenuProps> = ({ title, icon: Icon, links }) => {
   return (
-    <NavigationMenuItem>
+    <NavigationMenuItem className="relative">
       <NavigationMenuTrigger className="bg-transparent hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent">
         <div className="flex items-center gap-2">
           <Icon className="h-4 w-4" />
