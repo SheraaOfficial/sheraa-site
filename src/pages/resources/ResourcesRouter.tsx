@@ -2,10 +2,10 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 import ResourcesPage from './index';
-import GuidesPage from './GuidesPage';
 import AdvisoryPage from './AdvisoryPage';
 import ArticlesPage from './ArticlesPage';
 import ImpactReportsPage from './ImpactReportsPage';
+import GuidesPage from './guides'; // Updated import to point to the new guides directory
 import { ResourcesGameProvider } from '@/components/resources/ResourcesGameContext';
 
 interface ResourcesRouterProps {

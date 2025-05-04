@@ -1,65 +1,74 @@
 
-import React from "react";
-import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
+import React, { useMemo } from 'react';
+import { cn } from '@/lib/utils';
 
 interface ProgressCircleProps {
   percentage: number;
   size?: number;
   strokeWidth?: number;
-  className?: string;
   color?: string;
+  bgColor?: string;
   children?: React.ReactNode;
+  className?: string;
+  showPercentage?: boolean;
 }
 
-export const ProgressCircle = ({
+export const ProgressCircle: React.FC<ProgressCircleProps> = ({
   percentage,
-  size = 60,
+  size = 40,
   strokeWidth = 4,
-  className,
   color = "stroke-sheraa-primary",
-  children
-}: ProgressCircleProps) => {
-  const radius = (size - strokeWidth) / 2;
-  const circumference = radius * 2 * Math.PI;
-  const dash = (percentage * circumference) / 100;
+  bgColor = "stroke-gray-200",
+  children,
+  className,
+  showPercentage = false
+}) => {
+  // Calculate circle parameters
+  const center = useMemo(() => size / 2, [size]);
+  const radius = useMemo(() => center - strokeWidth, [center, strokeWidth]);
+  const circumference = useMemo(() => 2 * Math.PI * radius, [radius]);
+  const strokeDashoffset = useMemo(() => 
+    circumference - (percentage / 100) * circumference, 
+    [circumference, percentage]
+  );
 
   return (
-    <div className={cn("relative inline-flex items-center justify-center", className)}>
-      <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
-        {/* Background circle */}
+    <div 
+      className={cn("relative inline-flex items-center justify-center", className)}
+      style={{ width: size, height: size }}
+    >
+      <svg
+        width={size}
+        height={size}
+        viewBox={`0 0 ${size} ${size}`}
+        className="transform -rotate-90"
+      >
         <circle
-          cx={size / 2}
-          cy={size / 2}
+          cx={center}
+          cy={center}
           r={radius}
           fill="none"
-          stroke="currentColor"
           strokeWidth={strokeWidth}
-          className="text-gray-200"
+          className={bgColor}
         />
-        
-        {/* Progress circle */}
-        <motion.circle
-          cx={size / 2}
-          cy={size / 2}
+        <circle
+          cx={center}
+          cy={center}
           r={radius}
           fill="none"
           strokeWidth={strokeWidth}
           strokeDasharray={circumference}
-          strokeDashoffset={circumference - dash}
+          strokeDashoffset={strokeDashoffset}
           strokeLinecap="round"
           className={color}
-          initial={{ strokeDashoffset: circumference }}
-          animate={{ strokeDashoffset: circumference - dash }}
-          transition={{ duration: 1, ease: "easeInOut" }}
+          style={{ transition: "stroke-dashoffset 0.5s ease" }}
         />
       </svg>
-      
-      {children && (
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-          {children}
-        </div>
-      )}
+      <div className="absolute inset-0 flex items-center justify-center">
+        {children || (showPercentage && (
+          <span className="text-xs font-medium">{Math.round(percentage)}%</span>
+        ))}
+      </div>
     </div>
   );
 };
