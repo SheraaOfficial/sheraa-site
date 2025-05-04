@@ -1,7 +1,7 @@
 
 import React, { useMemo } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useIsMobile } from "@/hooks/use-mobile";
+import { useIsMobile } from "@/hooks/useDeviceDetection";
 
 interface ActivitySectionProps {
   userId: string | number;

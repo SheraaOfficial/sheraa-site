@@ -1,7 +1,7 @@
 
 import React, { lazy, Suspense, useEffect } from "react";
 import MainLayout from "@/components/layouts/MainLayout";
-import { useOptimizedScroll } from "@/hooks/use-mobile";
+import { useOptimizedScroll } from "@/hooks/useOptimizedScroll";
 import { useBackgroundAnimation } from "@/hooks/use-background-animation";
 import { useScrollDirection } from "@/hooks/use-scroll-direction";
 import { useFirstInteraction, useDeepScroll } from "@/hooks/use-interaction";

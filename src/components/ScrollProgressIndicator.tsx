@@ -1,7 +1,8 @@
 
 import React, { useEffect, useState, useRef } from "react";
 import { motion, useScroll } from "framer-motion";
-import { useIsMobile, useDevicePerformance } from "@/hooks/use-mobile";
+import { useIsMobile } from "@/hooks/useDeviceDetection";
+import { useDevicePerformance } from "@/hooks/useDevicePerformance";
 
 const ScrollProgressIndicator: React.FC = () => {
   const { scrollYProgress } = useScroll();
