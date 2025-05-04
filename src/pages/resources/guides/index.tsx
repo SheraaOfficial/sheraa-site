@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import MainLayout from '@/components/layouts/MainLayout';
@@ -10,7 +9,6 @@ import { useResourcesGame } from '@/components/resources/ResourcesGameContext';
 import { ResourcesNav } from '@/components/resources/ResourcesNav';
 import { ResourceCard } from './ResourceCard';
 import { saveAs } from 'file-saver';
-import { lov-add-dependency>file-saver@latest</lov-add-dependency>
 
 const GuidesPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
