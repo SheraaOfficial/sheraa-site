@@ -1,5 +1,6 @@
 
 import { useState, useEffect } from "react";
+import { useDevicePerformance } from "@/hooks/useDevicePerformance";
 
 interface ImageLoadOptions {
   crossOrigin?: 'anonymous' | 'use-credentials' | '';
@@ -8,13 +9,15 @@ interface ImageLoadOptions {
 }
 
 /**
- * Hook to handle image loading states with performance optimizations
+ * Enhanced hook to handle image loading states with performance optimizations
+ * and device-aware loading strategies
  */
 export function useImageLoading(
   src: string,
   options: ImageLoadOptions = {}
 ) {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const devicePerformance = useDevicePerformance();
   
   useEffect(() => {
     if (!src || typeof window === 'undefined') return;
@@ -28,20 +31,35 @@ export function useImageLoading(
     const handleLoad = () => setStatus('success');
     const handleError = () => setStatus('error');
     
-    // Use high priority loading if specified
-    if (options.priority && 'fetchPriority' in img) {
-      (img as any).fetchPriority = 'high';
+    // Use high priority loading if specified or device performance is high
+    if ((options.priority || devicePerformance === 'high') && 'fetchPriority' in img) {
+      (img as any).fetchPriority = options.priority ? 'high' : 'auto';
     }
     
-    img.onload = handleLoad;
-    img.onerror = handleError;
-    img.src = src;
+    // On low-performance devices, use a simple image loading approach
+    if (devicePerformance === 'low' && !options.priority) {
+      // For low-performance devices, we use a simpler approach
+      img.onload = handleLoad;
+      img.onerror = handleError;
+      img.src = src;
+    } else {
+      // For better devices, use decode() for smoother rendering if available
+      img.onload = () => {
+        if ('decode' in img) {
+          img.decode().then(handleLoad).catch(handleError);
+        } else {
+          handleLoad();
+        }
+      };
+      img.onerror = handleError;
+      img.src = src;
+    }
     
     return () => {
       img.onload = null;
       img.onerror = null;
     };
-  }, [src, options.crossOrigin, options.referrerPolicy, options.priority]);
+  }, [src, options.crossOrigin, options.referrerPolicy, options.priority, devicePerformance]);
   
   return {
     isLoading: status === 'loading',
@@ -52,11 +70,12 @@ export function useImageLoading(
 }
 
 /**
- * Hook to preload multiple images for better user experience
+ * Enhanced hook to preload multiple images with performance awareness
  */
-export function usePreloadImages(imageSources: string[]) {
+export function usePreloadImages(imageSources: string[], priority: boolean = false) {
   const [loadedCount, setLoadedCount] = useState(0);
   const [errorCount, setErrorCount] = useState(0);
+  const devicePerformance = useDevicePerformance();
   
   useEffect(() => {
     if (!imageSources.length || typeof window === 'undefined') return;
@@ -64,8 +83,18 @@ export function usePreloadImages(imageSources: string[]) {
     let mounted = true;
     const images: HTMLImageElement[] = [];
     
-    imageSources.forEach(src => {
+    // For low-performance devices with non-priority images, only preload critical ones
+    const imagesToLoad = devicePerformance === 'low' && !priority 
+      ? imageSources.slice(0, Math.min(3, imageSources.length))
+      : imageSources;
+    
+    imagesToLoad.forEach(src => {
       const img = new Image();
+      
+      // Set fetchPriority if supported and available
+      if ((priority || devicePerformance === 'high') && 'fetchPriority' in img) {
+        (img as any).fetchPriority = priority ? 'high' : 'auto';
+      }
       
       img.onload = () => {
         if (!mounted) return;
@@ -75,6 +104,7 @@ export function usePreloadImages(imageSources: string[]) {
       img.onerror = () => {
         if (!mounted) return;
         setErrorCount(count => count + 1);
+        console.error(`Failed to preload image: ${src}`);
       };
       
       img.src = src;
@@ -88,16 +118,18 @@ export function usePreloadImages(imageSources: string[]) {
         img.onerror = null;
       });
     };
-  }, [imageSources]);
+  }, [imageSources, priority, devicePerformance]);
   
   const totalImages = imageSources.length;
-  const isComplete = loadedCount + errorCount === totalImages;
-  const progress = totalImages > 0 ? (loadedCount + errorCount) / totalImages : 0;
+  const processedImages = loadedCount + errorCount;
+  const isComplete = processedImages === totalImages;
+  const progress = totalImages > 0 ? processedImages / totalImages : 0;
   
   return {
     loadedCount,
     errorCount,
     progress,
-    isComplete
+    isComplete,
+    isPartiallyLoaded: loadedCount > 0
   };
 }

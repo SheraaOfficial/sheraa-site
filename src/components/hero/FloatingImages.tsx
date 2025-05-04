@@ -2,9 +2,10 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import { motion } from "framer-motion";
 import Floating, { FloatingElement } from "@/components/ui/parallax-floating";
-import { useDevicePerformance } from "@/hooks/use-mobile";
+import { useDevicePerformance } from "@/hooks/useDevicePerformance";
+import { usePreloadImages } from "@/hooks/use-image-performance";
 
-// Replace with Sheraa uploaded images
+// Sheraa uploaded images
 const sheraaImages = [
   {
     url: "/lovable-uploads/a7594ccb-820e-40d4-addc-1cf4dfebadfe.png",
@@ -29,28 +30,30 @@ const sheraaImages = [
 ];
 
 export function FloatingImages() {
-  const [loadedImages, setLoadedImages] = useState<boolean[]>(Array(sheraaImages.length).fill(false));
   const [isClient, setIsClient] = useState(false);
   const devicePerformance = useDevicePerformance();
+  const [loadedImages, setLoadedImages] = useState<boolean[]>(Array(sheraaImages.length).fill(false));
   
-  // Optimize for performance by using a ref instead of state for image references
-  const imageRefs = useRef<Array<{ src: string; loading: boolean }>>([]);
+  // Optimize for performance by using a ref instead of state for tracking images
+  const imagesRef = useRef<string[]>(sheraaImages.map(image => image.url));
   
   // Memoize optimized images to prevent unnecessary re-renders
   const optimizedImages = useMemo(() => {
     return devicePerformance === 'low' ? sheraaImages.slice(0, 3) : sheraaImages;
   }, [devicePerformance]);
 
+  // Preload the images using our enhanced hook
+  const { progress, isPartiallyLoaded } = usePreloadImages(
+    optimizedImages.map(img => img.url),
+    false // Not high priority
+  );
+
   // Only render on client-side
   useEffect(() => {
     setIsClient(true);
-    // Initialize image refs with default values
-    imageRefs.current = sheraaImages.map(image => ({
-      src: image.url,
-      loading: true
-    }));
   }, []);
-
+  
+  // Handle individual image load events
   const handleImageLoad = (index: number) => {
     const newLoadedImages = [...loadedImages];
     newLoadedImages[index] = true;
