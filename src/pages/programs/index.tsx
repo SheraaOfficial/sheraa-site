@@ -94,7 +94,7 @@ const ProgramsOverview: React.FC = () => {
     },
     {
       title: 'Sharjah Advantage',
-      description: 'Leverage Sharjah's strategic location, business-friendly environment, and thriving innovation clusters.',
+      description: 'Leverage Sharjah\'s strategic location, business-friendly environment, and thriving innovation clusters.',
       icon: <Award className="h-10 w-10 p-2 bg-amber-100 text-amber-600 rounded-xl" />,
       delay: 0.4
     }
