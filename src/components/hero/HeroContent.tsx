@@ -1,24 +1,43 @@
 
-import React from "react";
+import React, { useMemo } from "react";
 import { motion, LayoutGroup } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { GradientButton } from "@/components/ui/gradient-button";
 import { TextRotate } from "@/components/ui/text-rotate";
 import { Badge } from "@/components/ui/badge";
-import { useIsMobile } from "@/hooks/use-mobile";
+import { useIsMobile } from "@/hooks/useDeviceDetection";
 
 export function HeroContent() {
   const isMobile = useIsMobile();
+
+  // Memoize animation variants to prevent recreation on each render
+  const badgeVariants = useMemo(() => ({
+    initial: { opacity: 0, y: -20 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.3, ease: "easeOut", delay: 0.2 }
+  }), []);
+  
+  const titleVariants = useMemo(() => ({
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.2, ease: "easeOut", delay: 0.3 }
+  }), []);
+  
+  const descriptionVariants = useMemo(() => ({
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.2, ease: "easeOut", delay: 0.5 }
+  }), []);
 
   return (
     <div className="flex flex-col justify-center items-center w-[90%] sm:w-[300px] md:w-[500px] lg:w-[700px] z-50 pointer-events-auto mx-auto">
       {/* Festival Badge */}
       <motion.div
         className="mb-4 sm:mb-6" 
-        animate={{ opacity: 1, y: 0 }}
-        initial={{ opacity: 0, y: -20 }}
-        transition={{ duration: 0.3, ease: "easeOut", delay: 0.2 }}
+        initial={badgeVariants.initial}
+        animate={badgeVariants.animate}
+        transition={badgeVariants.transition}
       >
         <Badge 
           variant="gradient-warm" 
@@ -32,9 +51,9 @@ export function HeroContent() {
       
       <motion.h1
         className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl text-center w-full justify-center items-center flex-col flex whitespace-pre leading-tight font-bold tracking-tight space-y-1 md:space-y-3"
-        animate={{ opacity: 1, y: 0 }}
-        initial={{ opacity: 0, y: 20 }}
-        transition={{ duration: 0.2, ease: "easeOut", delay: 0.3 }}
+        initial={titleVariants.initial}
+        animate={titleVariants.animate}
+        transition={titleVariants.transition}
       >
         <span>Making your </span>
         <LayoutGroup>
@@ -73,9 +92,9 @@ export function HeroContent() {
       
       <motion.p
         className="text-xs sm:text-sm md:text-lg lg:text-xl xl:text-2xl text-center pt-3 sm:pt-4 md:pt-6 lg:pt-6 px-4 max-w-2xl mx-auto"
-        animate={{ opacity: 1, y: 0 }}
-        initial={{ opacity: 0, y: 20 }}
-        transition={{ duration: 0.2, ease: "easeOut", delay: 0.5 }}
+        initial={descriptionVariants.initial}
+        animate={descriptionVariants.animate}
+        transition={descriptionVariants.transition}
       >
         Sharjah's official hub for aspiring founders and established ventures. We empower changemakers to build impactful businesses and shape the future.
       </motion.p>
@@ -88,21 +107,29 @@ export function HeroContent() {
 function HeroCTA() {
   const isMobile = useIsMobile();
   
+  // Memoize animation variants
+  const buttonVariants = useMemo(() => ({
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+    transition: {
+      duration: 0.2,
+      ease: "easeOut",
+      delay: 0.7,
+      scale: { duration: 0.2 },
+    },
+    whileHover: {
+      scale: 1.05,
+      transition: { type: "spring", damping: 30, stiffness: 400 },
+    }
+  }), []);
+  
   return (
     <div className={`flex ${isMobile ? 'flex-col w-full sm:w-auto' : 'flex-row'} justify-center ${isMobile ? 'space-y-3' : 'space-x-4'} items-center mt-6 sm:mt-8`}>
       <motion.div
-        animate={{ opacity: 1, y: 0 }}
-        initial={{ opacity: 0, y: 20 }}
-        transition={{
-          duration: 0.2,
-          ease: "easeOut",
-          delay: 0.7,
-          scale: { duration: 0.2 },
-        }}
-        whileHover={{
-          scale: 1.05,
-          transition: { type: "spring", damping: 30, stiffness: 400 },
-        }}
+        initial={buttonVariants.initial}
+        animate={buttonVariants.animate}
+        transition={buttonVariants.transition}
+        whileHover={buttonVariants.whileHover}
         className="w-full sm:w-auto"
       >
         <GradientButton asChild className="w-full sm:w-auto">
@@ -111,18 +138,10 @@ function HeroCTA() {
       </motion.div>
       
       <motion.div
-        animate={{ opacity: 1, y: 0 }}
-        initial={{ opacity: 0, y: 20 }}
-        transition={{
-          duration: 0.2,
-          ease: "easeOut",
-          delay: 0.7,
-          scale: { duration: 0.2 },
-        }}
-        whileHover={{
-          scale: 1.05,
-          transition: { type: "spring", damping: 30, stiffness: 400 },
-        }}
+        initial={buttonVariants.initial}
+        animate={buttonVariants.animate}
+        transition={buttonVariants.transition}
+        whileHover={buttonVariants.whileHover}
         className="w-full sm:w-auto"
       >
         <Button variant="outline" asChild className="w-full sm:w-auto">

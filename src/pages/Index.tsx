@@ -63,7 +63,8 @@ const Index = () => {
   const devicePerformance = useDevicePerformance();
   
   // Setup smooth scroll behavior based on device performance
-  useSmoothScroll(devicePerformance !== 'low');
+  // Fix: Remove argument as useSmoothScroll doesn't expect any parameters
+  useSmoothScroll();
   
   // Smart preloading strategy based on device performance
   useEffect(() => {

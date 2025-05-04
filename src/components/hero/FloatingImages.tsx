@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, useRef, useMemo } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Floating, { FloatingElement } from "@/components/ui/parallax-floating";
 import { useDevicePerformance } from "@/hooks/useDevicePerformance";
 import { usePreloadImages } from "@/hooks/use-image-performance";
@@ -32,10 +32,6 @@ const sheraaImages = [
 export function FloatingImages() {
   const [isClient, setIsClient] = useState(false);
   const devicePerformance = useDevicePerformance();
-  const [loadedImages, setLoadedImages] = useState<boolean[]>(Array(sheraaImages.length).fill(false));
-  
-  // Optimize for performance by using a ref instead of state for tracking images
-  const imagesRef = useRef<string[]>(sheraaImages.map(image => image.url));
   
   // Memoize optimized images to prevent unnecessary re-renders
   const optimizedImages = useMemo(() => {
@@ -43,7 +39,7 @@ export function FloatingImages() {
   }, [devicePerformance]);
 
   // Preload the images using our enhanced hook
-  const { progress, isPartiallyLoaded } = usePreloadImages(
+  const { loadedImages, isImageLoaded } = usePreloadImages(
     optimizedImages.map(img => img.url),
     false // Not high priority
   );
@@ -52,13 +48,6 @@ export function FloatingImages() {
   useEffect(() => {
     setIsClient(true);
   }, []);
-  
-  // Handle individual image load events
-  const handleImageLoad = (index: number) => {
-    const newLoadedImages = [...loadedImages];
-    newLoadedImages[index] = true;
-    setLoadedImages(newLoadedImages);
-  };
 
   // Don't render anything on server-side
   if (!isClient) return null;
@@ -68,8 +57,8 @@ export function FloatingImages() {
       sensitivity={devicePerformance === 'low' ? -0.2 : -0.5} 
       className="h-full w-full absolute inset-0"
     >
-      {optimizedImages.map((image, index) => {
-        return (
+      <AnimatePresence>
+        {optimizedImages.map((image, index) => (
           <FloatingElement
             key={image.title}
             depth={index === 0 || index === 4 ? 0.5 : index === 1 || index === 3 ? 1 : 4}
@@ -78,16 +67,17 @@ export function FloatingImages() {
             <motion.img
               src={image.url} 
               alt={image.title}
-              className={`${getSizeClass(index)} object-cover hover:scale-105 duration-200 cursor-pointer transition-transform ${getRotationClass(index)} shadow-2xl rounded-xl ${loadedImages[index] ? 'opacity-100' : 'opacity-0'}`}
+              className={`${getSizeClass(index)} object-cover hover:scale-105 duration-200 cursor-pointer transition-transform ${getRotationClass(index)} shadow-2xl rounded-xl`}
               initial={{ opacity: 0 }}
-              animate={{ opacity: loadedImages[index] ? 1 : 0 }}
+              animate={{ opacity: isImageLoaded(image.url) ? 1 : 0 }}
               transition={{ delay: 0.1 * index }}
               loading="lazy"
-              onLoad={() => handleImageLoad(index)}
+              decoding="async"
+              fetchPriority={index < 2 ? "high" : "auto"}
             />
           </FloatingElement>
-        );
-      })}
+        ))}
+      </AnimatePresence>
     </Floating>
   );
 }

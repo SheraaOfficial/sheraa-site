@@ -1,5 +1,5 @@
 
-import React, { memo, useCallback } from "react";
+import React, { memo, useCallback, useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import ScrollProgressIndicator from "@/components/ScrollProgressIndicator";
@@ -23,12 +23,21 @@ const MainLayout: React.FC<MainLayoutProps> = ({
 }) => {
   const isMobile = useIsMobile();
   const devicePerformance = useDevicePerformance();
+  const [isAfterFirstRender, setIsAfterFirstRender] = useState(false);
   
-  // Only show welcome animation on higher-end devices
-  const shouldShowWelcomeAnimation = devicePerformance !== 'low';
+  // Only show welcome animation on higher-end devices and after initial render
+  const shouldShowWelcomeAnimation = devicePerformance !== 'low' && isAfterFirstRender;
+  
+  // Effect to set isAfterFirstRender after component mounts
+  useEffect(() => {
+    setIsAfterFirstRender(true);
+  }, []);
   
   return (
-    <div className="min-h-screen flex flex-col bg-white relative overflow-x-hidden perspective-1000" style={{ position: "relative" }}>
+    <div 
+      className="min-h-screen flex flex-col bg-white relative overflow-x-hidden perspective-1000" 
+      style={{ position: "relative" }}
+    >
       <ScrollProgressIndicator />
       
       {!noNavigation && (
@@ -39,7 +48,11 @@ const MainLayout: React.FC<MainLayoutProps> = ({
       
       {/* Background with style passed from parent */}
       {backgroundStyle && (
-        <div className="fixed inset-0 pointer-events-none z-0" style={backgroundStyle} />
+        <div 
+          className="fixed inset-0 pointer-events-none z-0" 
+          style={backgroundStyle} 
+          aria-hidden="true"
+        />
       )}
       
       <main 
@@ -53,7 +66,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
       
       {!noFooter && <Footer />}
       
-      {/* Welcome animation for first-time visitors - only on capable devices */}
+      {/* Welcome animation for first-time visitors - only on capable devices and after initial render */}
       {shouldShowWelcomeAnimation && <WelcomeAnimation />}
       
       {/* Toast notifications */}

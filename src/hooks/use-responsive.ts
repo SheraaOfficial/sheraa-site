@@ -30,74 +30,39 @@ export function useBreakpoint(minWidth?: Breakpoint, maxWidth?: Breakpoint) {
     // Don't run on server-side
     if (typeof window === 'undefined') return;
     
-    // Function to check if the current viewport matches the breakpoint range
-    const updateMatches = () => {
-      const width = window.innerWidth;
-      setMatches(width >= minWidthPx && width < maxWidthPx);
-    };
-    
-    // Set initial state
-    updateMatches();
-    
-    // Use ResizeObserver when available for better performance
-    if (typeof ResizeObserver !== 'undefined') {
-      const resizeObserver = new ResizeObserver(updateMatches);
-      resizeObserver.observe(document.documentElement);
-      return () => resizeObserver.disconnect();
+    // Create a MediaQueryList with the appropriate media query
+    let mediaQueryString = '';
+    if (minWidthPx > 0 && maxWidthPx < Infinity) {
+      mediaQueryString = `(min-width: ${minWidthPx}px) and (max-width: ${maxWidthPx - 1}px)`;
+    } else if (minWidthPx > 0) {
+      mediaQueryString = `(min-width: ${minWidthPx}px)`;
+    } else if (maxWidthPx < Infinity) {
+      mediaQueryString = `(max-width: ${maxWidthPx - 1}px)`;
     }
     
-    // Use matchMedia for efficient event handling when possible
-    if (window.matchMedia) {
-      // Construct media query strings
-      const minWidthQuery = minWidth ? `(min-width: ${breakpoints[minWidth]}px)` : null;
-      const maxWidthQuery = maxWidth ? `(max-width: ${breakpoints[maxWidth] - 1}px)` : null;
-      
-      let mediaQuery: MediaQueryList | null = null;
-      
-      // Create the appropriate media query
-      if (minWidthQuery && maxWidthQuery) {
-        mediaQuery = window.matchMedia(`${minWidthQuery} and ${maxWidthQuery}`);
-      } else if (minWidthQuery) {
-        mediaQuery = window.matchMedia(minWidthQuery);
-      } else if (maxWidthQuery) {
-        mediaQuery = window.matchMedia(maxWidthQuery);
-      }
-      
-      if (mediaQuery) {
-        const handleChange = (e: MediaQueryListEvent | MediaQueryList) => {
-          setMatches(e.matches);
-        };
-        
-        // Use modern API with fallback
-        if (mediaQuery.addEventListener) {
-          mediaQuery.addEventListener('change', handleChange);
-          handleChange(mediaQuery); // Set initial value
-          return () => mediaQuery?.removeEventListener('change', handleChange);
-        } else if ('addListener' in mediaQuery) {
-          // Legacy support
-          mediaQuery.addListener(handleChange as any);
-          handleChange(mediaQuery); // Set initial value
-          return () => mediaQuery?.removeListener(handleChange as any);
-        }
-      }
+    // If no media query is needed, just check directly
+    if (!mediaQueryString) {
+      setMatches(true);
+      return;
     }
     
-    // Fallback to resize event with proper cleanup and RAF
-    let rafId: number | null = null;
-    const handleResize = () => {
-      if (rafId) {
-        cancelAnimationFrame(rafId);
-      }
-      
-      rafId = requestAnimationFrame(updateMatches);
-    };
+    const mediaQuery = window.matchMedia(mediaQueryString);
     
-    window.addEventListener('resize', handleResize, { passive: true });
+    // Set initial value
+    setMatches(mediaQuery.matches);
     
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      if (rafId) cancelAnimationFrame(rafId);
-    };
+    // Define handler for media query changes
+    const handleChange = () => setMatches(mediaQuery.matches);
+    
+    // Use modern addEventListener API with fallback
+    if (mediaQuery.addEventListener) {
+      mediaQuery.addEventListener('change', handleChange);
+      return () => mediaQuery.removeEventListener('change', handleChange);
+    } 
+    
+    // Legacy fallback for older browsers
+    mediaQuery.addListener(handleChange);
+    return () => mediaQuery.removeListener(handleChange);
   }, [minWidthPx, maxWidthPx]);
   
   return matches;
@@ -160,7 +125,7 @@ export function useViewportSize(debounceMs = 100) {
       height: window.innerHeight
     });
     
-    // Use ResizeObserver when available
+    // Use ResizeObserver when available (better performance)
     if (typeof ResizeObserver !== 'undefined') {
       const resizeObserver = new ResizeObserver(handleResize);
       resizeObserver.observe(document.documentElement);
@@ -194,6 +159,7 @@ export function useIsTouchDevice() {
   useEffect(() => {
     if (typeof window === 'undefined') return;
     
+    // More comprehensive touch detection
     const detectTouch = () => {
       const touchSupported = 
         'ontouchstart' in window || 
@@ -212,11 +178,11 @@ export function useIsTouchDevice() {
     if (mediaQuery.addEventListener) {
       mediaQuery.addEventListener('change', handleChange);
       return () => mediaQuery.removeEventListener('change', handleChange);
-    } else if ('addListener' in mediaQuery) {
-      // Legacy support
-      mediaQuery.addListener(handleChange);
-      return () => mediaQuery.removeListener(handleChange);
     }
+    
+    // Legacy fallback
+    mediaQuery.addListener(handleChange);
+    return () => mediaQuery.removeListener(handleChange);
   }, []);
   
   return isTouch;

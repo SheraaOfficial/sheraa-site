@@ -1,11 +1,12 @@
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useDevicePerformance } from "@/hooks/useDevicePerformance";
 
 interface ImageLoadOptions {
   crossOrigin?: 'anonymous' | 'use-credentials' | '';
   referrerPolicy?: string;
   priority?: boolean;
+  sizes?: string;
 }
 
 /**
@@ -24,12 +25,23 @@ export function useImageLoading(
     
     setStatus('loading');
     
+    // Track if component is still mounted
+    let isMounted = true;
+    
     const img = new Image();
     if (options.crossOrigin) img.crossOrigin = options.crossOrigin;
     if (options.referrerPolicy) img.referrerPolicy = options.referrerPolicy;
+    if (options.sizes) img.sizes = options.sizes;
     
-    const handleLoad = () => setStatus('success');
-    const handleError = () => setStatus('error');
+    const handleLoad = () => {
+      if (!isMounted) return;
+      setStatus('success');
+    };
+    
+    const handleError = () => {
+      if (!isMounted) return;
+      setStatus('error');
+    };
     
     // Use high priority loading if specified or device performance is high
     if ((options.priority || devicePerformance === 'high') && 'fetchPriority' in img) {
@@ -45,6 +57,7 @@ export function useImageLoading(
     } else {
       // For better devices, use decode() for smoother rendering if available
       img.onload = () => {
+        if (!isMounted) return;
         if ('decode' in img) {
           img.decode().then(handleLoad).catch(handleError);
         } else {
@@ -56,10 +69,11 @@ export function useImageLoading(
     }
     
     return () => {
+      isMounted = false;
       img.onload = null;
       img.onerror = null;
     };
-  }, [src, options.crossOrigin, options.referrerPolicy, options.priority, devicePerformance]);
+  }, [src, options.crossOrigin, options.referrerPolicy, options.priority, options.sizes, devicePerformance]);
   
   return {
     isLoading: status === 'loading',
@@ -70,12 +84,28 @@ export function useImageLoading(
 }
 
 /**
- * Enhanced hook to preload multiple images with performance awareness
+ * Enhanced hook to preload multiple images with performance awareness and loading indicators
  */
 export function usePreloadImages(imageSources: string[], priority: boolean = false) {
   const [loadedCount, setLoadedCount] = useState(0);
   const [errorCount, setErrorCount] = useState(0);
+  const [loadedImages, setLoadedImages] = useState<Record<string, boolean>>({});
   const devicePerformance = useDevicePerformance();
+  
+  // Callback to handle successful image loads
+  const handleImageLoad = useCallback((src: string) => {
+    setLoadedCount(prev => prev + 1);
+    setLoadedImages(prev => ({
+      ...prev,
+      [src]: true
+    }));
+  }, []);
+  
+  // Callback to handle image load errors
+  const handleImageError = useCallback((src: string) => {
+    setErrorCount(prev => prev + 1);
+    console.error(`Failed to preload image: ${src}`);
+  }, []);
   
   useEffect(() => {
     if (!imageSources.length || typeof window === 'undefined') return;
@@ -88,37 +118,95 @@ export function usePreloadImages(imageSources: string[], priority: boolean = fal
       ? imageSources.slice(0, Math.min(3, imageSources.length))
       : imageSources;
     
-    imagesToLoad.forEach(src => {
-      const img = new Image();
-      
-      // Set fetchPriority if supported and available
-      if ((priority || devicePerformance === 'high') && 'fetchPriority' in img) {
-        (img as any).fetchPriority = priority ? 'high' : 'auto';
-      }
-      
-      img.onload = () => {
-        if (!mounted) return;
-        setLoadedCount(count => count + 1);
-      };
-      
-      img.onerror = () => {
-        if (!mounted) return;
-        setErrorCount(count => count + 1);
-        console.error(`Failed to preload image: ${src}`);
-      };
-      
-      img.src = src;
-      images.push(img);
-    });
+    // Use intersection observer for smarter loading if available
+    const useIntersectionObserver = 'IntersectionObserver' in window && devicePerformance !== 'low';
     
-    return () => {
-      mounted = false;
-      images.forEach(img => {
-        img.onload = null;
-        img.onerror = null;
+    if (useIntersectionObserver) {
+      // Create a div to observe
+      const div = document.createElement('div');
+      div.style.position = 'absolute';
+      div.style.top = '0';
+      div.style.left = '0';
+      div.style.width = '1px';
+      div.style.height = '1px';
+      div.style.opacity = '0';
+      document.body.appendChild(div);
+      
+      const observer = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          // Start loading images when div is visible
+          imagesToLoad.forEach((src, index) => {
+            const img = new Image();
+            
+            if ((priority || devicePerformance === 'high') && 'fetchPriority' in img) {
+              (img as any).fetchPriority = priority ? 'high' : 'auto';
+            }
+            
+            img.onload = () => {
+              if (!mounted) return;
+              setTimeout(() => handleImageLoad(src), index * 50); // Stagger loading events
+            };
+            
+            img.onerror = () => {
+              if (!mounted) return;
+              handleImageError(src);
+            };
+            
+            img.src = src;
+            images.push(img);
+          });
+          
+          // Disconnect once started
+          observer.disconnect();
+          document.body.removeChild(div);
+        }
+      }, { threshold: 0.1 });
+      
+      observer.observe(div);
+      
+      return () => {
+        mounted = false;
+        observer.disconnect();
+        if (document.body.contains(div)) {
+          document.body.removeChild(div);
+        }
+        images.forEach(img => {
+          img.onload = null;
+          img.onerror = null;
+        });
+      };
+    } else {
+      // Fall back to direct loading
+      imagesToLoad.forEach(src => {
+        const img = new Image();
+        
+        if ((priority || devicePerformance === 'high') && 'fetchPriority' in img) {
+          (img as any).fetchPriority = priority ? 'high' : 'auto';
+        }
+        
+        img.onload = () => {
+          if (!mounted) return;
+          handleImageLoad(src);
+        };
+        
+        img.onerror = () => {
+          if (!mounted) return;
+          handleImageError(src);
+        };
+        
+        img.src = src;
+        images.push(img);
       });
-    };
-  }, [imageSources, priority, devicePerformance]);
+      
+      return () => {
+        mounted = false;
+        images.forEach(img => {
+          img.onload = null;
+          img.onerror = null;
+        });
+      };
+    }
+  }, [imageSources, priority, devicePerformance, handleImageLoad, handleImageError]);
   
   const totalImages = imageSources.length;
   const processedImages = loadedCount + errorCount;
@@ -130,6 +218,8 @@ export function usePreloadImages(imageSources: string[], priority: boolean = fal
     errorCount,
     progress,
     isComplete,
-    isPartiallyLoaded: loadedCount > 0
+    isPartiallyLoaded: loadedCount > 0,
+    loadedImages,
+    isImageLoaded: (src: string) => loadedImages[src] || false
   };
 }

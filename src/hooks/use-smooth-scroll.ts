@@ -1,52 +1,27 @@
 
-import { useEffect } from 'react';
-import { useIsMobile } from './use-mobile';
+import { useEffect } from "react";
 
-export const useSmoothScroll = () => {
-  const isMobile = useIsMobile();
-  
+/**
+ * Hook to enable/disable smooth scrolling behavior based on performance considerations
+ * @param enable Optional boolean to determine if smooth scrolling should be enabled (defaults to true)
+ */
+export function useSmoothScroll(enable?: boolean) {
   useEffect(() => {
-    if (isMobile) return; // Skip on mobile for performance
+    // Default to enabled if not specified
+    const shouldEnable = enable !== false;
     
-    let isScrolling = false;
-    let clickTimeout: number | null = null;
+    if (typeof document === 'undefined') return;
     
-    const handleAnchorClick = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      const closestAnchor = target.closest('a');
-      
-      if (closestAnchor && closestAnchor.getAttribute('href')?.startsWith('#')) {
-        if (isScrolling) return; // Prevent multiple rapid scrolls
-        
-        if (clickTimeout) clearTimeout(clickTimeout);
-        
-        clickTimeout = window.setTimeout(() => {
-          e.preventDefault();
-          isScrolling = true;
-          
-          const id = closestAnchor.getAttribute('href')?.substring(1);
-          const element = document.getElementById(id || '');
-          if (element) {
-            window.scrollTo({
-              top: element.offsetTop - 100,
-              behavior: 'smooth'
-            });
-            
-            // Reset scrolling flag after animation completes
-            setTimeout(() => {
-              isScrolling = false;
-            }, 1000);
-          } else {
-            isScrolling = false;
-          }
-        }, 50);
-      }
-    };
+    // Save the original scroll behavior to restore it when the component unmounts
+    const originalStyle = document.documentElement.style.scrollBehavior;
     
-    document.addEventListener('click', handleAnchorClick, { passive: false });
-    return () => {
-      document.removeEventListener('click', handleAnchorClick);
-      if (clickTimeout) clearTimeout(clickTimeout);
+    if (shouldEnable) {
+      document.documentElement.style.scrollBehavior = 'smooth';
     }
-  }, [isMobile]);
-};
+    
+    // Cleanup function to restore original scroll behavior
+    return () => {
+      document.documentElement.style.scrollBehavior = originalStyle;
+    };
+  }, [enable]);
+}
