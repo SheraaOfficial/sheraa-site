@@ -122,7 +122,7 @@ export function BeamsBackground({
   return <div className="bg-sheraa-primary/90">
       <canvas ref={canvasRef} style={{
       filter: "blur(15px)"
-    }} className="absolute inset-0 bg-violet-950" />
+    }} className="absolute inset-0 bg-sheraa-primary" />
       {children}
     </div>;
 }
