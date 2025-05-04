@@ -58,7 +58,7 @@ const UserProfile = () => {
             </TabsContent>
             
             <TabsContent value="activity">
-              <ActivitySection />
+              <ActivitySection userId={loggedInUser.id} />
             </TabsContent>
           </Tabs>
         </div>
