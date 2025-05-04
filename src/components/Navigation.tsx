@@ -23,7 +23,7 @@ const Navigation = () => {
     setIsMenuOpen(!isMenuOpen);
   };
   return <header className={`sheraa-navbar ${isSticky ? 'fixed top-0 left-0 w-full bg-white shadow-md z-[100] transition-all duration-300 animate-fade-in' : 'relative z-[100]'}`}>
-      <div className="container flex h-16 items-center px-4 sm:px-6 bg-stone-50">
+      <div className="container flex h-16 items-center sm:px-6 bg-stone-50 px-0 my-0">
         <div className="mr-4 flex items-center">
           <Link to="/" className="flex items-center">
             
