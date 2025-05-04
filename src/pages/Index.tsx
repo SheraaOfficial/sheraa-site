@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import MainLayout from "@/components/layouts/MainLayout";
 import { useOptimizedScroll } from "@/hooks/use-mobile";
 import { useBackgroundAnimation } from "@/hooks/use-background-animation";
@@ -9,8 +9,10 @@ import { useSmoothScroll } from "@/hooks/use-smooth-scroll";
 import ProgressBar from "@/components/ProgressBar";
 import { HeroSection } from "@/components/HeroSection";
 import { FirstPriorityComponents } from "@/components/sections/FirstPriorityComponents";
-import { SecondPriorityComponents } from "@/components/sections/SecondPriorityComponents";
-import { ThirdPriorityComponents } from "@/components/sections/ThirdPriorityComponents";
+
+// Lazy-loaded components
+const SecondPriorityComponents = lazy(() => import("@/components/sections/SecondPriorityComponents").then(module => ({ default: module.SecondPriorityComponents })));
+const ThirdPriorityComponents = lazy(() => import("@/components/sections/ThirdPriorityComponents").then(module => ({ default: module.ThirdPriorityComponents })));
 
 const Index = () => {
   const { scrollY } = useOptimizedScroll();
@@ -35,10 +37,18 @@ const Index = () => {
         <FirstPriorityComponents />
         
         {/* Second priority components - load after user interaction */}
-        {(firstInteraction) && <SecondPriorityComponents />}
+        {firstInteraction && (
+          <Suspense fallback={<div className="h-32 flex items-center justify-center">Loading...</div>}>
+            <SecondPriorityComponents />
+          </Suspense>
+        )}
         
         {/* Third priority components - load after deep scroll */}
-        {(deepScroll) && <ThirdPriorityComponents />}
+        {deepScroll && (
+          <Suspense fallback={<div className="h-32 flex items-center justify-center">Loading...</div>}>
+            <ThirdPriorityComponents />
+          </Suspense>
+        )}
       </div>
     </MainLayout>
   );

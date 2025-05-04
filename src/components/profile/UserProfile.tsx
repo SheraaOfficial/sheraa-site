@@ -8,11 +8,13 @@ import ProfileStats from "./ProfileStats";
 import PostsSection from "./PostsSection";
 import AboutSection from "./AboutSection";
 import ActivitySection from "./ActivitySection";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const UserProfile = () => {
   const navigate = useNavigate();
   const [loggedInUser, setLoggedInUser] = useLocalStorage<any | null>("loggedInUser", null);
   const [users, setUsers] = useLocalStorage<any[]>("users", []);
+  const isMobile = useIsMobile();
   
   if (!loggedInUser) {
     navigate("/login");
@@ -27,10 +29,10 @@ const UserProfile = () => {
   }
   
   return (
-    <div className="container mx-auto px-4 py-8 max-w-6xl">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <div className="container mx-auto px-4 py-4 md:py-8 max-w-6xl">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
         {/* Left Column - Profile Info */}
-        <div className="md:col-span-1 space-y-6">
+        <div className="md:col-span-1 space-y-4 md:space-y-6">
           <ProfileCard loggedInUser={loggedInUser} profile={profile} />
           
           <ProfileStats 
@@ -41,15 +43,15 @@ const UserProfile = () => {
         </div>
         
         {/* Right Column - Content */}
-        <div className="md:col-span-2 space-y-6">
+        <div className="md:col-span-2 space-y-4 md:space-y-6">
           <Tabs defaultValue="posts" className="w-full">
-            <TabsList className="grid grid-cols-3 mb-6">
+            <TabsList className={`grid grid-cols-3 ${isMobile ? 'mb-3' : 'mb-6'}`}>
               <TabsTrigger value="posts">Posts</TabsTrigger>
               <TabsTrigger value="about">About</TabsTrigger>
               <TabsTrigger value="activity">Activity</TabsTrigger>
             </TabsList>
             
-            <TabsContent value="posts" className="space-y-6">
+            <TabsContent value="posts" className="space-y-4 md:space-y-6">
               <PostsSection userId={loggedInUser.id} />
             </TabsContent>
             

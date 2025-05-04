@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Floating, { FloatingElement } from "@/components/ui/parallax-floating";
+import { useDevicePerformance } from "@/hooks/use-mobile";
+import { useOptimizedImage } from "@/hooks/use-optimized-image";
 
 // Replace with Sheraa uploaded images
 const sheraaImages = [
@@ -30,11 +32,15 @@ const sheraaImages = [
 export function FloatingImages() {
   const [loadedImages, setLoadedImages] = useState<boolean[]>(Array(sheraaImages.length).fill(false));
   const [isClient, setIsClient] = useState(false);
+  const devicePerformance = useDevicePerformance();
 
   // Only render on client-side
   useEffect(() => {
     setIsClient(true);
   }, []);
+
+  // Reduce the number of images based on device performance
+  const optimizedImages = devicePerformance === 'low' ? sheraaImages.slice(0, 3) : sheraaImages;
 
   const handleImageLoad = (index: number) => {
     const newLoadedImages = [...loadedImages];
@@ -42,28 +48,39 @@ export function FloatingImages() {
     setLoadedImages(newLoadedImages);
   };
 
+  // Don't render anything on server-side
   if (!isClient) return null;
 
   return (
-    <Floating sensitivity={-0.5} className="h-full w-full absolute inset-0">
-      {sheraaImages.map((image, index) => (
-        <FloatingElement
-          key={image.title}
-          depth={index === 0 || index === 4 ? 0.5 : index === 1 || index === 3 ? 1 : 4}
-          className={getPositionClass(index)}
-        >
-          <motion.img
-            src={image.url}
-            alt={image.title}
-            className={`${getSizeClass(index)} object-cover hover:scale-105 duration-200 cursor-pointer transition-transform ${getRotationClass(index)} shadow-2xl rounded-xl ${loadedImages[index] ? 'opacity-100' : 'opacity-0'}`}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: loadedImages[index] ? 1 : 0 }}
-            transition={{ delay: 0.1 * index }}
-            loading="lazy"
-            onLoad={() => handleImageLoad(index)}
-          />
-        </FloatingElement>
-      ))}
+    <Floating 
+      sensitivity={devicePerformance === 'low' ? -0.2 : -0.5} 
+      className="h-full w-full absolute inset-0"
+    >
+      {optimizedImages.map((image, index) => {
+        // Use the optimized image hook
+        const { src, loading } = useOptimizedImage({
+          src: image.url,
+        });
+        
+        return (
+          <FloatingElement
+            key={image.title}
+            depth={index === 0 || index === 4 ? 0.5 : index === 1 || index === 3 ? 1 : 4}
+            className={getPositionClass(index)}
+          >
+            <motion.img
+              src={src}
+              alt={image.title}
+              className={`${getSizeClass(index)} object-cover hover:scale-105 duration-200 cursor-pointer transition-transform ${getRotationClass(index)} shadow-2xl rounded-xl ${loadedImages[index] ? 'opacity-100' : 'opacity-0'}`}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: loadedImages[index] ? 1 : 0 }}
+              transition={{ delay: 0.1 * index }}
+              loading="lazy"
+              onLoad={() => handleImageLoad(index)}
+            />
+          </FloatingElement>
+        );
+      })}
     </Floating>
   );
 }

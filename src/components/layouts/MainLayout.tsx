@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import ScrollProgressIndicator from "@/components/ScrollProgressIndicator";
 import { WelcomeAnimation } from "@/components/ui/welcome-animation";
 import { Toaster } from "@/components/ui/toaster";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -15,6 +16,8 @@ const MainLayout: React.FC<MainLayoutProps> = ({
   children,
   backgroundStyle
 }) => {
+  const isMobile = useIsMobile();
+  
   return (
     <div className="min-h-screen flex flex-col bg-white relative overflow-x-hidden perspective-1000">
       <ScrollProgressIndicator />
@@ -25,7 +28,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
       {/* Background with style passed from parent */}
       <div className="fixed inset-0 pointer-events-none z-0" style={backgroundStyle} />
       
-      <main className="flex-grow pt-16 relative z-10 bg-[sheraa-background-soft] bg-sheraa-light">
+      <main className={`flex-grow ${isMobile ? 'pt-14' : 'pt-16'} relative z-10 bg-sheraa-light`}>
         <div className="relative">
           {children}
         </div>

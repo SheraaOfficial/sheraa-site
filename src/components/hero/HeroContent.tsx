@@ -1,3 +1,4 @@
+
 import React from "react";
 import { motion, LayoutGroup } from "framer-motion";
 import { Link } from "react-router-dom";
@@ -5,29 +6,32 @@ import { Button } from "@/components/ui/button";
 import { GradientButton } from "@/components/ui/gradient-button";
 import { TextRotate } from "@/components/ui/text-rotate";
 import { Badge } from "@/components/ui/badge";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 export function HeroContent() {
+  const isMobile = useIsMobile();
+
   return (
-    <div className="flex flex-col justify-center items-center w-[250px] sm:w-[300px] md:w-[500px] lg:w-[700px] z-50 pointer-events-auto mx-auto">
+    <div className="flex flex-col justify-center items-center w-[90%] sm:w-[300px] md:w-[500px] lg:w-[700px] z-50 pointer-events-auto mx-auto">
       {/* Festival Badge */}
       <motion.div
-        className="mb-6" 
+        className="mb-4 sm:mb-6" 
         animate={{ opacity: 1, y: 0 }}
         initial={{ opacity: 0, y: -20 }}
         transition={{ duration: 0.3, ease: "easeOut", delay: 0.2 }}
       >
         <Badge 
           variant="gradient-warm" 
-          size="lg" 
+          size={isMobile ? "default" : "lg"} 
           animation="float" 
-          className="py-1.5 px-4 text-sm"
+          className="py-1 sm:py-1.5 px-3 sm:px-4 text-xs sm:text-sm"
         >
           Sharjah Entrepreneurship Center
         </Badge>
       </motion.div>
       
       <motion.h1
-        className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl text-center w-full justify-center items-center flex-col flex whitespace-pre leading-tight font-bold tracking-tight space-y-1 md:space-y-4"
+        className="text-2xl sm:text-3xl md:text-5xl lg:text-7xl xl:text-8xl text-center w-full justify-center items-center flex-col flex whitespace-pre leading-tight font-bold tracking-tight space-y-1 md:space-y-4"
         animate={{ opacity: 1, y: 0 }}
         initial={{ opacity: 0, y: 20 }}
         transition={{ duration: 0.2, ease: "easeOut", delay: 0.3 }}
@@ -68,7 +72,7 @@ export function HeroContent() {
       </motion.h1>
       
       <motion.p
-        className="text-sm sm:text-lg md:text-xl lg:text-2xl text-center pt-4 sm:pt-8 md:pt-10 lg:pt-12"
+        className="text-xs sm:text-sm md:text-lg lg:text-xl xl:text-2xl text-center pt-3 sm:pt-4 md:pt-6 lg:pt-8 px-4"
         animate={{ opacity: 1, y: 0 }}
         initial={{ opacity: 0, y: 20 }}
         transition={{ duration: 0.2, ease: "easeOut", delay: 0.5 }}
@@ -82,8 +86,10 @@ export function HeroContent() {
 }
 
 function HeroCTA() {
+  const isMobile = useIsMobile();
+  
   return (
-    <div className="flex flex-row justify-center space-x-4 items-center mt-10 sm:mt-16">
+    <div className={`flex ${isMobile ? 'flex-col' : 'flex-row'} justify-center ${isMobile ? 'space-y-3' : 'space-x-4'} items-center mt-6 sm:mt-10`}>
       <motion.div
         animate={{ opacity: 1, y: 0 }}
         initial={{ opacity: 0, y: 20 }}
@@ -97,8 +103,9 @@ function HeroCTA() {
           scale: 1.05,
           transition: { type: "spring", damping: 30, stiffness: 400 },
         }}
+        className="w-full sm:w-auto"
       >
-        <GradientButton asChild>
+        <GradientButton asChild className="w-full sm:w-auto">
           <Link to="/programs">Launch Your Startup</Link>
         </GradientButton>
       </motion.div>
@@ -116,8 +123,9 @@ function HeroCTA() {
           scale: 1.05,
           transition: { type: "spring", damping: 30, stiffness: 400 },
         }}
+        className="w-full sm:w-auto"
       >
-        <Button variant="outline" asChild>
+        <Button variant="outline" asChild className="w-full sm:w-auto">
           <Link to="/community">Join Our Community</Link>
         </Button>
       </motion.div>
