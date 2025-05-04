@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import { motion } from "framer-motion";
 import Floating, { FloatingElement } from "@/components/ui/parallax-floating";
 import { useDevicePerformance } from "@/hooks/use-mobile";
@@ -32,7 +32,14 @@ export function FloatingImages() {
   const [loadedImages, setLoadedImages] = useState<boolean[]>(Array(sheraaImages.length).fill(false));
   const [isClient, setIsClient] = useState(false);
   const devicePerformance = useDevicePerformance();
+  
+  // Optimize for performance by using a ref instead of state for image references
   const imageRefs = useRef<Array<{ src: string; loading: boolean }>>([]);
+  
+  // Memoize optimized images to prevent unnecessary re-renders
+  const optimizedImages = useMemo(() => {
+    return devicePerformance === 'low' ? sheraaImages.slice(0, 3) : sheraaImages;
+  }, [devicePerformance]);
 
   // Only render on client-side
   useEffect(() => {
@@ -43,9 +50,6 @@ export function FloatingImages() {
       loading: true
     }));
   }, []);
-
-  // Reduce the number of images based on device performance
-  const optimizedImages = devicePerformance === 'low' ? sheraaImages.slice(0, 3) : sheraaImages;
 
   const handleImageLoad = (index: number) => {
     const newLoadedImages = [...loadedImages];
@@ -62,7 +66,6 @@ export function FloatingImages() {
       className="h-full w-full absolute inset-0"
     >
       {optimizedImages.map((image, index) => {
-        // Use the precomputed image src from refs instead of a hook
         return (
           <FloatingElement
             key={image.title}
@@ -70,7 +73,7 @@ export function FloatingImages() {
             className={getPositionClass(index)}
           >
             <motion.img
-              src={image.url} // Directly use the image URL
+              src={image.url} 
               alt={image.title}
               className={`${getSizeClass(index)} object-cover hover:scale-105 duration-200 cursor-pointer transition-transform ${getRotationClass(index)} shadow-2xl rounded-xl ${loadedImages[index] ? 'opacity-100' : 'opacity-0'}`}
               initial={{ opacity: 0 }}

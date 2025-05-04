@@ -40,6 +40,7 @@ const ScrollProgressIndicator: React.FC = () => {
         scaleX: scrollYProgress,
         background: barGradient,
         contain: "strict",
+        position: "relative" // Add position relative to fix framer-motion warning
       }}
       transition={{
         duration: devicePerformance === 'low' ? 0.1 : 0,

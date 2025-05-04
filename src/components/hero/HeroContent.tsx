@@ -31,7 +31,7 @@ export function HeroContent() {
       </motion.div>
       
       <motion.h1
-        className="text-2xl sm:text-3xl md:text-5xl lg:text-7xl xl:text-8xl text-center w-full justify-center items-center flex-col flex whitespace-pre leading-tight font-bold tracking-tight space-y-1 md:space-y-4"
+        className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl text-center w-full justify-center items-center flex-col flex whitespace-pre leading-tight font-bold tracking-tight space-y-1 md:space-y-3"
         animate={{ opacity: 1, y: 0 }}
         initial={{ opacity: 0, y: 20 }}
         transition={{ duration: 0.2, ease: "easeOut", delay: 0.3 }}
@@ -61,7 +61,7 @@ export function HeroContent() {
                 "unique",
                 "thrive ✨",
               ]}
-              mainClassName="overflow-hidden pr-3 text-sheraa-primary py-0 pb-2 md:pb-4 rounded-xl"
+              mainClassName="overflow-hidden pr-3 text-sheraa-primary py-0 pb-2 md:pb-3 rounded-xl"
               staggerDuration={0.03}
               staggerFrom="last"
               rotationInterval={3000}
@@ -72,7 +72,7 @@ export function HeroContent() {
       </motion.h1>
       
       <motion.p
-        className="text-xs sm:text-sm md:text-lg lg:text-xl xl:text-2xl text-center pt-3 sm:pt-4 md:pt-6 lg:pt-8 px-4"
+        className="text-xs sm:text-sm md:text-lg lg:text-xl xl:text-2xl text-center pt-3 sm:pt-4 md:pt-6 lg:pt-6 px-4 max-w-2xl mx-auto"
         animate={{ opacity: 1, y: 0 }}
         initial={{ opacity: 0, y: 20 }}
         transition={{ duration: 0.2, ease: "easeOut", delay: 0.5 }}
@@ -89,7 +89,7 @@ function HeroCTA() {
   const isMobile = useIsMobile();
   
   return (
-    <div className={`flex ${isMobile ? 'flex-col' : 'flex-row'} justify-center ${isMobile ? 'space-y-3' : 'space-x-4'} items-center mt-6 sm:mt-10`}>
+    <div className={`flex ${isMobile ? 'flex-col w-full sm:w-auto' : 'flex-row'} justify-center ${isMobile ? 'space-y-3' : 'space-x-4'} items-center mt-6 sm:mt-8`}>
       <motion.div
         animate={{ opacity: 1, y: 0 }}
         initial={{ opacity: 0, y: 20 }}

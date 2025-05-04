@@ -19,7 +19,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
   const isMobile = useIsMobile();
   
   return (
-    <div className="min-h-screen flex flex-col bg-white relative overflow-x-hidden perspective-1000">
+    <div className="min-h-screen flex flex-col bg-white relative overflow-x-hidden perspective-1000" style={{ position: "relative" }}>
       <ScrollProgressIndicator />
       <div className="relative z-[100]">
         <Navigation />
@@ -28,7 +28,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
       {/* Background with style passed from parent */}
       <div className="fixed inset-0 pointer-events-none z-0" style={backgroundStyle} />
       
-      <main className={`flex-grow ${isMobile ? 'pt-14' : 'pt-16'} relative z-10 bg-sheraa-light`}>
+      <main className={`flex-grow ${isMobile ? 'pt-14' : 'pt-16'} relative z-10 bg-sheraa-light`} style={{ position: "relative" }}>
         <div className="relative">
           {children}
         </div>
