@@ -1,9 +1,8 @@
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import Floating, { FloatingElement } from "@/components/ui/parallax-floating";
 import { useDevicePerformance } from "@/hooks/use-mobile";
-import { useOptimizedImage } from "@/hooks/use-optimized-image";
 
 // Replace with Sheraa uploaded images
 const sheraaImages = [
@@ -33,10 +32,16 @@ export function FloatingImages() {
   const [loadedImages, setLoadedImages] = useState<boolean[]>(Array(sheraaImages.length).fill(false));
   const [isClient, setIsClient] = useState(false);
   const devicePerformance = useDevicePerformance();
+  const imageRefs = useRef<Array<{ src: string; loading: boolean }>>([]);
 
   // Only render on client-side
   useEffect(() => {
     setIsClient(true);
+    // Initialize image refs with default values
+    imageRefs.current = sheraaImages.map(image => ({
+      src: image.url,
+      loading: true
+    }));
   }, []);
 
   // Reduce the number of images based on device performance
@@ -57,11 +62,7 @@ export function FloatingImages() {
       className="h-full w-full absolute inset-0"
     >
       {optimizedImages.map((image, index) => {
-        // Use the optimized image hook
-        const { src, loading } = useOptimizedImage({
-          src: image.url,
-        });
-        
+        // Use the precomputed image src from refs instead of a hook
         return (
           <FloatingElement
             key={image.title}
@@ -69,7 +70,7 @@ export function FloatingImages() {
             className={getPositionClass(index)}
           >
             <motion.img
-              src={src}
+              src={image.url} // Directly use the image URL
               alt={image.title}
               className={`${getSizeClass(index)} object-cover hover:scale-105 duration-200 cursor-pointer transition-transform ${getRotationClass(index)} shadow-2xl rounded-xl ${loadedImages[index] ? 'opacity-100' : 'opacity-0'}`}
               initial={{ opacity: 0 }}
