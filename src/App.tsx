@@ -36,6 +36,14 @@ import SEFWhoShouldAttendPage from "./pages/events/sef/SEFWhoShouldAttendPage";
 import SEFBePartPage from "./pages/events/sef/SEFBePartPage";
 import SEFFAQPage from "./pages/events/sef/SEFFAQPage";
 
+// Auth & Profile pages
+import LoginPage from "./pages/auth/LoginPage";
+import SignupPage from "./pages/auth/SignupPage";
+import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
+import ProfilePage from "./pages/profile/ProfilePage";
+import ProfileSetupPage from "./pages/profile/ProfileSetupPage";
+import FeedPage from "./pages/feed/FeedPage";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -47,6 +55,14 @@ const App = () => (
         <ScrollToTop />
         <Routes>
           <Route path="/" element={<Index />} />
+          
+          {/* Auth Routes */}
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignupPage />} />
+          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/profile-setup" element={<ProfileSetupPage />} />
+          <Route path="/feed" element={<FeedPage />} />
           
           {/* About Routes */}
           <Route path="/about" element={<AboutPage />} />
