@@ -6,7 +6,7 @@ import { Heart, MessageSquare, Share, Bookmark } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 
 interface PostsListProps {
-  userId?: string; // Optional: to filter posts by user
+  userId?: string | number; // Updated to accept both string and number
 }
 
 const PostsList: React.FC<PostsListProps> = ({ userId }) => {
