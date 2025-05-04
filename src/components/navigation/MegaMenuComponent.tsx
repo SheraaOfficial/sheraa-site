@@ -28,7 +28,7 @@ const MegaMenuComponent: React.FC<MegaMenuProps> = ({ title, icon: Icon, links }
         </div>
       </NavigationMenuTrigger>
       <NavigationMenuContent>
-        <ul className="grid w-[400px] gap-2 p-4 md:grid-cols-1 bg-white/95 backdrop-blur-sm">
+        <ul className="grid w-[400px] gap-2 p-4 md:grid-cols-1">
           {links.map((link) => (
             <ListItem
               key={link.title}

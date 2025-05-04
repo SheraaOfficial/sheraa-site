@@ -53,7 +53,7 @@ const DesktopNavigation: React.FC<DesktopNavigationProps> = ({
         <Button variant="outline" size="sm">
           Login
         </Button>
-        <GradientButton size="sm" className="mr-2">
+        <GradientButton size="sm">
           Get Started
         </GradientButton>
       </div>
