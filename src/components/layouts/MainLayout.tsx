@@ -3,7 +3,6 @@ import React from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import ScrollProgressIndicator from "@/components/ScrollProgressIndicator";
-import WelcomeAnimation from "@/components/WelcomeAnimation";
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -29,9 +28,6 @@ const MainLayout: React.FC<MainLayoutProps> = ({
       </main>
       
       <Footer />
-      
-      {/* Welcome animation for first-time visitors */}
-      <WelcomeAnimation />
     </div>
   );
 };
