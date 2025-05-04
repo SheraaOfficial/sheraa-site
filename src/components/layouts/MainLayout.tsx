@@ -1,3 +1,4 @@
+
 import React from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -13,12 +14,13 @@ const MainLayout: React.FC<MainLayoutProps> = ({
   return <div className="min-h-screen flex flex-col bg-white relative overflow-x-hidden perspective-1000">
       <ScrollProgressIndicator />
       <Navigation />
-       {/* Spacer for navigation height */}
+      {/* Spacer for navigation height */}
+      <div className="h-16"></div>
       
       {/* Background with style passed from parent */}
       <div className="fixed inset-0 pointer-events-none z-0" style={backgroundStyle} />
       
-      <main className="flex-grow pt-12 relative z-10 bg-[sheraa-background-soft] bg-sheraa-light">
+      <main className="flex-grow pt-6 relative z-10 bg-[sheraa-background-soft] bg-sheraa-light">
         {children}
       </main>
       
