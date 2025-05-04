@@ -36,6 +36,7 @@ export const ConfettiExplosion = ({
       gravity={0.2}
       initialVelocityX={{ min: -spreadRadius, max: spreadRadius }}
       initialVelocityY={{ min: -spreadRadius, max: spreadRadius }}
+      colors={['#FF5733', '#33FF57', '#3357FF', '#F3FF33', '#FF33F3']} // Colorful confetti
     />
   );
 };
