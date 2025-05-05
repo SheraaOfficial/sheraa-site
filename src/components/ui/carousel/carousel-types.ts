@@ -1,6 +1,5 @@
 
 import type { UseEmblaCarouselType } from "embla-carousel-react";
-import type { EmblaCarouselType } from "embla-carousel";
 
 export type CarouselApi = UseEmblaCarouselType[1];
 export type UseCarouselParameters = Parameters<typeof import("embla-carousel-react").default>;

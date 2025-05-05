@@ -1,6 +1,6 @@
 
 import * as React from "react";
-import useEmblaCarousel, { EmblaCarouselType } from "embla-carousel-react";
+import useEmblaCarousel, { UseEmblaCarouselType } from "embla-carousel-react";
 import { cn } from "@/lib/utils";
 import { CarouselContext } from "./carousel-context";
 import { CarouselProps } from "./carousel-types";
@@ -82,9 +82,10 @@ const Carousel = React.forwardRef<
     
     // Sync the embla ref with our React ref
     React.useEffect(() => {
-      if (carouselRef && carouselRef.current) {
+      if (carouselRef && typeof carouselRef === 'object') {
         // Store the Embla viewport element in our React ref
-        reactCarouselRef.current = carouselRef.current;
+        // safe assignment - carouselRef might be a function or object
+        reactCarouselRef.current = carouselRef as unknown as HTMLDivElement;
       }
     }, [carouselRef]);
 
