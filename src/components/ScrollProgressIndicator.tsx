@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState, useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, EasingFunction } from "framer-motion";
 import { useIsMobile } from "@/hooks/useDeviceDetection";
 import { useDevicePerformance } from "@/hooks/useDevicePerformance";
 import { cn } from "@/lib/utils";  // Import cn function
@@ -68,11 +68,18 @@ const ScrollProgressIndicator: React.FC<ScrollProgressIndicatorProps> = ({
   }, [threshold, showOnlyWhenScrolling]);
 
   // Transform scroll progress for smoother animation on high-performance devices
+  // Fixed: Use proper easing function instead of string
   const transformedProgress = useTransform(
     scrollYProgress,
     [0, 1],
     [0, 1],
-    { ease: devicePerformance === 'low' ? undefined : 'easeOut' as any }  // Fixed: Type casting to any
+    { 
+      // Only apply easing on medium/high performance devices, and use proper format
+      ease: devicePerformance === 'low' ? undefined : (t: number) => {
+        // Simple easeOut function
+        return 1 - Math.pow(1 - t, 2);
+      }
+    }
   );
 
   // Simplify effects for low-performance devices
