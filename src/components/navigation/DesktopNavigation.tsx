@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { memo } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { GradientButton } from "@/components/ui/gradient-button";
@@ -21,13 +21,12 @@ interface DesktopNavigationProps {
   applyLinks: { title: string; href: string; description?: string }[];
 }
 
-const DesktopNavigation: React.FC<DesktopNavigationProps> = ({
+const DesktopNavigation: React.FC<DesktopNavigationProps> = memo(({
   homeLinks,
   discoverLinks,
   growLinks,
   communityLinks,
   insightsLinks,
-  applyLinks,
 }) => {
   return (
     <div className="hidden md:flex md:flex-1 md:items-center md:justify-between">
@@ -39,9 +38,13 @@ const DesktopNavigation: React.FC<DesktopNavigationProps> = ({
           <MegaMenuComponent title="Community" icon={Users} links={communityLinks} />
           <MegaMenuComponent title="Insights" icon={Info} links={insightsLinks} />
           <NavigationMenuItem>
-            <Link to="/eligibility" className={navigationMenuTriggerStyle()}>
+            <Link 
+              to="/eligibility" 
+              className={navigationMenuTriggerStyle()}
+              aria-label="Apply to Sheraa programs"
+            >
               <div className="flex items-center gap-2">
-                <ArrowRight className="h-4 w-4" />
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
                 <span>Apply</span>
               </div>
             </Link>
@@ -50,15 +53,17 @@ const DesktopNavigation: React.FC<DesktopNavigationProps> = ({
       </NavigationMenu>
 
       <div className="flex items-center gap-2">
-        <Button variant="outline" size="sm">
-          Login
+        <Button variant="outline" size="sm" asChild>
+          <Link to="/login">Login</Link>
         </Button>
-        <GradientButton size="sm">
-          Get Started
+        <GradientButton size="sm" asChild>
+          <Link to="/signup">Get Started</Link>
         </GradientButton>
       </div>
     </div>
   );
-};
+});
+
+DesktopNavigation.displayName = "DesktopNavigation";
 
 export default DesktopNavigation;

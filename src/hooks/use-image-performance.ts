@@ -33,24 +33,26 @@ export function useImageLoading(
     if (options.referrerPolicy) img.referrerPolicy = options.referrerPolicy;
     if (options.sizes) img.sizes = options.sizes;
     
-    const handleLoad = () => {
-      if (!isMounted) return;
-      setStatus('success');
-    };
-    
-    const handleError = () => {
-      if (!isMounted) return;
-      setStatus('error');
-    };
-    
     // Use high priority loading if specified or device performance is high
     if ((options.priority || devicePerformance === 'high') && 'fetchPriority' in img) {
       (img as any).fetchPriority = options.priority ? 'high' : 'auto';
     }
     
+    // Handle loading completion
+    const handleLoad = () => {
+      if (!isMounted) return;
+      // Use a small delay to improve perceived smoothness when transitioning images
+      setTimeout(() => setStatus('success'), devicePerformance === 'low' ? 0 : 10);
+    };
+    
+    const handleError = () => {
+      if (!isMounted) return;
+      setStatus('error');
+      console.warn(`Failed to load image: ${src}`);
+    };
+    
     // On low-performance devices, use a simple image loading approach
     if (devicePerformance === 'low' && !options.priority) {
-      // For low-performance devices, we use a simpler approach
       img.onload = handleLoad;
       img.onerror = handleError;
       img.src = src;

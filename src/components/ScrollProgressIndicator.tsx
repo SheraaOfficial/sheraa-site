@@ -1,24 +1,30 @@
 
 import React, { useEffect, useState, useRef } from "react";
-import { motion, useScroll } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useIsMobile } from "@/hooks/useDeviceDetection";
 import { useDevicePerformance } from "@/hooks/useDevicePerformance";
-import { useOptimizedScroll } from "@/hooks/useOptimizedScroll";
 
 interface ScrollProgressIndicatorProps {
   className?: string;
   threshold?: number;
+  color?: string;
+  height?: number;
+  showOnlyWhenScrolling?: boolean;
 }
 
 const ScrollProgressIndicator: React.FC<ScrollProgressIndicatorProps> = ({ 
   className,
-  threshold = 50
+  threshold = 50,
+  color,
+  height = 4,
+  showOnlyWhenScrolling = false,
 }) => {
   const { scrollYProgress } = useScroll();
-  const { isScrolling } = useOptimizedScroll();
   const [showProgress, setShowProgress] = useState(false);
+  const [isScrolling, setIsScrolling] = useState(false);
   const isMobile = useIsMobile();
   const devicePerformance = useDevicePerformance();
+  const scrollTimeout = useRef<NodeJS.Timeout | null>(null);
   const rafId = useRef<number | null>(null);
   
   // Optimize scroll event listener with requestAnimationFrame
@@ -28,6 +34,20 @@ const ScrollProgressIndicator: React.FC<ScrollProgressIndicatorProps> = ({
       
       rafId.current = requestAnimationFrame(() => {
         setShowProgress(window.scrollY > threshold);
+        setIsScrolling(true);
+        
+        // Clear previous timeout
+        if (scrollTimeout.current) {
+          clearTimeout(scrollTimeout.current);
+        }
+        
+        // Set a new timeout to track when scrolling stops
+        if (showOnlyWhenScrolling) {
+          scrollTimeout.current = setTimeout(() => {
+            setIsScrolling(false);
+          }, 1000); // Hide after 1 second of inactivity
+        }
+        
         rafId.current = null;
       });
     };
@@ -40,24 +60,38 @@ const ScrollProgressIndicator: React.FC<ScrollProgressIndicatorProps> = ({
       if (rafId.current) {
         cancelAnimationFrame(rafId.current);
       }
+      if (scrollTimeout.current) {
+        clearTimeout(scrollTimeout.current);
+      }
     };
-  }, [threshold]);
+  }, [threshold, showOnlyWhenScrolling]);
 
-  // Simplified gradient and effects for low-performance devices
-  const barGradient = devicePerformance === 'low'
+  // Transform scroll progress for smoother animation on high-performance devices
+  const transformedProgress = useTransform(
+    scrollYProgress,
+    [0, 1],
+    [0, 1],
+    { ease: devicePerformance === 'low' ? undefined : 'easeOut' }
+  );
+
+  // Simplify effects for low-performance devices
+  const barColor = color || (devicePerformance === 'low'
     ? "#003366"
-    : "linear-gradient(90deg, #003366 0%, #008080 50%, #FF6600 100%)";
+    : "linear-gradient(90deg, #003366 0%, #008080 50%, #FF6600 100%)");
 
   return (
     <motion.div
-      className={`fixed top-0 left-0 right-0 h-1 z-[100] origin-left will-change-transform ${
-        showProgress ? "opacity-100" : "opacity-0"
-      } transition-opacity duration-300 ${className || ''}`}
+      className={cn(
+        `fixed top-0 left-0 right-0 z-[100] origin-left will-change-transform`,
+        showProgress && (!showOnlyWhenScrolling || isScrolling) ? "opacity-100" : "opacity-0",
+        "transition-opacity duration-300",
+        className
+      )}
       style={{
-        scaleX: scrollYProgress,
-        background: barGradient,
-        contain: "strict",
-        position: "relative"
+        scaleX: transformedProgress,
+        background: barColor,
+        height: `${height}px`,
+        transformOrigin: "left",
       }}
       transition={{
         duration: devicePerformance === 'low' ? 0.1 : 0,
@@ -67,3 +101,4 @@ const ScrollProgressIndicator: React.FC<ScrollProgressIndicatorProps> = ({
 };
 
 export default ScrollProgressIndicator;
+

@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useOptimizedImage } from '@/hooks/use-optimized-image';
 import { cn } from '@/lib/utils';
 import { Skeleton } from '@/components/ui/skeleton';
+import { useDevicePerformance } from '@/hooks/useDevicePerformance';
 
 interface OptimizedImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   src: string;
@@ -15,6 +16,9 @@ interface OptimizedImageProps extends React.ImgHTMLAttributes<HTMLImageElement> 
   loading?: 'lazy' | 'eager';
   fallback?: React.ReactNode;
   showSkeleton?: boolean;
+  fadeIn?: boolean;
+  onLoad?: () => void;
+  onError?: () => void;
 }
 
 export function OptimizedImage({
@@ -28,13 +32,19 @@ export function OptimizedImage({
   loading = 'lazy',
   fallback,
   showSkeleton = true,
+  fadeIn = true,
+  onLoad,
+  onError,
   ...props
 }: OptimizedImageProps) {
+  const devicePerformance = useDevicePerformance();
   const { src: optimizedSrc, loading: isLoading, error } = useOptimizedImage({
     src,
     lowQualitySrc,
     priority,
     sizes: props.sizes,
+    onLoad,
+    onError
   });
 
   // Determine container style based on aspect ratio
@@ -49,6 +59,9 @@ export function OptimizedImage({
     return <>{fallback}</>;
   }
 
+  // Optimize skeleton animation for lower-end devices
+  const shouldAnimate = devicePerformance !== 'low';
+
   return (
     <div 
       className={cn("relative overflow-hidden", containerClassName)} 
@@ -57,6 +70,8 @@ export function OptimizedImage({
       {(isLoading && showSkeleton) && (
         <Skeleton 
           className={cn("absolute inset-0 w-full h-full", className)} 
+          // Disable animation on low-end devices
+          style={{ animation: shouldAnimate ? undefined : 'none' }}
         />
       )}
       
@@ -65,10 +80,13 @@ export function OptimizedImage({
         alt={alt}
         loading={priority ? 'eager' : loading}
         className={cn(
-          "transition-opacity duration-300", 
+          "will-change-opacity", 
+          fadeIn ? "transition-opacity duration-300" : "",
           isLoading ? "opacity-0" : "opacity-100",
           className
         )}
+        // Add decoding attribute for better performance
+        decoding={priority ? "sync" : "async"}
         {...props}
       />
     </div>
