@@ -85,7 +85,7 @@ export function HeroContent() {
         </LayoutGroup>
       </motion.h1>
       
-      <motion.p className="text-xs sm:text-sm md:text-lg lg:text-xl xl:text-2xl text-center pt-3 sm:pt-4 md:pt-6 lg:pt-6 px-4 max-w-2xl mx-auto" initial={descriptionVariants.initial} animate={descriptionVariants.animate} transition={descriptionVariants.transition}>
+      <motion.p initial={descriptionVariants.initial} animate={descriptionVariants.animate} transition={descriptionVariants.transition} className="text-xs sm:text-sm md:text-lg xl:text-2xl text-center pt-3 sm:pt-4 md:pt-6 lg:pt-6 max-w-2xl mx-auto font-medium text-sheraa-primary py-[18px] px-[130px] lg:text-sm">
         Sharjah's official hub for aspiring founders and established ventures. We empower changemakers to build impactful businesses and shape the future.
       </motion.p>
 
