@@ -46,7 +46,7 @@ function useCarousel() {
 }
 
 // Utility function for handling carousel selection
-const useCarouselSelection = (
+export const useCarouselSelection = (
   api: CarouselApi, 
   setCanScrollPrev: React.Dispatch<React.SetStateAction<boolean>>,
   setCanScrollNext: React.Dispatch<React.SetStateAction<boolean>>,
@@ -68,7 +68,7 @@ const useCarouselSelection = (
 };
 
 // Utility function for carousel keyboard navigation
-const useCarouselKeyboardNavigation = (
+export const useCarouselKeyboardNavigation = (
   scrollPrev: () => void,
   scrollNext: () => void
 ) => {
@@ -182,7 +182,7 @@ const Carousel = React.forwardRef<
 Carousel.displayName = "Carousel"
 
 // Helper function to get orientation class name
-const getOrientationClass = (orientation: "horizontal" | "vertical", isItem = false) => {
+export const getOrientationClass = (orientation: "horizontal" | "vertical", isItem = false) => {
   if (isItem) {
     return orientation === "horizontal" ? "pl-4" : "pt-4"
   }
@@ -236,7 +236,7 @@ const CarouselItem = React.forwardRef<
 CarouselItem.displayName = "CarouselItem"
 
 // Helper function for positioning navigation buttons
-const getNavigationButtonPosition = (
+export const getNavigationButtonPosition = (
   orientation: "horizontal" | "vertical",
   isNext = false
 ) => {
