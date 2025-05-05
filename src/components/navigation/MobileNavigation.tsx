@@ -77,11 +77,11 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({
             </Link>
           </div>
           <div className="pt-4 space-y-2">
-            <Button variant="outline" className="w-full">
-              Login
+            <Button variant="outline" className="w-full" asChild>
+              <Link to="/login" onClick={() => setIsMenuOpen(false)}>Login</Link>
             </Button>
-            <Button className="w-full bg-sheraa-primary hover:bg-sheraa-primary/90">
-              Get Started
+            <Button className="w-full bg-sheraa-primary hover:bg-sheraa-primary/90" asChild>
+              <Link to="/signup" onClick={() => setIsMenuOpen(false)}>Get Started</Link>
             </Button>
           </div>
         </div>
