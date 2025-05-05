@@ -30,7 +30,7 @@ const WhySharjah = () => {
     iconPath: "M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
   }];
   return <section className="py-24 relative">
-      <div className="absolute inset-0 bg-[url('/arabesque.svg')] opacity-5" />
+      <div className="absolute inset-0 bg-[url('/arabesque.svg')] opacity-5 bg-blue-100" />
       
       <div className="container mx-auto px-4 max-w-6xl">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
