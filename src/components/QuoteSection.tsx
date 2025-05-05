@@ -27,11 +27,11 @@ const QuoteSection = () => {
   return (
     <ParallaxSection 
       direction="up" 
-      scrollMultiplier={0.08}
-      spring={true}
+      scrollMultiplier={isMobile ? 0.03 : 0.08}
+      spring={!isMobile}
       damping={20}
     >
-      <section ref={containerRef} className="relative py-20 md:py-32 overflow-hidden">
+      <section ref={containerRef} className="relative py-16 md:py-32 overflow-visible px-2 md:px-0">
         {/* Simple gradient backdrop for mobile, more effects for desktop */}
         <div 
           className="absolute inset-0 z-0"
@@ -45,10 +45,10 @@ const QuoteSection = () => {
         {/* Container for the quote */}
         <div className="container relative z-10">
           <motion.div 
-            className="max-w-4xl mx-auto bg-white/95 backdrop-blur-sm p-8 md:p-12 rounded-xl border-2 border-sheraa-primary/20 shadow-xl relative"
+            className="max-w-4xl mx-auto bg-white/95 backdrop-blur-sm p-6 md:p-12 rounded-xl border-2 border-sheraa-primary/20 shadow-xl relative"
             initial={{ y: 100, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: true, margin: "-50px" }}
             transition={{ 
               duration: 0.8,
               type: "spring",
@@ -74,7 +74,7 @@ const QuoteSection = () => {
               }}
               className="relative"
             >
-              <Quote className="text-sheraa-primary h-14 w-14 mb-6 opacity-70" />
+              <Quote className="text-sheraa-primary h-10 w-10 md:h-14 md:w-14 mb-4 md:mb-6 opacity-70" />
               
               {/* Sparkles - only rendered for non-mobile */}
               {!isMobile && sparklePositions.map((sparkle, index) => (
@@ -107,7 +107,7 @@ const QuoteSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.2, duration: 0.8 }}
-                className="text-2xl md:text-3xl font-plus-jakarta font-medium text-sheraa-dark leading-relaxed mb-6"
+                className="text-lg md:text-3xl font-plus-jakarta font-medium text-sheraa-dark leading-relaxed mb-4 md:mb-6"
               >
                 "At Sheraa, we are deeply inspired by Sharjah's unique ability to blend collective strength and unity with individual expression and creativity. This synergy fuels our mission to cultivate a world-class entrepreneurship ecosystem."
               </motion.p>
@@ -116,7 +116,7 @@ const QuoteSection = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.6, duration: 0.6 }}
-                className="font-plus-jakarta font-semibold text-lg text-sheraa-primary"
+                className="font-plus-jakarta font-semibold text-sm md:text-lg text-sheraa-primary"
               >
                 — H.E. Sheikha Bodour Bint Sultan Al Qasimi, Chairperson
               </motion.footer>

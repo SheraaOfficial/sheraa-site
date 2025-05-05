@@ -34,15 +34,15 @@ const ImpactNumbers = () => {
   return (
     <ParallaxSection 
       direction="up" 
-      scrollMultiplier={0.15}
+      scrollMultiplier={isMobile ? 0.05 : 0.15}
       spring={!isMobile} // Only use spring on desktop
     >
-      <section ref={sectionRef} className="py-16 md:py-24 relative overflow-hidden">
+      <section ref={sectionRef} className="py-12 md:py-24 relative overflow-x-hidden">
         <ImpactBackground springScroll={springScroll} />
         
         <div className="container mx-auto px-4 md:px-6 relative z-10">
           <motion.div 
-            className="text-center mb-12 md:mb-16 max-w-3xl mx-auto" 
+            className="text-center mb-8 md:mb-16 max-w-3xl mx-auto" 
             initial={{
               opacity: 0,
               y: 20
@@ -53,7 +53,7 @@ const ImpactNumbers = () => {
             }} 
             viewport={{
               once: true,
-              margin: "-100px"
+              margin: "-50px"
             }} 
             transition={{
               duration: 0.8,
@@ -61,11 +61,11 @@ const ImpactNumbers = () => {
               stiffness: 50
             }}
           >
-            <h2 className="text-3xl md:text-5xl font-bold mb-3 bg-gradient-to-r from-sheraa-dark via-sheraa-primary to-sheraa-teal bg-clip-text text-transparent">
+            <h2 className="text-2xl md:text-5xl font-bold mb-3 bg-gradient-to-r from-sheraa-dark via-sheraa-primary to-sheraa-teal bg-clip-text text-transparent">
               Creating Lasting Change
             </h2>
-            {!isMobile && <motion.p 
-              className="text-gray-600 leading-relaxed text-lg" 
+            <motion.p 
+              className="text-gray-600 leading-relaxed text-sm md:text-lg px-2" 
               initial={{
                 opacity: 0
               }} 
@@ -81,20 +81,20 @@ const ImpactNumbers = () => {
               }}
             >
               We measure our success by the success of our founders and the growth of Sharjah's innovation ecosystem.
-            </motion.p>}
+            </motion.p>
           </motion.div>
 
           <motion.div 
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 relative z-10 max-w-7xl mx-auto" 
+            className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 relative z-10 max-w-7xl mx-auto" 
             style={{
-              x: shift
+              x: isMobile ? 0 : shift
             }}
           >
             {features.map((feature, index) => <FeatureItem key={feature.title} title={feature.title} description={feature.description} icon={feature.icon} subtext={feature.subtext} value={feature.value} index={index} />)}
           </motion.div>
 
           <motion.div 
-            className="mt-12 md:mt-16 text-center" 
+            className="mt-8 md:mt-16 text-center" 
             initial={{
               opacity: 0,
               y: 20
@@ -105,7 +105,7 @@ const ImpactNumbers = () => {
             }} 
             viewport={{
               once: true,
-              margin: "-100px"
+              margin: "-50px"
             }} 
             transition={{
               duration: 0.7,
@@ -117,8 +117,8 @@ const ImpactNumbers = () => {
               <Button 
                 asChild 
                 variant="shimmer" 
-                size="lg" 
-                className="min-w-[200px] group"
+                size={isMobile ? "default" : "lg"} 
+                className="min-w-[180px] sm:min-w-[200px] group"
               >
                 <a 
                   href="/lovable-uploads/sheraa-impact-report-2024.pdf" 

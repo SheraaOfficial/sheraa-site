@@ -31,13 +31,17 @@ export const FirstPriorityComponents: React.FC = () => {
         <MarqueeUpdates />
       </SafeSuspense>
       
-      <SafeSuspense>
-        <ImpactNumbers />
-      </SafeSuspense>
+      <div className="w-full overflow-visible">
+        <SafeSuspense>
+          <ImpactNumbers />
+        </SafeSuspense>
+      </div>
       
-      <SafeSuspense>
-        <QuoteSection />
-      </SafeSuspense>
+      <div className="w-full overflow-visible">
+        <SafeSuspense>
+          <QuoteSection />
+        </SafeSuspense>
+      </div>
     </div>
   );
 };
