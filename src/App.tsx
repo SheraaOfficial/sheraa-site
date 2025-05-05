@@ -19,6 +19,7 @@ import ContactPage from "./pages/contact";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfUse from "./pages/TermsOfUse";
 import EligibilityCheckerPage from "./pages/eligibility/EligibilityCheckerPage";
+import CareersPage from "./pages/careers";
 
 // Programs pages imports
 import StartupDojo from "./pages/programs/StartupDojo";
@@ -108,6 +109,7 @@ const App = () => (
           <Route path="/events/sef/registration" element={<SEFRegisterPage />} />
           <Route path="/events/sef/faq" element={<SEFFAQPage />} />
           
+          {/* Events Routes */}
           <Route path="/events/upcoming" element={<EventsPage section="upcoming" />} />
           <Route path="/events/news" element={<EventsPage section="news" />} />
 
@@ -116,6 +118,9 @@ const App = () => (
           <Route path="/community/join" element={<CommunityPage section="join" />} />
           <Route path="/community/startups" element={<CommunityPage section="startups" />} />
           <Route path="/community/partnerships" element={<CommunityPage section="partnerships" />} />
+
+          {/* Careers Route */}
+          <Route path="/careers" element={<CareersPage />} />
 
           {/* Contact Route */}
           <Route path="/contact" element={<ContactPage />} />

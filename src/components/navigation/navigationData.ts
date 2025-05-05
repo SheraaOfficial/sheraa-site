@@ -15,6 +15,7 @@ export const homeLinks: NavLink[] = [
   { title: "Our Hubs", href: "/about/hubs", description: "Visit our strategic locations" },
   { title: "Our Leadership", href: "/about/leadership", description: "Meet our visionary leaders" },
   { title: "Our Board of Advisors", href: "/about/board", description: "Learn from our expert advisors" },
+  { title: "Careers", href: "/careers", description: "Join our team" },
 ];
 
 // Create and export Discover links (new grouping for programs)
