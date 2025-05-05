@@ -7,7 +7,8 @@ import { ErrorFallback } from '../layout/ErrorFallback';
 // Simple fallback component
 const SimpleFallback = () => <div className="h-20 md:h-32"></div>;
 
-// Properly define the lazy-loaded components with simple error handling
+// Fix the type issue by ensuring component types are handled correctly
+// Instead of expecting NamedExoticComponent directly, use React.ComponentType
 const PartnersSection = lazy(() => 
   import("@/components/PartnersSection")
     .catch(error => {
