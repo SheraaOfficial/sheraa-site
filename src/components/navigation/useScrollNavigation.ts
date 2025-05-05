@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 
 export function useScrollNavigation() {
   const [isSticky, setIsSticky] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   // Add scroll event listener to track when to make the nav sticky
   useEffect(() => {
@@ -13,6 +14,13 @@ export function useScrollNavigation() {
         setIsSticky(true);
       } else {
         setIsSticky(false);
+      }
+      
+      // Set scrolled state after any scrolling
+      if (scrollPosition > 10) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
       }
     };
 
@@ -34,5 +42,5 @@ export function useScrollNavigation() {
     };
   }, []);
 
-  return { isSticky };
+  return { isSticky, isScrolled };
 }

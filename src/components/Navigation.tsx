@@ -12,7 +12,7 @@ const MobileNavigation = lazy(() => import("./navigation/MobileNavigation"));
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { isSticky } = useScrollNavigation();
+  const { isSticky, isScrolled } = useScrollNavigation();
   const [hydrated, setHydrated] = useState(false);
 
   // Mark as hydrated after initial render
@@ -32,7 +32,7 @@ const Navigation = () => {
           : 'relative z-[100]'
       }`}
     >
-      <div className="container flex h-16 items-center sm:px-6 bg-stone-50 px-0 my-0">
+      <div className={`container flex h-16 items-center sm:px-6 px-0 my-0 transition-colors duration-300 ${isScrolled ? 'bg-white' : 'bg-stone-50'}`}>
         <div className="mr-4 flex items-center">
           <Link to="/" className="flex items-center">
             <span className="text-xl font-bold text-sheraa-primary mx-[39px]">SHERAA</span>
