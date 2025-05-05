@@ -12,7 +12,7 @@ export const ErrorFallback: React.FC<ErrorFallbackProps> = ({
 }) => {
   const isMobile = useIsMobile();
   return <div className="">
-      <div className="flex flex-col items-center gap-2">
+      <div className="">
         <AlertCircle className="h-8 w-8 text-red-500 dark:text-red-400 mb-1" />
         <p className="text-sm md:text-base font-medium text-red-800 dark:text-red-300 mb-3">
           {message}
