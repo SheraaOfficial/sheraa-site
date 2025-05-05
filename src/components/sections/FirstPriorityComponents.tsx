@@ -26,18 +26,18 @@ export const FirstPriorityComponents: React.FC = () => {
   const isMobile = useIsMobile();
   
   return (
-    <div className="space-y-2 md:space-y-0">
+    <div className="space-y-8 md:space-y-0 w-full">
       <SafeSuspense>
         <MarqueeUpdates />
       </SafeSuspense>
       
-      <div className="w-full overflow-visible">
+      <div className="w-full overflow-visible my-4 md:my-0">
         <SafeSuspense>
           <ImpactNumbers />
         </SafeSuspense>
       </div>
       
-      <div className="w-full overflow-visible">
+      <div className="w-full overflow-visible my-4 md:my-0">
         <SafeSuspense>
           <QuoteSection />
         </SafeSuspense>

@@ -34,15 +34,15 @@ const ImpactNumbers = () => {
   return (
     <ParallaxSection 
       direction="up" 
-      scrollMultiplier={isMobile ? 0.05 : 0.15}
+      scrollMultiplier={isMobile ? 0.01 : 0.15}
       spring={!isMobile} // Only use spring on desktop
     >
-      <section ref={sectionRef} className="py-12 md:py-24 relative overflow-x-hidden">
+      <section ref={sectionRef} className="py-8 md:py-24 relative overflow-x-hidden">
         <ImpactBackground springScroll={springScroll} />
         
         <div className="container mx-auto px-4 md:px-6 relative z-10">
           <motion.div 
-            className="text-center mb-8 md:mb-16 max-w-3xl mx-auto" 
+            className="text-center mb-6 md:mb-16 max-w-3xl mx-auto" 
             initial={{
               opacity: 0,
               y: 20
@@ -53,7 +53,7 @@ const ImpactNumbers = () => {
             }} 
             viewport={{
               once: true,
-              margin: "-50px"
+              margin: "-20px"
             }} 
             transition={{
               duration: 0.8,
@@ -61,7 +61,7 @@ const ImpactNumbers = () => {
               stiffness: 50
             }}
           >
-            <h2 className="text-2xl md:text-5xl font-bold mb-3 bg-gradient-to-r from-sheraa-dark via-sheraa-primary to-sheraa-teal bg-clip-text text-transparent">
+            <h2 className="text-xl md:text-5xl font-bold mb-3 bg-gradient-to-r from-sheraa-dark via-sheraa-primary to-sheraa-teal bg-clip-text text-transparent">
               Creating Lasting Change
             </h2>
             <motion.p 
@@ -85,7 +85,7 @@ const ImpactNumbers = () => {
           </motion.div>
 
           <motion.div 
-            className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 relative z-10 max-w-7xl mx-auto" 
+            className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 relative z-10 max-w-7xl mx-auto" 
             style={{
               x: isMobile ? 0 : shift
             }}
@@ -94,7 +94,7 @@ const ImpactNumbers = () => {
           </motion.div>
 
           <motion.div 
-            className="mt-8 md:mt-16 text-center" 
+            className="mt-6 md:mt-16 text-center" 
             initial={{
               opacity: 0,
               y: 20
@@ -105,7 +105,7 @@ const ImpactNumbers = () => {
             }} 
             viewport={{
               once: true,
-              margin: "-50px"
+              margin: "-30px"
             }} 
             transition={{
               duration: 0.7,

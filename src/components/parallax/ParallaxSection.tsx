@@ -60,25 +60,25 @@ export const ParallaxSection: React.FC<ParallaxSectionProps> = ({
   // Use smaller transform distance on mobile
   const viewportHeight = typeof window !== 'undefined' ? window.innerHeight : 1000;
   const transformDistance = isMobile 
-    ? viewportHeight * (scrollMultiplier * 0.2) 
+    ? viewportHeight * (scrollMultiplier * 0.1) // Reduced even further for mobile
     : viewportHeight * (scrollMultiplier * 0.4);
   
   let rawTransformValue;
   
-  // Skip expensive calculations if on mobile and spring is disabled
-  if (isMobile && !spring) {
-    // Simplified transformations for mobile
+  // Use simplified transformations for mobile to improve performance
+  if (isMobile) {
+    // Much simpler transformations for mobile
     switch (direction) {
       case "up":
       case "down":
         rawTransformValue = useTransform(
           scrollY,
           [elementTop - viewportHeight, elementTop + viewportHeight],
-          [transformDistance/2, -transformDistance/2]
+          [transformDistance/4, -transformDistance/4] // Very subtle movement for mobile
         );
         break;
       default:
-        rawTransformValue = 0;
+        rawTransformValue = 0; // No horizontal movement on mobile
     }
   } else {
     // Standard transformations for desktop
@@ -128,7 +128,7 @@ export const ParallaxSection: React.FC<ParallaxSectionProps> = ({
   return (
     <div 
       ref={containerRef} 
-      className={`relative overflow-hidden ${className}`}
+      className={`relative overflow-visible ${className}`}
     >
       <motion.div
         style={{
