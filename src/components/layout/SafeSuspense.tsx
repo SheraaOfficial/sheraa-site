@@ -19,7 +19,7 @@ export const SafeSuspense: React.FC<SafeSuspenseProps> = ({
     setKey(prevKey => prevKey + 1);
   };
   
-  // Create a more stable error boundary component
+  // Create a stable error fallback component
   const ErrorFallbackComponent = () => {
     return <ErrorFallback onRetry={handleRetry} />;
   };

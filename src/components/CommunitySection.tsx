@@ -33,14 +33,14 @@ const CommunitySection = () => {
     "Co-hosted Events & Workshops"
   ];
   
-  // Use simpler animations for mobile
+  // Simplified animations for better performance
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: isMobile ? 0.05 : 0.2,
-        delayChildren: isMobile ? 0 : 0.3
+        staggerChildren: isMobile ? 0.05 : 0.15,
+        delayChildren: 0.1
       }
     }
   };
@@ -52,7 +52,7 @@ const CommunitySection = () => {
       y: 0,
       transition: {
         type: "tween",
-        duration: 0.3
+        duration: 0.2
       }
     }
   };
@@ -72,10 +72,7 @@ const CommunitySection = () => {
           variants={containerVariants} 
           initial="hidden" 
           whileInView="visible" 
-          viewport={{
-            once: true,
-            margin: "0px"
-          }} 
+          viewport={{ once: true, margin: "-50px" }} 
           className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 items-start"
         >
           <motion.div variants={itemVariants}>
@@ -113,10 +110,10 @@ const CommunitySection = () => {
               ))}
             </div>
 
-            <GradientButton asChild size={isMobile ? "default" : "lg"} className="group w-full md:w-auto">
+            <GradientButton asChild size={isMobile ? "default" : "lg"} className="w-full md:w-auto">
               <Link to="/community/join" className="flex items-center justify-center gap-2">
                 Become a Member
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+                <ArrowRight className="w-4 h-4" />
               </Link>
             </GradientButton>
           </motion.div>
@@ -151,10 +148,10 @@ const CommunitySection = () => {
                 ))}
               </div>
 
-              <GradientButton asChild variant="accent" size={isMobile ? "default" : "lg"} className="w-full group">
+              <GradientButton asChild variant="accent" size={isMobile ? "default" : "lg"} className="w-full">
                 <Link to="/community/partnerships" className="flex items-center justify-center gap-2">
                   Explore Partnerships
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+                  <ArrowRight className="w-4 h-4" />
                 </Link>
               </GradientButton>
             </div>
