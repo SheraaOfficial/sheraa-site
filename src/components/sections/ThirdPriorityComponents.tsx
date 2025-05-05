@@ -16,11 +16,12 @@ const ContactSection = lazy(() =>
   }))
 );
 
-// Fix StartupsShowcase import by using a more compatible approach to handle React.memo
+// Fix StartupsShowcase import using type assertion
 const StartupsShowcase = lazy(() => 
-  import("@/components/StartupsShowcase").then(module => ({
-    default: module.default
-  })).catch(() => ({ 
+  import("@/components/StartupsShowcase").then(module => {
+    // Use type assertion to ensure the type is correct
+    return { default: module.default as React.ComponentType<{}> };
+  }).catch(() => ({ 
     default: () => null 
   }))
 );

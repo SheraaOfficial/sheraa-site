@@ -1,3 +1,4 @@
+
 import * as React from "react"
 import useEmblaCarousel, {
   type UseEmblaCarouselType,
@@ -17,7 +18,7 @@ type CarouselProps = {
   plugins?: CarouselPlugin
   orientation?: "horizontal" | "vertical"
   setApi?: (api: CarouselApi) => void
-  onSlideChange?: (index: number) => void
+  onSelect?: (api: CarouselApi) => void
 }
 
 type CarouselContextProps = {
@@ -53,7 +54,7 @@ const Carousel = React.forwardRef<
       plugins,
       className,
       children,
-      onSlideChange,
+      onSelect,
       ...props
     },
     ref
@@ -68,7 +69,7 @@ const Carousel = React.forwardRef<
     const [canScrollPrev, setCanScrollPrev] = React.useState(false)
     const [canScrollNext, setCanScrollNext] = React.useState(false)
 
-    const onSelect = React.useCallback((api: CarouselApi) => {
+    const handleSelect = React.useCallback((api: CarouselApi) => {
       if (!api) {
         return
       }
@@ -76,10 +77,11 @@ const Carousel = React.forwardRef<
       setCanScrollPrev(api.canScrollPrev())
       setCanScrollNext(api.canScrollNext())
       
-      if (onSlideChange) {
-        onSlideChange(api.selectedScrollSnap());
+      // Call onSelect callback if provided
+      if (onSelect) {
+        onSelect(api);
       }
-    }, [onSlideChange])
+    }, [onSelect])
 
     const scrollPrev = React.useCallback(() => {
       api?.scrollPrev()
@@ -115,14 +117,14 @@ const Carousel = React.forwardRef<
         return
       }
 
-      onSelect(api)
-      api.on("reInit", onSelect)
-      api.on("select", onSelect)
+      handleSelect(api)
+      api.on("reInit", handleSelect)
+      api.on("select", handleSelect)
 
       return () => {
-        api?.off("select", onSelect)
+        api?.off("select", handleSelect)
       }
-    }, [api, onSelect])
+    }, [api, handleSelect])
 
     return (
       <CarouselContext.Provider
@@ -136,7 +138,7 @@ const Carousel = React.forwardRef<
           scrollNext,
           canScrollPrev,
           canScrollNext,
-          onSlideChange,
+          onSelect,
         }}
       >
         <div
