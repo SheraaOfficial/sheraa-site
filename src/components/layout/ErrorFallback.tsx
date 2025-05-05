@@ -17,7 +17,7 @@ export const ErrorFallback: React.FC<ErrorFallbackProps> = ({
         <p className="text-sm md:text-base font-medium text-red-800 dark:text-red-300 mb-3">
           {message}
         </p>
-        {onRetry && <Button onClick={onRetry} variant="outline" size={isMobile ? "sm" : "default"} className="bg-white dark:bg-gray-800 text-red-600 border-red-300 hover:bg-red-50 hover:text-red-700 transition-colors">
+        {onRetry && <Button onClick={onRetry} variant="outline" size={isMobile ? "sm" : "default"} className="">
             <RefreshCcw className="mr-2 h-4 w-4" /> Try Again
           </Button>}
       </div>
