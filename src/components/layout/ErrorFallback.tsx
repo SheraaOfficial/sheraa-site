@@ -9,23 +9,23 @@ interface ErrorFallbackProps {
 
 export const ErrorFallback: React.FC<ErrorFallbackProps> = ({ onRetry }) => {
   return (
-    <div className="py-6 text-center">
+    <div className="py-4 md:py-6 text-center px-3">
       {onRetry ? (
         <div className="flex flex-col items-center gap-3">
-          <p className="text-gray-600">There was a problem loading this content.</p>
+          <p className="text-gray-600 text-sm md:text-base">There was a problem loading this content.</p>
           <Button 
             variant="outline" 
             size="sm" 
-            className="mt-2 flex items-center gap-2"
+            className="mt-2 flex items-center gap-2 text-xs md:text-sm"
             onClick={onRetry}
           >
-            <RefreshCw size={16} className="mr-1" />
+            <RefreshCw size={14} className="mr-1" />
             Retry
           </Button>
         </div>
       ) : (
         <div className="flex flex-col items-center">
-          <div className="w-16 h-1 bg-gray-200 mb-6 rounded-full"></div>
+          <div className="w-12 md:w-16 h-1 bg-gray-200 mb-4 md:mb-6 rounded-full"></div>
         </div>
       )}
     </div>

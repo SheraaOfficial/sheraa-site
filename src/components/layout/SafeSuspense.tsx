@@ -28,17 +28,19 @@ export const SafeSuspense: React.FC<SafeSuspenseProps> = ({
   };
   
   return (
-    <ErrorBoundary 
-      key={key} 
-      FallbackComponent={ErrorFallbackComponent}
-    >
-      {hasError ? (
-        <ErrorFallback onRetry={handleRetry} />
-      ) : (
-        <Suspense fallback={fallback}>
-          {children}
-        </Suspense>
-      )}
-    </ErrorBoundary>
+    <div className="w-full">
+      <ErrorBoundary 
+        key={key} 
+        FallbackComponent={ErrorFallbackComponent}
+      >
+        {hasError ? (
+          <ErrorFallback onRetry={handleRetry} />
+        ) : (
+          <Suspense fallback={fallback}>
+            {children}
+          </Suspense>
+        )}
+      </ErrorBoundary>
+    </div>
   );
 };
