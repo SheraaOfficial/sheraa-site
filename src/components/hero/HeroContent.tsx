@@ -66,14 +66,14 @@ export function HeroContent() {
       </motion.div>
       
       <motion.h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl text-center w-full justify-center items-center flex-col flex whitespace-pre leading-tight font-bold tracking-tight space-y-1 md:space-y-3" initial={titleVariants.initial} animate={titleVariants.animate} transition={titleVariants.transition}>
-        <span className="text-3xl">Making your </span>
+        <span className="text-6xl">Making your </span>
         <LayoutGroup>
           <motion.span layout className="flex whitespace-pre">
             <motion.span layout transition={{
             type: "spring",
             damping: 30,
             stiffness: 400
-          }} className="flex whitespace-pre text-3xl">
+          }} className="flex whitespace-pre text-5xl">
               startup{" "}
             </motion.span>
             <TextRotate texts={["innovative", "successful", "sustainable ♥", "global", "🚀 scalable", "impactful", "profitable", "💡 transformative", "grow 🌱", "🔥 disruptive", "unique", "thrive ✨"]} mainClassName="overflow-hidden pr-3 text-sheraa-primary py-0 pb-2 md:pb-3 rounded-xl" staggerDuration={0.03} staggerFrom="last" rotationInterval={3000} transition={{
