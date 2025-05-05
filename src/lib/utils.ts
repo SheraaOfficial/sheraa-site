@@ -1,6 +1,8 @@
+
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
+// Original cn function
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
@@ -23,11 +25,12 @@ export function cn(...inputs: ClassValue[]) {
 //   100% { background-position: 200% 0; }
 // }
 
-// Augment the cn function with a memoization layer for frequently used class combinations
+// Memoized version of cn for performance optimization
 const classNameCache = new Map<string, string>();
 const MAX_CACHE_SIZE = 100;
 
-const memoizedCn = (...inputs: ClassValue[]) => {
+// Export a separate memoized version without overriding the original cn
+export function memoizedCn(...inputs: ClassValue[]) {
   // Only use caching for simple use cases to avoid memory issues
   if (inputs.length <= 2 && typeof inputs[0] === 'string') {
     // Create a cache key from the inputs
@@ -51,7 +54,4 @@ const memoizedCn = (...inputs: ClassValue[]) => {
   
   // For more complex cases, use the original function
   return cn(...inputs);
-};
-
-// Export the enhanced version
-export { memoizedCn as cn };
+}

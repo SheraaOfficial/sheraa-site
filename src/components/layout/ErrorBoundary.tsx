@@ -3,14 +3,14 @@ import React from 'react';
 
 interface ErrorBoundaryProps {
   children: React.ReactNode;
-  onError: () => void;
+  FallbackComponent: React.ComponentType;
 }
 
 interface ErrorBoundaryState {
   hasError: boolean;
 }
 
-class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
+export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
   constructor(props: ErrorBoundaryProps) {
     super(props);
     this.state = { hasError: false };
@@ -21,13 +21,16 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
   }
   
   componentDidCatch() {
-    this.props.onError();
+    // Handle the error here
   }
   
   render() {
-    if (this.state.hasError) return null;
+    if (this.state.hasError) {
+      return <this.props.FallbackComponent />;
+    }
     return this.props.children;
   }
 }
 
+// Also export as default for backwards compatibility
 export default ErrorBoundary;
