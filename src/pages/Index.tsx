@@ -14,7 +14,7 @@ import { useIsMobile } from "@/hooks/useDeviceDetection";
 import { SectionLoading } from "@/components/layout/SectionLoading";
 import { ErrorFallback } from "@/components/layout/ErrorFallback";
 
-// Lazy-loaded components with improved error handling
+// Enhanced error handling with proper typing for lazy-loaded components
 const SecondPriorityComponents = lazy(() => 
   import("@/components/sections/SecondPriorityComponents")
     .then(module => ({ default: module.SecondPriorityComponents }))
@@ -31,8 +31,8 @@ const ThirdPriorityComponents = lazy(() =>
     }))
 );
 
-// Improved loading placeholder with reduced UI shifting
-const LoadingPlaceholder = () => {
+// Component for improved loading experience
+const LoadingPlaceholder: React.FC = () => {
   const isMobile = useIsMobile();
   
   return (
@@ -42,8 +42,8 @@ const LoadingPlaceholder = () => {
   );
 };
 
-// Component for handling preloading logic
-const useComponentPreloader = (deepScroll, devicePerformance) => {
+// Hook for optimized component preloading
+const useComponentPreloader = (deepScroll: boolean, devicePerformance: string) => {
   useEffect(() => {
     if (devicePerformance === 'low') return; // Skip preloading on low-end devices
     
@@ -73,7 +73,7 @@ const useComponentPreloader = (deepScroll, devicePerformance) => {
   }, [deepScroll, devicePerformance]);
 };
 
-const Index = () => {
+const Index: React.FC = () => {
   const { scrollY } = useOptimizedScroll();
   const backgroundStyle = useBackgroundAnimation(scrollY);
   const scrollDirection = useScrollDirection(scrollY);

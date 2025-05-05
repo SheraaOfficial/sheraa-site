@@ -8,4 +8,7 @@ export interface Startup {
   program: string;
   stage: string;
   website: string;
+  achievement?: string;
+  impact?: string;
+  stats?: string;
 }
