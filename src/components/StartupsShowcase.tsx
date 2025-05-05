@@ -8,21 +8,11 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { Avatar, AvatarImage, AvatarFallback } from "./ui/avatar";
 import { Badge } from "./ui/badge";
 import { useIsMobile } from "@/hooks/useDeviceDetection";
+import { Startup } from "@/pages/community/types/startup";
 
-// Type definition for startup data
-interface StartupData {
-  name: string;
-  description: string;
-  sector: string;
-  achievement: string;
-  impact: string;
-  image: string;
-  stats: string;
-}
-
-// Enhanced StartupCard component with proper spacing and responsive design
+// StartupCard component for displaying individual startup information
 const StartupCard: React.FC<{
-  startup: StartupData;
+  startup: Startup;
   index: number;
   isMobile: boolean;
 }> = React.memo(({ startup, index, isMobile }) => (
@@ -31,12 +21,12 @@ const StartupCard: React.FC<{
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, margin: "-50px" }}
     transition={{ duration: 0.5, delay: index * 0.1 }}
-    className="relative group"
+    className="relative group h-full"
   >
-    <div className="bg-white rounded-2xl p-5 md:p-6 shadow-sheraa-soft group-hover:shadow-sheraa-medium transition-all duration-300 border border-gray-100 overflow-hidden h-full">
+    <div className="bg-white rounded-2xl p-5 md:p-6 shadow-sheraa-soft group-hover:shadow-sheraa-medium transition-all duration-300 border border-gray-100 overflow-hidden h-full flex flex-col">
       <div className="flex items-center gap-3 md:gap-4 mb-4">
         <Avatar className={`${isMobile ? "w-12 h-12" : "w-16 h-16"} border-2 border-sheraa-primary/10 flex-shrink-0`}>
-          <AvatarImage src={startup.image} alt={startup.name} />
+          <AvatarImage src={startup.logo} alt={startup.name} />
           <AvatarFallback className="bg-sheraa-primary/5 text-sheraa-primary font-semibold">
             {startup.name[0]}
           </AvatarFallback>
@@ -54,72 +44,141 @@ const StartupCard: React.FC<{
       </div>
 
       <div className="flex flex-wrap gap-1.5 mb-3">
-        <Badge variant="gradient-warm" animation="none" size="sm">
-          {startup.achievement}
-        </Badge>
-        <Badge variant="purple" animation="none" size="sm">
-          {startup.impact}
-        </Badge>
+        {startup.achievement && (
+          <Badge variant="gradient-warm" animation="none" size="sm">
+            {startup.achievement}
+          </Badge>
+        )}
+        {startup.impact && (
+          <Badge variant="purple" animation="none" size="sm">
+            {startup.impact}
+          </Badge>
+        )}
       </div>
 
-      <p className="text-gray-600 mb-4 line-clamp-3 text-sm md:text-base">
+      <p className="text-gray-600 mb-4 line-clamp-3 text-sm md:text-base flex-grow">
         {startup.description}
       </p>
 
-      <div className="flex items-center gap-2 text-sheraa-primary mt-auto pt-2">
-        <Star className={`${isMobile ? "w-3.5 h-3.5" : "w-4 h-4"} flex-shrink-0`} />
-        <span className="text-xs md:text-sm font-medium">{startup.stats}</span>
-      </div>
+      {startup.stats && (
+        <div className="flex items-center gap-2 text-sheraa-primary mt-auto pt-2">
+          <Star className={`${isMobile ? "w-3.5 h-3.5" : "w-4 h-4"} flex-shrink-0`} />
+          <span className="text-xs md:text-sm font-medium">{startup.stats}</span>
+        </div>
+      )}
     </div>
   </motion.div>
 ));
 StartupCard.displayName = 'StartupCard';
 
-// Sample data for featured startups
-const featuredStartups: StartupData[] = [
+// Sample data for featured startups transformed to match Startup type
+const featuredStartups: Startup[] = [
   {
+    id: "1",
     name: "Green Future Project",
     description: "Pioneering sustainable solutions for environmental challenges across the UAE. Our innovative approach combines technology with eco-conscious practices.",
+    logo: "/placeholder.svg",
     sector: "Sustainability",
+    program: "ASC",
+    stage: "Growth",
+    website: "https://example.com",
     achievement: "Winner - Access Sharjah Challenge",
     impact: "Reduced carbon emissions by 40%",
-    image: "/placeholder.svg",
     stats: "Raised $2.5M"
   },
   {
+    id: "2",
     name: "Arabee",
     description: "Revolutionary Arabic language learning platform using AI and gamification to make education engaging and effective for modern learners.",
+    logo: "/placeholder.svg",
     sector: "EdTech",
+    program: "S3",
+    stage: "Scale",
+    website: "https://example.com",
     achievement: "Successfully scaled across MENA",
     impact: "100,000+ Active Users",
-    image: "/placeholder.svg",
     stats: "Present in 5 Countries"
   },
   {
+    id: "3",
     name: "KRISPR",
     description: "Transforming the future of food technology with innovative solutions for sustainable agriculture and food production systems.",
+    logo: "/placeholder.svg",
     sector: "FoodTech",
+    program: "S3",
+    stage: "Growth",
+    website: "https://example.com",
     achievement: "Raised $2M in funding",
     impact: "30% Yield Improvement",
-    image: "/placeholder.svg",
     stats: "8 Patents Filed"
   },
   {
+    id: "4",
     name: "Manhat",
     description: "Innovative water technology solutions addressing water scarcity through sustainable desalination processes.",
+    logo: "/placeholder.svg",
     sector: "WaterTech",
+    program: "Dojo+",
+    stage: "Seed",
+    website: "https://example.com",
     achievement: "Patent-pending technology",
     impact: "2M Liters Saved",
-    image: "/placeholder.svg",
     stats: "Featured by UNESCO"
   }
 ];
 
+// Header component for the section
+const SectionHeader: React.FC = () => (
+  <motion.div 
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.5 }}
+    className="text-center mb-10 md:mb-14" 
+  >
+    <Badge 
+      variant="gradient-warm" 
+      animation="shimmer" 
+      className="mb-4"
+    >
+      Transforming Ideas into Impact
+    </Badge>
+    
+    <h2 className="text-2xl md:text-4xl font-bold text-sheraa-dark mb-6 leading-tight">
+      Our <span className="text-sheraa-primary">Startups</span>
+    </h2>
+    
+    <p className="text-gray-600 max-w-3xl mx-auto text-sm md:text-base px-4">
+      Meet the innovative ventures shaping the future through Sheraa's ecosystem. 
+      These companies are creating real impact, driving innovation, and transforming 
+      Sharjah's entrepreneurial landscape.
+    </p>
+  </motion.div>
+);
+
+// Pagination indicators for mobile carousel
+const MobilePagination: React.FC<{ 
+  activeIndex: number, 
+  itemCount: number 
+}> = ({ activeIndex, itemCount }) => (
+  <div className="flex justify-center mt-6 gap-2">
+    {Array.from({ length: itemCount }).map((_, i) => (
+      <button
+        key={i}
+        className={`w-2.5 h-2.5 rounded-full transition-colors ${
+          i === activeIndex ? 'bg-sheraa-coral' : 'bg-gray-300'
+        }`}
+        aria-label={`Go to slide ${i + 1}`}
+      />
+    ))}
+  </div>
+);
+
+// Main component
 const StartupsShowcase: React.FC = () => {
   const isMobile = useIsMobile();
   const [activeIndex, setActiveIndex] = useState(0);
   
-  // Track current slide for pagination indicators
   const handleSlideChange = useCallback((index: number) => {
     setActiveIndex(index);
   }, []);
@@ -127,33 +186,9 @@ const StartupsShowcase: React.FC = () => {
   return (
     <section className="py-12 md:py-20 bg-gradient-to-br from-purple-100 to-pink-50 overflow-hidden">
       <div className="container mx-auto px-4 md:px-6 lg:px-8">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-8 md:mb-12"
-        >
-          <Badge 
-            variant="gradient-warm" 
-            animation="shimmer" 
-            className="mb-3"
-          >
-            Transforming Ideas into Impact
-          </Badge>
-          
-          <h2 className="text-2xl md:text-4xl font-bold text-sheraa-dark mb-4 leading-tight">
-            Our <span className="text-sheraa-primary">Startups</span>
-          </h2>
-          
-          <p className="text-gray-600 max-w-3xl mx-auto text-sm md:text-base px-2">
-            Meet the innovative ventures shaping the future through Sheraa's ecosystem. 
-            These companies are creating real impact, driving innovation, and transforming 
-            Sharjah's entrepreneurial landscape.
-          </p>
-        </motion.div>
+        <SectionHeader />
 
-        <div className="mb-8 md:mb-12 max-w-full">
+        <div className="mb-10 md:mb-14 max-w-full">
           <Carousel 
             opts={{
               align: "start",
@@ -166,7 +201,7 @@ const StartupsShowcase: React.FC = () => {
             <CarouselContent className="-ml-2 md:-ml-4">
               {featuredStartups.map((startup, index) => (
                 <CarouselItem 
-                  key={startup.name} 
+                  key={startup.id} 
                   className="pl-2 md:pl-4 basis-full sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
                 >
                   <div className="h-full">
@@ -184,25 +219,18 @@ const StartupsShowcase: React.FC = () => {
               <CarouselPrevious className="left-2" />
               <CarouselNext className="right-2" />
             </div>
-            
-            {/* Mobile pagination indicators */}
-            {isMobile && (
-              <div className="flex justify-center mt-4 gap-2">
-                {featuredStartups.map((_, i) => (
-                  <button
-                    key={i}
-                    className={`w-2.5 h-2.5 rounded-full transition-colors ${
-                      i === activeIndex ? 'bg-sheraa-coral' : 'bg-gray-300'
-                    }`}
-                    aria-label={`Go to slide ${i + 1}`}
-                  />
-                ))}
-              </div>
-            )}
           </Carousel>
+          
+          {/* Mobile pagination indicators */}
+          {isMobile && (
+            <MobilePagination 
+              activeIndex={activeIndex} 
+              itemCount={featuredStartups.length} 
+            />
+          )}
         </div>
 
-        <div className="flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-6">
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-6 mt-4">
           <Button 
             asChild 
             size={isMobile ? "default" : "lg"} 

@@ -3,7 +3,7 @@ import React, { lazy, Suspense } from 'react';
 import { SafeSuspense } from '../layout/SafeSuspense';
 import { useIsMobile } from '@/hooks/useDeviceDetection';
 
-// Proper way to define lazy-loaded components with error handling
+// Properly define the lazy-loaded components with correct typing
 const PartnersSection = lazy(() => 
   import("@/components/PartnersSection").catch(() => ({ 
     default: () => null 
@@ -16,8 +16,11 @@ const ContactSection = lazy(() =>
   }))
 );
 
+// Fix the typing for StartupsShowcase by using a more specific type definition
 const StartupsShowcase = lazy(() => 
-  import("@/components/StartupsShowcase").catch(() => ({ 
+  import("@/components/StartupsShowcase").then(module => ({ 
+    default: module.default 
+  })).catch(() => ({ 
     default: () => null 
   }))
 );
