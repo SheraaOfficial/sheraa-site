@@ -72,20 +72,18 @@ const Carousel = React.forwardRef<
       api.on("select", handleSelect);
 
       return () => {
-        api?.off("select", handleSelect);
-        api?.off("reInit", handleSelect);
+        api.off("select", handleSelect);
+        api.off("reInit", handleSelect);
       };
     }, [api, handleSelect]);
 
-    // Create a React.RefObject to pass to the context
+    // React ref for the carousel viewport
     const reactCarouselRef = React.useRef<HTMLDivElement>(null);
     
     // Sync the embla ref with our React ref
     React.useEffect(() => {
-      if (carouselRef && typeof carouselRef === 'object') {
-        // Store the Embla viewport element in our React ref
-        // safe assignment - carouselRef might be a function or object
-        reactCarouselRef.current = carouselRef as unknown as HTMLDivElement;
+      if (carouselRef && reactCarouselRef.current !== carouselRef) {
+        reactCarouselRef.current = carouselRef;
       }
     }, [carouselRef]);
 

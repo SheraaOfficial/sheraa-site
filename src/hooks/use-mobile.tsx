@@ -1,15 +1,13 @@
 
 /**
- * @deprecated This file is maintained for backward compatibility.
- * Please use the individual hooks from useDeviceDetection, useDevicePerformance,
- * and useOptimizedScroll directly.
+ * Consolidated device detection hooks for easier imports and better performance
  */
 
 import { useIsMobile, useIsTablet, useIsDesktop } from "./useDeviceDetection";
 import { useDevicePerformance } from "./useDevicePerformance";
 import { useOptimizedScroll } from "./useOptimizedScroll";
 
-// Re-export for backward compatibility
+// Export all hooks for easier imports
 export { 
   useIsMobile, 
   useIsTablet,

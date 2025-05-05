@@ -13,8 +13,7 @@ interface UseOptimizedImageProps {
 }
 
 /**
- * Enhanced hook for optimized image loading with low quality placeholders
- * and device performance awareness
+ * Optimized hook for image loading with performance-based strategies
  */
 export function useOptimizedImage({ 
   src, 
@@ -31,28 +30,26 @@ export function useOptimizedImage({
   const devicePerformance = useDevicePerformance();
   
   useEffect(() => {
-    // Don't run image loading logic on server-side
     if (typeof window === 'undefined') return;
     
-    // Skip intensive loading for low-performance devices
+    // Determine if we should use optimized loading
     const shouldOptimize = devicePerformance !== 'low' || priority;
     
     setLoading(true);
     setError(false);
     
-    // Track if the component is still mounted
+    // Track component mount state
     let isMounted = true;
     
-    // Use modern browser features when available
+    // Feature detection
     const supportsIntersectionObserver = 'IntersectionObserver' in window;
     
-    // Function to load the high-quality image
+    // Function to load high quality image
     const loadHighQuality = () => {
       const highQualityImage = new Image();
       
-      // Handle priority without using the problematic fetchpriority attribute
+      // Priority handling without using fetchpriority
       if (priority) {
-        // Use preload approach for high priority images
         const preloadLink = document.createElement('link');
         preloadLink.rel = 'preload';
         preloadLink.as = 'image';
@@ -78,87 +75,69 @@ export function useOptimizedImage({
         if (onError) onError();
       };
       
-      // Add decoding="async" for better performance
+      // Enable async decoding for better performance
       highQualityImage.decoding = 'async';
-      
-      // Finally set source to start loading
       highQualityImage.src = src;
     };
     
-    // Progressive loading strategy based on device performance and priority
+    // Progressive loading implementation
     if (shouldOptimize && lowQualitySrc) {
-      // Check if we should use intersection observer for lazy loading
+      // Use intersection observer for non-priority images
       if (!priority && supportsIntersectionObserver) {
-        const observer = new IntersectionObserver((entries) => {
-          if (entries[0].isIntersecting) {
-            const lowQualityImage = new Image();
-            lowQualityImage.src = lowQualitySrc;
-            lowQualityImage.onload = () => {
-              if (!isMounted) return;
-              setCurrentSrc(lowQualitySrc);
+        const observer = new IntersectionObserver(
+          entries => {
+            if (entries[0].isIntersecting) {
+              const lowQualityImage = new Image();
+              lowQualityImage.src = lowQualitySrc;
+              lowQualityImage.onload = () => {
+                if (!isMounted) return;
+                setCurrentSrc(lowQualitySrc);
+                
+                // Delay loading for better perceived performance
+                requestAnimationFrame(loadHighQuality);
+              };
               
-              // Delay loading high-quality image for better perceived performance
-              requestAnimationFrame(() => {
-                loadHighQuality();
-              });
-            };
-            
-            lowQualityImage.onerror = () => {
-              if (!isMounted) return;
-              // If low quality fails, try loading high quality directly
-              loadHighQuality();
-            };
-            
-            // Stop observing once we start loading
-            observer.disconnect();
-          }
-        }, {
-          rootMargin: '200px', // Start loading when within 200px of viewport
-          threshold: 0.01
-        });
+              lowQualityImage.onerror = loadHighQuality;
+              observer.disconnect();
+            }
+          },
+          { rootMargin: '200px', threshold: 0.01 }
+        );
         
-        const dummyElement = document.createElement('div');
-        observer.observe(dummyElement);
+        // Create temporary element to observe
+        const element = document.createElement('div');
+        observer.observe(element);
         
         return () => {
           isMounted = false;
           observer.disconnect();
         };
       } else {
-        // For high priority or when IntersectionObserver isn't supported
+        // Direct loading for priority images
         const lowQualityImage = new Image();
         lowQualityImage.src = lowQualitySrc;
         lowQualityImage.onload = () => {
           if (!isMounted) return;
           setCurrentSrc(lowQualitySrc);
-          
-          // Delay loading high-quality image for better perceived performance
-          requestAnimationFrame(() => {
-            loadHighQuality();
-          });
+          requestAnimationFrame(loadHighQuality);
         };
-        lowQualityImage.onerror = () => {
-          if (!isMounted) return;
-          // If low quality fails, try loading high quality directly
-          loadHighQuality();
-        };
+        lowQualityImage.onerror = loadHighQuality;
       }
     } else {
-      // For high-performance devices or when no low-quality src, load high-quality directly
+      // Simplified loading for low performance devices or when no low quality src
       if (!priority && supportsIntersectionObserver) {
-        // Use intersection observer for non-priority images
-        const observer = new IntersectionObserver((entries) => {
-          if (entries[0].isIntersecting) {
-            loadHighQuality();
-            observer.disconnect();
-          }
-        }, {
-          rootMargin: '200px',
-          threshold: 0.01
-        });
+        const observer = new IntersectionObserver(
+          entries => {
+            if (entries[0].isIntersecting) {
+              loadHighQuality();
+              observer.disconnect();
+            }
+          },
+          { rootMargin: '200px', threshold: 0.01 }
+        );
         
-        const dummyElement = document.createElement('div');
-        observer.observe(dummyElement);
+        const element = document.createElement('div');
+        observer.observe(element);
         
         return () => {
           isMounted = false;

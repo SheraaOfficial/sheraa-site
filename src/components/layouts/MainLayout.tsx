@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import ScrollProgressIndicator from "@/components/ScrollProgressIndicator";
 import { WelcomeAnimation } from "@/components/ui/welcome-animation";
 import { Toaster } from "@/components/ui/toaster";
-import { useIsMobile } from "@/hooks/useDeviceDetection";
+import { useDeviceDetection } from "@/hooks/useDeviceDetection";
 import { useDevicePerformance } from "@/hooks/useDevicePerformance";
 
 interface MainLayoutProps {
@@ -21,22 +21,25 @@ const MainLayout: React.FC<MainLayoutProps> = ({
   noFooter = false,
   noNavigation = false
 }) => {
-  const isMobile = useIsMobile();
+  const { isMobile } = useDeviceDetection();
   const devicePerformance = useDevicePerformance();
   const [isAfterFirstRender, setIsAfterFirstRender] = useState(false);
   
-  // Only show welcome animation on higher-end devices and after initial render
+  // Optimize welcome animation - only show on higher-end devices and after initial render
   const shouldShowWelcomeAnimation = devicePerformance !== 'low' && isAfterFirstRender;
   
-  // Effect to set isAfterFirstRender after component mounts
   useEffect(() => {
-    setIsAfterFirstRender(true);
+    // Use requestAnimationFrame to delay setting to after first paint
+    const rafId = requestAnimationFrame(() => {
+      setIsAfterFirstRender(true);
+    });
+    
+    return () => cancelAnimationFrame(rafId);
   }, []);
   
   return (
     <div 
-      className="min-h-screen flex flex-col bg-white relative overflow-x-hidden perspective-1000" 
-      style={{ position: "relative" }}
+      className="min-h-screen flex flex-col bg-white relative overflow-x-hidden perspective-1000"
     >
       <ScrollProgressIndicator />
       
@@ -56,8 +59,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
       )}
       
       <main 
-        className={`flex-grow ${isMobile ? 'pt-14' : 'pt-16'} relative z-10 bg-sheraa-light`} 
-        style={{ position: "relative" }}
+        className={`flex-grow ${isMobile ? 'pt-14' : 'pt-16'} relative z-10 bg-sheraa-light`}
       >
         <div className="relative">
           {children}

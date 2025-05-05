@@ -6,10 +6,10 @@ import { Button } from "@/components/ui/button";
 import { GradientButton } from "@/components/ui/gradient-button";
 import { TextRotate } from "@/components/ui/text-rotate";
 import { Badge } from "@/components/ui/badge";
-import { useIsMobile } from "@/hooks/useDeviceDetection";
+import { useDeviceDetection } from "@/hooks/useDeviceDetection";
 
 export function HeroContent() {
-  const isMobile = useIsMobile();
+  const { isMobile } = useDeviceDetection();
 
   // Memoize animation variants to prevent recreation on each render
   const badgeVariants = useMemo(() => ({
@@ -105,7 +105,7 @@ export function HeroContent() {
 }
 
 function HeroCTA() {
-  const isMobile = useIsMobile();
+  const { isMobile } = useDeviceDetection();
   
   // Memoize animation variants
   const buttonVariants = useMemo(() => ({
