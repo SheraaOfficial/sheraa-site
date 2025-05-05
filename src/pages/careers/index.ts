@@ -1,3 +1,2 @@
 
-import CareersPage from './index';
-export default CareersPage;
+export { default } from './CareersPage';
