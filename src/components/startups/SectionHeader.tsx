@@ -1,21 +1,18 @@
-
 import React from "react";
 import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
-
-const SectionHeader: React.FC = () => (
-  <motion.div 
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.5 }}
-    className="text-center mb-10 md:mb-14" 
-  >
-    <Badge 
-      variant="gradient-warm" 
-      animation="shimmer" 
-      className="mb-4"
-    >
+const SectionHeader: React.FC = () => <motion.div initial={{
+  opacity: 0,
+  y: 20
+}} whileInView={{
+  opacity: 1,
+  y: 0
+}} viewport={{
+  once: true
+}} transition={{
+  duration: 0.5
+}} className="text-center mb-10 md:mb-14">
+    <Badge variant="gradient-warm" animation="shimmer" className="mb-4 bg-sheraa-primary">
       Transforming Ideas into Impact
     </Badge>
     
@@ -28,7 +25,5 @@ const SectionHeader: React.FC = () => (
       These companies are creating real impact, driving innovation, and transforming 
       Sharjah's entrepreneurial landscape.
     </p>
-  </motion.div>
-);
-
+  </motion.div>;
 export default SectionHeader;
