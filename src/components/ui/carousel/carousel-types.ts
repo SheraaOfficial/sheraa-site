@@ -41,5 +41,5 @@ export interface CarouselAPIProvided {
   onSelect?: (api: CarouselApi) => void;
 }
 
-// Add the missing CarouselContextProps interface
+// Define the CarouselContextProps interface
 export interface CarouselContextProps extends CarouselAPIProvided {}
