@@ -7,15 +7,17 @@ interface MainLayoutProps {
   children: React.ReactNode;
   className?: string;
   headerClassName?: string;
+  backgroundStyle?: React.CSSProperties;
 }
 
 const MainLayout: React.FC<MainLayoutProps> = ({ 
   children, 
   className = "",
-  headerClassName = "" 
+  headerClassName = "",
+  backgroundStyle = {} 
 }) => {
   return (
-    <div className={`min-h-screen flex flex-col ${className}`}>
+    <div className={`min-h-screen flex flex-col ${className}`} style={backgroundStyle}>
       <div className={headerClassName}>
         <Navigation />
       </div>
