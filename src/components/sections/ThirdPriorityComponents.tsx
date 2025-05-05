@@ -16,11 +16,9 @@ const ContactSection = lazy(() =>
   }))
 );
 
-// Fix the typing for StartupsShowcase by using a more specific type definition
+// Fix the typing for StartupsShowcase by using a more flexible typing approach
 const StartupsShowcase = lazy(() => 
-  import("@/components/StartupsShowcase").then(module => ({ 
-    default: module.default 
-  })).catch(() => ({ 
+  import("@/components/StartupsShowcase").catch(() => ({ 
     default: () => null 
   }))
 );

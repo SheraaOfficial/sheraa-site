@@ -144,11 +144,11 @@ const SectionHeader: React.FC = () => (
       Transforming Ideas into Impact
     </Badge>
     
-    <h2 className="text-2xl md:text-4xl font-bold text-sheraa-dark mb-6 leading-tight">
+    <h2 className="text-2xl md:text-4xl font-bold text-sheraa-dark mb-4 md:mb-6 leading-tight">
       Our <span className="text-sheraa-primary">Startups</span>
     </h2>
     
-    <p className="text-gray-600 max-w-3xl mx-auto text-sm md:text-base px-4">
+    <p className="text-gray-600 max-w-3xl mx-auto text-sm md:text-base px-4 md:px-6 mb-2 md:mb-0">
       Meet the innovative ventures shaping the future through Sheraa's ecosystem. 
       These companies are creating real impact, driving innovation, and transforming 
       Sharjah's entrepreneurial landscape.
@@ -175,7 +175,7 @@ const MobilePagination: React.FC<{
 );
 
 // Main component
-const StartupsShowcase: React.FC = () => {
+const StartupsShowcase = () => {
   const isMobile = useIsMobile();
   const [activeIndex, setActiveIndex] = useState(0);
   
@@ -230,7 +230,7 @@ const StartupsShowcase: React.FC = () => {
           )}
         </div>
 
-        <div className="flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-6 mt-4">
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-6 mt-4 md:mt-8">
           <Button 
             asChild 
             size={isMobile ? "default" : "lg"} 
