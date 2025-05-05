@@ -3,38 +3,43 @@ import React, { lazy, Suspense } from 'react';
 import { SafeSuspense } from '../layout/SafeSuspense';
 import { useIsMobile } from '@/hooks/useDeviceDetection';
 
+// Define a consistent return type for the error fallback
+type ComponentWithErrorFallback = {
+  default: React.ComponentType<any>;
+};
+
 // Lowest priority components with improved error handling
-const PartnersSection = lazy(() => 
+const PartnersSection = lazy<ComponentWithErrorFallback>(() => 
   import("@/components/PartnersSection").catch(() => ({ 
     default: () => null 
   }))
 );
 
-const ContactSection = lazy(() => 
+const ContactSection = lazy<ComponentWithErrorFallback>(() => 
   import("@/components/ContactSection").catch(() => ({ 
     default: () => null 
   }))
 );
 
-const StartupsShowcase = lazy(() => 
+const StartupsShowcase = lazy<ComponentWithErrorFallback>(() => 
   import("@/components/StartupsShowcase").catch(() => ({ 
     default: () => null 
   }))
 );
 
-const PodcastSection = lazy(() => 
+const PodcastSection = lazy<ComponentWithErrorFallback>(() => 
   import("@/components/PodcastSection").catch(() => ({ 
     default: () => null 
   }))
 );
 
-const CommunitySection = lazy(() => 
+const CommunitySection = lazy<ComponentWithErrorFallback>(() => 
   import("@/components/CommunitySection").catch(() => ({ 
     default: () => null 
   }))
 );
 
-const StartupTestimonials = lazy(() => 
+const StartupTestimonials = lazy<ComponentWithErrorFallback>(() => 
   import("@/components/StartupTestimonials").catch(() => ({ 
     default: () => null 
   }))

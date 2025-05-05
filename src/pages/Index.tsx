@@ -1,5 +1,5 @@
 
-import React, { lazy, Suspense, useEffect, useMemo } from "react";
+import React, { lazy, Suspense, useEffect } from "react";
 import MainLayout from "@/components/layouts/MainLayout";
 import { useOptimizedScroll } from "@/hooks/useOptimizedScroll";
 import { useBackgroundAnimation } from "@/hooks/use-background-animation";
@@ -42,19 +42,8 @@ const LoadingPlaceholder = () => {
   );
 };
 
-const Index = () => {
-  const { scrollY } = useOptimizedScroll();
-  const backgroundStyle = useBackgroundAnimation(scrollY);
-  const scrollDirection = useScrollDirection(scrollY);
-  const firstInteraction = useFirstInteraction();
-  const deepScroll = useDeepScroll();
-  const devicePerformance = useDevicePerformance();
-  const isMobile = useIsMobile();
-  
-  // Setup smooth scroll behavior based on device performance
-  useSmoothScroll();
-  
-  // Smart preloading strategy based on device performance
+// Component for handling preloading logic
+const useComponentPreloader = (deepScroll, devicePerformance) => {
   useEffect(() => {
     if (devicePerformance === 'low') return; // Skip preloading on low-end devices
     
@@ -82,19 +71,32 @@ const Index = () => {
       clearTimeout(timeoutId);
     };
   }, [deepScroll, devicePerformance]);
+};
 
-  // Memoize background style to prevent unnecessary re-renders
-  const memoizedBackgroundStyle = useMemo(() => backgroundStyle, [backgroundStyle]);
+const Index = () => {
+  const { scrollY } = useOptimizedScroll();
+  const backgroundStyle = useBackgroundAnimation(scrollY);
+  const scrollDirection = useScrollDirection(scrollY);
+  const firstInteraction = useFirstInteraction();
+  const deepScroll = useDeepScroll();
+  const devicePerformance = useDevicePerformance();
+  const isMobile = useIsMobile();
+  
+  // Setup smooth scroll behavior based on device performance
+  useSmoothScroll();
+  
+  // Use the preloader hook
+  useComponentPreloader(deepScroll, devicePerformance);
 
   return (
-    <MainLayout backgroundStyle={memoizedBackgroundStyle}>
+    <MainLayout backgroundStyle={backgroundStyle}>
       {/* Progress bar for scrolling */}
       <ProgressBar />
 
       {/* Hero section - load immediately */}
       <HeroSection />
       
-      <div className="space-y-0 relative z-10" style={{ position: "relative" }}>
+      <div className="space-y-0 relative z-10">
         {/* First priority components - always load */}
         <FirstPriorityComponents />
         
