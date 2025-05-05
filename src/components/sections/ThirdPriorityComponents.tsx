@@ -1,5 +1,5 @@
 
-import React, { lazy, ComponentType } from 'react';
+import React, { lazy } from 'react';
 import { SafeSuspense } from '../layout/SafeSuspense';
 import { useIsMobile } from '@/hooks/useDeviceDetection';
 import { ErrorFallback } from '../layout/ErrorFallback';
@@ -7,9 +7,11 @@ import { ErrorFallback } from '../layout/ErrorFallback';
 // Simple fallback component
 const SimpleFallback = () => <div className="h-20 md:h-32"></div>;
 
-// Use a more generic type definition that doesn't cause type conflicts
+// Properly type the lazy imports without explicit annotations
+// React.lazy() will correctly infer the component types
 const PartnersSection = lazy(() => 
   import("@/components/PartnersSection")
+    .then(module => ({ default: module.default }))
     .catch(error => {
       console.error("Failed to load Partners section:", error);
       return { default: () => <ErrorFallback message="Unable to load Partners section" /> };
@@ -18,6 +20,7 @@ const PartnersSection = lazy(() =>
 
 const ContactSection = lazy(() => 
   import("@/components/ContactSection")
+    .then(module => ({ default: module.default }))
     .catch(error => {
       console.error("Failed to load Contact section:", error);
       return { default: () => <ErrorFallback message="Unable to load Contact section" /> };
@@ -26,6 +29,7 @@ const ContactSection = lazy(() =>
 
 const StartupsShowcase = lazy(() => 
   import("@/components/StartupsShowcase")
+    .then(module => ({ default: module.default }))
     .catch(error => {
       console.error("Failed to load Startups showcase:", error);
       return { default: () => <ErrorFallback message="Unable to load Startups showcase" /> };
@@ -34,6 +38,7 @@ const StartupsShowcase = lazy(() =>
 
 const PodcastSection = lazy(() => 
   import("@/components/PodcastSection")
+    .then(module => ({ default: module.default }))
     .catch(error => {
       console.error("Failed to load Podcast section:", error);
       return { default: () => <ErrorFallback message="Unable to load Podcast section" /> };
@@ -42,6 +47,7 @@ const PodcastSection = lazy(() =>
 
 const CommunitySection = lazy(() => 
   import("@/components/CommunitySection")
+    .then(module => ({ default: module.default }))
     .catch(error => {
       console.error("Failed to load Community section:", error);
       return { default: () => <ErrorFallback message="Unable to load Community section" /> };
@@ -50,6 +56,7 @@ const CommunitySection = lazy(() =>
 
 const StartupTestimonials = lazy(() => 
   import("@/components/StartupTestimonials")
+    .then(module => ({ default: module.default }))
     .catch(error => {
       console.error("Failed to load Testimonials:", error);
       return { default: () => <ErrorFallback message="Unable to load Testimonials" /> };
