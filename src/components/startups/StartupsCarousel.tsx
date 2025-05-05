@@ -1,6 +1,6 @@
 
-import React, { useState, useCallback } from "react";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import React, { useState, useCallback, useEffect } from "react";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from "@/components/ui/carousel";
 import StartupCard from "./StartupCard";
 import MobilePagination from "./MobilePagination";
 import { featuredStartups } from "./startupsData";
@@ -13,13 +13,33 @@ interface StartupsCarouselProps {
 const StartupsCarousel: React.FC<StartupsCarouselProps> = ({ onSlideChange }) => {
   const isMobile = useIsMobile();
   const [activeIndex, setActiveIndex] = useState(0);
+  const [api, setApi] = useState<CarouselApi | null>(null);
   
-  const handleSlideChange = useCallback((index: number) => {
-    setActiveIndex(index);
-    if (onSlideChange) {
-      onSlideChange(index);
-    }
-  }, [onSlideChange]);
+  // Setup API event listeners when the carousel API is available
+  useEffect(() => {
+    if (!api) return;
+    
+    // Handler for slide change
+    const handleSelect = () => {
+      const currentIndex = api.selectedScrollSnap();
+      setActiveIndex(currentIndex);
+      
+      if (onSlideChange) {
+        onSlideChange(currentIndex);
+      }
+    };
+    
+    // Subscribe to carousel events
+    api.on('select', handleSelect);
+    
+    // Set initial value
+    handleSelect();
+    
+    // Cleanup
+    return () => {
+      api.off('select', handleSelect);
+    };
+  }, [api, onSlideChange]);
   
   return (
     <div className="mb-10 md:mb-14 max-w-full">
@@ -30,11 +50,7 @@ const StartupsCarousel: React.FC<StartupsCarouselProps> = ({ onSlideChange }) =>
           dragFree: true
         }}
         className="w-full"
-        onSelect={(api) => {
-          if (api) {
-            handleSlideChange(api.selectedScrollSnap());
-          }
-        }}
+        setApi={setApi}
       >
         <CarouselContent className="-ml-2 md:-ml-4">
           {featuredStartups.map((startup, index) => (
