@@ -34,6 +34,49 @@ const LoginForm = () => {
   });
   
   const onSubmit = (data: FormValues) => {
+    // For demo purposes, let's add a default user if no users exist
+    if (users.length === 0) {
+      const defaultUser = {
+        id: "default-user-1",
+        email: "demo@sheraa.com",
+        password: "password123",
+        firstName: "Demo",
+        lastName: "User",
+        profileComplete: true,
+        profile: {
+          headline: "Startup Founder & Tech Entrepreneur",
+          bio: "Passionate about building products that solve real problems.",
+          location: "Sharjah, UAE",
+          website: "https://example.com",
+          industry: "Technology",
+          expertise: ["Product Development", "UX Design", "Entrepreneurship"],
+          projects: [
+            {
+              id: "1",
+              name: "EcoSolutions",
+              description: "Sustainable technology solutions for businesses.",
+            }
+          ]
+        },
+        posts: [
+          {
+            id: "post1",
+            content: "Excited to join the Sheraa community! Looking forward to connecting with fellow entrepreneurs.",
+            timestamp: new Date().toISOString(),
+            likes: 12,
+            comments: 3
+          }
+        ],
+        connections: ["user2", "user3"]
+      };
+      
+      setUsers([defaultUser]);
+      toast({
+        title: "Demo account created",
+        description: "Use email: demo@sheraa.com and password: password123 to login",
+      });
+    }
+    
     const user = users.find(u => u.email === data.email && u.password === data.password);
     
     if (user) {
@@ -42,11 +85,17 @@ const LoginForm = () => {
         title: "Login successful!",
         description: `Welcome back, ${user.firstName}!`,
       });
-      navigate("/profile");
+      
+      // Check if profile is complete
+      if (user.profileComplete) {
+        navigate("/profile");
+      } else {
+        navigate("/profile-setup");
+      }
     } else {
       toast({
         title: "Login failed",
-        description: "Invalid email or password. Please try again.",
+        description: "Invalid email or password. Try with demo@sheraa.com and password123",
         variant: "destructive",
       });
     }

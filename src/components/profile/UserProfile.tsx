@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "@/hooks/use-local-storage";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -9,24 +9,40 @@ import PostsSection from "./PostsSection";
 import AboutSection from "./AboutSection";
 import ActivitySection from "./ActivitySection";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useToast } from "@/hooks/use-toast";
 
 const UserProfile = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
   const [loggedInUser, setLoggedInUser] = useLocalStorage<any | null>("loggedInUser", null);
   const [users, setUsers] = useLocalStorage<any[]>("users", []);
   const isMobile = useIsMobile();
   
+  useEffect(() => {
+    if (!loggedInUser) {
+      toast({
+        title: "Not logged in",
+        description: "Please log in to view your profile",
+      });
+      navigate("/login");
+      return;
+    }
+    
+    if (!loggedInUser.profileComplete) {
+      toast({
+        title: "Profile incomplete",
+        description: "Please complete your profile",
+      });
+      navigate("/profile-setup");
+      return;
+    }
+  }, [loggedInUser, navigate, toast]);
+  
   if (!loggedInUser) {
-    navigate("/login");
     return null;
   }
   
   const profile = loggedInUser.profile || {};
-  
-  if (!loggedInUser.profileComplete) {
-    navigate("/profile-setup");
-    return null;
-  }
   
   return (
     <div className="container mx-auto px-4 py-4 md:py-8 max-w-6xl">
