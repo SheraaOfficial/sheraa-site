@@ -10,49 +10,37 @@ import ProgressBar from "@/components/ProgressBar";
 import { HeroSection } from "@/components/HeroSection";
 import { FirstPriorityComponents } from "@/components/sections/FirstPriorityComponents";
 import { useDevicePerformance } from "@/hooks/useDevicePerformance";
+import { useIsMobile } from "@/hooks/useDeviceDetection";
+import { SectionLoading } from "@/components/layout/SectionLoading";
+import { ErrorFallback } from "@/components/layout/ErrorFallback";
 
-// Lazy-loaded components with improved loading indicators and error boundaries
+// Lazy-loaded components with improved error handling
 const SecondPriorityComponents = lazy(() => 
   import("@/components/sections/SecondPriorityComponents")
     .then(module => ({ default: module.SecondPriorityComponents }))
-    .catch(error => {
-      console.error("Failed to load SecondPriorityComponents:", error);
-      return { default: () => <ErrorFallback /> };
-    })
+    .catch(() => ({ 
+      default: () => <ErrorFallback /> 
+    }))
 );
 
 const ThirdPriorityComponents = lazy(() => 
   import("@/components/sections/ThirdPriorityComponents")
     .then(module => ({ default: module.ThirdPriorityComponents }))
-    .catch(error => {
-      console.error("Failed to load ThirdPriorityComponents:", error);
-      return { default: () => <ErrorFallback /> };
-    })
+    .catch(() => ({ 
+      default: () => <ErrorFallback /> 
+    }))
 );
 
-// Simple error fallback component
-const ErrorFallback = () => (
-  <div className="p-4 bg-red-50 rounded-md">
-    <p className="text-center text-red-500">
-      Failed to load content. Please refresh the page.
-    </p>
-  </div>
-);
-
-// Loading placeholder with reduced UI shifting and better visual appearance
-const LoadingPlaceholder = () => (
-  <div className="h-32 flex items-center justify-center bg-sheraa-light/50 rounded-md animate-pulse">
-    <div className="flex space-x-4 w-full max-w-3xl">
-      <div className="flex-1 space-y-4 py-1">
-        <div className="h-4 bg-gray-200 rounded w-3/4"></div>
-        <div className="space-y-2">
-          <div className="h-4 bg-gray-200 rounded"></div>
-          <div className="h-4 bg-gray-200 rounded w-5/6"></div>
-        </div>
-      </div>
+// Improved loading placeholder with reduced UI shifting
+const LoadingPlaceholder = () => {
+  const isMobile = useIsMobile();
+  
+  return (
+    <div className={`h-${isMobile ? '16' : '32'} flex items-center justify-center bg-sheraa-light/30 rounded-md`}>
+      <SectionLoading />
     </div>
-  </div>
-);
+  );
+};
 
 const Index = () => {
   const { scrollY } = useOptimizedScroll();
@@ -61,9 +49,9 @@ const Index = () => {
   const firstInteraction = useFirstInteraction();
   const deepScroll = useDeepScroll();
   const devicePerformance = useDevicePerformance();
+  const isMobile = useIsMobile();
   
   // Setup smooth scroll behavior based on device performance
-  // Fix: Remove argument as useSmoothScroll doesn't expect any parameters
   useSmoothScroll();
   
   // Smart preloading strategy based on device performance
@@ -75,15 +63,11 @@ const Index = () => {
     const preloadSecondaryComponents = async () => {
       try {
         // Preload critical secondary components
-        const preloadTimer = setTimeout(() => {}, 0); // Keep event loop active
         await import("@/components/sections/SecondPriorityComponents");
-        clearTimeout(preloadTimer);
         
         // Only preload tertiary components on high-performance devices or when deep scrolled
         if (devicePerformance === 'high' || deepScroll) {
-          const secondaryTimer = setTimeout(() => {}, 0);
           await import("@/components/sections/ThirdPriorityComponents");
-          clearTimeout(secondaryTimer);
         }
       } catch (error) {
         console.error("Failed to preload components:", error);

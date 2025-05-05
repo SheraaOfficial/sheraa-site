@@ -1,18 +1,50 @@
 
-import React, { lazy } from 'react';
+import React, { lazy, Suspense } from 'react';
 import { SafeSuspense } from '../layout/SafeSuspense';
+import { useIsMobile } from '@/hooks/useDeviceDetection';
 
-// Lowest priority components
-const PartnersSection = lazy(() => import("@/components/PartnersSection"));
-const ContactSection = lazy(() => import("@/components/ContactSection"));
-const StartupsShowcase = lazy(() => import("@/components/StartupsShowcase"));
-const PodcastSection = lazy(() => import("@/components/PodcastSection"));
-const CommunitySection = lazy(() => import("@/components/CommunitySection"));
-const StartupTestimonials = lazy(() => import("@/components/StartupTestimonials"));
+// Lowest priority components with improved error handling
+const PartnersSection = lazy(() => 
+  import("@/components/PartnersSection").catch(() => ({ 
+    default: () => null 
+  }))
+);
+
+const ContactSection = lazy(() => 
+  import("@/components/ContactSection").catch(() => ({ 
+    default: () => null 
+  }))
+);
+
+const StartupsShowcase = lazy(() => 
+  import("@/components/StartupsShowcase").catch(() => ({ 
+    default: () => null 
+  }))
+);
+
+const PodcastSection = lazy(() => 
+  import("@/components/PodcastSection").catch(() => ({ 
+    default: () => null 
+  }))
+);
+
+const CommunitySection = lazy(() => 
+  import("@/components/CommunitySection").catch(() => ({ 
+    default: () => null 
+  }))
+);
+
+const StartupTestimonials = lazy(() => 
+  import("@/components/StartupTestimonials").catch(() => ({ 
+    default: () => null 
+  }))
+);
 
 export const ThirdPriorityComponents: React.FC = () => {
+  const isMobile = useIsMobile();
+  
   return (
-    <>
+    <div className="space-y-2 md:space-y-0">
       <SafeSuspense>
         <StartupsShowcase />
       </SafeSuspense>
@@ -36,6 +68,6 @@ export const ThirdPriorityComponents: React.FC = () => {
       <SafeSuspense>
         <ContactSection />
       </SafeSuspense>
-    </>
+    </div>
   );
 };

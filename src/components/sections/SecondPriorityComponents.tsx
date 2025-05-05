@@ -1,16 +1,38 @@
 
-import React, { lazy } from 'react';
+import React, { lazy, Suspense } from 'react';
 import { SafeSuspense } from '../layout/SafeSuspense';
+import { useIsMobile } from '@/hooks/useDeviceDetection';
 
-// Second priority components
-const ProgramsOverview = lazy(() => import("@/components/ProgramsOverview"));
-const EligibilityChecker = lazy(() => import("@/components/EligibilityChecker"));
-const SEFSection = lazy(() => import("@/components/SEFSection"));
-const WhySharjah = lazy(() => import("@/components/WhySharjah"));
+// Second priority components with improved error handling
+const ProgramsOverview = lazy(() => 
+  import("@/components/ProgramsOverview").catch(() => ({ 
+    default: () => null 
+  }))
+);
+
+const EligibilityChecker = lazy(() => 
+  import("@/components/EligibilityChecker").catch(() => ({ 
+    default: () => null 
+  }))
+);
+
+const SEFSection = lazy(() => 
+  import("@/components/SEFSection").catch(() => ({ 
+    default: () => null 
+  }))
+);
+
+const WhySharjah = lazy(() => 
+  import("@/components/WhySharjah").catch(() => ({ 
+    default: () => null 
+  }))
+);
 
 export const SecondPriorityComponents: React.FC = () => {
+  const isMobile = useIsMobile();
+  
   return (
-    <>
+    <div className="space-y-2 md:space-y-0">
       <SafeSuspense>
         <ProgramsOverview />
       </SafeSuspense>
@@ -26,6 +48,6 @@ export const SecondPriorityComponents: React.FC = () => {
       <SafeSuspense>
         <WhySharjah />
       </SafeSuspense>
-    </>
+    </div>
   );
 };
