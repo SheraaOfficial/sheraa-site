@@ -1,17 +1,19 @@
 
 import * as React from "react";
 
-const MOBILE_BREAKPOINT = 768;
-const TABLET_BREAKPOINT = 1024;
+export const MOBILE_BREAKPOINT = 768;
+export const TABLET_BREAKPOINT = 1024;
 
 /**
- * Hook to detect if the current viewport is mobile size
+ * Enhanced hook to detect if the current viewport is mobile size
  * @returns boolean indicating if the device is mobile
  */
 export function useIsMobile() {
   const [isMobile, setIsMobile] = React.useState<boolean>(false);
   
   React.useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     // Set default state based on initial check
     setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
     
@@ -69,6 +71,8 @@ export function useIsTablet() {
   const [isTablet, setIsTablet] = React.useState<boolean>(false);
   
   React.useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     const handleTabletCheck = () => {
       const width = window.innerWidth;
       setIsTablet(width >= MOBILE_BREAKPOINT && width < TABLET_BREAKPOINT);
@@ -116,6 +120,65 @@ export function useIsTablet() {
   }, []);
   
   return isTablet;
+}
+
+/**
+ * Hook to detect if the current viewport is desktop size
+ * @returns boolean indicating if the device is desktop
+ */
+export function useIsDesktop() {
+  const [isDesktop, setIsDesktop] = React.useState<boolean>(false);
+  
+  React.useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
+    // Set default state based on initial check
+    setIsDesktop(window.innerWidth >= TABLET_BREAKPOINT);
+    
+    // Use matchMedia for efficient listening
+    const mediaQuery = window.matchMedia(`(min-width: ${TABLET_BREAKPOINT}px)`);
+    
+    // Define handler outside to avoid recreating it
+    const handleChange = (e: MediaQueryListEvent | MediaQueryList) => {
+      setIsDesktop(e.matches);
+    };
+    
+    // Modern API with fallback
+    if (mediaQuery.addEventListener) {
+      mediaQuery.addEventListener('change', handleChange);
+      // Handle initial state consistently 
+      handleChange(mediaQuery);
+    } else {
+      // Legacy fallback using highly optimized resize handler
+      let timeout: number | undefined;
+      const handleResize = () => {
+        if (timeout) {
+          window.cancelAnimationFrame(timeout);
+        }
+        
+        timeout = window.requestAnimationFrame(() => {
+          setIsDesktop(window.innerWidth >= TABLET_BREAKPOINT);
+        });
+      };
+      
+      window.addEventListener('resize', handleResize, { passive: true });
+      // Set initial value
+      handleResize();
+      
+      return () => {
+        window.removeEventListener('resize', handleResize);
+        if (timeout) window.cancelAnimationFrame(timeout);
+      };
+    }
+    
+    return () => {
+      if (mediaQuery.removeEventListener) {
+        mediaQuery.removeEventListener('change', handleChange);
+      }
+    };
+  }, []);
+  
+  return isDesktop;
 }
 
 /**

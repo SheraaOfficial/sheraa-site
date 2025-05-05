@@ -45,16 +45,19 @@ export function useOptimizedImage({
     
     // Use modern browser features when available
     const supportsIntersectionObserver = 'IntersectionObserver' in window;
-    const supportsFetchPriority = 'fetchPriority' in HTMLImageElement.prototype;
     
     // Function to load the high-quality image
     const loadHighQuality = () => {
       const highQualityImage = new Image();
       
-      // Set fetchPriority if supported and priority is true
-      if (priority && supportsFetchPriority) {
-        // Using dataset to avoid React warning about unknown prop
-        highQualityImage.dataset.fetchpriority = 'high';
+      // Handle priority without using the problematic fetchpriority attribute
+      if (priority) {
+        // Use preload approach for high priority images
+        const preloadLink = document.createElement('link');
+        preloadLink.rel = 'preload';
+        preloadLink.as = 'image';
+        preloadLink.href = src;
+        document.head.appendChild(preloadLink);
       }
       
       if (sizes) {

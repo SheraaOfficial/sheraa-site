@@ -114,8 +114,7 @@ function HeroCTA() {
     transition: {
       duration: 0.2,
       ease: "easeOut",
-      delay: 0.7,
-      scale: { duration: 0.2 },
+      delay: 0.7
     },
     whileHover: {
       scale: 1.05,
@@ -140,7 +139,7 @@ function HeroCTA() {
       <motion.div
         initial={buttonVariants.initial}
         animate={buttonVariants.animate}
-        transition={buttonVariants.transition}
+        transition={{...buttonVariants.transition, delay: 0.8}}
         whileHover={buttonVariants.whileHover}
         className="w-full sm:w-auto"
       >

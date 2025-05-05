@@ -1,5 +1,5 @@
 
-import React, { memo, useCallback, useState, useEffect } from "react";
+import React, { memo, useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import ScrollProgressIndicator from "@/components/ScrollProgressIndicator";

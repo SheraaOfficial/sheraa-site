@@ -5,14 +5,15 @@
  * and useOptimizedScroll directly.
  */
 
-import { useIsMobile, useIsTablet } from "./useDeviceDetection";
+import { useIsMobile, useIsTablet, useIsDesktop } from "./useDeviceDetection";
 import { useDevicePerformance } from "./useDevicePerformance";
 import { useOptimizedScroll } from "./useOptimizedScroll";
 
 // Re-export for backward compatibility
 export { 
   useIsMobile, 
-  useIsTablet, 
+  useIsTablet,
+  useIsDesktop,
   useDevicePerformance,
   useOptimizedScroll
 };
