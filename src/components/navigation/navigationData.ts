@@ -8,13 +8,13 @@ export interface NavLink {
 
 // Create and export Home links (formerly About links)
 export const homeLinks: NavLink[] = [
-  { title: "Introduction", href: "/about", description: "Learn about Sheraa's mission and values" },
-  { title: "Our Approach", href: "/about/approach", description: "Discover our founder-first philosophy" },
-  { title: "Our Vision", href: "/about/vision", description: "See our vision for Sharjah's future" },
-  { title: "Our Impact", href: "/about/impact", description: "Explore our ecosystem's achievements" },
-  { title: "Our Hubs", href: "/about/hubs", description: "Visit our strategic locations" },
-  { title: "Our Leadership", href: "/about/leadership", description: "Meet our visionary leaders" },
-  { title: "Our Board of Advisors", href: "/about/board", description: "Learn from our expert advisors" },
+  { title: "About Us", href: "/about", description: "Learn about Sheraa's mission and values" },
+  { title: "Our Approach", href: "/about#approach", description: "Discover our founder-first philosophy" },
+  { title: "Our Vision", href: "/about#vision", description: "See our vision for Sharjah's future" },
+  { title: "Our Impact", href: "/about#impact", description: "Explore our ecosystem's achievements" },
+  { title: "Our Hubs", href: "/about#hubs", description: "Visit our strategic locations" },
+  { title: "Our Leadership", href: "/about#leadership", description: "Meet our visionary leaders" },
+  { title: "Our Board of Advisors", href: "/about#board", description: "Learn from our expert advisors" },
   { title: "Careers", href: "/careers", description: "Join our team" },
 ];
 

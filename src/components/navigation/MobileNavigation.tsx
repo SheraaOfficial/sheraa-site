@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -50,11 +51,11 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({
   applyLinks
 }) => {
   if (!isMenuOpen) return null;
+  
   return <div className="md:hidden fixed inset-0 z-50 bg-white">
       <div className="container p-4 bg-gray-50">
         <div className="flex items-center justify-between mb-6">
           <Link to="/" className="flex items-center" onClick={() => setIsMenuOpen(false)}>
-            
             <span className="text-xl font-bold text-sheraa-primary">SHERAA</span>
           </Link>
           <Button variant="ghost" size="icon" onClick={toggleMenu}>

@@ -65,14 +65,9 @@ const App = () => (
           <Route path="/profile-setup" element={<ProfileSetupPage />} />
           <Route path="/feed" element={<FeedPage />} />
           
-          {/* About Routes */}
+          {/* About Routes - Consolidated into a single page with anchors */}
           <Route path="/about" element={<AboutPage />} />
-          <Route path="/about/approach" element={<AboutPage section="approach" />} />
-          <Route path="/about/vision" element={<AboutPage section="vision" />} />
           <Route path="/about/impact" element={<ImpactReport />} />
-          <Route path="/about/hubs" element={<AboutPage section="hubs" />} />
-          <Route path="/about/leadership" element={<AboutPage section="leadership" />} />
-          <Route path="/about/board" element={<AboutPage section="board" />} />
 
           {/* Programs Routes */}
           <Route path="/programs" element={<ProgramsPage />} />
