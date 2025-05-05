@@ -7,11 +7,8 @@ import { ErrorFallback } from '../layout/ErrorFallback';
 // Simple fallback component
 const SimpleFallback = () => <div className="h-20 md:h-32"></div>;
 
-// Use a more flexible type that matches what React.lazy() actually returns
-// This avoids the strict NamedExoticComponent requirement
-type LazyComponent = React.LazyExoticComponent<React.ComponentType<any>>;
-
-const PartnersSection: LazyComponent = lazy(() => 
+// Use a more generic type definition that doesn't cause type conflicts
+const PartnersSection = lazy(() => 
   import("@/components/PartnersSection")
     .catch(error => {
       console.error("Failed to load Partners section:", error);
@@ -19,7 +16,7 @@ const PartnersSection: LazyComponent = lazy(() =>
     })
 );
 
-const ContactSection: LazyComponent = lazy(() => 
+const ContactSection = lazy(() => 
   import("@/components/ContactSection")
     .catch(error => {
       console.error("Failed to load Contact section:", error);
@@ -27,7 +24,7 @@ const ContactSection: LazyComponent = lazy(() =>
     })
 );
 
-const StartupsShowcase: LazyComponent = lazy(() => 
+const StartupsShowcase = lazy(() => 
   import("@/components/StartupsShowcase")
     .catch(error => {
       console.error("Failed to load Startups showcase:", error);
@@ -35,7 +32,7 @@ const StartupsShowcase: LazyComponent = lazy(() =>
     })
 );
 
-const PodcastSection: LazyComponent = lazy(() => 
+const PodcastSection = lazy(() => 
   import("@/components/PodcastSection")
     .catch(error => {
       console.error("Failed to load Podcast section:", error);
@@ -43,7 +40,7 @@ const PodcastSection: LazyComponent = lazy(() =>
     })
 );
 
-const CommunitySection: LazyComponent = lazy(() => 
+const CommunitySection = lazy(() => 
   import("@/components/CommunitySection")
     .catch(error => {
       console.error("Failed to load Community section:", error);
@@ -51,7 +48,7 @@ const CommunitySection: LazyComponent = lazy(() =>
     })
 );
 
-const StartupTestimonials: LazyComponent = lazy(() => 
+const StartupTestimonials = lazy(() => 
   import("@/components/StartupTestimonials")
     .catch(error => {
       console.error("Failed to load Testimonials:", error);
