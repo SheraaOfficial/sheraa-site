@@ -26,7 +26,7 @@ const values = [
   {
     id: 'impact',
     title: 'Impact-Driven',
-    description: 'We measure success by the positive change we create in Sharjah's ecosystem.',
+    description: 'We measure success by the positive change we create in Sharjah\'s ecosystem.',
   },
 ];
 

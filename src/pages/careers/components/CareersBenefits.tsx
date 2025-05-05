@@ -7,7 +7,7 @@ const benefits = [
   {
     id: 1,
     title: 'Impactful Work',
-    description: 'Contribute directly to the growth of Sharjah's entrepreneurial ecosystem',
+    description: 'Contribute directly to the growth of Sharjah\'s entrepreneurial ecosystem',
     icon: Building,
   },
   {
