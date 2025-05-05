@@ -29,13 +29,13 @@ const FeatureItem = React.memo(({
   
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-20px" }}
-      transition={{ delay: isMobile ? index * 0.1 : index * 0.15, ...springConfig }}
+      viewport={{ once: true, margin: "-10px" }}
+      transition={{ delay: isMobile ? index * 0.05 : index * 0.15, ...springConfig }}
       whileHover={{ scale: isMobile ? 1.01 : 1.03, transition: { ...springConfig } }}
       className={cn(
-        "flex flex-col py-4 md:py-10 px-2 md:px-4 relative group/feature",
+        "flex flex-col py-2 md:py-10 px-2 md:px-4 relative group/feature",
         "border-b border-gray-100 dark:border-neutral-800 last:border-b-0 md:last:border-b",
         (index === 0 || index === 4) && "lg:border-l",
         index < 4 && "lg:border-b",
@@ -49,7 +49,7 @@ const FeatureItem = React.memo(({
       />
       
       <motion.div 
-        className="mb-1 md:mb-2 relative z-10 px-2 md:px-6 text-sheraa-primary"
+        className="mb-1 md:mb-2 relative z-10 px-1 md:px-6 text-sheraa-primary"
         whileHover={{ 
           rotate: [0, -5, 5, -5, 0],
           transition: { duration: 0.5 }
@@ -59,12 +59,12 @@ const FeatureItem = React.memo(({
       </motion.div>
       
       <motion.div 
-        className="text-2xl md:text-5xl lg:text-6xl font-bold mb-1 md:mb-2 relative z-10 px-2 md:px-6"
+        className="text-xl md:text-5xl lg:text-6xl font-bold mb-1 md:mb-2 relative z-10 px-1 md:px-6"
         initial={{ opacity: 0, scale: 0.5 }}
         whileInView={{ 
           opacity: 1, 
           scale: 1, 
-          transition: { delay: 0.05 + index * 0.1, ...springConfig }
+          transition: { delay: 0.05 + index * 0.05, ...springConfig }
         }}
         viewport={{ once: true }}
       >
@@ -73,7 +73,7 @@ const FeatureItem = React.memo(({
         </span>
       </motion.div>
       
-      <div className="text-sm md:text-lg font-bold mb-1 md:mb-2 relative z-10 px-2 md:px-6">
+      <div className="text-sm md:text-lg font-bold mb-1 md:mb-2 relative z-10 px-1 md:px-6">
         <motion.div 
           className="absolute left-0 inset-y-0 h-4 md:h-6 w-1 rounded-tr-full rounded-br-full bg-gray-200 dark:bg-neutral-700 group-hover/feature:bg-sheraa-primary transition-all duration-300 ease-out origin-center"
           whileHover={{ height: isMobile ? 16 : 28 }}
@@ -86,15 +86,15 @@ const FeatureItem = React.memo(({
         </motion.span>
       </div>
       
-      <p className="text-xs md:text-sm text-gray-600 max-w-xs relative z-10 px-2 md:px-6">
+      <p className="text-xs md:text-sm text-gray-600 max-w-xs relative z-10 px-1 md:px-6">
         {description}
       </p>
       
       {/* Replaced div with enhanced badge component */}
-      <div className="px-2 md:px-6 mt-2">
+      <div className="px-1 md:px-6 mt-2">
         <Badge 
           variant="soft-primary"
-          className="font-medium text-xs md:text-sm"
+          className="font-medium text-[10px] md:text-sm"
         >
           {subtext}
         </Badge>

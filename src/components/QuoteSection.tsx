@@ -1,6 +1,6 @@
 
 import React from "react";
-import { motion, useScroll } from "framer-motion";
+import { motion } from "framer-motion";
 import { Quote } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Glow } from "@/components/ui/glow-effect";
@@ -9,10 +9,6 @@ import { ParallaxSection } from "./parallax";
 const QuoteSection = () => {
   const containerRef = React.useRef<HTMLDivElement>(null);
   const isMobile = useIsMobile();
-  const { scrollYProgress } = useScroll({ 
-    target: containerRef,
-    offset: ["start end", "end start"]
-  });
 
   // Generate sparkle positions
   const sparklePositions = React.useMemo(() => {
@@ -27,11 +23,10 @@ const QuoteSection = () => {
   return (
     <ParallaxSection 
       direction="up" 
-      scrollMultiplier={isMobile ? 0.01 : 0.08}
-      spring={!isMobile}
-      damping={20}
+      scrollMultiplier={0}
+      spring={false}
     >
-      <section ref={containerRef} className="relative py-10 md:py-32 overflow-visible px-4 md:px-0">
+      <section ref={containerRef} className="relative py-8 md:py-32 overflow-visible px-3 md:px-0">
         {/* Simple gradient backdrop for mobile, more effects for desktop */}
         <div 
           className="absolute inset-0 z-0"
@@ -45,10 +40,10 @@ const QuoteSection = () => {
         {/* Container for the quote */}
         <div className="container relative z-10">
           <motion.div 
-            className="max-w-4xl mx-auto bg-white/95 backdrop-blur-sm p-6 md:p-12 rounded-xl border-2 border-sheraa-primary/20 shadow-xl relative"
-            initial={{ y: 50, opacity: 0 }}
+            className="max-w-4xl mx-auto bg-white/95 backdrop-blur-sm p-4 md:p-12 rounded-xl border-2 border-sheraa-primary/20 shadow-xl relative"
+            initial={{ y: 0, opacity: 1 }}
             whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true, margin: "-30px" }}
+            viewport={{ once: true, margin: "-20px" }}
             transition={{ 
               duration: 0.8,
               type: "spring",
@@ -64,7 +59,7 @@ const QuoteSection = () => {
             <Glow variant="center" className="-z-10" />
             
             <motion.div
-              initial={{ scale: 0, rotate: -10 }}
+              initial={{ scale: 0.9, rotate: 0 }}
               whileInView={{ scale: 1, rotate: 0 }}
               viewport={{ once: true }}
               transition={{ 
@@ -74,7 +69,7 @@ const QuoteSection = () => {
               }}
               className="relative"
             >
-              <Quote className="text-sheraa-primary h-8 w-8 md:h-14 md:w-14 mb-3 md:mb-6 opacity-70" />
+              <Quote className="text-sheraa-primary h-8 w-8 md:h-14 md:w-14 mb-2 md:mb-6 opacity-70" />
               
               {/* Sparkles - reduced for mobile */}
               {sparklePositions.map((sparkle, index) => (
@@ -107,7 +102,7 @@ const QuoteSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.2, duration: 0.8 }}
-                className="text-base md:text-3xl font-plus-jakarta font-medium text-sheraa-dark leading-relaxed mb-4 md:mb-6"
+                className="text-sm md:text-3xl font-plus-jakarta font-medium text-sheraa-dark leading-relaxed mb-3 md:mb-6"
               >
                 "At Sheraa, we are deeply inspired by Sharjah's unique ability to blend collective strength and unity with individual expression and creativity. This synergy fuels our mission to cultivate a world-class entrepreneurship ecosystem."
               </motion.p>
@@ -125,8 +120,8 @@ const QuoteSection = () => {
         </div>
         
         {/* Simplified decorative elements */}
-        <div className={`absolute -left-20 top-20 w-40 h-40 rounded-full bg-sheraa-primary/10 blur-3xl opacity-30`} />
-        <div className={`absolute -right-20 bottom-20 w-40 h-40 rounded-full bg-sheraa-teal/10 blur-3xl opacity-20`} />
+        <div className="absolute -left-20 top-20 w-40 h-40 rounded-full bg-sheraa-primary/10 blur-3xl opacity-30 hidden md:block" />
+        <div className="absolute -right-20 bottom-20 w-40 h-40 rounded-full bg-sheraa-teal/10 blur-3xl opacity-20 hidden md:block" />
       </section>
     </ParallaxSection>
   );

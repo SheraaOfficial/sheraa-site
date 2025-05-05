@@ -34,15 +34,15 @@ const ImpactNumbers = () => {
   return (
     <ParallaxSection 
       direction="up" 
-      scrollMultiplier={isMobile ? 0.01 : 0.15}
-      spring={!isMobile} // Only use spring on desktop
+      scrollMultiplier={isMobile ? 0 : 0.15}
+      spring={false}
     >
-      <section ref={sectionRef} className="py-8 md:py-24 relative overflow-x-hidden">
+      <section ref={sectionRef} className="py-6 md:py-24 relative overflow-visible">
         <ImpactBackground springScroll={springScroll} />
         
-        <div className="container mx-auto px-4 md:px-6 relative z-10">
+        <div className="container mx-auto px-3 md:px-6 relative z-10">
           <motion.div 
-            className="text-center mb-6 md:mb-16 max-w-3xl mx-auto" 
+            className="text-center mb-4 md:mb-16 max-w-3xl mx-auto" 
             initial={{
               opacity: 0,
               y: 20
@@ -53,7 +53,7 @@ const ImpactNumbers = () => {
             }} 
             viewport={{
               once: true,
-              margin: "-20px"
+              margin: "-10px"
             }} 
             transition={{
               duration: 0.8,
@@ -85,7 +85,7 @@ const ImpactNumbers = () => {
           </motion.div>
 
           <motion.div 
-            className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 relative z-10 max-w-7xl mx-auto" 
+            className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-3 relative z-10 max-w-7xl mx-auto" 
             style={{
               x: isMobile ? 0 : shift
             }}
@@ -105,7 +105,7 @@ const ImpactNumbers = () => {
             }} 
             viewport={{
               once: true,
-              margin: "-30px"
+              margin: "-20px"
             }} 
             transition={{
               duration: 0.7,
