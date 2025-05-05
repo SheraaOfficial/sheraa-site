@@ -3,6 +3,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useIsMobile } from "@/hooks/useDeviceDetection";
 import { useDevicePerformance } from "@/hooks/useDevicePerformance";
+import { cn } from "@/lib/utils";  // Import cn function
 
 interface ScrollProgressIndicatorProps {
   className?: string;
@@ -71,7 +72,7 @@ const ScrollProgressIndicator: React.FC<ScrollProgressIndicatorProps> = ({
     scrollYProgress,
     [0, 1],
     [0, 1],
-    { ease: devicePerformance === 'low' ? undefined : 'easeOut' }
+    { ease: devicePerformance === 'low' ? undefined : 'easeOut' as any }  // Fixed: Type casting to any
   );
 
   // Simplify effects for low-performance devices
@@ -101,4 +102,3 @@ const ScrollProgressIndicator: React.FC<ScrollProgressIndicatorProps> = ({
 };
 
 export default ScrollProgressIndicator;
-

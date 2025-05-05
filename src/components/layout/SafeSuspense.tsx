@@ -22,10 +22,15 @@ export const SafeSuspense: React.FC<SafeSuspenseProps> = ({
     setKey(prevKey => prevKey + 1);
   };
   
+  // Create a fallback component that will be used when an error occurs
+  const ErrorFallbackComponent = () => {
+    return <ErrorFallback onRetry={handleRetry} />;
+  };
+  
   return (
     <ErrorBoundary 
       key={key} 
-      onError={() => setHasError(true)}
+      FallbackComponent={ErrorFallbackComponent}
     >
       {hasError ? (
         <ErrorFallback onRetry={handleRetry} />

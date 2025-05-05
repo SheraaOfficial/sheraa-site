@@ -19,7 +19,7 @@ const StartupsCarousel: React.FC<StartupsCarouselProps> = ({ onSlideChange }) =>
   
   // Memoize options based on device performance
   const carouselOptions = useMemo(() => ({
-    align: "start",
+    align: "start" as const,  // Fixed: Use TypeScript const assertion
     loop: true,
     dragFree: devicePerformance !== 'low',
     // Use more passive dragging for low-end devices
