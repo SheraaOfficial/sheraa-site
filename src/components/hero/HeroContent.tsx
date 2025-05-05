@@ -57,10 +57,10 @@ export function HeroContent() {
       delay: 0.5
     }
   }), []);
-  return <div className="flex flex-col justify-center items-center w-[90%] sm:w-[300px] md:w-[500px] lg:w-[700px] z-50 pointer-events-auto mx-auto">
+  return <div className="flex flex-col justify-center items-center w-[90%] sm:w-[300px] md:w-[500px] lg:w-[700px] z-50 pointer-events-auto mx-auto bg-[sheraa-background-soft] bg-inherit">
       {/* Festival Badge */}
-      <motion.div className="mb-4 sm:mb-6" initial={badgeVariants.initial} animate={badgeVariants.animate} transition={badgeVariants.transition}>
-        <Badge variant="gradient-warm" size={isMobile ? "default" : "lg"} animation="float" className="">
+      <motion.div initial={badgeVariants.initial} animate={badgeVariants.animate} transition={badgeVariants.transition} className="">
+        <Badge variant="gradient-warm" size={isMobile ? "default" : "lg"} animation="float" className="bg-sheraa-primary">
           Sharjah Entrepreneurship Center
         </Badge>
       </motion.div>
