@@ -7,12 +7,12 @@ export type CarouselApi = UseEmblaCarouselType[1];
 export type UseCarouselParameters = Parameters<typeof import('embla-carousel-react').default>;
 export type CarouselOptions = UseCarouselParameters[0];
 export type CarouselPlugin = UseCarouselParameters[1];
-// Import the EmblaCarouselType from 'embla-carousel-react'
-export type EmblaCarouselRefType = ReturnType<typeof import('embla-carousel-react').default>[0];
+// Define the embla ref type correctly
+export type EmblaCarouselRefType = React.RefObject<HTMLDivElement>;
 
 export interface CarouselProps {
   opts?: CarouselOptions;
-  plugins?: CarouselPlugin[];
+  plugins?: CarouselPlugin;
   orientation?: "horizontal" | "vertical";
   setApi?: (api: CarouselApi) => void;
   onSelect?: (api: CarouselApi) => void;
