@@ -9,11 +9,24 @@ const CarouselContent = React.forwardRef<
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => {
   const { carouselRef, orientation } = useCarousel();
+  
+  // Create a callback ref that merges the embla ref with the forwarded ref
+  const setRef = React.useCallback(
+    (node: HTMLDivElement | null) => {
+      // Forward the ref if provided
+      if (typeof ref === 'function') {
+        ref(node);
+      } else if (ref) {
+        ref.current = node;
+      }
+    },
+    [ref]
+  );
 
   return (
     <div ref={carouselRef} className="overflow-hidden">
       <div
-        ref={ref}
+        ref={setRef}
         className={cn(
           "flex",
           getOrientationClass(orientation),
