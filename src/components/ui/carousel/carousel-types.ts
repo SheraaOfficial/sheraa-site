@@ -4,7 +4,7 @@ import { type ClassValue } from 'clsx';
 import React from 'react';
 
 export type CarouselApi = UseEmblaCarouselType[1];
-export type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;
+export type UseCarouselParameters = Parameters<typeof import('embla-carousel-react').default>;
 export type CarouselOptions = UseCarouselParameters[0];
 export type CarouselPlugin = UseCarouselParameters[1];
 
@@ -40,3 +40,6 @@ export interface CarouselAPIProvided {
   canScrollNext: boolean;
   onSelect?: (api: CarouselApi) => void;
 }
+
+// Add the missing CarouselContextProps interface
+export interface CarouselContextProps extends CarouselAPIProvided {}
