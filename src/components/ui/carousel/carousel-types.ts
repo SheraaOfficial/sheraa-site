@@ -10,7 +10,7 @@ export type CarouselPlugin = UseCarouselParameters[1];
 
 export interface CarouselProps {
   opts?: CarouselOptions;
-  plugins?: CarouselPlugin[];
+  plugins?: CarouselPlugin;
   orientation?: "horizontal" | "vertical";
   setApi?: (api: CarouselApi) => void;
   onSelect?: (api: CarouselApi) => void;
