@@ -75,7 +75,7 @@ export const SEFHeader: React.FC<SEFHeaderProps> = ({
       ease: [0.22, 1, 0.36, 1]
     }} className="flex flex-wrap gap-5">
         <GradientButton asChild variant="shimmer" size="lg" className="group shadow-xl hover:shadow-[0_5px_30px_rgba(155,135,245,0.4)] font-bold">
-          <Link to="/events/sef/register" className="flex items-center gap-2 mx-0 px-[75px]">
+          <Link to="/events/sef/register" className="mx-0 px-[75px]">
             Register for SEF'26
             <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
           </Link>
