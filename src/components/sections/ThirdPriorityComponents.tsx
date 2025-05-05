@@ -7,11 +7,11 @@ import { ErrorFallback } from '../layout/ErrorFallback';
 // Simple fallback component
 const SimpleFallback = () => <div className="h-20 md:h-32"></div>;
 
-// Fix type issues by using the correct typing for lazy-loaded components
-// React.lazy() returns a component that renders the default export of another module
-type LazyComponentType = React.LazyExoticComponent<ComponentType<any>>;
+// Use a more flexible type that matches what React.lazy() actually returns
+// This avoids the strict NamedExoticComponent requirement
+type LazyComponent = React.LazyExoticComponent<React.ComponentType<any>>;
 
-const PartnersSection: LazyComponentType = lazy(() => 
+const PartnersSection: LazyComponent = lazy(() => 
   import("@/components/PartnersSection")
     .catch(error => {
       console.error("Failed to load Partners section:", error);
@@ -19,7 +19,7 @@ const PartnersSection: LazyComponentType = lazy(() =>
     })
 );
 
-const ContactSection: LazyComponentType = lazy(() => 
+const ContactSection: LazyComponent = lazy(() => 
   import("@/components/ContactSection")
     .catch(error => {
       console.error("Failed to load Contact section:", error);
@@ -27,7 +27,7 @@ const ContactSection: LazyComponentType = lazy(() =>
     })
 );
 
-const StartupsShowcase: LazyComponentType = lazy(() => 
+const StartupsShowcase: LazyComponent = lazy(() => 
   import("@/components/StartupsShowcase")
     .catch(error => {
       console.error("Failed to load Startups showcase:", error);
@@ -35,7 +35,7 @@ const StartupsShowcase: LazyComponentType = lazy(() =>
     })
 );
 
-const PodcastSection: LazyComponentType = lazy(() => 
+const PodcastSection: LazyComponent = lazy(() => 
   import("@/components/PodcastSection")
     .catch(error => {
       console.error("Failed to load Podcast section:", error);
@@ -43,7 +43,7 @@ const PodcastSection: LazyComponentType = lazy(() =>
     })
 );
 
-const CommunitySection: LazyComponentType = lazy(() => 
+const CommunitySection: LazyComponent = lazy(() => 
   import("@/components/CommunitySection")
     .catch(error => {
       console.error("Failed to load Community section:", error);
@@ -51,7 +51,7 @@ const CommunitySection: LazyComponentType = lazy(() =>
     })
 );
 
-const StartupTestimonials: LazyComponentType = lazy(() => 
+const StartupTestimonials: LazyComponent = lazy(() => 
   import("@/components/StartupTestimonials")
     .catch(error => {
       console.error("Failed to load Testimonials:", error);
