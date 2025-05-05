@@ -8,6 +8,7 @@ interface ErrorBoundaryProps {
 
 interface ErrorBoundaryState {
   hasError: boolean;
+  error?: Error;
 }
 
 export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
@@ -16,12 +17,14 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
     this.state = { hasError: false };
   }
   
-  static getDerivedStateFromError() {
-    return { hasError: true };
+  static getDerivedStateFromError(error: Error) {
+    // Update state so the next render will show the fallback UI
+    return { hasError: true, error };
   }
   
-  componentDidCatch() {
-    // Handle the error here
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    // You can log the error to an error reporting service
+    console.error("Error caught by ErrorBoundary:", error, errorInfo);
   }
   
   render() {

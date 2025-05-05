@@ -33,44 +33,39 @@ const CommunitySection = () => {
     "Co-hosted Events & Workshops"
   ];
   
-  // Simpler animations for mobile to prevent pulsating effect
+  // Use simpler animations for mobile
   const containerVariants = {
-    hidden: {
-      opacity: 0
-    },
+    hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: isMobile ? 0.1 : 0.2,
-        delayChildren: isMobile ? 0.1 : 0.3
+        staggerChildren: isMobile ? 0.05 : 0.2,
+        delayChildren: isMobile ? 0 : 0.3
       }
     }
   };
   
   const itemVariants = {
-    hidden: {
-      opacity: 0,
-      y: isMobile ? 10 : 20
-    },
+    hidden: { opacity: 0, y: 5 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        type: isMobile ? "tween" : "spring",
-        stiffness: isMobile ? 50 : 100,
-        damping: isMobile ? 15 : 10,
-        duration: isMobile ? 0.3 : undefined
+        type: "tween",
+        duration: 0.3
       }
     }
   };
 
   return (
-    <section className="py-16 md:py-24 lg:py-32 relative overflow-hidden bg-gradient-to-br from-white via-sheraa-background-soft to-white">
-      {/* Simplified background elements for mobile */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 right-0 w-48 md:w-96 h-48 md:h-96 bg-[#9b87f5]/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-48 md:w-96 h-48 md:h-96 bg-[#D946EF]/5 rounded-full blur-3xl" />
-      </div>
+    <section className="py-12 md:py-24 lg:py-32 relative overflow-hidden bg-gradient-to-br from-white via-sheraa-background-soft to-white">
+      {/* Simplified background elements */}
+      {!isMobile && (
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-0 right-0 w-48 md:w-96 h-48 md:h-96 bg-[#9b87f5]/5 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 left-0 w-48 md:w-96 h-48 md:h-96 bg-[#D946EF]/5 rounded-full blur-3xl" />
+        </div>
+      )}
 
       <div className="container mx-auto px-4 md:px-6 lg:px-8 relative">
         <motion.div 
@@ -79,7 +74,7 @@ const CommunitySection = () => {
           whileInView="visible" 
           viewport={{
             once: true,
-            margin: isMobile ? "-50px" : "0px"
+            margin: "0px"
           }} 
           className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 items-start"
         >
@@ -103,13 +98,10 @@ const CommunitySection = () => {
                 <motion.div 
                   key={index} 
                   variants={itemVariants} 
-                  className="flex items-start group"
+                  className="flex items-start"
                 >
                   <div className="flex-shrink-0 mr-4 md:mr-6">
-                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-2xl bg-[#9b87f5]/10 flex items-center justify-center transform transition-transform duration-300" style={{
-                      // Remove hover scale on mobile to prevent pulsating
-                      transform: isMobile ? "none" : "scale(1)",
-                    }}>
+                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-2xl bg-[#9b87f5]/10 flex items-center justify-center">
                       <feature.icon className="w-5 h-5 md:w-6 md:h-6 text-[#9b87f5]" />
                     </div>
                   </div>
@@ -149,12 +141,9 @@ const CommunitySection = () => {
                   <motion.div 
                     key={index} 
                     variants={itemVariants} 
-                    className="flex items-center space-x-4 group"
+                    className="flex items-center space-x-4"
                   >
-                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-2xl bg-[#D946EF]/10 flex items-center justify-center text-[#D946EF] font-semibold transform transition-transform duration-300" style={{
-                      // Remove hover scale on mobile to prevent pulsating
-                      transform: isMobile ? "none" : "scale(1)",
-                    }}>
+                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-2xl bg-[#D946EF]/10 flex items-center justify-center text-[#D946EF] font-semibold">
                       {index + 1}
                     </div>
                     <span className="text-base md:text-lg font-medium">{item}</span>

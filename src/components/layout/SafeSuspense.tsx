@@ -13,16 +13,13 @@ export const SafeSuspense: React.FC<SafeSuspenseProps> = ({
   children, 
   fallback = <SectionLoading />
 }) => {
-  const [hasError, setHasError] = useState(false);
   const [key, setKey] = useState(0);
   
-  // Reset the error state when the key changes
   const handleRetry = () => {
-    setHasError(false);
     setKey(prevKey => prevKey + 1);
   };
   
-  // Create a fallback component that will be used when an error occurs
+  // Create a more stable error boundary component
   const ErrorFallbackComponent = () => {
     return <ErrorFallback onRetry={handleRetry} />;
   };
@@ -33,13 +30,9 @@ export const SafeSuspense: React.FC<SafeSuspenseProps> = ({
         key={key} 
         FallbackComponent={ErrorFallbackComponent}
       >
-        {hasError ? (
-          <ErrorFallback onRetry={handleRetry} />
-        ) : (
-          <Suspense fallback={fallback}>
-            {children}
-          </Suspense>
-        )}
+        <Suspense fallback={fallback}>
+          {children}
+        </Suspense>
       </ErrorBoundary>
     </div>
   );

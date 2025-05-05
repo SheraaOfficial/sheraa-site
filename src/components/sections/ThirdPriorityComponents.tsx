@@ -4,42 +4,62 @@ import { SafeSuspense } from '../layout/SafeSuspense';
 import { useIsMobile } from '@/hooks/useDeviceDetection';
 import { ErrorFallback } from '../layout/ErrorFallback';
 
+// Define simpler fallback component
+const SimpleFallback = () => <div className="h-32"></div>;
+
 // Properly define the lazy-loaded components with correct typing and better error handling
 const PartnersSection = lazy(() => 
   import("@/components/PartnersSection")
     .then(module => ({ default: module.default }))
-    .catch(() => ({ default: () => <ErrorFallback message="Failed to load Partners section" /> }))
+    .catch(error => {
+      console.error("Failed to load Partners section:", error);
+      return { default: () => <ErrorFallback message="Unable to load Partners section" /> };
+    })
 );
 
 const ContactSection = lazy(() => 
   import("@/components/ContactSection")
     .then(module => ({ default: module.default }))
-    .catch(() => ({ default: () => <ErrorFallback message="Failed to load Contact section" /> }))
+    .catch(error => {
+      console.error("Failed to load Contact section:", error);
+      return { default: () => <ErrorFallback message="Unable to load Contact section" /> };
+    })
 );
 
-// Fix StartupsShowcase import using type assertion
 const StartupsShowcase = lazy(() => 
   import("@/components/StartupsShowcase")
     .then(module => ({ default: module.default as React.ComponentType<{}> }))
-    .catch(() => ({ default: () => <ErrorFallback message="Failed to load Startups showcase" /> }))
+    .catch(error => {
+      console.error("Failed to load Startups showcase:", error);
+      return { default: () => <ErrorFallback message="Unable to load Startups showcase" /> };
+    })
 );
 
 const PodcastSection = lazy(() => 
   import("@/components/PodcastSection")
     .then(module => ({ default: module.default }))
-    .catch(() => ({ default: () => <ErrorFallback message="Failed to load Podcast section" /> }))
+    .catch(error => {
+      console.error("Failed to load Podcast section:", error);
+      return { default: () => <ErrorFallback message="Unable to load Podcast section" /> };
+    })
 );
 
 const CommunitySection = lazy(() => 
   import("@/components/CommunitySection")
     .then(module => ({ default: module.default }))
-    .catch(() => ({ default: () => <ErrorFallback message="Failed to load Community section" /> }))
+    .catch(error => {
+      console.error("Failed to load Community section:", error);
+      return { default: () => <ErrorFallback message="Unable to load Community section" /> };
+    })
 );
 
 const StartupTestimonials = lazy(() => 
   import("@/components/StartupTestimonials")
     .then(module => ({ default: module.default }))
-    .catch(() => ({ default: () => <ErrorFallback message="Failed to load Testimonials" /> }))
+    .catch(error => {
+      console.error("Failed to load Testimonials:", error);
+      return { default: () => <ErrorFallback message="Unable to load Testimonials" /> };
+    })
 );
 
 export const ThirdPriorityComponents: React.FC = () => {
@@ -47,39 +67,38 @@ export const ThirdPriorityComponents: React.FC = () => {
   
   return (
     <div className="space-y-4 md:space-y-0">
-      {/* Disable parallax wrapper on mobile which might cause the pulsating effect */}
       <div className="w-full" id="startups-section">
-        <SafeSuspense>
+        <SafeSuspense fallback={<SimpleFallback />}>
           <StartupsShowcase />
         </SafeSuspense>
       </div>
       
       <div className="w-full" id="podcast-section">
-        <SafeSuspense>
+        <SafeSuspense fallback={<SimpleFallback />}>
           <PodcastSection />
         </SafeSuspense>
       </div>
       
       <div className="w-full" id="community-section">
-        <SafeSuspense>
+        <SafeSuspense fallback={<SimpleFallback />}>
           <CommunitySection />
         </SafeSuspense>
       </div>
       
       <div className="w-full" id="testimonials-section">
-        <SafeSuspense>
+        <SafeSuspense fallback={<SimpleFallback />}>
           <StartupTestimonials />
         </SafeSuspense>
       </div>
       
       <div className="w-full" id="partners-section">
-        <SafeSuspense>
+        <SafeSuspense fallback={<SimpleFallback />}>
           <PartnersSection />
         </SafeSuspense>
       </div>
       
       <div className="w-full" id="contact-section">
-        <SafeSuspense>
+        <SafeSuspense fallback={<SimpleFallback />}>
           <ContactSection />
         </SafeSuspense>
       </div>
