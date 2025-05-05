@@ -174,7 +174,7 @@ const MobilePagination: React.FC<{
   </div>
 );
 
-// Main component
+// Main component - properly export as a memo component to match expected type in lazy load
 const StartupsShowcase = () => {
   const isMobile = useIsMobile();
   const [activeIndex, setActiveIndex] = useState(0);

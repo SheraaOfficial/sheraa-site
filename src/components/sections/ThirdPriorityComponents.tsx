@@ -16,9 +16,11 @@ const ContactSection = lazy(() =>
   }))
 );
 
-// Fix the typing for StartupsShowcase by using a more flexible typing approach
+// Fix StartupsShowcase import by using a more compatible approach to handle React.memo
 const StartupsShowcase = lazy(() => 
-  import("@/components/StartupsShowcase").catch(() => ({ 
+  import("@/components/StartupsShowcase").then(module => ({
+    default: module.default
+  })).catch(() => ({ 
     default: () => null 
   }))
 );
