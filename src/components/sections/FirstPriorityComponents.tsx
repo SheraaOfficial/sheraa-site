@@ -2,6 +2,7 @@
 import React, { lazy, Suspense } from 'react';
 import { SafeSuspense } from '../layout/SafeSuspense';
 import { useIsMobile } from '@/hooks/useDeviceDetection';
+import { SectionLoading } from '../layout/SectionLoading';
 
 // First priority components with improved error handling
 const MarqueeUpdates = lazy(() => 
@@ -22,6 +23,13 @@ const QuoteSection = lazy(() =>
   }))
 );
 
+// Simple loading fallback for mobile
+const MobileLoadingFallback: React.FC = () => (
+  <div className="flex items-center justify-center h-40 w-full">
+    <SectionLoading />
+  </div>
+);
+
 export const FirstPriorityComponents: React.FC = () => {
   const isMobile = useIsMobile();
   
@@ -33,14 +41,14 @@ export const FirstPriorityComponents: React.FC = () => {
         </SafeSuspense>
       </div>
       
-      <div className="w-full overflow-visible">
-        <SafeSuspense>
+      <div className="w-full overflow-visible" id="impact-section">
+        <SafeSuspense fallback={isMobile ? <MobileLoadingFallback /> : undefined}>
           <ImpactNumbers />
         </SafeSuspense>
       </div>
       
-      <div className="w-full overflow-visible">
-        <SafeSuspense>
+      <div className="w-full overflow-visible" id="quote-section">
+        <SafeSuspense fallback={isMobile ? <MobileLoadingFallback /> : undefined}>
           <QuoteSection />
         </SafeSuspense>
       </div>

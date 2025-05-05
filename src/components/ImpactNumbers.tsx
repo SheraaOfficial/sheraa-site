@@ -3,7 +3,7 @@ import React, { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { FileDown } from "lucide-react";
-import { useIsMobile } from "@/hooks/use-mobile";
+import { useIsMobile } from "@/hooks/useDeviceDetection";
 import FeatureItem from "./impact/FeatureItem";
 import ImpactBackground from "./impact/ImpactBackground";
 import { getImpactFeatures } from "./impact/impactData";
@@ -34,11 +34,19 @@ const ImpactNumbers = () => {
   return (
     <ParallaxSection 
       direction="up" 
-      scrollMultiplier={isMobile ? 0 : 0.15}
+      scrollMultiplier={0} // Disable parallax on mobile for better performance
       spring={false}
     >
-      <section ref={sectionRef} className="py-6 md:py-24 relative overflow-visible">
-        <ImpactBackground springScroll={springScroll} />
+      <section 
+        ref={sectionRef} 
+        className="py-6 md:py-24 relative overflow-visible"
+        style={{ 
+          minHeight: isMobile ? '600px' : 'auto',
+          visibility: 'visible',
+          display: 'block'
+        }}
+      >
+        {!isMobile && <ImpactBackground springScroll={springScroll} />}
         
         <div className="container mx-auto px-3 md:px-6 relative z-10">
           <motion.div 
@@ -85,12 +93,22 @@ const ImpactNumbers = () => {
           </motion.div>
 
           <motion.div 
-            className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-3 relative z-10 max-w-7xl mx-auto" 
+            className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-1 md:gap-3 relative z-10 max-w-7xl mx-auto" 
             style={{
               x: isMobile ? 0 : shift
             }}
           >
-            {features.map((feature, index) => <FeatureItem key={feature.title} title={feature.title} description={feature.description} icon={feature.icon} subtext={feature.subtext} value={feature.value} index={index} />)}
+            {features.map((feature, index) => 
+              <FeatureItem 
+                key={feature.title} 
+                title={feature.title} 
+                description={feature.description} 
+                icon={feature.icon} 
+                subtext={feature.subtext} 
+                value={feature.value} 
+                index={index} 
+              />
+            )}
           </motion.div>
 
           <motion.div 
