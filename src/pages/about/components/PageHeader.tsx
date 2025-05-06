@@ -11,7 +11,7 @@ interface PageHeaderProps {
 const PageHeader = ({ title, subtitle }: PageHeaderProps) => {
   return (
     <section className="relative py-20 md:py-28 overflow-hidden">
-      <BeamsBackground intensity="intense" className="opacity-70" />
+      <BeamsBackground intensity="strong" className="opacity-70" />
       <motion.div 
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
