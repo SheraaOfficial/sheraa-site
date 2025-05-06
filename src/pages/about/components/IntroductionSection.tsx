@@ -1,15 +1,15 @@
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const IntroductionSection = () => {
-  const { scrollY } = motion.useScroll();
-  const y1 = motion.useTransform(scrollY, [0, 300], [0, 50]);
-  const y2 = motion.useTransform(scrollY, [0, 300], [0, -30]);
-  const opacity1 = motion.useTransform(scrollY, [0, 300], [1, 0.5]);
+  const { scrollY } = useScroll();
+  const y1 = useTransform(scrollY, [0, 300], [0, 50]);
+  const y2 = useTransform(scrollY, [0, 300], [0, -30]);
+  const opacity1 = useTransform(scrollY, [0, 300], [1, 0.5]);
 
   return (
     <section className="py-20 bg-white relative overflow-hidden">

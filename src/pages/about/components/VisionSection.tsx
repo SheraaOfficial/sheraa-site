@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { GradientButton } from '@/components/ui/gradient-button';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
@@ -27,10 +27,13 @@ const VisionSection = () => {
     }
   };
 
+  const { scrollY } = useScroll();
+  const backgroundY = useTransform(scrollY, [0, 300], [0, 50]);
+
   return (
     <section id="vision" className="py-20 bg-white relative overflow-hidden">
       <motion.div 
-        style={{ y: motion.useTransform(motion.useScroll().scrollY, [0, 300], [0, 50]) }}
+        style={{ y: backgroundY }}
         className="absolute -right-32 bottom-0 w-96 h-96 bg-sheraa-primary/5 rounded-full blur-3xl"
       />
       <div className="container mx-auto px-4 md:px-6 relative z-10">
