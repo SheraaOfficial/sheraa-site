@@ -28,8 +28,12 @@ const VisionSection = () => {
   };
 
   return (
-    <section className="py-16 bg-white">
-      <div className="container mx-auto px-4 md:px-6">
+    <section id="vision" className="py-20 bg-white relative overflow-hidden">
+      <motion.div 
+        style={{ y: motion.useTransform(motion.useScroll().scrollY, [0, 300], [0, 50]) }}
+        className="absolute -right-32 bottom-0 w-96 h-96 bg-sheraa-primary/5 rounded-full blur-3xl"
+      />
+      <div className="container mx-auto px-4 md:px-6 relative z-10">
         <motion.div 
           className="max-w-3xl mx-auto"
           initial="hidden"
@@ -39,7 +43,7 @@ const VisionSection = () => {
         >
           <motion.div variants={itemVariants}>
             <h2 className="text-3xl font-bold mb-6 text-sheraa-primary">Our Vision</h2>
-            <p className="text-lg text-gray-700 mb-6">
+            <p className="text-lg text-gray-700 mb-6 leading-relaxed">
               To establish Sharjah as a leading global hub for entrepreneurship and innovation, 
               recognized for its supportive ecosystem, high-impact startups, and contribution to 
               a diversified, knowledge-based economy.
@@ -47,44 +51,59 @@ const VisionSection = () => {
           </motion.div>
 
           <motion.div variants={itemVariants}>
-            <p className="text-lg text-gray-700 mb-6">
+            <p className="text-lg text-gray-700 mb-8 leading-relaxed">
               Our focus extends beyond mere company formation; we aim to cultivate changemakers 
               who address pressing challenges and contribute positively to society.
             </p>
           </motion.div>
 
-          <motion.div variants={itemVariants} className="bg-sheraa-primary/5 rounded-xl p-6 md:p-8 my-10">
-            <h3 className="text-xl font-bold mb-4 text-sheraa-dark">Key Strategic Priorities</h3>
-            <ul className="space-y-3">
-              <li className="flex items-start">
-                <div className="bg-sheraa-primary/20 rounded-full p-1 mr-3 mt-1">
-                  <ArrowRight className="w-4 h-4 text-sheraa-primary" />
+          <motion.div 
+            variants={itemVariants} 
+            className="bg-gradient-to-tr from-sheraa-primary/10 to-transparent rounded-xl p-8 my-10 border border-sheraa-primary/20"
+          >
+            <h3 className="text-xl font-bold mb-6 text-sheraa-dark">Key Strategic Priorities</h3>
+            <ul className="space-y-5">
+              <motion.li 
+                className="flex items-start"
+                whileHover={{ x: 5, transition: { duration: 0.2 } }}
+              >
+                <div className="bg-sheraa-primary/20 rounded-full p-2 mr-4 mt-1">
+                  <ArrowRight className="w-5 h-5 text-sheraa-primary" />
                 </div>
-                <p>Building a thriving entrepreneurship ecosystem that nurtures innovation</p>
-              </li>
-              <li className="flex items-start">
-                <div className="bg-sheraa-primary/20 rounded-full p-1 mr-3 mt-1">
-                  <ArrowRight className="w-4 h-4 text-sheraa-primary" />
+                <p className="text-gray-700 leading-relaxed">Building a thriving entrepreneurship ecosystem that nurtures innovation through collaboration and support</p>
+              </motion.li>
+              <motion.li 
+                className="flex items-start"
+                whileHover={{ x: 5, transition: { duration: 0.2 } }}
+              >
+                <div className="bg-sheraa-primary/20 rounded-full p-2 mr-4 mt-1">
+                  <ArrowRight className="w-5 h-5 text-sheraa-primary" />
                 </div>
-                <p>Supporting startups that contribute to economic diversification</p>
-              </li>
-              <li className="flex items-start">
-                <div className="bg-sheraa-primary/20 rounded-full p-1 mr-3 mt-1">
-                  <ArrowRight className="w-4 h-4 text-sheraa-primary" />
+                <p className="text-gray-700 leading-relaxed">Supporting startups that contribute to economic diversification and create sustainable job opportunities</p>
+              </motion.li>
+              <motion.li 
+                className="flex items-start"
+                whileHover={{ x: 5, transition: { duration: 0.2 } }}
+              >
+                <div className="bg-sheraa-primary/20 rounded-full p-2 mr-4 mt-1">
+                  <ArrowRight className="w-5 h-5 text-sheraa-primary" />
                 </div>
-                <p>Fostering inclusive entrepreneurship with strong representation of women-led ventures</p>
-              </li>
-              <li className="flex items-start">
-                <div className="bg-sheraa-primary/20 rounded-full p-1 mr-3 mt-1">
-                  <ArrowRight className="w-4 h-4 text-sheraa-primary" />
+                <p className="text-gray-700 leading-relaxed">Fostering inclusive entrepreneurship with strong representation of women-led ventures and diverse founders</p>
+              </motion.li>
+              <motion.li 
+                className="flex items-start"
+                whileHover={{ x: 5, transition: { duration: 0.2 } }}
+              >
+                <div className="bg-sheraa-primary/20 rounded-full p-2 mr-4 mt-1">
+                  <ArrowRight className="w-5 h-5 text-sheraa-primary" />
                 </div>
-                <p>Creating sustainable businesses that address real-world challenges</p>
-              </li>
+                <p className="text-gray-700 leading-relaxed">Creating sustainable businesses that address real-world challenges and build a more resilient future</p>
+              </motion.li>
             </ul>
           </motion.div>
 
-          <motion.div variants={itemVariants} className="mt-8 flex justify-center">
-            <GradientButton asChild>
+          <motion.div variants={itemVariants} className="mt-10 flex justify-center">
+            <GradientButton size="lg" asChild>
               <Link to="/programs" className="flex items-center gap-2">
                 Explore Our Programs 
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
