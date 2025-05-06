@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import MainLayout from '@/components/layouts/MainLayout';
@@ -153,7 +152,7 @@ const AboutPage = () => {
                 </div>
 
                 <div className="mt-8 text-center">
-                  <Button asChild variant="gradient" size="lg" className="group">
+                  <Button asChild variant="default" size="lg" className="group bg-sheraa-primary hover:bg-sheraa-primary/90 text-white shadow-md hover:shadow-lg transition-all">
                     <Link to="/about/impact" className="flex items-center gap-2">
                       Full Impact Report
                       <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform duration-300" />
