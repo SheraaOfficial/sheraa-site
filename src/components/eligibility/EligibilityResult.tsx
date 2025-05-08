@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { GradientButton } from "@/components/ui/gradient-button";
 import { ArrowLeft, ArrowRight, CheckCircle2 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { ProgramRecommendation } from "./eligibilityData";
+import { ProgramRecommendation, programBenefits } from "./eligibilityData";
 
 interface EligibilityResultProps {
   program?: ProgramRecommendation;
@@ -60,13 +60,13 @@ export const EligibilityResult: React.FC<EligibilityResultProps> = ({
       </div>
 
       <div className="bg-gradient-to-br from-sheraa-primary/5 to-sheraa-light/80 rounded-lg p-6 border border-sheraa-primary/10">
-        <h4 className="text-xl font-bold text-sheraa-primary mb-2">{program.name}</h4>
+        <h4 className="text-xl font-bold text-sheraa-primary mb-2">{program.title}</h4>
         <p className="mb-4 text-muted-foreground">{program.description}</p>
         
         <div className="space-y-3">
           <h5 className="font-medium text-sm">Program Benefits:</h5>
           <ul className="space-y-2">
-            {program.benefits.map((benefit, index) => (
+            {programBenefits[program.id]?.map((benefit, index) => (
               <li key={index} className="flex items-start gap-2 text-sm">
                 <CheckCircle2 className="h-4 w-4 text-green-500 mt-0.5 shrink-0" />
                 <span>{benefit}</span>
@@ -88,7 +88,7 @@ export const EligibilityResult: React.FC<EligibilityResultProps> = ({
             </Button>
           </Link>
           
-          <Link to={program.programPath} onClick={onClose} className="w-full sm:w-auto">
+          <Link to={program.link} onClick={onClose} className="w-full sm:w-auto">
             <GradientButton className="w-full sm:w-auto flex items-center gap-2">
               Learn More <ArrowRight className="h-4 w-4" />
             </GradientButton>
