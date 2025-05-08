@@ -32,6 +32,10 @@ export const getRecommendedProgram = (
   answers: Record<string, string | string[]>,
   programRecommendations: ProgramRecommendation[]
 ): ProgramRecommendation | undefined => {
+  if (!answers || Object.keys(answers).length === 0) {
+    return undefined;
+  }
+
   // First try exact matches
   for (const program of programRecommendations) {
     let isMatch = true;
@@ -83,14 +87,22 @@ export const getRecommendedProgram = (
   // If no exact match, fall back to matching just the persona
   const persona = answers.persona as string;
   if (persona) {
-    return programRecommendations.find(program => {
+    const personaMatch = programRecommendations.find(program => {
       const personaCriteria = program.criteria.persona;
       return Array.isArray(personaCriteria) && personaCriteria.includes(persona);
     });
+    
+    if (personaMatch) {
+      return personaMatch;
+    }
   }
 
-  // Default to community membership if no specific match
-  return programRecommendations.find(p => p.id === "community-membership");
+  // Default to community membership if no specific match and has persona
+  if (persona) {
+    return programRecommendations.find(p => p.id === "community-membership");
+  }
+  
+  return undefined;
 };
 
 // Count total questions for a specific persona

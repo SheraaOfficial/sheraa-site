@@ -38,6 +38,20 @@ const EligibilityCheckerDialog: React.FC<EligibilityCheckerDialogProps> = ({
   // Get total questions for progress calculation
   const totalSteps = getTotalQuestionsForPersona(persona);
 
+  // Reset state when dialog closes
+  React.useEffect(() => {
+    if (!open) {
+      // Wait for animation to complete before resetting state
+      const timer = setTimeout(() => {
+        setCurrentStep(0);
+        setAnswers({});
+        setShowResult(false);
+        setPersona(null);
+      }, 300);
+      return () => clearTimeout(timer);
+    }
+  }, [open]);
+
   // Handle next button click
   const handleNext = () => {
     const currentQuestionId = currentQuestion?.id;
@@ -116,6 +130,16 @@ const EligibilityCheckerDialog: React.FC<EligibilityCheckerDialogProps> = ({
     setShowResult(false);
     setPersona(null);
   };
+  
+  // Get recommended program safely
+  const recommendedProgram = React.useMemo(() => {
+    try {
+      return getRecommendedProgram(answers, programRecommendations);
+    } catch (error) {
+      console.error("Error getting program recommendation:", error);
+      return undefined;
+    }
+  }, [answers]);
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -149,7 +173,7 @@ const EligibilityCheckerDialog: React.FC<EligibilityCheckerDialogProps> = ({
           </>
         ) : (
           <EligibilityResult 
-            program={getRecommendedProgram(answers, programRecommendations)} 
+            program={recommendedProgram} 
             onReset={handleReset}
             onClose={() => onOpenChange(false)}
           />

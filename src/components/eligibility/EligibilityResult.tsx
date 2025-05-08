@@ -44,6 +44,9 @@ export const EligibilityResult: React.FC<EligibilityResultProps> = ({
     );
   }
 
+  // Safeguard against missing program benefits
+  const benefits = programBenefits[program.id] || [];
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}
@@ -66,7 +69,7 @@ export const EligibilityResult: React.FC<EligibilityResultProps> = ({
         <div className="space-y-3">
           <h5 className="font-medium text-sm">Program Benefits:</h5>
           <ul className="space-y-2">
-            {programBenefits[program.id]?.map((benefit, index) => (
+            {benefits.map((benefit, index) => (
               <li key={index} className="flex items-start gap-2 text-sm">
                 <CheckCircle2 className="h-4 w-4 text-green-500 mt-0.5 shrink-0" />
                 <span>{benefit}</span>

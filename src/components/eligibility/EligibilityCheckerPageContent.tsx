@@ -7,8 +7,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Progress } from "@/components/ui/progress";
 import QuestionRenderer from "@/components/eligibility/QuestionRenderer";
 import { EligibilityResult } from "@/components/eligibility/EligibilityResult";
-import { useToast } from "@/hooks/use-toast";
-import { Question } from "./eligibilityData";
+import { Question, ProgramRecommendation } from "./eligibilityData";
 
 interface EligibilityCheckerPageContentProps {
   currentQuestion: Question | undefined;
@@ -23,7 +22,7 @@ interface EligibilityCheckerPageContentProps {
   handleNext: () => void;
   handleBack: () => void;
   handleReset: () => void;
-  recommendedProgram: any;
+  recommendedProgram: ProgramRecommendation | undefined;
 }
 
 const EligibilityCheckerPageContent: React.FC<EligibilityCheckerPageContentProps> = ({

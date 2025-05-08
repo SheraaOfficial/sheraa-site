@@ -115,8 +115,15 @@ const EligibilityCheckerPage = () => {
     setPersona(null);
   };
 
-  // Get recommended program
-  const recommendedProgram = getRecommendedProgram(answers, programRecommendations);
+  // Get recommended program safely
+  const recommendedProgram = React.useMemo(() => {
+    try {
+      return getRecommendedProgram(answers, programRecommendations);
+    } catch (error) {
+      console.error("Error getting program recommendation:", error);
+      return undefined;
+    }
+  }, [answers]);
 
   return (
     <MainLayout>
