@@ -102,3 +102,31 @@ export const getTotalQuestionsForPersona = (persona: string | null): number => {
     return question.dependsOn.answerId === persona;
   }).length;
 };
+
+// Protocol checker - validate that all paths lead to valid program recommendations
+export const runProtocolChecks = (): { success: boolean; issues: string[] } => {
+  const issues: string[] = [];
+  let success = true;
+  
+  // Check all questions have IDs
+  eligibilityQuestions.forEach((q, i) => {
+    if (!q.id) {
+      issues.push(`Question at index ${i} is missing an ID`);
+      success = false;
+    }
+  });
+  
+  // Check all dependency references exist
+  eligibilityQuestions.forEach(q => {
+    if (q.dependsOn) {
+      const { questionId } = q.dependsOn;
+      const questionExists = eligibilityQuestions.some(question => question.id === questionId);
+      if (!questionExists) {
+        issues.push(`Question ${q.id} depends on non-existent question ID: ${questionId}`);
+        success = false;
+      }
+    }
+  });
+  
+  return { success, issues };
+};

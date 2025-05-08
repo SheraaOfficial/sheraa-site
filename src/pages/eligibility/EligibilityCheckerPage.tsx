@@ -1,12 +1,17 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import MainLayout from "@/components/layouts/MainLayout";
 import { Check } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { eligibilityQuestions, programRecommendations } from "@/components/eligibility/eligibilityData";
-import { getCurrentQuestion, getRecommendedProgram, getTotalQuestionsForPersona } from "@/components/eligibility/eligibilityUtils";
+import { 
+  getCurrentQuestion, 
+  getRecommendedProgram, 
+  getTotalQuestionsForPersona,
+  runProtocolChecks
+} from "@/components/eligibility/eligibilityUtils";
 import { useToast } from "@/hooks/use-toast";
 import EligibilityCheckerPageContent from "@/components/eligibility/EligibilityCheckerPageContent";
 
@@ -22,6 +27,14 @@ const EligibilityCheckerPage = () => {
   
   // Get total questions for progress calculation
   const totalSteps = getTotalQuestionsForPersona(persona);
+
+  // Run protocol checks on mount
+  useEffect(() => {
+    const { success, issues } = runProtocolChecks();
+    if (!success) {
+      console.error("Eligibility checker protocol issues:", issues);
+    }
+  }, []);
 
   // Handle next button click
   const handleNext = () => {

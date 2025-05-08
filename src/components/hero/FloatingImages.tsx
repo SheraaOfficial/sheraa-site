@@ -27,6 +27,18 @@ const sheraaImages = [
     url: "/lovable-uploads/78dc4101-2481-4c13-a19f-62dbefeae768.png",
     title: "Sheraa Award Ceremony",
   },
+  {
+    url: "/lovable-uploads/1c771ddf-b819-4587-bd05-7547b8dca2b5.png",
+    title: "Sheraa Workshop Group",
+  },
+  {
+    url: "/lovable-uploads/5c7170ff-c318-404d-82fa-af5c349154db.png",
+    title: "Sheraa Presentation",
+  },
+  {
+    url: "/lovable-uploads/93efd6a3-c496-43d2-9401-ad6821c1352b.png",
+    title: "Sheraa Award Winners",
+  },
 ];
 
 export function FloatingImages() {
@@ -61,7 +73,7 @@ export function FloatingImages() {
         {optimizedImages.map((image, index) => (
           <FloatingElement
             key={image.title}
-            depth={index === 0 || index === 4 ? 0.5 : index === 1 || index === 3 ? 1 : 4}
+            depth={getImageDepth(index)}
             className={getPositionClass(index)}
           >
             <motion.img
@@ -82,6 +94,16 @@ export function FloatingImages() {
   );
 }
 
+// Helper functions with enhanced logic for more images
+function getImageDepth(index: number): number {
+  // Create more depth variation for new images
+  if (index < 5) {
+    return index === 0 || index === 4 ? 0.5 : index === 1 || index === 3 ? 1 : 4;
+  }
+  // New images depth
+  return index % 2 === 0 ? 0.7 : 1.2;
+}
+
 // Helper functions to reduce repetition
 function getPositionClass(index: number): string {
   switch(index) {
@@ -90,6 +112,10 @@ function getPositionClass(index: number): string {
     case 2: return "top-[90%] left-[6%] md:top-[80%] md:left-[8%]";
     case 3: return "top-[0%] left-[87%] md:top-[2%] md:left-[83%]";
     case 4: return "top-[78%] left-[83%] md:top-[68%] md:left-[83%]";
+    // New positions for additional images
+    case 5: return "top-[20%] right-[15%] md:top-[30%] md:right-[10%]";
+    case 6: return "top-[50%] left-[70%] md:top-[45%] md:left-[65%]";
+    case 7: return "top-[65%] left-[30%] md:top-[60%] md:left-[25%]";
     default: return "";
   }
 }
@@ -101,6 +127,10 @@ function getSizeClass(index: number): string {
     case 2: return "w-40 h-40 sm:w-48 sm:h-48 md:w-60 md:h-60 lg:w-64 lg:h-64";
     case 3: return "w-40 h-36 sm:w-48 sm:h-44 md:w-60 md:h-52 lg:w-64 lg:h-56";
     case 4: return "w-44 h-44 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80";
+    // New sizes for additional images
+    case 5: return "w-36 h-24 sm:w-44 sm:h-32 md:w-52 md:h-40 lg:w-56 lg:h-44";
+    case 6: return "w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-52 lg:h-52";
+    case 7: return "w-48 h-36 sm:w-56 sm:h-44 md:w-64 md:h-48 lg:w-72 lg:h-54";
     default: return "";
   }
 }
@@ -112,6 +142,10 @@ function getRotationClass(index: number): string {
     case 2: return "-rotate-[4deg]";
     case 3: return "rotate-[6deg]";
     case 4: return "rotate-[19deg]";
+    // New rotations for additional images
+    case 5: return "-rotate-[8deg]";
+    case 6: return "rotate-[5deg]";
+    case 7: return "-rotate-[2deg]";
     default: return "";
   }
 }

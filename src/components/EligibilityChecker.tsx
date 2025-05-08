@@ -55,7 +55,7 @@ const EligibilityChecker = () => {
                 Not sure which program fits you?
               </h2>
               <p className="text-gray-600 text-base mb-4">
-                Take our quick assessment to find the perfect program for your entrepreneurial journey
+                Take our quick assessment to help us recommend the best program for your entrepreneurial journey
               </p>
               
               <div className="flex items-center text-sm text-sheraa-primary mb-4 md:mb-0">
@@ -70,7 +70,7 @@ const EligibilityChecker = () => {
               {/* Enhanced mobile experience with improved button display */}
               <EligibilityCheckerButton 
                 size={isMobile ? "lg" : "lg"} 
-                useDialog={isMobile} 
+                useDialog={!isMobile} 
                 text="Find Your Program"
                 className={isMobile ? "w-full min-w-[200px]" : ""}
               />
