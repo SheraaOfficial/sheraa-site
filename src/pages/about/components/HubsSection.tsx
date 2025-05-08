@@ -1,13 +1,62 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { MapPin, ExternalLink, Phone } from 'lucide-react';
+import { MapPin, ExternalLink, Phone, Calendar } from 'lucide-react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Calendar as CalendarComponent } from '@/components/ui/calendar';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import { format } from 'date-fns';
+import { cn } from '@/lib/utils';
+import { useLocalStorage } from '@/hooks/use-local-storage';
+import { useToast } from '@/hooks/use-toast';
+
+const bookingSchema = z.object({
+  name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
+  email: z.string().email({ message: 'Please enter a valid email address.' }),
+  phone: z.string().min(8, { message: 'Please enter a valid phone number.' }),
+  date: z.date({ required_error: 'Please select a date.' }),
+  timeSlot: z.string({ required_error: 'Please select a time slot.' }),
+  purpose: z.string().min(10, { message: 'Please provide more details about your visit purpose.' }),
+  hubId: z.string()
+});
+
+type BookingFormValues = z.infer<typeof bookingSchema>;
+
+const WEEKDAY_SLOTS = [
+  '09:00 AM - 10:00 AM',
+  '10:00 AM - 11:00 AM',
+  '11:00 AM - 12:00 PM',
+  '01:00 PM - 02:00 PM',
+  '02:00 PM - 03:00 PM',
+  '03:00 PM - 04:00 PM',
+  '04:00 PM - 05:00 PM'
+];
+
+const WEEKEND_SLOTS = [
+  '10:00 AM - 11:00 AM',
+  '11:00 AM - 12:00 PM',
+  '12:00 PM - 01:00 PM'
+];
 
 const HubsSection = () => {
+  const [isBookingOpen, setIsBookingOpen] = useState(false);
+  const [selectedHub, setSelectedHub] = useState<string | null>(null);
+  const { toast } = useToast();
+  const [loggedInUser] = useLocalStorage<any | null>("loggedInUser", null);
+  
   const hubs = [
     {
+      id: "sheraa-hq",
       name: "Sheraa HQ (SRTIP)",
       description: "Located within the Sharjah Research Technology and Innovation Park (SRTIP), our headquarters connects startups with cutting-edge research, technology facilities, and a dynamic innovation ecosystem.",
       address: "Sharjah Research Technology and Innovation Park, Sharjah, UAE",
@@ -16,6 +65,7 @@ const HubsSection = () => {
       image: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?q=80&w=1200&auto=format&fit=crop"
     },
     {
+      id: "aus-hub",
       name: "AUS Hub",
       description: "Situated on the ground floor of the Library Building at the American University of Sharjah (AUS), this hub engages students and faculty, fostering early-stage innovation.",
       address: "Ground Floor, Library Building, American University of Sharjah, University City, Sharjah, UAE",
@@ -25,6 +75,7 @@ const HubsSection = () => {
       image: "https://images.unsplash.com/photo-1599403802665-144cfeddbb6a?q=80&w=1200&auto=format&fit=crop"
     },
     {
+      id: "uos-hub",
       name: "UOS Hub",
       description: "Located in the W3 Building at the University of Sharjah (UOS), this hub connects with another key academic institution, broadening our reach to young talent.",
       address: "W3 Building, University of Sharjah, University City, Sharjah, UAE",
@@ -33,6 +84,42 @@ const HubsSection = () => {
       image: "https://images.unsplash.com/photo-1607237138185-eedd9c632b0b?q=80&w=1200&auto=format&fit=crop"
     }
   ];
+
+  const form = useForm<BookingFormValues>({
+    resolver: zodResolver(bookingSchema),
+    defaultValues: {
+      name: loggedInUser ? `${loggedInUser.firstName} ${loggedInUser.lastName}` : '',
+      email: loggedInUser?.email || '',
+      phone: '',
+      purpose: '',
+    }
+  });
+
+  const handleOpenBooking = (hubId: string) => {
+    setSelectedHub(hubId);
+    form.setValue('hubId', hubId);
+    setIsBookingOpen(true);
+  };
+
+  const onSubmit = (data: BookingFormValues) => {
+    // In a real implementation, this would send the booking request to a backend
+    console.log('Booking submitted:', data);
+    
+    const hubName = hubs.find(hub => hub.id === data.hubId)?.name || 'Unknown Hub';
+    
+    toast({
+      title: "Booking Request Submitted",
+      description: `Your booking for ${hubName} on ${format(data.date, 'EEEE, MMMM d, yyyy')} at ${data.timeSlot} has been sent for confirmation. We will contact you shortly.`,
+    });
+    
+    setIsBookingOpen(false);
+    form.reset();
+  };
+
+  const isWeekend = (date: Date) => {
+    const day = date.getDay();
+    return day === 0 || day === 6; // 0 is Sunday, 6 is Saturday
+  };
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -74,9 +161,9 @@ const HubsSection = () => {
           </motion.div>
 
           <div className="space-y-8">
-            {hubs.map((hub, index) => (
+            {hubs.map((hub) => (
               <motion.div 
-                key={hub.name} 
+                key={hub.id} 
                 variants={itemVariants}
                 className="flex flex-col md:flex-row gap-6 items-center"
               >
@@ -118,12 +205,207 @@ const HubsSection = () => {
                           </a>
                         </Button>
                       )}
+                      
+                      <Button 
+                        className="bg-sheraa-primary hover:bg-sheraa-primary/90 text-white" 
+                        size="sm"
+                        onClick={() => handleOpenBooking(hub.id)}
+                      >
+                        <Calendar className="w-4 h-4 mr-2" /> Book a Visit
+                      </Button>
                     </div>
                   </CardContent>
                 </Card>
               </motion.div>
             ))}
           </div>
+          
+          <Dialog open={isBookingOpen} onOpenChange={setIsBookingOpen}>
+            <DialogContent className="sm:max-w-[500px]">
+              <DialogHeader>
+                <DialogTitle>Book a Visit</DialogTitle>
+                <DialogDescription>
+                  Choose a date and time for your visit to {selectedHub && hubs.find(hub => hub.id === selectedHub)?.name}.
+                </DialogDescription>
+              </DialogHeader>
+
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Your Name</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Enter your name" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <FormField
+                      control={form.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Email</FormLabel>
+                          <FormControl>
+                            <Input type="email" placeholder="you@example.com" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    
+                    <FormField
+                      control={form.control}
+                      name="phone"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Phone Number</FormLabel>
+                          <FormControl>
+                            <Input placeholder="+971..." {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+
+                  <FormField
+                    control={form.control}
+                    name="date"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-col">
+                        <FormLabel>Visit Date</FormLabel>
+                        <Popover>
+                          <PopoverTrigger asChild>
+                            <FormControl>
+                              <Button
+                                variant="outline"
+                                className={cn(
+                                  "w-full pl-3 text-left font-normal",
+                                  !field.value && "text-muted-foreground"
+                                )}
+                              >
+                                {field.value ? (
+                                  format(field.value, "EEEE, MMMM d, yyyy")
+                                ) : (
+                                  <span>Select a date</span>
+                                )}
+                                <Calendar className="ml-auto h-4 w-4 opacity-50" />
+                              </Button>
+                            </FormControl>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-auto p-0">
+                            <CalendarComponent
+                              mode="single"
+                              selected={field.value}
+                              onSelect={field.onChange}
+                              disabled={(date) => 
+                                date < new Date() || 
+                                date > new Date(new Date().setMonth(new Date().getMonth() + 3))
+                              }
+                              initialFocus
+                              className={cn("p-3 pointer-events-auto")}
+                            />
+                          </PopoverContent>
+                        </Popover>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="timeSlot"
+                    render={({ field }) => (
+                      <FormItem className="space-y-3">
+                        <FormLabel>Time Slot</FormLabel>
+                        <Tabs defaultValue="weekday" className="w-full">
+                          <TabsList className="grid w-full grid-cols-2 mb-2">
+                            <TabsTrigger value="weekday">Weekdays</TabsTrigger>
+                            <TabsTrigger value="weekend">Weekends</TabsTrigger>
+                          </TabsList>
+                          
+                          <TabsContent value="weekday" className="mt-0">
+                            <FormControl>
+                              <RadioGroup
+                                onValueChange={field.onChange}
+                                defaultValue={field.value}
+                                className="grid grid-cols-1 md:grid-cols-2 gap-2"
+                              >
+                                {WEEKDAY_SLOTS.map((slot) => (
+                                  <div key={slot} className="flex items-center space-x-2">
+                                    <RadioGroupItem value={slot} id={slot} />
+                                    <FormLabel htmlFor={slot} className="font-normal cursor-pointer">
+                                      {slot}
+                                    </FormLabel>
+                                  </div>
+                                ))}
+                              </RadioGroup>
+                            </FormControl>
+                          </TabsContent>
+                          
+                          <TabsContent value="weekend" className="mt-0">
+                            <FormControl>
+                              <RadioGroup
+                                onValueChange={field.onChange}
+                                defaultValue={field.value}
+                                className="grid grid-cols-1 md:grid-cols-2 gap-2"
+                              >
+                                {WEEKEND_SLOTS.map((slot) => (
+                                  <div key={slot} className="flex items-center space-x-2">
+                                    <RadioGroupItem value={slot} id={slot} />
+                                    <FormLabel htmlFor={slot} className="font-normal cursor-pointer">
+                                      {slot}
+                                    </FormLabel>
+                                  </div>
+                                ))}
+                              </RadioGroup>
+                            </FormControl>
+                          </TabsContent>
+                        </Tabs>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="purpose"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Purpose of Visit</FormLabel>
+                        <FormControl>
+                          <Textarea 
+                            placeholder="Please describe the purpose of your visit..."
+                            className="min-h-[80px]"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  <input type="hidden" {...form.register('hubId')} />
+
+                  <DialogFooter>
+                    <Button type="button" variant="outline" onClick={() => setIsBookingOpen(false)}>
+                      Cancel
+                    </Button>
+                    <Button type="submit" className="bg-sheraa-primary hover:bg-sheraa-primary/90 text-white">
+                      Submit Booking Request
+                    </Button>
+                  </DialogFooter>
+                </form>
+              </Form>
+            </DialogContent>
+          </Dialog>
         </motion.div>
       </div>
     </section>

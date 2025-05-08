@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
 import { useScrollNavigation } from "./navigation/useScrollNavigation";
 import { homeLinks, discoverLinks, growLinks, communityLinks, insightsLinks, applyLinks } from "./navigation/navigationData";
+import { useLocalStorage } from "@/hooks/use-local-storage";
+import UserAvatar from "./user/UserAvatar";
 
 // Lazy load components
 const DesktopNavigation = lazy(() => import("./navigation/DesktopNavigation"));
@@ -14,6 +16,7 @@ const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isSticky, isScrolled } = useScrollNavigation();
   const [hydrated, setHydrated] = useState(false);
+  const [loggedInUser] = useLocalStorage<any | null>("loggedInUser", null);
 
   // Mark as hydrated after initial render
   useEffect(() => {
@@ -54,8 +57,16 @@ const Navigation = () => {
               communityLinks={communityLinks} 
               insightsLinks={insightsLinks} 
               applyLinks={applyLinks} 
+              isLoggedIn={!!loggedInUser}
             />
           </Suspense>
+        )}
+
+        {/* User Avatar (when logged in) */}
+        {hydrated && loggedInUser && (
+          <div className="ml-2">
+            <UserAvatar />
+          </div>
         )}
 
         {/* Mobile Navigation - Overlay Menu */}
@@ -71,6 +82,7 @@ const Navigation = () => {
               communityLinks={communityLinks} 
               insightsLinks={insightsLinks} 
               applyLinks={applyLinks} 
+              isLoggedIn={!!loggedInUser}
             />
           </Suspense>
         )}

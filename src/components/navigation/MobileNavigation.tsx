@@ -2,8 +2,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Home, Compass, TrendingUp, Users, Info, ArrowRight } from "lucide-react";
+import { Home, Compass, TrendingUp, Users, Info, ArrowRight, User, Feed } from "lucide-react";
 import MobileDropdown from "./MobileDropdown";
+import { useLocalStorage } from "@/hooks/use-local-storage";
+import { useToast } from "@/hooks/use-toast";
+
 interface MobileNavigationProps {
   isMenuOpen: boolean;
   setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -38,6 +41,7 @@ interface MobileNavigationProps {
     href: string;
     description?: string;
   }[];
+  isLoggedIn?: boolean;
 }
 
 const MobileNavigation: React.FC<MobileNavigationProps> = ({
@@ -49,8 +53,21 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({
   growLinks,
   communityLinks,
   insightsLinks,
-  applyLinks
+  applyLinks,
+  isLoggedIn = false
 }) => {
+  const [loggedInUser, setLoggedInUser] = useLocalStorage<any | null>("loggedInUser", null);
+  const { toast } = useToast();
+  
+  const handleLogout = () => {
+    setLoggedInUser(null);
+    setIsMenuOpen(false);
+    toast({
+      title: "Logged out",
+      description: "You have been successfully logged out.",
+    });
+  };
+  
   if (!isMenuOpen) return null;
   
   return (
@@ -79,14 +96,37 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({
               <span>Apply</span>
             </Link>
           </div>
-          <div className="pt-6 space-y-3 border-t border-gray-100 mt-4">
-            <Button variant="outline" className="w-full" asChild>
-              <Link to="/login" onClick={() => setIsMenuOpen(false)}>Login</Link>
-            </Button>
-            <Button className="w-full bg-sheraa-primary hover:bg-sheraa-primary/90 shadow-sm" asChild>
-              <Link to="/signup" onClick={() => setIsMenuOpen(false)}>Get Started</Link>
-            </Button>
-          </div>
+          
+          {isLoggedIn && (
+            <div className="border-t border-gray-100 pt-4 mt-2">
+              <h3 className="text-sm font-medium text-gray-500 mb-2">Account</h3>
+              <Link to="/profile" className="flex items-center gap-2 py-2 text-base hover:text-sheraa-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
+                <User className="h-4 w-4" />
+                <span>My Profile</span>
+              </Link>
+              <Link to="/feed" className="flex items-center gap-2 py-2 text-base hover:text-sheraa-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
+                <Feed className="h-4 w-4" />
+                <span>My Feed</span>
+              </Link>
+              <button 
+                onClick={handleLogout} 
+                className="flex items-center gap-2 py-2 text-base text-red-500 hover:text-red-600 transition-colors w-full text-left"
+              >
+                Log out
+              </button>
+            </div>
+          )}
+          
+          {!isLoggedIn && (
+            <div className="pt-6 space-y-3 border-t border-gray-100 mt-4">
+              <Button variant="outline" className="w-full" asChild>
+                <Link to="/login" onClick={() => setIsMenuOpen(false)}>Login</Link>
+              </Button>
+              <Button className="w-full bg-sheraa-primary hover:bg-sheraa-primary/90 shadow-sm" asChild>
+                <Link to="/signup" onClick={() => setIsMenuOpen(false)}>Get Started</Link>
+              </Button>
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -19,6 +19,7 @@ interface DesktopNavigationProps {
   communityLinks: { title: string; href: string; description?: string }[];
   insightsLinks: { title: string; href: string; description?: string }[];
   applyLinks: { title: string; href: string; description?: string }[];
+  isLoggedIn?: boolean;
 }
 
 const DesktopNavigation: React.FC<DesktopNavigationProps> = memo(({
@@ -27,6 +28,7 @@ const DesktopNavigation: React.FC<DesktopNavigationProps> = memo(({
   growLinks,
   communityLinks,
   insightsLinks,
+  isLoggedIn = false,
 }) => {
   return (
     <div className="hidden md:flex md:flex-1 md:items-center md:justify-between">
@@ -52,14 +54,16 @@ const DesktopNavigation: React.FC<DesktopNavigationProps> = memo(({
         </NavigationMenuList>
       </NavigationMenu>
 
-      <div className="flex items-center gap-2">
-        <Button variant="outline" size="sm" asChild>
-          <Link to="/login">Login</Link>
-        </Button>
-        <GradientButton size="sm" asChild>
-          <Link to="/signup">Get Started</Link>
-        </GradientButton>
-      </div>
+      {!isLoggedIn && (
+        <div className="flex items-center gap-2">
+          <Button variant="outline" size="sm" asChild>
+            <Link to="/login">Login</Link>
+          </Button>
+          <GradientButton size="sm" asChild>
+            <Link to="/signup">Get Started</Link>
+          </GradientButton>
+        </div>
+      )}
     </div>
   );
 });
