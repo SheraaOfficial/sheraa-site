@@ -1,8 +1,7 @@
-
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import React from 'react';
 import { render } from '@testing-library/react';
-import * as testingLibrary from '@testing-library/dom';
+import { screen, fireEvent } from '@testing-library/dom';
 import { 
   useCarouselSelection,
   useCarouselKeyboardNavigation,
@@ -14,9 +13,6 @@ import {
   CarouselNext,
   CarouselPrevious
 } from '../carousel';
-
-// Get screen and fireEvent from testing-library/dom
-const { screen, fireEvent } = testingLibrary;
 
 // Test the utility functions
 describe('Carousel Utility Functions', () => {
