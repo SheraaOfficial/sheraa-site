@@ -16,7 +16,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { useLocalStorage } from '@/hooks/use-local-storage';
 import { useToast } from '@/hooks/use-toast';
-import { User, Feed } from 'lucide-react';
+import { User, FileText } from 'lucide-react';
 
 const UserAvatar = () => {
   const [loggedInUser, setLoggedInUser] = useLocalStorage<any | null>("loggedInUser", null);
@@ -67,7 +67,7 @@ const UserAvatar = () => {
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
           <Link to="/feed" className="flex items-center cursor-pointer">
-            <Feed className="w-4 h-4 mr-2" />
+            <FileText className="w-4 h-4 mr-2" />
             <span>My Feed</span>
           </Link>
         </DropdownMenuItem>

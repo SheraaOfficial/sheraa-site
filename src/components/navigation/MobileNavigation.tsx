@@ -2,7 +2,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Home, Compass, TrendingUp, Users, Info, ArrowRight, User, Feed } from "lucide-react";
+import { Home, Compass, TrendingUp, Users, Info, ArrowRight, User, FileText } from "lucide-react";
 import MobileDropdown from "./MobileDropdown";
 import { useLocalStorage } from "@/hooks/use-local-storage";
 import { useToast } from "@/hooks/use-toast";
@@ -105,7 +105,7 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({
                 <span>My Profile</span>
               </Link>
               <Link to="/feed" className="flex items-center gap-2 py-2 text-base hover:text-sheraa-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
-                <Feed className="h-4 w-4" />
+                <FileText className="h-4 w-4" />
                 <span>My Feed</span>
               </Link>
               <button 
