@@ -2,7 +2,7 @@
 import React, { Suspense, useEffect } from 'react';
 import App from './App';
 import { PerformanceProvider } from './contexts/PerformanceContext';
-import ErrorBoundary from './components/layout/ErrorBoundary';
+import { ErrorBoundary } from './components/layout/ErrorBoundary';
 
 // Fallback component for when the app fails to load
 const ErrorFallbackComponent = () => (
