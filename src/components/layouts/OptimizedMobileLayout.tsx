@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { useIsMobile } from '@/hooks/useDeviceDetection';
+import { useIsMobile } from '@/hooks/use-mobile';
 import { useDevicePerformance } from '@/hooks/useDevicePerformance';
 import { usePerformanceMonitor } from '@/hooks/use-performance-monitor';
 
@@ -38,10 +38,10 @@ export function OptimizedMobileLayout({ children }: OptimizedMobileLayoutProps) 
   }, [isMobile, devicePerformance, performanceMetrics.connectionType]);
 
   // Apply mobile-specific styles and optimizations with proper TypeScript types
-  const mobileOptimizationStyles = isMobile ? {
-    overscrollBehavior: 'contain' as const, 
-    WebkitOverflowScrolling: 'touch' as const, 
-    touchAction: 'manipulation' as const
+  const mobileOptimizationStyles: React.CSSProperties = isMobile ? {
+    overscrollBehavior: 'contain', 
+    WebkitOverflowScrolling: 'touch', 
+    touchAction: 'manipulation'
   } : {};
 
   return (

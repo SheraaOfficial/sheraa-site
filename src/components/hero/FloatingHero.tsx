@@ -2,7 +2,7 @@
 import React, { memo, useState, useEffect, lazy, Suspense } from "react";
 import { HeroContent } from "./HeroContent";
 import { useDevicePerformance } from "@/hooks/useDevicePerformance";
-import { useIsMobile } from "@/hooks/useDeviceDetection";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 // Lazy load the FloatingImages component which is visually complex
 const FloatingImages = lazy(() => 
@@ -28,7 +28,7 @@ export const FloatingHero = memo(function FloatingHero() {
   }, [isMobile]);
   
   // Reduce visual complexity for low-performance devices
-  const shouldShowImages = (devicePerformance !== 'low' || !isClient) && isVisible;
+  const shouldShowImages = isClient && isVisible && devicePerformance !== 'low';
   
   return (
     <div className="w-full h-full container mx-auto flex justify-center items-center relative">
@@ -47,4 +47,3 @@ export const FloatingHero = memo(function FloatingHero() {
     </div>
   );
 });
-
