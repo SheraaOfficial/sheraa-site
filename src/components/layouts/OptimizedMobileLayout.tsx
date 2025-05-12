@@ -37,11 +37,11 @@ export function OptimizedMobileLayout({ children }: OptimizedMobileLayoutProps) 
     };
   }, [isMobile, devicePerformance, performanceMetrics.connectionType]);
 
-  // Apply mobile-specific styles and optimizations with proper TypeScript types
-  const mobileOptimizationStyles: React.CSSProperties = isMobile ? {
-    overscrollBehavior: 'contain', 
-    WebkitOverflowScrolling: 'touch', 
-    touchAction: 'manipulation'
+  // Apply mobile-specific styles and optimizations
+  const mobileOptimizationStyles = isMobile ? {
+    overscrollBehavior: 'contain' as const, 
+    WebkitOverflowScrolling: 'touch' as const, 
+    touchAction: 'manipulation' as const
   } : {};
 
   return (

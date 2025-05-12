@@ -5,6 +5,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ScrollToTop from "./components/utils/ScrollToTop";
+import { ErrorBoundary } from "./components/layout/ErrorBoundary";
+import { PerformanceProvider } from "./contexts/PerformanceContext";
 
 // Page imports
 import Index from "./pages/Index";
@@ -45,89 +47,142 @@ import ProfilePage from "./pages/profile/ProfilePage";
 import ProfileSetupPage from "./pages/profile/ProfileSetupPage";
 import FeedPage from "./pages/feed/FeedPage";
 
+// AppLoading component for better UX
+const AppLoading = () => (
+  <div className="min-h-screen flex items-center justify-center bg-gray-50">
+    <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+  </div>
+);
+
+// ErrorFallback component 
+const ErrorFallbackComponent = () => (
+  <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    <div className="text-center p-8 bg-white rounded-lg shadow-lg max-w-md">
+      <h1 className="text-2xl font-bold text-red-600 mb-4">Something went wrong</h1>
+      <p className="mb-4">We're sorry, but there was an error loading the application.</p>
+      <button 
+        className="bg-primary text-white px-4 py-2 rounded" 
+        onClick={() => window.location.reload()}
+      >
+        Refresh the page
+      </button>
+    </div>
+  </div>
+);
+
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <ScrollToTop />
-        <Routes>
-          <Route path="/" element={<Index />} />
-          
-          {/* Auth Routes */}
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignupPage />} />
-          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/profile-setup" element={<ProfileSetupPage />} />
-          <Route path="/feed" element={<FeedPage />} />
-          
-          {/* About Routes - Consolidated into a single page with anchors */}
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/about/impact" element={<ImpactReport />} />
+const App = () => {
+  // Preconnect to commonly used domains for performance
+  React.useEffect(() => {
+    const preconnectLinks = [
+      'https://fonts.googleapis.com',
+      'https://fonts.gstatic.com'
+    ];
+    
+    preconnectLinks.forEach(href => {
+      const link = document.createElement('link');
+      link.rel = 'preconnect';
+      link.href = href;
+      if (href.includes('gstatic')) {
+        link.crossOrigin = 'anonymous';
+      }
+      document.head.appendChild(link);
+    });
+    
+    return () => {
+      document.querySelectorAll('link[rel="preconnect"]').forEach(el => el.remove());
+    };
+  }, []);
 
-          {/* Programs Routes */}
-          <Route path="/programs" element={<ProgramsPage />} />
-          <Route path="/programs/start-young" element={<ProgramsPage section="start-young" />} />
-          <Route path="/programs/startup-dojo" element={<StartupDojo />} />
-          <Route path="/programs/startup-dojo-plus" element={<StartupDojoPlus />} />
-          <Route path="/programs/grow-smart" element={<ProgramsPage section="grow-smart" />} />
-          <Route path="/programs/s3-incubator" element={<S3Incubator />} />
-          <Route path="/programs/build-ventures" element={<ProgramsPage section="build-ventures" />} />
-          <Route path="/programs/access-sharjah-challenge" element={<AccessSharjahChallenge />} />
-          <Route path="/programs/sme-support" element={<SMESupport />} />
-          
-          {/* Eligibility Checker Page */}
-          <Route path="/eligibility" element={<EligibilityCheckerPage />} />
+  return (
+    <ErrorBoundary FallbackComponent={ErrorFallbackComponent}>
+      <PerformanceProvider>
+        <QueryClientProvider client={queryClient}>
+          <TooltipProvider>
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
+              <ScrollToTop />
+              <React.Suspense fallback={<AppLoading />}>
+                <Routes>
+                  <Route path="/" element={<Index />} />
+                  
+                  {/* Auth Routes */}
+                  <Route path="/login" element={<LoginPage />} />
+                  <Route path="/signup" element={<SignupPage />} />
+                  <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+                  <Route path="/profile" element={<ProfilePage />} />
+                  <Route path="/profile-setup" element={<ProfileSetupPage />} />
+                  <Route path="/feed" element={<FeedPage />} />
+                  
+                  {/* About Routes - Consolidated into a single page with anchors */}
+                  <Route path="/about" element={<AboutPage />} />
+                  <Route path="/about/impact" element={<ImpactReport />} />
 
-          {/* Resources Routes */}
-          <Route path="/resources" element={<ResourcesRouter />} />
-          <Route path="/resources/guides" element={<ResourcesRouter section="guides" />} />
-          <Route path="/resources/advisory" element={<ResourcesRouter section="advisory" />} />
-          <Route path="/resources/articles" element={<ResourcesRouter section="articles" />} />
-          <Route path="/resources/impact-reports" element={<ResourcesRouter section="impact-reports" />} />
+                  {/* Programs Routes */}
+                  <Route path="/programs" element={<ProgramsPage />} />
+                  <Route path="/programs/start-young" element={<ProgramsPage section="start-young" />} />
+                  <Route path="/programs/startup-dojo" element={<StartupDojo />} />
+                  <Route path="/programs/startup-dojo-plus" element={<StartupDojoPlus />} />
+                  <Route path="/programs/grow-smart" element={<ProgramsPage section="grow-smart" />} />
+                  <Route path="/programs/s3-incubator" element={<S3Incubator />} />
+                  <Route path="/programs/build-ventures" element={<ProgramsPage section="build-ventures" />} />
+                  <Route path="/programs/access-sharjah-challenge" element={<AccessSharjahChallenge />} />
+                  <Route path="/programs/sme-support" element={<SMESupport />} />
+                  
+                  {/* Eligibility Checker Page */}
+                  <Route path="/eligibility" element={<EligibilityCheckerPage />} />
 
-          {/* Events Routes */}
-          <Route path="/events" element={<EventsPage />} />
-          <Route path="/events/sef" element={<EventsPage section="sef" />} />
-          
-          {/* SEF Sub-pages */}
-          <Route path="/events/sef/agenda" element={<SEFAgendaPage />} />
-          <Route path="/events/sef/speakers" element={<SEFSpeakersPage />} />
-          <Route path="/events/sef/experience" element={<SEFExperiencePage />} />
-          <Route path="/events/sef/who-should-attend" element={<SEFWhoShouldAttendPage />} />
-          <Route path="/events/sef/be-part-of-sef" element={<SEFBePartPage />} />
-          <Route path="/events/sef/register" element={<SEFRegisterPage />} />
-          <Route path="/events/sef/registration" element={<SEFRegisterPage />} />
-          <Route path="/events/sef/faq" element={<SEFFAQPage />} />
-          
-          {/* Events Routes */}
-          <Route path="/events/upcoming" element={<EventsPage section="upcoming" />} />
-          <Route path="/events/news" element={<EventsPage section="news" />} />
+                  {/* Resources Routes */}
+                  <Route path="/resources" element={<ResourcesRouter />} />
+                  <Route path="/resources/guides" element={<ResourcesRouter section="guides" />} />
+                  <Route path="/resources/advisory" element={<ResourcesRouter section="advisory" />} />
+                  <Route path="/resources/articles" element={<ResourcesRouter section="articles" />} />
+                  <Route path="/resources/impact-reports" element={<ResourcesRouter section="impact-reports" />} />
 
-          {/* Community Routes */}
-          <Route path="/community" element={<CommunityPage />} />
-          <Route path="/community/join" element={<CommunityPage section="join" />} />
-          <Route path="/community/startups" element={<CommunityPage section="startups" />} />
-          <Route path="/community/partnerships" element={<CommunityPage section="partnerships" />} />
+                  {/* Events Routes */}
+                  <Route path="/events" element={<EventsPage />} />
+                  <Route path="/events/sef" element={<EventsPage section="sef" />} />
+                  
+                  {/* SEF Sub-pages */}
+                  <Route path="/events/sef/agenda" element={<SEFAgendaPage />} />
+                  <Route path="/events/sef/speakers" element={<SEFSpeakersPage />} />
+                  <Route path="/events/sef/experience" element={<SEFExperiencePage />} />
+                  <Route path="/events/sef/who-should-attend" element={<SEFWhoShouldAttendPage />} />
+                  <Route path="/events/sef/be-part-of-sef" element={<SEFBePartPage />} />
+                  <Route path="/events/sef/register" element={<SEFRegisterPage />} />
+                  <Route path="/events/sef/registration" element={<SEFRegisterPage />} />
+                  <Route path="/events/sef/faq" element={<SEFFAQPage />} />
+                  
+                  {/* Events Routes */}
+                  <Route path="/events/upcoming" element={<EventsPage section="upcoming" />} />
+                  <Route path="/events/news" element={<EventsPage section="news" />} />
 
-          {/* Careers Route */}
-          <Route path="/careers" element={<CareersPage />} />
+                  {/* Community Routes */}
+                  <Route path="/community" element={<CommunityPage />} />
+                  <Route path="/community/join" element={<CommunityPage section="join" />} />
+                  <Route path="/community/startups" element={<CommunityPage section="startups" />} />
+                  <Route path="/community/partnerships" element={<CommunityPage section="partnerships" />} />
 
-          {/* Contact Route */}
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-          <Route path="/terms" element={<TermsOfUse />} />
-          
-          {/* Catch-all route for 404 */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+                  {/* Careers Route */}
+                  <Route path="/careers" element={<CareersPage />} />
+
+                  {/* Contact Route */}
+                  <Route path="/contact" element={<ContactPage />} />
+                  <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+                  <Route path="/terms" element={<TermsOfUse />} />
+                  
+                  {/* Catch-all route for 404 */}
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </React.Suspense>
+            </BrowserRouter>
+          </TooltipProvider>
+        </QueryClientProvider>
+      </PerformanceProvider>
+    </ErrorBoundary>
+  );
+};
 
 export default App;

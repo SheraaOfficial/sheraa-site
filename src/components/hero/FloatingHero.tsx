@@ -2,7 +2,7 @@
 import React, { memo, useState, useEffect, lazy, Suspense } from "react";
 import { HeroContent } from "./HeroContent";
 import { useDevicePerformance } from "@/hooks/useDevicePerformance";
-import { useIsMobile } from "@/hooks/use-mobile";
+import { useIsMobile } from "@/hooks/useDeviceDetection";
 
 // Lazy load the FloatingImages component which is visually complex
 const FloatingImages = lazy(() => 

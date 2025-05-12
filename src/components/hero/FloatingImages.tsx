@@ -1,9 +1,10 @@
+
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Floating, { FloatingElement } from "@/components/ui/parallax-floating";
 import { useDevicePerformance } from "@/hooks/useDevicePerformance";
 import { usePreloadImages } from "@/hooks/use-image-performance";
-import { useIsMobile } from "@/hooks/use-mobile";
+import { useIsMobile } from "@/hooks/useDeviceDetection";
 
 // Sheraa uploaded images
 const sheraaImages = [
@@ -87,7 +88,6 @@ export function FloatingImages() {
     <Floating 
       sensitivity={sensitivity}
       className="h-full w-full absolute inset-0"
-      disabled={isMobile && devicePerformance === 'low'} 
     >
       <AnimatePresence>
         {optimizedImages.map((image, index) => (

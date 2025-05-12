@@ -1,11 +1,10 @@
 
-import React, { lazy, Suspense, useEffect } from "react";
+import React, { lazy, Suspense } from "react";
 import MainLayout from "@/components/layouts/MainLayout";
 import { useOptimizedScroll } from "@/hooks/useOptimizedScroll";
 import { useBackgroundAnimation } from "@/hooks/use-background-animation";
 import { useScrollDirection } from "@/hooks/use-scroll-direction";
 import { useFirstInteraction, useDeepScroll } from "@/hooks/use-interaction";
-import { useSmoothScroll } from "@/hooks/use-smooth-scroll";
 import ProgressBar from "@/components/ProgressBar";
 import { HeroSection } from "@/components/HeroSection";
 import { FirstPriorityComponents } from "@/components/sections/FirstPriorityComponents";
@@ -13,8 +12,7 @@ import { useDevicePerformance } from "@/hooks/useDevicePerformance";
 import { useIsMobile } from "@/hooks/useDeviceDetection";
 import { SectionLoading } from "@/components/layout/SectionLoading";
 import { ErrorFallback } from "@/components/layout/ErrorFallback";
-import { MobileOptimizedApp } from "@/components/MobileOptimizedApp";
-import { usePerformanceMonitor } from "@/hooks/use-performance-monitor";
+import { SafeSuspense } from "@/components/layout/SafeSuspense";
 
 // Enhanced error handling with proper typing for lazy-loaded components
 const SecondPriorityComponents = lazy(() => 
@@ -55,10 +53,8 @@ const LoadingPlaceholder: React.FC = () => {
 };
 
 // Hook for optimized component preloading
-const useComponentPreloader = (deepScroll: boolean, devicePerformance: string) => {
-  const isMobile = useIsMobile();
-  
-  useEffect(() => {
+const useComponentPreloader = (deepScroll: boolean, devicePerformance: string, isMobile: boolean) => {
+  React.useEffect(() => {
     // Skip preloading on mobile low-end devices
     if (isMobile && devicePerformance === 'low') return;
     
@@ -100,48 +96,37 @@ const Index: React.FC = () => {
   const deepScroll = useDeepScroll();
   const devicePerformance = useDevicePerformance();
   const isMobile = useIsMobile();
-  const performanceMetrics = usePerformanceMonitor();
-  
-  // Setup smooth scroll behavior based on device performance
-  // Disable smooth scroll on mobile or low-end devices
-  const enableSmoothScroll = !isMobile && devicePerformance !== 'low';
-  if (enableSmoothScroll) {
-    useSmoothScroll();
-  }
   
   // Use the preloader hook
-  useComponentPreloader(deepScroll, devicePerformance);
+  useComponentPreloader(deepScroll, devicePerformance, isMobile);
 
   return (
-    <MobileOptimizedApp>
-      <MainLayout backgroundStyle={backgroundStyle}>
-        {/* Only show progress bar on non-mobile or high-performance devices */}
-        {(!isMobile || devicePerformance === 'high') && <ProgressBar />}
+    <MainLayout backgroundStyle={backgroundStyle}>
+      {/* Only show progress bar on non-mobile or high-performance devices */}
+      {(!isMobile || devicePerformance === 'high') && <ProgressBar />}
 
-        {/* Hero section - load immediately */}
-        <HeroSection />
+      {/* Hero section - load immediately */}
+      <HeroSection />
+      
+      <div className="space-y-0 relative z-10">
+        {/* First priority components - always load */}
+        <FirstPriorityComponents />
         
-        <div className="space-y-0 relative z-10">
-          {/* First priority components - always load */}
-          <FirstPriorityComponents />
-          
-          {/* Second priority components - load after user interaction */}
-          {(firstInteraction || (isMobile && performanceMetrics.fcp !== null)) && (
-            <Suspense fallback={<LoadingPlaceholder />}>
-              <SecondPriorityComponents />
-            </Suspense>
-          )}
-          
-          {/* Third priority components - load after deep scroll */}
-          {/* On mobile, check if we're on a good connection before loading */}
-          {(deepScroll && (!isMobile || performanceMetrics.connectionType !== '2g')) && (
-            <Suspense fallback={<LoadingPlaceholder />}>
-              <ThirdPriorityComponents />
-            </Suspense>
-          )}
-        </div>
-      </MainLayout>
-    </MobileOptimizedApp>
+        {/* Second priority components - load after user interaction */}
+        {firstInteraction && (
+          <SafeSuspense fallback={<LoadingPlaceholder />}>
+            <SecondPriorityComponents />
+          </SafeSuspense>
+        )}
+        
+        {/* Third priority components - load after deep scroll */}
+        {deepScroll && (
+          <SafeSuspense fallback={<LoadingPlaceholder />}>
+            <ThirdPriorityComponents />
+          </SafeSuspense>
+        )}
+      </div>
+    </MainLayout>
   );
 };
 

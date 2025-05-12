@@ -10,6 +10,5 @@ interface MobileOptimizedAppProps {
 export function MobileOptimizedApp({ children }: MobileOptimizedAppProps) {
   const isMobile = useIsMobile();
   
-  // Apply specific mobile optimizations at the app level
-  return <OptimizedMobileLayout>{children}</OptimizedMobileLayout>;
+  return <>{children}</>; // Simplified to just render children directly
 }
