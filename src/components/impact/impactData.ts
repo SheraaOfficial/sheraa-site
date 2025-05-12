@@ -1,51 +1,62 @@
 
-import {
-  IconCloud,
-  IconCurrencyDollar,
-  IconRouteAltLeft,
-  IconTerminal2,
-} from "@tabler/icons-react";
 import React from "react";
+import { Users, Building, Coins, Briefcase, Award, Sparkles, BookOpen, Network } from "lucide-react";
 
-export interface ImpactFeature {
-  title: string;
-  description: string;
-  subtext: string;
-  value: string;
-  icon: React.ReactNode;
-}
-
-// Create a function that returns the icon component
-// This avoids using JSX syntax directly in the .ts file
-const createIcon = (Icon: any) => (props: any) => React.createElement(Icon, props);
-
-export const getImpactFeatures = (isMobile: boolean): ImpactFeature[] => [
+export const getImpactFeatures = (isMobile: boolean) => [
   {
-    title: "Startups",
-    description: isMobile ? "Supported" : "Building impactful ventures across sectors",
-    subtext: "52% women-led",
-    value: "180+",
-    icon: createIcon(IconTerminal2)({ className: "w-6 h-6" }),
+    title: "180+",
+    description: "Startups Supported",
+    value: 180,
+    subtext: "Since 2016",
+    icon: Users,
   },
   {
-    title: "Revenue",
-    description: isMobile ? "Generated" : "By our portfolio companies",
-    subtext: "71% survival rate",
-    value: "$248M+",
-    icon: createIcon(IconCurrencyDollar)({ className: "w-6 h-6" }),
+    title: "$248M+",
+    description: "Revenue Generated",
+    value: 248,
+    subtext: "By Startups",
+    icon: Coins,
   },
   {
-    title: "Jobs",
-    description: isMobile ? "Created" : "Contributing to economic growth",
-    subtext: "Regional impact",
-    value: "1900+",
-    icon: createIcon(IconRouteAltLeft)({ className: "w-6 h-6" }),
+    title: "$171M+",
+    description: "Capital Raised",
+    value: 171,
+    subtext: "By Startups",
+    icon: Building,
   },
   {
-    title: "Partners",
-    description: isMobile ? "Connected" : "Strong network of collaborators",
-    subtext: "18k+ youth trained",
-    value: "140+",
-    icon: createIcon(IconCloud)({ className: "w-6 h-6" }),
+    title: "1,900+",
+    description: "Jobs Created",
+    value: 1900,
+    subtext: "Economic Impact",
+    icon: Briefcase,
   },
-];
+  {
+    title: "52%",
+    description: "Women-Led Startups",
+    value: 52,
+    subtext: "Diverse Founders",
+    icon: Award,
+  },
+  {
+    title: "18,000+",
+    description: "Youth Upskilled",
+    value: 18000,
+    subtext: "Future Innovators",
+    icon: BookOpen,
+  },
+  {
+    title: "140+",
+    description: "Ecosystem Partners",
+    value: 140,
+    subtext: "Collaborative Network",
+    icon: Network,
+  },
+  {
+    title: "71%",
+    description: "Startup Survival Rate",
+    value: 71,
+    subtext: "Industry-Leading",
+    icon: Sparkles,
+  },
+].slice(0, isMobile ? 4 : 8);

@@ -1,10 +1,9 @@
-
 import React, { useState, useEffect, useMemo, lazy, Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import { GradientButton } from "@/components/ui/gradient-button";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight, Star, Sparkles } from "lucide-react";
+import { ArrowRight, Star, Sparkles, Rocket, Globe } from "lucide-react";
 import { TextShimmer } from "./ui/text-shimmer";
 
 // Lazy-load components that aren't needed immediately
@@ -158,9 +157,9 @@ const getIconForOrbit = (index: number) => {
     case 0:
       return <Star className="w-6 h-6 text-sheraa-orange" />;
     case 1:
-      return <Sparkles className="w-6 h-6 text-sheraa-primary" />;
+      return <Rocket className="w-6 h-6 text-sheraa-primary" />;
     case 2:
-      return <ArrowRight className="w-6 h-6 text-sheraa-teal" />;
+      return <Globe className="w-6 h-6 text-sheraa-teal" />;
     default:
       return <Star className="w-6 h-6 text-sheraa-orange" />;
   }

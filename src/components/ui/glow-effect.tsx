@@ -1,48 +1,49 @@
 
-"use client" 
-
-import * as React from "react" 
+import React, { HTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
-import { cva, type VariantProps } from "class-variance-authority";
 
-const glowVariants = cva("absolute w-full", {
-  variants: {
-    variant: {
-      top: "top-0",
-      above: "-top-[128px]",
-      bottom: "bottom-0",
-      below: "-bottom-[128px]",
-      center: "top-[50%]",
-    },
-  },
-  defaultVariants: {
-    variant: "top",
-  },
-});
+interface GlowProps extends HTMLAttributes<HTMLDivElement> {
+  variant?: "normal" | "center" | "radial";
+  size?: "sm" | "md" | "lg" | "xl";
+  strength?: "low" | "medium" | "high";
+}
 
-const Glow = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement> & VariantProps<typeof glowVariants>
->(({ className, variant, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn(glowVariants({ variant }), className)}
-    {...props}
-  >
+export function Glow({
+  variant = "normal",
+  size = "lg",
+  strength = "medium",
+  className,
+  ...props
+}: GlowProps) {
+  const sizes = {
+    sm: "w-32 h-32",
+    md: "w-48 h-48",
+    lg: "w-64 h-64",
+    xl: "w-80 h-80",
+  };
+
+  const strengths = {
+    low: "opacity-30",
+    medium: "opacity-50",
+    high: "opacity-70",
+  };
+
+  const variants = {
+    normal: "bg-gradient-to-r from-sheraa-primary/40 to-sheraa-secondary/40 blur-2xl",
+    center: "bg-gradient-to-r from-sheraa-primary/40 via-sheraa-secondary/40 to-sheraa-primary/40 blur-2xl",
+    radial: "bg-gradient-radial from-sheraa-primary/40 to-transparent blur-2xl",
+  };
+
+  return (
     <div
       className={cn(
-        "absolute left-1/2 h-[256px] w-[60%] -translate-x-1/2 scale-[2.5] rounded-[50%] bg-[radial-gradient(ellipse_at_center,_hsla(var(--brand-foreground)/.5)_10%,_hsla(var(--brand-foreground)/0)_60%)] sm:h-[512px]",
-        variant === "center" && "-translate-y-1/2",
+        "absolute inset-0 -z-10 pointer-events-none",
+        sizes[size],
+        strengths[strength],
+        variants[variant],
+        className
       )}
+      {...props}
     />
-    <div
-      className={cn(
-        "absolute left-1/2 h-[128px] w-[40%] -translate-x-1/2 scale-[2] rounded-[50%] bg-[radial-gradient(ellipse_at_center,_hsla(var(--brand)/.3)_10%,_hsla(var(--brand-foreground)/0)_60%)] sm:h-[256px]",
-        variant === "center" && "-translate-y-1/2",
-      )}
-    />
-  </div>
-));
-Glow.displayName = "Glow";
-
-export { Glow };
+  );
+}

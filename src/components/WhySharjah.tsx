@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import Globe from "@/components/ui/icons/Globe";
+
 const WhySharjah = () => {
   const advantages = [{
     title: "Strategic Location",
