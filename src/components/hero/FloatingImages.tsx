@@ -87,7 +87,7 @@ export function FloatingImages() {
     <Floating 
       sensitivity={sensitivity}
       className="h-full w-full absolute inset-0"
-      disabled={isMobile && devicePerformance === 'low'} // Pass disabled prop correctly
+      disabled={isMobile && devicePerformance === 'low'} 
     >
       <AnimatePresence>
         {optimizedImages.map((image, index) => (
@@ -105,7 +105,6 @@ export function FloatingImages() {
               transition={{ delay: isMobile ? 0 : 0.1 * index }}
               loading="lazy"
               decoding="async"
-              fetchPriority={index < 2 ? "high" : "auto"}
             />
           </FloatingElement>
         ))}
