@@ -37,11 +37,11 @@ export function OptimizedMobileLayout({ children }: OptimizedMobileLayoutProps) 
     };
   }, [isMobile, devicePerformance, performanceMetrics.connectionType]);
 
-  // Apply mobile-specific styles and optimizations
+  // Apply mobile-specific styles and optimizations with proper TypeScript types
   const mobileOptimizationStyles = isMobile ? {
-    overscrollBehavior: 'contain', // Prevent bouncing on iOS
-    WebkitOverflowScrolling: 'touch', // Improve scroll performance on iOS
-    touchAction: 'manipulation', // Disable double-tap zoom
+    overscrollBehavior: 'contain' as const, 
+    WebkitOverflowScrolling: 'touch' as const, 
+    touchAction: 'manipulation' as const
   } : {};
 
   return (

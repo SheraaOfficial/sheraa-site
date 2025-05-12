@@ -1,81 +1,113 @@
 
-import { useState, useEffect } from 'react';
-import { useDevicePerformance } from './useDevicePerformance';
-import { useIsMobile } from './useDeviceDetection';
+import { useEffect, useState } from 'react';
 
+// Define the types for the performance metrics
 interface PerformanceMetrics {
   fcp: number | null; // First Contentful Paint
   lcp: number | null; // Largest Contentful Paint
   cls: number | null; // Cumulative Layout Shift
   fid: number | null; // First Input Delay
-  isLowEnd: boolean;
-  connectionType: string | null;
+  ttfb: number | null; // Time to First Byte
+  connectionType: string | null; // Connection type (4g, 3g, 2g, slow-2g)
+  deviceMemory: number | null; // Device memory in GB
+  hardwareConcurrency: number | null; // Number of logical CPU cores
+  saveData: boolean | null; // Whether the user has requested reduced data usage
 }
 
-export function usePerformanceMonitor(): PerformanceMetrics {
+/**
+ * Hook to monitor performance metrics of the application
+ */
+export const usePerformanceMonitor = () => {
   const [metrics, setMetrics] = useState<PerformanceMetrics>({
     fcp: null,
     lcp: null,
     cls: null,
     fid: null,
-    isLowEnd: false,
-    connectionType: null
+    ttfb: null,
+    connectionType: null,
+    deviceMemory: null,
+    hardwareConcurrency: null,
+    saveData: null,
   });
-  const devicePerformance = useDevicePerformance();
-  const isMobile = useIsMobile();
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    // Check browser support for various APIs
+    const hasPerfObserver = typeof PerformanceObserver === 'function';
+    const hasConnection = 'connection' in navigator;
+    const hasMemory = 'deviceMemory' in navigator;
+    const hasConcurrency = 'hardwareConcurrency' in navigator;
 
-    // Set basic performance indicators
-    setMetrics(prev => ({
-      ...prev,
-      isLowEnd: devicePerformance === 'low'
-    }));
-
-    // Check connection type if available
-    if ('connection' in navigator) {
-      const connection = (navigator as any).connection;
-      if (connection) {
+    // Network information
+    if (hasConnection) {
+      const conn = (navigator as any).connection;
+      if (conn) {
         setMetrics(prev => ({
           ...prev,
-          connectionType: connection.effectiveType || null
+          connectionType: conn.effectiveType || null,
+          saveData: conn.saveData || null,
         }));
 
+        // Listen for connection changes
         const updateConnectionInfo = () => {
           setMetrics(prev => ({
             ...prev,
-            connectionType: connection.effectiveType || null
+            connectionType: conn.effectiveType || null,
+            saveData: conn.saveData || null,
           }));
         };
 
-        connection.addEventListener('change', updateConnectionInfo);
-        return () => connection.removeEventListener('change', updateConnectionInfo);
+        conn.addEventListener('change', updateConnectionInfo);
+        return () => conn.removeEventListener('change', updateConnectionInfo);
       }
     }
 
-    // Web Vitals metrics
-    if ('PerformanceObserver' in window) {
+    // Device capabilities
+    if (hasMemory) {
+      setMetrics(prev => ({
+        ...prev,
+        deviceMemory: (navigator as any).deviceMemory || null,
+      }));
+    }
+
+    if (hasConcurrency) {
+      setMetrics(prev => ({
+        ...prev,
+        hardwareConcurrency: navigator.hardwareConcurrency || null,
+      }));
+    }
+
+    // Performance metrics using PerformanceObserver
+    if (hasPerfObserver) {
       // First Contentful Paint
       const fcpObserver = new PerformanceObserver((entryList) => {
         const entries = entryList.getEntries();
         if (entries.length > 0) {
           const fcp = entries[0].startTime;
           setMetrics(prev => ({ ...prev, fcp }));
-          fcpObserver.disconnect();
         }
       });
-      
+
+      try {
+        fcpObserver.observe({ type: 'paint', buffered: true });
+      } catch (e) {
+        console.error('FCP observation error:', e);
+      }
+
       // Largest Contentful Paint
       const lcpObserver = new PerformanceObserver((entryList) => {
         const entries = entryList.getEntries();
         if (entries.length > 0) {
           const lastEntry = entries[entries.length - 1];
-          const lcp = lastEntry.startTime;
-          setMetrics(prev => ({ ...prev, lcp }));
+          setMetrics(prev => ({ ...prev, lcp: lastEntry.startTime }));
         }
       });
-      
+
+      try {
+        lcpObserver.observe({ type: 'largest-contentful-paint', buffered: true });
+      } catch (e) {
+        console.error('LCP observation error:', e);
+      }
+
       // Cumulative Layout Shift
       const clsObserver = new PerformanceObserver((entryList) => {
         let clsValue = 0;
@@ -86,35 +118,46 @@ export function usePerformanceMonitor(): PerformanceMetrics {
         }
         setMetrics(prev => ({ ...prev, cls: clsValue }));
       });
-      
+
+      try {
+        clsObserver.observe({ type: 'layout-shift', buffered: true });
+      } catch (e) {
+        console.error('CLS observation error:', e);
+      }
+
       // First Input Delay
       const fidObserver = new PerformanceObserver((entryList) => {
-        const firstEntry = entryList.getEntries()[0];
-        if (firstEntry) {
-          const fid = firstEntry.processingStart - firstEntry.startTime;
+        const entries = entryList.getEntries();
+        if (entries.length > 0) {
+          const firstInput = entries[0];
+          const fid = (firstInput as any).processingStart - firstInput.startTime;
           setMetrics(prev => ({ ...prev, fid }));
-          fidObserver.disconnect();
         }
       });
 
-      // Start observing
       try {
-        fcpObserver.observe({ type: 'paint', buffered: true });
-        lcpObserver.observe({ type: 'largest-contentful-paint', buffered: true });
-        clsObserver.observe({ type: 'layout-shift', buffered: true });
         fidObserver.observe({ type: 'first-input', buffered: true });
-        
-        return () => {
-          fcpObserver.disconnect();
-          lcpObserver.disconnect();
-          clsObserver.disconnect();
-          fidObserver.disconnect();
-        };
       } catch (e) {
-        console.warn('Performance observers not fully supported', e);
+        console.error('FID observation error:', e);
       }
+
+      // Time to First Byte (using Navigation Timing API)
+      const navigationEntries = performance.getEntriesByType('navigation');
+      if (navigationEntries.length > 0) {
+        const navEntry = navigationEntries[0] as PerformanceNavigationTiming;
+        const ttfb = navEntry.responseStart - navEntry.requestStart;
+        setMetrics(prev => ({ ...prev, ttfb }));
+      }
+
+      return () => {
+        // Clean up observers
+        fcpObserver.disconnect();
+        lcpObserver.disconnect();
+        clsObserver.disconnect();
+        fidObserver.disconnect();
+      };
     }
-  }, [devicePerformance, isMobile]);
+  }, []);
 
   return metrics;
-}
+};
