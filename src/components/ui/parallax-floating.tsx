@@ -10,17 +10,22 @@ interface FloatingProps {
   children: React.ReactNode;
   className?: string;
   sensitivity?: number;
+  disabled?: boolean; // Add the disabled prop to the interface
 }
 
 function Floating({
   children,
   className,
-  sensitivity = 1
+  sensitivity = 1,
+  disabled = false // Set a default value
 }: FloatingProps) {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   
   useEffect(() => {
+    // Skip effect if disabled
+    if (disabled) return;
+    
     const handleMouseMove = (e: MouseEvent) => {
       // Get mouse position relative to screen size
       const x = e.clientX / window.innerWidth;
@@ -35,7 +40,7 @@ function Floating({
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
     };
-  }, [mouseX, mouseY]);
+  }, [mouseX, mouseY, disabled]); // Add disabled to dependencies
   
   return (
     <div className={cn("relative", className)}>

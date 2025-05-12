@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Floating, { FloatingElement } from "@/components/ui/parallax-floating";
@@ -88,7 +87,7 @@ export function FloatingImages() {
     <Floating 
       sensitivity={sensitivity}
       className="h-full w-full absolute inset-0"
-      disabled={isMobile && devicePerformance === 'low'} // Disable parallax on low-end mobile
+      disabled={isMobile && devicePerformance === 'low'} // Pass disabled prop correctly
     >
       <AnimatePresence>
         {optimizedImages.map((image, index) => (
