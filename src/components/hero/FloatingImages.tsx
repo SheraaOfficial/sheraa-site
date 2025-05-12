@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Floating, { FloatingElement } from "@/components/ui/parallax-floating";
 import { useDevicePerformance } from "@/hooks/useDevicePerformance";
 import { usePreloadImages } from "@/hooks/use-image-performance";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 // Sheraa uploaded images
 const sheraaImages = [
@@ -44,16 +45,30 @@ const sheraaImages = [
 export function FloatingImages() {
   const [isClient, setIsClient] = useState(false);
   const devicePerformance = useDevicePerformance();
+  const isMobile = useIsMobile();
   
-  // Memoize optimized images to prevent unnecessary re-renders
+  // Memoize optimized images with even more aggressive reduction for mobile
   const optimizedImages = useMemo(() => {
-    return devicePerformance === 'low' ? sheraaImages.slice(0, 3) : sheraaImages;
-  }, [devicePerformance]);
+    // On mobile low-end devices, show only 1-2 images
+    if (isMobile && devicePerformance === 'low') {
+      return sheraaImages.slice(0, 2);
+    }
+    // On mobile mid/high devices, show 3 images
+    else if (isMobile) {
+      return sheraaImages.slice(0, 3);
+    }
+    // On desktop low-end devices, show 3 images
+    else if (devicePerformance === 'low') {
+      return sheraaImages.slice(0, 3);
+    }
+    // Desktop mid/high devices get all images
+    return sheraaImages;
+  }, [devicePerformance, isMobile]);
 
-  // Preload the images using our enhanced hook
+  // Preload images with lower priority on mobile
   const { loadedImages, isImageLoaded } = usePreloadImages(
     optimizedImages.map(img => img.url),
-    false // Not high priority
+    !isMobile // High priority only on desktop
   );
 
   // Only render on client-side
@@ -64,25 +79,31 @@ export function FloatingImages() {
   // Don't render anything on server-side
   if (!isClient) return null;
 
+  // Use reduced motion for mobile
+  const sensitivity = isMobile 
+    ? (devicePerformance === 'low' ? 0 : -0.1) 
+    : (devicePerformance === 'low' ? -0.2 : -0.5);
+
   return (
     <Floating 
-      sensitivity={devicePerformance === 'low' ? -0.2 : -0.5} 
+      sensitivity={sensitivity}
       className="h-full w-full absolute inset-0"
+      disabled={isMobile && devicePerformance === 'low'} // Disable parallax on low-end mobile
     >
       <AnimatePresence>
         {optimizedImages.map((image, index) => (
           <FloatingElement
             key={image.title}
-            depth={getImageDepth(index)}
-            className={getPositionClass(index)}
+            depth={getImageDepth(index, isMobile)}
+            className={getPositionClass(index, isMobile)}
           >
             <motion.img
               src={image.url} 
               alt={image.title}
-              className={`${getSizeClass(index)} object-cover hover:scale-105 duration-200 cursor-pointer transition-transform ${getRotationClass(index)} shadow-2xl rounded-xl`}
+              className={`${getSizeClass(index, isMobile)} object-cover ${isMobile ? '' : 'hover:scale-105'} duration-200 ${isMobile ? '' : 'cursor-pointer'} transition-transform ${getRotationClass(index)} shadow-2xl rounded-xl`}
               initial={{ opacity: 0 }}
               animate={{ opacity: isImageLoaded(image.url) ? 1 : 0 }}
-              transition={{ delay: 0.1 * index }}
+              transition={{ delay: isMobile ? 0 : 0.1 * index }}
               loading="lazy"
               decoding="async"
               fetchPriority={index < 2 ? "high" : "auto"}
@@ -94,8 +115,13 @@ export function FloatingImages() {
   );
 }
 
-// Helper functions with enhanced logic for more images
-function getImageDepth(index: number): number {
+// Helper functions with enhanced logic for more images and mobile optimization
+function getImageDepth(index: number, isMobile: boolean): number {
+  // Much simpler depth for mobile - either foreground or background
+  if (isMobile) {
+    return index % 2 === 0 ? 0.5 : 1;
+  }
+  
   // Create more depth variation for new images
   if (index < 5) {
     return index === 0 || index === 4 ? 0.5 : index === 1 || index === 3 ? 1 : 4;
@@ -105,7 +131,18 @@ function getImageDepth(index: number): number {
 }
 
 // Helper functions to reduce repetition
-function getPositionClass(index: number): string {
+function getPositionClass(index: number, isMobile: boolean): string {
+  // Simplified positions for mobile
+  if (isMobile) {
+    switch(index) {
+      case 0: return "top-[25%] left-[5%]";
+      case 1: return "top-[15%] right-[5%]";
+      case 2: return "bottom-[15%] left-[15%]";
+      default: return "hidden"; // Hide additional images on mobile
+    }
+  }
+  
+  // Desktop positions
   switch(index) {
     case 0: return "top-[15%] left-[2%] md:top-[25%] md:left-[5%]";
     case 1: return "top-[0%] left-[8%] md:top-[6%] md:left-[11%]";
@@ -120,7 +157,18 @@ function getPositionClass(index: number): string {
   }
 }
 
-function getSizeClass(index: number): string {
+function getSizeClass(index: number, isMobile: boolean): string {
+  // Smaller sizes for mobile to improve performance
+  if (isMobile) {
+    switch(index) {
+      case 0: return "w-16 h-12";
+      case 1: return "w-24 h-20";
+      case 2: return "w-28 h-28";
+      default: return "w-0 h-0"; // Hide additional images on mobile
+    }
+  }
+  
+  // Desktop sizes
   switch(index) {
     case 0: return "w-16 h-12 sm:w-24 sm:h-16 md:w-28 md:h-20 lg:w-32 lg:h-24";
     case 1: return "w-40 h-28 sm:w-48 sm:h-36 md:w-56 md:h-44 lg:w-60 lg:h-48";

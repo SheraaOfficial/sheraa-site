@@ -1,0 +1,69 @@
+
+/* Mobile performance optimizations */
+
+/* Applied to root when performance is low */
+html.reduce-animations * {
+  animation-duration: 0.001ms !important;
+  transition-duration: 0.001ms !important;
+}
+
+html.reduce-effects .blur-sm,
+html.reduce-effects .blur-md,
+html.reduce-effects .blur-lg,
+html.reduce-effects .blur-xl,
+html.reduce-effects .blur-2xl,
+html.reduce-effects .blur-3xl {
+  filter: none !important;
+}
+
+html.reduce-effects .shadow-sm,
+html.reduce-effects .shadow,
+html.reduce-effects .shadow-md,
+html.reduce-effects .shadow-lg,
+html.reduce-effects .shadow-xl,
+html.reduce-effects .shadow-2xl {
+  box-shadow: none !important;
+}
+
+/* Mobile-specific touch optimizations */
+@media (max-width: 767px) {
+  body {
+    overscroll-behavior: contain;
+    -webkit-touch-callout: none;
+    touch-action: manipulation;
+  }
+  
+  /* Increase tap target sizes on mobile */
+  button, 
+  .tap-target,
+  a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Optimize images for mobile performance */
+  img {
+    content-visibility: auto;
+  }
+  
+  /* Optimize layout performance */
+  .mobile-optimized {
+    contain: content;
+    content-visibility: auto;
+  }
+  
+  /* Layout optimizations */
+  .optimized-container {
+    contain: layout style paint;
+  }
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
