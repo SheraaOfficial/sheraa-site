@@ -12,6 +12,12 @@ interface PartnershipTypeTabProps {
 export const PartnershipTypeTab: React.FC<PartnershipTypeTabProps> = ({ partnershipType }) => {
   const { id, title, description, icon: Icon, benefits, examples } = partnershipType;
   
+  const handleButtonClick = (e: React.MouseEvent) => {
+    e.preventDefault(); // Prevent default navigation behavior
+    // Handle the partnership inquiry - this would be connected to a form or modal
+    console.log(`Become a ${title} partner clicked`);
+  };
+  
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
       <motion.div
@@ -60,7 +66,9 @@ export const PartnershipTypeTab: React.FC<PartnershipTypeTabProps> = ({ partners
             </div>
             
             <div className="mt-8 text-center">
-              <GradientButton>Become a {title.replace(/ &.*/, '')} Partner</GradientButton>
+              <GradientButton onClick={handleButtonClick}>
+                Become a {title.replace(/ &.*/, '')} Partner
+              </GradientButton>
             </div>
           </CardContent>
         </Card>
