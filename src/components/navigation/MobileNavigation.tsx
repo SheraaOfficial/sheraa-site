@@ -156,6 +156,6 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({
       </div>
     </div>
   );
-});
+};
 
 export default MobileNavigation;
