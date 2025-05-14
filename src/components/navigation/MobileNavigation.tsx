@@ -6,6 +6,7 @@ import { Home, Compass, TrendingUp, Users, Info, ArrowRight, User, FileText, Cal
 import MobileDropdown from "./MobileDropdown";
 import { useLocalStorage } from "@/hooks/use-local-storage";
 import { useToast } from "@/hooks/use-toast";
+import { Sparkles } from "@/components/ui/sparkles";
 
 interface MobileNavigationProps {
   isMenuOpen: boolean;
@@ -95,25 +96,29 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({
           <MobileDropdown title="Discover" icon={Compass} items={discoverLinks} />
           <MobileDropdown title="Grow" icon={TrendingUp} items={growLinks} />
           <MobileDropdown title="Community" icon={Users} items={communityLinks} />
-          
-          {/* Standalone SEF link */}
-          <div className="py-2">
-            <Link 
-              to={sefLink.href} 
-              className="flex items-center gap-2 py-2 text-base hover:text-sheraa-primary transition-colors" 
-              onClick={() => setIsMenuOpen(false)}
-            >
-              <Calendar className="h-4 w-4" />
-              <span>{sefLink.title}</span>
-            </Link>
-          </div>
-          
           <MobileDropdown title="Insights" icon={Info} items={insightsLinks} />
           
           <div className="py-2">
             <Link to="/eligibility" className="flex items-center gap-2 py-2 text-base hover:text-sheraa-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
               <ArrowRight className="h-4 w-4" />
               <span>Apply</span>
+            </Link>
+          </div>
+          
+          {/* SEF link with glow effect */}
+          <div className="py-2">
+            <Link 
+              to={sefLink.href} 
+              className="flex items-center gap-2 py-2 text-base" 
+              onClick={() => setIsMenuOpen(false)}
+            >
+              <div className="flex items-center gap-2 relative">
+                <Calendar className="h-4 w-4" />
+                <span className="bg-gradient-to-r from-purple-500 to-orange-400 bg-clip-text text-transparent font-semibold">
+                  {sefLink.title}
+                </span>
+                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-600/10 to-orange-500/10 blur-sm"></div>
+              </div>
             </Link>
           </div>
           
@@ -151,6 +156,6 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({
       </div>
     </div>
   );
-};
+});
 
 export default MobileNavigation;

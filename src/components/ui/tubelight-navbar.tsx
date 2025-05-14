@@ -6,16 +6,18 @@ import { motion } from "framer-motion"
 import { Link } from "react-router-dom" // Using react-router-dom instead of next/link
 import { LucideIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { Sparkles } from "@/components/ui/sparkles"
 
 interface NavItem {
-  name: string
-  url: string
-  icon: LucideIcon
+  name: string;
+  url: string;
+  icon: LucideIcon;
+  highlight?: boolean;
 }
 
 interface NavBarProps {
-  items: NavItem[]
-  className?: string
+  items: NavItem[];
+  className?: string;
 }
 
 export function NavBar({ items, className }: NavBarProps) {
@@ -44,10 +46,32 @@ export function NavBar({ items, className }: NavBarProps) {
           const Icon = item.icon
           const isActive = activeTab === item.name
 
-          return (
+          return item.highlight ? (
             <Link
               key={item.name}
-              to={item.url} // Using "to" instead of "href" for react-router-dom
+              to={item.url}
+              onClick={() => setActiveTab(item.name)}
+              className={cn(
+                "relative cursor-pointer text-sm font-semibold px-6 py-2 rounded-full transition-colors",
+              )}
+            >
+              <Sparkles colors={["#9b87f5", "#FF6600", "#D946EF", "#F97316"]} count={15}>
+                <div className="flex items-center gap-2 relative z-10 transition-all hover:scale-105">
+                  <span className={cn(
+                    "md:inline",
+                    "bg-gradient-to-r from-purple-500 to-orange-400 bg-clip-text text-transparent font-bold"
+                  )}>{item.name}</span>
+                  <span className="md:hidden">
+                    <Icon size={18} strokeWidth={2.5} className="text-purple-500" />
+                  </span>
+                  <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-600/20 to-orange-500/20 blur-sm opacity-70"></div>
+                </div>
+              </Sparkles>
+            </Link>
+          ) : (
+            <Link
+              key={item.name}
+              to={item.url}
               onClick={() => setActiveTab(item.name)}
               className={cn(
                 "relative cursor-pointer text-sm font-semibold px-6 py-2 rounded-full transition-colors",

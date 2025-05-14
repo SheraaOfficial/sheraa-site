@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import MegaMenuComponent from "./MegaMenuComponent";
 import { NavigationMenuItem } from "@radix-ui/react-navigation-menu";
+import { Sparkles } from "@/components/ui/sparkles";
 
 interface DesktopNavigationProps {
   homeLinks: { title: string; href: string; description?: string }[];
@@ -40,21 +41,6 @@ const DesktopNavigation: React.FC<DesktopNavigationProps> = memo(({
           <MegaMenuComponent title="Discover" icon={Compass} links={discoverLinks} />
           <MegaMenuComponent title="Grow" icon={TrendingUp} links={growLinks} />
           <MegaMenuComponent title="Community" icon={Users} links={communityLinks} />
-          
-          {/* Standalone SEF link */}
-          <NavigationMenuItem>
-            <Link 
-              to={sefLink.href} 
-              className={navigationMenuTriggerStyle()}
-              aria-label={sefLink.description || sefLink.title}
-            >
-              <div className="flex items-center gap-2">
-                <Calendar className="h-4 w-4" aria-hidden="true" />
-                <span>{sefLink.title}</span>
-              </div>
-            </Link>
-          </NavigationMenuItem>
-          
           <MegaMenuComponent title="Insights" icon={Info} links={insightsLinks} />
           <NavigationMenuItem>
             <Link 
@@ -66,6 +52,25 @@ const DesktopNavigation: React.FC<DesktopNavigationProps> = memo(({
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
                 <span>Apply</span>
               </div>
+            </Link>
+          </NavigationMenuItem>
+          
+          {/* SEF link with glow effect at the end */}
+          <NavigationMenuItem>
+            <Link 
+              to={sefLink.href} 
+              className="group flex items-center gap-2 relative px-4 py-2 mx-1 rounded-md text-sm font-medium"
+              aria-label={sefLink.description || sefLink.title}
+            >
+              <Sparkles colors={["#9b87f5", "#FF6600", "#D946EF", "#F97316"]} count={15}>
+                <div className="flex items-center gap-2 relative z-10 transition-all group-hover:scale-105">
+                  <Calendar className="h-4 w-4" aria-hidden="true" />
+                  <span className="bg-gradient-to-r from-purple-500 to-orange-400 bg-clip-text text-transparent font-bold">
+                    {sefLink.title}
+                  </span>
+                </div>
+                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-600/20 to-orange-500/20 blur-sm group-hover:opacity-100 opacity-70 transition-opacity"></div>
+              </Sparkles>
             </Link>
           </NavigationMenuItem>
         </NavigationMenuList>
