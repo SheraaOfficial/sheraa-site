@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
 import { useScrollNavigation } from "./navigation/useScrollNavigation";
-import { homeLinks, discoverLinks, growLinks, communityLinks, insightsLinks, applyLinks } from "./navigation/navigationData";
+import { homeLinks, discoverLinks, growLinks, communityLinks, insightsLinks, applyLinks, sefLink } from "./navigation/navigationData";
 import { useLocalStorage } from "@/hooks/use-local-storage";
 import UserAvatar from "./user/UserAvatar";
 
@@ -56,7 +56,8 @@ const Navigation = () => {
               growLinks={growLinks} 
               communityLinks={communityLinks} 
               insightsLinks={insightsLinks} 
-              applyLinks={applyLinks} 
+              applyLinks={applyLinks}
+              sefLink={sefLink}
               isLoggedIn={!!loggedInUser}
             />
           </Suspense>
@@ -81,7 +82,8 @@ const Navigation = () => {
               growLinks={growLinks} 
               communityLinks={communityLinks} 
               insightsLinks={insightsLinks} 
-              applyLinks={applyLinks} 
+              applyLinks={applyLinks}
+              sefLink={sefLink}
               isLoggedIn={!!loggedInUser}
             />
           </Suspense>

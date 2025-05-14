@@ -34,12 +34,11 @@ export const growLinks: NavLink[] = [
   { title: "SME Support", href: "/programs/sme-support", description: "Support for established businesses" },
 ];
 
-// Create and export Community links
+// Create and export Community links - Remove SEF from here
 export const communityLinks: NavLink[] = [
   { title: "Join Our Community", href: "/community/join", description: "Membership benefits" },
   { title: "Our Startups Showcase", href: "/community/startups", description: "Success stories" },
   { title: "Partnership Opportunities", href: "/community/partnerships", description: "Collaborate with us" },
-  { title: "SEF", href: "/events/sef", description: "Sharjah Entrepreneurship Festival" },
 ];
 
 // Create and export Insights links (formerly Resources)
@@ -57,3 +56,10 @@ export const applyLinks: NavLink[] = [
   { title: "Apply for Programs", href: "/programs", description: "Start your journey" },
   { title: "Contact Us", href: "/contact", description: "Get in touch" },
 ];
+
+// Create and export SEF link - New standalone SEF link for the main navigation
+export const sefLink: NavLink = { 
+  title: "SEF", 
+  href: "/events/sef", 
+  description: "Sharjah Entrepreneurship Festival"
+};

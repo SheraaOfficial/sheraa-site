@@ -3,7 +3,7 @@ import React, { memo } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { GradientButton } from "@/components/ui/gradient-button";
-import { Home, Compass, TrendingUp, Users, Info, ArrowRight } from "lucide-react";
+import { Home, Compass, TrendingUp, Users, Info, ArrowRight, Calendar } from "lucide-react";
 import {
   NavigationMenu,
   NavigationMenuList,
@@ -19,6 +19,7 @@ interface DesktopNavigationProps {
   communityLinks: { title: string; href: string; description?: string }[];
   insightsLinks: { title: string; href: string; description?: string }[];
   applyLinks: { title: string; href: string; description?: string }[];
+  sefLink: { title: string; href: string; description?: string };
   isLoggedIn?: boolean;
 }
 
@@ -28,6 +29,7 @@ const DesktopNavigation: React.FC<DesktopNavigationProps> = memo(({
   growLinks,
   communityLinks,
   insightsLinks,
+  sefLink,
   isLoggedIn = false,
 }) => {
   return (
@@ -38,6 +40,21 @@ const DesktopNavigation: React.FC<DesktopNavigationProps> = memo(({
           <MegaMenuComponent title="Discover" icon={Compass} links={discoverLinks} />
           <MegaMenuComponent title="Grow" icon={TrendingUp} links={growLinks} />
           <MegaMenuComponent title="Community" icon={Users} links={communityLinks} />
+          
+          {/* Standalone SEF link */}
+          <NavigationMenuItem>
+            <Link 
+              to={sefLink.href} 
+              className={navigationMenuTriggerStyle()}
+              aria-label={sefLink.description || sefLink.title}
+            >
+              <div className="flex items-center gap-2">
+                <Calendar className="h-4 w-4" aria-hidden="true" />
+                <span>{sefLink.title}</span>
+              </div>
+            </Link>
+          </NavigationMenuItem>
+          
           <MegaMenuComponent title="Insights" icon={Info} links={insightsLinks} />
           <NavigationMenuItem>
             <Link 

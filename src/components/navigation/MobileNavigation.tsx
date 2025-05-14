@@ -2,7 +2,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Home, Compass, TrendingUp, Users, Info, ArrowRight, User, FileText } from "lucide-react";
+import { Home, Compass, TrendingUp, Users, Info, ArrowRight, User, FileText, Calendar } from "lucide-react";
 import MobileDropdown from "./MobileDropdown";
 import { useLocalStorage } from "@/hooks/use-local-storage";
 import { useToast } from "@/hooks/use-toast";
@@ -41,6 +41,11 @@ interface MobileNavigationProps {
     href: string;
     description?: string;
   }[];
+  sefLink: {
+    title: string;
+    href: string;
+    description?: string;
+  };
   isLoggedIn?: boolean;
 }
 
@@ -54,6 +59,7 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({
   communityLinks,
   insightsLinks,
   applyLinks,
+  sefLink,
   isLoggedIn = false
 }) => {
   const [loggedInUser, setLoggedInUser] = useLocalStorage<any | null>("loggedInUser", null);
@@ -89,7 +95,21 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({
           <MobileDropdown title="Discover" icon={Compass} items={discoverLinks} />
           <MobileDropdown title="Grow" icon={TrendingUp} items={growLinks} />
           <MobileDropdown title="Community" icon={Users} items={communityLinks} />
+          
+          {/* Standalone SEF link */}
+          <div className="py-2">
+            <Link 
+              to={sefLink.href} 
+              className="flex items-center gap-2 py-2 text-base hover:text-sheraa-primary transition-colors" 
+              onClick={() => setIsMenuOpen(false)}
+            >
+              <Calendar className="h-4 w-4" />
+              <span>{sefLink.title}</span>
+            </Link>
+          </div>
+          
           <MobileDropdown title="Insights" icon={Info} items={insightsLinks} />
+          
           <div className="py-2">
             <Link to="/eligibility" className="flex items-center gap-2 py-2 text-base hover:text-sheraa-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
               <ArrowRight className="h-4 w-4" />
