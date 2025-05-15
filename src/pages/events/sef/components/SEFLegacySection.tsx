@@ -1,294 +1,148 @@
 
-import React, { useEffect, useRef, useState } from 'react';
-import { motion, useScroll, useTransform, useInView } from 'framer-motion';
-import { useTheme } from '@/contexts/ThemeContext';
-import { AspectRatio } from '@/components/ui/aspect-ratio';
-import { useIsMobile } from '@/hooks/use-mobile';
+import React, { useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
 
-interface SpeakerData {
-  name: string;
-  image: string;
-  role?: string;
-}
-
-interface YearData {
-  year: string;
-  theme: string;
-  description: string;
-  speakers: SpeakerData[];
-  backgroundClass: string;
-}
-
-const yearlyData: YearData[] = [
-  {
-    year: '2018',
-    theme: 'Where We Belong',
-    description: 'The inaugural festival connected over 1,500 entrepreneurs, investors, and creatives, launching the region's premier entrepreneurship celebration.',
-    speakers: [
-      { name: 'Gary Vaynerchuk', image: '/lovable-uploads/1c771ddf-b819-4587-bd05-7547b8dca2b5.png' },
-      { name: 'Sheikha Bodour Al Qasimi', image: '/lovable-uploads/93efd6a3-c496-43d2-9401-ad6821c1352b.png' },
-      { name: 'Najla Al Midfa', image: '/lovable-uploads/1461e9a9-fd41-4085-86e1-6765d0fd4f59.png' }
-    ],
-    backgroundClass: 'bg-gradient-to-b from-purple-500/10 to-pink-500/10'
-  },
-  {
-    year: '2019',
-    theme: 'Reimagining Realities',
-    description: 'Over 4,000 attendees explored how entrepreneurs are reshaping industries from tech to sustainability, with immersive workshops and global thought leaders.',
-    speakers: [
-      { name: 'Muna Al Gurg', image: '/lovable-uploads/67019a34-88c0-4c00-ba3f-2e89761a0678.png' },
-      { name: 'Magnus Olsson', image: '/lovable-uploads/78dc4101-2481-4c13-a19f-62dbefeae768.png' },
-      { name: 'Ambarish Mitra', image: '/lovable-uploads/962e9262-6759-495c-ad9e-5f8fc0043698.png' }
-    ],
-    backgroundClass: 'bg-gradient-to-b from-blue-500/10 to-teal-500/10'
-  },
-  {
-    year: '2021',
-    theme: 'Momentum',
-    description: 'SEF returned with 8,000+ visitors as the world reopened post-pandemic, focusing on rebuilding momentum for startups with resilience and innovation.',
-    speakers: [
-      { name: 'Sunny Varkey', image: '/lovable-uploads/a7594ccb-820e-40d4-addc-1cf4dfebadfe.png' },
-      { name: 'Chris Gardner', image: '/lovable-uploads/5c7170ff-c318-404d-82fa-af5c349154db.png' },
-      { name: 'Akon', image: '/lovable-uploads/c685b8f9-faed-488e-aa6e-2d85cf6191f1.png' }
-    ],
-    backgroundClass: 'bg-gradient-to-b from-amber-500/10 to-orange-500/10'
-  },
-  {
-    year: '2023',
-    theme: 'Where We Belong',
-    description: 'Our largest edition attracted 14,000+ attendees with 300+ global speakers across 10 vibrant zones, firmly establishing SEF as the region's epicenter of entrepreneurship.',
-    speakers: [
-      { name: 'Tanmay Bakshi', image: '/lovable-uploads/91a7f993-9696-46a1-96a7-59d67803f50f.png' },
-      { name: 'Omar Nour', image: '/lovable-uploads/9927fa13-2911-40c1-98c4-7c733bbe84bd.png' },
-      { name: 'Huda Kattan', image: '/lovable-uploads/1c771ddf-b819-4587-bd05-7547b8dca2b5.png' }
-    ],
-    backgroundClass: 'bg-gradient-to-b from-emerald-500/10 to-cyan-500/10'
-  },
-];
-
-const inspirationalQuotes = [
-  { text: "Be Present", translation: "在场/当下" },
-  { text: "Less is More", translation: "简胜" },
-  { text: "Make Waves", translation: "破浪" },
-  { text: "Stay Hungry", translation: "求渴" },
-  { text: "Find Balance", translation: "中和" },
-  { text: "Dream Big", translation: "远志" }
+// Legacy years with themes
+const legacyYears = [
+  { year: 2016, theme: "The Launch", image: "https://picsum.photos/seed/sef2016/800/600" },
+  { year: 2017, theme: "Dare to Dream", image: "https://picsum.photos/seed/sef2017/800/600" },
+  { year: 2018, theme: "Redefining Innovation", image: "https://picsum.photos/seed/sef2018/800/600" },
+  { year: 2019, theme: "Inspiring Minds", image: "https://picsum.photos/seed/sef2019/800/600" },
+  { year: 2020, theme: "Resilience & Growth", image: "https://picsum.photos/seed/sef2020/800/600" },
+  { year: 2021, theme: "Future Forward", image: "https://picsum.photos/seed/sef2021/800/600" },
+  { year: 2022, theme: "Breaking Boundaries", image: "https://picsum.photos/seed/sef2022/800/600" },
+  { year: 2023, theme: "The Next Wave", image: "https://picsum.photos/seed/sef2023/800/600" },
+  { year: 2024, theme: "Innovation Unleashed", image: "https://picsum.photos/seed/sef2024/800/600" },
+  { year: 2025, theme: "Where We Belong", image: "https://picsum.photos/seed/sef2025/800/600" },
 ];
 
 const SEFLegacySection: React.FC = () => {
-  const { theme } = useTheme();
-  const isMobile = useIsMobile();
-  const sectionRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
-  const titleRef = useRef<HTMLHeadingElement>(null);
-  const isInView = useInView(sectionRef, { once: false, margin: "-10% 0px" });
   
-  // Horizontal scroll for years
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"]
-  });
-
-  const translateX = useTransform(scrollYProgress, [0, 1], [0, -100]);
-  
-  // Grid animation on scroll
   useEffect(() => {
-    if (!gridRef.current) return;
-    
-    const handleScroll = () => {
-      if (!gridRef.current || !sectionRef.current) return;
-      
-      const rect = sectionRef.current.getBoundingClientRect();
-      const scrollPosition = window.innerHeight - rect.top;
-      const scrollFactor = Math.max(0, Math.min(1, scrollPosition / (window.innerHeight * 1.5)));
-      
-      // Animate grid items
-      const items = gridRef.current.querySelectorAll('.grid-item');
-      items.forEach((item, index) => {
-        const delay = index * 0.05;
-        const translateY = 50 - (scrollFactor * 50);
-        const scale = 0.8 + (scrollFactor * 0.2);
-        const opacity = scrollFactor;
-        
-        (item as HTMLElement).style.transform = `translateY(${translateY}px) scale(${scale})`;
-        (item as HTMLElement).style.opacity = `${opacity}`;
-        (item as HTMLElement).style.transitionDelay = `${delay}s`;
-      });
+    const initializeAnimations = async () => {
+      if (typeof window !== 'undefined') {
+        try {
+          const { gsap } = await import('gsap');
+          const { ScrollTrigger } = await import('gsap/ScrollTrigger');
+          
+          gsap.registerPlugin(ScrollTrigger);
+          
+          if (gridRef.current) {
+            const gridItems = gridRef.current.querySelectorAll('.grid__item');
+            
+            gridItems.forEach((item, index) => {
+              gsap.fromTo(
+                item,
+                {
+                  opacity: 0,
+                  y: 100,
+                  rotateX: -30,
+                  scale: 0.9,
+                  filter: 'blur(10px)'
+                },
+                {
+                  opacity: 1,
+                  y: 0,
+                  rotateX: 0,
+                  scale: 1,
+                  filter: 'blur(0px)',
+                  duration: 1.2,
+                  ease: 'power3.out',
+                  scrollTrigger: {
+                    trigger: item,
+                    start: 'top bottom-=100',
+                    end: 'center center',
+                    toggleActions: 'play none none reverse',
+                  },
+                  delay: index * 0.05
+                }
+              );
+            });
+          }
+        } catch (error) {
+          console.error('Failed to load GSAP:', error);
+        }
+      }
     };
     
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    initializeAnimations();
+    
+    return () => {
+      // Clean up ScrollTrigger
+      if (typeof window !== 'undefined') {
+        try {
+          const ScrollTrigger = (window as any).ScrollTrigger;
+          if (ScrollTrigger) {
+            ScrollTrigger.getAll().forEach((trigger: any) => trigger.kill());
+          }
+        } catch (error) {
+          console.error('Error cleaning up ScrollTrigger:', error);
+        }
+      }
+    };
   }, []);
-
+  
   return (
-    <section 
-      ref={sectionRef} 
-      className={`relative py-24 md:py-32 overflow-hidden ${theme === 'dark' ? 'bg-zinc-900' : 'bg-gray-50'}`}
-    >
-      {/* Background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-[50%] -left-[10%] w-[80%] h-[80%] rounded-full bg-purple-400/5 dark:bg-purple-400/10 blur-3xl"></div>
-        <div className="absolute -bottom-[30%] -right-[10%] w-[70%] h-[70%] rounded-full bg-blue-400/5 dark:bg-blue-400/10 blur-3xl"></div>
+    <section className="py-24 px-4 relative overflow-hidden bg-gradient-to-b dark:from-[#1A1F2C] dark:to-[#292D3E] from-gray-100 to-white">
+      <div className="absolute inset-0 z-0 opacity-30">
+        <div className="absolute top-0 left-1/3 w-[40rem] h-[40rem] bg-[#9b87f5]/10 rounded-full filter blur-[100px]" />
+        <div className="absolute bottom-0 right-1/3 w-[30rem] h-[30rem] bg-[#F97316]/10 rounded-full filter blur-[100px]" />
       </div>
       
-      {/* Section container */}
-      <div className="container px-4 md:px-6 mx-auto relative z-10">
-        {/* Section header */}
-        <div className="text-center mb-16 md:mb-24 max-w-3xl mx-auto">
-          <motion.span 
-            className="inline-block text-sm md:text-base font-semibold bg-gradient-to-r from-purple-600 to-orange-500 bg-clip-text text-transparent mb-3"
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
-          >
-            SEF THROUGH THE YEARS
-          </motion.span>
-          
-          <motion.h2 
-            ref={titleRef}
-            className="text-3xl md:text-5xl font-bold tracking-tighter mb-4 dark:text-white"
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            A Legacy of Inspiration
-          </motion.h2>
-          
-          <motion.p 
-            className="text-base md:text-lg text-gray-500 dark:text-gray-400"
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.3 }}
-          >
-            Since 2018, SEF has grown from a local gathering to the region's premier entrepreneurship festival, 
-            welcoming over 14,000 attendees and featuring 300+ global speakers across diverse industries.
-          </motion.p>
-        </div>
+      <div className="container mx-auto relative z-10">
+        <motion.div 
+          className="text-center mb-20"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+        >
+          <h2 className="text-5xl md:text-7xl font-bold uppercase tracking-tighter mb-6 bg-clip-text text-transparent bg-gradient-to-r dark:from-white dark:to-purple-300 from-purple-700 to-indigo-900">
+            The Legacy of SEF
+          </h2>
+          <p className="text-xl max-w-3xl mx-auto dark:text-white/70 text-gray-600">
+            Since 2016, the Sharjah Entrepreneurship Festival has been bringing together innovators, 
+            entrepreneurs and changemakers from around the globe. Explore our journey through the years.
+          </p>
+        </motion.div>
         
-        {/* 3D horizontal timeline */}
-        <div className="relative overflow-x-hidden pb-12">
-          <motion.div 
-            className="flex space-x-6 md:space-x-12"
-            style={{ translateX: !isMobile ? translateX.asVars() : 0 }}
-            initial={{ x: 0 }}
-            animate={isMobile ? { x: [0, -500, 0] } : {}}
-            transition={isMobile ? { duration: 30, repeat: Infinity, repeatType: "reverse", ease: "linear" } : {}}
-          >
-            {yearlyData.map((yearData, index) => (
-              <motion.div
-                key={yearData.year}
-                className={`flex-shrink-0 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 shadow-lg ${yearData.backgroundClass} dark:bg-opacity-20 backdrop-blur-sm p-6 md:p-8 w-[280px] md:w-[400px]`}
-                initial={{ opacity: 0, y: 50, rotateY: 15 }}
-                animate={isInView ? { opacity: 1, y: 0, rotateY: 0 } : {}}
-                transition={{ duration: 0.8, delay: 0.2 + index * 0.1 }}
-                whileHover={{ scale: 1.03, rotateY: 5, z: 10 }}
-              >
-                <span className="text-5xl md:text-7xl font-black bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-orange-500">
-                  {yearData.year}
-                </span>
-                <h3 className="text-xl md:text-2xl font-bold mt-3 mb-2 dark:text-white">
-                  {yearData.theme}
-                </h3>
-                <p className="text-sm md:text-base text-gray-600 dark:text-gray-300 mb-6">
-                  {yearData.description}
-                </p>
-                <div className="flex gap-2 mt-4 flex-wrap">
-                  {yearData.speakers.map((speaker, i) => (
-                    <div key={i} className="relative group">
-                      <AspectRatio ratio={1} className="w-16 md:w-20 rounded-lg overflow-hidden">
-                        <img 
-                          src={speaker.image} 
-                          alt={speaker.name} 
-                          className="object-cover w-full h-full transition-transform group-hover:scale-110" 
-                        />
-                      </AspectRatio>
-                      <div className="opacity-0 group-hover:opacity-100 absolute -bottom-10 left-0 bg-black/80 text-white text-xs p-1 rounded whitespace-nowrap transition-opacity">
-                        {speaker.name}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-        
-        {/* Inspirational quotes section */}
-        <div className="mt-24 overflow-hidden">
-          <div className="relative max-w-5xl mx-auto">
-            {/* Rotating mark with quotes */}
-            <motion.div 
-              className="mark flex overflow-hidden"
-              animate={{ 
-                x: [0, -1000],
-              }}
-              transition={{ 
-                duration: 25, 
-                repeat: Infinity,
-                repeatType: "loop", 
-                ease: "linear"
-              }}
+        <div 
+          ref={gridRef}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 perspective-1000"
+        >
+          {legacyYears.map((item, index) => (
+            <div 
+              key={index}
+              className="grid__item group cursor-pointer"
             >
-              {[...inspirationalQuotes, ...inspirationalQuotes].map((quote, i) => (
+              <div className="relative h-[400px] overflow-hidden rounded-xl shadow-lg transform transition-all duration-500 group-hover:scale-[1.02]">
                 <div 
-                  key={i} 
-                  className="flex-shrink-0 mx-8 md:mx-12 text-2xl md:text-4xl font-bold text-gray-300 dark:text-gray-700 font-alt"
-                >
-                  <span>{quote.text}</span> <span className="text-gray-400 dark:text-gray-600">{quote.translation}</span>
+                  className="grid__item-img h-full w-full bg-cover bg-center"
+                  style={{ backgroundImage: `url(${item.image})` }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent flex flex-col justify-end p-6">
+                  <span className="text-white/60 font-medium">SEF {item.year}</span>
+                  <h3 className="text-2xl font-bold text-white mt-2 mb-1">{item.theme}</h3>
+                  <div className="h-1 w-12 bg-gradient-to-r from-[#9b87f5] to-[#F97316] rounded-full mt-2 transform origin-left transition-all duration-500 group-hover:w-24" />
                 </div>
-              ))}
-            </motion.div>
-          </div>
+              </div>
+            </div>
+          ))}
         </div>
         
-        {/* 3D Grid of speakers (simplified) */}
-        <div className="mt-32 relative">
-          <h3 className="text-2xl md:text-3xl font-bold text-center mb-12 dark:text-white">
-            Featured Speakers Through The Years
-          </h3>
-          
-          <div 
-            ref={gridRef} 
-            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6 max-w-5xl mx-auto"
+        <div className="text-center mt-16">
+          <motion.div
+            className="inline-flex perspective-1000"
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            whileInView={{ opacity: 1, scale: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.3 }}
           >
-            {yearlyData.flatMap((year) => 
-              year.speakers.map((speaker, i) => (
-                <div 
-                  key={`${year.year}-${i}`} 
-                  className="grid-item opacity-0 transform translate-y-8 transition-all duration-700 ease-out"
-                >
-                  <div className="relative overflow-hidden rounded-xl">
-                    <AspectRatio ratio={1}>
-                      <motion.img 
-                        src={speaker.image} 
-                        alt={speaker.name} 
-                        className="object-cover w-full h-full"
-                        whileHover={{ scale: 1.1 }}
-                        transition={{ duration: 0.4 }}
-                      />
-                    </AspectRatio>
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 hover:opacity-100 transition-opacity flex items-end p-3">
-                      <p className="text-white text-sm font-medium">{speaker.name}</p>
-                    </div>
-                  </div>
-                </div>
-              ))
-            )}
-          </div>
-        </div>
-        
-        {/* Bold statement */}
-        <div className="mt-36 text-center">
-          <motion.div 
-            className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true, margin: "-100px" }}
-          >
-            <span className="bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 bg-clip-text text-transparent">
-              Think Different
-            </span>
+            <button className="px-8 py-3 bg-gradient-to-br from-[#9b87f5] to-[#D6BCFA] text-white font-medium rounded-full 
+              hover:shadow-[0_5px_30px_rgba(155,135,245,0.6)] transition-all duration-300 transform hover:translate-y-[-2px]">
+              Explore All SEF Editions
+            </button>
           </motion.div>
         </div>
       </div>

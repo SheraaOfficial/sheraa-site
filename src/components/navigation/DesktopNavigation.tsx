@@ -78,7 +78,7 @@ const DesktopNavigation: React.FC<DesktopNavigationProps> = memo(({
 
       {!isLoggedIn && (
         <div className="flex items-center gap-2">
-          <Button variant="outline" size="sm" asChild className="dark:border-gray-500 dark:text-white dark:hover:text-white dark:hover:bg-white/10">
+          <Button variant="outline" size="sm" asChild>
             <Link to="/login">Login</Link>
           </Button>
           <GradientButton size="sm" asChild>

@@ -7,7 +7,6 @@ import { useScrollNavigation } from "./navigation/useScrollNavigation";
 import { homeLinks, discoverLinks, growLinks, communityLinks, insightsLinks, applyLinks, sefLink } from "./navigation/navigationData";
 import { useLocalStorage } from "@/hooks/use-local-storage";
 import UserAvatar from "./user/UserAvatar";
-import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 // Lazy load components
 const DesktopNavigation = lazy(() => import("./navigation/DesktopNavigation"));
@@ -32,14 +31,14 @@ const Navigation = () => {
     <header 
       className={`sheraa-navbar ${
         isSticky 
-          ? 'fixed top-0 left-0 w-full bg-white shadow-md z-[100] transition-all duration-300 animate-fade-in dark:bg-zinc-900' 
+          ? 'fixed top-0 left-0 w-full bg-white shadow-md z-[100] transition-all duration-300 animate-fade-in' 
           : 'relative z-[100]'
       }`}
     >
-      <div className={`container flex h-16 items-center sm:px-6 px-0 my-0 transition-colors duration-300 ${isScrolled ? 'bg-white dark:bg-zinc-900' : 'bg-stone-50 dark:bg-zinc-800'}`}>
+      <div className={`container flex h-16 items-center sm:px-6 px-0 my-0 transition-colors duration-300 ${isScrolled ? 'bg-white' : 'bg-stone-50'}`}>
         <div className="mr-4 flex items-center">
           <Link to="/" className="flex items-center">
-            <span className="text-xl font-bold text-sheraa-primary mx-[39px] dark:text-white">SHERAA</span>
+            <span className="text-xl font-bold text-sheraa-primary mx-[39px]">SHERAA</span>
           </Link>
         </div>
 
@@ -63,11 +62,6 @@ const Navigation = () => {
             />
           </Suspense>
         )}
-
-        {/* Theme Toggle - Added to the navigation bar */}
-        <div className="ml-2 mr-2">
-          <ThemeToggle className="hidden md:flex" />
-        </div>
 
         {/* User Avatar (when logged in) */}
         {hydrated && loggedInUser && (
