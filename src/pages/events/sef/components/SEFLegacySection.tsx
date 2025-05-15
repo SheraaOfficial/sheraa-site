@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useTheme } from '@/contexts/ThemeContext';
+import { Badge } from '@/components/ui/badge';
 
 // Speakers data with images, names, and roles for each year
 const legacyYears = [
@@ -107,10 +108,33 @@ const legacyYears = [
   },
 ];
 
+// Inspirational quotes that relate to entrepreneurship
+const quotes = [
+  "Be Present - Show up fully for every opportunity",
+  "Less is More - Focus on what truly matters",
+  "Make Waves - Create meaningful impact in the world",
+  "Stay Hungry - Never lose your curiosity and drive",
+  "Find Balance - Harmonize ambition with wellbeing",
+  "Dream Big - Envision possibilities beyond limits",
+  "Flow State - Immerse yourself in the journey",
+  "Be Limitless - Break through perceived boundaries",
+  "Mindful Moment - Stay aware in a world of noise"
+];
+
 const SEFLegacySection: React.FC = () => {
   const gridRef = useRef<HTMLDivElement>(null);
   const [activeYear, setActiveYear] = useState<number | null>(null);
+  const [activeQuote, setActiveQuote] = useState(0);
   const { theme } = useTheme();
+  
+  // Effect to rotate through inspirational quotes
+  useEffect(() => {
+    const quoteInterval = setInterval(() => {
+      setActiveQuote(prev => (prev + 1) % quotes.length);
+    }, 5000);
+    
+    return () => clearInterval(quoteInterval);
+  }, []);
   
   useEffect(() => {
     const initializeAnimations = async () => {
@@ -122,6 +146,12 @@ const SEFLegacySection: React.FC = () => {
           gsap.registerPlugin(ScrollTrigger);
           
           if (gridRef.current) {
+            // Set up 3D perspective for the grid
+            gsap.set(gridRef.current, {
+              perspective: 1000,
+            });
+            
+            // Grid items animation
             const gridItems = gridRef.current.querySelectorAll('.grid__item');
             
             gridItems.forEach((item, index) => {
@@ -153,7 +183,7 @@ const SEFLegacySection: React.FC = () => {
               );
             });
 
-            // Animation for speaker cards
+            // Speaker cards animation
             const speakerItems = document.querySelectorAll('.speaker-card');
             speakerItems.forEach((item, index) => {
               gsap.fromTo(
@@ -177,6 +207,32 @@ const SEFLegacySection: React.FC = () => {
                   delay: index * 0.1
                 }
               );
+            });
+            
+            // Quotes rotation animation
+            const quoteText = document.querySelector('.quote-text');
+            if (quoteText) {
+              gsap.to('.quote-text', {
+                y: -20,
+                opacity: 0,
+                duration: 0.5,
+                ease: 'power2.in',
+                repeat: -1,
+                repeatDelay: 4.5,
+                yoyo: true
+              });
+            }
+            
+            // Parallax effect for section background
+            gsap.to('.parallax-bg', {
+              y: '30%',
+              ease: 'none',
+              scrollTrigger: {
+                trigger: '.legacy-section',
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: true
+              }
             });
           }
         } catch (error) {
@@ -207,10 +263,24 @@ const SEFLegacySection: React.FC = () => {
   };
   
   return (
-    <section className={`py-24 px-4 relative overflow-hidden ${theme === 'dark' ? 'bg-gradient-to-b from-[#1A1F2C] to-[#292D3E]' : 'bg-gradient-to-b from-gray-100 to-white'}`}>
-      <div className="absolute inset-0 z-0 opacity-30">
-        <div className="absolute top-0 left-1/3 w-[40rem] h-[40rem] bg-[#9b87f5]/10 rounded-full filter blur-[100px]" />
-        <div className="absolute bottom-0 right-1/3 w-[30rem] h-[30rem] bg-[#F97316]/10 rounded-full filter blur-[100px]" />
+    <section 
+      className={`legacy-section py-24 px-4 relative overflow-hidden ${
+        theme === 'dark' 
+          ? 'bg-gradient-to-b from-[#1A1F2C] to-[#292D3E]' 
+          : 'bg-gradient-to-b from-gray-100 to-white'
+      }`}
+    >
+      {/* Parallax Background */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <div className="parallax-bg absolute inset-0">
+          {/* Colorful gradients for background */}
+          <div className="absolute top-0 left-1/4 w-[40rem] h-[40rem] bg-[#9b87f5]/10 rounded-full filter blur-[100px]" />
+          <div className="absolute bottom-0 right-1/4 w-[30rem] h-[30rem] bg-[#F97316]/10 rounded-full filter blur-[100px]" />
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[50rem] h-[50rem] bg-[#9b87f5]/5 rounded-full filter blur-[150px] opacity-50" />
+          
+          {/* Subtle grid pattern */}
+          <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
+        </div>
       </div>
       
       <div className="container mx-auto relative z-10">
@@ -221,21 +291,48 @@ const SEFLegacySection: React.FC = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
         >
-          <h2 className="text-5xl md:text-7xl font-bold uppercase tracking-tighter mb-6 bg-clip-text text-transparent bg-gradient-to-r dark:from-white dark:to-purple-300 from-purple-700 to-indigo-900">
+          <h2 className={`text-5xl md:text-7xl font-bold uppercase tracking-tighter mb-6 bg-clip-text text-transparent ${
+            theme === 'dark'
+              ? 'bg-gradient-to-r from-white to-purple-300'
+              : 'bg-gradient-to-r from-purple-700 to-indigo-900'
+          }`}>
             THE LEGACY OF SEF
           </h2>
-          <p className="text-xl max-w-3xl mx-auto dark:text-white/70 text-gray-600">
+          <p className={`text-xl max-w-3xl mx-auto ${
+            theme === 'dark' ? 'text-white/70' : 'text-gray-600'
+          }`}>
             Since 2016, the Sharjah Entrepreneurship Festival has been bringing together innovators, 
             entrepreneurs and changemakers from around the globe. Explore our journey through the years.
           </p>
+          
+          {/* Inspirational Quote */}
+          <motion.div 
+            className="mt-8 quote-container"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1 }}
+          >
+            <div className="relative h-8 overflow-hidden">
+              <p className={`quote-text absolute w-full left-0 text-lg font-medium italic ${
+                theme === 'dark' ? 'text-white/80' : 'text-gray-700'
+              }`}>
+                "{quotes[activeQuote]}"
+              </p>
+            </div>
+          </motion.div>
         </motion.div>
         
         {/* Timeline Navigation */}
-        <div className="flex items-center justify-center flex-wrap gap-4 mb-16">
+        <div className="flex items-center justify-center flex-wrap gap-4 mb-16 relative">
+          {/* Visual timeline line */}
+          <div className={`absolute h-1 top-1/2 transform -translate-y-1/2 left-0 right-0 z-0 ${
+            theme === 'dark' ? 'bg-white/10' : 'bg-gray-200'
+          }`}></div>
+          
           {legacyYears.map((item, index) => (
             <motion.button
               key={item.year}
-              className={`px-4 py-2 rounded-full transition-all duration-300 ${
+              className={`relative z-10 px-4 py-2 rounded-full transition-all duration-300 ${
                 activeYear === item.year 
                   ? 'bg-gradient-to-r from-[#9b87f5] to-[#F97316] text-white shadow-lg scale-110' 
                   : `${theme === 'dark' ? 'bg-white/10 text-white' : 'bg-gray-200 text-gray-700'} hover:bg-white/20`
@@ -252,9 +349,10 @@ const SEFLegacySection: React.FC = () => {
           ))}
         </div>
         
+        {/* 3D Grid for Year Content */}
         <div 
           ref={gridRef}
-          className="grid grid-cols-1 gap-16 perspective-1000"
+          className="grid grid-cols-1 gap-16 perspective-1000 pb-16"
         >
           {legacyYears.map((item, index) => (
             <motion.div
@@ -267,33 +365,44 @@ const SEFLegacySection: React.FC = () => {
             >
               <div className="flex flex-col md:flex-row gap-8 items-center">
                 {/* Year Info */}
-                <div className="md:w-1/3 text-center md:text-left">
-                  <span className={`text-5xl md:text-7xl font-black bg-clip-text text-transparent bg-gradient-to-br ${
-                    theme === 'dark' 
-                      ? 'from-[#9b87f5] to-[#F97316]' 
-                      : 'from-purple-700 to-orange-500'
-                  }`}>
-                    {item.year}
-                  </span>
-                  <h3 className={`text-3xl font-bold mt-2 mb-4 ${
-                    theme === 'dark' ? 'text-white' : 'text-gray-800'
-                  }`}>
-                    {item.theme}
-                  </h3>
-                  <p className={`text-lg mb-6 ${
-                    theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-                  }`}>
-                    {item.description}
-                  </p>
-                  <div className="h-1 w-24 mx-auto md:mx-0 bg-gradient-to-r from-[#9b87f5] to-[#F97316] rounded-full" />
+                <div className="md:w-1/3 text-center md:text-left perspective-1000">
+                  <div className="transform hover:rotate-y-10 transition-transform duration-700">
+                    <Badge className={`mb-4 px-3 py-1 text-sm font-normal ${
+                      theme === 'dark' ? 'bg-white/20 text-white' : 'bg-indigo-100 text-indigo-800'
+                    }`}>
+                      Edition {index + 1}
+                    </Badge>
+                    
+                    <span className={`text-5xl md:text-7xl font-black bg-clip-text text-transparent bg-gradient-to-br ${
+                      theme === 'dark' 
+                        ? 'from-[#9b87f5] to-[#F97316]' 
+                        : 'from-purple-700 to-orange-500'
+                    }`}>
+                      {item.year}
+                    </span>
+                    
+                    <h3 className={`text-3xl font-bold mt-2 mb-4 ${
+                      theme === 'dark' ? 'text-white' : 'text-gray-800'
+                    }`}>
+                      {item.theme}
+                    </h3>
+                    
+                    <p className={`text-lg mb-6 ${
+                      theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+                    }`}>
+                      {item.description}
+                    </p>
+                    
+                    <div className="h-1 w-24 mx-auto md:mx-0 bg-gradient-to-r from-[#9b87f5] to-[#F97316] rounded-full" />
+                  </div>
                 </div>
                 
-                {/* Speakers Grid */}
-                <div className="md:w-2/3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {/* Speakers Grid - 3D Perspective Effect */}
+                <div className="md:w-2/3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 perspective-1000">
                   {item.speakers.map((speaker, speakerIndex) => (
                     <motion.div
                       key={`${item.year}-${speakerIndex}`}
-                      className={`speaker-card rounded-xl overflow-hidden shadow-lg ${
+                      className={`speaker-card rounded-xl overflow-hidden shadow-lg transform transition-all duration-700 hover:rotate-y-10 ${
                         theme === 'dark' 
                           ? 'bg-gray-800/50 backdrop-blur-sm border border-white/10' 
                           : 'bg-white border border-gray-200'
@@ -306,19 +415,24 @@ const SEFLegacySection: React.FC = () => {
                       }}
                       transition={{ duration: 0.3 }}
                     >
-                      <div className="h-60 overflow-hidden">
+                      <div className="h-60 overflow-hidden relative">
                         <img 
                           src={speaker.image} 
                           alt={speaker.name} 
                           className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
                         />
+                        
+                        {/* Gradient overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
                       </div>
+                      
                       <div className="p-4">
                         <h4 className={`font-bold text-xl ${
                           theme === 'dark' ? 'text-white' : 'text-gray-800'
                         }`}>
                           {speaker.name}
                         </h4>
+                        
                         <p className={`${
                           theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
                         }`}>
@@ -333,6 +447,24 @@ const SEFLegacySection: React.FC = () => {
           ))}
         </div>
         
+        {/* "Think Different" Quote Section */}
+        <motion.div 
+          className="text-center mt-12 mb-16 perspective-1000 overflow-hidden"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.5 }}
+        >
+          <div className={`text-5xl md:text-8xl font-black uppercase tracking-tighter ${
+            theme === 'dark' 
+              ? 'text-white/10' 
+              : 'text-gray-200'
+          }`}>
+            THINK DIFFERENT
+          </div>
+        </motion.div>
+        
+        {/* Final CTA */}
         <div className="text-center mt-16">
           <motion.div
             className="inline-flex perspective-1000"

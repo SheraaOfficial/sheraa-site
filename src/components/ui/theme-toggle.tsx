@@ -13,10 +13,10 @@ export const ThemeToggle: React.FC = () => {
       className="fixed top-6 right-6 z-50 p-2.5 rounded-full shadow-lg"
       style={{
         background: theme === 'dark' 
-          ? 'linear-gradient(135deg, rgba(155,135,245,0.2), rgba(249,115,22,0.2))' 
-          : 'linear-gradient(135deg, rgba(155,135,245,0.1), rgba(249,115,22,0.1))',
+          ? 'linear-gradient(135deg, rgba(155,135,245,0.6), rgba(249,115,22,0.6))' 
+          : 'linear-gradient(135deg, rgba(155,135,245,0.3), rgba(249,115,22,0.3))',
         backdropFilter: 'blur(10px)',
-        border: theme === 'dark' ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(255,255,255,0.6)'
+        border: theme === 'dark' ? '2px solid rgba(255,255,255,0.3)' : '2px solid rgba(0,0,0,0.2)'
       }}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.95 }}
@@ -25,9 +25,9 @@ export const ThemeToggle: React.FC = () => {
       transition={{ duration: 0.3 }}
     >
       {theme === 'dark' ? (
-        <Sun className="text-yellow-300 h-5 w-5" />
+        <Sun className="text-yellow-300 h-6 w-6 drop-shadow-glow" />
       ) : (
-        <Moon className="text-indigo-900 h-5 w-5" />
+        <Moon className="text-indigo-900 h-6 w-6" />
       )}
     </motion.button>
   );
