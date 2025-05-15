@@ -39,6 +39,7 @@ import SEFExperiencePage from "./pages/events/sef/SEFExperiencePage";
 import SEFWhoShouldAttendPage from "./pages/events/sef/SEFWhoShouldAttendPage";
 import SEFBePartPage from "./pages/events/sef/SEFBePartPage";
 import SEFFAQPage from "./pages/events/sef/SEFFAQPage";
+import SEFLandingPage from "./pages/events/sef-landing";
 
 // Auth & Profile pages
 import LoginPage from "./pages/auth/LoginPage";
@@ -145,6 +146,7 @@ const App = () => {
                   {/* Events Routes */}
                   <Route path="/events" element={<EventsPage />} />
                   <Route path="/events/sef" element={<EventsPage section="sef" />} />
+                  <Route path="/events/sef-landing" element={<SEFLandingPage />} />
                   
                   {/* SEF Sub-pages */}
                   <Route path="/events/sef/agenda" element={<SEFAgendaPage />} />

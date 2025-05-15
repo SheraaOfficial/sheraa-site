@@ -60,6 +60,6 @@ export const applyLinks: NavLink[] = [
 // Create and export SEF link - New standalone SEF link for the main navigation
 export const sefLink: NavLink = { 
   title: "SEF", 
-  href: "/events/sef", 
+  href: "/events/sef-landing", 
   description: "Sharjah Entrepreneurship Festival"
 };
