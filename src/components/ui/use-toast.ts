@@ -1,4 +1,5 @@
+import { useToast as useToastOriginal, toast as toastOriginal } from "@/hooks/use-toast";
 
-import { useToast, toast } from "@/hooks/use-toast";
-
-export { useToast, toast };
+// Re-export to keep consistent with shadcn patterns
+export const useToast = useToastOriginal;
+export const toast = toastOriginal;

@@ -18,8 +18,12 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       if (savedTheme) {
         return savedTheme;
       }
+      
+      // Use system preference with priority to light theme if not explicitly dark
       return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     }
+    
+    // Default to light theme
     return 'light';
   });
 

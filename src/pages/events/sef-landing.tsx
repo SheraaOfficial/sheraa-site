@@ -1,7 +1,6 @@
 
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ThemeToggle } from '@/components/ui/theme-toggle';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 
@@ -26,10 +25,7 @@ const SEFLandingPage: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen w-full overflow-hidden">
-      {/* Theme Toggle Button */}
-      <ThemeToggle />
-      
+    <div className="min-h-screen w-full overflow-hidden bg-white dark:bg-zinc-900 transition-colors duration-300">
       {/* Navigation with transparent background */}
       <div className="absolute top-0 left-0 right-0 z-50">
         <Navigation />
@@ -39,7 +35,7 @@ const SEFLandingPage: React.FC = () => {
       <SEFEnhancedHero />
       
       {/* Main Content */}
-      <main>
+      <main className="relative z-10">
         {/* Legacy of SEF Section (New) */}
         <SEFLegacySection />
         
