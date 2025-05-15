@@ -2,6 +2,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useTheme } from "@/contexts/ThemeContext";
 
 interface ParallaxSectionProps {
   children: React.ReactNode;
@@ -24,6 +25,7 @@ export const ParallaxSection: React.FC<ParallaxSectionProps> = ({
   stiffness = 50,
   damping = 15,
 }) => {
+  const { theme } = useTheme();
   const containerRef = useRef<HTMLDivElement>(null);
   const [elementTop, setElementTop] = useState(0);
   const { scrollY } = useScroll();
@@ -136,7 +138,7 @@ export const ParallaxSection: React.FC<ParallaxSectionProps> = ({
           x: direction === "left" || direction === "right" ? transformValue : 0,
           willChange: "transform",
         }}
-        className="parallax-content will-change-transform"
+        className={`parallax-content will-change-transform ${theme === 'dark' ? 'dark' : ''}`}
       >
         {children}
       </motion.div>

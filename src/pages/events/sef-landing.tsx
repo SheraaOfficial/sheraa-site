@@ -1,7 +1,6 @@
 
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ThemeProvider } from '@/contexts/ThemeContext';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
@@ -27,61 +26,59 @@ const SEFLandingPage: React.FC = () => {
   }, []);
 
   return (
-    <ThemeProvider>
-      <div className="min-h-screen w-full overflow-hidden">
-        {/* Theme Toggle Button */}
-        <ThemeToggle />
-        
-        {/* Navigation with transparent background */}
-        <div className="absolute top-0 left-0 right-0 z-50">
-          <Navigation />
-        </div>
-        
-        {/* Enhanced Hero Section */}
-        <SEFEnhancedHero />
-        
-        {/* Main Content */}
-        <main>
-          {/* Legacy of SEF Section (New) */}
-          <SEFLegacySection />
-          
-          {/* About SEF Section */}
-          <SEFAbout />
-          
-          {/* Key Features/Highlights */}
-          <SEFFeatures />
-          
-          {/* Featured Speakers Section */}
-          <SEFSpeakersSection />
-          
-          {/* Experience Zones */}
-          <SEFExperienceZones />
-          
-          {/* Who Should Attend */}
-          <SEFAttendeeSection />
-          
-          {/* Enhanced Testimonials */}
-          <SEFEnhancedTestimonials />
-          
-          {/* Partners & Sponsors */}
-          <SEFPartners />
-          
-          {/* Gallery from Previous Festivals */}
-          <SEFGallery />
-          
-          {/* FAQ Section */}
-          <SEFFAQ />
-          
-          {/* CTA Section */}
-          <SEFCtaSection />
-          
-          {/* Final CTA before Footer */}
-          <SEFFooterCTA />
-        </main>
-        
-        <Footer />
+    <div className="min-h-screen w-full overflow-hidden">
+      {/* Theme Toggle Button */}
+      <ThemeToggle />
+      
+      {/* Navigation with transparent background */}
+      <div className="absolute top-0 left-0 right-0 z-50">
+        <Navigation />
       </div>
-    </ThemeProvider>
+      
+      {/* Enhanced Hero Section */}
+      <SEFEnhancedHero />
+      
+      {/* Main Content */}
+      <main>
+        {/* Legacy of SEF Section (New) */}
+        <SEFLegacySection />
+        
+        {/* About SEF Section */}
+        <SEFAbout />
+        
+        {/* Key Features/Highlights */}
+        <SEFFeatures />
+        
+        {/* Featured Speakers Section */}
+        <SEFSpeakersSection />
+        
+        {/* Experience Zones */}
+        <SEFExperienceZones />
+        
+        {/* Who Should Attend */}
+        <SEFAttendeeSection />
+        
+        {/* Enhanced Testimonials */}
+        <SEFEnhancedTestimonials />
+        
+        {/* Partners & Sponsors */}
+        <SEFPartners />
+        
+        {/* Gallery from Previous Festivals */}
+        <SEFGallery />
+        
+        {/* FAQ Section */}
+        <SEFFAQ />
+        
+        {/* CTA Section */}
+        <SEFCtaSection />
+        
+        {/* Final CTA before Footer */}
+        <SEFFooterCTA />
+      </main>
+      
+      <Footer />
+    </div>
   );
 };
 

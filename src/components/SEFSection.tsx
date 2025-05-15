@@ -9,6 +9,7 @@ import { SEFEventCard } from "./sef/SEFEventCard";
 import { SEFStats } from "./sef/SEFStats";
 import { SEFQuickLinks } from "./sef/SEFQuickLinks";
 import { SEFBackgroundEffects } from "./sef/SEFBackgroundEffects";
+import { useTheme } from "@/contexts/ThemeContext";
 
 const SEFSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -18,6 +19,7 @@ const SEFSection = () => {
   });
   const [hasRevealed, setHasRevealed] = useState(false);
   const isMobile = useIsMobile();
+  const { theme } = useTheme();
 
   useEffect(() => {
     if (isInView && !hasRevealed) {
@@ -32,7 +34,7 @@ const SEFSection = () => {
     <ParallaxSection direction="up" scrollMultiplier={0.2} className="py-16 md:py-32 px-4 md:px-8 lg:px-12 overflow-visible">
       <section 
         ref={sectionRef} 
-        className="relative rounded-3xl overflow-hidden"
+        className={`relative rounded-3xl overflow-hidden ${theme === 'dark' ? 'dark' : ''}`}
         id="sef-section"
       >
         <SEFBackgroundEffects />

@@ -3,6 +3,7 @@ import React, { Suspense, useEffect } from 'react';
 import App from './App';
 import { PerformanceProvider } from './contexts/PerformanceContext';
 import { ErrorBoundary } from './components/layout/ErrorBoundary';
+import { ThemeProvider } from './contexts/ThemeContext';
 
 // Fallback component for when the app fails to load
 const ErrorFallbackComponent = () => (
@@ -52,11 +53,13 @@ export default function AppWrapper() {
   
   return (
     <ErrorBoundary FallbackComponent={ErrorFallbackComponent}>
-      <PerformanceProvider>
-        <Suspense fallback={<AppLoading />}>
-          <App />
-        </Suspense>
-      </PerformanceProvider>
+      <ThemeProvider>
+        <PerformanceProvider>
+          <Suspense fallback={<AppLoading />}>
+            <App />
+          </Suspense>
+        </PerformanceProvider>
+      </ThemeProvider>
     </ErrorBoundary>
   );
 }
