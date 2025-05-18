@@ -1,6 +1,5 @@
 
 import React, { useEffect } from 'react';
-import { motion } from 'framer-motion';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
 import Navigation from '@/components/Navigation';
@@ -10,6 +9,8 @@ import Footer from '@/components/Footer';
 import SEFEnhancedHero from './sef/components/SEFEnhancedHero';
 import SEFLegacySection from './sef/components/SEFLegacySection';
 import SEFAbout from './sef/components/SEFAbout';
+import SEFFestivalPasses from './sef/components/SEFFestivalPasses';
+import SEFTimelineGallery from './sef/components/SEFTimelineGallery';
 import SEFFeatures from './sef/components/SEFFeatures';
 import SEFSpeakersSection from './sef/components/SEFSpeakersSection';
 import SEFExperienceZones from './sef/components/SEFExperienceZones';
@@ -44,6 +45,12 @@ const SEFLandingPage: React.FC = () => {
         <main>
           {/* Legacy of SEF Section (New) */}
           <SEFLegacySection />
+          
+          {/* Festival Passes Section (New) */}
+          <SEFFestivalPasses />
+          
+          {/* Timeline Gallery (New) - Replacing Journey Through Time */}
+          <SEFTimelineGallery />
           
           {/* About SEF Section */}
           <SEFAbout />

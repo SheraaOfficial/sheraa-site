@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 
 const SEFAbout = () => {
   return (
-    <section className="py-20 px-4 bg-white">
+    <section className="py-20 px-4 bg-white dark:bg-gray-900">
       <div className="container mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           <motion.div 
@@ -14,34 +14,34 @@ const SEFAbout = () => {
             transition={{ duration: 0.7 }}
             className="space-y-6"
           >
-            <div className="inline-block rounded-full bg-purple-100 px-3 py-1 text-sm text-[#9b87f5]">
+            <div className="inline-block rounded-full bg-purple-100 px-3 py-1 text-sm text-[#9b87f5] dark:bg-purple-900/30">
               About SEF
             </div>
             
-            <h2 className="text-4xl md:text-5xl font-bold text-[#1A1F2C]">
+            <h2 className="text-4xl md:text-5xl font-bold text-[#1A1F2C] dark:text-white">
               The Region's Largest Entrepreneurship Festival
             </h2>
             
-            <p className="text-lg text-gray-700">
+            <p className="text-lg text-gray-700 dark:text-gray-300">
               Experience the energy of the Sharjah Entrepreneurship Festival (SEF), our annual flagship event. 
               SEF brings together thousands of entrepreneurs, investors, creators, and leaders from around the 
               globe for inspiration, connection, and growth.
             </p>
             
-            <p className="text-lg text-gray-700">
+            <p className="text-lg text-gray-700 dark:text-gray-300">
               SEF is more than just a festival; it's a catalyst for innovation, collaboration, and meaningful 
               connections that drive the entrepreneurial ecosystem forward. Each year, we create a vibrant 
               platform where ideas collide, partnerships form, and possibilities expand.
             </p>
             
             <div className="pt-4 grid grid-cols-1 sm:grid-cols-2 gap-5">
-              <div className="p-5 rounded-xl bg-purple-50 border border-purple-100 hover:shadow-md hover:bg-purple-100/50 transition-all duration-300">
+              <div className="p-5 rounded-xl bg-purple-50 border border-purple-100 hover:shadow-md hover:bg-purple-100/50 transition-all duration-300 dark:bg-purple-900/20 dark:border-purple-800/30 dark:hover:bg-purple-900/30">
                 <h3 className="text-xl font-semibold text-[#9b87f5] mb-2">Vision</h3>
-                <p className="text-gray-700">To establish Sharjah as a leading global hub for entrepreneurship and innovation.</p>
+                <p className="text-gray-700 dark:text-gray-300">To establish Sharjah as a leading global hub for entrepreneurship and innovation.</p>
               </div>
-              <div className="p-5 rounded-xl bg-orange-50 border border-orange-100 hover:shadow-md hover:bg-orange-100/50 transition-all duration-300">
+              <div className="p-5 rounded-xl bg-orange-50 border border-orange-100 hover:shadow-md hover:bg-orange-100/50 transition-all duration-300 dark:bg-orange-900/20 dark:border-orange-800/30 dark:hover:bg-orange-900/30">
                 <h3 className="text-xl font-semibold text-[#F97316] mb-2">Mission</h3>
-                <p className="text-gray-700">To cultivate changemakers who address pressing challenges and contribute positively to society.</p>
+                <p className="text-gray-700 dark:text-gray-300">To cultivate changemakers who address pressing challenges and contribute positively to society.</p>
               </div>
             </div>
           </motion.div>
