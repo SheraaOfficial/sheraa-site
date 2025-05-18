@@ -1,66 +1,57 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sparkles } from '@/components/ui/sparkles';
-
-const zones = [
-  {
-    title: "Startup Town",
-    description: "Connect with fellow founders, showcase your venture, and find potential collaborators.",
-    image: "https://picsum.photos/seed/zone1/500",
-    color: "from-purple-600/50 to-purple-400/50"
-  },
-  {
-    title: "Investors Lounge",
-    description: "Meet with VCs, angel investors, and other funding sources in a dedicated networking space.",
-    image: "https://picsum.photos/seed/zone2/500",
-    color: "from-blue-600/50 to-blue-400/50"
-  },
-  {
-    title: "Made in Sharjah",
-    description: "Discover innovative products and services created by local entrepreneurs and makers.",
-    image: "https://picsum.photos/seed/zone3/500",
-    color: "from-green-600/50 to-green-400/50"
-  },
-  {
-    title: "Creative Zone",
-    description: "Explore the intersection of entrepreneurship, art, design, and creative industries.",
-    image: "https://picsum.photos/seed/zone4/500",
-    color: "from-pink-600/50 to-pink-400/50"
-  },
-  {
-    title: "SEF Academy",
-    description: "Participate in hands-on workshops and masterclasses led by industry experts.",
-    image: "https://picsum.photos/seed/zone5/500",
-    color: "from-amber-600/50 to-amber-400/50"
-  },
-  {
-    title: "Impact Zone",
-    description: "Engage with social entrepreneurs and learn how business can drive positive change.",
-    image: "https://picsum.photos/seed/zone6/500",
-    color: "from-teal-600/50 to-teal-400/50"
-  }
-];
-
+const zones = [{
+  title: "Startup Town",
+  description: "Connect with fellow founders, showcase your venture, and find potential collaborators.",
+  image: "https://picsum.photos/seed/zone1/500",
+  color: "from-purple-600/50 to-purple-400/50"
+}, {
+  title: "Investors Lounge",
+  description: "Meet with VCs, angel investors, and other funding sources in a dedicated networking space.",
+  image: "https://picsum.photos/seed/zone2/500",
+  color: "from-blue-600/50 to-blue-400/50"
+}, {
+  title: "Made in Sharjah",
+  description: "Discover innovative products and services created by local entrepreneurs and makers.",
+  image: "https://picsum.photos/seed/zone3/500",
+  color: "from-green-600/50 to-green-400/50"
+}, {
+  title: "Creative Zone",
+  description: "Explore the intersection of entrepreneurship, art, design, and creative industries.",
+  image: "https://picsum.photos/seed/zone4/500",
+  color: "from-pink-600/50 to-pink-400/50"
+}, {
+  title: "SEF Academy",
+  description: "Participate in hands-on workshops and masterclasses led by industry experts.",
+  image: "https://picsum.photos/seed/zone5/500",
+  color: "from-amber-600/50 to-amber-400/50"
+}, {
+  title: "Impact Zone",
+  description: "Engage with social entrepreneurs and learn how business can drive positive change.",
+  image: "https://picsum.photos/seed/zone6/500",
+  color: "from-teal-600/50 to-teal-400/50"
+}];
 const SEFExperienceZones = () => {
-  return (
-    <section className="py-20 px-4 bg-white relative overflow-hidden">
+  return <section className="py-20 px-4 bg-white relative overflow-hidden">
       <div className="absolute inset-0 opacity-5 z-0 bg-gradient-to-b from-[#9b87f5]/10 to-white" />
       
       <div className="container mx-auto relative z-10">
-        <motion.div 
-          className="text-center mb-16"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
+        <motion.div className="text-center mb-16" initial={{
+        opacity: 0
+      }} whileInView={{
+        opacity: 1
+      }} viewport={{
+        once: true
+      }} transition={{
+        duration: 0.5
+      }}>
           <div className="inline-block">
             <Sparkles className="text-[#9b87f5] inline-block">
-              <span className="bg-purple-100 rounded-full px-3 py-1 text-sm">Interactive Experiences</span>
+              <span className="text-gray-700">Interactive Experiences</span>
             </Sparkles>
           </div>
           
@@ -75,22 +66,21 @@ const SEFExperienceZones = () => {
         </motion.div>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {zones.map((zone, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group relative h-[300px] overflow-hidden rounded-xl"
-            >
+          {zones.map((zone, index) => <motion.div key={index} initial={{
+          opacity: 0,
+          y: 20
+        }} whileInView={{
+          opacity: 1,
+          y: 0
+        }} viewport={{
+          once: true
+        }} transition={{
+          duration: 0.5,
+          delay: index * 0.1
+        }} className="group relative h-[300px] overflow-hidden rounded-xl">
               {/* Background Image */}
               <div className="absolute inset-0 z-0">
-                <img 
-                  src={zone.image} 
-                  alt={zone.title} 
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
+                <img src={zone.image} alt={zone.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                 <div className={`absolute inset-0 bg-gradient-to-b ${zone.color} opacity-70 mix-blend-multiply`}></div>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
               </div>
@@ -106,8 +96,7 @@ const SEFExperienceZones = () => {
                   </Button>
                 </div>
               </div>
-            </motion.div>
-          ))}
+            </motion.div>)}
         </div>
         
         <div className="text-center mt-12">
@@ -119,8 +108,6 @@ const SEFExperienceZones = () => {
           </Button>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default SEFExperienceZones;

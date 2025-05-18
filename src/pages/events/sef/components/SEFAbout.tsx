@@ -1,24 +1,25 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
-
 const SEFAbout = () => {
-  return (
-    <section className="py-20 px-4 bg-white">
+  return <section className="py-20 px-4 bg-white">
       <div className="container mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            className="space-y-6"
-          >
+          <motion.div initial={{
+          opacity: 0,
+          x: -20
+        }} whileInView={{
+          opacity: 1,
+          x: 0
+        }} viewport={{
+          once: true
+        }} transition={{
+          duration: 0.7
+        }} className="space-y-6">
             <div className="inline-block rounded-full bg-purple-100 px-3 py-1 text-sm text-[#9b87f5]">
               About SEF
             </div>
             
-            <h2 className="text-4xl md:text-5xl font-bold text-[#1A1F2C]">The Region's Premier Entrepreneurship Festival</h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-[#1A1F2C]">The Region's Largest Entrepreneurship Festival</h2>
             
             <p className="text-lg text-gray-700">
               Experience the energy of the Sharjah Entrepreneurship Festival (SEF), our annual flagship event. 
@@ -44,13 +45,18 @@ const SEFAbout = () => {
             </div>
           </motion.div>
           
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            className="relative h-[500px] md:h-[600px]"
-          >
+          <motion.div initial={{
+          opacity: 0,
+          x: 20
+        }} whileInView={{
+          opacity: 1,
+          x: 0
+        }} viewport={{
+          once: true
+        }} transition={{
+          duration: 0.7,
+          delay: 0.2
+        }} className="relative h-[500px] md:h-[600px]">
             <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#9b87f5]/20 to-[#F97316]/20 transform -rotate-2" />
             <div className="absolute inset-0 rounded-2xl bg-gradient-to-tr from-[#D6BCFA]/30 to-[#F97316]/30 transform rotate-3" />
             
@@ -70,8 +76,6 @@ const SEFAbout = () => {
           </motion.div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default SEFAbout;
