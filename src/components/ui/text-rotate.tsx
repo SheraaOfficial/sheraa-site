@@ -172,7 +172,7 @@ const TextRotate = forwardRef<TextRotateRef, TextRotateProps>(({
                   {wordObj.characters.map((char, charIndex) => <motion.span initial={initial} animate={animate} exit={exit} key={charIndex} transition={{
               ...transition,
               delay: getStaggerDelay(previousCharsCount + charIndex, array.reduce((sum, word) => sum + word.characters.length, 0))
-            }} className="font-bold text-right text-6xl">
+            }} className="font-bold text-right text-2xl">
                       {char}
                     </motion.span>)}
                   {wordObj.needsSpace && <span className="whitespace-pre"> </span>}
