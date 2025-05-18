@@ -71,9 +71,7 @@ const SEFEnhancedHero: React.FC = () => {
           <div className="space-y-4 mb-10">
             <motion.h1 custom={0} initial="initial" animate="animate" variants={textAnimation} className="text-5xl md:text-8xl font-extrabold uppercase tracking-tighter text-white drop-shadow-lg leading-tight">
               THE REGION'S <br className="hidden md:block" />
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#E5DEFF] via-white to-[#D6BCFA]">
-                PREMIER
-              </span> FESTIVAL
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#E5DEFF] via-white to-[#D6BCFA]">largest</span> FESTIVAL
             </motion.h1>
             
             <motion.h2 custom={1} initial="initial" animate="animate" variants={textAnimation} className="text-3xl md:text-5xl font-bold text-white/90">
