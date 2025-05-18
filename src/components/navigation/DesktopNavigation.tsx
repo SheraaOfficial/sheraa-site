@@ -3,7 +3,7 @@ import React, { memo } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { GradientButton } from "@/components/ui/gradient-button";
-import { Home, Compass, TrendingUp, Users, Info, ArrowRight, Calendar } from "lucide-react";
+import { Home, Compass, TrendingUp, Users, Info, ArrowRight, Calendar, Sun, Moon } from "lucide-react";
 import {
   NavigationMenu,
   NavigationMenuList,
@@ -22,6 +22,8 @@ interface DesktopNavigationProps {
   applyLinks: { title: string; href: string; description?: string }[];
   sefLink: { title: string; href: string; description?: string };
   isLoggedIn?: boolean;
+  theme: string;
+  toggleTheme: () => void;
 }
 
 const DesktopNavigation: React.FC<DesktopNavigationProps> = memo(({
@@ -32,6 +34,8 @@ const DesktopNavigation: React.FC<DesktopNavigationProps> = memo(({
   insightsLinks,
   sefLink,
   isLoggedIn = false,
+  theme,
+  toggleTheme
 }) => {
   return (
     <div className="hidden md:flex md:flex-1 md:items-center md:justify-between">
@@ -76,16 +80,33 @@ const DesktopNavigation: React.FC<DesktopNavigationProps> = memo(({
         </NavigationMenuList>
       </NavigationMenu>
 
-      {!isLoggedIn && (
-        <div className="flex items-center gap-2">
-          <Button variant="outline" size="sm" asChild>
-            <Link to="/login">Login</Link>
-          </Button>
-          <GradientButton size="sm" asChild>
-            <Link to="/signup">Get Started</Link>
-          </GradientButton>
-        </div>
-      )}
+      <div className="flex items-center gap-2">
+        {/* Theme toggle button */}
+        <Button 
+          variant="ghost" 
+          size="icon"
+          onClick={toggleTheme}
+          className="text-gray-600 dark:text-gray-300 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-800 dark:hover:text-white rounded-full"
+          aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+        >
+          {theme === 'dark' ? (
+            <Sun className="h-[1.2rem] w-[1.2rem]" />
+          ) : (
+            <Moon className="h-[1.2rem] w-[1.2rem]" />
+          )}
+        </Button>
+
+        {!isLoggedIn && (
+          <>
+            <Button variant="outline" size="sm" asChild className="border-gray-300 dark:border-gray-700 dark:text-white">
+              <Link to="/login">Login</Link>
+            </Button>
+            <GradientButton size="sm" asChild>
+              <Link to="/signup">Get Started</Link>
+            </GradientButton>
+          </>
+        )}
+      </div>
     </div>
   );
 });
