@@ -87,22 +87,22 @@ const allSpeakers = yearlyData.flatMap(year => year.speakers.map(speaker => ({
 })));
 const inspirationalQuotes = [{
   text: "Be Present",
-  translation: "在场/当下"
+  translation: "كن حاضراً"
 }, {
   text: "Less is More",
-  translation: "简胜"
+  translation: "القليل هو الكثير"
 }, {
   text: "Make Waves",
-  translation: "破浪"
+  translation: "أحدث تغييراً"
 }, {
   text: "Stay Hungry",
-  translation: "求渴"
+  translation: "ابق متعطشاً"
 }, {
   text: "Find Balance",
-  translation: "中和"
+  translation: "جد التوازن"
 }, {
   text: "Dream Big",
-  translation: "远志"
+  translation: "احلم بكبير"
 }];
 const SEFLegacySection: React.FC = () => {
   const {
