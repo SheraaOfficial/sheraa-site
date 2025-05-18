@@ -37,14 +37,14 @@ const Navigation = () => {
     <header 
       className={`sheraa-navbar ${
         isSticky 
-          ? 'fixed top-0 left-0 w-full bg-white dark:bg-zinc-900 shadow-md z-[100] transition-all duration-300 animate-fade-in' 
-          : 'relative z-[100]'
+          ? 'fixed top-0 left-0 w-full bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md shadow-md z-[999] transition-all duration-300 animate-fade-in' 
+          : 'absolute top-0 left-0 w-full z-[999] bg-transparent'
       }`}
     >
-      <div className={`container flex h-16 items-center sm:px-6 px-0 my-0 transition-colors duration-300 ${isScrolled ? 'bg-white dark:bg-zinc-900' : 'bg-stone-50 dark:bg-zinc-900'}`}>
+      <div className={`container flex h-16 items-center sm:px-6 px-4 my-0 transition-colors duration-300 ${isScrolled ? 'bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md' : 'bg-transparent'}`}>
         <div className="mr-4 flex items-center">
           <Link to="/" className="flex items-center">
-            <span className="text-xl font-bold text-sheraa-primary mx-[39px] dark:text-white">SHERAA</span>
+            <span className="text-xl font-bold text-sheraa-primary mx-2 md:mx-[39px] dark:text-white">SHERAA</span>
           </Link>
         </div>
 
@@ -54,7 +54,7 @@ const Navigation = () => {
             variant="ghost" 
             size="icon"
             onClick={toggleTheme} 
-            className="text-gray-600 dark:text-gray-300 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-800 dark:hover:text-white"
+            className="text-gray-600 dark:text-gray-300 hover:bg-gray-100/20 hover:text-gray-900 dark:hover:bg-gray-800/20 dark:hover:text-white"
           >
             {theme === 'dark' ? (
               <Sun className="h-[1.2rem] w-[1.2rem]" />
@@ -62,8 +62,13 @@ const Navigation = () => {
               <Moon className="h-[1.2rem] w-[1.2rem]" />
             )}
           </Button>
-          <Button variant="ghost" size="icon" onClick={toggleMenu}>
-            <Menu className="h-5 w-5" />
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            onClick={toggleMenu} 
+            className="hover:bg-gray-100/20 dark:hover:bg-gray-800/20"
+          >
+            <Menu className="h-5 w-5 text-gray-700 dark:text-gray-200" />
           </Button>
         </div>
 

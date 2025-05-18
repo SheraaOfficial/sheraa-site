@@ -29,19 +29,26 @@ export function NavBar({ items, className }: NavBarProps) {
       setIsMobile(window.innerWidth < 768)
     }
 
+    // Set active tab based on current URL
+    const currentPath = window.location.pathname
+    const activeItem = items.find(item => currentPath.includes(item.url))
+    if (activeItem) {
+      setActiveTab(activeItem.name)
+    }
+
     handleResize()
     window.addEventListener("resize", handleResize)
     return () => window.removeEventListener("resize", handleResize)
-  }, [])
+  }, [items])
 
   return (
     <div
       className={cn(
-        "fixed bottom-0 sm:top-0 left-1/2 -translate-x-1/2 z-50 mb-6 sm:pt-6",
+        "fixed top-20 sm:top-28 left-1/2 -translate-x-1/2 z-40 mb-6 sm:mt-6",
         className,
       )}
     >
-      <div className="flex items-center gap-3 bg-background/5 border border-border backdrop-blur-lg py-1 px-1 rounded-full shadow-lg">
+      <div className="flex items-center gap-3 bg-background/70 border border-border backdrop-blur-lg py-1 px-1 rounded-full shadow-lg">
         {items.map((item) => {
           const Icon = item.icon
           const isActive = activeTab === item.name

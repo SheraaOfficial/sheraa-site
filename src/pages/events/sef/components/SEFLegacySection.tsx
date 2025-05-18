@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import { useTheme } from '@/contexts/ThemeContext';
@@ -6,18 +7,23 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import { Card, CardContent } from "@/components/ui/card";
 import { ChevronRight, ChevronLeft, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import ScrollExpandMedia from '@/components/blocks/scroll-expansion-hero';
+
 interface SpeakerData {
   name: string;
   image: string;
   role?: string;
 }
+
 interface YearData {
   year: string;
   theme: string;
   description: string;
   speakers: SpeakerData[];
   backgroundClass: string;
+  mediaSrc?: string;
 }
+
 const yearlyData: YearData[] = [{
   year: '2018',
   theme: 'Where We Belong',
@@ -32,7 +38,8 @@ const yearlyData: YearData[] = [{
     name: 'Najla Al Midfa',
     image: '/lovable-uploads/1461e9a9-fd41-4085-86e1-6765d0fd4f59.png'
   }],
-  backgroundClass: 'bg-gradient-to-b from-purple-500/10 to-pink-500/10'
+  backgroundClass: 'bg-gradient-to-b from-purple-500/10 to-pink-500/10',
+  mediaSrc: 'https://images.unsplash.com/photo-1591115765373-5207764f72e7?q=80&w=1170&auto=format&fit=crop'
 }, {
   year: '2019',
   theme: 'Reimagining Realities',
@@ -47,7 +54,8 @@ const yearlyData: YearData[] = [{
     name: 'Ambarish Mitra',
     image: '/lovable-uploads/962e9262-6759-495c-ad9e-5f8fc0043698.png'
   }],
-  backgroundClass: 'bg-gradient-to-b from-blue-500/10 to-teal-500/10'
+  backgroundClass: 'bg-gradient-to-b from-blue-500/10 to-teal-500/10',
+  mediaSrc: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1170&auto=format&fit=crop'
 }, {
   year: '2021',
   theme: 'Momentum',
@@ -62,7 +70,8 @@ const yearlyData: YearData[] = [{
     name: 'Akon',
     image: '/lovable-uploads/c685b8f9-faed-488e-aa6e-2d85cf6191f1.png'
   }],
-  backgroundClass: 'bg-gradient-to-b from-amber-500/10 to-orange-500/10'
+  backgroundClass: 'bg-gradient-to-b from-amber-500/10 to-orange-500/10',
+  mediaSrc: 'https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=1169&auto=format&fit=crop'
 }, {
   year: '2023',
   theme: 'Where We Belong',
@@ -77,7 +86,8 @@ const yearlyData: YearData[] = [{
     name: 'Huda Kattan',
     image: '/lovable-uploads/1c771ddf-b819-4587-bd05-7547b8dca2b5.png'
   }],
-  backgroundClass: 'bg-gradient-to-b from-emerald-500/10 to-cyan-500/10'
+  backgroundClass: 'bg-gradient-to-b from-emerald-500/10 to-cyan-500/10',
+  mediaSrc: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1170&auto=format&fit=crop'
 }];
 
 // Flatten speakers for the Hall of Fame section
@@ -85,6 +95,16 @@ const allSpeakers = yearlyData.flatMap(year => year.speakers.map(speaker => ({
   ...speaker,
   year: year.year
 })));
+
+// Impact stats to be animated
+const impactStats = [
+  { value: "14,000+", label: "Attendees" },
+  { value: "300+", label: "Global Speakers" },
+  { value: "250+", label: "Activities" },
+  { value: "10+", label: "Zones" },
+  { value: "71%", label: "Startup Survival Rate" }
+];
+
 const inspirationalQuotes = [{
   text: "Be Present",
   translation: "كن حاضراً"
@@ -104,6 +124,51 @@ const inspirationalQuotes = [{
   text: "Dream Big",
   translation: "احلم بكبير"
 }];
+
+// Counter animation hook
+const useCountAnimation = (targetValue: string, duration: number = 2, startOnView: boolean = true) => {
+  const [count, setCount] = useState("0");
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-10% 0px" });
+  
+  useEffect(() => {
+    if (!startOnView || isInView) {
+      let start = 0;
+      const end = parseInt(targetValue.replace(/\D/g, ""));
+      
+      // Ensure we don't try to animate non-numeric values
+      if (isNaN(end)) {
+        setCount(targetValue);
+        return;
+      }
+      
+      // Animation duration
+      const totalDuration = duration * 1000;
+      const frameDuration = 1000 / 60;
+      
+      // Calculate increment per frame
+      const totalFrames = Math.round(totalDuration / frameDuration);
+      const increment = end / totalFrames;
+      
+      // Start animation
+      const timer = setInterval(() => {
+        start += increment;
+        
+        if (start >= end) {
+          setCount(targetValue); // Ensure we end with the exact target string
+          clearInterval(timer);
+        } else {
+          setCount(Math.floor(start).toString() + (targetValue.includes("+") ? "+" : ""));
+        }
+      }, frameDuration);
+      
+      return () => clearInterval(timer);
+    }
+  }, [targetValue, duration, startOnView, isInView]);
+  
+  return { count, ref };
+};
+
 const SEFLegacySection: React.FC = () => {
   const {
     theme
@@ -112,10 +177,12 @@ const SEFLegacySection: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const hallOfFameRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
+  const statsRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, {
     once: false,
     margin: "-10% 0px"
   });
+  const isStatsInView = useInView(statsRef, { once: true, margin: "-10% 0px" });
 
   // For timeline horizontal scrolling and controls
   const [currentYearIndex, setCurrentYearIndex] = useState(0);
@@ -199,6 +266,9 @@ const SEFLegacySection: React.FC = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const currentYear = yearlyData[currentYearIndex];
+  
   return <section ref={sectionRef} className={`relative py-24 md:py-32 overflow-hidden ${theme === 'dark' ? 'bg-zinc-900' : 'bg-gray-50'}`} id="sef-legacy">
       {/* Enhanced background elements with stars effect */}
       <div className="absolute inset-0 overflow-hidden">
@@ -266,9 +336,40 @@ const SEFLegacySection: React.FC = () => {
             welcoming over 14,000 attendees and featuring 300+ global speakers across diverse industries.
           </motion.p>
         </div>
+
+        {/* Animated SEF Numbers - NEW SECTION */}
+        <div ref={statsRef} className="mb-20 md:mb-32 max-w-5xl mx-auto">
+          <motion.div 
+            className="grid grid-cols-3 md:grid-cols-5 gap-4 md:gap-8 text-center"
+            initial={{ opacity: 0, y: 40 }}
+            animate={isStatsInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, staggerChildren: 0.1 }}
+          >
+            {impactStats.map((stat, index) => {
+              const { count, ref } = useCountAnimation(stat.value, 2);
+              
+              return (
+                <motion.div 
+                  key={index} 
+                  className={`p-4 rounded-2xl ${index % 2 === 0 ? 'bg-purple-100/50 dark:bg-purple-900/20' : 'bg-orange-100/50 dark:bg-orange-900/20'}`}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={isStatsInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ delay: index * 0.1 }}
+                >
+                  <div ref={ref} className={`text-3xl md:text-5xl font-bold mb-2 ${index % 2 === 0 ? 'text-purple-600 dark:text-purple-400' : 'text-orange-500 dark:text-orange-400'}`}>
+                    {count}
+                  </div>
+                  <div className="text-xs md:text-sm text-gray-500 dark:text-gray-400 font-medium">
+                    {stat.label}
+                  </div>
+                </motion.div>
+              );
+            })}
+          </motion.div>
+        </div>
         
-        {/* Interactive timeline */}
-        <div className="relative pb-16 md:pb-24">
+        {/* JOURNEY THROUGH TIME - Using the ScrollExpansion component */}
+        <div className="mb-20">
           <h3 className="text-2xl md:text-3xl font-bold mb-8 text-center dark:text-white">
             Journey Through Time
           </h3>
@@ -286,47 +387,47 @@ const SEFLegacySection: React.FC = () => {
               <ChevronRight className="h-5 w-5" />
             </Button>
           </div>
-          
-          <div ref={timelineRef} className="relative overflow-hidden">
-            <Card className={`${yearlyData[currentYearIndex].backgroundClass} dark:bg-opacity-20 border border-gray-200 dark:border-gray-800 backdrop-blur-sm shadow-xl rounded-2xl overflow-hidden max-w-5xl mx-auto transform transition-all duration-500`}>
-              <CardContent className="p-8 md:p-12">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                  <div>
-                    <h2 className="text-4xl md:text-6xl font-black bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-orange-500">
-                      {yearlyData[currentYearIndex].year}
-                    </h2>
-                    <h3 className="text-2xl md:text-3xl font-bold mt-4 mb-3 dark:text-white">
-                      {yearlyData[currentYearIndex].theme}
-                    </h3>
-                    <p className="text-base md:text-lg text-gray-600 dark:text-gray-300">
-                      {yearlyData[currentYearIndex].description}
-                    </p>
-                  </div>
-                  
-                  <div className="grid grid-cols-3 gap-4">
-                    {yearlyData[currentYearIndex].speakers.map((speaker, idx) => <motion.div key={idx} className="relative group" initial={{
-                    opacity: 0,
-                    y: 20
-                  }} animate={{
-                    opacity: 1,
-                    y: 0
-                  }} transition={{
-                    delay: idx * 0.1 + 0.3
-                  }} whileHover={{
-                    scale: 1.05,
-                    zIndex: 5
-                  }}>
-                        <AspectRatio ratio={1} className="rounded-xl overflow-hidden border-2 border-white/30 shadow-lg">
-                          <img src={speaker.image} alt={speaker.name} className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110" />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3">
-                            <p className="text-white text-sm font-medium">{speaker.name}</p>
-                          </div>
-                        </AspectRatio>
-                      </motion.div>)}
-                  </div>
+        
+          <div className="h-[90vh] overflow-hidden mb-10">
+            <ScrollExpandMedia
+              mediaType="image"
+              mediaSrc={currentYear.mediaSrc || "https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1170&auto=format&fit=crop"}
+              bgImageSrc="https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1920&auto=format&fit=crop"
+              title={currentYear.theme}
+              date={`SEF ${currentYear.year}`}
+              scrollToExpand="Scroll to Explore"
+              textBlend={true}
+            >
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div>
+                  <h2 className="text-4xl md:text-6xl font-black bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-orange-500">
+                    {currentYear.year}
+                  </h2>
+                  <h3 className="text-2xl md:text-3xl font-bold mt-4 mb-3 dark:text-white">
+                    {currentYear.theme}
+                  </h3>
+                  <p className="text-base md:text-lg text-gray-600 dark:text-gray-300">
+                    {currentYear.description}
+                  </p>
                 </div>
-              </CardContent>
-            </Card>
+                
+                <div className="grid grid-cols-3 gap-4">
+                  {currentYear.speakers.map((speaker, idx) => (
+                    <motion.div key={idx} className="relative group" whileHover={{
+                      scale: 1.05,
+                      zIndex: 5
+                    }}>
+                      <AspectRatio ratio={1} className="rounded-xl overflow-hidden border-2 border-white/30 shadow-lg">
+                        <img src={speaker.image} alt={speaker.name} className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3">
+                          <p className="text-white text-sm font-medium">{speaker.name}</p>
+                        </div>
+                      </AspectRatio>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </ScrollExpandMedia>
           </div>
           
           {/* Year progress indicators */}
@@ -488,4 +589,5 @@ const SEFLegacySection: React.FC = () => {
       </div>
     </section>;
 };
+
 export default SEFLegacySection;
