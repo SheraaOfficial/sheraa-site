@@ -69,8 +69,8 @@ const SEFAbout = () => {
               
               <div className="absolute bottom-0 left-0 right-0 p-8 z-30 text-white">
                 <span className="text-sm text-white/70">SEF'25</span>
-                <h3 className="text-3xl font-bold mt-1">14,000+ Attendees</h3>
-                <p className="text-white/80 mt-2">300+ Global Speakers • 250+ Activities</p>
+                <h3 className="text-3xl font-bold mt-1">780+ Global Speakers</h3>
+                <p className="text-white/80 mt-2">10+ ZONES |  250+ ACTIVITIES</p>
               </div>
             </div>
           </motion.div>
