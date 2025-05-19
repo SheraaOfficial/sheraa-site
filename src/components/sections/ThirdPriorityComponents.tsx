@@ -9,41 +9,70 @@ const SimpleFallback = () => <div className="h-20 md:h-32 flex items-center just
   <div className="w-6 h-6 border-t-2 border-sheraa-primary rounded-full animate-spin"></div>
 </div>;
 
-// Improved lazy loading with better error handling
+// Define a type for the fallback components to ensure proper typing
+type FallbackComponent = React.ComponentType<{
+  message?: string;
+}>;
+
+// Improved lazy loading with better error handling and proper typing
 const PartnersSection = lazy(() => 
   import("@/components/PartnersSection")
-    .then(module => ({ default: module.default || module }))
-    .catch(() => ({ default: () => <ErrorFallback message="Failed to load Partners Section" /> }))
+    .then(module => ({ 
+      default: module.default as React.ComponentType<any>
+    }))
+    .catch(() => ({ 
+      default: (() => <ErrorFallback message="Failed to load Partners Section" />) as React.ComponentType<any>
+    }))
 );
 
 const ContactSection = lazy(() => 
   import("@/components/ContactSection")
-    .then(module => ({ default: module.default || module }))
-    .catch(() => ({ default: () => <ErrorFallback message="Failed to load Contact Section" /> }))
+    .then(module => ({ 
+      default: module.default as React.ComponentType<any>
+    }))
+    .catch(() => ({ 
+      default: (() => <ErrorFallback message="Failed to load Contact Section" />) as React.ComponentType<any>
+    }))
 );
 
 const StartupsShowcase = lazy(() => 
   import("@/components/StartupsShowcase")
-    .then(module => ({ default: module.default || module }))
-    .catch(() => ({ default: () => <ErrorFallback message="Failed to load Startups Showcase" /> }))
+    .then(module => ({ 
+      default: module.default as React.ComponentType<any>
+    }))
+    .catch(() => ({ 
+      default: (() => <ErrorFallback message="Failed to load Startups Showcase" />) as React.ComponentType<any>
+    }))
 );
 
 const PodcastSection = lazy(() => 
   import("@/components/PodcastSection")
-    .then(module => ({ default: module.default || module }))
-    .catch(() => ({ default: () => <ErrorFallback message="Failed to load Podcast Section" /> }))
+    .then(module => ({ 
+      default: module.default as React.ComponentType<any>
+    }))
+    .catch(() => ({ 
+      default: (() => <ErrorFallback message="Failed to load Podcast Section" />) as React.ComponentType<any>
+    }))
 );
 
 const CommunitySection = lazy(() => 
   import("@/components/CommunitySection")
-    .then(module => ({ default: module.default || module }))
-    .catch(() => ({ default: () => <ErrorFallback message="Failed to load Community Section" /> }))
+    .then(module => ({ 
+      default: module.default as React.ComponentType<any>
+    }))
+    .catch(() => ({ 
+      default: (() => <ErrorFallback message="Failed to load Community Section" />) as React.ComponentType<any>
+    }))
 );
 
 const StartupTestimonials = lazy(() => 
   import("@/components/StartupTestimonials")
-    .then(module => ({ default: module.default || module }))
-    .catch(() => ({ default: () => <ErrorFallback message="Failed to load Startup Testimonials" /> }))
+    .then(module => ({ 
+      default: module.default as React.ComponentType<any>
+    }))
+    .catch(() => ({ 
+      default: (() => <ErrorFallback message="Failed to load Startup Testimonials" />) as React.ComponentType<any>
+    }))
 );
 
 export const ThirdPriorityComponents: React.FC = () => {

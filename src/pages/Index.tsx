@@ -17,17 +17,21 @@ import { SafeSuspense } from "@/components/layout/SafeSuspense";
 // Enhanced error handling with proper typing for lazy-loaded components
 const SecondPriorityComponents = lazy(() => 
   import("@/components/sections/SecondPriorityComponents")
-    .then(module => ({ default: module.SecondPriorityComponents }))
+    .then(module => ({ 
+      default: module.SecondPriorityComponents as React.ComponentType<any>
+    }))
     .catch(() => ({ 
-      default: () => <ErrorFallback /> 
+      default: (() => <ErrorFallback />) as React.ComponentType<any>
     }))
 );
 
 const ThirdPriorityComponents = lazy(() => 
   import("@/components/sections/ThirdPriorityComponents")
-    .then(module => ({ default: module.ThirdPriorityComponents }))
+    .then(module => ({ 
+      default: module.ThirdPriorityComponents as React.ComponentType<any>
+    }))
     .catch(() => ({ 
-      default: () => <ErrorFallback /> 
+      default: (() => <ErrorFallback />) as React.ComponentType<any>
     }))
 );
 

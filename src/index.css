@@ -29,6 +29,8 @@
     --sheraa-orange: 25 100% 50%;
     --sheraa-teal: 180 100% 30%;
     --sheraa-dark: 240 20% 2%;
+    --shadow-glow-light: 0 0 20px 2px rgba(155, 135, 245, 0.3);
+    --shadow-glow-dark: 0 0 25px 5px rgba(155, 135, 245, 0.4);
   }
 
   .dark {
@@ -146,11 +148,11 @@
   }
   
   .shadow-glow {
-    box-shadow: 0 0 20px 2px rgba(155, 135, 245, 0.3);
+    box-shadow: var(--shadow-glow-light);
   }
   
   .dark .shadow-glow {
-    box-shadow: 0 0 25px 5px rgba(155, 135, 245, 0.4);
+    box-shadow: var(--shadow-glow-dark);
   }
   
   /* Enhanced animation utilities */
@@ -163,11 +165,11 @@
   }
   
   .hover-glow:hover {
-    @apply shadow-glow;
+    box-shadow: var(--shadow-glow-light);
   }
   
   .dark .hover-glow:hover {
-    @apply shadow-glow;
+    box-shadow: var(--shadow-glow-dark);
   }
 
   /* Fix for min-height values in SectionLoading */
