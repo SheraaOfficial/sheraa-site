@@ -28,7 +28,7 @@ const SEFLegacySection: React.FC = () => {
   return (
     <section 
       ref={sectionRef} 
-      className={`relative py-24 md:py-32 overflow-hidden ${theme === 'dark' ? 'bg-zinc-900' : 'bg-gray-50'}`} 
+      className={`relative py-24 md:py-32 overflow-hidden ${theme === 'dark' ? 'bg-zinc-900' : 'bg-gray-50'}`}
       id="sef-legacy"
     >
       {/* Enhanced background elements with stars effect */}
