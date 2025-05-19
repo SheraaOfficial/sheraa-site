@@ -63,7 +63,7 @@
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 
-  /* Dark mode text enhancements */
+  /* Enhanced dark mode text improvements */
   .dark a:not(.btn) {
     @apply text-blue-300 hover:text-blue-200;
   }
@@ -91,6 +91,35 @@
   /* Better border visibility */
   .dark .border-gray-200 {
     @apply border-gray-700;
+  }
+
+  /* Dark mode specific text enhancements */
+  .dark h1, 
+  .dark h2, 
+  .dark h3, 
+  .dark h4, 
+  .dark h5, 
+  .dark h6 {
+    @apply text-white;
+  }
+  
+  .dark p {
+    @apply text-gray-200;
+  }
+  
+  .dark .text-black {
+    @apply text-white;
+  }
+  
+  /* Buttons and interactive elements */
+  .dark button:not(.btn-primary):not(.btn-secondary) {
+    @apply hover:bg-gray-700;
+  }
+  
+  /* Card styles enhancement */
+  .dark .card, 
+  .dark .bg-card {
+    @apply shadow-md shadow-black/30;
   }
 }
 
@@ -122,6 +151,32 @@
   
   .dark .shadow-glow {
     box-shadow: 0 0 25px 5px rgba(155, 135, 245, 0.4);
+  }
+  
+  /* Enhanced animation utilities */
+  .hover-scale {
+    @apply transition-transform duration-300 hover:scale-105;
+  }
+  
+  .hover-glow {
+    @apply transition-all duration-300;
+  }
+  
+  .hover-glow:hover {
+    @apply shadow-glow;
+  }
+  
+  .dark .hover-glow:hover {
+    @apply shadow-glow;
+  }
+
+  /* Fix for min-height values in SectionLoading */
+  .min-h-60px {
+    min-height: 60px;
+  }
+  
+  .min-h-100px {
+    min-height: 100px;
   }
 }
 

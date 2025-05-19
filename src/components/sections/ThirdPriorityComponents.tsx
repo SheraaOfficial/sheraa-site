@@ -5,20 +5,46 @@ import { useIsMobile } from '@/hooks/useDeviceDetection';
 import { ErrorFallback } from '../layout/ErrorFallback';
 
 // Simple fallback component
-const SimpleFallback = () => <div className="h-20 md:h-32"></div>;
+const SimpleFallback = () => <div className="h-20 md:h-32 flex items-center justify-center">
+  <div className="w-6 h-6 border-t-2 border-sheraa-primary rounded-full animate-spin"></div>
+</div>;
 
-// Simplified lazy loading without explicit type annotations
-const PartnersSection = lazy(() => import("@/components/PartnersSection"));
+// Improved lazy loading with better error handling
+const PartnersSection = lazy(() => 
+  import("@/components/PartnersSection")
+    .then(module => ({ default: module.default || module }))
+    .catch(() => ({ default: () => <ErrorFallback message="Failed to load Partners Section" /> }))
+);
 
-const ContactSection = lazy(() => import("@/components/ContactSection"));
+const ContactSection = lazy(() => 
+  import("@/components/ContactSection")
+    .then(module => ({ default: module.default || module }))
+    .catch(() => ({ default: () => <ErrorFallback message="Failed to load Contact Section" /> }))
+);
 
-const StartupsShowcase = lazy(() => import("@/components/StartupsShowcase"));
+const StartupsShowcase = lazy(() => 
+  import("@/components/StartupsShowcase")
+    .then(module => ({ default: module.default || module }))
+    .catch(() => ({ default: () => <ErrorFallback message="Failed to load Startups Showcase" /> }))
+);
 
-const PodcastSection = lazy(() => import("@/components/PodcastSection"));
+const PodcastSection = lazy(() => 
+  import("@/components/PodcastSection")
+    .then(module => ({ default: module.default || module }))
+    .catch(() => ({ default: () => <ErrorFallback message="Failed to load Podcast Section" /> }))
+);
 
-const CommunitySection = lazy(() => import("@/components/CommunitySection"));
+const CommunitySection = lazy(() => 
+  import("@/components/CommunitySection")
+    .then(module => ({ default: module.default || module }))
+    .catch(() => ({ default: () => <ErrorFallback message="Failed to load Community Section" /> }))
+);
 
-const StartupTestimonials = lazy(() => import("@/components/StartupTestimonials"));
+const StartupTestimonials = lazy(() => 
+  import("@/components/StartupTestimonials")
+    .then(module => ({ default: module.default || module }))
+    .catch(() => ({ default: () => <ErrorFallback message="Failed to load Startup Testimonials" /> }))
+);
 
 export const ThirdPriorityComponents: React.FC = () => {
   const isMobile = useIsMobile();

@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useMemo, lazy, Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import { GradientButton } from "@/components/ui/gradient-button";
@@ -5,6 +6,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight, Star, Sparkles, Rocket, Globe } from "lucide-react";
 import { TextShimmer } from "./ui/text-shimmer";
+import { useTheme } from "@/contexts/ThemeContext";
 
 // Lazy-load components that aren't needed immediately
 const AnimatedGradient = lazy(() => import("./ui/animated-gradient-with-svg").then(mod => ({ default: mod.AnimatedGradient })));
@@ -14,6 +16,8 @@ const Hero = () => {
   const [titleIndex, setTitleIndex] = useState(0);
   const titles = useMemo(() => ["Innovate", "Create", "Scale", "Transform", "Grow"], []);
   const [mounted, setMounted] = useState(false);
+  const { theme } = useTheme();
+  const isDarkTheme = theme === "dark";
   
   useEffect(() => {
     setMounted(true);
@@ -25,10 +29,16 @@ const Hero = () => {
 
   return (
     <section className="relative min-h-screen overflow-hidden bg-gradient-to-b from-sheraa-light to-[#f0f5fb] dark:from-sheraa-dark dark:to-black text-foreground py-16 md:py-24">
-      {/* Background elements - simplified */}
+      {/* Enhanced background elements */}
       <div className="absolute inset-0 w-full h-full">
         <div className="absolute top-20 right-20 w-32 h-32 bg-sheraa-primary/10 rounded-full blur-3xl" />
         <div className="absolute bottom-20 left-20 w-64 h-64 bg-sheraa-orange/5 rounded-full blur-3xl" />
+        {isDarkTheme && (
+          <>
+            <div className="absolute top-40 left-40 w-48 h-48 bg-sheraa-primary/10 rounded-full blur-3xl" />
+            <div className="absolute bottom-40 right-30 w-56 h-56 bg-purple-500/5 rounded-full blur-3xl" />
+          </>
+        )}
       </div>
       
       {/* Main content */}
@@ -47,8 +57,8 @@ const Hero = () => {
               className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/80 dark:bg-sheraa-dark/80 backdrop-blur-sm border border-sheraa-primary/10 shadow-sm"
             >
               <Sparkles className="w-4 h-4 text-sheraa-orange" />
-              <span className="text-sm font-medium">Creating the Next Wave of Entrepreneurs</span>
-              <ArrowRight className="h-3 w-3" />
+              <span className="text-sm font-medium dark:text-white">Creating the Next Wave of Entrepreneurs</span>
+              <ArrowRight className="h-3 w-3 dark:text-white" />
             </motion.div>
 
             <div className="space-y-4">
@@ -57,7 +67,7 @@ const Hero = () => {
                   Dream to
                 </span>
                 <div className="h-[1.2em] relative">
-                  <Suspense fallback={<div className="h-[1.2em]">Innovate</div>}>
+                  <Suspense fallback={<div className="h-[1.2em] dark:text-white">Innovate</div>}>
                     {mounted && <RotatingWordsWithIcons words={titles} activeIndex={titleIndex} />}
                   </Suspense>
                 </div>
@@ -67,7 +77,7 @@ const Hero = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
-                className="text-lg sm:text-xl text-muted-foreground max-w-xl"
+                className="text-lg sm:text-xl text-muted-foreground max-w-xl dark:text-gray-300"
               >
                 Sharjah's official hub for aspiring founders and established ventures. 
                 We empower changemakers to build impactful businesses and shape the future.
@@ -105,7 +115,7 @@ const Hero = () => {
             </motion.div>
           </motion.div>
           
-          {/* Hero visual element - simplified for performance */}
+          {/* Enhanced hero visual element */}
           {mounted && (
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
@@ -117,11 +127,11 @@ const Hero = () => {
                 <div className="absolute inset-0 rounded-full border-2 border-sheraa-primary/20 animate-spin-slow" />
                 <div className="absolute inset-[10%] rounded-full border-2 border-sheraa-orange/20 animate-spin-slow" style={{ animationDirection: 'reverse', animationDuration: '15s' }} />
                 
-                <div className="absolute inset-[30%] rounded-full bg-gradient-to-br from-white/80 to-sheraa-light/50 dark:from-sheraa-dark/80 dark:to-black/50 backdrop-blur-sm flex items-center justify-center shadow-xl">
+                <div className={`absolute inset-[30%] rounded-full ${isDarkTheme ? 'bg-gradient-to-br from-sheraa-dark/80 to-black/50 border border-white/10' : 'bg-gradient-to-br from-white/80 to-sheraa-light/50'} backdrop-blur-sm flex items-center justify-center shadow-xl`}>
                   <TextShimmer className="font-bold text-3xl">Sheraa</TextShimmer>
                 </div>
                 
-                {/* Simplified orbiting elements - fewer animations */}
+                {/* Simplified orbiting elements with dark mode support */}
                 {[0, 1, 2].map((i) => {
                   const angle = (i / 3) * Math.PI * 2;
                   const x = Math.cos(angle) * 45 + 50;
@@ -129,7 +139,7 @@ const Hero = () => {
                   return (
                     <motion.div
                       key={i}
-                      className="absolute w-12 h-12 rounded-full bg-white dark:bg-sheraa-dark/90 shadow-lg flex items-center justify-center"
+                      className={`absolute w-12 h-12 rounded-full ${isDarkTheme ? 'bg-sheraa-dark/90 border border-white/10' : 'bg-white'} shadow-lg flex items-center justify-center`}
                       style={{ 
                         left: `${x}%`, 
                         top: `${y}%`,
