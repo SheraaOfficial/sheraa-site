@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { BorderBeam } from "./ui/border-beam";
 import { useDevicePerformance } from "@/hooks/useDevicePerformance";
 import { useOptimizedScroll } from "@/hooks/useOptimizedScroll";
+import { useIsMobile } from "@/hooks/useDeviceDetection";
 
 interface ProgressBarProps {
   className?: string;
@@ -21,6 +22,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
   const { isScrolling } = useOptimizedScroll();
   const [showProgress, setShowProgress] = useState(false);
   const devicePerformance = useDevicePerformance();
+  const isMobile = useIsMobile();
   const rafId = useRef<number | null>(null);
   
   // Optimize the scroll event listener with RAF and throttling
@@ -45,11 +47,14 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
     };
   }, []);
 
+  // Mobile devices get a simpler progress bar
+  const mobileStyling = isMobile ? 'h-[3px]' : '';
+
   // Simplify effects on low-performance devices
-  const shouldShowBeam = devicePerformance !== 'low';
+  const shouldShowBeam = devicePerformance !== 'low' && !isMobile;
   
-  // Determine gradient based on device performance
-  const barGradient = color || (devicePerformance === 'low' 
+  // Determine gradient based on device performance and mobile status
+  const barGradient = color || (devicePerformance === 'low' || isMobile
     ? "#003366"
     : "linear-gradient(90deg, #003366 0%, #008080 50%, #FF6600 100%)");
 
@@ -57,7 +62,8 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
     <>
       <motion.div
         className={cn(
-          `fixed top-0 left-0 right-0 h-${height} z-[100] origin-left will-change-transform`,
+          `fixed top-0 left-0 right-0 z-[100] origin-left will-change-transform`,
+          mobileStyling || `h-${height}`,
           showProgress ? "opacity-100" : "opacity-0",
           "transition-opacity duration-200",
           className
@@ -65,14 +71,13 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
         style={{
           scaleX: scrollYProgress,
           background: barGradient,
-          position: "relative"
         }}
         transition={{
           duration: devicePerformance === 'low' ? 0.1 : 0,
         }}
       />
       
-      {/* Decorative beam effect only for higher-end devices */}
+      {/* Decorative beam effect only for higher-end desktop devices */}
       {shouldShowBeam && (
         <div className={cn(
           `fixed top-0 left-0 right-0 h-${height} z-[99] pointer-events-none`, 

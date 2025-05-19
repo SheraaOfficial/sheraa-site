@@ -147,6 +147,7 @@
     contain: strict;
   }
   
+  /* Fixed shadow-glow utilities to avoid circular dependency */
   .shadow-glow {
     box-shadow: var(--shadow-glow-light);
   }
@@ -180,6 +181,45 @@
   .min-h-100px {
     min-height: 100px;
   }
+
+  /* Mobile optimizations */
+  @media (max-width: 768px) {
+    .mobile-padding {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+    
+    .mobile-text-center {
+      text-align: center;
+    }
+    
+    .mobile-full-width {
+      width: 100%;
+    }
+  }
+
+  /* Improved tap targets for mobile */
+  @media (max-width: 768px) {
+    .mobile-tap-target {
+      min-height: 44px;
+      min-width: 44px;
+    }
+  }
+
+  /* Performance optimizations for content visibility */
+  .content-visibility-auto {
+    content-visibility: auto;
+  }
 }
 
-/* Add any additional styles needed */
+/* Add mobile-specific styles */
+@media (max-width: 768px) {
+  html, body {
+    overflow-x: hidden;
+  }
+  
+  body {
+    position: relative;
+    width: 100%;
+  }
+}

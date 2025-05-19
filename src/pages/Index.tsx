@@ -1,5 +1,5 @@
 
-import React, { lazy, Suspense } from "react";
+import React, { lazy, Suspense, useEffect } from "react";
 import MainLayout from "@/components/layouts/MainLayout";
 import { useOptimizedScroll } from "@/hooks/useOptimizedScroll";
 import { useBackgroundAnimation } from "@/hooks/use-background-animation";
@@ -13,6 +13,7 @@ import { useIsMobile } from "@/hooks/useDeviceDetection";
 import { SectionLoading } from "@/components/layout/SectionLoading";
 import { ErrorFallback } from "@/components/layout/ErrorFallback";
 import { SafeSuspense } from "@/components/layout/SafeSuspense";
+import { OptimizedMobileLayout } from "@/components/layouts/OptimizedMobileLayout";
 
 // Enhanced error handling with proper typing for lazy-loaded components
 const SecondPriorityComponents = lazy(() => 
@@ -21,7 +22,7 @@ const SecondPriorityComponents = lazy(() =>
       default: module.SecondPriorityComponents as React.ComponentType<any>
     }))
     .catch(() => ({ 
-      default: (() => <ErrorFallback />) as React.ComponentType<any>
+      default: (() => <ErrorFallback message="Failed to load secondary components" />) as React.ComponentType<any>
     }))
 );
 
@@ -31,7 +32,7 @@ const ThirdPriorityComponents = lazy(() =>
       default: module.ThirdPriorityComponents as React.ComponentType<any>
     }))
     .catch(() => ({ 
-      default: (() => <ErrorFallback />) as React.ComponentType<any>
+      default: (() => <ErrorFallback message="Failed to load additional components" />) as React.ComponentType<any>
     }))
 );
 
@@ -50,7 +51,7 @@ const LoadingPlaceholder: React.FC = () => {
   }
   
   return (
-    <div className={`h-${isMobile ? '16' : '32'} flex items-center justify-center bg-sheraa-light/30 rounded-md`}>
+    <div className={`h-${isMobile ? '16' : '32'} flex items-center justify-center bg-sheraa-light/30 dark:bg-sheraa-dark/30 rounded-md`}>
       <SectionLoading />
     </div>
   );
@@ -104,32 +105,39 @@ const Index: React.FC = () => {
   // Use the preloader hook
   useComponentPreloader(deepScroll, devicePerformance, isMobile);
 
+  // Set document title
+  useEffect(() => {
+    document.title = "Sheraa: Creating the Next Wave of Entrepreneurs";
+  }, []);
+
   return (
     <MainLayout backgroundStyle={backgroundStyle}>
-      {/* Only show progress bar on non-mobile or high-performance devices */}
-      {(!isMobile || devicePerformance === 'high') && <ProgressBar />}
+      <OptimizedMobileLayout>
+        {/* Only show progress bar on non-mobile or high-performance devices */}
+        {(!isMobile || devicePerformance === 'high') && <ProgressBar />}
 
-      {/* Hero section - load immediately */}
-      <HeroSection />
-      
-      <div className="space-y-0 relative z-10">
-        {/* First priority components - always load */}
-        <FirstPriorityComponents />
+        {/* Hero section - load immediately */}
+        <HeroSection />
         
-        {/* Second priority components - load after user interaction */}
-        {firstInteraction && (
-          <SafeSuspense fallback={<LoadingPlaceholder />}>
-            <SecondPriorityComponents />
-          </SafeSuspense>
-        )}
-        
-        {/* Third priority components - load after deep scroll */}
-        {deepScroll && (
-          <SafeSuspense fallback={<LoadingPlaceholder />}>
-            <ThirdPriorityComponents />
-          </SafeSuspense>
-        )}
-      </div>
+        <div className={`space-y-0 relative z-10 ${isMobile ? 'px-4' : ''}`}>
+          {/* First priority components - always load */}
+          <FirstPriorityComponents />
+          
+          {/* Second priority components - load after user interaction */}
+          {firstInteraction && (
+            <SafeSuspense fallback={<LoadingPlaceholder />}>
+              <SecondPriorityComponents />
+            </SafeSuspense>
+          )}
+          
+          {/* Third priority components - load after deep scroll */}
+          {deepScroll && (
+            <SafeSuspense fallback={<LoadingPlaceholder />}>
+              <ThirdPriorityComponents />
+            </SafeSuspense>
+          )}
+        </div>
+      </OptimizedMobileLayout>
     </MainLayout>
   );
 };
