@@ -1,9 +1,11 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { GradientButton } from '@/components/ui/gradient-button';
 import { Button } from '@/components/ui/button';
 import { Sparkles } from '@/components/ui/sparkles';
+
 const SEFEnhancedHero: React.FC = () => {
   const textAnimation = {
     initial: {
@@ -20,7 +22,9 @@ const SEFEnhancedHero: React.FC = () => {
       }
     })
   };
-  return <section className="relative min-h-[100vh] w-full flex items-center overflow-hidden">
+
+  return (
+    <section className="relative min-h-[100vh] w-full flex items-center overflow-hidden">
       {/* Background image with overlay */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-r dark:from-[#1A1F2C]/90 dark:to-[#292D3E]/90 from-indigo-900/90 to-purple-900/90 z-10"></div>
@@ -70,8 +74,7 @@ const SEFEnhancedHero: React.FC = () => {
           
           <div className="space-y-4 mb-10">
             <motion.h1 custom={0} initial="initial" animate="animate" variants={textAnimation} className="text-5xl font-extrabold uppercase tracking-tighter text-white drop-shadow-lg leading-tight md:text-8xl">
-              THE REGION'S <br className="hidden md:block" />
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#E5DEFF] via-white to-[#D6BCFA]">LARGEST ENTREPRENEURSHIP</span> FESTIVAL
+              THE REGION'S LARGEST ENTREPRENEURSHIP FESTIVAL
             </motion.h1>
             
             <motion.h2 custom={1} initial="initial" animate="animate" variants={textAnimation} className="text-3xl md:text-5xl font-bold text-white/90">
@@ -127,6 +130,8 @@ const SEFEnhancedHero: React.FC = () => {
           </motion.div>
         </div>
       </div>
-    </section>;
+    </section>
+  );
 };
+
 export default SEFEnhancedHero;

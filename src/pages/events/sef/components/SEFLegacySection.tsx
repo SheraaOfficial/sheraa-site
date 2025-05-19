@@ -6,7 +6,6 @@ import BackgroundEffects from './legacy/BackgroundEffects';
 import SectionHeader from './legacy/SectionHeader';
 import ImpactStats from './legacy/ImpactStats';
 import JourneyThroughTime from './legacy/JourneyThroughTime';
-import SpeakerHallOfFame from './legacy/SpeakerHallOfFame';
 import InspirationalQuotes from './legacy/InspirationalQuotes';
 import BoldStatement from './legacy/BoldStatement';
 
@@ -47,8 +46,7 @@ const SEFLegacySection: React.FC = () => {
         {/* JOURNEY THROUGH TIME */}
         <JourneyThroughTime />
         
-        {/* Hall of Fame section */}
-        <SpeakerHallOfFame />
+        {/* Note: Speaker Hall of Fame section removed as requested */}
         
         {/* Inspirational quotes section */}
         <InspirationalQuotes />

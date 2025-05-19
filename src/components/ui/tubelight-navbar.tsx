@@ -3,7 +3,7 @@
 
 import React, { useEffect, useState } from "react"
 import { motion } from "framer-motion"
-import { Link } from "react-router-dom" // Using react-router-dom instead of next/link
+import { Link, useLocation } from "react-router-dom" // Using react-router-dom instead of next/link
 import { LucideIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Sparkles } from "@/components/ui/sparkles"
@@ -21,25 +21,29 @@ interface NavBarProps {
 }
 
 export function NavBar({ items, className }: NavBarProps) {
-  const [activeTab, setActiveTab] = useState(items[0].name)
-  const [isMobile, setIsMobile] = useState(false)
+  const location = useLocation();
+  const [activeTab, setActiveTab] = useState("");
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 768)
-    }
+      setIsMobile(window.innerWidth < 768);
+    };
 
     // Set active tab based on current URL
-    const currentPath = window.location.pathname
-    const activeItem = items.find(item => currentPath.includes(item.url))
+    const currentPath = location.pathname;
+    const activeItem = items.find(item => currentPath.includes(item.url));
     if (activeItem) {
-      setActiveTab(activeItem.name)
+      setActiveTab(activeItem.name);
+    } else {
+      // Default to first item if no match
+      setActiveTab(items[0].name);
     }
 
-    handleResize()
-    window.addEventListener("resize", handleResize)
-    return () => window.removeEventListener("resize", handleResize)
-  }, [items])
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [items, location.pathname]);
 
   return (
     <div
@@ -50,8 +54,8 @@ export function NavBar({ items, className }: NavBarProps) {
     >
       <div className="flex items-center gap-3 bg-background/70 border border-border backdrop-blur-lg py-1 px-1 rounded-full shadow-lg">
         {items.map((item) => {
-          const Icon = item.icon
-          const isActive = activeTab === item.name
+          const Icon = item.icon;
+          const isActive = activeTab === item.name;
 
           return item.highlight ? (
             <Link
@@ -113,5 +117,5 @@ export function NavBar({ items, className }: NavBarProps) {
         })}
       </div>
     </div>
-  )
+  );
 }
