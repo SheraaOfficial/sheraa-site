@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, BadgeCheck } from 'lucide-react';
 import { GradientButton } from '@/components/ui/gradient-button';
 import { Sparkles } from '@/components/ui/sparkles';
 
@@ -48,7 +48,7 @@ const SEFRegisterCTA = () => {
         >
           <Sparkles className="mb-6">
             <div className="inline-block rounded-full bg-white/10 px-3 py-1 text-sm text-white backdrop-blur-sm">
-              Limited Tickets Available
+              Limited VIP Passes Available
             </div>
           </Sparkles>
           
@@ -79,13 +79,24 @@ const SEFRegisterCTA = () => {
             </div>
           </div>
           
+          <div className="flex flex-col sm:flex-row gap-4 mb-8">
+            <div className="flex items-center text-white/80">
+              <BadgeCheck className="w-5 h-5 text-emerald-400 mr-2" />
+              <span>Early bird pricing ends October 1, 2025</span>
+            </div>
+            <div className="flex items-center text-white/80">
+              <BadgeCheck className="w-5 h-5 text-emerald-400 mr-2" />
+              <span>VIP passes are limited to 100 attendees</span>
+            </div>
+          </div>
+          
           <GradientButton asChild variant="shimmer" size="xl" className="shadow-glow">
             <Link to="/events/sef/register" className="px-12 py-6">
               Register Now <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
           </GradientButton>
           
-          <p className="text-white/60 mt-6">Early bird tickets available until October 1, 2025</p>
+          <p className="text-white/60 mt-6">Groups of 5+ qualify for special corporate rates</p>
         </motion.div>
       </div>
     </section>

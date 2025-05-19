@@ -1,11 +1,10 @@
 
 import React, { useState } from 'react';
 import MainLayout from '@/components/layouts/MainLayout';
-import { ParallaxBackground } from '@/components/parallax';
-import { Sparkles } from '@/components/ui/sparkles';
 import { motion } from 'framer-motion';
+import { Sparkles } from '@/components/ui/sparkles';
 import { Button } from '@/components/ui/button';
-import { Calendar, Users, MapPin, Info, ArrowRight } from 'lucide-react';
+import { Calendar, Users, MapPin, Info, ArrowRight, BadgeCheck } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -13,6 +12,9 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useToast } from "@/hooks/use-toast";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { cn } from "@/lib/utils";
 
 // Form schema
 const formSchema = z.object({
@@ -21,13 +23,50 @@ const formSchema = z.object({
   organization: z.string().min(2, "Organization must be at least 2 characters"),
   role: z.string().min(2, "Role must be at least 2 characters"),
   phone: z.string().optional(),
+  passType: z.enum(["standard", "premium", "executive", "vip"]),
+  quantity: z.string().refine((val) => !isNaN(Number(val)) && Number(val) > 0, {
+    message: "Please enter a valid quantity",
+  }),
 });
 
 type FormValues = z.infer<typeof formSchema>;
 
+const passes = [
+  {
+    id: "standard",
+    name: "Standard Pass",
+    price: "AED 199",
+    color: "bg-blue-500",
+    description: "Access to all zones, workshops, and basic networking opportunities."
+  },
+  {
+    id: "premium",
+    name: "Premium Pass",
+    price: "AED 499",
+    color: "bg-purple-600",
+    popular: true,
+    description: "VIP lounge access, exclusive networking events, priority seating."
+  },
+  {
+    id: "executive",
+    name: "Executive Pass",
+    price: "AED 999",
+    color: "bg-amber-500",
+    description: "Private meeting rooms, meet & greet with speakers, investor matchmaking."
+  },
+  {
+    id: "vip",
+    name: "VIP Pass",
+    price: "AED 1,499",
+    color: "bg-emerald-600",
+    description: "Backstage access, dedicated concierge, private dinner with industry leaders."
+  }
+];
+
 const SEFRegisterPage: React.FC = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [selectedTab, setSelectedTab] = useState("individual");
   
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -37,9 +76,17 @@ const SEFRegisterPage: React.FC = () => {
       organization: "",
       role: "",
       phone: "",
+      passType: "premium",
+      quantity: "1",
     },
   });
 
+  const selectedPass = passes.find(pass => pass.id === form.watch("passType"));
+  const quantity = parseInt(form.watch("quantity") || "1");
+  const subtotal = selectedPass ? parseInt(selectedPass.price.replace(/[^0-9]/g, "")) * quantity : 0;
+  const vat = subtotal * 0.05; // 5% VAT
+  const total = subtotal + vat;
+  
   const onSubmit = async (data: FormValues) => {
     setIsSubmitting(true);
     
@@ -47,7 +94,7 @@ const SEFRegisterPage: React.FC = () => {
     setTimeout(() => {
       toast({
         title: "Registration Successful!",
-        description: "You've been registered for SEF'26. Check your email for confirmation details.",
+        description: `You've been registered for SEF'26 with ${data.quantity} ${data.passType} ${parseInt(data.quantity) > 1 ? 'passes' : 'pass'}. Check your email for confirmation details.`,
       });
       setIsSubmitting(false);
       form.reset();
@@ -79,8 +126,32 @@ const SEFRegisterPage: React.FC = () => {
           </motion.div>
         </div>
 
+        {/* Registration Tabs */}
+        <div className="max-w-3xl mx-auto mb-8">
+          <Tabs defaultValue="individual" onValueChange={setSelectedTab}>
+            <TabsList className="grid grid-cols-2 mb-8">
+              <TabsTrigger value="individual">Individual Registration</TabsTrigger>
+              <TabsTrigger value="group">Group Registration</TabsTrigger>
+            </TabsList>
+            
+            <TabsContent value="individual">
+              <div className="text-center mb-6">
+                <h2 className="text-xl font-medium text-gray-800">Individual Registration</h2>
+                <p className="text-gray-600">Register for yourself or someone else</p>
+              </div>
+            </TabsContent>
+            
+            <TabsContent value="group">
+              <div className="text-center mb-6">
+                <h2 className="text-xl font-medium text-gray-800">Group Registration</h2>
+                <p className="text-gray-600">Register 5+ attendees and receive group discounts</p>
+              </div>
+            </TabsContent>
+          </Tabs>
+        </div>
+
         {/* Content Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start max-w-6xl mx-auto">
           {/* Form */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -161,9 +232,100 @@ const SEFRegisterPage: React.FC = () => {
                     </FormItem>
                   )}
                 />
+
+                <div className="py-2">
+                  <h3 className="text-lg font-semibold mb-4">Select Pass Type</h3>
+                  
+                  <FormField
+                    control={form.control}
+                    name="passType"
+                    render={({ field }) => (
+                      <FormItem className="space-y-3">
+                        <FormControl>
+                          <RadioGroup
+                            onValueChange={field.onChange}
+                            defaultValue={field.value}
+                            className="grid grid-cols-1 gap-3"
+                          >
+                            {passes.map((pass) => (
+                              <div
+                                key={pass.id}
+                                className={cn(
+                                  "flex items-center space-x-3 rounded-lg border p-4 transition-all",
+                                  field.value === pass.id && "border-[#9b87f5] bg-[#9b87f5]/5"
+                                )}
+                              >
+                                <RadioGroupItem value={pass.id} id={pass.id} className="border-gray-300" />
+                                <div className="flex-1">
+                                  <div className="flex justify-between">
+                                    <label htmlFor={pass.id} className="font-medium cursor-pointer">
+                                      {pass.name}
+                                      {pass.popular && (
+                                        <span className="ml-2 inline-block bg-purple-100 text-purple-800 text-xs px-2 py-0.5 rounded-full">
+                                          Popular
+                                        </span>
+                                      )}
+                                    </label>
+                                    <span className="font-semibold">{pass.price}</span>
+                                  </div>
+                                  <p className="text-sm text-gray-500 mt-1">{pass.description}</p>
+                                </div>
+                              </div>
+                            ))}
+                          </RadioGroup>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                
+                <FormField
+                  control={form.control}
+                  name="quantity"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Number of Passes</FormLabel>
+                      <FormControl>
+                        <Input 
+                          type="number" 
+                          min="1" 
+                          max={selectedTab === "group" ? "20" : "4"} 
+                          placeholder="1" 
+                          {...field} 
+                        />
+                      </FormControl>
+                      <FormMessage />
+                      {parseInt(field.value) > 4 && selectedTab === "individual" && (
+                        <p className="text-orange-600 text-sm mt-1">
+                          For 5+ passes, switch to Group Registration for discounted rates
+                        </p>
+                      )}
+                    </FormItem>
+                  )}
+                />
+                
+                {/* Order Summary */}
+                <div className="mt-6 bg-gray-50 p-4 rounded-lg">
+                  <h3 className="font-medium mb-3">Order Summary</h3>
+                  <div className="space-y-2 text-sm">
+                    <div className="flex justify-between">
+                      <span>{selectedPass?.name} x {quantity}</span>
+                      <span>AED {subtotal.toFixed(2)}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>VAT (5%)</span>
+                      <span>AED {vat.toFixed(2)}</span>
+                    </div>
+                    <div className="border-t pt-2 mt-2 flex justify-between font-semibold">
+                      <span>Total</span>
+                      <span>AED {total.toFixed(2)}</span>
+                    </div>
+                  </div>
+                </div>
                 
                 <Button type="submit" className="w-full" disabled={isSubmitting}>
-                  {isSubmitting ? "Processing..." : "Register Now"}
+                  {isSubmitting ? "Processing..." : "Complete Registration"}
                 </Button>
                 
                 <p className="text-xs text-center text-gray-500 mt-4">
@@ -206,64 +368,64 @@ const SEFRegisterPage: React.FC = () => {
               </div>
             </div>
             
-            {/* Why Attend */}
+            {/* Attendance Benefits */}
             <div className="bg-gradient-purple/10 backdrop-blur-sm rounded-3xl shadow-sheraa-soft p-8 border border-purple-100">
-              <h2 className="text-2xl font-semibold text-sheraa-primary mb-6">Why Attend SEF'26?</h2>
+              <h2 className="text-2xl font-semibold text-sheraa-primary mb-6">Pass Comparison</h2>
               
-              <ul className="space-y-4">
-                <li className="flex items-start gap-3">
-                  <div className="mt-1 bg-purple-100 p-1.5 rounded-full">
-                    <Info className="h-4 w-4 text-sheraa-primary" />
+              <div className="space-y-5">
+                <div className="flex items-start gap-3">
+                  <div className="mt-1 bg-blue-100 p-1.5 rounded-full">
+                    <BadgeCheck className="h-4 w-4 text-blue-600" />
                   </div>
                   <div>
-                    <span className="font-medium text-gray-800">World-Class Speakers</span>
-                    <p className="text-gray-600 text-sm mt-1">Learn from 300+ global leaders sharing insights across technology, finance, sustainability, and more.</p>
+                    <span className="font-medium text-gray-800">Standard Pass (AED 199)</span>
+                    <p className="text-gray-600 text-sm mt-1">Access to all zones, workshops, digital program guide. Perfect for students and first-time attendees.</p>
                   </div>
-                </li>
+                </div>
                 
-                <li className="flex items-start gap-3">
+                <div className="flex items-start gap-3">
                   <div className="mt-1 bg-purple-100 p-1.5 rounded-full">
-                    <Info className="h-4 w-4 text-sheraa-primary" />
+                    <BadgeCheck className="h-4 w-4 text-purple-600" />
                   </div>
                   <div>
-                    <span className="font-medium text-gray-800">Dynamic Experience Zones</span>
-                    <p className="text-gray-600 text-sm mt-1">Explore diverse zones: Startup Town, Investors Lounge, Made in Sharjah, Creative Zone, and more.</p>
+                    <span className="font-medium text-gray-800">Premium Pass (AED 499)</span>
+                    <p className="text-gray-600 text-sm mt-1">All Standard features plus VIP lounge access, exclusive networking events, and priority seating at keynotes.</p>
                   </div>
-                </li>
+                </div>
                 
-                <li className="flex items-start gap-3">
-                  <div className="mt-1 bg-purple-100 p-1.5 rounded-full">
-                    <Info className="h-4 w-4 text-sheraa-primary" />
+                <div className="flex items-start gap-3">
+                  <div className="mt-1 bg-amber-100 p-1.5 rounded-full">
+                    <BadgeCheck className="h-4 w-4 text-amber-600" />
                   </div>
                   <div>
-                    <span className="font-medium text-gray-800">High-Impact Networking</span>
-                    <p className="text-gray-600 text-sm mt-1">Connect with potential co-founders, mentors, partners, and investors through curated meetings.</p>
+                    <span className="font-medium text-gray-800">Executive Pass (AED 999)</span>
+                    <p className="text-gray-600 text-sm mt-1">All Premium features plus meet & greet with speakers, private meeting rooms, and investor matchmaking.</p>
                   </div>
-                </li>
+                </div>
                 
-                <li className="flex items-start gap-3">
-                  <div className="mt-1 bg-purple-100 p-1.5 rounded-full">
-                    <Info className="h-4 w-4 text-sheraa-primary" />
+                <div className="flex items-start gap-3">
+                  <div className="mt-1 bg-emerald-100 p-1.5 rounded-full">
+                    <BadgeCheck className="h-4 w-4 text-emerald-600" />
                   </div>
                   <div>
-                    <span className="font-medium text-gray-800">Startup Opportunities</span>
-                    <p className="text-gray-600 text-sm mt-1">Showcase your venture, compete for significant funding in the Pitch Competition, and gain recognition.</p>
+                    <span className="font-medium text-gray-800">VIP Pass (AED 1,499)</span>
+                    <p className="text-gray-600 text-sm mt-1">Complete experience with dedicated concierge, backstage access, luxury gift package, and private dinner with industry leaders.</p>
                   </div>
-                </li>
-              </ul>
+                </div>
+              </div>
               
-              <Button asChild className="w-full mt-6" variant="secondary">
-                <Link to="/events/sef/agenda">
-                  Explore Full Agenda
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
+              <div className="mt-6 bg-white/50 p-4 rounded-lg">
+                <div className="flex items-center gap-2 text-sm">
+                  <Info className="h-4 w-4 text-sheraa-primary" />
+                  <span className="font-medium text-sheraa-primary">Group discounts available for 5+ passes</span>
+                </div>
+              </div>
             </div>
           </motion.div>
         </div>
         
         {/* Related Links */}
-        <div className="mt-16">
+        <div className="mt-16 max-w-6xl mx-auto">
           <h3 className="text-xl font-semibold text-sheraa-primary mb-6">Explore More</h3>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
