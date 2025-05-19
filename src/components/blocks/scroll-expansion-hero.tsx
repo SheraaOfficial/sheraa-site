@@ -1,5 +1,7 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+
 interface ScrollExpandMediaProps {
   mediaType: 'video' | 'image';
   mediaSrc: string;
@@ -11,6 +13,7 @@ interface ScrollExpandMediaProps {
   textBlend?: boolean;
   children: React.ReactNode;
 }
+
 const ScrollExpandMedia: React.FC<ScrollExpandMediaProps> = ({
   mediaType,
   mediaSrc,
@@ -62,6 +65,74 @@ const ScrollExpandMedia: React.FC<ScrollExpandMediaProps> = ({
       window.removeEventListener('resetSection', handleReset);
     };
   }, []);
-  return;
+  
+  // Return JSX - this was missing in the original code
+  return (
+    <div 
+      ref={containerRef}
+      className="relative w-full"
+      style={{ height: containerHeight }}
+    >
+      <div className="sticky top-0 left-0 right-0 overflow-hidden h-screen">
+        {/* Background Image */}
+        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${bgImageSrc})` }} />
+        
+        {/* Media Container */}
+        <motion.div 
+          className="absolute inset-0 flex items-center justify-center"
+          style={{ 
+            scale: mediaScale,
+            y: mediaY,
+            borderRadius: mediaBorderRadius
+          }}
+        >
+          {mediaType === 'video' ? (
+            <video
+              src={mediaSrc}
+              poster={posterSrc}
+              className="w-full h-full object-cover"
+              autoPlay
+              loop
+              muted
+              playsInline
+            />
+          ) : (
+            <img 
+              src={mediaSrc} 
+              alt={title} 
+              className="w-full h-full object-cover"
+            />
+          )}
+        </motion.div>
+        
+        {/* Gradient Overlay */}
+        <motion.div 
+          className="absolute inset-0 bg-gradient-to-t from-black to-transparent"
+          style={{ opacity: overlayOpacity }}
+        />
+        
+        {/* Text Content */}
+        <motion.div 
+          className="absolute bottom-0 left-0 right-0 p-8"
+          style={{ 
+            opacity: contentOpacity,
+            y: contentY
+          }}
+        >
+          <div className={`container mx-auto ${textBlend ? 'mix-blend-difference' : ''}`}>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">{title}</h2>
+            <p className="text-xl text-white/80">{date}</p>
+            <div className="mt-4 text-white">
+              {children}
+            </div>
+            <div className="mt-6 text-white/50 text-sm animate-pulse">
+              {scrollToExpand}
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </div>
+  );
 };
+
 export default ScrollExpandMedia;
