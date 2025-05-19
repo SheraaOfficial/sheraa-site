@@ -4,7 +4,6 @@ import { useOptimizedImage } from '@/hooks/use-optimized-image';
 import { cn } from '@/lib/utils';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useDevicePerformance } from '@/hooks/useDevicePerformance';
-import { useIsMobile } from '@/hooks/useDeviceDetection';
 
 interface OptimizedImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   src: string;
@@ -39,7 +38,6 @@ export function OptimizedImage({
   ...props
 }: OptimizedImageProps) {
   const devicePerformance = useDevicePerformance();
-  const isMobile = useIsMobile();
   const { src: optimizedSrc, loading: isLoading, error } = useOptimizedImage({
     src,
     lowQualitySrc,
@@ -48,12 +46,6 @@ export function OptimizedImage({
     onLoad,
     onError
   });
-
-  // Use native lazy loading for non-priority images
-  const nativeLazyLoading = !priority && 'loading' in HTMLImageElement.prototype;
-  
-  // Generate appropriate sizes if not provided
-  const imageSizes = props.sizes || (isMobile ? '100vw' : '50vw');
 
   // Determine container style based on aspect ratio
   const containerStyle = aspectRatio
@@ -86,18 +78,15 @@ export function OptimizedImage({
       <img
         src={optimizedSrc}
         alt={alt}
-        loading={nativeLazyLoading ? 'lazy' : (priority ? 'eager' : loading)}
+        loading={priority ? 'eager' : loading}
         className={cn(
-          "max-w-full h-auto will-change-opacity", 
-          fadeIn && devicePerformance !== 'low' ? "transition-opacity duration-300" : "",
+          "will-change-opacity", 
+          fadeIn ? "transition-opacity duration-300" : "",
           isLoading ? "opacity-0" : "opacity-100",
           className
         )}
         // Add decoding attribute for better performance
         decoding={priority ? "sync" : "async"}
-        // Add fetchpriority attribute for modern browsers
-        fetchPriority={priority ? "high" : "auto"}
-        sizes={imageSizes}
         {...props}
       />
     </div>

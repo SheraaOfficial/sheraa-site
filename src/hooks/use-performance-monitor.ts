@@ -1,131 +1,163 @@
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
+// Define the types for the performance metrics
 interface PerformanceMetrics {
-  fps: number | null;
-  connectionType: string | null;
-  deviceMemory: number | null;
-  hardwareConcurrency: number | null;
-  isLowEndDevice: boolean;
-  isLowEndExperience: boolean;
+  fcp: number | null; // First Contentful Paint
+  lcp: number | null; // Largest Contentful Paint
+  cls: number | null; // Cumulative Layout Shift
+  fid: number | null; // First Input Delay
+  ttfb: number | null; // Time to First Byte
+  connectionType: string | null; // Connection type (4g, 3g, 2g, slow-2g)
+  deviceMemory: number | null; // Device memory in GB
+  hardwareConcurrency: number | null; // Number of logical CPU cores
+  saveData: boolean | null; // Whether the user has requested reduced data usage
 }
 
-export function usePerformanceMonitor(): PerformanceMetrics {
+/**
+ * Hook to monitor performance metrics of the application
+ */
+export const usePerformanceMonitor = () => {
   const [metrics, setMetrics] = useState<PerformanceMetrics>({
-    fps: null,
+    fcp: null,
+    lcp: null,
+    cls: null,
+    fid: null,
+    ttfb: null,
     connectionType: null,
     deviceMemory: null,
     hardwareConcurrency: null,
-    isLowEndDevice: false,
-    isLowEndExperience: false
+    saveData: null,
   });
 
   useEffect(() => {
-    // Check for performance API support
-    if (typeof performance === 'undefined') return;
+    // Check browser support for various APIs
+    const hasPerfObserver = typeof PerformanceObserver === 'function';
+    const hasConnection = 'connection' in navigator;
+    const hasMemory = 'deviceMemory' in navigator;
+    const hasConcurrency = 'hardwareConcurrency' in navigator;
 
-    // Detect network info using Network Information API
-    const detectNetworkInfo = () => {
-      const nav = navigator as any;
-      if (nav.connection) {
-        const { effectiveType, type } = nav.connection;
-        return effectiveType || type || null;
-      }
-      return null;
-    };
-
-    // Get hardware info
-    const detectHardwareInfo = () => {
-      const nav = navigator as any;
-      const memory = nav.deviceMemory || null;
-      const cores = navigator.hardwareConcurrency || null;
-      
-      // Determine if this is a low-end device
-      const isLowEnd = (memory && memory <= 4) || 
-                        (cores && cores <= 4) ||
-                        false;
-      
-      return {
-        memory,
-        cores,
-        isLowEnd
-      };
-    };
-
-    // FPS monitoring (simplified approach)
-    let lastTime = performance.now();
-    let frames = 0;
-    let fps = 0;
-    
-    const measureFPS = () => {
-      frames++;
-      const currentTime = performance.now();
-      
-      if (currentTime - lastTime >= 1000) {
-        fps = frames;
-        frames = 0;
-        lastTime = currentTime;
-        
-        const hardware = detectHardwareInfo();
-        const connectionType = detectNetworkInfo();
-        
-        // Determine if this is a low-end experience based on FPS and hardware
-        const isLowEndExperience = fps < 30 || hardware.isLowEnd || 
-                                  connectionType === 'slow-2g' || 
-                                  connectionType === '2g';
-        
-        setMetrics({
-          fps,
-          connectionType,
-          deviceMemory: hardware.memory,
-          hardwareConcurrency: hardware.cores,
-          isLowEndDevice: hardware.isLowEnd,
-          isLowEndExperience
-        });
-      }
-      
-      // Schedule next frame
-      requestAnimationFrame(measureFPS);
-    };
-    
-    // Start FPS monitoring
-    const animationId = requestAnimationFrame(measureFPS);
-    
-    // Initial values
-    const hardware = detectHardwareInfo();
-    const connectionType = detectNetworkInfo();
-    
-    setMetrics({
-      fps: null,
-      connectionType,
-      deviceMemory: hardware.memory,
-      hardwareConcurrency: hardware.cores,
-      isLowEndDevice: hardware.isLowEnd,
-      isLowEndExperience: hardware.isLowEnd || connectionType === 'slow-2g' || connectionType === '2g'
-    });
-    
-    // Network connection change listener
-    if (navigator.connection) {
-      (navigator as any).connection.addEventListener('change', () => {
-        const updatedConnectionType = detectNetworkInfo();
+    // Network information
+    if (hasConnection) {
+      const conn = (navigator as any).connection;
+      if (conn) {
         setMetrics(prev => ({
           ...prev,
-          connectionType: updatedConnectionType,
-          isLowEndExperience: prev.fps ? 
-            (prev.fps < 30 || prev.isLowEndDevice || updatedConnectionType === 'slow-2g' || updatedConnectionType === '2g') :
-            (prev.isLowEndDevice || updatedConnectionType === 'slow-2g' || updatedConnectionType === '2g')
+          connectionType: conn.effectiveType || null,
+          saveData: conn.saveData || null,
         }));
-      });
-    }
-    
-    return () => {
-      // Clean up
-      cancelAnimationFrame(animationId);
-      if (navigator.connection) {
-        (navigator as any).connection.removeEventListener('change', () => {});
+
+        // Listen for connection changes
+        const updateConnectionInfo = () => {
+          setMetrics(prev => ({
+            ...prev,
+            connectionType: conn.effectiveType || null,
+            saveData: conn.saveData || null,
+          }));
+        };
+
+        conn.addEventListener('change', updateConnectionInfo);
+        return () => conn.removeEventListener('change', updateConnectionInfo);
       }
-    };
+    }
+
+    // Device capabilities
+    if (hasMemory) {
+      setMetrics(prev => ({
+        ...prev,
+        deviceMemory: (navigator as any).deviceMemory || null,
+      }));
+    }
+
+    if (hasConcurrency) {
+      setMetrics(prev => ({
+        ...prev,
+        hardwareConcurrency: navigator.hardwareConcurrency || null,
+      }));
+    }
+
+    // Performance metrics using PerformanceObserver
+    if (hasPerfObserver) {
+      // First Contentful Paint
+      const fcpObserver = new PerformanceObserver((entryList) => {
+        const entries = entryList.getEntries();
+        if (entries.length > 0) {
+          const fcp = entries[0].startTime;
+          setMetrics(prev => ({ ...prev, fcp }));
+        }
+      });
+
+      try {
+        fcpObserver.observe({ type: 'paint', buffered: true });
+      } catch (e) {
+        console.error('FCP observation error:', e);
+      }
+
+      // Largest Contentful Paint
+      const lcpObserver = new PerformanceObserver((entryList) => {
+        const entries = entryList.getEntries();
+        if (entries.length > 0) {
+          const lastEntry = entries[entries.length - 1];
+          setMetrics(prev => ({ ...prev, lcp: lastEntry.startTime }));
+        }
+      });
+
+      try {
+        lcpObserver.observe({ type: 'largest-contentful-paint', buffered: true });
+      } catch (e) {
+        console.error('LCP observation error:', e);
+      }
+
+      // Cumulative Layout Shift
+      const clsObserver = new PerformanceObserver((entryList) => {
+        let clsValue = 0;
+        for (const entry of entryList.getEntries()) {
+          if (!(entry as any).hadRecentInput) {
+            clsValue += (entry as any).value;
+          }
+        }
+        setMetrics(prev => ({ ...prev, cls: clsValue }));
+      });
+
+      try {
+        clsObserver.observe({ type: 'layout-shift', buffered: true });
+      } catch (e) {
+        console.error('CLS observation error:', e);
+      }
+
+      // First Input Delay
+      const fidObserver = new PerformanceObserver((entryList) => {
+        const entries = entryList.getEntries();
+        if (entries.length > 0) {
+          const firstInput = entries[0];
+          const fid = (firstInput as any).processingStart - firstInput.startTime;
+          setMetrics(prev => ({ ...prev, fid }));
+        }
+      });
+
+      try {
+        fidObserver.observe({ type: 'first-input', buffered: true });
+      } catch (e) {
+        console.error('FID observation error:', e);
+      }
+
+      // Time to First Byte (using Navigation Timing API)
+      const navigationEntries = performance.getEntriesByType('navigation');
+      if (navigationEntries.length > 0) {
+        const navEntry = navigationEntries[0] as PerformanceNavigationTiming;
+        const ttfb = navEntry.responseStart - navEntry.requestStart;
+        setMetrics(prev => ({ ...prev, ttfb }));
+      }
+
+      return () => {
+        // Clean up observers
+        fcpObserver.disconnect();
+        lcpObserver.disconnect();
+        clsObserver.disconnect();
+        fidObserver.disconnect();
+      };
+    }
   }, []);
-  
+
   return metrics;
-}
+};

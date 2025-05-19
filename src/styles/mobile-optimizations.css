@@ -56,50 +56,6 @@ html.reduce-effects .shadow-2xl {
   .optimized-container {
     contain: layout style paint;
   }
-
-  /* Fix spacing issues in mobile layouts */
-  .container {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-
-  /* Improve form elements on mobile */
-  input, select, textarea {
-    font-size: 16px; /* Prevents zoom on iOS */
-  }
-
-  /* Improve scroll performance */
-  .scroll-container {
-    -webkit-overflow-scrolling: touch;
-  }
-
-  /* Fix horizontal overflow issues */
-  .no-horizontal-scroll {
-    overflow-x: hidden;
-    max-width: 100vw;
-  }
-
-  /* Mobile spacing utilities */
-  .my-mobile-4 {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-  }
-
-  .py-mobile-4 {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-  }
-
-  /* Mobile text adjustments */
-  h1, .h1 {
-    font-size: 2rem;
-    line-height: 1.2;
-  }
-
-  h2, .h2 {
-    font-size: 1.5rem;
-    line-height: 1.3;
-  }
 }
 
 /* Reduce motion for users who prefer it */
@@ -110,17 +66,4 @@ html.reduce-effects .shadow-2xl {
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
-}
-
-/* Fix for iOS safari 100vh issue */
-.h-screen {
-  height: 100vh;
-  height: -webkit-fill-available;
-  height: stretch;
-}
-
-.min-h-screen {
-  min-height: 100vh;
-  min-height: -webkit-fill-available;
-  min-height: stretch;
 }
