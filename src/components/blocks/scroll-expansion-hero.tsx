@@ -66,7 +66,6 @@ const ScrollExpandMedia: React.FC<ScrollExpandMediaProps> = ({
     };
   }, []);
   
-  // Return JSX - this was missing in the original code
   return (
     <div 
       ref={containerRef}

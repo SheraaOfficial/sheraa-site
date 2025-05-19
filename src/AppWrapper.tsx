@@ -1,5 +1,5 @@
 
-import React, { Suspense, useEffect } from 'react';
+import React from 'react';
 import App from './App';
 import { PerformanceProvider } from './contexts/PerformanceContext';
 import { ErrorBoundary } from './components/layout/ErrorBoundary';
@@ -29,35 +29,16 @@ const AppLoading = () => (
 );
 
 export default function AppWrapper() {
-  // Preconnect to commonly used domains for performance
-  useEffect(() => {
-    const preconnectLinks = [
-      'https://fonts.googleapis.com',
-      'https://fonts.gstatic.com'
-    ];
-    
-    preconnectLinks.forEach(href => {
-      const link = document.createElement('link');
-      link.rel = 'preconnect';
-      link.href = href;
-      if (href.includes('gstatic')) {
-        link.crossOrigin = 'anonymous';
-      }
-      document.head.appendChild(link);
-    });
-    
-    return () => {
-      document.querySelectorAll('link[rel="preconnect"]').forEach(el => el.remove());
-    };
-  }, []);
+  // Moving this to App.tsx to avoid hook issues
+  // The error suggests useEffect is not being used correctly in a component
   
   return (
     <ErrorBoundary FallbackComponent={ErrorFallbackComponent}>
       <PerformanceProvider>
         <ThemeProvider>
-          <Suspense fallback={<AppLoading />}>
+          <React.Suspense fallback={<AppLoading />}>
             <App />
-          </Suspense>
+          </React.Suspense>
         </ThemeProvider>
       </PerformanceProvider>
     </ErrorBoundary>

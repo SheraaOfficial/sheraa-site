@@ -4,7 +4,63 @@ import { motion, useInView } from 'framer-motion';
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight, Star } from "lucide-react";
 import { AspectRatio } from '@/components/ui/aspect-ratio';
-import { allSpeakers } from './data';
+
+// Define speaker type with required properties
+interface Speaker {
+  name: string;
+  image: string;
+  title: string;
+  description: string;
+  quote: string;
+  year?: string;
+  role?: string;
+}
+
+// Sample data for speakers
+const allSpeakers: Speaker[] = [
+  {
+    name: "Sheikha Bodour Al Qasimi",
+    image: "/lovable-uploads/sheraa-logo.png",
+    title: "Chairperson, Sheraa",
+    description: "A visionary leader and advocate for entrepreneurship in the region.",
+    quote: "Entrepreneurship is the backbone of sustainable economic growth."
+  },
+  {
+    name: "Dr. Ahmed Al Falasi",
+    image: "/lovable-uploads/sheraa-logo.png",
+    title: "Minister of Education",
+    description: "Champion of educational innovation and entrepreneurial mindset development.",
+    quote: "The future belongs to those who can innovate and adapt."
+  },
+  {
+    name: "Sarah Johnson",
+    image: "/lovable-uploads/sheraa-logo.png",
+    title: "Tech Entrepreneur & Investor",
+    description: "Pioneering sustainable technology solutions across the MENA region.",
+    quote: "Build solutions that matter, success will follow."
+  },
+  {
+    name: "Mohammed Al Shamsi",
+    image: "/lovable-uploads/sheraa-logo.png",
+    title: "Founder, TechVentures",
+    description: "Serial entrepreneur with multiple successful exits in the region.",
+    quote: "Embrace failure as your greatest teacher on the path to success."
+  },
+  {
+    name: "Laila Hassan",
+    image: "/lovable-uploads/sheraa-logo.png",
+    title: "Impact Investor",
+    description: "Supporting purpose-driven startups across emerging markets.",
+    quote: "Profit with purpose is the new business paradigm."
+  },
+  {
+    name: "Omar Al Busaidy",
+    image: "/lovable-uploads/sheraa-logo.png",
+    title: "Author & Business Strategist",
+    description: "Helping entrepreneurs navigate the complexities of scaling regionally.",
+    quote: "Your network is your net worth. Build meaningful connections."
+  }
+];
 
 const SpeakerHallOfFame: React.FC = () => {
   const [activeSpeakerIndex, setActiveSpeakerIndex] = useState(0);
@@ -71,7 +127,6 @@ const SpeakerHallOfFame: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
   
-  // Return JSX - this was missing in the original code
   return (
     <div className="my-16 py-10">
       <h3 className="text-2xl md:text-3xl font-bold text-center mb-8">

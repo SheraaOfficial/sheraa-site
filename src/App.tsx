@@ -1,5 +1,4 @@
-
-import React from "react";
+import React, { useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -75,8 +74,8 @@ const ErrorFallbackComponent = () => (
 const queryClient = new QueryClient();
 
 const App = () => {
-  // Preconnect to commonly used domains for performance
-  React.useEffect(() => {
+  // Preconnect to commonly used domains for performance - moved from AppWrapper
+  useEffect(() => {
     const preconnectLinks = [
       'https://fonts.googleapis.com',
       'https://fonts.gstatic.com'
