@@ -1,6 +1,20 @@
 
 import { useEffect, useState } from 'react';
 
+// Define NetworkInformation interface that's missing in standard TypeScript types
+interface NetworkInformation {
+  effectiveType: 'slow-2g' | '2g' | '3g' | '4g';
+  saveData: boolean;
+  addEventListener(type: string, listener: EventListener): void;
+  removeEventListener(type: string, listener: EventListener): void;
+}
+
+// Extend Navigator interface to include non-standard properties
+interface ExtendedNavigator extends Navigator {
+  connection?: NetworkInformation;
+  deviceMemory?: number;
+}
+
 // Define the types for the performance metrics
 interface PerformanceMetrics {
   fcp: number | null; // First Contentful Paint
@@ -39,7 +53,10 @@ export const usePerformanceMonitor = () => {
 
     // Network information
     if (hasConnection) {
-      const conn = (navigator as any).connection;
+      // Cast navigator to our extended type
+      const extendedNavigator = navigator as ExtendedNavigator;
+      const conn = extendedNavigator.connection;
+      
       if (conn) {
         setMetrics(prev => ({
           ...prev,
@@ -63,9 +80,10 @@ export const usePerformanceMonitor = () => {
 
     // Device capabilities
     if (hasMemory) {
+      const extendedNavigator = navigator as ExtendedNavigator;
       setMetrics(prev => ({
         ...prev,
-        deviceMemory: (navigator as any).deviceMemory || null,
+        deviceMemory: extendedNavigator.deviceMemory || null,
       }));
     }
 
