@@ -5,8 +5,11 @@ import { motion } from 'framer-motion';
 import { ArrowRight, BadgeCheck } from 'lucide-react';
 import { GradientButton } from '@/components/ui/gradient-button';
 import { Sparkles } from '@/components/ui/sparkles';
+import { useTheme } from '@/contexts/ThemeContext';
 
 const SEFRegisterCTA = () => {
+  const { theme } = useTheme();
+  
   return (
     <section className="py-20 px-4 bg-gradient-to-br from-[#1A1F2C] to-[#292D3E] relative overflow-hidden">
       {/* Background elements */}
@@ -91,7 +94,7 @@ const SEFRegisterCTA = () => {
           </div>
           
           <GradientButton asChild variant="shimmer" size="xl" className="shadow-glow">
-            <Link to="/events/sef/register" className="px-12 py-6">
+            <Link to="/events/sef/register?pass=early" className="px-12 py-6">
               Register Now <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
           </GradientButton>

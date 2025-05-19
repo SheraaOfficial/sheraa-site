@@ -6,12 +6,15 @@ import { Calendar, MapPin } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { GradientButton } from "@/components/ui/gradient-button";
+import { useTheme } from "@/contexts/ThemeContext";
 
 type SEFEventCardProps = {
   hasRevealed: boolean;
 };
 
 export const SEFEventCard: React.FC<SEFEventCardProps> = ({ hasRevealed }) => {
+  const { theme } = useTheme();
+  
   return (
     <Card 
       className="border-white/30 backdrop-blur-xl bg-white/15 overflow-hidden relative group"
@@ -43,7 +46,7 @@ export const SEFEventCard: React.FC<SEFEventCardProps> = ({ hasRevealed }) => {
           
           <div className="pt-2 space-y-3">
             <GradientButton asChild variant="shimmer" className="w-full justify-center group">
-              <Link to="/events/sef/register" className="flex items-center">
+              <Link to="/events/sef/register?source=card" className="flex items-center">
                 Register Now
                 <motion.span
                   initial={{ x: 0 }}

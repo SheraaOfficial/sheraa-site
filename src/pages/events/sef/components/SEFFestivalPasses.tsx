@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { Badge } from '@/components/ui/badge';
 import { ArrowRight, BadgeCheck, BadgePercent, ChevronDown, ChevronUp, Ticket } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useTheme } from '@/contexts/ThemeContext';
 
 // Define the data structure for our passes
 interface PassType {
@@ -19,7 +20,8 @@ interface PassType {
   earlyBird?: boolean;
   showBadge?: boolean;
   badgeText?: string;
-  description?: string; // Added description field
+  description?: string;
+  registerLink: string;
 }
 
 interface PassPersonaType {
@@ -45,7 +47,8 @@ const passes: PassType[] = [{
   ],
   earlyBird: true,
   showBadge: true,
-  badgeText: 'Early Bird'
+  badgeText: 'Early Bird',
+  registerLink: '/events/sef/register?pass=standard'
 }, {
   name: 'Premium Pass',
   price: 'AED 499',
@@ -59,7 +62,8 @@ const passes: PassType[] = [{
     'Priority seating at keynotes',
     'Access to speaker meet & greets'
   ],
-  popular: true
+  popular: true,
+  registerLink: '/events/sef/register?pass=premium'
 }, {
   name: 'Executive Pass',
   price: 'AED 999',
@@ -72,7 +76,8 @@ const passes: PassType[] = [{
     'Exclusive investor matchmaking',
     'Business concierge service',
     'Post-event connections report'
-  ]
+  ],
+  registerLink: '/events/sef/register?pass=executive'
 }, {
   name: 'VIP Pass',
   price: 'AED 1,499',
@@ -89,7 +94,8 @@ const passes: PassType[] = [{
   ],
   vip: true,
   showBadge: true,
-  badgeText: 'Limited'
+  badgeText: 'Limited',
+  registerLink: '/events/sef/register?pass=vip'
 }];
 
 const personas: PassPersonaType[] = [
@@ -124,6 +130,7 @@ const PassCard: React.FC<{
 }) => {
   const [showAllFeatures, setShowAllFeatures] = useState(false);
   const isRecommended = selectedPersona && passes.find(p => p.name === selectedPersona)?.name === pass.name;
+  const { theme } = useTheme();
   
   // Display only first 4 features when collapsed
   const visibleFeatures = showAllFeatures ? pass.features : pass.features.slice(0, 4);
@@ -134,8 +141,8 @@ const PassCard: React.FC<{
       className={`relative rounded-xl overflow-hidden border ${
         pass.popular ? 'border-purple-400/50' : 
         pass.vip ? 'border-emerald-400/50' :
-        'border-gray-200/30'} 
-        shadow-lg ${isRecommended ? 'ring-4 ring-offset-2 ring-[#9b87f5]' : ''}`} 
+        theme === 'dark' ? 'border-gray-700/30' : 'border-gray-200/30'
+      } shadow-lg ${isRecommended ? 'ring-4 ring-offset-2 ring-[#9b87f5]' : ''}`} 
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -177,14 +184,14 @@ const PassCard: React.FC<{
       </div>
       
       {/* Features */}
-      <div className="p-6 bg-white dark:bg-gray-800">
+      <div className={`p-6 ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
         <ul className="space-y-3">
           {visibleFeatures.map((feature, idx) => (
             <li key={idx} className="flex items-start">
               <svg className="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
               </svg>
-              <span className="text-gray-700 dark:text-gray-300">{feature}</span>
+              <span className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>{feature}</span>
             </li>
           ))}
         </ul>
@@ -203,7 +210,7 @@ const PassCard: React.FC<{
           </button>
         )}
         
-        {/* CTA Button */}
+        {/* CTA Button - Updated with direct links */}
         <div className="mt-4">
           {pass.popular || pass.vip ? (
             <Sparkles colors={[
@@ -222,7 +229,7 @@ const PassCard: React.FC<{
                 )}
                 asChild
               >
-                <Link to="/events/sef/register">
+                <Link to={pass.registerLink}>
                   Get Your Pass
                 </Link>
               </Button>
@@ -236,7 +243,7 @@ const PassCard: React.FC<{
               )}
               asChild
             >
-              <Link to="/events/sef/register">
+              <Link to={pass.registerLink}>
                 Get Your Pass
               </Link>
             </Button>
@@ -252,6 +259,8 @@ const PersonaSelector: React.FC<{
   selectedPersona: string | null;
   onSelectPersona: (pass: string) => void;
 }> = ({ personas, selectedPersona, onSelectPersona }) => {
+  const { theme } = useTheme();
+  
   return (
     <motion.div 
       className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12"
@@ -267,7 +276,9 @@ const PersonaSelector: React.FC<{
             "p-4 border rounded-lg cursor-pointer transition-all",
             selectedPersona === persona.recommendedPass 
               ? "border-[#9b87f5] bg-[#9b87f5]/10" 
-              : "border-gray-200 hover:border-[#9b87f5]/50 dark:border-gray-700"
+              : theme === 'dark'
+                ? "border-gray-700 hover:border-[#9b87f5]/50"
+                : "border-gray-200 hover:border-[#9b87f5]/50"
           )}
           onClick={() => onSelectPersona(persona.recommendedPass)}
         >
@@ -276,13 +287,15 @@ const PersonaSelector: React.FC<{
               "p-2 rounded-full",
               selectedPersona === persona.recommendedPass 
                 ? "bg-[#9b87f5] text-white" 
-                : "bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300"
+                : theme === 'dark'
+                  ? "bg-gray-800 text-gray-300"
+                  : "bg-gray-100 text-gray-600"
             )}>
               {persona.icon}
             </div>
             <div>
-              <h3 className="font-medium text-gray-900 dark:text-white">{persona.title}</h3>
-              <p className="text-sm text-gray-500 dark:text-gray-400">{persona.description}</p>
+              <h3 className={`font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>{persona.title}</h3>
+              <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>{persona.description}</p>
             </div>
           </div>
         </div>
@@ -293,13 +306,14 @@ const PersonaSelector: React.FC<{
 
 const SEFFestivalPasses: React.FC = () => {
   const [selectedPersona, setSelectedPersona] = useState<string | null>(null);
+  const { theme } = useTheme();
 
   const handleSelectPersona = (pass: string) => {
     setSelectedPersona(currentPersona => currentPersona === pass ? null : pass);
   };
 
   return (
-    <section className="py-16 md:py-24 px-4 bg-white dark:bg-gray-900">
+    <section className={`py-16 md:py-24 px-4 ${theme === 'dark' ? 'bg-gray-900' : 'bg-white'}`}>
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-16">
           <motion.div 
@@ -307,13 +321,19 @@ const SEFFestivalPasses: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="inline-block px-3 py-1 rounded-full bg-purple-100 text-[#9b87f5] dark:bg-purple-900/30 text-sm font-medium mb-2"
+            className={`inline-block px-3 py-1 rounded-full ${
+              theme === 'dark' 
+                ? 'bg-purple-900/30 text-[#9b87f5]' 
+                : 'bg-purple-100 text-[#9b87f5]'
+            } text-sm font-medium mb-2`}
           >
             Festival Passes
           </motion.div>
           
           <motion.h2 
-            className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4" 
+            className={`text-3xl md:text-4xl lg:text-5xl font-bold ${
+              theme === 'dark' ? 'text-white' : 'text-gray-900'
+            } mb-4`} 
             initial={{ opacity: 0, y: -20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -323,7 +343,7 @@ const SEFFestivalPasses: React.FC = () => {
           </motion.h2>
           
           <motion.p 
-            className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto text-lg" 
+            className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} max-w-2xl mx-auto text-lg`} 
             initial={{ opacity: 0, y: -20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -346,14 +366,14 @@ const SEFFestivalPasses: React.FC = () => {
         
         <div className="text-center mt-12">
           <motion.div 
-            className="bg-gray-50 dark:bg-gray-800/50 p-6 rounded-xl max-w-3xl mx-auto"
+            className={`${theme === 'dark' ? 'bg-gray-800/50' : 'bg-gray-50'} p-6 rounded-xl max-w-3xl mx-auto`}
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.7 }}
           >
-            <h3 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">Need Help Choosing?</h3>
-            <p className="text-gray-600 dark:text-gray-400 mb-4">
+            <h3 className={`text-lg font-semibold mb-2 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-800'}`}>Need Help Choosing?</h3>
+            <p className={`${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'} mb-4`}>
               Group discounts available for teams of 5 or more. Special rates for academic institutions and non-profits.
             </p>
             

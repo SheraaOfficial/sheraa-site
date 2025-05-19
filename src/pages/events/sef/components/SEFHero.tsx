@@ -6,8 +6,11 @@ import { ArrowRight, Calendar, MapPin, Users } from 'lucide-react';
 import { Sparkles } from '@/components/ui/sparkles';
 import { Button } from '@/components/ui/button';
 import { GradientButton } from '@/components/ui/gradient-button';
+import { useTheme } from '@/contexts/ThemeContext';
 
 const SEFHero = () => {
+  const { theme } = useTheme();
+  
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden bg-black">
       {/* Background elements */}
@@ -85,8 +88,8 @@ const SEFHero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.4 }}
           >
-            <GradientButton asChild variant="shimmer" size="xl" className="shadow-lg hover:shadow-[0_5px_30px_rgba(155,135,245,0.4)]">
-              <Link to="/events/sef/register">
+            <GradientButton asChild variant="shimmer" size="xl" className="shadow-glow hover:shadow-[0_5px_30px_rgba(155,135,245,0.4)]">
+              <Link to="/events/sef/register?source=hero">
                 Register Now <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </GradientButton>
