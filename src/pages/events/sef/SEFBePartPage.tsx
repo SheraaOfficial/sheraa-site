@@ -354,7 +354,7 @@ const SEFBePartPage: React.FC = () => {
               }} transition={{
                 duration: 0.5
               }} className="shadow-md overflow-hidden border border-gray-100 rounded-2xl bg-inherit">
-                      <div className="p-6 my-0 bg-zinc-800">
+                      <div className="p-6 my-0 bg-inherit">
                         <div className="flex items-start gap-4 mb-4 my-0">
                           <div className="p-3 rounded-lg text-sheraa-primary py-[5px] bg-fuchsia-50">
                             <opp.icon className="h-5 w-5 bg-inherit" />
