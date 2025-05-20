@@ -367,7 +367,7 @@ const SEFBePartPage: React.FC = () => {
                         <p className="mb-5 text-inherit">{opp.description}</p>
                         
                         <div className="mb-5">
-                          <h4 className="uppercase font-medium mb-3 my-[8px] text-[ifed700] text-[#fed700]">BENEFITS</h4>
+                          <h4 className="uppercase font-medium mb-3 my-[8px] text-[ifed700] text-purple-700">BENEFITS</h4>
                           <ul className="space-y-2">
                             {opp.benefits.map((benefit, idx) => <li key={idx} className="text-sm text-gray-700 flex items-start gap-2">
                                 <span className="text-sheraa-teal mt-1">•</span>
@@ -377,7 +377,7 @@ const SEFBePartPage: React.FC = () => {
                         </div>
                         
                         <div className="mb-5">
-                          <h4 className="text-sm uppercase font-medium mb-3 text-[#fed700]">Requirements</h4>
+                          <h4 className="text-sm uppercase font-medium mb-3 text-purple-700">Requirements</h4>
                           <ul className="space-y-2">
                             {opp.requirements.map((req, idx) => <li key={idx} className="text-sm text-gray-700 flex items-start gap-2">
                                 <span className="text-sheraa-teal mt-1">•</span>
