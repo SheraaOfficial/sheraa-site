@@ -354,7 +354,7 @@ const SEFBePartPage: React.FC = () => {
               }} transition={{
                 duration: 0.5
               }} className="shadow-md overflow-hidden border border-gray-100 rounded-2xl bg-inherit">
-                      <div className="p-6 my-0">
+                      <div className="p-6 my-0 bg-zinc-800">
                         <div className="flex items-start gap-4 mb-4 my-0">
                           <div className="p-3 rounded-lg text-sheraa-primary py-[5px] bg-fuchsia-50">
                             <opp.icon className="h-5 w-5 bg-inherit" />
@@ -419,7 +419,7 @@ const SEFBePartPage: React.FC = () => {
           </div>
           
           <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100">
-            <div className="p-6 md:p-8">
+            <div className="p-6 md:p-8 bg-gray-700">
               <form className="space-y-6" onSubmit={handleSubmit}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
