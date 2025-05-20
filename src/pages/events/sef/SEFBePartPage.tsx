@@ -326,7 +326,7 @@ const SEFBePartPage: React.FC = () => {
               <TabsTrigger value="exhibit" className="text-base py-3 bg-gray-800 hover:bg-gray-700 mx-[8px]">
                 <div className="flex flex-col items-center gap-1 bg-inherit">
                   <Layout className="h-5 w-5" />
-                  <span className="text-zinc-50">Exhibit</span>
+                  <span className="text-inherit">Exhibit</span>
                 </div>
               </TabsTrigger>
               <TabsTrigger value="sponsor" className="text-base py-3 bg-gray-800 hover:bg-gray-700 mx-[8px]">
