@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, lazy, Suspense } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -12,36 +11,31 @@ import { useTheme } from "@/contexts/ThemeContext";
 // Lazy load components
 const DesktopNavigation = lazy(() => import("./navigation/DesktopNavigation"));
 const MobileNavigation = lazy(() => import("./navigation/MobileNavigation"));
-
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { isSticky, isScrolled } = useScrollNavigation();
+  const {
+    isSticky,
+    isScrolled
+  } = useScrollNavigation();
   const [hydrated, setHydrated] = useState(false);
   const [loggedInUser] = useLocalStorage<any | null>("loggedInUser", null);
-  const { theme, setTheme } = useTheme();
+  const {
+    theme,
+    setTheme
+  } = useTheme();
 
   // Mark as hydrated after initial render
   useEffect(() => {
     setHydrated(true);
   }, []);
-
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-
   const toggleTheme = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
   };
-
-  return (
-    <header 
-      className={`sheraa-navbar ${
-        isSticky 
-          ? 'fixed top-0 left-0 w-full bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md shadow-md z-[999] transition-all duration-300 animate-fade-in' 
-          : 'absolute top-0 left-0 w-full z-[999] bg-transparent'
-      }`}
-    >
-      <div className={`container flex h-16 items-center sm:px-6 px-4 my-0 transition-colors duration-300 ${isScrolled ? 'bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md' : 'bg-transparent'}`}>
+  return <header className={`sheraa-navbar ${isSticky ? 'fixed top-0 left-0 w-full bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md shadow-md z-[999] transition-all duration-300 animate-fade-in' : 'absolute top-0 left-0 w-full z-[999] bg-transparent'}`}>
+      <div className="">
         <div className="mr-4 flex items-center">
           <Link to="/" className="flex items-center">
             <span className="text-xl font-bold text-sheraa-primary mx-2 md:mx-[39px] dark:text-white">SHERAA</span>
@@ -50,76 +44,29 @@ const Navigation = () => {
 
         {/* Mobile Menu Button */}
         <div className="md:hidden flex items-center ml-auto gap-2">
-          <Button 
-            variant="ghost" 
-            size="icon"
-            onClick={toggleTheme} 
-            className="text-gray-600 dark:text-gray-300 hover:bg-gray-100/20 hover:text-gray-900 dark:hover:bg-gray-800/20 dark:hover:text-white"
-          >
-            {theme === 'dark' ? (
-              <Sun className="h-[1.2rem] w-[1.2rem]" />
-            ) : (
-              <Moon className="h-[1.2rem] w-[1.2rem]" />
-            )}
+          <Button variant="ghost" size="icon" onClick={toggleTheme} className="text-gray-600 dark:text-gray-300 hover:bg-gray-100/20 hover:text-gray-900 dark:hover:bg-gray-800/20 dark:hover:text-white">
+            {theme === 'dark' ? <Sun className="h-[1.2rem] w-[1.2rem]" /> : <Moon className="h-[1.2rem] w-[1.2rem]" />}
           </Button>
-          <Button 
-            variant="ghost" 
-            size="icon" 
-            onClick={toggleMenu} 
-            className="hover:bg-gray-100/20 dark:hover:bg-gray-800/20"
-          >
+          <Button variant="ghost" size="icon" onClick={toggleMenu} className="hover:bg-gray-100/20 dark:hover:bg-gray-800/20">
             <Menu className="h-5 w-5 text-gray-700 dark:text-gray-200" />
           </Button>
         </div>
 
         {/* Desktop Navigation */}
-        {hydrated && (
-          <Suspense fallback={<div className="hidden md:flex md:flex-1"></div>}>
-            <DesktopNavigation 
-              homeLinks={homeLinks} 
-              discoverLinks={discoverLinks} 
-              growLinks={growLinks} 
-              communityLinks={communityLinks} 
-              insightsLinks={insightsLinks} 
-              applyLinks={applyLinks}
-              sefLink={sefLink}
-              isLoggedIn={!!loggedInUser}
-              theme={theme}
-              toggleTheme={toggleTheme}
-            />
-          </Suspense>
-        )}
+        {hydrated && <Suspense fallback={<div className="hidden md:flex md:flex-1"></div>}>
+            <DesktopNavigation homeLinks={homeLinks} discoverLinks={discoverLinks} growLinks={growLinks} communityLinks={communityLinks} insightsLinks={insightsLinks} applyLinks={applyLinks} sefLink={sefLink} isLoggedIn={!!loggedInUser} theme={theme} toggleTheme={toggleTheme} />
+          </Suspense>}
 
         {/* User Avatar (when logged in) */}
-        {hydrated && loggedInUser && (
-          <div className="ml-2">
+        {hydrated && loggedInUser && <div className="ml-2">
             <UserAvatar />
-          </div>
-        )}
+          </div>}
 
         {/* Mobile Navigation - Overlay Menu */}
-        {hydrated && isMenuOpen && (
-          <Suspense fallback={null}>
-            <MobileNavigation 
-              isMenuOpen={isMenuOpen} 
-              setIsMenuOpen={setIsMenuOpen} 
-              toggleMenu={toggleMenu} 
-              homeLinks={homeLinks} 
-              discoverLinks={discoverLinks} 
-              growLinks={growLinks} 
-              communityLinks={communityLinks} 
-              insightsLinks={insightsLinks} 
-              applyLinks={applyLinks}
-              sefLink={sefLink}
-              isLoggedIn={!!loggedInUser}
-              theme={theme}
-              toggleTheme={toggleTheme}
-            />
-          </Suspense>
-        )}
+        {hydrated && isMenuOpen && <Suspense fallback={null}>
+            <MobileNavigation isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} toggleMenu={toggleMenu} homeLinks={homeLinks} discoverLinks={discoverLinks} growLinks={growLinks} communityLinks={communityLinks} insightsLinks={insightsLinks} applyLinks={applyLinks} sefLink={sefLink} isLoggedIn={!!loggedInUser} theme={theme} toggleTheme={toggleTheme} />
+          </Suspense>}
       </div>
-    </header>
-  );
+    </header>;
 };
-
 export default Navigation;
