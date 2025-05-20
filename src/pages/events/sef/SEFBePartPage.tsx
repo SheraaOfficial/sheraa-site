@@ -316,26 +316,26 @@ const SEFBePartPage: React.FC = () => {
           </div>
           
           <Tabs defaultValue="speak" value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid grid-cols md:grid-cols-4 w-full mb-8 py-[85px] my-[19px] bg-inherit">
-              <TabsTrigger value="speak" className="text-base py-3 bg-gray-800 hover:bg-gray-700 mx-[8px]">
+            <TabsList className="grid grid-cols md:grid-cols-4 w-full mb-8 my-[19px] py-[81px] bg-inherit">
+              <TabsTrigger value="speak" className="text-base py-3 mx-[8px] text-purple-700 font-medium bg-inherit">
                 <div className="flex flex-col items-center gap-1">
                   <Mic className="h-5 w-5" />
                   <span>Speak</span>
                 </div>
               </TabsTrigger>
-              <TabsTrigger value="exhibit" className="text-base py-3 bg-gray-800 hover:bg-gray-700 mx-[8px]">
+              <TabsTrigger value="exhibit" className="text-base py-3 mx-[8px] bg-inherit text-purple-700">
                 <div className="flex flex-col items-center gap-1 bg-inherit">
                   <Layout className="h-5 w-5" />
                   <span className="text-inherit">Exhibit</span>
                 </div>
               </TabsTrigger>
-              <TabsTrigger value="sponsor" className="text-base py-3 bg-gray-800 hover:bg-gray-700 mx-[8px]">
+              <TabsTrigger value="sponsor" className="text-base py-3 mx-[8px] bg-inherit text-violet-700">
                 <div className="flex flex-col items-center gap-1">
                   <Award className="h-5 w-5" />
                   <span>Sponsor</span>
                 </div>
               </TabsTrigger>
-              <TabsTrigger value="volunteer" className="text-base py-3 bg-gray-800 hover:bg-gray-700 mx-[8px]">
+              <TabsTrigger value="volunteer" className="text-base py-3 mx-[8px] bg-inherit text-purple-700">
                 <div className="flex flex-col items-center gap-1">
                   <Users className="h-5 w-5" />
                   <span>Volunteer</span>
@@ -356,7 +356,7 @@ const SEFBePartPage: React.FC = () => {
               }} className="shadow-md overflow-hidden border border-gray-100 rounded-2xl bg-inherit">
                       <div className="p-6 my-0">
                         <div className="flex items-start gap-4 mb-4 my-0">
-                          <div className="p-3 rounded-lg text-sheraa-primary py-[5px] bg-zinc-50">
+                          <div className="p-3 rounded-lg text-sheraa-primary py-[5px] bg-fuchsia-50">
                             <opp.icon className="h-5 w-5 bg-inherit" />
                           </div>
                           <div>
