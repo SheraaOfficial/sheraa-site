@@ -353,21 +353,21 @@ const SEFBePartPage: React.FC = () => {
                 y: 0
               }} transition={{
                 duration: 0.5
-              }} className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100">
-                      <div className="p-6">
-                        <div className="flex items-start gap-4 mb-4">
-                          <div className="p-3 rounded-lg bg-sheraa-primary/10 text-sheraa-primary">
-                            <opp.icon className="h-5 w-5" />
+              }} className="shadow-md overflow-hidden border border-gray-100 rounded-2xl bg-inherit">
+                      <div className="p-6 my-0">
+                        <div className="flex items-start gap-4 mb-4 my-0">
+                          <div className="p-3 rounded-lg text-sheraa-primary py-[5px] bg-zinc-50">
+                            <opp.icon className="h-5 w-5 bg-inherit" />
                           </div>
                           <div>
-                            <h3 className="text-xl font-semibold text-sheraa-primary">{opp.title}</h3>
+                            <h3 className="font-semibold text-2xl text-inherit">{opp.title}</h3>
                           </div>
                         </div>
                         
-                        <p className="text-gray-600 mb-5">{opp.description}</p>
+                        <p className="mb-5 text-inherit">{opp.description}</p>
                         
                         <div className="mb-5">
-                          <h4 className="text-sm uppercase text-gray-500 font-medium mb-3">Benefits</h4>
+                          <h4 className="uppercase font-medium mb-3 my-[8px] text-[ifed700] text-[#fed700]">BENEFITS</h4>
                           <ul className="space-y-2">
                             {opp.benefits.map((benefit, idx) => <li key={idx} className="text-sm text-gray-700 flex items-start gap-2">
                                 <span className="text-sheraa-teal mt-1">•</span>
@@ -377,11 +377,11 @@ const SEFBePartPage: React.FC = () => {
                         </div>
                         
                         <div className="mb-5">
-                          <h4 className="text-sm uppercase text-gray-500 font-medium mb-3">Requirements</h4>
+                          <h4 className="text-sm uppercase font-medium mb-3 text-[#fed700]">Requirements</h4>
                           <ul className="space-y-2">
                             {opp.requirements.map((req, idx) => <li key={idx} className="text-sm text-gray-700 flex items-start gap-2">
                                 <span className="text-sheraa-teal mt-1">•</span>
-                                <span>{req}</span>
+                                <span className="my-0">{req}</span>
                               </li>)}
                           </ul>
                         </div>
@@ -390,14 +390,11 @@ const SEFBePartPage: React.FC = () => {
                             <span className="font-medium">Deadline:</span> {opp.deadlines}
                           </p>}
                         
-                        {opp.contactInfo && <p className="text-sm text-gray-500 mb-6">
+                        {opp.contactInfo && <p className="text-sm text-gray-500 mb-6 my-[17px]">
                             {opp.contactInfo}
                           </p>}
                         
-                        {opp.requiresDocuments && <p className="text-sm flex items-center text-sheraa-primary mb-6">
-                            <FileUp className="h-4 w-4 mr-1" />
-                            <span>Requires ID/passport documentation</span>
-                          </p>}
+                        {opp.requiresDocuments}
                         
                         <div className="mt-auto">
                           <Button className="w-full flex items-center justify-center gap-2">
