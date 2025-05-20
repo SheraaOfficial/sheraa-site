@@ -1,10 +1,9 @@
-
 import React, { useState } from 'react';
 import MainLayout from '@/components/layouts/MainLayout';
 import { Sparkles } from '@/components/ui/sparkles';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Mic, Users, Layout, Award, Calendar, MapPin } from 'lucide-react';
+import { ArrowRight, Mic, Users, Layout, Award, Calendar, MapPin, FileUp, Upload, AlertCircle, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   Tabs,
@@ -12,6 +11,11 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs";
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import { Switch } from '@/components/ui/switch';
+import { useToast } from '@/hooks/use-toast';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 
 type OpportunityType = {
   id: string;
@@ -24,10 +28,19 @@ type OpportunityType = {
   buttonText: string;
   buttonLink: string;
   icon: React.ElementType;
+  requiresDocuments?: boolean;
 };
 
 const SEFBePartPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState("speak");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [files, setFiles] = useState<{[key: string]: File | null}>({
+    resume: null,
+    identification: null,
+    portfolio: null,
+  });
+  const [agreeTerms, setAgreeTerms] = useState(false);
+  const { toast } = useToast();
   
   // Opportunities data
   const opportunities: Record<string, OpportunityType[]> = {
@@ -53,7 +66,8 @@ const SEFBePartPage: React.FC = () => {
         contactInfo: "For inquiries: speakers@sheraa.ae",
         buttonText: "Apply to Speak",
         buttonLink: "#apply-form",
-        icon: Mic
+        icon: Mic,
+        requiresDocuments: true
       },
       {
         id: "panel",
@@ -124,7 +138,8 @@ const SEFBePartPage: React.FC = () => {
         contactInfo: "For inquiries: startups@sheraa.ae",
         buttonText: "Apply to Exhibit",
         buttonLink: "#apply-form",
-        icon: Layout
+        icon: Layout,
+        requiresDocuments: true
       },
       {
         id: "ecosystem",
@@ -195,7 +210,8 @@ const SEFBePartPage: React.FC = () => {
         contactInfo: "For partnership details: partnerships@sheraa.ae",
         buttonText: "Discuss Partnership",
         buttonLink: "#apply-form",
-        icon: Award
+        icon: Award,
+        requiresDocuments: true
       },
       {
         id: "zone",
@@ -268,7 +284,8 @@ const SEFBePartPage: React.FC = () => {
         contactInfo: "For inquiries: volunteers@sheraa.ae",
         buttonText: "Join as Volunteer",
         buttonLink: "#apply-form",
-        icon: Users
+        icon: Users,
+        requiresDocuments: true
       },
       {
         id: "student",
@@ -321,6 +338,54 @@ const SEFBePartPage: React.FC = () => {
         icon: Layout
       }
     ]
+  };
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>, type: string) => {
+    if (event.target.files && event.target.files[0]) {
+      setFiles(prev => ({...prev, [type]: event.target.files![0]}));
+    }
+  };
+
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    
+    if (!agreeTerms) {
+      toast({
+        title: "Please agree to the terms",
+        description: "You must accept the terms and conditions to submit your application.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    // Validate required fields
+    const form = event.target as HTMLFormElement;
+    if (!form.checkValidity()) {
+      toast({
+        title: "Missing required information",
+        description: "Please fill in all required fields and try again.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    // Simulating form submission
+    setIsSubmitting(true);
+    
+    setTimeout(() => {
+      setIsSubmitting(false);
+      toast({
+        title: "Application submitted successfully!",
+        description: "We've received your application and will contact you soon.",
+      });
+      form.reset();
+      setFiles({
+        resume: null,
+        identification: null,
+        portfolio: null,
+      });
+      setAgreeTerms(false);
+    }, 1500);
   };
 
   return (
@@ -501,6 +566,13 @@ const SEFBePartPage: React.FC = () => {
                           </p>
                         )}
                         
+                        {opp.requiresDocuments && (
+                          <p className="text-sm flex items-center text-sheraa-primary mb-6">
+                            <FileUp className="h-4 w-4 mr-1" />
+                            <span>Requires ID/passport documentation</span>
+                          </p>
+                        )}
+                        
                         <div className="mt-auto">
                           <Button className="w-full flex items-center justify-center gap-2">
                             {opp.buttonText}
@@ -516,7 +588,7 @@ const SEFBePartPage: React.FC = () => {
           </Tabs>
         </div>
         
-        {/* Application Form */}
+        {/* Enhanced Application Form with File Uploads */}
         <div className="mb-20" id="apply-form">
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-sheraa-primary mb-4">Express Your Interest</h2>
@@ -527,24 +599,24 @@ const SEFBePartPage: React.FC = () => {
           
           <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100">
             <div className="p-6 md:p-8">
-              <form className="space-y-6">
+              <form className="space-y-6" onSubmit={handleSubmit}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-1">First Name *</label>
-                    <input
+                    <Label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-1">First Name *</Label>
+                    <Input
                       type="text"
                       id="firstName"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-sheraa-primary focus:border-sheraa-primary"
+                      className="w-full"
                       required
                     />
                   </div>
                   
                   <div>
-                    <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-1">Last Name *</label>
-                    <input
+                    <Label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-1">Last Name *</Label>
+                    <Input
                       type="text"
                       id="lastName"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-sheraa-primary focus:border-sheraa-primary"
+                      className="w-full"
                       required
                     />
                   </div>
@@ -552,48 +624,48 @@ const SEFBePartPage: React.FC = () => {
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email Address *</label>
-                    <input
+                    <Label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email Address *</Label>
+                    <Input
                       type="email"
                       id="email"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-sheraa-primary focus:border-sheraa-primary"
+                      className="w-full"
                       required
                     />
                   </div>
                   
                   <div>
-                    <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">Phone Number *</label>
-                    <input
+                    <Label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">Phone Number *</Label>
+                    <Input
                       type="tel"
                       id="phone"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-sheraa-primary focus:border-sheraa-primary"
+                      className="w-full"
                       required
                     />
                   </div>
                 </div>
                 
                 <div>
-                  <label htmlFor="organization" className="block text-sm font-medium text-gray-700 mb-1">Organization / Company *</label>
-                  <input
+                  <Label htmlFor="organization" className="block text-sm font-medium text-gray-700 mb-1">Organization / Company *</Label>
+                  <Input
                     type="text"
                     id="organization"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-sheraa-primary focus:border-sheraa-primary"
+                    className="w-full"
                     required
                   />
                 </div>
                 
                 <div>
-                  <label htmlFor="role" className="block text-sm font-medium text-gray-700 mb-1">Your Role / Position *</label>
-                  <input
+                  <Label htmlFor="role" className="block text-sm font-medium text-gray-700 mb-1">Your Role / Position *</Label>
+                  <Input
                     type="text"
                     id="role"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-sheraa-primary focus:border-sheraa-primary"
+                    className="w-full"
                     required
                   />
                 </div>
                 
                 <div>
-                  <label htmlFor="opportunity" className="block text-sm font-medium text-gray-700 mb-1">I'm interested in: *</label>
+                  <Label htmlFor="opportunity" className="block text-sm font-medium text-gray-700 mb-1">I'm interested in: *</Label>
                   <select
                     id="opportunity"
                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-sheraa-primary focus:border-sheraa-primary"
@@ -624,7 +696,7 @@ const SEFBePartPage: React.FC = () => {
                 </div>
                 
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">Tell us more about your interest *</label>
+                  <Label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">Tell us more about your interest *</Label>
                   <textarea
                     id="message"
                     rows={4}
@@ -633,22 +705,152 @@ const SEFBePartPage: React.FC = () => {
                     required
                   ></textarea>
                 </div>
-                
-                <div className="flex items-start">
-                  <input
-                    type="checkbox"
-                    id="consent"
-                    className="mt-1"
-                    required
-                  />
-                  <label htmlFor="consent" className="ml-2 text-sm text-gray-600">
-                    I consent to Sheraa contacting me about this opportunity and storing my information in accordance with the <Link to="/privacy-policy" className="text-sheraa-primary hover:underline">Privacy Policy</Link>.
-                  </label>
+
+                {/* File Upload Section */}
+                <div className="space-y-6 border-t border-gray-200 pt-6">
+                  <h3 className="text-lg font-semibold text-sheraa-primary flex items-center gap-2">
+                    <Upload className="h-5 w-5" />
+                    Required Documentation
+                  </h3>
+                  
+                  <p className="text-sm text-gray-600 mb-4">
+                    Please upload the following documents to complete your application. Accepted formats include PDF, JPG, and PNG files. Maximum file size: 5MB per file.
+                  </p>
+                  
+                  {/* Identification Document */}
+                  <div className="space-y-2">
+                    <Label htmlFor="identification" className="font-medium flex items-center gap-2">
+                      Passport or ID Card Copy <span className="text-red-500">*</span>
+                    </Label>
+                    
+                    <div className="flex flex-col space-y-3">
+                      <div className="border border-dashed border-sheraa-primary/40 rounded-lg p-6 text-center bg-sheraa-primary/5 relative">
+                        <input
+                          id="identification"
+                          type="file"
+                          accept=".pdf,.jpg,.jpeg,.png"
+                          onChange={(e) => handleFileChange(e, 'identification')}
+                          required
+                          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                        />
+                        <div className="flex flex-col items-center justify-center gap-2">
+                          <FileUp className="h-8 w-8 text-sheraa-primary/70" />
+                          <p className="text-sm font-medium text-gray-700">
+                            {files.identification 
+                              ? `Selected: ${files.identification.name}`
+                              : 'Drag & drop or click to upload'
+                            }
+                          </p>
+                          <p className="text-xs text-gray-500">PDF, JPG or PNG (Max. 5MB)</p>
+                        </div>
+                      </div>
+                      
+                      <p className="text-xs text-gray-500 flex items-center gap-1">
+                        <AlertCircle className="h-3 w-3" />
+                        This document is required for verification purposes and will be handled securely
+                      </p>
+                    </div>
+                  </div>
+                  
+                  {/* Resume/CV */}
+                  <div className="space-y-2">
+                    <Label htmlFor="resume" className="font-medium flex items-center gap-2">
+                      Resume/CV <span className="text-red-500">*</span>
+                    </Label>
+                    
+                    <div className="flex flex-col space-y-3">
+                      <div className="border border-dashed border-sheraa-primary/40 rounded-lg p-6 text-center bg-sheraa-primary/5 relative">
+                        <input
+                          id="resume"
+                          type="file"
+                          accept=".pdf,.doc,.docx"
+                          onChange={(e) => handleFileChange(e, 'resume')}
+                          required
+                          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                        />
+                        <div className="flex flex-col items-center justify-center gap-2">
+                          <FileUp className="h-8 w-8 text-sheraa-primary/70" />
+                          <p className="text-sm font-medium text-gray-700">
+                            {files.resume 
+                              ? `Selected: ${files.resume.name}`
+                              : 'Drag & drop or click to upload'
+                            }
+                          </p>
+                          <p className="text-xs text-gray-500">PDF or DOC (Max. 5MB)</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Portfolio/Samples (Optional) */}
+                  <div className="space-y-2">
+                    <Label htmlFor="portfolio" className="font-medium flex items-center gap-2">
+                      Portfolio or Work Samples <span className="text-gray-500">(Optional)</span>
+                    </Label>
+                    
+                    <div className="flex flex-col space-y-3">
+                      <div className="border border-dashed border-gray-300 rounded-lg p-6 text-center bg-gray-50 relative">
+                        <input
+                          id="portfolio"
+                          type="file"
+                          accept=".pdf,.jpg,.jpeg,.png,.zip"
+                          onChange={(e) => handleFileChange(e, 'portfolio')}
+                          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                        />
+                        <div className="flex flex-col items-center justify-center gap-2">
+                          <FileUp className="h-8 w-8 text-gray-400" />
+                          <p className="text-sm font-medium text-gray-700">
+                            {files.portfolio 
+                              ? `Selected: ${files.portfolio.name}`
+                              : 'Drag & drop or click to upload'
+                            }
+                          </p>
+                          <p className="text-xs text-gray-500">PDF, JPG, PNG or ZIP (Max. 10MB)</p>
+                        </div>
+                      </div>
+                      
+                      <p className="text-xs text-gray-500">
+                        For speakers, exhibitors, and content creators, please share examples of your previous work
+                      </p>
+                    </div>
+                  </div>
                 </div>
                 
+                {/* Terms and Conditions */}
+                <div className="border-t border-gray-200 pt-6">
+                  <div className="flex items-start space-x-3">
+                    <div className="flex items-center h-5">
+                      <Switch
+                        id="terms"
+                        checked={agreeTerms}
+                        onCheckedChange={setAgreeTerms}
+                        required
+                      />
+                    </div>
+                    <div className="ml-3 text-sm">
+                      <Label htmlFor="terms" className="text-gray-600">
+                        I consent to Sheraa contacting me about this opportunity and storing my information in accordance with the <Link to="/privacy-policy" className="text-sheraa-primary hover:underline">Privacy Policy</Link>. I confirm that all submitted documents are authentic and accurate.
+                      </Label>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Submit Button */}
                 <div className="text-center">
-                  <Button type="submit" size="lg" className="px-8">
-                    Submit Application
+                  <Button 
+                    type="submit" 
+                    size="lg" 
+                    className="px-8"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? (
+                      <div className="flex items-center gap-2">
+                        <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"></div>
+                        <span>Submitting...</span>
+                      </div>
+                    ) : (
+                      'Submit Application'
+                    )}
                   </Button>
                 </div>
               </form>
@@ -774,8 +976,8 @@ const SEFBePartPage: React.FC = () => {
             </div>
             
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-              <h3 className="text-lg font-semibold text-sheraa-primary mb-3">Can I participate in multiple ways?</h3>
-              <p className="text-gray-600">Yes, many organizations both sponsor and exhibit, while individuals might speak and volunteer. Please indicate all areas of interest in your application, and our team will work with you on the best approach.</p>
+              <h3 className="text-lg font-semibold text-sheraa-primary mb-3">What documentation is required for applications?</h3>
+              <p className="text-gray-600">All applicants need to submit identification (passport/ID) and a resume/CV. Additional documents like portfolios are recommended for speakers and content creators. International applicants may need to provide extra documentation for visa purposes.</p>
             </div>
           </div>
           
