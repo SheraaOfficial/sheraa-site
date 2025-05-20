@@ -489,7 +489,7 @@ const SEFBePartPage: React.FC = () => {
 
                 {/* File Upload Section */}
                 <div className="space-y-6 border-t border-gray-200 pt-6">
-                  <h3 className="text-lg font-semibold text-sheraa-primary flex items-center gap-2">
+                  <h3 className="text-lg font-semibold flex items-center gap-2 text-inherit">
                     <Upload className="h-5 w-5" />
                     Required Documentation
                   </h3>
