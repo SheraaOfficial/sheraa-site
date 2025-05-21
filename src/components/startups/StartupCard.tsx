@@ -17,7 +17,7 @@ const StartupCard: React.FC<StartupCardProps> = React.memo(({
   index,
   isMobile
 }) => {
-  // Function to display random badges or specific badges if provided
+  // Function to display specific badges if provided or random badges
   const renderBadges = () => {
     if (startup.badges && startup.badges.length > 0) {
       return startup.badges.map((badge, i) => (
