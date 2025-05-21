@@ -48,7 +48,7 @@ const ImmersiveNavbar: React.FC<ImmersiveNavbarProps> = ({ onOpen, onClose }) =>
       title: 'Discover',
       links: [
         { title: 'About Sheraa', href: '/about', description: 'Learn about our mission and vision' },
-        { title: 'Our Impact', href: '/about/impact', description: 'See how we're changing the ecosystem' },
+        { title: 'Our Impact', href: '/about/impact', description: 'See how we\'re changing the ecosystem' },
         { title: 'Why Sharjah', href: '/about/why-sharjah', description: 'Discover the advantages of Sharjah' }
       ]
     },
