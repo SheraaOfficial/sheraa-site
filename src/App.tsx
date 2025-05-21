@@ -1,3 +1,4 @@
+
 import React, { useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -29,6 +30,7 @@ import StartupDojoPlus from "./pages/programs/StartupDojoPlus";
 import S3Incubator from "./pages/programs/S3Incubator";
 import AccessSharjahChallenge from "./pages/programs/AccessSharjahChallenge";
 import SMESupport from "./pages/programs/SMESupport";
+import DealDock from "./pages/programs/DealDock"; // New program page
 
 // SEF Page imports
 import SEFRegisterPage from "./pages/events/sef/SEFRegisterPage";
@@ -39,6 +41,9 @@ import SEFWhoShouldAttendPage from "./pages/events/sef/SEFWhoShouldAttendPage";
 import SEFBePartPage from "./pages/events/sef/SEFBePartPage";
 import SEFFAQPage from "./pages/events/sef/SEFFAQPage";
 import SEFLandingPage from "./pages/events/sef-landing";
+
+// Community pages
+import FounderPortal from "./pages/community/FounderPortal"; // New founder portal page
 
 // Auth & Profile pages
 import LoginPage from "./pages/auth/LoginPage";
@@ -130,6 +135,7 @@ const App = () => {
                   <Route path="/programs/s3-incubator" element={<S3Incubator />} />
                   <Route path="/programs/build-ventures" element={<ProgramsPage section="build-ventures" />} />
                   <Route path="/programs/access-sharjah-challenge" element={<AccessSharjahChallenge />} />
+                  <Route path="/programs/deal-dock" element={<DealDock />} /> {/* New Deal Dock route */}
                   <Route path="/programs/sme-support" element={<SMESupport />} />
                   
                   {/* Eligibility Checker Page */}
@@ -166,6 +172,7 @@ const App = () => {
                   <Route path="/community/join" element={<CommunityPage section="join" />} />
                   <Route path="/community/startups" element={<CommunityPage section="startups" />} />
                   <Route path="/community/partnerships" element={<CommunityPage section="partnerships" />} />
+                  <Route path="/community/founder-portal" element={<FounderPortal />} /> {/* New founder portal route */}
 
                   {/* Careers Route */}
                   <Route path="/careers" element={<CareersPage />} />

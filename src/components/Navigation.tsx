@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, lazy, Suspense } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -8,6 +7,7 @@ import { homeLinks, discoverLinks, growLinks, communityLinks, insightsLinks, app
 import { useLocalStorage } from "@/hooks/use-local-storage";
 import UserAvatar from "./user/UserAvatar";
 import { useTheme } from "@/contexts/ThemeContext";
+import ImmersiveNavbar from "./ImmersiveNavbar"; // Import the new navbar
 
 // Lazy load components
 const DesktopNavigation = lazy(() => import("./navigation/DesktopNavigation"));
@@ -19,10 +19,19 @@ const Navigation = () => {
   const [hydrated, setHydrated] = useState(false);
   const [loggedInUser] = useLocalStorage<any | null>("loggedInUser", null);
   const { theme, setTheme } = useTheme();
+  const [useImmersiveNavbar, setUseImmersiveNavbar] = useState(false); // Toggle for which navbar to use
 
   // Mark as hydrated after initial render
   useEffect(() => {
     setHydrated(true);
+    // Determine which navbar to use based on the path
+    const path = window.location.pathname;
+    // Use immersive navbar on homepage or major landing pages
+    if (path === "/" || path.includes("/sef-landing")) {
+      setUseImmersiveNavbar(true);
+    } else {
+      setUseImmersiveNavbar(false);
+    }
   }, []);
 
   const toggleMenu = () => {
@@ -33,6 +42,12 @@ const Navigation = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
   };
 
+  // Use the immersive navbar when specified
+  if (useImmersiveNavbar && hydrated) {
+    return <ImmersiveNavbar />;
+  }
+
+  // Otherwise use the regular navbar
   return (
     <header 
       className={`sheraa-navbar ${

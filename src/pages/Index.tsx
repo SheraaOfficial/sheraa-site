@@ -25,16 +25,6 @@ const SecondPriorityComponents = lazy(() =>
     }))
 );
 
-const ThirdPriorityComponents = lazy(() => 
-  import("@/components/sections/ThirdPriorityComponents")
-    .then(module => ({ 
-      default: module.ThirdPriorityComponents as React.ComponentType<any>
-    }))
-    .catch(() => ({ 
-      default: (() => <ErrorFallback />) as React.ComponentType<any>
-    }))
-);
-
 // Improved loading placeholder with mobile optimization
 const LoadingPlaceholder: React.FC = () => {
   const isMobile = useIsMobile();
@@ -71,12 +61,6 @@ const useComponentPreloader = (deepScroll: boolean, devicePerformance: string, i
       try {
         // Preload critical secondary components
         await import("@/components/sections/SecondPriorityComponents");
-        
-        // Only preload tertiary components on high-performance devices or when deep scrolled
-        // Skip tertiary preloading on mobile
-        if ((devicePerformance === 'high' && !isMobile) || (deepScroll && !isMobile)) {
-          await import("@/components/sections/ThirdPriorityComponents");
-        }
       } catch (error) {
         console.error("Failed to preload components:", error);
       }
@@ -116,17 +100,11 @@ const Index: React.FC = () => {
         {/* First priority components - always load */}
         <FirstPriorityComponents />
         
-        {/* Second priority components - load after user interaction */}
+        {/* Second priority components - load after user interaction 
+           - Only load the priority components we need for the shortened homepage */}
         {firstInteraction && (
           <SafeSuspense fallback={<LoadingPlaceholder />}>
             <SecondPriorityComponents />
-          </SafeSuspense>
-        )}
-        
-        {/* Third priority components - load after deep scroll */}
-        {deepScroll && (
-          <SafeSuspense fallback={<LoadingPlaceholder />}>
-            <ThirdPriorityComponents />
           </SafeSuspense>
         )}
       </div>

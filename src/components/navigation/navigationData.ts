@@ -1,65 +1,55 @@
 
-// Define navigation link types
-export interface NavLink {
-  title: string;
-  href: string;
-  description?: string;
-}
+import { NavigationLink } from "./types";
 
-// Create and export Home links (formerly About links)
-export const homeLinks: NavLink[] = [
-  { title: "About Us", href: "/about", description: "Learn about Sheraa's mission and values" },
-  { title: "Our Approach", href: "/about#approach", description: "Discover our founder-first philosophy" },
-  { title: "Our Vision", href: "/about#vision", description: "See our vision for Sharjah's future" },
-  { title: "Our Impact", href: "/about#impact", description: "Explore our ecosystem's achievements" },
-  { title: "Our Hubs", href: "/about#hubs", description: "Visit our strategic locations" },
-  { title: "Our Leadership", href: "/about#leadership", description: "Meet our visionary leaders" },
-  { title: "Our Board of Advisors", href: "/about#board", description: "Learn from our expert advisors" },
-  { title: "Careers", href: "/careers", description: "Join our team" },
+export const homeLinks: NavigationLink[] = [
+  { title: "Home", href: "/", description: "Back to homepage" },
+  { title: "About Sheraa", href: "/about", description: "Learn about our mission and vision" },
+  { title: "Why Sharjah", href: "/about/why-sharjah", description: "Discover the advantages of Sharjah" },
+  { title: "Our Impact", href: "/about/impact", description: "See how we're changing the ecosystem" },
 ];
 
-// Create and export Discover links (new grouping for programs)
-export const discoverLinks: NavLink[] = [
-  { title: "Program Pathway", href: "/programs", description: "Your journey from idea to scale" },
-  { title: "Start Young", href: "/programs/start-young", description: "Programs for student entrepreneurs" },
-  { title: "Startup Dojo", href: "/programs/startup-dojo", description: "Summer incubation program" },
-  { title: "Startup Dojo+", href: "/programs/startup-dojo-plus", description: "Advanced startup program" },
+export const discoverLinks: NavigationLink[] = [
+  { title: "Programs Overview", href: "/programs", description: "Explore all our entrepreneurship programs" },
+  { title: "All Programs", href: "/programs", description: "View all available programs" },
+  { title: "Start Young", href: "/programs/start-young", description: "For students and early-stage founders" },
+  { title: "Grow Smart", href: "/programs/grow-smart", description: "For startups with market traction" },
+  { title: "Build Ventures", href: "/programs/build-ventures", description: "For growth-stage companies" },
 ];
 
-// Create and export Grow links (focused on growth and incubation)
-export const growLinks: NavLink[] = [
-  { title: "S3 Incubator", href: "/programs/s3-incubator", description: "Sheraa Startup Studio" },
-  { title: "Build Ventures", href: "/programs/build-ventures", description: "Growth stage program" },
-  { title: "Access Sharjah Challenge", href: "/programs/access-sharjah-challenge", description: "Solve real industry challenges" },
-  { title: "SME Support", href: "/programs/sme-support", description: "Support for established businesses" },
+export const growLinks: NavigationLink[] = [
+  { title: "Startup Dojo", href: "/programs/startup-dojo", description: "For student entrepreneurs" },
+  { title: "Startup Dojo+", href: "/programs/startup-dojo-plus", description: "For student startups with traction" },
+  { title: "S3 Incubator", href: "/programs/s3-incubator", description: "For early-stage startups" },
+  { title: "Access Sharjah Challenge", href: "/programs/access-sharjah-challenge", description: "For growth-stage startups" },
+  { title: "Deal Dock", href: "/programs/deal-dock", description: "For startups seeking investment" },
+  { title: "SME Support", href: "/programs/sme-support", description: "For established businesses" },
 ];
 
-// Create and export Community links - Remove SEF from here
-export const communityLinks: NavLink[] = [
-  { title: "Join Our Community", href: "/community/join", description: "Membership benefits" },
-  { title: "Our Startups Showcase", href: "/community/startups", description: "Success stories" },
-  { title: "Partnership Opportunities", href: "/community/partnerships", description: "Collaborate with us" },
+export const communityLinks: NavigationLink[] = [
+  { title: "Join Our Community", href: "/community/join", description: "Become part of our ecosystem" },
+  { title: "Startup Directory", href: "/community/startups", description: "Explore our portfolio startups" },
+  { title: "Partnerships", href: "/community/partnerships", description: "Collaborate with Sheraa" },
+  { title: "Founder Portal", href: "/community/founder-portal", description: "Exclusive resources for founders" },
 ];
 
-// Create and export Insights links (formerly Resources)
-export const insightsLinks: NavLink[] = [
-  { title: "Guides & Toolkits", href: "/resources/guides", description: "Practical startup guides" },
-  { title: "Advisory Services", href: "/resources/advisory", description: "Expert guidance" },
-  { title: "Articles & Insights", href: "/resources/articles", description: "Latest startup trends" },
-  { title: "Impact Reports", href: "/resources/impact-reports", description: "Our ecosystem impact" },
-  { title: "News & Media", href: "/events/news", description: "Latest updates" },
+export const insightsLinks: NavigationLink[] = [
+  { title: "Resources", href: "/resources", description: "Guides, toolkits & advisory services" },
+  { title: "Guides & Toolkits", href: "/resources/guides", description: "Practical resources for your business" },
+  { title: "Advisory Services", href: "/resources/advisory", description: "Expert guidance when you need it most" },
+  { title: "Articles & Insights", href: "/resources/articles", description: "Latest trends and success stories" },
+  { title: "Impact Reports", href: "/resources/impact-reports", description: "Our ecosystem achievements" },
 ];
 
-// Create and export Apply links (focused on taking action)
-export const applyLinks: NavLink[] = [
-  { title: "Check Eligibility", href: "/eligibility", description: "Find the right program" },
-  { title: "Apply for Programs", href: "/programs", description: "Start your journey" },
-  { title: "Contact Us", href: "/contact", description: "Get in touch" },
+export const applyLinks: NavigationLink[] = [
+  { title: "Eligibility Checker", href: "/eligibility", description: "Find the right program for you" },
+  { title: "Startup Dojo Application", href: "/programs/startup-dojo", description: "For student entrepreneurs" },
+  { title: "S3 Incubator Application", href: "/programs/s3-incubator", description: "For early-stage startups" },
+  { title: "Access Sharjah Challenge", href: "/programs/access-sharjah-challenge", description: "For growth-stage startups" },
+  { title: "Deal Dock Application", href: "/programs/deal-dock", description: "For investment-ready startups" },
 ];
 
-// Create and export SEF link - New standalone SEF link for the main navigation
-export const sefLink: NavLink = { 
-  title: "SEF", 
-  href: "/events/sef-landing", 
-  description: "Sharjah Entrepreneurship Festival"
+export const sefLink: NavigationLink = {
+  title: "SEF 2026",
+  href: "/events/sef-landing",
+  description: "Sharjah Entrepreneurship Festival - January 31-February 1, 2026"
 };
