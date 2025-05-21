@@ -1,38 +1,21 @@
 
-import React from 'react';
-import { Button } from '@/components/ui/button';
-import { AlertCircle, RefreshCcw } from 'lucide-react';
-import { useIsMobile } from '@/hooks/useDeviceDetection';
+import React from "react";
 
-interface ErrorFallbackProps {
-  onRetry?: () => void;
-  message?: string;
-}
-
-export const ErrorFallback: React.FC<ErrorFallbackProps> = ({
-  onRetry,
-  message = 'Something went wrong loading this component.'
-}) => {
-  const isMobile = useIsMobile();
-  
+export const ErrorFallback: React.FC = () => {
   return (
-    <div className="w-full py-4 my-2">
-      <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4 flex flex-col items-center text-center shadow-sm">
-        <AlertCircle className="h-5 w-5 text-red-500 dark:text-red-400 mb-2" />
-        <p className="text-sm font-medium text-red-800 dark:text-red-300 mb-2">
-          {message}
-        </p>
-        {onRetry && (
-          <Button 
-            onClick={onRetry} 
-            variant="outline" 
-            size="sm"
-            className="bg-white hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 text-xs px-3 py-1 h-auto"
-          >
-            <RefreshCcw className="mr-1 h-3 w-3" /> Retry
-          </Button>
-        )}
-      </div>
+    <div className="w-full p-6 bg-red-50 border border-red-200 rounded-lg text-center">
+      <h3 className="text-lg font-medium text-red-700 mb-2">
+        Something went wrong
+      </h3>
+      <p className="text-sm text-red-600 mb-4">
+        We encountered an error while loading this content.
+      </p>
+      <button
+        onClick={() => window.location.reload()}
+        className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors"
+      >
+        Try Again
+      </button>
     </div>
   );
 };

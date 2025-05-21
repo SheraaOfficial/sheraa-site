@@ -1,201 +1,66 @@
 
-import React, { useMemo } from "react";
-import { motion, LayoutGroup } from "framer-motion";
-import { Link } from "react-router-dom";
+import React from "react";
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { GradientButton } from "@/components/ui/gradient-button";
-import { TextRotate } from "@/components/ui/text-rotate";
-import { Badge } from "@/components/ui/badge";
-import { useDeviceDetection } from "@/hooks/useDeviceDetection";
+import { Link } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 
-export function HeroContent() {
-  const { isMobile } = useDeviceDetection();
-
-  // Memoize animation variants to prevent recreation on each render
-  const badgeVariants = useMemo(() => ({
-    initial: {
-      opacity: 0,
-      y: -20
-    },
-    animate: {
-      opacity: 1,
-      y: 0
-    },
-    transition: {
-      duration: 0.3,
-      ease: "easeOut",
-      delay: 0.2
-    }
-  }), []);
-  
-  const titleVariants = useMemo(() => ({
-    initial: {
-      opacity: 0,
-      y: 20
-    },
-    animate: {
-      opacity: 1,
-      y: 0
-    },
-    transition: {
-      duration: 0.2,
-      ease: "easeOut",
-      delay: 0.3
-    }
-  }), []);
-  
-  const descriptionVariants = useMemo(() => ({
-    initial: {
-      opacity: 0,
-      y: 20
-    },
-    animate: {
-      opacity: 1,
-      y: 0
-    },
-    transition: {
-      duration: 0.2,
-      ease: "easeOut",
-      delay: 0.5
-    }
-  }), []);
-
+export const HeroContent: React.FC = () => {
   return (
-    <div className="flex flex-col justify-center items-center w-[90%] sm:w-[300px] md:w-[500px] lg:w-[700px] z-50 pointer-events-auto mx-auto">
-      {/* Festival Badge */}
-      <motion.div 
-        initial={badgeVariants.initial} 
-        animate={badgeVariants.animate} 
-        transition={badgeVariants.transition} 
-        className=""
+    <motion.div 
+      className="max-w-2xl mx-auto text-center px-4 py-12 md:py-20"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3, duration: 0.8 }}
       >
-        <Badge 
-          variant="gradient-warm" 
-          size={isMobile ? "default" : "lg"} 
-          animation="float" 
-          className="py-0 mx-0 rounded-full my-[30px] bg-sheraa-primary"
-        >
-          Sharjah Entrepreneurship Center
-        </Badge>
+        <div className="inline-block mb-4">
+          <span className="bg-gradient-to-r from-sheraa-primary/20 to-purple-500/20 text-sheraa-primary px-4 py-1.5 rounded-full text-sm font-medium">
+            Creating the Next Wave of Entrepreneurs
+          </span>
+        </div>
       </motion.div>
-      
+
       <motion.h1 
-        className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl text-center w-full justify-center items-center flex-col flex whitespace-pre leading-tight font-bold tracking-tight space-y-1 md:space-y-3 dark:text-white" 
-        initial={titleVariants.initial} 
-        animate={titleVariants.animate} 
-        transition={titleVariants.transition}
+        className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-sheraa-primary to-purple-500 bg-clip-text text-transparent"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.4, duration: 0.8 }}
       >
-        <span className="text-3xl md:text-5xl">Creating the</span>
-        <LayoutGroup>
-          <motion.span layout className="flex flex-wrap justify-center whitespace-pre">
-            <motion.span 
-              layout 
-              transition={{
-                type: "spring",
-                damping: 30,
-                stiffness: 400
-              }} 
-              className="flex whitespace-pre text-2xl md:text-3xl"
-            >
-              Next Wave of{" "}
-            </motion.span>
-            <TextRotate 
-              texts={[
-                "Entrepreneurs", 
-                "Innovators", 
-                "Changemakers", 
-                "Creators", 
-                "Leaders", 
-                "Visionaries", 
-                "Founders", 
-                "Trailblazers"
-              ]} 
-              mainClassName="overflow-hidden pr-3 text-sheraa-primary py-0 pb-2 md:pb-3 rounded-xl" 
-              staggerDuration={0.03} 
-              staggerFrom="last" 
-              rotationInterval={3000} 
-              transition={{
-                type: "spring",
-                damping: 30,
-                stiffness: 400
-              }} 
-            />
-          </motion.span>
-        </LayoutGroup>
+        Sharjah's Official Hub for Aspiring Founders
       </motion.h1>
       
       <motion.p 
-        initial={descriptionVariants.initial} 
-        animate={descriptionVariants.animate} 
-        transition={descriptionVariants.transition} 
-        className="text-xs sm:text-sm md:text-lg xl:text-xl text-center pt-3 sm:pt-4 md:pt-6 lg:pt-6 max-w-2xl mx-auto font-medium text-sheraa-primary dark:text-gray-300 md:px-8 px-4"
+        className="text-lg md:text-xl mb-8 text-gray-700 dark:text-gray-200"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.6, duration: 0.8 }}
       >
-        Sharjah's official hub for aspiring founders and established ventures. We empower changemakers to build impactful businesses and shape the future.
+        We empower changemakers to build impactful businesses and shape the future. Our resources, mentorship, and network 
+        transform bold ideas into successful, scalable startups.
       </motion.p>
-
-      <HeroCTA />
-    </div>
-  );
-}
-
-function HeroCTA() {
-  const { isMobile } = useDeviceDetection();
-
-  // Memoize animation variants
-  const buttonVariants = useMemo(() => ({
-    initial: {
-      opacity: 0,
-      y: 20
-    },
-    animate: {
-      opacity: 1,
-      y: 0
-    },
-    transition: {
-      duration: 0.2,
-      ease: "easeOut",
-      delay: 0.7
-    },
-    whileHover: {
-      scale: 1.05,
-      transition: {
-        type: "spring",
-        damping: 30,
-        stiffness: 400
-      }
-    }
-  }), []);
-
-  return (
-    <div className="my-[65px] py-0 flex flex-col sm:flex-row gap-4">
-      <motion.div 
-        initial={buttonVariants.initial} 
-        animate={buttonVariants.animate} 
-        transition={buttonVariants.transition} 
-        whileHover={buttonVariants.whileHover}
-      >
-        <GradientButton asChild className="w-full sm:w-auto">
-          <Link to="/programs">Launch Your Startup</Link>
-        </GradientButton>
-      </motion.div>
       
       <motion.div 
-        initial={buttonVariants.initial} 
-        animate={buttonVariants.animate} 
-        transition={{
-          ...buttonVariants.transition,
-          delay: 0.8
-        }} 
-        whileHover={buttonVariants.whileHover}
+        className="flex flex-col sm:flex-row gap-4 justify-center"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.8, duration: 0.8 }}
       >
-        <Button 
-          variant="outline" 
-          asChild 
-          className="w-full sm:w-auto border-gray-300 dark:border-gray-700 dark:text-white hover:bg-gray-100/50 dark:hover:bg-gray-800/70"
-        >
-          <Link to="/community">Join Our Community</Link>
+        <Button asChild size="xl" variant="neo" className="group">
+          <Link to="/programs" className="flex items-center">
+            Launch Your Startup
+            <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </Link>
+        </Button>
+        
+        <Button asChild size="xl" variant="outline" className="border-sheraa-primary/30 hover:bg-sheraa-primary/10">
+          <Link to="/community/join">Join Our Community</Link>
         </Button>
       </motion.div>
-    </div>
+    </motion.div>
   );
-}
+};

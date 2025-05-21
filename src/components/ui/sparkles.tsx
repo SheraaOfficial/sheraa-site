@@ -1,133 +1,107 @@
-import React, { useRef, useState, useEffect, CSSProperties, memo } from "react";
+
+import * as React from "react";
+import { motion, useAnimation } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-// Type for individual sparkle
-interface SparkleType {
-  id: string;
-  createdAt: number;
+interface SparklesProps {
+  children: React.ReactNode;
+  className?: string;
+  colors?: string[];
+  size?: "sm" | "md" | "lg";
+  count?: number;
+}
+
+interface SparkleProps {
   color: string;
   size: number;
-  style: CSSProperties;
+  duration: number;
 }
 
-// Generate a random number within a range
-const random = (min: number, max: number): number => Math.floor(Math.random() * (max - min) + min);
-
-// Generate a random color with transparency
-const randomColor = (colors: string[]): string => colors[Math.floor(Math.random() * colors.length)];
-interface SparklesProps {
-  colors?: string[];
-  count?: number;
-  minSize?: number;
-  maxSize?: number;
-  speed?: number; // Animation duration in ms
-  className?: string;
-  children?: React.ReactNode;
-}
-
-// Use React.memo to prevent unnecessary re-renders
-const SparkleInstance = memo(({
-  sparkle
-}: {
-  sparkle: SparkleType;
-}) => <span className="absolute animate-sparkle pointer-events-none select-none z-10" style={{
-  ...sparkle.style,
-  color: sparkle.color,
-  width: sparkle.size,
-  height: sparkle.size
-}}>
-    <svg width="100%" height="100%" viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M26.5 25.5C19.0043 33.3697 0 34 0 34C0 34 19.1013 35.3684 26.5 43.5C33.234 50.901 34 68 34 68C34 68 36.9884 50.7065 44.5 43.5C51.6431 36.647 68 34 68 34C68 34 51.6947 32.0939 44.5 25.5C36.5605 18.2235 34 0 34 0C34 0 33.6591 17.9837 26.5 25.5Z" fill="currentColor" />
-    </svg>
-  </span>);
-SparkleInstance.displayName = 'SparkleInstance';
-export const Sparkles: React.FC<SparklesProps> = ({
-  colors = ["#FFC700", "#FF3D65", "#378EFF", "#9580FF"],
-  count = 10,
-  // Reduced from 20 to improve performance
-  minSize = 10,
-  maxSize = 20,
-  speed = 1000,
-  // Increased to reduce updates
-  className,
-  children
-}) => {
-  const [sparkles, setSparkles] = useState<SparkleType[]>([]);
-  const [animationVersion, setAnimationVersion] = useState<number>(0);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const prefersReducedMotion = useRef<boolean>(false);
-  const intervalRef = useRef<number | null>(null);
-
-  // Check for reduced motion preference once on mount
-  useEffect(() => {
-    prefersReducedMotion.current = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    // Create initial sparkles
-    if (!prefersReducedMotion.current) {
-      const initialSparkles = generateSparkles(count);
-      setSparkles(initialSparkles);
-    }
-
-    // Cleanup on unmount
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
-    };
-  }, [count]);
-
-  // Setup interval for sparkle regeneration
-  useEffect(() => {
-    if (prefersReducedMotion.current) return;
-    intervalRef.current = window.setInterval(() => {
-      setSparkles(prevSparkles => {
-        const now = Date.now();
-
-        // Only remove the oldest sparkle if it's old enough
-        const oldestSparkle = prevSparkles.sort((a, b) => a.createdAt - b.createdAt)[0];
-        if (now - oldestSparkle.createdAt < speed * 0.8) {
-          return prevSparkles;
-        }
-        return [...prevSparkles.slice(1), generateSparkle()];
-      });
-      setAnimationVersion(v => v + 1);
-    }, speed);
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
-    };
-  }, [speed, colors, minSize, maxSize]);
-
-  // Generate a single sparkle
-  const generateSparkle = (): SparkleType => {
-    const timestamp = Date.now();
-    const sparkleId = `sparkle-${timestamp}`;
-    const top = random(0, 100);
-    const left = random(0, 100);
-    const size = random(minSize, maxSize);
-    return {
-      id: sparkleId,
-      createdAt: timestamp,
-      color: randomColor(colors),
-      size,
-      style: {
-        top: `${top}%`,
-        left: `${left}%`
-      }
-    };
-  };
-
-  // Generate multiple sparkles
-  const generateSparkles = (num: number): SparkleType[] => {
-    return Array.from({
-      length: num
-    }, () => generateSparkle());
-  };
-  return <div ref={containerRef} className="rounded-full mx-0 my-0 px-0">
-      {sparkles.map(sparkle => <SparkleInstance key={sparkle.id} sparkle={sparkle} />)}
-      <span className="relative z-0" key={`children-${animationVersion}`}>
-        {children}
-      </span>
-    </div>;
+const Sparkle: React.FC<SparkleProps> = ({ color, size, duration }) => {
+  const pathLength = React.useMemo(() => Math.random() * 0.5 + 0.5, []);
+  
+  return (
+    <motion.div
+      className="absolute"
+      style={{
+        top: Math.random() * 100 + "%",
+        left: Math.random() * 100 + "%",
+        position: "absolute",
+      }}
+      initial={{
+        opacity: 0,
+        scale: 0,
+      }}
+      animate={{
+        opacity: [0, 1, 0],
+        scale: [0, 1, 0],
+      }}
+      transition={{
+        duration: duration,
+        delay: Math.random() * 1.5,
+        repeat: Infinity,
+        repeatDelay: Math.random() * 5 + 2,
+      }}
+    >
+      <svg
+        width={size}
+        height={size}
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        style={{ color }}
+      >
+        <motion.path
+          d="M12 2L9 7L3 9L9 11L12 16L15 11L21 9L15 7Z"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength }}
+          transition={{ duration: duration * 0.8, ease: "easeInOut" }}
+        />
+      </svg>
+    </motion.div>
+  );
 };
+
+export function Sparkles({
+  children,
+  className,
+  colors = ["#9b87f5", "#F97316", "#D946EF"],
+  size = "md",
+  count = 10,
+}: SparklesProps) {
+  const sizeMap = React.useMemo(
+    () => ({
+      sm: [4, 8],
+      md: [8, 12],
+      lg: [12, 16],
+    }),
+    []
+  );
+  
+  // Create random sparkles
+  const sparkles = React.useMemo(() => {
+    return Array.from({ length: count }).map((_, i) => ({
+      id: i,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      size: Math.random() * (sizeMap[size][1] - sizeMap[size][0]) + sizeMap[size][0],
+      duration: Math.random() * 2 + 1,
+    }));
+  }, [colors, count, size, sizeMap]);
+
+  return (
+    <div className={cn("relative inline-block", className)}>
+      {sparkles.map((sparkle) => (
+        <Sparkle
+          key={sparkle.id}
+          color={sparkle.color}
+          size={sparkle.size}
+          duration={sparkle.duration}
+        />
+      ))}
+      {children}
+    </div>
+  );
+}

@@ -1,57 +1,61 @@
 
-import * as React from "react";
-import { useIsMobile } from "./useDeviceDetection";
+import { useState, useEffect } from 'react';
 
-/**
- * Hook for optimized scroll position tracking
- * @param threshold - Pixel threshold for updating scroll position on mobile
- * @returns Object containing scrollY position and isScrolling state
- */
-export function useOptimizedScroll(threshold = 100) {
-  const [scrollY, setScrollY] = React.useState(0);
-  const [isScrolling, setIsScrolling] = React.useState(false);
-  const isMobile = useIsMobile();
-  
-  React.useEffect(() => {
-    let lastKnownScrollPosition = 0;
+interface ScrollState {
+  scrollY: number;
+  scrollDirection: 'up' | 'down' | null;
+  scrollPercentage: number;
+}
+
+export const useOptimizedScroll = (): ScrollState => {
+  const [scrollState, setScrollState] = useState<ScrollState>({
+    scrollY: 0,
+    scrollDirection: null,
+    scrollPercentage: 0,
+  });
+
+  useEffect(() => {
+    let lastScrollY = window.scrollY;
     let ticking = false;
-    let scrollTimeout: NodeJS.Timeout;
-    
-    const handleScroll = () => {
-      lastKnownScrollPosition = window.scrollY;
-      setIsScrolling(true);
-      
-      // Clear previous timeout
-      clearTimeout(scrollTimeout);
-      
-      // Only update if we're not already processing a frame
+
+    const calculateScrollPercentage = () => {
+      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+      return scrollHeight > 0 ? (window.scrollY / scrollHeight) * 100 : 0;
+    };
+
+    const updateScrollState = () => {
+      const currentScrollY = window.scrollY;
+      setScrollState({
+        scrollY: currentScrollY,
+        scrollDirection: currentScrollY > lastScrollY ? 'down' : 'up',
+        scrollPercentage: calculateScrollPercentage(),
+      });
+      lastScrollY = currentScrollY;
+      ticking = false;
+    };
+
+    const onScroll = () => {
       if (!ticking) {
-        // Use requestAnimationFrame for smoother performance
-        window.requestAnimationFrame(() => {
-          // On mobile, only update every X pixels of scrolling for better performance
-          if (!isMobile || Math.abs(scrollY - lastKnownScrollPosition) > threshold) {
-            setScrollY(lastKnownScrollPosition);
-          }
-          ticking = false;
-        });
+        // Use requestAnimationFrame for more performant scroll handling
+        window.requestAnimationFrame(updateScrollState);
         ticking = true;
       }
-      
-      // Set timeout to detect when scrolling stops
-      scrollTimeout = setTimeout(() => {
-        setIsScrolling(false);
-        // Always update position when scrolling stops
-        setScrollY(window.scrollY);
-      }, 150);
     };
-    
-    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    // Set initial values
+    setScrollState({
+      scrollY: window.scrollY,
+      scrollDirection: null,
+      scrollPercentage: calculateScrollPercentage(),
+    });
+
+    // Add scroll listener with passive option for performance
+    window.addEventListener('scroll', onScroll, { passive: true });
     
     return () => {
-      window.removeEventListener("scroll", handleScroll);
-      clearTimeout(scrollTimeout);
+      window.removeEventListener('scroll', onScroll);
     };
-  }, [isMobile, threshold, scrollY]);
-  
-  return { scrollY, isScrolling };
-}
+  }, []);
+
+  return scrollState;
+};

@@ -1,50 +1,66 @@
 
 import { useState, useEffect } from 'react';
 
-export const useFirstInteraction = () => {
-  const [firstInteraction, setFirstInteraction] = useState(false);
-  
+export const useFirstInteraction = (): boolean => {
+  const [hasInteracted, setHasInteracted] = useState(false);
+
   useEffect(() => {
-    const handleInteraction = () => setFirstInteraction(true);
-    
-    // Consider first scroll or click as first interaction with passive event listeners
-    window.addEventListener('scroll', handleInteraction, { once: true, passive: true });
-    window.addEventListener('click', handleInteraction, { once: true });
-    
-    return () => {
-      window.removeEventListener('scroll', handleInteraction);
-      window.removeEventListener('click', handleInteraction);
+    if (hasInteracted) return;
+
+    // Events that indicate user interaction
+    const interactionEvents = [
+      'mousemove',
+      'click',
+      'keydown',
+      'touchstart',
+      'scroll',
+    ];
+
+    const handleInteraction = () => {
+      setHasInteracted(true);
+      
+      // Remove all event listeners once interaction has been detected
+      interactionEvents.forEach(event => {
+        window.removeEventListener(event, handleInteraction);
+      });
     };
-  }, []);
-  
-  return firstInteraction;
+
+    // Add event listeners for all interaction types
+    interactionEvents.forEach(event => {
+      window.addEventListener(event, handleInteraction, { passive: true });
+    });
+
+    // Auto-trigger after a timeout (optional)
+    const timer = setTimeout(() => {
+      handleInteraction();
+    }, 3000);
+
+    return () => {
+      interactionEvents.forEach(event => {
+        window.removeEventListener(event, handleInteraction);
+      });
+      clearTimeout(timer);
+    };
+  }, [hasInteracted]);
+
+  return hasInteracted;
 };
 
-export const useDeepScroll = () => {
+export const useDeepScroll = (threshold = 300): boolean => {
   const [deepScroll, setDeepScroll] = useState(false);
-  
+
   useEffect(() => {
-    // Optimized tracking of deep scroll for the lowest priority components with throttling
-    let scrollTimeout: number | null = null;
     const handleScroll = () => {
-      if (scrollTimeout === null) {
-        scrollTimeout = window.setTimeout(() => {
-          if (window.scrollY > window.innerHeight * 0.5) {
-            setDeepScroll(true);
-            window.removeEventListener('scroll', handleScroll);
-          }
-          scrollTimeout = null;
-        }, 100);
+      if (!deepScroll && window.scrollY > threshold) {
+        setDeepScroll(true);
+        window.removeEventListener('scroll', handleScroll);
       }
     };
-    
+
     window.addEventListener('scroll', handleScroll, { passive: true });
-    
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      if (scrollTimeout) window.clearTimeout(scrollTimeout);
-    };
-  }, []);
-  
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [deepScroll, threshold]);
+
   return deepScroll;
 };

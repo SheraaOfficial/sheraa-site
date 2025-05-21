@@ -1,18 +1,24 @@
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from 'react';
 
-export const useScrollDirection = (scrollY: number) => {
-  const [scrollDirection, setScrollDirection] = useState("down");
-  const lastScrollY = useRef(0);
-  
+export const useScrollDirection = (scrollY: number): 'up' | 'down' | null => {
+  const [direction, setDirection] = useState<'up' | 'down' | null>(null);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
   useEffect(() => {
-    if (scrollY > lastScrollY.current) {
-      setScrollDirection("down");
-    } else if (scrollY < lastScrollY.current) {
-      setScrollDirection("up");
+    if (scrollY === 0 && lastScrollY === 0) {
+      // Initial page load - don't set a direction yet
+      return;
     }
-    lastScrollY.current = scrollY;
-  }, [scrollY]);
 
-  return scrollDirection;
+    if (scrollY > lastScrollY) {
+      setDirection('down');
+    } else if (scrollY < lastScrollY) {
+      setDirection('up');
+    }
+
+    setLastScrollY(scrollY);
+  }, [scrollY, lastScrollY]);
+
+  return direction;
 };

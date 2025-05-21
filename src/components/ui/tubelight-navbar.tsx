@@ -1,121 +1,76 @@
 
-"use client"
-
-import React, { useEffect, useState } from "react"
-import { motion } from "framer-motion"
-import { Link, useLocation } from "react-router-dom" // Using react-router-dom instead of next/link
+import * as React from "react"
+import { Link, useLocation } from "react-router-dom"
 import { LucideIcon } from "lucide-react"
+import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
-import { Sparkles } from "@/components/ui/sparkles"
-
-interface NavItem {
-  name: string;
-  url: string;
-  icon: LucideIcon;
-  highlight?: boolean;
-}
 
 interface NavBarProps {
-  items: NavItem[];
-  className?: string;
+  items: {
+    name: string
+    url: string
+    icon?: LucideIcon
+    highlight?: boolean
+  }[]
+  className?: string
 }
 
 export function NavBar({ items, className }: NavBarProps) {
-  const location = useLocation();
-  const [activeTab, setActiveTab] = useState("");
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    // Set active tab based on current URL
-    const currentPath = location.pathname;
-    const activeItem = items.find(item => currentPath.includes(item.url));
-    if (activeItem) {
-      setActiveTab(activeItem.name);
-    } else {
-      // Default to first item if no match
-      setActiveTab(items[0].name);
-    }
-
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, [items, location.pathname]);
+  const location = useLocation()
+  const [hoveredIndex, setHoveredIndex] = React.useState<number | null>(null)
 
   return (
-    <div
+    <div 
       className={cn(
-        "fixed top-20 sm:top-24 left-1/2 -translate-x-1/2 z-50 mb-6 sm:mt-6",
-        className,
+        "flex items-center p-1.5 rounded-full backdrop-blur-md bg-white/80 dark:bg-gray-900/80 border border-gray-200 dark:border-gray-800 shadow-md dark:shadow-none", 
+        className
       )}
     >
-      <div className="flex items-center gap-3 bg-background/70 border border-border backdrop-blur-lg py-1 px-1 rounded-full shadow-lg">
-        {items.map((item) => {
-          const Icon = item.icon;
-          const isActive = activeTab === item.name;
-
-          return item.highlight ? (
+      <div className="flex gap-2">
+        {items.map((item, index) => {
+          const Icon = item.icon
+          const isActive = location.pathname === item.url
+          const isHovered = hoveredIndex === index
+          
+          return (
             <Link
               key={item.name}
               to={item.url}
-              onClick={() => setActiveTab(item.name)}
               className={cn(
-                "relative cursor-pointer text-sm font-semibold px-6 py-2 rounded-full transition-colors",
+                "relative px-3 py-1.5 rounded-full transition-colors font-medium text-sm sm:text-base group flex items-center gap-1.5",
+                isActive
+                  ? "text-white z-10"
+                  : "text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white",
+                item.highlight && !isActive && "text-sheraa-primary dark:text-sheraa-primary"
               )}
+              onMouseEnter={() => setHoveredIndex(index)}
+              onMouseLeave={() => setHoveredIndex(null)}
             >
-              <Sparkles colors={["#9b87f5", "#FF6600", "#D946EF", "#F97316"]} count={15}>
-                <div className="flex items-center gap-2 relative z-10 transition-all hover:scale-105">
-                  <span className={cn(
-                    "md:inline",
-                    "bg-gradient-to-r from-purple-500 to-orange-400 bg-clip-text text-transparent font-bold"
-                  )}>{item.name}</span>
-                  <span className="md:hidden">
-                    <Icon size={18} strokeWidth={2.5} className="text-purple-500" />
-                  </span>
-                  <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-600/20 to-orange-500/20 blur-sm opacity-70"></div>
-                </div>
-              </Sparkles>
-            </Link>
-          ) : (
-            <Link
-              key={item.name}
-              to={item.url}
-              onClick={() => setActiveTab(item.name)}
-              className={cn(
-                "relative cursor-pointer text-sm font-semibold px-6 py-2 rounded-full transition-colors",
-                "text-foreground/80 hover:text-primary",
-                isActive && "bg-muted text-primary",
-              )}
-            >
-              <span className="hidden md:inline">{item.name}</span>
-              <span className="md:hidden">
-                <Icon size={18} strokeWidth={2.5} />
-              </span>
               {isActive && (
                 <motion.div
-                  layoutId="lamp"
-                  className="absolute inset-0 w-full bg-primary/5 rounded-full -z-10"
-                  initial={false}
-                  transition={{
-                    type: "spring",
-                    stiffness: 300,
-                    damping: 30,
-                  }}
-                >
-                  <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-8 h-1 bg-primary rounded-t-full">
-                    <div className="absolute w-12 h-6 bg-primary/20 rounded-full blur-md -top-2 -left-2" />
-                    <div className="absolute w-8 h-6 bg-primary/20 rounded-full blur-md -top-1" />
-                    <div className="absolute w-4 h-4 bg-primary/20 rounded-full blur-sm top-0 left-2" />
-                  </div>
-                </motion.div>
+                  className="absolute inset-0 bg-gradient-to-r from-sheraa-primary to-purple-500 rounded-full -z-10"
+                  layoutId="navbar-active-pill"
+                  transition={{ type: "spring", damping: 30, stiffness: 400 }}
+                />
               )}
+              
+              {isHovered && !isActive && (
+                <motion.div
+                  className="absolute inset-0 bg-gray-100 dark:bg-gray-800 rounded-full -z-10"
+                  layoutId="navbar-hover-pill"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.15 }}
+                />
+              )}
+              
+              {Icon && <Icon className="h-4 w-4 flex-shrink-0" />}
+              {item.name}
             </Link>
           )
         })}
       </div>
     </div>
-  );
+  )
 }
