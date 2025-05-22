@@ -6,13 +6,14 @@ import { useBackgroundAnimation } from "@/hooks/use-background-animation";
 import { useScrollDirection } from "@/hooks/use-scroll-direction";
 import { useFirstInteraction, useDeepScroll } from "@/hooks/use-interaction";
 import ProgressBar from "@/components/ProgressBar";
-import { HeroSection } from "@/components/HeroSection";
-import { FirstPriorityComponents } from "@/components/sections/FirstPriorityComponents";
 import { useDevicePerformance } from "@/hooks/useDevicePerformance";
 import { useIsMobile } from "@/hooks/useDeviceDetection";
 import { SectionLoading } from "@/components/layout/SectionLoading";
 import { ErrorFallback } from "@/components/layout/ErrorFallback";
 import { SafeSuspense } from "@/components/layout/SafeSuspense";
+import Hero from "@/components/Hero";
+import MarqueeUpdates from "@/components/MarqueeUpdates";
+import { FirstPriorityComponents } from "@/components/sections/FirstPriorityComponents";
 
 // Enhanced error handling with proper typing for lazy-loaded components
 const SecondPriorityComponents = lazy(() => 
@@ -93,8 +94,11 @@ const Index: React.FC = () => {
       {/* Only show progress bar on non-mobile or high-performance devices */}
       {(!isMobile || devicePerformance === 'high') && <ProgressBar />}
 
-      {/* Hero section - load immediately */}
-      <HeroSection />
+      {/* Enhanced Hero Section */}
+      <Hero />
+      
+      {/* News Marquee Section */}
+      <MarqueeUpdates />
       
       <div className="space-y-0 relative z-10">
         {/* First priority components - always load */}
