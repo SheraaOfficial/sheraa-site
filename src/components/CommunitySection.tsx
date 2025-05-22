@@ -148,7 +148,7 @@ const CommunitySection = () => {
                 ))}
               </div>
 
-              <GradientButton asChild variant="accent" size={isMobile ? "default" : "lg"} className="w-full">
+              <GradientButton asChild variant="warm" size={isMobile ? "default" : "lg"} className="w-full">
                 <Link to="/community/partnerships" className="flex items-center justify-center gap-2">
                   Explore Partnerships
                   <ArrowRight className="w-4 h-4" />

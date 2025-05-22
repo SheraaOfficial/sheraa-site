@@ -63,7 +63,10 @@ const LazyComponent = ({
     >
       {isVisible && (
         hasError ? (
-          <ErrorFallback onRetry={handleRetry} />
+          <ErrorFallback 
+            message="Failed to load component" 
+            onRetry={handleRetry} 
+          />
         ) : (
           <React.Suspense fallback={<div className="min-h-[60px]" />}>
             <ErrorCatcher onError={() => setHasError(true)} key={key}>

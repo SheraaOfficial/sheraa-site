@@ -9,19 +9,14 @@ const SimpleFallback = () => <div className="h-20 md:h-32 flex items-center just
   <div className="w-6 h-6 border-t-2 border-sheraa-primary rounded-full animate-spin"></div>
 </div>;
 
-// Define a type for the fallback components to ensure proper typing
-type FallbackComponent = React.ComponentType<{
-  message?: string;
-}>;
-
-// Improved lazy loading with better error handling and proper typing
+// Improved lazy loading with better error handling
 const PartnersSection = lazy(() => 
   import("@/components/PartnersSection")
     .then(module => ({ 
       default: module.default as React.ComponentType<any>
     }))
     .catch(() => ({ 
-      default: (() => <ErrorFallback message="Failed to load Partners Section" />) as React.ComponentType<any>
+      default: () => <ErrorFallback message="Failed to load Partners Section" /> 
     }))
 );
 
@@ -31,7 +26,7 @@ const ContactSection = lazy(() =>
       default: module.default as React.ComponentType<any>
     }))
     .catch(() => ({ 
-      default: (() => <ErrorFallback message="Failed to load Contact Section" />) as React.ComponentType<any>
+      default: () => <ErrorFallback message="Failed to load Contact Section" /> 
     }))
 );
 
@@ -41,7 +36,7 @@ const StartupsShowcase = lazy(() =>
       default: module.default as React.ComponentType<any>
     }))
     .catch(() => ({ 
-      default: (() => <ErrorFallback message="Failed to load Startups Showcase" />) as React.ComponentType<any>
+      default: () => <ErrorFallback message="Failed to load Startups Showcase" /> 
     }))
 );
 
@@ -51,7 +46,7 @@ const PodcastSection = lazy(() =>
       default: module.default as React.ComponentType<any>
     }))
     .catch(() => ({ 
-      default: (() => <ErrorFallback message="Failed to load Podcast Section" />) as React.ComponentType<any>
+      default: () => <ErrorFallback message="Failed to load Podcast Section" /> 
     }))
 );
 
@@ -61,7 +56,7 @@ const CommunitySection = lazy(() =>
       default: module.default as React.ComponentType<any>
     }))
     .catch(() => ({ 
-      default: (() => <ErrorFallback message="Failed to load Community Section" />) as React.ComponentType<any>
+      default: () => <ErrorFallback message="Failed to load Community Section" /> 
     }))
 );
 
@@ -71,7 +66,7 @@ const StartupTestimonials = lazy(() =>
       default: module.default as React.ComponentType<any>
     }))
     .catch(() => ({ 
-      default: (() => <ErrorFallback message="Failed to load Startup Testimonials" />) as React.ComponentType<any>
+      default: () => <ErrorFallback message="Failed to load Startup Testimonials" /> 
     }))
 );
 
