@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -77,7 +76,11 @@ export default {
           gray: '#D3D3D3',        // Light Gray
           dark: '#1A1F2C',
           light: '#F8F9FA',
-          'background-soft': '#F1F5F9'
+          'background-soft': '#F1F5F9',
+          // SEF specific colors - keeping purple for SEF only
+          'sef-primary': '#9b87f5', // Purple for SEF
+          'sef-secondary': '#D946EF', // Secondary purple for SEF
+          'sef-accent': '#F97316', // Orange accent for SEF
         }
       },
       borderRadius: {

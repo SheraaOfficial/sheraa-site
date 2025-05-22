@@ -36,7 +36,7 @@ const Hero = () => {
         {isDarkTheme && (
           <>
             <div className="absolute top-40 left-40 w-48 h-48 bg-sheraa-primary/10 rounded-full blur-3xl" />
-            <div className="absolute bottom-40 right-30 w-56 h-56 bg-purple-500/5 rounded-full blur-3xl" />
+            <div className="absolute bottom-40 right-30 w-56 h-56 bg-sheraa-teal/5 rounded-full blur-3xl" />
           </>
         )}
       </div>
@@ -90,7 +90,7 @@ const Hero = () => {
               transition={{ delay: 0.6 }}
               className="flex flex-wrap gap-4"
             >
-              <GradientButton asChild size="xl" className="group relative overflow-hidden">
+              <GradientButton asChild size="xl" className="group relative overflow-hidden bg-sheraa-primary hover:bg-sheraa-primary/90">
                 <Link to="/programs" className="flex items-center gap-2">
                   <span className="relative z-10">Launch Your Startup</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300 relative z-10" />
@@ -106,7 +106,7 @@ const Hero = () => {
                 </Link>
               </GradientButton>
               
-              <GradientButton asChild variant="outline" size="xl" className="border-2">
+              <GradientButton asChild variant="outline" size="xl" className="border-2 border-sheraa-primary text-sheraa-primary hover:bg-sheraa-primary/10">
                 <Link to="/community/join" className="flex items-center gap-2">
                   Join Our Community
                   <Star className="w-4 h-4 text-sheraa-orange" />
@@ -128,7 +128,7 @@ const Hero = () => {
                 <div className="absolute inset-[10%] rounded-full border-2 border-sheraa-orange/20 animate-spin-slow" style={{ animationDirection: 'reverse', animationDuration: '15s' }} />
                 
                 <div className={`absolute inset-[30%] rounded-full ${isDarkTheme ? 'bg-gradient-to-br from-sheraa-dark/80 to-black/50 border border-white/10' : 'bg-gradient-to-br from-white/80 to-sheraa-light/50'} backdrop-blur-sm flex items-center justify-center shadow-xl`}>
-                  <TextShimmer className="font-bold text-3xl">Sheraa</TextShimmer>
+                  <TextShimmer className="font-bold text-3xl text-sheraa-primary">Sheraa</TextShimmer>
                 </div>
                 
                 {/* Simplified orbiting elements with dark mode support */}

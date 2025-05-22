@@ -21,7 +21,7 @@ export const FirstPriorityComponents: React.FC = () => {
             transition={{ duration: 0.5 }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-5xl font-bold mb-6 sheraa-gradient-text">Impact That Speaks Volumes</h2>
+            <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-sheraa-primary to-sheraa-teal bg-clip-text text-transparent">Impact That Speaks Volumes</h2>
             <p className="text-gray-600 dark:text-gray-300 max-w-3xl mx-auto text-lg">
               We measure our success by the success of our founders and the growth of Sharjah's innovation ecosystem. 
               Our commitment translates into tangible results.
@@ -31,7 +31,7 @@ export const FirstPriorityComponents: React.FC = () => {
           <ImpactNumbers />
           
           <div className="mt-16 text-center">
-            <Button asChild variant="outline" size="lg" className="group">
+            <Button asChild variant="outline" size="lg" className="group border-sheraa-primary/30 text-sheraa-primary hover:bg-sheraa-primary/10">
               <Link to="/about/impact" className="flex items-center">
                 Read Our Latest Impact Report 
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -51,7 +51,7 @@ export const FirstPriorityComponents: React.FC = () => {
             transition={{ duration: 0.5 }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-5xl font-bold mb-6 sheraa-gradient-text">Your Journey Starts Here</h2>
+            <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-sheraa-primary to-sheraa-teal bg-clip-text text-transparent">Your Journey Starts Here</h2>
             <p className="text-gray-600 dark:text-gray-300 max-w-3xl mx-auto text-lg">
               From validating your initial idea to scaling globally, Sheraa offers a suite of programs designed 
               to meet you where you are on your entrepreneurial path.
@@ -64,7 +64,7 @@ export const FirstPriorityComponents: React.FC = () => {
           
           <div className="mt-16 max-w-3xl mx-auto">
             <motion.div 
-              className="bg-gradient-to-r from-sheraa-primary/5 to-purple-500/5 rounded-2xl p-8 border border-sheraa-primary/10"
+              className="bg-gradient-to-r from-sheraa-primary/5 to-sheraa-teal/5 rounded-2xl p-8 border border-sheraa-primary/10"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -125,7 +125,7 @@ export const FirstPriorityComponents: React.FC = () => {
             transition={{ duration: 0.5 }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-5xl font-bold mb-6 sheraa-gradient-text">Meet Our Entrepreneurs</h2>
+            <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-sheraa-primary to-sheraa-teal bg-clip-text text-transparent">Meet Our Entrepreneurs</h2>
             <p className="text-gray-600 dark:text-gray-300 max-w-3xl mx-auto text-lg">
               Discover the innovative startups and ambitious founders shaping the future through Sheraa's ecosystem.
             </p>

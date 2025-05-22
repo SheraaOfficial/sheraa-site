@@ -14,17 +14,17 @@ type WordWithIconProps = {
 const getIconForWord = (word: string) => {
   switch (word.toLowerCase()) {
     case "innovate":
-      return <Lightbulb className="w-6 h-6 text-yellow-400" />;
+      return <Lightbulb className="w-6 h-6 text-sheraa-orange" />;
     case "create":
-      return <Rocket className="w-6 h-6 text-blue-400" />;
+      return <Rocket className="w-6 h-6 text-sheraa-primary" />;
     case "scale":
-      return <TrendingUp className="w-6 h-6 text-green-400" />;
+      return <TrendingUp className="w-6 h-6 text-sheraa-teal" />;
     case "transform":
-      return <Award className="w-6 h-6 text-purple-400" />;
+      return <Award className="w-6 h-6 text-sheraa-primary" />;
     case "grow":
-      return <BarChart className="w-6 h-6 text-red-400" />;
+      return <BarChart className="w-6 h-6 text-sheraa-orange" />;
     default:
-      return <Rocket className="w-6 h-6 text-blue-400" />;
+      return <Rocket className="w-6 h-6 text-sheraa-primary" />;
   }
 };
 
@@ -50,7 +50,7 @@ const WordWithIcon: React.FC<WordWithIconProps> = ({ word, isActive, index }) =>
     >
       {Icon}
       <Sparkles>
-        <TextShimmer>{word}</TextShimmer>
+        <TextShimmer className="text-sheraa-primary dark:text-sheraa-primary">{word}</TextShimmer>
       </Sparkles>
       {Icon}
     </motion.span>

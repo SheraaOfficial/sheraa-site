@@ -25,13 +25,13 @@
     --input: 20 5.9% 90%;
     --ring: 20 14.3% 4.1%;
     --radius: 0.5rem;
-    --sheraa-primary: 267 100% 50%;
+    --sheraa-primary: 210 100% 20%;
     --sheraa-orange: 25 100% 50%;
     --sheraa-teal: 180 100% 30%;
     --sheraa-dark: 240 20% 2%;
     --sheraa-light: 240 30% 98%;
-    --shadow-glow-light: 0 0 20px 2px rgba(155, 135, 245, 0.3);
-    --shadow-glow-dark: 0 0 25px 5px rgba(155, 135, 245, 0.4);
+    --shadow-glow-light: 0 0 20px 2px rgba(0, 51, 102, 0.3);
+    --shadow-glow-dark: 0 0 25px 5px rgba(0, 51, 102, 0.4);
   }
 
   .dark {
@@ -127,11 +127,20 @@
 
   /* Sheraa specific styles */
   .sheraa-gradient-text {
-    @apply bg-gradient-to-r from-sheraa-primary to-purple-500 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-sheraa-primary to-sheraa-teal bg-clip-text text-transparent;
   }
 
   .sheraa-gradient-bg {
-    @apply bg-gradient-to-r from-sheraa-primary to-purple-500;
+    @apply bg-gradient-to-r from-sheraa-primary to-sheraa-teal;
+  }
+
+  /* SEF specific styles */
+  .sef-gradient-text {
+    @apply bg-gradient-to-r from-sheraa-sef-primary to-sheraa-sef-secondary bg-clip-text text-transparent;
+  }
+
+  .sef-gradient-bg {
+    @apply bg-gradient-to-r from-sheraa-sef-primary to-sheraa-sef-secondary;
   }
 
   .sheraa-card {
@@ -215,5 +224,3 @@
     @apply relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-sheraa-primary after:transition-all after:duration-300 hover:after:w-full;
   }
 }
-
-/* Add any additional styles needed */

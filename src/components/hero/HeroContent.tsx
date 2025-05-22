@@ -20,7 +20,7 @@ export const HeroContent: React.FC = () => {
         transition={{ delay: 0.3, duration: 0.8 }}
       >
         <div className="inline-block mb-6">
-          <span className="bg-gradient-to-r from-sheraa-primary/20 to-purple-500/20 text-sheraa-primary px-4 py-1.5 rounded-full text-sm font-medium flex items-center">
+          <span className="bg-gradient-to-r from-sheraa-primary/20 to-sheraa-teal/20 text-sheraa-primary px-4 py-1.5 rounded-full text-sm font-medium flex items-center">
             <Star className="w-4 h-4 mr-2 text-sheraa-orange" />
             <span>Sharjah Entrepreneurship Center</span>
           </span>
@@ -28,7 +28,7 @@ export const HeroContent: React.FC = () => {
       </motion.div>
 
       <motion.h1 
-        className="text-4xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-sheraa-primary to-purple-500 bg-clip-text text-transparent leading-tight"
+        className="text-4xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-sheraa-primary to-sheraa-teal bg-clip-text text-transparent leading-tight"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4, duration: 0.8 }}
@@ -52,7 +52,7 @@ export const HeroContent: React.FC = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.8, duration: 0.8 }}
       >
-        <GradientButton asChild size="xl" className="group shadow-glow">
+        <GradientButton asChild size="xl" className="group shadow-glow bg-sheraa-primary hover:bg-sheraa-primary/90">
           <Link to="/programs" className="flex items-center">
             Launch Your Startup
             <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />

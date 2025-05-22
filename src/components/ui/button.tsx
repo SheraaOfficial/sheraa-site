@@ -25,7 +25,9 @@ const buttonVariants = cva(
         gradientAccent: "gradient-button gradient-button-variant px-9 py-4 rounded-[11px] min-w-[132px] font-bold text-base text-white shadow-md hover:shadow-lg transform hover:scale-[1.01] transition-all",
         elevated: "bg-white text-sheraa-primary border border-gray-100 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all",
         shimmer: "relative bg-sheraa-primary text-white overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:-translate-x-full hover:before:animate-shimmer",
-        neo: "bg-sheraa-primary text-white rounded-md shadow-[5px_5px_0px_0px_rgba(109,40,217)] border-purple-600 border-2 hover:shadow-none hover:translate-x-[5px] hover:translate-y-[5px] transition-all",
+        neo: "bg-sheraa-primary text-white rounded-md shadow-[5px_5px_0px_0px_rgba(0,51,102,0.7)] border-sheraa-primary border-2 hover:shadow-none hover:translate-x-[5px] hover:translate-y-[5px] transition-all",
+        sef: "bg-sheraa-sef-primary text-white hover:bg-sheraa-sef-primary/90 shadow-sm hover:shadow-md transition-all duration-200",
+        'sef-outline': "border border-sheraa-sef-primary bg-transparent text-sheraa-sef-primary hover:bg-sheraa-sef-primary/10 transition-all duration-200",
       },
       size: {
         default: "h-10 px-4 py-2",

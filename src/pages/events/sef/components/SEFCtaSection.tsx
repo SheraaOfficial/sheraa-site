@@ -10,8 +10,8 @@ const SEFCtaSection = () => {
   return (
     <section className="py-20 px-4 bg-gradient-to-r from-[#1A1F2C] to-[#292D3E] relative overflow-hidden">
       <div className="absolute inset-0 z-0">
-        <div className="absolute top-0 left-1/4 w-72 h-72 bg-[#9b87f5]/30 rounded-full filter blur-[100px]" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#F97316]/20 rounded-full filter blur-[120px]" />
+        <div className="absolute top-0 left-1/4 w-72 h-72 bg-sheraa-sef-primary/30 rounded-full filter blur-[100px]" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-sheraa-sef-accent/20 rounded-full filter blur-[120px]" />
       </div>
       
       <div className="container mx-auto relative z-10">
@@ -28,7 +28,7 @@ const SEFCtaSection = () => {
           </p>
           
           <div className="flex flex-wrap gap-4 justify-center">
-            <GradientButton asChild variant="shimmer" size="lg" className="shadow-glow">
+            <GradientButton asChild variant="shimmer" size="lg" className="shadow-glow bg-sheraa-sef-primary hover:bg-sheraa-sef-primary/90">
               <Link to="/events/sef/register">
                 Reserve Your Spot <ArrowRight className="ml-2 h-4 w-4" />
               </Link>

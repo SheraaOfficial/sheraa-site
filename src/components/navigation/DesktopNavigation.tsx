@@ -69,11 +69,11 @@ const DesktopNavigation: React.FC<DesktopNavigationProps> = memo(({
               <Sparkles colors={["#9b87f5", "#FF6600", "#D946EF", "#F97316"]} count={15}>
                 <div className="flex items-center gap-2 relative z-10 transition-all group-hover:scale-105">
                   <Calendar className="h-4 w-4" aria-hidden="true" />
-                  <span className="bg-gradient-to-r from-purple-500 to-orange-400 bg-clip-text text-transparent font-bold">
+                  <span className="bg-gradient-to-r from-sheraa-sef-primary to-sheraa-sef-accent bg-clip-text text-transparent font-bold">
                     {sefLink.title}
                   </span>
                 </div>
-                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-600/20 to-orange-500/20 blur-sm group-hover:opacity-100 opacity-70 transition-opacity"></div>
+                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-sheraa-sef-primary/20 to-sheraa-sef-accent/20 blur-sm group-hover:opacity-100 opacity-70 transition-opacity"></div>
               </Sparkles>
             </Link>
           </NavigationMenuItem>
@@ -98,10 +98,10 @@ const DesktopNavigation: React.FC<DesktopNavigationProps> = memo(({
 
         {!isLoggedIn && (
           <>
-            <Button variant="outline" size="sm" asChild className="border-gray-300 dark:border-gray-700 dark:text-white">
+            <Button variant="outline" size="sm" asChild className="border-sheraa-primary/30 text-sheraa-primary dark:text-white">
               <Link to="/login">Login</Link>
             </Button>
-            <GradientButton size="sm" asChild>
+            <GradientButton size="sm" asChild className="bg-sheraa-primary hover:bg-sheraa-primary/90">
               <Link to="/signup">Get Started</Link>
             </GradientButton>
           </>
