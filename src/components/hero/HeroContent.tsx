@@ -9,7 +9,7 @@ import { ArrowRight, Star } from "lucide-react";
 export const HeroContent: React.FC = () => {
   return (
     <motion.div 
-      className="max-w-3xl mx-auto text-center px-4 py-12 md:py-20"
+      className="max-w-4xl mx-auto text-center px-4 py-12 md:py-28"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
@@ -22,22 +22,22 @@ export const HeroContent: React.FC = () => {
         <div className="inline-block mb-6">
           <span className="bg-gradient-to-r from-sheraa-primary/20 to-purple-500/20 text-sheraa-primary px-4 py-1.5 rounded-full text-sm font-medium flex items-center">
             <Star className="w-4 h-4 mr-2 text-sheraa-orange" />
-            <span>Creating the Next Wave of Entrepreneurs</span>
+            <span>Sharjah Entrepreneurship Center</span>
           </span>
         </div>
       </motion.div>
 
       <motion.h1 
-        className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-sheraa-primary to-purple-500 bg-clip-text text-transparent"
+        className="text-4xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-sheraa-primary to-purple-500 bg-clip-text text-transparent leading-tight"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4, duration: 0.8 }}
       >
-        Sharjah's Official Hub for Aspiring Founders
+        Creating the Next Wave of Entrepreneurs
       </motion.h1>
       
       <motion.p 
-        className="text-lg md:text-xl mb-8 text-gray-700 dark:text-gray-200 leading-relaxed"
+        className="text-lg md:text-xl mb-10 text-gray-700 dark:text-gray-200 leading-relaxed max-w-3xl mx-auto"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.6, duration: 0.8 }}

@@ -4,8 +4,6 @@ import { RetroGrid } from "@/components/ui/retro-grid";
 import { FloatingHero } from "@/components/hero/FloatingHero";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "@/contexts/ThemeContext";
-import { NavBar } from "./ui/tubelight-navbar";
-import { Home, Compass, TrendingUp, Users, Info, ArrowRight } from "lucide-react";
 
 export function HeroSection() {
   const { theme } = useTheme();
@@ -21,15 +19,6 @@ export function HeroSection() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-  
-  // Navigation items
-  const navItems = [
-    { name: "Home", url: "/", icon: Home },
-    { name: "Discover", url: "/programs", icon: Compass },
-    { name: "Grow", url: "/grow", icon: TrendingUp },
-    { name: "Community", url: "/community", icon: Users },
-    { name: "Apply", url: "/eligibility", icon: ArrowRight, highlight: true },
-  ];
 
   return (
     <motion.section 
@@ -99,11 +88,6 @@ export function HeroSection() {
           transform: `translateY(${-scrollPosition * 0.1}px)` 
         }}
       />
-      
-      {/* New floating navigation */}
-      <div className="absolute top-24 left-0 w-full flex justify-center z-20">
-        <NavBar items={navItems} />
-      </div>
       
       {/* Main hero content */}
       <FloatingHero />

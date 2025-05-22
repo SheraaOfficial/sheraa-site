@@ -100,8 +100,7 @@ const Index: React.FC = () => {
         {/* First priority components - always load */}
         <FirstPriorityComponents />
         
-        {/* Second priority components - load after user interaction 
-           - Only load the priority components we need for the shortened homepage */}
+        {/* Second priority components - load after user interaction */}
         {firstInteraction && (
           <SafeSuspense fallback={<LoadingPlaceholder />}>
             <SecondPriorityComponents />

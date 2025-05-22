@@ -7,7 +7,7 @@ import { Phone, MapPin, Mail, ArrowRight } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="w-full bg-gradient-to-br from-blue-950 to-[#131c38] text-white">
+    <footer className="w-full bg-gradient-to-br from-blue-950 to-[#131c38] text-white full-width-footer">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Column 1: About */}

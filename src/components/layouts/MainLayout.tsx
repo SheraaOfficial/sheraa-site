@@ -24,7 +24,10 @@ const MainLayout: React.FC<MainLayoutProps> = ({
       <main className="flex-grow">
         {children}
       </main>
-      <Footer />
+      {/* Full-width footer */}
+      <div className="w-full">
+        <Footer />
+      </div>
     </div>
   );
 };
