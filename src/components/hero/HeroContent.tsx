@@ -2,13 +2,14 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { GradientButton } from "@/components/ui/gradient-button";
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Star } from "lucide-react";
 
 export const HeroContent: React.FC = () => {
   return (
     <motion.div 
-      className="max-w-2xl mx-auto text-center px-4 py-12 md:py-20"
+      className="max-w-3xl mx-auto text-center px-4 py-12 md:py-20"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
@@ -18,15 +19,16 @@ export const HeroContent: React.FC = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3, duration: 0.8 }}
       >
-        <div className="inline-block mb-4">
-          <span className="bg-gradient-to-r from-sheraa-primary/20 to-purple-500/20 text-sheraa-primary px-4 py-1.5 rounded-full text-sm font-medium">
-            Creating the Next Wave of Entrepreneurs
+        <div className="inline-block mb-6">
+          <span className="bg-gradient-to-r from-sheraa-primary/20 to-purple-500/20 text-sheraa-primary px-4 py-1.5 rounded-full text-sm font-medium flex items-center">
+            <Star className="w-4 h-4 mr-2 text-sheraa-orange" />
+            <span>Creating the Next Wave of Entrepreneurs</span>
           </span>
         </div>
       </motion.div>
 
       <motion.h1 
-        className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-sheraa-primary to-purple-500 bg-clip-text text-transparent"
+        className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-sheraa-primary to-purple-500 bg-clip-text text-transparent"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4, duration: 0.8 }}
@@ -35,13 +37,13 @@ export const HeroContent: React.FC = () => {
       </motion.h1>
       
       <motion.p 
-        className="text-lg md:text-xl mb-8 text-gray-700 dark:text-gray-200"
+        className="text-lg md:text-xl mb-8 text-gray-700 dark:text-gray-200 leading-relaxed"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.6, duration: 0.8 }}
       >
         We empower changemakers to build impactful businesses and shape the future. Our resources, mentorship, and network 
-        transform bold ideas into successful, scalable startups.
+        transform bold ideas into successful, scalable startups that contribute positively to Sharjah and the UAE's diversified economy.
       </motion.p>
       
       <motion.div 
@@ -50,15 +52,18 @@ export const HeroContent: React.FC = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.8, duration: 0.8 }}
       >
-        <Button asChild size="xl" variant="neo" className="group">
+        <GradientButton asChild size="xl" className="group shadow-glow">
           <Link to="/programs" className="flex items-center">
             Launch Your Startup
             <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </Link>
-        </Button>
+        </GradientButton>
         
         <Button asChild size="xl" variant="outline" className="border-sheraa-primary/30 hover:bg-sheraa-primary/10">
-          <Link to="/community/join">Join Our Community</Link>
+          <Link to="/community/join" className="flex items-center">
+            Join Our Community
+            <Star className="ml-2 w-4 h-4 text-sheraa-orange" />
+          </Link>
         </Button>
       </motion.div>
     </motion.div>

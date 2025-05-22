@@ -29,6 +29,7 @@
     --sheraa-orange: 25 100% 50%;
     --sheraa-teal: 180 100% 30%;
     --sheraa-dark: 240 20% 2%;
+    --sheraa-light: 240 30% 98%;
     --shadow-glow-light: 0 0 20px 2px rgba(155, 135, 245, 0.3);
     --shadow-glow-dark: 0 0 25px 5px rgba(155, 135, 245, 0.4);
   }
@@ -123,6 +124,27 @@
   .dark .bg-card {
     @apply shadow-md shadow-black/30;
   }
+
+  /* Sheraa specific styles */
+  .sheraa-gradient-text {
+    @apply bg-gradient-to-r from-sheraa-primary to-purple-500 bg-clip-text text-transparent;
+  }
+
+  .sheraa-gradient-bg {
+    @apply bg-gradient-to-r from-sheraa-primary to-purple-500;
+  }
+
+  .sheraa-card {
+    @apply rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300;
+  }
+
+  .sheraa-button-primary {
+    @apply bg-sheraa-primary text-white hover:bg-sheraa-primary/90 transition-colors;
+  }
+
+  .sheraa-button-secondary {
+    @apply border border-sheraa-primary/30 text-sheraa-primary hover:bg-sheraa-primary/10 transition-colors;
+  }
 }
 
 /* Add the custom blur utility class */
@@ -179,6 +201,18 @@
   
   .min-h-100px {
     min-height: 100px;
+  }
+
+  /* Full width utility */
+  .full-width-footer {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+  }
+
+  /* Animated underline effect */
+  .animated-underline {
+    @apply relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-sheraa-primary after:transition-all after:duration-300 hover:after:w-full;
   }
 }
 
