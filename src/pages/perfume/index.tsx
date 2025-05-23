@@ -1,8 +1,7 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Heart, ShoppingCart, TruckFast, Shield, ArrowRight } from 'lucide-react';
+import { Heart, ShoppingCart, Truck, Shield, ArrowRight } from 'lucide-react';
 import MainLayout from '@/components/layouts/MainLayout';
 import { Button } from '@/components/ui/button';
 import { GradientButton } from '@/components/ui/gradient-button';
@@ -280,7 +279,7 @@ const PerfumePage: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center">
               <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center bg-amber-100 dark:bg-amber-900/30 rounded-full">
-                <TruckFast className="w-8 h-8 text-amber-700 dark:text-amber-300" />
+                <Truck className="w-8 h-8 text-amber-700 dark:text-amber-300" />
               </div>
               <h3 className="text-xl font-semibold mb-4 text-amber-900 dark:text-amber-200">Premium Shipping</h3>
               <p className="text-gray-700 dark:text-gray-300">Free delivery across UAE with tracking available for every order</p>
