@@ -3,11 +3,20 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, Sun, Moon } from "lucide-react";
 import { useScrollNavigation } from "./navigation/useScrollNavigation";
-import { homeLinks, discoverLinks, growLinks, communityLinks, insightsLinks, applyLinks, sefLink } from "./navigation/navigationData";
+import { 
+  homeLinks, 
+  discoverLinks, 
+  growLinks, 
+  communityLinks, 
+  insightsLinks, 
+  applyLinks, 
+  sefLink,
+  perfumeLinks 
+} from "./navigation/navigationData";
 import { useLocalStorage } from "@/hooks/use-local-storage";
 import UserAvatar from "./user/UserAvatar";
 import { useTheme } from "@/contexts/ThemeContext";
-import ImmersiveNavbar from "./ImmersiveNavbar"; // Import the new navbar
+import ImmersiveNavbar from "./ImmersiveNavbar";
 
 // Lazy load components
 const DesktopNavigation = lazy(() => import("./navigation/DesktopNavigation"));
@@ -19,7 +28,7 @@ const Navigation = () => {
   const [hydrated, setHydrated] = useState(false);
   const [loggedInUser] = useLocalStorage<any | null>("loggedInUser", null);
   const { theme, setTheme } = useTheme();
-  const [useImmersiveNavbar, setUseImmersiveNavbar] = useState(false); // Toggle for which navbar to use
+  const [useImmersiveNavbar, setUseImmersiveNavbar] = useState(false);
 
   // Mark as hydrated after initial render
   useEffect(() => {
@@ -67,18 +76,6 @@ const Navigation = () => {
         <div className="md:hidden flex items-center ml-auto gap-2">
           <Button 
             variant="ghost" 
-            size="icon"
-            onClick={toggleTheme} 
-            className="text-gray-600 dark:text-gray-300 hover:bg-gray-100/20 hover:text-gray-900 dark:hover:bg-gray-800/20 dark:hover:text-white"
-          >
-            {theme === 'dark' ? (
-              <Sun className="h-[1.2rem] w-[1.2rem]" />
-            ) : (
-              <Moon className="h-[1.2rem] w-[1.2rem]" />
-            )}
-          </Button>
-          <Button 
-            variant="ghost" 
             size="icon" 
             onClick={toggleMenu} 
             className="hover:bg-gray-100/20 dark:hover:bg-gray-800/20"
@@ -98,6 +95,7 @@ const Navigation = () => {
               insightsLinks={insightsLinks} 
               applyLinks={applyLinks}
               sefLink={sefLink}
+              perfumeLinks={perfumeLinks}
               isLoggedIn={!!loggedInUser}
               theme={theme}
               toggleTheme={toggleTheme}
@@ -126,6 +124,7 @@ const Navigation = () => {
               insightsLinks={insightsLinks} 
               applyLinks={applyLinks}
               sefLink={sefLink}
+              perfumeLinks={perfumeLinks}
               isLoggedIn={!!loggedInUser}
               theme={theme}
               toggleTheme={toggleTheme}

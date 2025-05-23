@@ -4,7 +4,6 @@ import App from './App';
 import { PerformanceProvider } from './contexts/PerformanceContext';
 import { ErrorBoundary } from './components/layout/ErrorBoundary';
 import { ThemeProvider } from './contexts/ThemeContext';
-import { ThemeToggle } from './components/ui/theme-toggle';
 
 // Fallback component for when the app fails to load
 const ErrorFallbackComponent = () => (

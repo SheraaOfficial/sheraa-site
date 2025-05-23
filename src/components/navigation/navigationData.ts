@@ -1,4 +1,3 @@
-
 import { NavigationLink } from "./types";
 
 export const homeLinks: NavigationLink[] = [
@@ -6,6 +5,7 @@ export const homeLinks: NavigationLink[] = [
   { title: "About Sheraa", href: "/about", description: "Learn about our mission and vision" },
   { title: "Why Sharjah", href: "/about/why-sharjah", description: "Discover the advantages of Sharjah" },
   { title: "Our Impact", href: "/about/impact", description: "See how we're changing the ecosystem" },
+  { title: "Sharjah Perfume", href: "/perfume", description: "Exclusive Sharjah's Signature Scent" },
 ];
 
 export const discoverLinks: NavigationLink[] = [
@@ -53,3 +53,11 @@ export const sefLink: NavigationLink = {
   href: "/events/sef-landing",
   description: "Sharjah Entrepreneurship Festival - January 31-February 1, 2026"
 };
+
+export const perfumeLinks: NavigationLink[] = [
+  { title: "Sharjah's Signature", href: "/perfume", description: "Our exclusive perfume collection" },
+  { title: "About", href: "/perfume/about", description: "Learn about our perfume" },
+  { title: "Gallery", href: "/perfume/gallery", description: "See our beautiful fragrances" },
+  { title: "Pricing", href: "/perfume/pricing", description: "Pricing information" },
+  { title: "Buy Now", href: "/perfume/buy", description: "Purchase Sharjah's Signature Scent" },
+];

@@ -3,7 +3,7 @@ import React, { memo } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { GradientButton } from "@/components/ui/gradient-button";
-import { Home, Compass, TrendingUp, Users, Info, ArrowRight, Calendar, Sun, Moon } from "lucide-react";
+import { Home, Compass, TrendingUp, Users, Info, ArrowRight, Calendar, Sun, Moon, Sparkles as SparklesIcon } from "lucide-react";
 import {
   NavigationMenu,
   NavigationMenuList,
@@ -12,15 +12,17 @@ import {
 import MegaMenuComponent from "./MegaMenuComponent";
 import { NavigationMenuItem } from "@radix-ui/react-navigation-menu";
 import { Sparkles } from "@/components/ui/sparkles";
+import { NavigationLink } from "./types";
 
 interface DesktopNavigationProps {
-  homeLinks: { title: string; href: string; description?: string }[];
-  discoverLinks: { title: string; href: string; description?: string }[];
-  growLinks: { title: string; href: string; description?: string }[];
-  communityLinks: { title: string; href: string; description?: string }[];
-  insightsLinks: { title: string; href: string; description?: string }[];
-  applyLinks: { title: string; href: string; description?: string }[];
-  sefLink: { title: string; href: string; description?: string };
+  homeLinks: NavigationLink[];
+  discoverLinks: NavigationLink[];
+  growLinks: NavigationLink[];
+  communityLinks: NavigationLink[];
+  insightsLinks: NavigationLink[];
+  applyLinks: NavigationLink[];
+  sefLink: NavigationLink;
+  perfumeLinks: NavigationLink[];
   isLoggedIn?: boolean;
   theme: string;
   toggleTheme: () => void;
@@ -33,6 +35,7 @@ const DesktopNavigation: React.FC<DesktopNavigationProps> = memo(({
   communityLinks,
   insightsLinks,
   sefLink,
+  perfumeLinks,
   isLoggedIn = false,
   theme,
   toggleTheme
@@ -46,6 +49,14 @@ const DesktopNavigation: React.FC<DesktopNavigationProps> = memo(({
           <MegaMenuComponent title="Grow" icon={TrendingUp} links={growLinks} />
           <MegaMenuComponent title="Community" icon={Users} links={communityLinks} />
           <MegaMenuComponent title="Insights" icon={Info} links={insightsLinks} />
+          
+          {/* Perfume Menu */}
+          <MegaMenuComponent 
+            title="Sharjah Perfume" 
+            icon={SparklesIcon} 
+            links={perfumeLinks} 
+          />
+          
           <NavigationMenuItem>
             <Link 
               to="/eligibility" 

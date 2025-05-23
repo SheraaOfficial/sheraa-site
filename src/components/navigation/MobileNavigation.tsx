@@ -2,51 +2,24 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Home, Compass, TrendingUp, Users, Info, ArrowRight, User, FileText, Calendar, Sun, Moon } from "lucide-react";
+import { Home, Compass, TrendingUp, Users, Info, ArrowRight, User, FileText, Calendar, Sun, Moon, Sparkles } from "lucide-react";
 import MobileDropdown from "./MobileDropdown";
 import { useLocalStorage } from "@/hooks/use-local-storage";
 import { useToast } from "@/hooks/use-toast";
-import { Sparkles } from "@/components/ui/sparkles";
+import { NavigationLink } from "./types";
 
 interface MobileNavigationProps {
   isMenuOpen: boolean;
   setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
   toggleMenu: () => void;
-  homeLinks: {
-    title: string;
-    href: string;
-    description?: string;
-  }[];
-  discoverLinks: {
-    title: string;
-    href: string;
-    description?: string;
-  }[];
-  growLinks: {
-    title: string;
-    href: string;
-    description?: string;
-  }[];
-  communityLinks: {
-    title: string;
-    href: string;
-    description?: string;
-  }[];
-  insightsLinks: {
-    title: string;
-    href: string;
-    description?: string;
-  }[];
-  applyLinks: {
-    title: string;
-    href: string;
-    description?: string;
-  }[];
-  sefLink: {
-    title: string;
-    href: string;
-    description?: string;
-  };
+  homeLinks: NavigationLink[];
+  discoverLinks: NavigationLink[];
+  growLinks: NavigationLink[];
+  communityLinks: NavigationLink[];
+  insightsLinks: NavigationLink[];
+  applyLinks: NavigationLink[];
+  perfumeLinks: NavigationLink[];
+  sefLink: NavigationLink;
   isLoggedIn?: boolean;
   theme: string;
   toggleTheme: () => void;
@@ -62,6 +35,7 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({
   communityLinks,
   insightsLinks,
   applyLinks,
+  perfumeLinks,
   sefLink,
   isLoggedIn = false,
   theme,
@@ -116,6 +90,7 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({
           <MobileDropdown title="Grow" icon={TrendingUp} items={growLinks} />
           <MobileDropdown title="Community" icon={Users} items={communityLinks} />
           <MobileDropdown title="Insights" icon={Info} items={insightsLinks} />
+          <MobileDropdown title="Sharjah Perfume" icon={Sparkles} items={perfumeLinks} />
           
           <div className="py-2">
             <Link to="/eligibility" className="flex items-center gap-2 py-2 text-base hover:text-sheraa-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
