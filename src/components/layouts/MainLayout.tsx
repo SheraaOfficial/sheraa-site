@@ -2,6 +2,7 @@
 import React from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -24,6 +25,8 @@ const MainLayout: React.FC<MainLayoutProps> = ({
       <main className="flex-grow">
         {children}
       </main>
+      {/* Theme toggle */}
+      <ThemeToggle />
       {/* Full-width footer */}
       <div className="w-full">
         <Footer />

@@ -16,7 +16,7 @@ const PageHeader = ({ title, subtitle }: PageHeaderProps) => {
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="absolute inset-0 bg-gradient-to-b from-sheraa-primary/30 to-transparent z-0"
+        className="absolute inset-0 bg-gradient-to-b from-sheraa-primary/30 to-transparent dark:from-sheraa-primary/40 z-0"
       />
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         <div className="max-w-3xl mx-auto">

@@ -14,17 +14,17 @@ type WordWithIconProps = {
 const getIconForWord = (word: string) => {
   switch (word.toLowerCase()) {
     case "innovate":
-      return <Lightbulb className="w-6 h-6 text-sheraa-orange" />;
+      return <Lightbulb className="w-6 h-6 text-sheraa-orange dark:text-sheraa-orange" />;
     case "create":
-      return <Rocket className="w-6 h-6 text-sheraa-primary" />;
+      return <Rocket className="w-6 h-6 text-sheraa-primary dark:text-sheraa-teal" />;
     case "scale":
-      return <TrendingUp className="w-6 h-6 text-sheraa-teal" />;
+      return <TrendingUp className="w-6 h-6 text-sheraa-teal dark:text-sheraa-teal" />;
     case "transform":
-      return <Award className="w-6 h-6 text-sheraa-primary" />;
+      return <Award className="w-6 h-6 text-sheraa-primary dark:text-sheraa-primary" />;
     case "grow":
-      return <BarChart className="w-6 h-6 text-sheraa-orange" />;
+      return <BarChart className="w-6 h-6 text-sheraa-orange dark:text-sheraa-orange" />;
     default:
-      return <Rocket className="w-6 h-6 text-sheraa-primary" />;
+      return <Rocket className="w-6 h-6 text-sheraa-primary dark:text-sheraa-primary" />;
   }
 };
 
@@ -50,7 +50,7 @@ const WordWithIcon: React.FC<WordWithIconProps> = ({ word, isActive, index }) =>
     >
       {Icon}
       <Sparkles>
-        <TextShimmer className="text-sheraa-primary dark:text-sheraa-primary">{word}</TextShimmer>
+        <TextShimmer className="text-sheraa-primary dark:text-sheraa-teal">{word}</TextShimmer>
       </Sparkles>
       {Icon}
     </motion.span>

@@ -20,7 +20,7 @@ export const HeroContent: React.FC = () => {
         transition={{ delay: 0.3, duration: 0.8 }}
       >
         <div className="inline-block mb-6">
-          <span className="bg-gradient-to-r from-sheraa-primary/20 to-sheraa-teal/20 text-sheraa-primary px-4 py-1.5 rounded-full text-sm font-medium flex items-center">
+          <span className="bg-gradient-to-r from-sheraa-primary/20 to-sheraa-teal/20 dark:from-sheraa-primary/30 dark:to-sheraa-teal/30 text-sheraa-primary dark:text-sheraa-teal px-4 py-1.5 rounded-full text-sm font-medium flex items-center">
             <Star className="w-4 h-4 mr-2 text-sheraa-orange" />
             <span>Sharjah Entrepreneurship Center</span>
           </span>
@@ -59,7 +59,7 @@ export const HeroContent: React.FC = () => {
           </Link>
         </GradientButton>
         
-        <Button asChild size="xl" variant="outline" className="border-sheraa-primary/30 hover:bg-sheraa-primary/10">
+        <Button asChild size="xl" variant="outline" className="border-sheraa-primary/30 hover:bg-sheraa-primary/10 dark:border-sheraa-primary/50 dark:hover:bg-sheraa-primary/20">
           <Link to="/community/join" className="flex items-center">
             Join Our Community
             <Star className="ml-2 w-4 h-4 text-sheraa-orange" />
