@@ -47,15 +47,15 @@ export const LazySection: React.FC<LazySectionProps> = ({
 };
 
 // Higher-order component for lazy loading sections
-export const withLazyLoading = <P extends object>(
+export const withLazyLoading = <P extends Record<string, any>>(
   Component: React.ComponentType<P>,
   fallback?: React.ReactNode
 ) => {
   const LazyComponent = lazy(() => Promise.resolve({ default: Component }));
   
-  return (props: P) => (
+  return React.forwardRef<any, P>((props, ref) => (
     <LazySection fallback={fallback}>
-      <LazyComponent {...props} />
+      <LazyComponent {...props} ref={ref} />
     </LazySection>
-  );
+  ));
 };
