@@ -1,4 +1,3 @@
-
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -10,9 +9,10 @@ import { AccessibilityProvider } from "@/components/ui/design-system/Accessibili
 import { OptimizedMobileLayout } from "@/components/layouts/OptimizedMobileLayout";
 import { PerformanceProvider } from "@/contexts/PerformanceContext";
 
-// Import both old and new index pages
+// Import pages
 import Index from "@/pages/Index";
 import NewIndex from "@/pages/NewIndex";
+import ProgramsPage from "@/pages/programs/ProgramsPage";
 import SEFLandingPage from "@/pages/events/sef-landing";
 import EligibilityCheckerPage from "@/pages/eligibility/EligibilityCheckerPage";
 import LoginPage from "@/pages/auth/LoginPage";
@@ -44,6 +44,11 @@ const AppWrapper = () => {
                       {/* Use the new redesigned homepage */}
                       <Route path="/" element={<NewIndex />} />
                       <Route path="/old" element={<Index />} />
+                      
+                      {/* Programs Routes */}
+                      <Route path="/programs" element={<ProgramsPage />} />
+                      
+                      {/* Other Routes */}
                       <Route path="/sef-landing" element={<SEFLandingPage />} />
                       <Route path="/eligibility" element={<EligibilityCheckerPage />} />
                       <Route path="/login" element={<LoginPage />} />
