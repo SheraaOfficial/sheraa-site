@@ -1,3 +1,4 @@
+
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -8,10 +9,10 @@ import { ResponsiveProvider } from "@/components/ui/design-system/ResponsiveProv
 import { OptimizedMobileLayout } from "@/components/layouts/OptimizedMobileLayout";
 import { PerformanceProvider } from "@/contexts/PerformanceContext";
 import Index from "@/pages/Index";
-import SEFHomePage from "@/pages/SEFHomePage";
-import EligibilityPage from "@/pages/EligibilityPage";
-import LoginPage from "@/pages/LoginPage";
-import SignupPage from "@/pages/SignupPage";
+import SEFLandingPage from "@/pages/events/sef-landing";
+import EligibilityCheckerPage from "@/pages/eligibility/EligibilityCheckerPage";
+import LoginPage from "@/pages/auth/LoginPage";
+import SignupPage from "@/pages/auth/SignupPage";
 
 // Lazy load the new perfume page
 const PerfumeMainPage = React.lazy(() => import("@/pages/perfume/PerfumeMainPage"));
@@ -29,8 +30,8 @@ const AppWrapper = () => {
                 <Router>
                   <Routes>
                     <Route path="/" element={<Index />} />
-                    <Route path="/sef-landing" element={<SEFHomePage />} />
-                    <Route path="/eligibility" element={<EligibilityPage />} />
+                    <Route path="/sef-landing" element={<SEFLandingPage />} />
+                    <Route path="/eligibility" element={<EligibilityCheckerPage />} />
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/signup" element={<SignupPage />} />
                     
