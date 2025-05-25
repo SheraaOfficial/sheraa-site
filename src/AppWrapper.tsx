@@ -1,43 +1,51 @@
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Toaster } from "@/components/ui/sonner";
+import { ThemeProvider } from "@/contexts/ThemeContext";
+import { MotionProvider } from "@/components/ui/design-system/MotionProvider";
+import { ResponsiveProvider } from "@/components/ui/design-system/ResponsiveProvider";
+import { OptimizedMobileLayout } from "@/components/layouts/OptimizedMobileLayout";
+import { PerformanceProvider } from "@/contexts/PerformanceContext";
+import Index from "@/pages/Index";
+import SEFHomePage from "@/pages/SEFHomePage";
+import EligibilityPage from "@/pages/EligibilityPage";
+import LoginPage from "@/pages/LoginPage";
+import SignupPage from "@/pages/SignupPage";
 
-import React from 'react';
-import App from './App';
-import { PerformanceProvider } from './contexts/PerformanceContext';
-import { ErrorBoundary } from './components/layout/ErrorBoundary';
-import { ThemeProvider } from './contexts/ThemeContext';
+// Lazy load the new perfume page
+const PerfumeMainPage = React.lazy(() => import("@/pages/perfume/PerfumeMainPage"));
 
-// Fallback component for when the app fails to load
-const ErrorFallbackComponent = () => (
-  <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
-    <div className="text-center p-8 bg-white dark:bg-gray-800 rounded-lg shadow-lg max-w-md">
-      <h1 className="text-2xl font-bold text-red-600 dark:text-red-400 mb-4">Something went wrong</h1>
-      <p className="mb-4 dark:text-gray-300">We're sorry, but there was an error loading the application.</p>
-      <button 
-        className="bg-sheraa-primary hover:bg-sheraa-primary/90 text-white px-4 py-2 rounded" 
-        onClick={() => window.location.reload()}
-      >
-        Refresh the page
-      </button>
-    </div>
-  </div>
-);
+const queryClient = new QueryClient();
 
-// App loading component for better UX
-const AppLoading = () => (
-  <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
-    <div className="w-16 h-16 border-4 border-sheraa-primary border-t-transparent rounded-full animate-spin"></div>
-  </div>
-);
-
-export default function AppWrapper() {
+const AppWrapper = () => {
   return (
-    <ErrorBoundary FallbackComponent={ErrorFallbackComponent}>
-      <PerformanceProvider>
-        <ThemeProvider>
-          <React.Suspense fallback={<AppLoading />}>
-            <App />
-          </React.Suspense>
-        </ThemeProvider>
-      </PerformanceProvider>
-    </ErrorBoundary>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider>
+        <PerformanceProvider>
+          <ResponsiveProvider>
+            <MotionProvider>
+              <OptimizedMobileLayout>
+                <Router>
+                  <Routes>
+                    <Route path="/" element={<Index />} />
+                    <Route path="/sef-landing" element={<SEFHomePage />} />
+                    <Route path="/eligibility" element={<EligibilityPage />} />
+                    <Route path="/login" element={<LoginPage />} />
+                    <Route path="/signup" element={<SignupPage />} />
+                    
+                    {/* Perfume Section Routes */}
+                    <Route path="/perfume" element={<PerfumeMainPage />} />
+                  </Routes>
+                  <Toaster />
+                </Router>
+              </OptimizedMobileLayout>
+            </MotionProvider>
+          </ResponsiveProvider>
+        </PerformanceProvider>
+      </ThemeProvider>
+    </QueryClientProvider>
   );
-}
+};
+
+export default AppWrapper;

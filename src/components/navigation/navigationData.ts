@@ -55,9 +55,29 @@ export const sefLink: NavigationLink = {
 };
 
 export const perfumeLinks: NavigationLink[] = [
-  { title: "Sharjah's Signature", href: "/perfume", description: "Our exclusive perfume collection" },
-  { title: "About", href: "/perfume/about", description: "Learn about our perfume" },
-  { title: "Gallery", href: "/perfume/gallery", description: "See our beautiful fragrances" },
-  { title: "Pricing", href: "/perfume/pricing", description: "Pricing information" },
-  { title: "Buy Now", href: "/perfume/buy", description: "Purchase Sharjah's Signature Scent" },
+  {
+    title: "Our Collection",
+    href: "/perfume",
+    description: "Explore our signature fragrance collection"
+  },
+  {
+    title: "About Our Perfumes",
+    href: "/perfume/about",
+    description: "Learn about our crafting process and inspiration"
+  },
+  {
+    title: "Gallery",
+    href: "/perfume/gallery", 
+    description: "Visual journey through our fragrance world"
+  },
+  {
+    title: "Pricing & Packages",
+    href: "/perfume/pricing",
+    description: "View our perfume prices and gift sets"
+  },
+  {
+    title: "Buy Online",
+    href: "/perfume/buy",
+    description: "Purchase our perfumes online"
+  }
 ];
