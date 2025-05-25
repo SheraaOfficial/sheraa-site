@@ -3,7 +3,7 @@ import React, { memo } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { GradientButton } from "@/components/ui/gradient-button";
-import { Home, Compass, TrendingUp, Users, Info, ArrowRight, Calendar, Sun, Moon, Sparkles as SparklesIcon } from "lucide-react";
+import { Home, Compass, TrendingUp, Users, Info, ArrowRight, Calendar, Sun, Moon } from "lucide-react";
 import {
   NavigationMenu,
   NavigationMenuList,
@@ -37,7 +37,6 @@ const DesktopNavigation: React.FC<DesktopNavigationProps> = memo(({
   insightsLinks,
   eventsLinks,
   sefLink,
-  perfumeLinks,
   isLoggedIn = false,
   theme,
   toggleTheme
@@ -48,30 +47,10 @@ const DesktopNavigation: React.FC<DesktopNavigationProps> = memo(({
         <NavigationMenuList>
           <MegaMenuComponent title="Home" icon={Home} links={homeLinks} />
           <MegaMenuComponent title="Discover" icon={Compass} links={discoverLinks} />
-          <MegaMenuComponent title="Grow" icon={TrendingUp} links={growLinks} />
+          <MegaMenuComponent title="Programs" icon={TrendingUp} links={growLinks} />
           <MegaMenuComponent title="Community" icon={Users} links={communityLinks} />
           <MegaMenuComponent title="Insights" icon={Info} links={insightsLinks} />
           <MegaMenuComponent title="Events" icon={Calendar} links={eventsLinks} />
-          
-          {/* Perfume Menu */}
-          <MegaMenuComponent 
-            title="Sharjah Perfume" 
-            icon={SparklesIcon} 
-            links={perfumeLinks} 
-          />
-          
-          <NavigationMenuItem>
-            <Link 
-              to="/eligibility" 
-              className={navigationMenuTriggerStyle()}
-              aria-label="Apply to Sheraa programs"
-            >
-              <div className="flex items-center gap-2">
-                <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                <span>Apply</span>
-              </div>
-            </Link>
-          </NavigationMenuItem>
           
           {/* SEF link with enhanced sparkles effect */}
           <NavigationMenuItem>
@@ -89,6 +68,19 @@ const DesktopNavigation: React.FC<DesktopNavigationProps> = memo(({
                 </div>
                 <div className="absolute inset-0 rounded-full bg-gradient-to-r from-sheraa-sef-primary/30 to-sheraa-sef-accent/30 blur-sm group-hover:opacity-100 opacity-80 transition-opacity animate-pulse"></div>
               </Sparkles>
+            </Link>
+          </NavigationMenuItem>
+          
+          <NavigationMenuItem>
+            <Link 
+              to="/eligibility" 
+              className={navigationMenuTriggerStyle()}
+              aria-label="Apply to Sheraa programs"
+            >
+              <div className="flex items-center gap-2">
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                <span>Apply</span>
+              </div>
             </Link>
           </NavigationMenuItem>
         </NavigationMenuList>

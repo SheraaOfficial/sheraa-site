@@ -14,6 +14,7 @@ export const discoverLinks: NavigationLink[] = [
   { title: "Start Young", href: "/programs/start-young", description: "For students and early-stage founders" },
   { title: "Grow Smart", href: "/programs/grow-smart", description: "For startups with market traction" },
   { title: "Build Ventures", href: "/programs/build-ventures", description: "For growth-stage companies" },
+  { title: "Sharjah Perfume", href: "/perfume", description: "Exclusive luxury fragrance collection" },
 ];
 
 export const growLinks: NavigationLink[] = [
@@ -62,6 +63,7 @@ export const sefLink: NavigationLink = {
   description: "Sharjah Entrepreneurship Festival - January 31-February 1, 2026"
 };
 
+// Remove perfumeLinks since it's now under discover
 export const perfumeLinks: NavigationLink[] = [
   {
     title: "Our Collection",

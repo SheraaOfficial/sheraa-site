@@ -2,9 +2,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { motion } from "framer-motion";
-import { GraduationCap, Rocket, Globe, Building2, ArrowRight } from "lucide-react";
+import { GraduationCap, Rocket, Globe, Building2, ArrowRight, Handshake } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const ProgramsOverview = () => {
@@ -13,7 +13,7 @@ const ProgramsOverview = () => {
   const programs = [
     {
       title: "Start Young",
-      subtitle: isMobile ? "Students & Youth" : "Student & Youth Programs",
+      subtitle: "Student & Youth Programs",
       description: "Nurturing the next generation of innovators through education and mentorship.",
       link: "/programs/start-young",
       icon: GraduationCap,
@@ -23,7 +23,7 @@ const ProgramsOverview = () => {
     },
     {
       title: "S3 Incubator",
-      subtitle: isMobile ? "Startup Studio" : "Sharjah Startup Studio",
+      subtitle: "Sharjah Startup Studio",
       description: "Comprehensive support and funding to help startups achieve product-market fit and scale.",
       link: "/programs/s3-incubator",
       icon: Rocket,
@@ -33,7 +33,7 @@ const ProgramsOverview = () => {
     },
     {
       title: "Access Sharjah",
-      subtitle: isMobile ? "Market Access" : "Market Access Program",
+      subtitle: "Market Access Program",
       description: "Connect global startups with Sharjah's public and private sector through innovation challenges.",
       link: "/programs/access-sharjah-challenge",
       icon: Globe,
@@ -42,9 +42,19 @@ const ProgramsOverview = () => {
       iconColor: "text-purple-500"
     },
     {
+      title: "Deal Dock",
+      subtitle: "Investment Platform",
+      description: "Investment readiness and funding opportunities for high-potential startups.",
+      link: "/programs/deal-dock",
+      icon: Handshake,
+      stats: "Investor Network",
+      color: "from-yellow-500/20 to-orange-500/20",
+      iconColor: "text-yellow-600"
+    },
+    {
       title: "SME Support",
-      subtitle: isMobile ? "Business Growth" : "Business Growth",
-      description: "Tailored resources and connections for established SMEs seeking growth and innovation support.",
+      subtitle: "Business Growth",
+      description: "Tailored resources and connections for established SMEs seeking growth and innovation.",
       link: "/programs/sme-support",
       icon: Building2,
       stats: "60k+ SMEs",
@@ -58,7 +68,7 @@ const ProgramsOverview = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2
+        staggerChildren: 0.1
       }
     }
   };
@@ -103,45 +113,68 @@ const ProgramsOverview = () => {
           )}
         </motion.div>
         
+        {/* Vertical layout for condensed view */}
         <motion.div 
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 md:gap-6"
+          className="max-w-4xl mx-auto space-y-4"
         >
           {programs.map((program, index) => (
             <motion.div 
               key={index}
               variants={itemVariants}
-              className="relative group h-full"
+              className="relative group"
             >
-              <Card className="h-full border-none shadow-md hover:shadow-lg transition-all duration-300 bg-white/80 backdrop-blur-sm">
+              <Card className="border-none shadow-md hover:shadow-lg transition-all duration-300 bg-white/80 backdrop-blur-sm">
                 <div className={`absolute inset-0 rounded-lg bg-gradient-to-br ${program.color} opacity-40`} />
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-sheraa-primary to-sheraa-secondary rounded-t-lg" />
                 
-                <CardContent className="p-4 md:p-6 relative">
-                  <program.icon className={`w-8 h-8 mb-3 ${program.iconColor}`} />
-                  <h3 className="text-lg font-semibold mb-1">{program.title}</h3>
-                  <p className="text-xs text-sheraa-primary font-medium mb-2">{program.subtitle}</p>
-                  {!isMobile && (
-                    <p className="text-sm text-gray-600 mb-3 line-clamp-2">{program.description}</p>
-                  )}
-                  <div className="text-xs font-medium text-green-600 bg-green-50 px-2 py-1 rounded-full inline-block">
-                    {program.stats}
+                <CardContent className="p-6 relative">
+                  <div className="flex items-center gap-6">
+                    <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${program.color} flex items-center justify-center`}>
+                      <program.icon className={`w-8 h-8 ${program.iconColor}`} />
+                    </div>
+                    
+                    <div className="flex-1">
+                      <div className="flex items-center justify-between mb-2">
+                        <h3 className="text-xl font-semibold">{program.title}</h3>
+                        <div className="text-xs font-medium text-green-600 bg-green-50 px-3 py-1 rounded-full">
+                          {program.stats}
+                        </div>
+                      </div>
+                      <p className="text-sm text-sheraa-primary font-medium mb-2">{program.subtitle}</p>
+                      <p className="text-sm text-gray-600 mb-3">{program.description}</p>
+                      
+                      <Link 
+                        to={program.link}
+                        className="text-sm text-sheraa-primary hover:text-sheraa-secondary font-medium inline-flex items-center group"
+                      >
+                        Learn more 
+                        <ArrowRight className="ml-1 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      </Link>
+                    </div>
                   </div>
-                  
-                  <Link 
-                    to={program.link}
-                    className="mt-3 text-sm text-sheraa-primary hover:text-sheraa-secondary font-medium inline-flex items-center group"
-                  >
-                    Learn more 
-                    <ArrowRight className="ml-1 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </Link>
                 </CardContent>
               </Card>
             </motion.div>
           ))}
+        </motion.div>
+        
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.5, duration: 0.5 }}
+          className="text-center mt-12"
+        >
+          <Button asChild size="lg" className="bg-sheraa-primary hover:bg-sheraa-primary/90 text-white">
+            <Link to="/programs" className="flex items-center gap-2">
+              Explore All Programs
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </Button>
         </motion.div>
       </div>
     </section>
