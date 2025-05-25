@@ -10,8 +10,8 @@ export const WhyChooseSheraaSection: React.FC = () => {
     {
       icon: Users,
       title: "Founder-First Approach",
-      description: "Equity-free support with founder ownership at the core",
-      highlight: "Keep 100% equity",
+      description: "Comprehensive support with founder ownership at the core",
+      highlight: "Keep 100% ownership",
       color: "sheraa-primary"
     },
     {

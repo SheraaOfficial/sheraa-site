@@ -24,10 +24,10 @@ const ProgramsOverview = () => {
     {
       title: "S3 Incubator",
       subtitle: isMobile ? "Startup Studio" : "Sharjah Startup Studio",
-      description: "Equity-free funding and support to help startups achieve product-market fit and scale.",
+      description: "Comprehensive support and funding to help startups achieve product-market fit and scale.",
       link: "/programs/s3-incubator",
       icon: Rocket,
-      stats: "$30k Pre-seed",
+      stats: "$30k Funding",
       color: "from-green-500/20 to-sheraa-secondary/20",
       iconColor: "text-green-500"
     },
@@ -35,7 +35,7 @@ const ProgramsOverview = () => {
       title: "Access Sharjah",
       subtitle: isMobile ? "Market Access" : "Market Access Program",
       description: "Connect global startups with Sharjah's public and private sector through innovation challenges.",
-      link: "/programs/access-sharjah",
+      link: "/programs/access-sharjah-challenge",
       icon: Globe,
       stats: "Direct POCs",
       color: "from-purple-500/20 to-pink-500/20",

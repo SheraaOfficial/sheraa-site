@@ -40,7 +40,7 @@ export const insightsLinks: NavigationLink[] = [
   { title: "Impact Reports", href: "/resources/impact-reports", description: "Our ecosystem achievements" },
 ];
 
-// Updated to "Events" only, not "Events & Festival"
+// Changed to "Events" only, not "Events & Festival"
 export const eventsLinks: NavigationLink[] = [
   { title: "Upcoming Events", href: "/events", description: "Workshops, webinars & community meetups" },
   { title: "Event Calendar", href: "/events/calendar", description: "View all upcoming events" },
