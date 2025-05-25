@@ -11,6 +11,10 @@ import ProgramsPage from "./pages/programs/ProgramsPage";
 import DealDockPage from "./pages/programs/DealDockPage";
 import PerfumeLandingPage from "./pages/perfume/PerfumeLandingPage";
 import EligibilityPage from "./pages/EligibilityPage";
+import ResourcesRouter from "./pages/resources/ResourcesRouter";
+import CommunityPage from "./pages/community";
+import JoinPage from "./pages/community/JoinPage";
+import PartnershipsPage from "./pages/community/PartnershipsPage";
 
 const queryClient = new QueryClient();
 
@@ -28,6 +32,11 @@ const App = () => (
             <Route path="/programs/deal-dock" element={<DealDockPage />} />
             <Route path="/perfume" element={<PerfumeLandingPage />} />
             <Route path="/eligibility" element={<EligibilityPage />} />
+            <Route path="/resources" element={<ResourcesRouter />} />
+            <Route path="/resources/:section" element={<ResourcesRouter />} />
+            <Route path="/community" element={<CommunityPage />} />
+            <Route path="/community/join" element={<JoinPage />} />
+            <Route path="/community/partnerships" element={<PartnershipsPage />} />
           </Routes>
         </BrowserRouter>
       </TooltipProvider>
