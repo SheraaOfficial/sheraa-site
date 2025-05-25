@@ -1,7 +1,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { TrendingUp, Users, Award, Globe, DollarSign, Briefcase, UserCheck, Target } from "lucide-react";
+import { TrendingUp, Users, Award, Globe, DollarSign, Briefcase, UserCheck, Target, Building2 } from "lucide-react";
 
 const metrics = [
   { icon: Building2, value: "180+", label: "Startups Supported", color: "text-sheraa-primary" },
