@@ -9,7 +9,10 @@ import { ResponsiveProvider } from "@/components/ui/design-system/ResponsiveProv
 import { AccessibilityProvider } from "@/components/ui/design-system/AccessibilityProvider";
 import { OptimizedMobileLayout } from "@/components/layouts/OptimizedMobileLayout";
 import { PerformanceProvider } from "@/contexts/PerformanceContext";
+
+// Import both old and new index pages
 import Index from "@/pages/Index";
+import NewIndex from "@/pages/NewIndex";
 import SEFLandingPage from "@/pages/events/sef-landing";
 import EligibilityCheckerPage from "@/pages/eligibility/EligibilityCheckerPage";
 import LoginPage from "@/pages/auth/LoginPage";
@@ -38,7 +41,9 @@ const AppWrapper = () => {
                 <OptimizedMobileLayout>
                   <Router>
                     <Routes>
-                      <Route path="/" element={<Index />} />
+                      {/* Use the new redesigned homepage */}
+                      <Route path="/" element={<NewIndex />} />
+                      <Route path="/old" element={<Index />} />
                       <Route path="/sef-landing" element={<SEFLandingPage />} />
                       <Route path="/eligibility" element={<EligibilityCheckerPage />} />
                       <Route path="/login" element={<LoginPage />} />
