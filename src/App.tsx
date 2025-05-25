@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -15,6 +14,10 @@ import ResourcesRouter from "./pages/resources/ResourcesRouter";
 import CommunityPage from "./pages/community";
 import JoinPage from "./pages/community/JoinPage";
 import PartnershipsPage from "./pages/community/PartnershipsPage";
+import AboutPage from "./pages/about";
+import EventsPage from "./pages/events";
+import ContactPage from "./pages/contact";
+import SEFLandingPage from "./pages/events/sef-landing";
 
 const queryClient = new QueryClient();
 
@@ -28,6 +31,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/new" element={<NewIndex />} />
+            <Route path="/about" element={<AboutPage />} />
             <Route path="/programs" element={<ProgramsPage />} />
             <Route path="/programs/deal-dock" element={<DealDockPage />} />
             <Route path="/perfume" element={<PerfumeLandingPage />} />
@@ -37,6 +41,9 @@ const App = () => (
             <Route path="/community" element={<CommunityPage />} />
             <Route path="/community/join" element={<JoinPage />} />
             <Route path="/community/partnerships" element={<PartnershipsPage />} />
+            <Route path="/events" element={<EventsPage />} />
+            <Route path="/events/sef-landing" element={<SEFLandingPage />} />
+            <Route path="/contact" element={<ContactPage />} />
           </Routes>
         </BrowserRouter>
       </TooltipProvider>
