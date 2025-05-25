@@ -11,27 +11,29 @@ import { useIsMobile } from "@/hooks/useDeviceDetection";
 import { SectionLoading } from "@/components/layout/SectionLoading";
 import { ErrorFallback } from "@/components/layout/ErrorFallback";
 import { SafeSuspense } from "@/components/layout/SafeSuspense";
-import Hero from "@/components/Hero";
-import MarqueeUpdates from "@/components/MarqueeUpdates";
-import { FirstPriorityComponents } from "@/components/sections/FirstPriorityComponents";
+import { WelcomeAnimation } from "@/components/ui/welcome-animation";
 
-// Enhanced error handling with proper typing for lazy-loaded components
-const SecondPriorityComponents = lazy(() => 
-  import("@/components/sections/SecondPriorityComponents")
+// Import critical components directly for better performance
+import EnhancedHero from "@/components/homepage/EnhancedHero";
+import EnhancedMarquee from "@/components/homepage/EnhancedMarquee";
+import { EnhancedFirstPriorityComponents } from "@/components/homepage/EnhancedFirstPriorityComponents";
+
+// Lazy load secondary components
+const EnhancedSecondPriorityComponents = lazy(() => 
+  import("@/components/homepage/EnhancedSecondPriorityComponents")
     .then(module => ({ 
-      default: module.SecondPriorityComponents as React.ComponentType<any>
+      default: module.EnhancedSecondPriorityComponents as React.ComponentType<any>
     }))
     .catch(() => ({ 
       default: (() => <ErrorFallback />) as React.ComponentType<any>
     }))
 );
 
-// Improved loading placeholder with mobile optimization
+// Enhanced loading placeholder
 const LoadingPlaceholder: React.FC = () => {
   const isMobile = useIsMobile();
   const devicePerformance = useDevicePerformance();
   
-  // Simpler placeholder for low-end devices
   if (devicePerformance === 'low') {
     return (
       <div className={`h-${isMobile ? '12' : '24'} flex items-center justify-center`}>
@@ -41,33 +43,28 @@ const LoadingPlaceholder: React.FC = () => {
   }
   
   return (
-    <div className={`h-${isMobile ? '16' : '32'} flex items-center justify-center bg-sheraa-light/30 rounded-md`}>
+    <div className={`h-${isMobile ? '16' : '32'} flex items-center justify-center bg-gradient-to-r from-sheraa-light/30 to-white/30 dark:from-sheraa-dark/30 dark:to-sheraa-dark/50 rounded-lg`}>
       <SectionLoading />
     </div>
   );
 };
 
-// Hook for optimized component preloading
+// Enhanced preloader hook
 const useComponentPreloader = (deepScroll: boolean, devicePerformance: string, isMobile: boolean) => {
   React.useEffect(() => {
-    // Skip preloading on mobile low-end devices
     if (isMobile && devicePerformance === 'low') return;
-    
-    // Skip preloading on any low-end devices
     if (devicePerformance === 'low') return; 
     
     let timeoutId: NodeJS.Timeout;
     
     const preloadSecondaryComponents = async () => {
       try {
-        // Preload critical secondary components
-        await import("@/components/sections/SecondPriorityComponents");
+        await import("@/components/homepage/EnhancedSecondPriorityComponents");
       } catch (error) {
         console.error("Failed to preload components:", error);
       }
     };
     
-    // Smart delay based on device performance and mobile status
     const delay = isMobile ? 2000 : devicePerformance === 'high' ? 1000 : 2000;
     timeoutId = setTimeout(preloadSecondaryComponents, delay);
     
@@ -86,28 +83,34 @@ const Index: React.FC = () => {
   const devicePerformance = useDevicePerformance();
   const isMobile = useIsMobile();
   
-  // Use the preloader hook
   useComponentPreloader(deepScroll, devicePerformance, isMobile);
 
   return (
-    <MainLayout backgroundStyle={backgroundStyle}>
-      {/* Only show progress bar on non-mobile or high-performance devices */}
+    <MainLayout 
+      backgroundStyle={backgroundStyle}
+      className="relative"
+    >
+      {/* Welcome animation for first-time visitors */}
+      <WelcomeAnimation />
+      
+      {/* Progress bar for navigation */}
       {(!isMobile || devicePerformance === 'high') && <ProgressBar />}
 
       {/* Enhanced Hero Section */}
-      <Hero />
+      <EnhancedHero />
       
-      {/* News Marquee Section */}
-      <MarqueeUpdates />
+      {/* Enhanced News Marquee */}
+      <EnhancedMarquee />
       
-      <div className="space-y-0 relative z-10">
+      {/* Main content sections */}
+      <div className="relative z-10">
         {/* First priority components - always load */}
-        <FirstPriorityComponents />
+        <EnhancedFirstPriorityComponents />
         
         {/* Second priority components - load after user interaction */}
         {firstInteraction && (
           <SafeSuspense fallback={<LoadingPlaceholder />}>
-            <SecondPriorityComponents />
+            <EnhancedSecondPriorityComponents />
           </SafeSuspense>
         )}
       </div>
