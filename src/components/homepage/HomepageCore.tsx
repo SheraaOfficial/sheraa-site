@@ -7,71 +7,73 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { GradientButton } from "@/components/ui/gradient-button";
 import { Link } from "react-router-dom";
-import { ArrowRight, Award, Rocket, Star, Users, Globe, CheckCircle, Zap, Target, Lightbulb, Calendar, MessageCircle, Coffee, Handshake, BookOpen } from "lucide-react";
+import { ArrowRight, Award, Rocket, Star, Users, Globe, CheckCircle, Zap, Target, Lightbulb, Calendar, MessageCircle, Coffee, Handshake, BookOpen, TrendingUp } from "lucide-react";
 
 export const HomepageCore: React.FC = () => {
   return (
     <>
-      {/* Combined Impact & Programs Section */}
-      <section className="py-32 bg-gradient-to-br from-white via-sheraa-light/20 to-white dark:from-sheraa-dark/30 dark:via-sheraa-dark/50 dark:to-sheraa-dark/30 relative overflow-hidden">
+      {/* Impact at Scale Section */}
+      <section className="py-24 bg-gradient-to-br from-white via-sheraa-light/20 to-white dark:from-sheraa-dark/30 dark:via-sheraa-dark/50 dark:to-sheraa-dark/30 relative overflow-hidden">
         <div className="absolute inset-0 opacity-30">
           <div className="absolute top-20 left-10 w-32 h-32 bg-sheraa-primary/10 rounded-full blur-xl" />
           <div className="absolute bottom-20 right-10 w-40 h-40 bg-sheraa-orange/10 rounded-full blur-xl" />
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-sheraa-teal/5 rounded-full blur-3xl" />
         </div>
         
         <div className="container mx-auto px-4 relative z-10">
-          {/* Impact Numbers */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
-            className="text-center mb-20"
+            className="text-center mb-16"
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 dark:bg-sheraa-dark/80 backdrop-blur-sm border border-sheraa-primary/20 mb-6">
               <Award className="w-5 h-5 text-sheraa-orange" />
-              <span className="text-sm font-medium text-sheraa-primary">Proven Results</span>
+              <span className="text-sm font-medium text-sheraa-primary">Impact That Speaks Volumes</span>
             </div>
             
-            <h2 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-sheraa-primary via-sheraa-teal to-sheraa-primary bg-clip-text text-transparent leading-tight">
-              Where Impact Meets Innovation
+            <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-sheraa-primary via-sheraa-teal to-sheraa-primary bg-clip-text text-transparent leading-tight">
+              Where Potential Meets Opportunity
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed mb-16">
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed mb-12">
               Since 2016, we've built Sharjah's most dynamic entrepreneurship ecosystem. Our numbers tell the story, 
               but our founders write the future.
             </p>
             
             <ImpactNumbers />
           </motion.div>
-
-          {/* Programs Journey */}
+        </div>
+      </section>
+      
+      {/* Your Entrepreneurial Journey Section */}
+      <section className="py-24 bg-gradient-to-br from-sheraa-light/30 via-white to-sheraa-light/20 dark:from-sheraa-dark/50 dark:via-sheraa-dark/30 dark:to-sheraa-dark/50 relative overflow-hidden">
+        <div className="container mx-auto px-4 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.3 }}
-            className="text-center mb-20"
+            transition={{ duration: 0.7 }}
+            className="text-center mb-16"
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-sheraa-primary/10 border border-sheraa-primary/20 mb-6">
               <Rocket className="w-5 h-5 text-sheraa-primary" />
-              <span className="text-sm font-medium text-sheraa-primary">Your Entrepreneurial Journey</span>
+              <span className="text-sm font-medium text-sheraa-primary">Your Journey Starts Here</span>
             </div>
             
-            <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-sheraa-primary via-sheraa-teal to-sheraa-primary bg-clip-text text-transparent leading-tight">
-              From Dream to Global Scale
+            <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-sheraa-primary via-sheraa-teal to-sheraa-primary bg-clip-text text-transparent leading-tight">
+              Programs Tailored for Growth
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed mb-16">
-              Whether you're 18 or 80, whether you have an idea or a growing business - we meet you exactly where you are 
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed mb-12">
+              From validating your initial idea to scaling globally, we meet you exactly where you are 
               and help you reach where you want to be.
             </p>
             
             <ProgramsOverview />
           </motion.div>
 
-          {/* Why Sheraa Advantage */}
+          {/* The Sheraa Advantage */}
           <motion.div 
-            className="relative bg-gradient-to-br from-sheraa-primary/5 via-white to-sheraa-teal/5 dark:from-sheraa-primary/10 dark:via-sheraa-dark/50 dark:to-sheraa-teal/10 rounded-3xl p-12 border border-sheraa-primary/10 backdrop-blur-sm overflow-hidden mb-16"
+            className="relative bg-gradient-to-br from-sheraa-primary/5 via-white to-sheraa-teal/5 dark:from-sheraa-primary/10 dark:via-sheraa-dark/50 dark:to-sheraa-teal/10 rounded-3xl p-12 border border-sheraa-primary/10 backdrop-blur-sm overflow-hidden mt-16"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -80,11 +82,11 @@ export const HomepageCore: React.FC = () => {
             <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-sheraa-orange/10 to-transparent rounded-full blur-3xl" />
             
             <div className="relative z-10 text-center mb-12">
-              <h3 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-sheraa-primary to-sheraa-teal bg-clip-text text-transparent">
-                The Sheraa Advantage
+              <h3 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-sheraa-primary to-sheraa-teal bg-clip-text text-transparent">
+                Why Choose Sheraa?
               </h3>
               <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-                What makes us different? We're not just another accelerator - we're your long-term growth partner.
+                We're not just another accelerator - we're your long-term growth partner with proven results.
               </p>
             </div>
             
@@ -135,66 +137,55 @@ export const HomepageCore: React.FC = () => {
               ))}
             </div>
           </motion.div>
-          
-          <div className="text-center">
-            <GradientButton asChild size="xl" className="bg-sheraa-primary hover:bg-sheraa-primary/90 shadow-xl">
-              <Link to="/programs" className="flex items-center gap-2">
-                Start Your Journey Today
-                <ArrowRight className="w-5 h-5" />
-              </Link>
-            </GradientButton>
-          </div>
         </div>
       </section>
-      
-      {/* Innovation Showcase & Community */}
-      <section className="py-32 bg-gradient-to-br from-sheraa-light/30 via-white to-sheraa-light/20 dark:from-sheraa-dark/50 dark:via-sheraa-dark/30 dark:to-sheraa-dark/50 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-10 right-20 w-40 h-40 bg-sheraa-teal/20 rounded-full blur-2xl" />
-          <div className="absolute bottom-20 left-10 w-56 h-56 bg-sheraa-orange/15 rounded-full blur-3xl" />
-        </div>
-        
+
+      {/* Innovation Showcase */}
+      <section className="py-24 bg-gradient-to-br from-white via-sheraa-light/30 to-white dark:from-sheraa-dark/30 dark:via-sheraa-dark/50 dark:to-sheraa-dark/30 relative overflow-hidden">
         <div className="container mx-auto px-4 relative z-10">
-          {/* Startups Innovation */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
-            className="text-center mb-20"
+            className="text-center mb-16"
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-sheraa-teal/10 border border-sheraa-teal/20 mb-6">
               <Star className="w-5 h-5 text-sheraa-teal" />
               <span className="text-sm font-medium text-sheraa-teal">Innovation in Action</span>
             </div>
             
-            <h2 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-sheraa-primary via-sheraa-teal to-sheraa-primary bg-clip-text text-transparent leading-tight">
+            <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-sheraa-primary via-sheraa-teal to-sheraa-primary bg-clip-text text-transparent leading-tight">
               Meet Tomorrow's Changemakers
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed mb-16">
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed mb-12">
               From AI revolutionizing healthcare to sustainable solutions tackling climate change - 
               our 180+ portfolio companies are building the future, today.
             </p>
             
             <StartupsShowcase />
           </motion.div>
+        </div>
+      </section>
 
-          {/* Community & Resources Combined */}
+      {/* Community Ecosystem */}
+      <section className="py-24 bg-gradient-to-br from-sheraa-light/30 via-white to-sheraa-light/20 dark:from-sheraa-dark/50 dark:via-sheraa-dark/30 dark:to-sheraa-dark/50 relative overflow-hidden">
+        <div className="container mx-auto px-4 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.3 }}
-            className="text-center mb-20"
+            transition={{ duration: 0.7 }}
+            className="text-center mb-16"
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-sheraa-primary to-sheraa-teal bg-clip-text text-transparent">
-              Join the Ecosystem
+              Powered by Community
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto mb-16">
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto mb-12">
               Connect with founders, access resources, attend events, and become part of Sharjah's most vibrant innovation community.
             </p>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+            <div className="grid md:grid-cols-3 gap-8 mb-12">
               {[
                 {
                   icon: Calendar,
@@ -281,8 +272,8 @@ export const HomepageCore: React.FC = () => {
         </div>
       </section>
 
-      {/* Final CTA Section */}
-      <section className="py-24 bg-gradient-to-br from-sheraa-primary via-sheraa-primary/90 to-sheraa-teal text-white relative overflow-hidden">
+      {/* Final Call to Action */}
+      <section className="py-20 bg-gradient-to-br from-sheraa-primary via-sheraa-primary/90 to-sheraa-teal text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1)_0%,transparent_50%)]" />
         
         <div className="container mx-auto px-4 text-center relative z-10">
@@ -292,10 +283,10 @@ export const HomepageCore: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
           >
-            <h2 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
               Your Future Starts Now
             </h2>
-            <p className="text-xl mb-10 opacity-90 max-w-3xl mx-auto">
+            <p className="text-xl mb-8 opacity-90 max-w-3xl mx-auto">
               Join 18,000+ entrepreneurs who chose Sheraa as their launchpad. Whether you're a student with a spark 
               or a CEO ready to scale - <span className="font-semibold">this is where potential meets opportunity</span>.
             </p>

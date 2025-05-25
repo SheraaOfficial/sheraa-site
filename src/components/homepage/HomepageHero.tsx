@@ -11,7 +11,7 @@ import { RetroGrid } from "@/components/ui/retro-grid";
 
 const HomepageHero = () => {
   const [titleIndex, setTitleIndex] = useState(0);
-  const titles = ["Entrepreneurs", "Innovators", "Changemakers", "Visionaries", "Leaders"];
+  const titles = ["Entrepreneurs", "Innovators", "Changemakers", "Visionaries"];
   const [mounted, setMounted] = useState(false);
   const { theme } = useTheme();
   const isDarkTheme = theme === "dark";
@@ -37,7 +37,7 @@ const HomepageHero = () => {
 
   return (
     <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-white via-sheraa-light/30 to-sheraa-light/50 dark:from-sheraa-dark dark:via-sheraa-dark/80 dark:to-black">
-      {/* Enhanced background with RetroGrid */}
+      {/* Background with RetroGrid */}
       <div className="absolute inset-0">
         <RetroGrid className="opacity-30 dark:opacity-20" />
       </div>
@@ -134,9 +134,9 @@ const HomepageHero = () => {
                 transition={{ delay: 0.5 }}
                 className="text-lg sm:text-xl lg:text-2xl text-gray-700 dark:text-gray-300 max-w-2xl leading-relaxed"
               >
-                We are more than an incubator; we're a thriving ecosystem built on collaboration, innovation, and a 
-                <span className="font-semibold text-sheraa-primary"> founder-first ethos</span>. Transform bold ideas into 
-                successful, scalable startups that contribute positively to Sharjah and the UAE.
+                Sharjah's official hub for aspiring founders and established ventures. We empower changemakers to build 
+                impactful businesses and shape the future through collaboration, innovation, and a 
+                <span className="font-semibold text-sheraa-primary"> founder-first ethos</span>.
               </motion.p>
             </div>
 
