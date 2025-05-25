@@ -1,63 +1,88 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import design system and accessibility styles */
 @import './styles/design-system.css';
 @import './styles/mobile-optimizations.css';
+@import './styles/accessibility.css';
 
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 20 14.3% 4.1%;
+    --foreground: 0 0% 3.9%;
     --card: 0 0% 100%;
-    --card-foreground: 20 14.3% 4.1%;
+    --card-foreground: 0 0% 3.9%;
     --popover: 0 0% 100%;
-    --popover-foreground: 20 14.3% 4.1%;
-    --primary: 47.9 95.8% 53.1%;
-    --primary-foreground: 26 83.3% 14.1%;
-    --secondary: 60 4.8% 95.9%;
-    --secondary-foreground: 24 9.8% 10%;
-    --muted: 60 4.8% 95.9%;
-    --muted-foreground: 25 5.3% 44.7%;
-    --accent: 60 4.8% 95.9%;
-    --accent-foreground: 24 9.8% 10%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 280 65% 25%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 60 9.1% 97.8%;
-    --border: 20 5.9% 90%;
-    --input: 20 5.9% 90%;
-    --ring: 20 14.3% 4.1%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 280 65% 25%;
     --radius: 0.5rem;
-    --sheraa-primary: 210 100% 20%;
-    --sheraa-orange: 25 100% 50%;
-    --sheraa-teal: 180 100% 30%;
-    --sheraa-dark: 240 20% 2%;
-    --sheraa-light: 240 30% 98%;
-    --shadow-glow-light: 0 0 20px 2px rgba(0, 51, 102, 0.3);
-    --shadow-glow-dark: 0 0 25px 5px rgba(0, 51, 102, 0.4);
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+
+    /* Sheraa Brand Colors */
+    --sheraa-primary: 280 65% 25%;
+    --sheraa-primary-dark: 280 65% 20%;
+    --sheraa-primary-light: 280 65% 95%;
+    --sheraa-teal: 180 50% 30%;
+    --sheraa-teal-dark: 180 50% 25%;
+    --sheraa-teal-light: 180 50% 95%;
+    --sheraa-light: 280 30% 97%;
+    --sheraa-dark: 280 20% 8%;
   }
 
   .dark {
-    --background: 20 14.3% 4.1%;
-    --foreground: 60 9.1% 97.8%;
-    --card: 20 14.3% 4.1%;
-    --card-foreground: 60 9.1% 97.8%;
-    --popover: 20 14.3% 4.1%;
-    --popover-foreground: 60 9.1% 97.8%;
-    --primary: 47.9 95.8% 53.1%;
-    --primary-foreground: 26 83.3% 14.1%;
-    --secondary: 12 6.5% 15.1%;
-    --secondary-foreground: 60 9.1% 97.8%;
-    --muted: 12 6.5% 15.1%;
-    --muted-foreground: 24 5.4% 63.9%;
-    --accent: 12 6.5% 15.1%;
-    --accent-foreground: 60 9.1% 97.8%;
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 280 65% 75%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 60 9.1% 97.8%;
-    --border: 12 6.5% 15.1%;
-    --input: 12 6.5% 15.1%;
-    --ring: 35.5 91.7% 32.9%;
-    --sheraa-primary: 210 80% 50%;
-    --sheraa-orange: 25 100% 60%;
-    --sheraa-teal: 180 80% 40%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 280 65% 75%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+
+    /* Dark mode Sheraa colors */
+    --sheraa-primary: 280 65% 75%;
+    --sheraa-primary-dark: 280 65% 80%;
+    --sheraa-primary-light: 280 65% 15%;
+    --sheraa-teal: 180 50% 70%;
+    --sheraa-teal-dark: 180 50% 75%;
+    --sheraa-teal-light: 180 50% 15%;
+    --sheraa-light: 280 20% 12%;
+    --sheraa-dark: 280 65% 95%;
   }
 }
 
@@ -65,183 +90,33 @@
   * {
     @apply border-border;
   }
+  
   body {
-    @apply bg-background text-foreground;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    @apply bg-background text-foreground font-sans;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Enhanced dark mode text improvements */
-  .dark a:not(.btn) {
-    @apply text-blue-300 hover:text-blue-200;
-  }
-  
-  .dark .text-gray-600, 
-  .dark .text-gray-700, 
-  .dark .text-gray-800 {
-    @apply text-gray-300;
-  }
-  
-  .dark .text-muted-foreground {
-    @apply text-gray-400;
-  }
-  
-  /* Improved card and section visibility in dark mode */
-  .dark .bg-white {
-    @apply bg-gray-800;
-  }
-  
-  .dark .bg-gray-50, 
-  .dark .bg-gray-100 {
-    @apply bg-gray-900;
-  }
-  
-  /* Better border visibility */
-  .dark .border-gray-200 {
-    @apply border-gray-700;
+  html {
+    scroll-behavior: smooth;
   }
 
-  /* Dark mode specific text enhancements */
-  .dark h1, 
-  .dark h2, 
-  .dark h3, 
-  .dark h4, 
-  .dark h5, 
-  .dark h6 {
-    @apply text-white;
-  }
-  
-  .dark p {
-    @apply text-gray-200;
-  }
-  
-  .dark .text-black {
-    @apply text-white;
-  }
-  
-  /* Buttons and interactive elements */
-  .dark button:not(.btn-primary):not(.btn-secondary) {
-    @apply hover:bg-gray-700;
-  }
-  
-  /* Card styles enhancement */
-  .dark .card, 
-  .dark .bg-card {
-    @apply shadow-md shadow-black/30;
-  }
-
-  /* Sheraa specific styles */
-  .sheraa-gradient-text {
-    @apply bg-gradient-to-r from-sheraa-primary to-sheraa-teal bg-clip-text text-transparent;
-  }
-
-  .sheraa-gradient-bg {
-    @apply bg-gradient-to-r from-sheraa-primary to-sheraa-teal;
-  }
-
-  /* SEF specific styles */
-  .sef-gradient-text {
-    @apply bg-gradient-to-r from-sheraa-sef-primary to-sheraa-sef-secondary bg-clip-text text-transparent;
-  }
-
-  .sef-gradient-bg {
-    @apply bg-gradient-to-r from-sheraa-sef-primary to-sheraa-sef-secondary;
-  }
-
-  .sheraa-card {
-    @apply rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300;
-  }
-
-  .sheraa-button-primary {
-    @apply bg-sheraa-primary text-white hover:bg-sheraa-primary/90 transition-colors;
-  }
-
-  .sheraa-button-secondary {
-    @apply border border-sheraa-primary/30 text-sheraa-primary hover:bg-sheraa-primary/10 transition-colors;
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
   }
 }
 
-/* Add the custom blur utility class */
+/* Enhanced focus styles for accessibility */
 @layer utilities {
-  .blur-xs {
-    filter: blur(2px);
+  .focus-visible {
+    @apply outline-none ring-2 ring-sheraa-primary ring-offset-2 ring-offset-background;
   }
   
-  .inset-shadow-2xs {
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+  .btn-focus {
+    @apply focus-visible:ring-2 focus-visible:ring-sheraa-primary focus-visible:ring-offset-2;
   }
-  
-  .dark .inset-shadow-white\/20 {
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
-  }
-  
-  .perspective-1000 {
-    perspective: 1000px;
-  }
-  
-  .contain-strict {
-    contain: strict;
-  }
-  
-  .shadow-glow {
-    box-shadow: var(--shadow-glow-light);
-  }
-  
-  .dark .shadow-glow {
-    box-shadow: var(--shadow-glow-dark);
-  }
-  
-  /* Enhanced animation utilities */
-  .hover-scale {
-    @apply transition-transform duration-300 hover:scale-105;
-  }
-  
-  .hover-glow {
-    @apply transition-all duration-300;
-  }
-  
-  .hover-glow:hover {
-    box-shadow: var(--shadow-glow-light);
-  }
-  
-  .dark .hover-glow:hover {
-    box-shadow: var(--shadow-glow-dark);
-  }
-
-  /* Fix for min-height values in SectionLoading */
-  .min-h-60px {
-    min-height: 60px;
-  }
-  
-  .min-h-100px {
-    min-height: 100px;
-  }
-
-  /* Full width utility */
-  .full-width-footer {
-    width: 100vw;
-    margin-left: calc(50% - 50vw);
-    margin-right: calc(50% - 50vw);
-  }
-
-  /* Animated underline effect */
-  .animated-underline {
-    @apply relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-sheraa-primary after:transition-all after:duration-300 hover:after:w-full;
-  }
-}
-
-/* Design System Utilities */
-.text-gradient-sheraa {
-  @apply bg-gradient-to-r from-sheraa-primary via-sheraa-teal to-sheraa-primary bg-clip-text text-transparent;
-}
-
-.bg-gradient-sheraa {
-  @apply bg-gradient-to-r from-sheraa-primary to-sheraa-teal;
-}
-
-.shadow-sheraa {
-  box-shadow: 0 4px 6px -1px rgba(0, 51, 102, 0.1), 0 2px 4px -1px rgba(0, 51, 102, 0.06);
-}
-
-.border-sheraa {
-  border-color: hsl(var(--sheraa-primary) / 0.2);
 }
