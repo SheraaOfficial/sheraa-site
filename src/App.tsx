@@ -1,5 +1,11 @@
+
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ThemeProvider } from '@/contexts/ThemeContext';
+import { TooltipProvider } from '@/components/ui/tooltip';
+import { Toaster } from '@/components/ui/toaster';
+import { Toaster as Sonner } from '@/components/ui/sonner';
 import ScrollToTop from "@/components/utils/ScrollToTop";
 import Index from './pages/Index';
 import NewIndex from './pages/NewIndex';
@@ -9,9 +15,7 @@ import EventsPage from './pages/events/EventsPage';
 
 // Main Pages
 import AboutPage from '@/pages/about/index';
-import ProgramsPage from '@/pages/programs/index';
 import ResourcesRouter from '@/pages/resources/ResourcesRouter';
-import EventsPage from '@/pages/events/index';
 import SEFLandingPage from '@/pages/events/sef-landing';
 import CommunityPage from '@/pages/community/index';
 import ContactPage from '@/pages/contact/index';
@@ -109,6 +113,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <ScrollToTop />
           <Routes>
             {/* Main Routes */}
             <Route path="/" element={<Index />} />
@@ -121,6 +126,12 @@ const App = () => (
             {/* Events routes */}
             <Route path="/events" element={<EventsPage />} />
             <Route path="/events/sef-landing" element={<SEFLandingPage />} />
+            
+            {/* Main Pages */}
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/resources/*" element={<ResourcesRouter />} />
+            <Route path="/community" element={<CommunityPage />} />
+            <Route path="/contact" element={<ContactPage />} />
             
             {/* Auth Routes */}
             <Route path="/login" element={<LoginPage />} />
