@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, lazy, Suspense } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -9,6 +10,7 @@ import {
   growLinks, 
   communityLinks, 
   insightsLinks, 
+  eventsLinks, 
   applyLinks, 
   sefLink,
   perfumeLinks 
@@ -93,6 +95,7 @@ const Navigation = () => {
               growLinks={growLinks} 
               communityLinks={communityLinks} 
               insightsLinks={insightsLinks} 
+              eventsLinks={eventsLinks}
               applyLinks={applyLinks}
               sefLink={sefLink}
               perfumeLinks={perfumeLinks}
@@ -122,6 +125,7 @@ const Navigation = () => {
               growLinks={growLinks} 
               communityLinks={communityLinks} 
               insightsLinks={insightsLinks} 
+              eventsLinks={eventsLinks}
               applyLinks={applyLinks}
               sefLink={sefLink}
               perfumeLinks={perfumeLinks}

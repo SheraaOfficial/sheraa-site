@@ -1,3 +1,4 @@
+
 import { NavigationLink } from "./types";
 
 export const homeLinks: NavigationLink[] = [
@@ -5,7 +6,6 @@ export const homeLinks: NavigationLink[] = [
   { title: "About Sheraa", href: "/about", description: "Learn about our mission and vision" },
   { title: "Why Sharjah", href: "/about/why-sharjah", description: "Discover the advantages of Sharjah" },
   { title: "Our Impact", href: "/about/impact", description: "See how we're changing the ecosystem" },
-  { title: "Sharjah Perfume", href: "/perfume", description: "Exclusive Sharjah's Signature Scent" },
 ];
 
 export const discoverLinks: NavigationLink[] = [
@@ -38,6 +38,14 @@ export const insightsLinks: NavigationLink[] = [
   { title: "Advisory Services", href: "/resources/advisory", description: "Expert guidance when you need it most" },
   { title: "Articles & Insights", href: "/resources/articles", description: "Latest trends and success stories" },
   { title: "Impact Reports", href: "/resources/impact-reports", description: "Our ecosystem achievements" },
+];
+
+// Updated to "Events" only, not "Events & Festival"
+export const eventsLinks: NavigationLink[] = [
+  { title: "Upcoming Events", href: "/events", description: "Workshops, webinars & community meetups" },
+  { title: "Event Calendar", href: "/events/calendar", description: "View all upcoming events" },
+  { title: "Past Events", href: "/events/past", description: "Recap of our previous events" },
+  { title: "Event Resources", href: "/events/resources", description: "Downloads and recordings" },
 ];
 
 export const applyLinks: NavigationLink[] = [

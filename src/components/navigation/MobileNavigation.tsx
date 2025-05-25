@@ -17,6 +17,7 @@ interface MobileNavigationProps {
   growLinks: NavigationLink[];
   communityLinks: NavigationLink[];
   insightsLinks: NavigationLink[];
+  eventsLinks: NavigationLink[];
   applyLinks: NavigationLink[];
   perfumeLinks: NavigationLink[];
   sefLink: NavigationLink;
@@ -34,6 +35,7 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({
   growLinks,
   communityLinks,
   insightsLinks,
+  eventsLinks,
   applyLinks,
   perfumeLinks,
   sefLink,
@@ -90,6 +92,7 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({
           <MobileDropdown title="Grow" icon={TrendingUp} items={growLinks} />
           <MobileDropdown title="Community" icon={Users} items={communityLinks} />
           <MobileDropdown title="Insights" icon={Info} items={insightsLinks} />
+          <MobileDropdown title="Events" icon={Calendar} items={eventsLinks} />
           <MobileDropdown title="Sharjah Perfume" icon={Sparkles} items={perfumeLinks} />
           
           <div className="py-2">
@@ -99,7 +102,7 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({
             </Link>
           </div>
           
-          {/* SEF link with glow effect */}
+          {/* SEF link with enhanced glow effect */}
           <div className="py-2">
             <Link 
               to={sefLink.href} 
@@ -108,10 +111,10 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({
             >
               <div className="flex items-center gap-2 relative">
                 <Calendar className="h-4 w-4" />
-                <span className="bg-gradient-to-r from-purple-500 to-orange-400 bg-clip-text text-transparent font-semibold">
+                <span className="bg-gradient-to-r from-purple-500 to-orange-400 bg-clip-text text-transparent font-bold">
                   {sefLink.title}
                 </span>
-                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-600/10 to-orange-500/10 blur-sm"></div>
+                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-600/20 to-orange-500/20 blur-sm animate-pulse"></div>
               </div>
             </Link>
           </div>

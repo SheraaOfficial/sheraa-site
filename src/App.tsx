@@ -1,7 +1,11 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ScrollToTop from "@/components/utils/ScrollToTop";
-import Index from '@/pages/Index';
+import Index from './pages/Index';
+import NewIndex from './pages/NewIndex';
+import ProgramsPage from './pages/programs/ProgramsPage';
+import StartYoungPage from './pages/programs/StartYoungPage';
+import EventsPage from './pages/events/EventsPage';
 
 // Main Pages
 import AboutPage from '@/pages/about/index';
@@ -96,63 +100,72 @@ export const perfumeRoutes = [
   { path: "/perfume/buy", element: <BuyPage /> },
 ];
 
-function App() {
-  return (
-    <BrowserRouter>
-      <ScrollToTop />
-      <Routes>
-        {/* Main Routes */}
-        <Route path="/" element={<Index />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/programs" element={<ProgramsPage />} />
-        <Route path="/resources/*" element={<ResourcesRouter />} />
-        <Route path="/events" element={<EventsPage />} />
-        <Route path="/events/sef-landing" element={<SEFLandingPage />} />
-        <Route path="/community" element={<CommunityPage />} />
-        <Route path="/contact" element={<ContactPage />} />
-        
-        {/* Auth Routes */}
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignupPage />} />
-        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-        
-        {/* Program Routes */}
-        {programRoutes.map((route) => (
-          <Route key={route.path} path={route.path} element={route.element} />
-        ))}
-        
-        {/* Community Routes */}
-        {communityRoutes.map((route) => (
-          <Route key={route.path} path={route.path} element={route.element} />
-        ))}
-        
-        {/* SEF Routes */}
-        {sefRoutes.map((route) => (
-          <Route key={route.path} path={route.path} element={route.element} />
-        ))}
-        
-        {/* Perfume Routes */}
-        {perfumeRoutes.map((route) => (
-          <Route key={route.path} path={route.path} element={route.element} />
-        ))}
-        
-        {/* User Routes */}
-        <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/profile/setup" element={<ProfileSetupPage />} />
-        <Route path="/feed" element={<FeedPage />} />
-        
-        {/* Other Routes */}
-        <Route path="/eligibility" element={<EligibilityCheckerPage />} />
-        <Route path="/impact" element={<ImpactReport />} />
-        <Route path="/careers" element={<CareersPage />} />
-        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-        <Route path="/terms-of-use" element={<TermsOfUse />} />
-        
-        {/* 404 Route */}
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </BrowserRouter>
-  );
-}
+const queryClient = new QueryClient();
+
+const App = () => (
+  <QueryClientProvider client={queryClient}>
+    <ThemeProvider>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
+            {/* Main Routes */}
+            <Route path="/" element={<Index />} />
+            <Route path="/new" element={<NewIndex />} />
+            
+            {/* Programs routes */}
+            <Route path="/programs" element={<ProgramsPage />} />
+            <Route path="/programs/start-young" element={<StartYoungPage />} />
+            
+            {/* Events routes */}
+            <Route path="/events" element={<EventsPage />} />
+            <Route path="/events/sef-landing" element={<SEFLandingPage />} />
+            
+            {/* Auth Routes */}
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignupPage />} />
+            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+            
+            {/* Program Routes */}
+            {programRoutes.map((route) => (
+              <Route key={route.path} path={route.path} element={route.element} />
+            ))}
+            
+            {/* Community Routes */}
+            {communityRoutes.map((route) => (
+              <Route key={route.path} path={route.path} element={route.element} />
+            ))}
+            
+            {/* SEF Routes */}
+            {sefRoutes.map((route) => (
+              <Route key={route.path} path={route.path} element={route.element} />
+            ))}
+            
+            {/* Perfume Routes */}
+            {perfumeRoutes.map((route) => (
+              <Route key={route.path} path={route.path} element={route.element} />
+            ))}
+            
+            {/* User Routes */}
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/profile/setup" element={<ProfileSetupPage />} />
+            <Route path="/feed" element={<FeedPage />} />
+            
+            {/* Other Routes */}
+            <Route path="/eligibility" element={<EligibilityCheckerPage />} />
+            <Route path="/impact" element={<ImpactReport />} />
+            <Route path="/careers" element={<CareersPage />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/terms-of-use" element={<TermsOfUse />} />
+            
+            {/* 404 Route */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </TooltipProvider>
+    </ThemeProvider>
+  </QueryClientProvider>
+);
 
 export default App;
