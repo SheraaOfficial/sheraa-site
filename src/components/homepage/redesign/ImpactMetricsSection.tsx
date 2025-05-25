@@ -1,58 +1,52 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { TrendingUp, Users, Award, Globe, DollarSign, Briefcase, UserCheck, Target, Building2 } from "lucide-react";
 
 const metrics = [
-  { icon: Building2, value: "180+", label: "Startups Supported", color: "text-sheraa-primary" },
-  { icon: DollarSign, value: "$248M+", label: "Revenue Generated", color: "text-green-600" },
-  { icon: TrendingUp, value: "$171M+", label: "Capital Raised", color: "text-blue-600" },
-  { icon: Briefcase, value: "1,900+", label: "Jobs Created", color: "text-purple-600" },
-  { icon: UserCheck, value: "52%", label: "Women-Led Startups", color: "text-pink-600" },
-  { icon: Users, value: "18,000+", label: "Youth Upskilled", color: "text-orange-600" },
-  { icon: Globe, value: "140+", label: "Ecosystem Partners", color: "text-sheraa-teal" },
-  { icon: Target, value: "71%", label: "Startup Survival Rate", color: "text-sheraa-primary" },
+  { number: "180+", label: "Startups Supported", description: "Companies we've helped grow" },
+  { number: "$248M+", label: "Revenue Generated", description: "Total revenue by our startups" },
+  { number: "$171M+", label: "Capital Raised", description: "Investment secured" },
+  { number: "1,900+", label: "Jobs Created", description: "Employment opportunities" },
+  { number: "52%", label: "Women-Led Startups", description: "Diverse leadership" },
+  { number: "71%", label: "Survival Rate", description: "Long-term success rate" }
 ];
 
 export const ImpactMetricsSection: React.FC = () => {
   return (
-    <section className="py-24 bg-gray-50 dark:bg-sheraa-dark/50">
+    <section className="py-24 bg-white dark:bg-sheraa-dark">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            <span className="text-sheraa-dark dark:text-white">Impact That </span>
-            <span className="bg-gradient-to-r from-sheraa-primary to-sheraa-teal bg-clip-text text-transparent">
-              Speaks Volumes
-            </span>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white">
+            Real Impact, Real Results
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-            We measure our success by the success of our founders and the growth of 
-            Sharjah's innovation ecosystem. Our commitment translates into tangible results.
+            Numbers that matter. See how we're building the future of entrepreneurship in Sharjah.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
           {metrics.map((metric, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1, duration: 0.6 }}
-              className="bg-white dark:bg-sheraa-dark p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 text-center group"
+              transition={{ delay: index * 0.1 }}
+              className="text-center group"
             >
-              <metric.icon className={`w-12 h-12 ${metric.color} mx-auto mb-4 group-hover:scale-110 transition-transform duration-300`} />
-              <div className="text-3xl md:text-4xl font-bold text-sheraa-dark dark:text-white mb-2">
-                {metric.value}
+              <div className="text-3xl md:text-4xl font-bold text-sheraa-primary mb-2 group-hover:scale-110 transition-transform duration-300">
+                {metric.number}
               </div>
-              <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">
+              <div className="text-sm font-semibold text-gray-900 dark:text-white mb-1">
                 {metric.label}
+              </div>
+              <div className="text-xs text-gray-600 dark:text-gray-400">
+                {metric.description}
               </div>
             </motion.div>
           ))}

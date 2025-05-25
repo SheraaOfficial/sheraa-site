@@ -4,145 +4,120 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { GraduationCap, Rocket, Globe, Building2, ArrowRight, CheckCircle } from "lucide-react";
+import { GraduationCap, Rocket, Globe, Building2, ArrowRight } from "lucide-react";
 
 const programs = [
   {
-    id: "start-young",
-    title: "Start Young",
-    subtitle: "Student & Youth Programs",
-    description: "Nurturing the next generation of innovators through incubation and skill-building for students and youth.",
+    title: "Student Programs",
+    subtitle: "Start Young",
+    description: "Turn your university ideas into real businesses with mentorship and funding.",
+    link: "/programs/start-young",
     icon: GraduationCap,
-    color: "from-blue-500 to-blue-600",
-    stats: "18k+ Youth Upskilled",
-    features: ["8-week Summer Incubation", "University Partnerships", "Startup Dojo & Dojo+"],
-    link: "/programs/start-young"
+    highlight: "Perfect for students",
+    color: "from-blue-500 to-blue-600"
   },
   {
-    id: "s3-incubator", 
-    title: "S3 Incubator",
-    subtitle: "Sharjah Startup Studio",
-    description: "Equity-free funding and support to help startups achieve product-market fit and scale effectively.",
+    title: "Startup Incubator",
+    subtitle: "Get $30k Funding",
+    description: "6-month program with equity-free funding to scale your tech startup.",
+    link: "/programs/s3-incubator",
     icon: Rocket,
-    color: "from-sheraa-primary to-purple-600",
-    stats: "$30k Pre-seed Funding",
-    features: ["Equity-Free Support", "6-Month Program", "Revenue-Sharing Model"],
-    link: "/programs/s3-incubator"
+    highlight: "Most popular",
+    color: "from-sheraa-primary to-sheraa-teal"
   },
   {
-    id: "access-sharjah",
-    title: "Access Sharjah",
-    subtitle: "Market Access Challenge",
-    description: "Tackle real-world challenges and unlock market access through our global startup challenge.",
+    title: "Market Access",
+    subtitle: "Global Opportunities", 
+    description: "Connect with major companies and government partners for real projects.",
+    link: "/programs/access-sharjah",
     icon: Globe,
-    color: "from-sheraa-teal to-green-600",
-    stats: "Direct Market Access",
-    features: ["POC Grants", "Industry Partners", "Global Competition"],
-    link: "/programs/access-sharjah"
+    highlight: "Immediate contracts",
+    color: "from-green-500 to-green-600"
   },
   {
-    id: "sme-support",
-    title: "SME Support",
-    subtitle: "Business Growth",
-    description: "Tailored resources and connections for established SMEs seeking growth and innovation support.",
+    title: "SME Growth",
+    subtitle: "Scale Your Business",
+    description: "Resources and connections for established businesses ready to expand.",
+    link: "/programs/sme-support",
     icon: Building2,
-    color: "from-orange-500 to-red-500",
-    stats: "60k+ SMEs Supported",
-    features: ["Finance Access", "Export Development", "Innovation Adoption"],
-    link: "/programs/sme-support"
+    highlight: "For existing businesses",
+    color: "from-orange-500 to-orange-600"
   }
 ];
 
 export const ProgramsJourneySection: React.FC = () => {
   return (
-    <section className="py-24 bg-white dark:bg-sheraa-dark">
+    <section className="py-24 bg-gray-50 dark:bg-gray-900">
       <div className="container mx-auto px-4">
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            <span className="text-sheraa-dark dark:text-white">Your Journey </span>
-            <span className="bg-gradient-to-r from-sheraa-primary to-sheraa-teal bg-clip-text text-transparent">
-              Starts Here
-            </span>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white">
+            Choose Your Path
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-8">
-            From validating your initial idea to scaling globally, Sheraa offers a suite of programs 
-            designed to meet you where you are on your entrepreneurial path.
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            Whether you're a student with an idea or a company ready to scale, 
+            we have the right program for your journey.
           </p>
         </motion.div>
 
-        {/* Programs Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
           {programs.map((program, index) => (
             <motion.div
-              key={program.id}
+              key={index}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
             >
-              <Card className="h-full hover:shadow-xl transition-all duration-300 group border-0 bg-gradient-to-br from-white to-gray-50 dark:from-sheraa-dark dark:to-gray-900">
-                <CardContent className="p-6 relative">
-                  {/* Icon */}
-                  <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${program.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                    <program.icon className="w-8 h-8 text-white" />
+              <Card className="h-full hover:shadow-xl transition-all duration-300 group border-0 bg-white dark:bg-sheraa-dark">
+                <CardContent className="p-6 text-center relative overflow-hidden">
+                  {/* Highlight Badge */}
+                  <div className="absolute top-4 right-4 px-2 py-1 bg-sheraa-primary/10 text-sheraa-primary text-xs font-medium rounded-full">
+                    {program.highlight}
                   </div>
 
-                  {/* Content */}
-                  <h3 className="text-xl font-bold text-sheraa-dark dark:text-white mb-2">
+                  {/* Icon */}
+                  <div className={`w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-r ${program.color} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                    <program.icon className="w-8 h-8 text-white" />
+                  </div>
+                  
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
                     {program.title}
                   </h3>
-                  <p className="text-sm text-sheraa-primary font-medium mb-3">
+                  
+                  <div className="text-sm font-medium text-sheraa-primary mb-3">
                     {program.subtitle}
-                  </p>
-                  <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-3">
+                  </div>
+                  
+                  <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed mb-6">
                     {program.description}
                   </p>
 
-                  {/* Stats Badge */}
-                  <div className="inline-block bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300 px-3 py-1 rounded-full text-xs font-medium mb-4">
-                    {program.stats}
-                  </div>
-
-                  {/* Features */}
-                  <div className="space-y-2 mb-6">
-                    {program.features.map((feature, idx) => (
-                      <div key={idx} className="flex items-center gap-2">
-                        <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
-                        <span className="text-xs text-gray-600 dark:text-gray-400">{feature}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* CTA */}
-                  <Link 
-                    to={program.link}
-                    className="inline-flex items-center gap-2 text-sheraa-primary hover:text-sheraa-teal font-medium text-sm group-hover:gap-3 transition-all duration-300"
-                  >
-                    Learn More
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
+                  <Button asChild variant="outline" size="sm" className="w-full group-hover:bg-sheraa-primary group-hover:text-white group-hover:border-sheraa-primary transition-all duration-300">
+                    <Link to={program.link} className="flex items-center justify-center gap-2">
+                      Learn More
+                      <ArrowRight className="w-4 h-4" />
+                    </Link>
+                  </Button>
                 </CardContent>
               </Card>
             </motion.div>
           ))}
         </div>
 
-        {/* Bottom CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="text-center"
         >
-          <Button asChild size="lg" className="bg-sheraa-primary hover:bg-sheraa-primary/90 px-8">
+          <Button asChild size="lg" className="bg-sheraa-primary hover:bg-sheraa-primary/90 text-white px-8 py-6 text-lg font-medium">
             <Link to="/programs" className="flex items-center gap-2">
-              Explore All Programs
+              View All Programs
               <ArrowRight className="w-5 h-5" />
             </Link>
           </Button>
