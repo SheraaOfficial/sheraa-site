@@ -13,10 +13,18 @@ import { PerformanceProvider } from "@/contexts/PerformanceContext";
 import Index from "@/pages/Index";
 import NewIndex from "@/pages/NewIndex";
 import ProgramsPage from "@/pages/programs/ProgramsPage";
+import DealDockPage from "@/pages/programs/DealDockPage";
 import SEFLandingPage from "@/pages/events/sef-landing";
 import EligibilityCheckerPage from "@/pages/eligibility/EligibilityCheckerPage";
 import LoginPage from "@/pages/auth/LoginPage";
 import SignupPage from "@/pages/auth/SignupPage";
+import AboutPage from "@/pages/about";
+import EventsPage from "@/pages/events";
+import ContactPage from "@/pages/contact";
+import ResourcesRouter from "@/pages/resources/ResourcesRouter";
+import CommunityPage from "@/pages/community";
+import JoinPage from "@/pages/community/JoinPage";
+import PartnershipsPage from "@/pages/community/PartnershipsPage";
 
 // Lazy load the perfume page for better performance
 const PerfumeMainPage = React.lazy(() => import("@/pages/perfume/PerfumeMainPage"));
@@ -45,11 +53,30 @@ const AppWrapper = () => {
                       <Route path="/" element={<NewIndex />} />
                       <Route path="/old" element={<Index />} />
                       
+                      {/* About Page */}
+                      <Route path="/about" element={<AboutPage />} />
+                      
                       {/* Programs Routes */}
                       <Route path="/programs" element={<ProgramsPage />} />
+                      <Route path="/programs/deal-dock" element={<DealDockPage />} />
+                      
+                      {/* Resources Routes */}
+                      <Route path="/resources" element={<ResourcesRouter />} />
+                      <Route path="/resources/:section" element={<ResourcesRouter />} />
+                      
+                      {/* Community Routes */}
+                      <Route path="/community" element={<CommunityPage />} />
+                      <Route path="/community/join" element={<JoinPage />} />
+                      <Route path="/community/partnerships" element={<PartnershipsPage />} />
+                      
+                      {/* Events Routes */}
+                      <Route path="/events" element={<EventsPage />} />
+                      <Route path="/events/sef-landing" element={<SEFLandingPage />} />
+                      
+                      {/* Contact Page */}
+                      <Route path="/contact" element={<ContactPage />} />
                       
                       {/* Other Routes */}
-                      <Route path="/sef-landing" element={<SEFLandingPage />} />
                       <Route path="/eligibility" element={<EligibilityCheckerPage />} />
                       <Route path="/login" element={<LoginPage />} />
                       <Route path="/signup" element={<SignupPage />} />
