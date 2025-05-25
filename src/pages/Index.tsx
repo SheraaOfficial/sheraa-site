@@ -14,15 +14,15 @@ import { SafeSuspense } from "@/components/layout/SafeSuspense";
 import { WelcomeAnimation } from "@/components/ui/welcome-animation";
 
 // Import critical components directly for better performance
-import EnhancedHero from "@/components/homepage/EnhancedHero";
-import EnhancedMarquee from "@/components/homepage/EnhancedMarquee";
-import { EnhancedFirstPriorityComponents } from "@/components/homepage/EnhancedFirstPriorityComponents";
+import HomepageHero from "@/components/homepage/HomepageHero";
+import HomepageMarquee from "@/components/homepage/HomepageMarquee";
+import { HomepageCore } from "@/components/homepage/HomepageCore";
 
 // Lazy load secondary components
-const EnhancedSecondPriorityComponents = lazy(() => 
-  import("@/components/homepage/EnhancedSecondPriorityComponents")
+const HomepageSecondary = lazy(() => 
+  import("@/components/homepage/HomepageSecondary")
     .then(module => ({ 
-      default: module.EnhancedSecondPriorityComponents as React.ComponentType<any>
+      default: module.HomepageSecondary as React.ComponentType<any>
     }))
     .catch(() => ({ 
       default: (() => <ErrorFallback />) as React.ComponentType<any>
@@ -59,7 +59,7 @@ const useComponentPreloader = (deepScroll: boolean, devicePerformance: string, i
     
     const preloadSecondaryComponents = async () => {
       try {
-        await import("@/components/homepage/EnhancedSecondPriorityComponents");
+        await import("@/components/homepage/HomepageSecondary");
       } catch (error) {
         console.error("Failed to preload components:", error);
       }
@@ -96,21 +96,21 @@ const Index: React.FC = () => {
       {/* Progress bar for navigation */}
       {(!isMobile || devicePerformance === 'high') && <ProgressBar />}
 
-      {/* Enhanced Hero Section */}
-      <EnhancedHero />
+      {/* Hero Section - Primary brand introduction */}
+      <HomepageHero />
       
-      {/* Enhanced News Marquee */}
-      <EnhancedMarquee />
+      {/* News Marquee - Latest updates and announcements */}
+      <HomepageMarquee />
       
       {/* Main content sections */}
       <div className="relative z-10">
-        {/* First priority components - always load */}
-        <EnhancedFirstPriorityComponents />
+        {/* Core content - always load */}
+        <HomepageCore />
         
-        {/* Second priority components - load after user interaction */}
+        {/* Secondary content - load after user interaction */}
         {firstInteraction && (
           <SafeSuspense fallback={<LoadingPlaceholder />}>
-            <EnhancedSecondPriorityComponents />
+            <HomepageSecondary />
           </SafeSuspense>
         )}
       </div>
