@@ -7,41 +7,46 @@ const HomepageMarquee = () => {
   const updates = [
     {
       icon: <Calendar className="w-4 h-4" />,
-      text: "SEF 2026: Sharjah Entrepreneurship Festival - Jan 31 - Feb 1",
+      text: "SEF 2026: The Region's Premier Entrepreneurship Festival - Jan 31 - Feb 1",
       highlight: true,
       category: "event"
     },
     {
-      icon: <Clock className="w-4 h-4" />,
-      text: "Access Sharjah Challenge Applications Open Until May 15th",
-      category: "application"
-    },
-    {
-      icon: <Megaphone className="w-4 h-4" />,
-      text: "S3 Incubator - New Cohort Applications Now Open",
-      category: "program"
-    },
-    {
       icon: <Award className="w-4 h-4" />,
-      text: "71% Startup Survival Rate - Industry Leading Results",
+      text: "71% Startup Survival Rate - Highest in the Region",
       highlight: true,
       category: "achievement"
     },
     {
-      icon: <Star className="w-4 h-4" />,
-      text: "18,000+ Youth Upskilled Through Our Programs",
-      category: "impact"
-    },
-    {
       icon: <Users className="w-4 h-4" />,
-      text: "Founder Fridays - Weekly Networking at 4PM",
-      category: "community"
+      text: "52% Women-Led Startups - Leading Gender Diversity",
+      category: "diversity"
     },
     {
       icon: <TrendingUp className="w-4 h-4" />,
-      text: "$171M+ Capital Raised by Our Portfolio Startups",
+      text: "$171M+ Capital Raised by Our Portfolio Companies",
       highlight: true,
       category: "success"
+    },
+    {
+      icon: <Megaphone className="w-4 h-4" />,
+      text: "S3 Incubator - Equity-Free $30K Funding Available",
+      category: "program"
+    },
+    {
+      icon: <Clock className="w-4 h-4" />,
+      text: "Access Sharjah Challenge - Global Startups Welcome",
+      category: "opportunity"
+    },
+    {
+      icon: <Star className="w-4 h-4" />,
+      text: "18,000+ Youth Empowered Through Our Programs",
+      category: "impact"
+    },
+    {
+      icon: <Sparkles className="w-4 h-4" />,
+      text: "140+ Ecosystem Partners - Growing Network",
+      category: "community"
     },
   ];
 

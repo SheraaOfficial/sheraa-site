@@ -4,12 +4,12 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { GradientButton } from "@/components/ui/gradient-button";
 import { Link } from "react-router-dom";
-import { ArrowRight, Users, Calendar, Award, Globe, MessageCircle, BookOpen, Coffee, Handshake, Target } from "lucide-react";
+import { ArrowRight, Users, Calendar, Award, Globe, MessageCircle, BookOpen, Coffee, Handshake, Target, Lightbulb, Zap } from "lucide-react";
 
 export const HomepageSecondary: React.FC = () => {
   return (
     <>
-      {/* Community & Events Section */}
+      {/* Community & Partnerships Section */}
       <section className="py-24 bg-white dark:bg-sheraa-dark/30 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0 bg-[linear-gradient(30deg,transparent_12%,rgba(0,51,102,0.1)_12%,rgba(0,51,102,0.1)_14%,transparent_14%,transparent_36%,rgba(0,128,128,0.1)_36%,rgba(0,128,128,0.1)_38%,transparent_38%)] [background-size:60px_60px]" />
@@ -25,15 +25,15 @@ export const HomepageSecondary: React.FC = () => {
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-sheraa-orange/10 border border-sheraa-orange/20 mb-6">
               <Users className="w-5 h-5 text-sheraa-orange" />
-              <span className="text-sm font-medium text-sheraa-orange">Community & Events</span>
+              <span className="text-sm font-medium text-sheraa-orange">Powered by Community</span>
             </div>
             
             <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-sheraa-primary to-sheraa-teal bg-clip-text text-transparent">
-              Powered by Community, Strengthened by Partnership
+              Strengthened by Partnership
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto">
-              Entrepreneurship thrives in collaboration. Connect with a vibrant network of founders, mentors, 
-              investors, and industry leaders dedicated to fostering innovation in Sharjah.
+              Entrepreneurship thrives in collaboration. Sheraa connects you to a vibrant network of founders, 
+              mentors, investors, corporate leaders, and government entities, all dedicated to fostering innovation in Sharjah.
             </p>
           </motion.div>
 
@@ -42,29 +42,29 @@ export const HomepageSecondary: React.FC = () => {
               {
                 icon: Calendar,
                 title: "SEF 2026",
-                description: "Experience the region's premier entrepreneurship festival with 14,000+ attendees",
+                description: "The region's premier entrepreneurship festival brings together 14,000+ attendees and 300+ global speakers",
                 link: "/events/sef-landing",
                 color: "sheraa-primary",
                 badge: "Jan 31-Feb 1",
-                highlight: "300+ Global Speakers"
+                highlight: "45+ Countries"
               },
               {
                 icon: MessageCircle,
-                title: "Founder Community",
-                description: "Connect with like-minded entrepreneurs, mentors, and ecosystem partners",
+                title: "Vibrant Community",
+                description: "Connect with like-minded entrepreneurs, experienced mentors, and a thriving ecosystem of partners",
                 link: "/community/join",
                 color: "sheraa-teal",
-                badge: "180+ Startups",
+                badge: "140+ Partners",
                 highlight: "52% Women-Led"
               },
               {
                 icon: Coffee,
-                title: "Networking Events",
-                description: "Join weekly meetups, workshops, pitch sessions, and community gatherings",
+                title: "Regular Events",
+                description: "Join weekly Founder Fridays, workshops, pitch sessions, and community gatherings",
                 link: "/events/upcoming",
                 color: "sheraa-orange",
                 badge: "Every Friday",
-                highlight: "4PM at Sheraa HQ"
+                highlight: "4PM at SRTIP"
               }
             ].map((item, index) => (
               <motion.div
@@ -99,7 +99,7 @@ export const HomepageSecondary: React.FC = () => {
                     </div>
                     
                     <div className="flex items-center text-sm font-medium text-sheraa-primary group-hover:text-sheraa-primary/80">
-                      Learn More 
+                      Explore More 
                       <ArrowRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
                     </div>
                   </div>
@@ -112,7 +112,7 @@ export const HomepageSecondary: React.FC = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <GradientButton asChild size="lg" className="bg-sheraa-primary hover:bg-sheraa-primary/90">
                 <Link to="/community/join" className="flex items-center gap-2">
-                  Join Our Community
+                  Explore Membership
                   <Users className="w-4 h-4" />
                 </Link>
               </GradientButton>
@@ -128,7 +128,7 @@ export const HomepageSecondary: React.FC = () => {
         </div>
       </section>
 
-      {/* Resources & Support Section */}
+      {/* Resources & Knowledge Section */}
       <section className="py-24 bg-gradient-to-br from-sheraa-light/20 to-white dark:from-sheraa-dark/50 dark:to-sheraa-dark/30 relative overflow-hidden">
         <div className="absolute inset-0 opacity-30">
           <div className="absolute top-0 left-0 w-96 h-96 bg-sheraa-teal/10 rounded-full blur-3xl" />
@@ -152,7 +152,7 @@ export const HomepageSecondary: React.FC = () => {
               Your Entrepreneurial Toolkit
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto">
-              Access practical guides, expert advisory services, and insights designed to help you navigate 
+              Access practical guides, toolkits, expert advisory services, and insightful articles designed to help you navigate 
               the challenges and opportunities of building your business.
             </p>
           </motion.div>
@@ -161,30 +161,30 @@ export const HomepageSecondary: React.FC = () => {
             {[
               {
                 title: "Guides & Toolkits",
-                description: "Practical templates, checklists, and step-by-step guides for business success",
+                description: "Practical templates, checklists, and step-by-step guides covering essential business functions",
                 link: "/resources/guides",
-                count: "50+ Resources",
+                count: "50+ Templates",
                 icon: Target
               },
               {
                 title: "Advisory Services",
-                description: "Connect with 30+ experienced mentors and subject matter experts",
+                description: "Connect with 30+ experienced mentors and subject matter experts for personalized guidance",
                 link: "/resources/advisory",
-                count: "30+ Experts",
+                count: "30+ Mentors",
                 icon: Users
               },
               {
                 title: "Articles & Insights",
-                description: "Latest trends, best practices, and success stories from our ecosystem",
+                description: "Stay informed with latest trends, best practices, and success stories from our ecosystem",
                 link: "/resources/articles",
-                count: "Weekly Updates",
-                icon: BookOpen
+                count: "Weekly Insights",
+                icon: Lightbulb
               },
               {
                 title: "Impact Reports",
-                description: "Discover our collective achievements and ecosystem growth metrics",
+                description: "Discover the collective achievements of the Sheraa ecosystem and our growth metrics",
                 link: "/resources/impact-reports",
-                count: "Annual Reports",
+                count: "Annual Data",
                 icon: Award
               }
             ].map((item, index) => (
@@ -229,7 +229,7 @@ export const HomepageSecondary: React.FC = () => {
         </div>
       </section>
 
-      {/* Call to Action Section */}
+      {/* Final Call to Action Section */}
       <section className="py-24 bg-gradient-to-br from-sheraa-primary via-sheraa-primary/90 to-sheraa-teal text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1)_0%,transparent_50%)]" />
         
@@ -245,7 +245,8 @@ export const HomepageSecondary: React.FC = () => {
             </h2>
             <p className="text-xl mb-10 opacity-90 max-w-3xl mx-auto">
               Join thousands of entrepreneurs who have chosen Sheraa as their partner in building 
-              the future. Your journey to success starts here.
+              the future. Whether you're a student with a spark, a startup ready to scale, or a partner 
+              looking to invest in the future, <span className="font-semibold">Sheraa is where potential meets opportunity</span>.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -256,7 +257,7 @@ export const HomepageSecondary: React.FC = () => {
               >
                 <Link to="/eligibility" className="flex items-center gap-2">
                   Find Your Program
-                  <ArrowRight className="w-5 h-5" />
+                  <Zap className="w-5 h-5" />
                 </Link>
               </GradientButton>
               

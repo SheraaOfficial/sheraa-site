@@ -11,7 +11,7 @@ import { RetroGrid } from "@/components/ui/retro-grid";
 
 const HomepageHero = () => {
   const [titleIndex, setTitleIndex] = useState(0);
-  const titles = ["Innovate", "Create", "Scale", "Transform", "Grow"];
+  const titles = ["Entrepreneurs", "Innovators", "Changemakers", "Visionaries", "Leaders"];
   const [mounted, setMounted] = useState(false);
   const { theme } = useTheme();
   const isDarkTheme = theme === "dark";
@@ -122,7 +122,7 @@ const HomepageHero = () => {
                       exit={{ opacity: 0, y: -50, rotateX: 90 }}
                       transition={{ duration: 0.6, ease: "easeOutCubic" }}
                     >
-                      Entrepreneurs
+                      {titles[titleIndex]}
                     </motion.span>
                   )}
                 </div>
@@ -134,9 +134,9 @@ const HomepageHero = () => {
                 transition={{ delay: 0.5 }}
                 className="text-lg sm:text-xl lg:text-2xl text-gray-700 dark:text-gray-300 max-w-2xl leading-relaxed"
               >
-                Sharjah's official hub for aspiring founders and established ventures. 
-                We empower <span className="font-semibold text-sheraa-primary">changemakers</span> to build 
-                impactful businesses and shape the future.
+                We are more than an incubator; we're a thriving ecosystem built on collaboration, innovation, and a 
+                <span className="font-semibold text-sheraa-primary"> founder-first ethos</span>. Transform bold ideas into 
+                successful, scalable startups that contribute positively to Sharjah and the UAE.
               </motion.p>
             </div>
 
@@ -171,7 +171,7 @@ const HomepageHero = () => {
               </Button>
             </motion.div>
 
-            {/* Impact Preview Stats */}
+            {/* Proof Points */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -187,13 +187,13 @@ const HomepageHero = () => {
                 <div className="text-sm text-gray-600 dark:text-gray-400">Revenue Generated</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl md:text-3xl font-bold text-sheraa-teal">1,900+</div>
-                <div className="text-sm text-gray-600 dark:text-gray-400">Jobs Created</div>
+                <div className="text-2xl md:text-3xl font-bold text-sheraa-teal">71%</div>
+                <div className="text-sm text-gray-600 dark:text-gray-400">Survival Rate</div>
               </div>
             </motion.div>
           </motion.div>
           
-          {/* Visual Element */}
+          {/* Enhanced Visual Element */}
           {mounted && (
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
@@ -207,7 +207,7 @@ const HomepageHero = () => {
                 <div className="absolute inset-[5%] rounded-full border-2 border-sheraa-orange/20 animate-spin-slow" style={{ animationDirection: 'reverse', animationDuration: '20s' }} />
                 <div className="absolute inset-[10%] rounded-full border border-sheraa-teal/20 animate-spin-slow" style={{ animationDuration: '25s' }} />
                 
-                {/* Center Sheraa logo */}
+                {/* Center logo */}
                 <div className={`absolute inset-[25%] rounded-full ${
                   isDarkTheme 
                     ? 'bg-gradient-to-br from-sheraa-dark/90 via-sheraa-primary/20 to-sheraa-dark/70 border border-white/10' 

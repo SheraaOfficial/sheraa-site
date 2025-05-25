@@ -6,7 +6,7 @@ import StartupsShowcase from "../StartupsShowcase";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { ArrowRight, Award, Rocket, Star, Users, Globe, CheckCircle, Zap } from "lucide-react";
+import { ArrowRight, Award, Rocket, Star, Users, Globe, CheckCircle, Zap, Target, Lightbulb } from "lucide-react";
 
 export const HomepageCore: React.FC = () => {
   return (
@@ -38,7 +38,8 @@ export const HomepageCore: React.FC = () => {
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed">
               We measure our success by the success of our founders and the growth of Sharjah's innovation ecosystem. 
-              Our commitment translates into <span className="font-semibold text-sheraa-primary">tangible results</span>.
+              Our commitment translates into <span className="font-semibold text-sheraa-primary">tangible results</span> that 
+              demonstrate a clear return on investment for the emirate.
             </p>
           </motion.div>
           
@@ -72,7 +73,7 @@ export const HomepageCore: React.FC = () => {
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-sheraa-primary/10 border border-sheraa-primary/20 mb-6">
               <Rocket className="w-5 h-5 text-sheraa-primary" />
-              <span className="text-sm font-medium text-sheraa-primary">Your Journey</span>
+              <span className="text-sm font-medium text-sheraa-primary">Your Journey Starts Here</span>
             </div>
             
             <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-sheraa-primary via-sheraa-teal to-sheraa-primary bg-clip-text text-transparent leading-tight">
@@ -80,7 +81,8 @@ export const HomepageCore: React.FC = () => {
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed">
               From validating your initial idea to scaling globally, Sheraa offers a suite of programs designed 
-              to meet you where you are on your <span className="font-semibold text-sheraa-primary">entrepreneurial path</span>.
+              to meet you where you are on your <span className="font-semibold text-sheraa-primary">entrepreneurial path</span>. 
+              We provide structured support, expert guidance, and access to critical resources at every stage.
             </p>
           </motion.div>
           
@@ -103,37 +105,37 @@ export const HomepageCore: React.FC = () => {
               <div className="relative z-10">
                 <div className="text-center mb-12">
                   <h3 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-sheraa-primary to-sheraa-teal bg-clip-text text-transparent">
-                    Why Choose Sheraa?
+                    Why Join Sheraa?
                   </h3>
                   <p className="text-lg text-gray-600 dark:text-gray-300">
-                    Join an ecosystem designed for your success
+                    Your success is our mission. Here's what sets us apart:
                   </p>
                 </div>
                 
                 <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                   {[
                     {
-                      icon: Users,
+                      icon: Target,
                       title: "Founder-First Approach",
-                      description: "Equity-free support and resources tailored to your needs",
+                      description: "Equity-free support in many programs with flexible engagement models",
                       color: "sheraa-primary"
                     },
                     {
-                      icon: Globe,
-                      title: "Powerful Network",
-                      description: "Access to mentors, investors, and partners across the region",
+                      icon: Users,
+                      title: "Ecosystem Access",
+                      description: "Unparalleled access to mentors, investors, corporate partners, and government entities",
                       color: "sheraa-teal"
                     },
                     {
-                      icon: Star,
-                      title: "Sharjah Advantage",
-                      description: "Strategic location and business-friendly environment",
+                      icon: Lightbulb,
+                      title: "Stage-Specific Support",
+                      description: "Whether you're exploring an idea or scaling globally, we have a program for you",
                       color: "sheraa-orange"
                     },
                     {
-                      icon: Zap,
-                      title: "Stage-Specific Support",
-                      description: "Programs designed for every step of your journey",
+                      icon: Globe,
+                      title: "Sharjah Advantage",
+                      description: "Leverage Sharjah's strategic location and business-friendly environment",
                       color: "sheraa-primary"
                     }
                   ].map((item, index) => (
@@ -161,7 +163,7 @@ export const HomepageCore: React.FC = () => {
           <div className="mt-16 text-center">
             <Button asChild size="lg" className="group bg-sheraa-primary hover:bg-sheraa-primary/90 shadow-xl hover:shadow-sheraa-primary/25 transition-all duration-300">
               <Link to="/programs" className="flex items-center gap-2">
-                Explore All Programs
+                Find Your Program
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </Link>
             </Button>
@@ -187,15 +189,16 @@ export const HomepageCore: React.FC = () => {
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-sheraa-teal/10 border border-sheraa-teal/20 mb-6">
               <Star className="w-5 h-5 text-sheraa-teal" />
-              <span className="text-sm font-medium text-sheraa-teal">Our Community</span>
+              <span className="text-sm font-medium text-sheraa-teal">Innovation in Action</span>
             </div>
             
             <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-sheraa-primary via-sheraa-teal to-sheraa-primary bg-clip-text text-transparent leading-tight">
-              Meet Our Entrepreneurs
+              Meet Our Changemakers
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed">
               Discover the innovative startups and ambitious founders shaping the future through 
-              <span className="font-semibold text-sheraa-primary"> Sheraa's ecosystem</span>.
+              <span className="font-semibold text-sheraa-primary"> Sheraa's ecosystem</span>. Over 180 startups, 
+              generating $248M+ in revenue and creating 1,900+ jobs across key sectors.
             </p>
           </motion.div>
           
@@ -206,7 +209,7 @@ export const HomepageCore: React.FC = () => {
           <div className="mt-16 text-center">
             <Button asChild size="lg" className="group bg-sheraa-primary hover:bg-sheraa-primary/90 shadow-xl hover:shadow-sheraa-primary/25 transition-all duration-300">
               <Link to="/community/startups" className="flex items-center gap-2">
-                View All Startups
+                Discover Our Portfolio
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </Link>
             </Button>
