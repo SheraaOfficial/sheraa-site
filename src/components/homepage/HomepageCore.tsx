@@ -5,9 +5,9 @@ import { WhyChooseSheraaSection } from "./sections/WhyChooseSheraaSection";
 import { VideoBackgroundSection } from "./sections/VideoBackgroundSection";
 import { SectionLoading } from "../layout/SectionLoading";
 
-// Lazy load secondary components
-const CommunityPartnersSection = lazy(() => import("./sections/CommunityPartnersSection").then(mod => ({ default: mod.CommunityPartnersSection })));
-const SEFHighlightSection = lazy(() => import("./sections/SEFHighlightSection").then(mod => ({ default: mod.SEFHighlightSection })));
+// Lazy load secondary components - fix import paths
+const CommunityPartnersSection = lazy(() => import("./redesign/CommunityPartnersSection").then(mod => ({ default: mod.CommunityPartnersSection })));
+const SEFHighlightSection = lazy(() => import("./redesign/SEFHighlightSection").then(mod => ({ default: mod.SEFHighlightSection })));
 
 export const HomepageCore: React.FC = () => {
   return (
