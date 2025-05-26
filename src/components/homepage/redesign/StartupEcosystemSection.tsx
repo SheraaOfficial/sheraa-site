@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { Star, ExternalLink, TrendingUp } from "lucide-react";
 
 const featuredStartups = [
@@ -12,28 +13,32 @@ const featuredStartups = [
     description: "Making industries more sustainable",
     sector: "Sustainability",
     achievement: "40% Carbon Reduction",
-    logo: "/placeholder.svg"
+    logo: "/placeholder.svg",
+    badges: ["SHERAA ALUMNI", "SEF FEATURED"]
   },
   {
     name: "HealthAI",
     description: "AI-powered medical diagnostics",
     sector: "HealthTech", 
     achievement: "3 Countries",
-    logo: "/placeholder.svg"
+    logo: "/placeholder.svg",
+    badges: ["SHERAA BACKED", "S3 GRADUATE"]
   },
   {
     name: "EduFlow",
     description: "Personalized learning platform",
     sector: "EdTech",
     achievement: "500K+ Students",
-    logo: "/placeholder.svg"
+    logo: "/placeholder.svg",
+    badges: ["COMMUNITY MEMBER", "SHERAA ALUMNI"]
   },
   {
     name: "AgriSmart",
     description: "Smart farming solutions",
     sector: "AgriTech",
     achievement: "30% Higher Yields",
-    logo: "/placeholder.svg"
+    logo: "/placeholder.svg",
+    badges: ["SEF WINNER", "SHERAA BACKED"]
   }
 ];
 
@@ -74,6 +79,21 @@ export const StartupEcosystemSection: React.FC = () => {
                         {startup.name.substring(0, 2)}
                       </span>
                     </div>
+                  </div>
+                  
+                  {/* Badges */}
+                  <div className="flex flex-wrap gap-1 justify-center mb-4">
+                    {startup.badges.map((badge, badgeIdx) => (
+                      <Badge 
+                        key={badgeIdx} 
+                        variant="gradient-warm" 
+                        animation="pulse" 
+                        size="sm" 
+                        className="text-xs font-bold"
+                      >
+                        {badge}
+                      </Badge>
+                    ))}
                   </div>
                   
                   <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">

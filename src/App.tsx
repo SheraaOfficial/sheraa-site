@@ -1,3 +1,4 @@
+
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from '@/components/ui/toaster';
@@ -18,6 +19,7 @@ import AccessSharjahChallenge from '@/pages/programs/AccessSharjahChallenge';
 import Community from '@/pages/Community';
 import CommunityJoin from '@/pages/community/CommunityJoin';
 import Partnerships from '@/pages/community/Partnerships';
+import StartupDirectory from '@/pages/community/StartupDirectory';
 import Resources from '@/pages/Resources';
 import Guides from '@/pages/resources/Guides';
 import Advisory from '@/pages/resources/Advisory';
@@ -49,6 +51,7 @@ function App() {
             <Route path="/community" element={<Community />} />
             <Route path="/community/join" element={<CommunityJoin />} />
             <Route path="/community/partnerships" element={<Partnerships />} />
+            <Route path="/community/startups" element={<StartupDirectory />} />
             <Route path="/resources" element={<Resources />} />
             <Route path="/resources/guides" element={<Guides />} />
             <Route path="/resources/advisory" element={<Advisory />} />
