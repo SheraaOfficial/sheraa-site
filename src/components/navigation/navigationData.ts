@@ -60,6 +60,11 @@ export const discoverLinks: NavigationLink[] = [
     title: "Careers",
     href: "/careers",
     description: "Join our mission to empower the next generation of entrepreneurs"
+  },
+  {
+    title: "Sharjah Perfume",
+    href: "/perfume/sharjah-premium",
+    description: "Discover the essence of Sharjah through unique fragrances"
   }
 ];
 
@@ -189,6 +194,11 @@ export const perfumeLinks: NavigationLink[] = [
     title: "About Sharjah Perfume",
     href: "/perfume",
     description: "Discover the essence of Sharjah through unique fragrances"
+  },
+  {
+    title: "Premium Collection",
+    href: "/perfume/sharjah-premium",
+    description: "Our exclusive handcrafted luxury perfume - AED 800"
   },
   {
     title: "Our Collection",

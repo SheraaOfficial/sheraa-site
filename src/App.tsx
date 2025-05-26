@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -9,6 +10,7 @@ import NewIndex from "./pages/NewIndex";
 import ProgramsPage from "./pages/programs/ProgramsPage";
 import DealDockPage from "./pages/programs/DealDockPage";
 import PerfumeLandingPage from "./pages/perfume/PerfumeLandingPage";
+import SharjahPerfumeLanding from "./pages/perfume/SharjahPerfumeLanding";
 import EligibilityPage from "./pages/EligibilityPage";
 import ResourcesRouter from "./pages/resources/ResourcesRouter";
 import CommunityPage from "./pages/community";
@@ -36,6 +38,7 @@ const App = () => (
             <Route path="/programs" element={<ProgramsPage />} />
             <Route path="/programs/deal-dock" element={<DealDockPage />} />
             <Route path="/perfume" element={<PerfumeLandingPage />} />
+            <Route path="/perfume/sharjah-premium" element={<SharjahPerfumeLanding />} />
             <Route path="/eligibility" element={<EligibilityPage />} />
             <Route path="/resources" element={<ResourcesRouter />} />
             <Route path="/resources/:section" element={<ResourcesRouter />} />
