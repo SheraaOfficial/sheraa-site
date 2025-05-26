@@ -14,7 +14,9 @@ import {
   Globe,
   Award,
   Star,
-  Sparkles
+  Sparkles,
+  Play,
+  Pause
 } from "lucide-react";
 
 const entrepreneurshipWords = [
@@ -58,22 +60,22 @@ export const DynamicVideoHero: React.FC = () => {
 
   return (
     <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-white via-gray-50/30 to-blue-50/20 dark:from-sheraa-dark dark:to-black flex items-center">
-      {/* Animated Background */}
+      {/* Enhanced Animated Background */}
       <div className="absolute inset-0 overflow-hidden">
-        {/* Dynamic gradient orbs */}
+        {/* Enhanced dynamic gradient orbs */}
         <motion.div
           className="absolute top-1/4 right-1/4 w-96 h-96 rounded-full blur-3xl"
           style={{
-            background: `linear-gradient(45deg, rgba(0, 51, 102, 0.2), rgba(0, 128, 128, 0.1))`
+            background: `linear-gradient(45deg, rgba(0, 51, 102, 0.3), rgba(0, 128, 128, 0.2))`
           }}
           animate={{
-            scale: [1, 1.3, 1],
-            opacity: [0.3, 0.7, 0.3],
-            x: [0, 100, 0],
-            y: [0, -50, 0],
+            scale: [1, 1.4, 1],
+            opacity: [0.3, 0.8, 0.3],
+            x: [0, 120, 0],
+            y: [0, -60, 0],
           }}
           transition={{
-            duration: 8,
+            duration: 10,
             repeat: Infinity,
             ease: "easeInOut",
           }}
@@ -82,23 +84,23 @@ export const DynamicVideoHero: React.FC = () => {
         <motion.div
           className="absolute bottom-1/4 left-1/4 w-80 h-80 rounded-full blur-3xl"
           style={{
-            background: `linear-gradient(135deg, rgba(255, 102, 0, 0.15), rgba(0, 51, 102, 0.1))`
+            background: `linear-gradient(135deg, rgba(255, 102, 0, 0.2), rgba(0, 51, 102, 0.15))`
           }}
           animate={{
-            scale: [1.2, 1, 1.2],
-            opacity: [0.2, 0.6, 0.2],
-            x: [0, -80, 0],
-            y: [0, 60, 0],
+            scale: [1.3, 1, 1.3],
+            opacity: [0.2, 0.7, 0.2],
+            x: [0, -100, 0],
+            y: [0, 80, 0],
           }}
           transition={{
-            duration: 10,
+            duration: 12,
             repeat: Infinity,
             ease: "easeInOut",
-            delay: 2,
+            delay: 3,
           }}
         />
 
-        {/* Floating entrepreneurship elements */}
+        {/* Enhanced floating entrepreneurship elements */}
         {floatingElements.map((element, index) => {
           const Icon = element.icon;
           return (
@@ -111,49 +113,52 @@ export const DynamicVideoHero: React.FC = () => {
               }}
               initial={{ opacity: 0, scale: 0, rotate: -180 }}
               animate={{ 
-                opacity: [0.3, 0.8, 0.3],
-                scale: [0.8, 1.2, 0.8],
-                rotate: [0, 360],
-                y: [0, -20, 0],
+                opacity: [0.4, 0.9, 0.4],
+                scale: [0.8, 1.3, 0.8],
+                rotate: [0, 360, 720],
+                y: [0, -30, 0],
               }}
               transition={{
-                opacity: { duration: 4, repeat: Infinity, delay: element.delay },
-                scale: { duration: 3, repeat: Infinity, delay: element.delay },
-                rotate: { duration: 20, repeat: Infinity, ease: "linear" },
-                y: { duration: 6, repeat: Infinity, delay: element.delay * 0.5 },
+                opacity: { duration: 5, repeat: Infinity, delay: element.delay },
+                scale: { duration: 4, repeat: Infinity, delay: element.delay },
+                rotate: { duration: 25, repeat: Infinity, ease: "linear" },
+                y: { duration: 7, repeat: Infinity, delay: element.delay * 0.5 },
               }}
             >
-              <Icon className="w-8 h-8 text-sheraa-primary/60" />
+              <Icon className="w-10 h-10 text-sheraa-primary/70 drop-shadow-lg" />
             </motion.div>
           );
         })}
 
-        {/* Geometric patterns */}
+        {/* Enhanced geometric patterns */}
         <motion.div
-          className="absolute top-1/3 left-1/3 w-32 h-32 border-2 border-sheraa-primary/20 rotate-45"
+          className="absolute top-1/3 left-1/3 w-40 h-40 border-2 border-sheraa-primary/30 rotate-45"
           animate={{ 
-            rotate: [45, 225, 45],
-            scale: [1, 1.5, 1],
-            opacity: [0.2, 0.6, 0.2]
+            rotate: [45, 315, 45],
+            scale: [1, 1.8, 1],
+            opacity: [0.3, 0.8, 0.3],
+            borderRadius: ["0%", "50%", "0%"]
           }}
           transition={{ 
-            duration: 15, 
+            duration: 18, 
             repeat: Infinity, 
-            ease: "linear" 
+            ease: "easeInOut" 
           }}
         />
         
         <motion.div
-          className="absolute bottom-1/3 right-1/3 w-24 h-24 border border-sheraa-teal/30 rounded-full"
+          className="absolute bottom-1/3 right-1/3 w-32 h-32 border-2 border-sheraa-teal/40 rounded-full"
           animate={{ 
             rotate: [0, 360],
-            scale: [1, 1.3, 1],
-            borderRadius: ["50%", "20%", "50%"]
+            scale: [1, 1.5, 1],
+            borderRadius: ["50%", "20%", "50%"],
+            opacity: [0.4, 0.9, 0.4]
           }}
           transition={{ 
-            rotate: { duration: 12, repeat: Infinity, ease: "linear" },
-            scale: { duration: 4, repeat: Infinity },
-            borderRadius: { duration: 8, repeat: Infinity }
+            rotate: { duration: 15, repeat: Infinity, ease: "linear" },
+            scale: { duration: 6, repeat: Infinity },
+            borderRadius: { duration: 10, repeat: Infinity },
+            opacity: { duration: 8, repeat: Infinity }
           }}
         />
       </div>
@@ -161,18 +166,18 @@ export const DynamicVideoHero: React.FC = () => {
       <motion.div style={{ y, opacity }} className="container mx-auto px-4 relative z-10 pt-20">
         <div className="max-w-6xl mx-auto">
           <div className="text-center space-y-12">
-            {/* Animated Badge */}
+            {/* Enhanced Animated Badge */}
             <motion.div
               initial={{ opacity: 0, y: 50, scale: 0.8 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ delay: 0.2, duration: 1, type: "spring" }}
-              className="inline-flex items-center gap-3 px-8 py-4 bg-white/90 dark:bg-sheraa-dark/90 rounded-full border border-sheraa-primary/20 shadow-2xl backdrop-blur-sm group hover:shadow-sheraa-primary/20 transition-all duration-500"
+              className="inline-flex items-center gap-3 px-8 py-4 bg-white/95 dark:bg-sheraa-dark/95 rounded-full border border-sheraa-primary/30 shadow-2xl backdrop-blur-sm group hover:shadow-sheraa-primary/30 transition-all duration-500"
             >
               <motion.div
-                animate={{ rotate: 360, scale: [1, 1.2, 1] }}
+                animate={{ rotate: 360, scale: [1, 1.3, 1] }}
                 transition={{ 
-                  rotate: { duration: 8, repeat: Infinity, ease: "linear" },
-                  scale: { duration: 2, repeat: Infinity }
+                  rotate: { duration: 10, repeat: Infinity, ease: "linear" },
+                  scale: { duration: 3, repeat: Infinity }
                 }}
               >
                 <Sparkles className="w-6 h-6 text-sheraa-primary" />
@@ -181,14 +186,14 @@ export const DynamicVideoHero: React.FC = () => {
                 Sharjah Entrepreneurship Center
               </span>
               <motion.div
-                animate={{ x: [0, 5, 0] }}
-                transition={{ duration: 2, repeat: Infinity }}
+                animate={{ x: [0, 8, 0] }}
+                transition={{ duration: 2.5, repeat: Infinity }}
               >
                 <ArrowRight className="w-5 h-5 text-sheraa-primary" />
               </motion.div>
             </motion.div>
 
-            {/* Main Dynamic Title */}
+            {/* Enhanced Main Dynamic Title */}
             <div className="space-y-8">
               <motion.div
                 initial={{ opacity: 0 }}
@@ -210,17 +215,17 @@ export const DynamicVideoHero: React.FC = () => {
                     Empowering You to
                   </motion.span>
                   
-                  {/* Dynamic Word Animation */}
+                  {/* Enhanced Dynamic Word Animation */}
                   <div className="relative h-32 flex items-center justify-center">
                     <AnimatePresence mode="wait">
                       <motion.div
                         key={currentWordIndex}
-                        className="absolute inset-0 flex items-center justify-center gap-6"
+                        className="absolute inset-0 flex items-center justify-center gap-8"
                         initial={{ 
                           opacity: 0, 
-                          scale: 0.5, 
-                          rotateY: -90,
-                          z: -100
+                          scale: 0.3, 
+                          rotateY: -120,
+                          z: -200
                         }}
                         animate={{ 
                           opacity: 1, 
@@ -230,49 +235,74 @@ export const DynamicVideoHero: React.FC = () => {
                         }}
                         exit={{ 
                           opacity: 0, 
-                          scale: 0.5, 
-                          rotateY: 90,
-                          z: -100
+                          scale: 0.3, 
+                          rotateY: 120,
+                          z: -200
                         }}
                         transition={{ 
-                          duration: 0.8, 
+                          duration: 1, 
                           ease: "easeOutCubic",
                           type: "spring",
-                          bounce: 0.3
+                          bounce: 0.4
                         }}
                       >
                         <motion.div
-                          className="flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-white/20 to-white/5 backdrop-blur-sm border border-white/20"
+                          className="flex items-center justify-center w-24 h-24 rounded-3xl bg-gradient-to-br from-white/30 to-white/10 backdrop-blur-sm border border-white/40 shadow-2xl"
                           animate={{
                             rotate: [0, 360],
-                            scale: [1, 1.1, 1],
+                            scale: [1, 1.2, 1],
+                            boxShadow: [
+                              "0 10px 30px rgba(0,0,0,0.1)",
+                              "0 20px 60px rgba(0,51,102,0.3)",
+                              "0 10px 30px rgba(0,0,0,0.1)"
+                            ]
                           }}
                           transition={{
-                            rotate: { duration: 3, ease: "linear" },
-                            scale: { duration: 2, repeat: Infinity }
+                            rotate: { duration: 4, ease: "linear" },
+                            scale: { duration: 3, repeat: Infinity },
+                            boxShadow: { duration: 4, repeat: Infinity }
                           }}
                         >
-                          <CurrentIcon className="w-10 h-10 text-white" />
+                          <CurrentIcon className="w-12 h-12 text-white drop-shadow-lg" />
                         </motion.div>
                         
-                        <span 
-                          className={`bg-gradient-to-r ${currentWord.color} bg-clip-text text-transparent font-extrabold tracking-tight`}
-                        >
-                          {currentWord.word}
-                        </span>
-                        
-                        <motion.div
-                          className="flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-white/20 to-white/5 backdrop-blur-sm border border-white/20"
+                        <motion.span 
+                          className={`bg-gradient-to-r ${currentWord.color} bg-clip-text text-transparent font-extrabold tracking-tight drop-shadow-2xl`}
                           animate={{
-                            rotate: [360, 0],
-                            scale: [1, 1.1, 1],
+                            scale: [1, 1.05, 1],
+                            textShadow: [
+                              "0 0 20px rgba(255,255,255,0.5)",
+                              "0 0 40px rgba(0,51,102,0.8)",
+                              "0 0 20px rgba(255,255,255,0.5)"
+                            ]
                           }}
                           transition={{
-                            rotate: { duration: 3, ease: "linear" },
-                            scale: { duration: 2, repeat: Infinity, delay: 0.5 }
+                            duration: 2,
+                            repeat: Infinity,
+                            ease: "easeInOut"
                           }}
                         >
-                          <CurrentIcon className="w-10 h-10 text-white" />
+                          {currentWord.word}
+                        </motion.span>
+                        
+                        <motion.div
+                          className="flex items-center justify-center w-24 h-24 rounded-3xl bg-gradient-to-br from-white/30 to-white/10 backdrop-blur-sm border border-white/40 shadow-2xl"
+                          animate={{
+                            rotate: [360, 0],
+                            scale: [1, 1.2, 1],
+                            boxShadow: [
+                              "0 10px 30px rgba(0,0,0,0.1)",
+                              "0 20px 60px rgba(0,128,128,0.3)",
+                              "0 10px 30px rgba(0,0,0,0.1)"
+                            ]
+                          }}
+                          transition={{
+                            rotate: { duration: 4, ease: "linear" },
+                            scale: { duration: 3, repeat: Infinity, delay: 0.5 },
+                            boxShadow: { duration: 4, repeat: Infinity, delay: 0.5 }
+                          }}
+                        >
+                          <CurrentIcon className="w-12 h-12 text-white drop-shadow-lg" />
                         </motion.div>
                       </motion.div>
                     </AnimatePresence>
@@ -280,7 +310,7 @@ export const DynamicVideoHero: React.FC = () => {
                 </motion.h1>
               </motion.div>
 
-              {/* Subtitle with typewriter effect */}
+              {/* Enhanced subtitle with typewriter effect */}
               <motion.p 
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -289,15 +319,21 @@ export const DynamicVideoHero: React.FC = () => {
               >
                 Where bold <motion.span 
                   className="font-semibold text-sheraa-primary"
-                  animate={{ color: ["#003366", "#008080", "#003366"] }}
-                  transition={{ duration: 3, repeat: Infinity }}
+                  animate={{ 
+                    color: ["#003366", "#008080", "#003366"],
+                    scale: [1, 1.05, 1]
+                  }}
+                  transition={{ duration: 4, repeat: Infinity }}
                 >
                   ideas
                 </motion.span> transform into{" "}
                 <motion.span 
                   className="font-semibold text-sheraa-orange"
-                  animate={{ color: ["#FF6600", "#003366", "#FF6600"] }}
-                  transition={{ duration: 3, repeat: Infinity, delay: 1 }}
+                  animate={{ 
+                    color: ["#FF6600", "#003366", "#FF6600"],
+                    scale: [1, 1.05, 1]
+                  }}
+                  transition={{ duration: 4, repeat: Infinity, delay: 2 }}
                 >
                   successful
                 </motion.span>{" "}
@@ -305,7 +341,7 @@ export const DynamicVideoHero: React.FC = () => {
               </motion.p>
             </div>
 
-            {/* Animated Statistics */}
+            {/* Enhanced Animated Statistics */}
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
@@ -328,34 +364,39 @@ export const DynamicVideoHero: React.FC = () => {
                       delay: 2.2 + (index * 0.2), 
                       duration: 0.8,
                       type: "spring",
-                      bounce: 0.4
+                      bounce: 0.5
                     }}
-                    whileHover={{ scale: 1.1, y: -10 }}
+                    whileHover={{ scale: 1.15, y: -15 }}
                   >
                     <motion.div
-                      className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-sheraa-primary/20 to-sheraa-teal/20 mb-4 group-hover:from-sheraa-primary/30 group-hover:to-sheraa-teal/30 transition-all duration-300"
+                      className="inline-flex items-center justify-center w-24 h-24 rounded-3xl bg-gradient-to-br from-sheraa-primary/20 to-sheraa-teal/20 mb-4 group-hover:from-sheraa-primary/40 group-hover:to-sheraa-teal/40 transition-all duration-500 shadow-2xl"
                       animate={{
-                        rotate: [0, 5, -5, 0],
-                        scale: [1, 1.05, 1]
+                        rotate: [0, 10, -10, 0],
+                        scale: [1, 1.1, 1],
+                        boxShadow: [
+                          "0 10px 30px rgba(0,0,0,0.1)",
+                          "0 20px 60px rgba(0,51,102,0.2)",
+                          "0 10px 30px rgba(0,0,0,0.1)"
+                        ]
                       }}
                       transition={{
-                        duration: 4,
+                        duration: 6,
                         repeat: Infinity,
-                        delay: index * 0.5
+                        delay: index * 0.8
                       }}
                     >
-                      <Icon className="w-10 h-10 text-sheraa-primary" />
+                      <Icon className="w-12 h-12 text-sheraa-primary" />
                     </motion.div>
                     
                     <motion.div 
                       className="text-4xl md:text-5xl font-bold text-sheraa-primary mb-2"
                       animate={{
-                        scale: [1, 1.05, 1]
+                        scale: [1, 1.1, 1]
                       }}
                       transition={{
-                        duration: 2,
+                        duration: 3,
                         repeat: Infinity,
-                        delay: index * 0.3
+                        delay: index * 0.5
                       }}
                     >
                       {stat.number}
@@ -366,7 +407,7 @@ export const DynamicVideoHero: React.FC = () => {
               })}
             </motion.div>
 
-            {/* Call to Action Buttons */}
+            {/* Enhanced Call to Action Buttons */}
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
@@ -374,16 +415,16 @@ export const DynamicVideoHero: React.FC = () => {
               className="flex flex-col sm:flex-row gap-6 justify-center items-center"
             >
               <motion.div
-                whileHover={{ scale: 1.05, y: -5 }}
+                whileHover={{ scale: 1.08, y: -8 }}
                 whileTap={{ scale: 0.95 }}
                 className="group"
               >
-                <Button asChild size="lg" className="bg-gradient-to-r from-sheraa-primary to-sheraa-teal hover:from-sheraa-primary/90 hover:to-sheraa-teal/90 text-white px-12 py-6 text-xl font-semibold shadow-2xl hover:shadow-sheraa-primary/25 transition-all duration-500 relative overflow-hidden">
+                <Button asChild size="lg" className="bg-gradient-to-r from-sheraa-primary to-sheraa-teal hover:from-sheraa-primary/90 hover:to-sheraa-teal/90 text-white px-12 py-6 text-xl font-semibold shadow-2xl hover:shadow-sheraa-primary/30 transition-all duration-500 relative overflow-hidden">
                   <Link to="/programs" className="flex items-center gap-3">
                     <span className="relative z-10">Start Your Journey</span>
                     <motion.div
-                      animate={{ x: [0, 5, 0] }}
-                      transition={{ duration: 1.5, repeat: Infinity }}
+                      animate={{ x: [0, 8, 0] }}
+                      transition={{ duration: 2, repeat: Infinity }}
                       className="relative z-10"
                     >
                       <ArrowRight className="w-6 h-6" />
@@ -392,17 +433,17 @@ export const DynamicVideoHero: React.FC = () => {
                       className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent"
                       initial={{ x: "-100%" }}
                       whileHover={{ x: "100%" }}
-                      transition={{ duration: 0.8 }}
+                      transition={{ duration: 1 }}
                     />
                   </Link>
                 </Button>
               </motion.div>
               
               <motion.div
-                whileHover={{ scale: 1.05, y: -5 }}
+                whileHover={{ scale: 1.08, y: -8 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <Button asChild variant="outline" size="lg" className="border-2 border-sheraa-primary/30 text-sheraa-primary hover:bg-sheraa-primary/10 dark:border-sheraa-primary/50 dark:hover:bg-sheraa-primary/20 px-12 py-6 text-xl font-semibold backdrop-blur-sm">
+                <Button asChild variant="outline" size="lg" className="border-2 border-sheraa-primary/40 text-sheraa-primary hover:bg-sheraa-primary/10 dark:border-sheraa-primary/60 dark:hover:bg-sheraa-primary/20 px-12 py-6 text-xl font-semibold backdrop-blur-sm shadow-xl hover:shadow-2xl transition-all duration-500">
                   <Link to="/community/startups" className="flex items-center gap-3">
                     <span>Explore Success Stories</span>
                     <Star className="w-5 h-5 text-sheraa-orange" />
@@ -414,46 +455,52 @@ export const DynamicVideoHero: React.FC = () => {
         </div>
       </motion.div>
 
-      {/* Play/Pause Control */}
+      {/* Enhanced Play/Pause Control */}
       <motion.button
         onClick={() => setIsPlaying(!isPlaying)}
-        className="absolute bottom-8 right-8 w-16 h-16 rounded-full bg-white/90 dark:bg-sheraa-dark/90 backdrop-blur-sm border border-sheraa-primary/20 shadow-lg flex items-center justify-center group hover:shadow-xl transition-all duration-300"
-        whileHover={{ scale: 1.1 }}
+        className="absolute bottom-8 right-8 w-20 h-20 rounded-full bg-white/95 dark:bg-sheraa-dark/95 backdrop-blur-sm border border-sheraa-primary/30 shadow-2xl flex items-center justify-center group hover:shadow-xl transition-all duration-500"
+        whileHover={{ scale: 1.15, boxShadow: "0 20px 60px rgba(0,51,102,0.3)" }}
         whileTap={{ scale: 0.9 }}
         initial={{ opacity: 0, scale: 0 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 3, duration: 0.5 }}
       >
-        {isPlaying ? (
-          <div className="w-4 h-4 bg-sheraa-primary rounded-sm" />
-        ) : (
-          <div className="w-0 h-0 border-l-[8px] border-l-sheraa-primary border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent ml-1" />
-        )}
+        <motion.div
+          animate={{ rotate: isPlaying ? 0 : 180 }}
+          transition={{ duration: 0.3 }}
+          className="text-sheraa-primary"
+        >
+          {isPlaying ? (
+            <Pause className="w-8 h-8" />
+          ) : (
+            <Play className="w-8 h-8 ml-1" />
+          )}
+        </motion.div>
       </motion.button>
 
-      {/* Sophisticated Scroll Indicator */}
+      {/* Enhanced Scroll Indicator */}
       <motion.div 
         className="absolute bottom-12 left-1/2 transform -translate-x-1/2"
         animate={{ 
-          y: [0, 10, 0],
-          opacity: [0.7, 0.3, 0.7]
+          y: [0, 15, 0],
+          opacity: [0.8, 0.4, 0.8]
         }}
         transition={{ 
-          duration: 3,
+          duration: 4,
           repeat: Infinity,
           ease: "easeInOut"
         }}
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
       >
-        <div className="flex flex-col items-center space-y-3">
+        <div className="flex flex-col items-center space-y-4">
           <span className="text-sm text-gray-500 font-medium">Scroll to explore</span>
-          <div className="w-6 h-12 border-2 border-sheraa-primary/40 rounded-full flex justify-center p-2">
+          <div className="w-8 h-16 border-2 border-sheraa-primary/50 rounded-full flex justify-center p-3 bg-white/20 backdrop-blur-sm">
             <motion.div 
-              className="w-1.5 h-3 bg-gradient-to-b from-sheraa-primary to-sheraa-teal rounded-full" 
-              animate={{ y: [0, 16, 0] }}
+              className="w-2 h-4 bg-gradient-to-b from-sheraa-primary to-sheraa-teal rounded-full" 
+              animate={{ y: [0, 24, 0] }}
               transition={{ 
-                duration: 3,
+                duration: 4,
                 repeat: Infinity,
                 ease: "easeInOut"
               }}
