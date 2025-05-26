@@ -1,19 +1,19 @@
-
 import React from "react";
 import MainLayout from "@/components/layouts/MainLayout";
-import { NewHeroSection } from "@/components/homepage/redesign/NewHeroSection";
-import { ImpactMetricsSection } from "@/components/homepage/redesign/ImpactMetricsSection";
-import { ProgramsJourneySection } from "@/components/homepage/redesign/ProgramsJourneySection";
-import { StartupEcosystemSection } from "@/components/homepage/redesign/StartupEcosystemSection";
-import { SEFHighlightSection } from "@/components/homepage/redesign/SEFHighlightSection";
-import { CommunityPartnersSection } from "@/components/homepage/redesign/CommunityPartnersSection";
-import { VisionQuoteSection } from "@/components/homepage/redesign/VisionQuoteSection";
-import { FinalCTASection } from "@/components/homepage/redesign/FinalCTASection";
+import HomepageHero from "@/components/homepage/HomepageHero";
+import { ImpactMetricsSection } from "@/components/homepage/ImpactMetricsSection";
+import { ProgramsJourneySection } from "@/components/homepage/ProgramsJourneySection";
+import { StartupEcosystemSection } from "@/components/homepage/StartupEcosystemSection";
+import { SEFHighlightSection } from "@/components/homepage/SEFHighlightSection";
+import { CommunityPartnersSection } from "@/components/homepage/CommunityPartnersSection";
+import { VisionQuoteSection } from "@/components/homepage/VisionQuoteSection";
+import { FinalCTASection } from "@/components/homepage/FinalCTASection";
+import { CyclingStickyCornerCTA } from "@/components/ui/cycling-sticky-cta";
 
-const Index: React.FC = () => {
+const Index = () => {
   return (
-    <MainLayout className="bg-white dark:bg-sheraa-dark">
-      <NewHeroSection />
+    <MainLayout>
+      <HomepageHero />
       <ImpactMetricsSection />
       <ProgramsJourneySection />
       <StartupEcosystemSection />
@@ -21,6 +21,9 @@ const Index: React.FC = () => {
       <CommunityPartnersSection />
       <VisionQuoteSection />
       <FinalCTASection />
+      
+      {/* Replace the old sticky CTAs with the new cycling one */}
+      <CyclingStickyCornerCTA />
     </MainLayout>
   );
 };

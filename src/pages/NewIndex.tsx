@@ -9,8 +9,7 @@ import { SEFHighlightSection } from "@/components/homepage/redesign/SEFHighlight
 import { CommunityPartnersSection } from "@/components/homepage/redesign/CommunityPartnersSection";
 import { VisionQuoteSection } from "@/components/homepage/redesign/VisionQuoteSection";
 import { FinalCTASection } from "@/components/homepage/redesign/FinalCTASection";
-import { StickyCornerCTA } from "@/components/ui/sticky-corner-cta";
-import { StickyJobCTA } from "@/components/ui/sticky-job-cta";
+import { CyclingStickyCornerCTA } from "@/components/ui/cycling-sticky-cta";
 
 const NewIndex: React.FC = () => {
   return (
@@ -24,18 +23,8 @@ const NewIndex: React.FC = () => {
       <VisionQuoteSection />
       <FinalCTASection />
       
-      {/* Sticky CTAs */}
-      <StickyCornerCTA 
-        href="/eligibility"
-        text="Find Your Program"
-        subtext="AI-Powered Matcher"
-      />
-      
-      <StickyJobCTA 
-        href="/careers"
-        text="Join Our Team"
-        subtext="Shape the Future"
-      />
+      {/* Enhanced Cycling Sticky CTA */}
+      <CyclingStickyCornerCTA />
     </MainLayout>
   );
 };
