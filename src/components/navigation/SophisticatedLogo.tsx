@@ -13,7 +13,7 @@ export const SophisticatedLogo: React.FC = () => {
         className="relative"
       >
         <img 
-          src="/lovable-uploads/sheraa-logo.png" 
+          src="/lovable-uploads/9927fa13-2911-40c1-98c4-7c733bbe84bd.png" 
           alt="Sheraa" 
           className="h-12 w-auto drop-shadow-lg" 
         />

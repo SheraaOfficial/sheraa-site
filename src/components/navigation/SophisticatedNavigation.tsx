@@ -19,32 +19,39 @@ export const SophisticatedNavigation: React.FC = () => {
     return false;
   };
 
+  const handleMouseLeave = () => {
+    // Delay closing to allow mouse movement between nav item and dropdown
+    setTimeout(() => setActiveDropdown(null), 150);
+  };
+
   return (
-    <SophisticatedNavigationContainer>
-      <SophisticatedLogo />
+    <div onMouseLeave={handleMouseLeave}>
+      <SophisticatedNavigationContainer>
+        <SophisticatedLogo />
 
-      {/* Enhanced Navigation Menu */}
-      <div className="hidden lg:flex items-center space-x-2">
-        {sophisticatedNavigationItems.map((item, index) => {
-          const isActive = isPathActive(item.path, item.subItems);
+        {/* Enhanced Navigation Menu */}
+        <div className="hidden lg:flex items-center space-x-2">
+          {sophisticatedNavigationItems.map((item, index) => {
+            const isActive = isPathActive(item.path, item.subItems);
 
-          return (
-            <SophisticatedNavItem
-              key={item.name}
-              item={item}
-              index={index}
-              isActive={isActive}
-              activeDropdown={activeDropdown}
-              onMouseEnter={() => item.subItems && setActiveDropdown(item.name)}
-              onMouseLeave={() => {
-                if (!item.subItems) setActiveDropdown(null);
-              }}
-            />
-          );
-        })}
-      </div>
+            return (
+              <SophisticatedNavItem
+                key={item.name}
+                item={item}
+                index={index}
+                isActive={isActive}
+                activeDropdown={activeDropdown}
+                onMouseEnter={() => item.subItems && setActiveDropdown(item.name)}
+                onMouseLeave={() => {
+                  if (!item.subItems) setActiveDropdown(null);
+                }}
+              />
+            );
+          })}
+        </div>
 
-      <SophisticatedMobileMenu />
-    </SophisticatedNavigationContainer>
+        <SophisticatedMobileMenu />
+      </SophisticatedNavigationContainer>
+    </div>
   );
 };

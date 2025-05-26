@@ -1,8 +1,8 @@
 
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, Sparkles } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { SophisticatedNavigationItem } from './sophisticatedNavigationData';
 
@@ -23,126 +23,99 @@ export const SophisticatedNavItem: React.FC<SophisticatedNavItemProps> = ({
   onMouseEnter,
   onMouseLeave
 }) => {
+  const navigate = useNavigate();
   const Icon = item.icon;
-  const isSEF = item.special;
+  const isDropdownOpen = activeDropdown === item.name;
+
+  const handleClick = () => {
+    if (!item.subItems || item.subItems.length === 0) {
+      navigate(item.path);
+    }
+  };
 
   return (
-    <div className="relative group">
+    <div 
+      className="relative"
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: index * 0.1, duration: 0.5 }}
-        onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
+        transition={{ delay: index * 0.1 }}
+        className={cn(
+          "relative px-4 py-3 rounded-2xl transition-all duration-300 cursor-pointer",
+          "hover:bg-white/20 backdrop-blur-sm border border-transparent",
+          "flex items-center gap-2 text-white font-medium",
+          isActive && "bg-white/25 border-white/30 shadow-lg",
+          item.special && "bg-gradient-to-r from-purple-500/20 to-orange-500/20 border-purple-400/30"
+        )}
+        whileHover={{ scale: 1.05, y: -2 }}
+        whileTap={{ scale: 0.98 }}
+        onClick={handleClick}
       >
-        <Link
-          to={item.path}
-          className={cn(
-            "flex items-center space-x-2 px-4 py-2.5 rounded-xl font-medium transition-all duration-300 relative overflow-hidden",
-            isActive
-              ? "text-white shadow-lg"
-              : "text-gray-700 hover:text-sheraa-primary",
-            isSEF && "bg-gradient-to-r from-sheraa-sef-primary/10 to-sheraa-sef-secondary/10"
-          )}
-        >
-          {/* Enhanced active background */}
-          {isActive && (
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-sheraa-primary to-sheraa-teal"
-              layoutId="activeBackground"
-              transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-            />
-          )}
-          
-          {/* Enhanced hover effect */}
+        <Icon className={cn(
+          "w-5 h-5",
+          item.special ? "text-purple-300" : "text-white"
+        )} />
+        <span className={cn(
+          "text-sm font-semibold",
+          item.special && "bg-gradient-to-r from-purple-300 to-orange-300 bg-clip-text text-transparent"
+        )}>
+          {item.name}
+        </span>
+        
+        {item.subItems && item.subItems.length > 0 && (
           <motion.div
-            className="absolute inset-0 bg-gradient-to-r from-sheraa-primary/10 to-sheraa-teal/10 opacity-0 group-hover:opacity-100"
-            transition={{ duration: 0.3 }}
-          />
-          
-          <motion.div
-            className={cn(
-              "relative z-10 transition-all duration-300",
-              isSEF && "text-sheraa-sef-primary"
-            )}
-            whileHover={{ scale: 1.1, rotate: isSEF ? 360 : 0 }}
-            transition={{ duration: isSEF ? 0.6 : 0.2 }}
+            animate={{ rotate: isDropdownOpen ? 180 : 0 }}
+            transition={{ duration: 0.2 }}
           >
-            <Icon className="h-5 w-5" />
+            <ChevronDown className="w-4 h-4 text-white/70" />
           </motion.div>
-          
-          <span
-            className={cn(
-              "relative z-10 transition-all duration-300",
-              isSEF && "font-bold bg-gradient-to-r from-sheraa-sef-primary to-sheraa-sef-secondary bg-clip-text text-transparent"
-            )}
-          >
-            {item.name}
-          </span>
-          
-          {item.subItems && (
-            <ChevronDown className="h-4 w-4 relative z-10 transition-transform duration-300 group-hover:rotate-180" />
-          )}
-          
-          {isSEF && (
-            <motion.div
-              animate={{
-                scale: [1, 1.2, 1],
-                opacity: [0.7, 1, 0.7]
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-              className="relative z-10"
-            >
-              <Sparkles className="h-4 w-4" />
-            </motion.div>
-          )}
-        </Link>
+        )}
+        
+        {item.special && (
+          <motion.div
+            className="absolute -top-1 -right-1 w-3 h-3 bg-gradient-to-r from-purple-400 to-orange-400 rounded-full"
+            animate={{ scale: [1, 1.2, 1] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          />
+        )}
       </motion.div>
 
-      {/* Enhanced Dropdown */}
+      {/* Dropdown Menu */}
       <AnimatePresence>
-        {item.subItems && activeDropdown === item.name && (
+        {isDropdownOpen && item.subItems && (
           <motion.div
-            initial={{ opacity: 0, y: -10, scale: 0.95 }}
+            initial={{ opacity: 0, y: 10, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -10, scale: 0.95 }}
+            exit={{ opacity: 0, y: 10, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="absolute top-full mt-2 left-1/2 transform -translate-x-1/2 bg-white/98 backdrop-blur-3xl border border-gray-200/60 shadow-2xl rounded-2xl overflow-hidden min-w-80 z-[9999]"
-            style={{ 
-              boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.05)",
-              backdropFilter: "blur(20px)"
-            }}
-            onMouseEnter={() => {}}
-            onMouseLeave={() => {}}
+            className="absolute top-full left-0 mt-2 min-w-[280px] bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/20 py-2 z-50"
           >
-            <div className="p-2">
-              {item.subItems.map((subItem, subIndex) => (
+            {item.subItems.map((subItem, subIndex) => (
+              <Link
+                key={subItem.path}
+                to={subItem.path}
+                className="block px-4 py-3 hover:bg-sheraa-primary/10 transition-colors group"
+              >
                 <motion.div
-                  key={subItem.path}
-                  initial={{ opacity: 0, x: -20 }}
+                  initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: subIndex * 0.05 }}
+                  className="space-y-1"
                 >
-                  <Link
-                    to={subItem.path}
-                    className="block p-4 rounded-xl hover:bg-gradient-to-r hover:from-sheraa-primary/10 hover:to-sheraa-teal/10 transition-all duration-300 group"
-                  >
-                    <div className="font-medium text-gray-900 group-hover:text-sheraa-primary transition-colors">
-                      {subItem.name}
+                  <div className="text-sm font-semibold text-gray-900 group-hover:text-sheraa-primary transition-colors">
+                    {subItem.name}
+                  </div>
+                  {subItem.description && (
+                    <div className="text-xs text-gray-600 group-hover:text-gray-700">
+                      {subItem.description}
                     </div>
-                    {subItem.description && (
-                      <div className="text-sm text-gray-500 mt-1">
-                        {subItem.description}
-                      </div>
-                    )}
-                  </Link>
+                  )}
                 </motion.div>
-              ))}
-            </div>
+              </Link>
+            ))}
           </motion.div>
         )}
       </AnimatePresence>

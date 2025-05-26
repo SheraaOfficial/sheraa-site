@@ -52,6 +52,11 @@ export const sophisticatedNavigationItems: SophisticatedNavigationItem[] = [
     icon: BookOpen,
     subItems: [
       {
+        name: 'Overview',
+        path: '/programs',
+        description: 'Explore all our programs'
+      },
+      {
         name: 'S3 Incubator',
         path: '/programs/s3-incubator',
         description: 'Our flagship equity-free program'
@@ -84,7 +89,12 @@ export const sophisticatedNavigationItems: SophisticatedNavigationItem[] = [
     icon: Users,
     subItems: [
       {
-        name: 'Join Community',
+        name: 'Overview',
+        path: '/community',
+        description: 'Join our vibrant ecosystem'
+      },
+      {
+        name: 'Membership',
         path: '/community/join',
         description: 'Become a Sheraa member'
       },
@@ -111,6 +121,11 @@ export const sophisticatedNavigationItems: SophisticatedNavigationItem[] = [
     icon: Calendar,
     subItems: [
       {
+        name: 'Overview',
+        path: '/events',
+        description: 'All events and workshops'
+      },
+      {
         name: 'Upcoming Events',
         path: '/events/upcoming',
         description: 'Join our next events'
@@ -132,6 +147,11 @@ export const sophisticatedNavigationItems: SophisticatedNavigationItem[] = [
     path: '/resources',
     icon: BookOpen,
     subItems: [
+      {
+        name: 'Overview',
+        path: '/resources',
+        description: 'All resources and tools'
+      },
       {
         name: 'Guides & Toolkits',
         path: '/resources/guides',

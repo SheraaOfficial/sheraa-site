@@ -1,7 +1,7 @@
 
 import React from "react";
-import { AdvancedHero } from "@/components/hero/AdvancedHero";
+import { RefinedHero } from "@/components/hero/RefinedHero";
 
 export const NewHeroSection: React.FC = () => {
-  return <AdvancedHero />;
+  return <RefinedHero />;
 };
