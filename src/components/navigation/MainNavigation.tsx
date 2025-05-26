@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
   Home, 
@@ -21,8 +21,9 @@ import { MenuBar } from '@/components/ui/glow-menu';
 
 const MainNavigation = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
-  const [hoveredItem, setHoveredItem] = useState<string | null>(null);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
   const navigationItems = [
     { name: 'Home', path: '/', icon: Home },
@@ -80,10 +81,6 @@ const MainNavigation = () => {
       ]
     },
     { name: 'Contact', path: '/contact', icon: Phone },
-    { name: 'Careers', path: '/careers', icon: Briefcase },
-    { name: 'Blog', path: '/blog', icon: Rss },
-    { name: 'Podcast', path: '/podcast', icon: Mic },
-    { name: 'Reports', path: '/reports', icon: BarChart3 },
     { name: 'SEF', path: '/events/sef-landing', icon: Star, special: true },
   ];
 
@@ -113,10 +110,10 @@ const MainNavigation = () => {
       label: item.name,
       href: item.path,
       gradient: isSEF 
-        ? "radial-gradient(circle, rgba(155,135,245,0.25) 0%, rgba(217,70,239,0.15) 50%, rgba(217,70,239,0) 100%)"
+        ? "radial-gradient(circle, rgba(155,135,245,0.4) 0%, rgba(217,70,239,0.25) 50%, rgba(217,70,239,0) 100%)"
         : isActive 
-          ? "radial-gradient(circle, rgba(0,51,102,0.2) 0%, rgba(0,128,128,0.1) 50%, rgba(0,128,128,0) 100%)"
-          : "radial-gradient(circle, rgba(59,130,246,0.15) 0%, rgba(37,99,235,0.06) 50%, rgba(29,78,216,0) 100%)",
+          ? "radial-gradient(circle, rgba(0,51,102,0.3) 0%, rgba(0,128,128,0.15) 50%, rgba(0,128,128,0) 100%)"
+          : "radial-gradient(circle, rgba(59,130,246,0.2) 0%, rgba(37,99,235,0.08) 50%, rgba(29,78,216,0) 100%)",
       iconColor: isSEF 
         ? "text-sheraa-sef-primary" 
         : isActive 
@@ -128,7 +125,20 @@ const MainNavigation = () => {
   const handleItemClick = (label: string) => {
     const item = navigationItems.find(nav => nav.name === label);
     if (item) {
-      // Handle navigation here if needed
+      if (item.subItems && item.subItems.length > 0) {
+        // For items with subItems, toggle dropdown or navigate to main path
+        if (activeDropdown === label) {
+          setActiveDropdown(null);
+        } else {
+          setActiveDropdown(label);
+        }
+        // Also navigate to the main path
+        navigate(item.path);
+      } else {
+        // For items without subItems, navigate directly
+        navigate(item.path);
+        setActiveDropdown(null);
+      }
     }
   };
 
@@ -147,13 +157,37 @@ const MainNavigation = () => {
           </Link>
 
           {/* Centered Desktop Navigation with Glow Menu */}
-          <div className="hidden lg:flex items-center justify-center flex-1">
+          <div className="hidden lg:flex items-center justify-center flex-1 relative">
             <MenuBar
               items={menuItems}
               activeItem={getCurrentActiveItem()}
               onItemClick={handleItemClick}
               className="mx-auto"
             />
+            
+            {/* Dropdown Menu */}
+            {activeDropdown && (
+              <motion.div
+                initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                className="absolute top-full mt-2 bg-white/95 backdrop-blur-xl border border-gray-200/50 shadow-lg rounded-xl overflow-hidden z-50"
+                style={{ left: '50%', transform: 'translateX(-50%)' }}
+              >
+                {navigationItems
+                  .find(item => item.name === activeDropdown)
+                  ?.subItems?.map((subItem) => (
+                    <Link
+                      key={subItem.path}
+                      to={subItem.path}
+                      onClick={() => setActiveDropdown(null)}
+                      className="block px-6 py-3 text-sm text-gray-700 hover:text-sheraa-primary hover:bg-gray-50/80 transition-all duration-200 border-b border-gray-100/50 last:border-b-0"
+                    >
+                      {subItem.name}
+                    </Link>
+                  ))}
+              </motion.div>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -222,6 +256,22 @@ const MainNavigation = () => {
                       <span className={isSEF && !isActive ? "font-bold bg-gradient-to-r from-sheraa-sef-primary to-sheraa-sef-secondary bg-clip-text text-transparent" : ""}>
                         {item.name}
                       </span>
+                      {isSEF && (
+                        <motion.div
+                          className="ml-auto"
+                          animate={{ 
+                            scale: [1, 1.2, 1],
+                            opacity: [0.7, 1, 0.7]
+                          }}
+                          transition={{ 
+                            duration: 2,
+                            repeat: Infinity,
+                            ease: "easeInOut"
+                          }}
+                        >
+                          ✨
+                        </motion.div>
+                      )}
                     </Link>
                     
                     {/* Mobile Sub Items */}
@@ -246,6 +296,14 @@ const MainNavigation = () => {
           </motion.div>
         )}
       </div>
+      
+      {/* Click outside to close dropdown */}
+      {activeDropdown && (
+        <div 
+          className="fixed inset-0 z-40" 
+          onClick={() => setActiveDropdown(null)}
+        />
+      )}
     </nav>
   );
 };

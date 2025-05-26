@@ -54,6 +54,24 @@ const navGlowVariants = {
   },
 }
 
+const sefSparkleVariants = {
+  initial: { 
+    opacity: 0.6,
+    scale: 1,
+    rotate: 0
+  },
+  animate: {
+    opacity: [0.6, 1, 0.6],
+    scale: [1, 1.1, 1],
+    rotate: [0, 180, 360],
+    transition: {
+      duration: 3,
+      repeat: Infinity,
+      ease: "easeInOut"
+    }
+  }
+}
+
 const sharedTransition = {
   type: "spring",
   stiffness: 100,
@@ -103,6 +121,7 @@ export const MenuBar = React.forwardRef<HTMLDivElement, MenuBarProps>(
           {items.map((item) => {
             const Icon = item.icon
             const isActive = item.label === activeItem
+            const isSEF = item.label === "SEF"
 
             return (
               <motion.li key={item.label} className="relative">
@@ -126,12 +145,46 @@ export const MenuBar = React.forwardRef<HTMLDivElement, MenuBarProps>(
                         borderRadius: "16px",
                       }}
                     />
+                    
+                    {/* SEF Sparkle Effect */}
+                    {isSEF && (
+                      <>
+                        <motion.div
+                          className="absolute -top-1 -right-1 z-20 pointer-events-none"
+                          variants={sefSparkleVariants}
+                          initial="initial"
+                          animate="animate"
+                        >
+                          <span className="text-yellow-400 text-xs">✨</span>
+                        </motion.div>
+                        <motion.div
+                          className="absolute -bottom-1 -left-1 z-20 pointer-events-none"
+                          variants={sefSparkleVariants}
+                          initial="initial"
+                          animate="animate"
+                          transition={{ delay: 1 }}
+                        >
+                          <span className="text-purple-400 text-xs">⭐</span>
+                        </motion.div>
+                        <motion.div
+                          className="absolute top-1/2 -right-2 z-20 pointer-events-none"
+                          variants={sefSparkleVariants}
+                          initial="initial"
+                          animate="animate"
+                          transition={{ delay: 2 }}
+                        >
+                          <span className="text-pink-400 text-xs">💫</span>
+                        </motion.div>
+                      </>
+                    )}
+                    
                     <motion.div
                       className={cn(
                         "flex items-center gap-2 px-4 py-2 relative z-10 bg-transparent transition-colors rounded-xl",
                         isActive
                           ? "text-foreground"
                           : "text-muted-foreground group-hover:text-foreground",
+                        isSEF && "font-semibold"
                       )}
                       variants={itemVariants}
                       transition={sharedTransition}
@@ -149,7 +202,9 @@ export const MenuBar = React.forwardRef<HTMLDivElement, MenuBarProps>(
                       >
                         <Icon className="h-5 w-5" />
                       </span>
-                      <span>{item.label}</span>
+                      <span className={isSEF ? "bg-gradient-to-r from-sheraa-sef-primary to-sheraa-sef-secondary bg-clip-text text-transparent" : ""}>
+                        {item.label}
+                      </span>
                     </motion.div>
                     <motion.div
                       className={cn(
@@ -157,6 +212,7 @@ export const MenuBar = React.forwardRef<HTMLDivElement, MenuBarProps>(
                         isActive
                           ? "text-foreground"
                           : "text-muted-foreground group-hover:text-foreground",
+                        isSEF && "font-semibold"
                       )}
                       variants={backVariants}
                       transition={sharedTransition}
@@ -175,7 +231,9 @@ export const MenuBar = React.forwardRef<HTMLDivElement, MenuBarProps>(
                       >
                         <Icon className="h-5 w-5" />
                       </span>
-                      <span>{item.label}</span>
+                      <span className={isSEF ? "bg-gradient-to-r from-sheraa-sef-primary to-sheraa-sef-secondary bg-clip-text text-transparent" : ""}>
+                        {item.label}
+                      </span>
                     </motion.div>
                   </motion.div>
                 </button>
