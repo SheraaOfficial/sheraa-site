@@ -1,4 +1,3 @@
-
 import React from "react";
 import MainLayout from "@/components/layouts/MainLayout";
 import { motion } from "framer-motion";
@@ -13,6 +12,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import EligibilityCheckerButton from "@/components/eligibility/EligibilityCheckerButton";
 import { ProgramsTestimonialsSection } from "@/components/programs/ProgramsTestimonialsSection";
+import { StickyCornerCTA } from "@/components/ui/sticky-corner-cta";
 
 const ProgramsPage: React.FC = () => {
   const programs = [
@@ -391,6 +391,13 @@ const ProgramsPage: React.FC = () => {
           </motion.div>
         </div>
       </div>
+      
+      {/* Add Sticky CTA */}
+      <StickyCornerCTA 
+        href="/eligibility"
+        text="Find Your Program"
+        subtext="AI-Powered Matcher"
+      />
     </MainLayout>
   );
 };

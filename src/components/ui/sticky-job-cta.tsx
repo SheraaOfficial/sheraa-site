@@ -20,7 +20,7 @@ export const StickyJobCTA: React.FC<StickyJobCTAProps> = ({ href, text, subtext 
     >
       <Link to={href}>
         <motion.div
-          className="group relative bg-gradient-to-r from-sheraa-primary to-sheraa-teal text-white rounded-2xl shadow-2xl overflow-hidden cursor-pointer min-w-[220px]"
+          className="group relative bg-gradient-to-r from-sheraa-primary to-sheraa-teal text-white rounded-full shadow-2xl overflow-hidden cursor-pointer min-w-[220px]"
           whileHover={{ 
             scale: 1.05,
             boxShadow: "0 25px 50px rgba(0, 51, 102, 0.4)"
@@ -86,7 +86,7 @@ export const StickyJobCTA: React.FC<StickyJobCTAProps> = ({ href, text, subtext 
           
           {/* Pulse effect */}
           <motion.div
-            className="absolute inset-0 bg-white/5 rounded-2xl"
+            className="absolute inset-0 bg-white/5 rounded-full"
             animate={{ scale: [1, 1.05, 1], opacity: [0, 0.3, 0] }}
             transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
           />

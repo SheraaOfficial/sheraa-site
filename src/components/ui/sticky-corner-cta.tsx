@@ -20,7 +20,7 @@ export const StickyCornerCTA: React.FC<StickyCornerCTAProps> = ({ href, text, su
     >
       <Link to={href}>
         <motion.div
-          className="group relative bg-gradient-to-r from-sheraa-primary to-sheraa-teal text-white rounded-2xl shadow-2xl overflow-hidden cursor-pointer"
+          className="group relative bg-gradient-to-r from-sheraa-primary to-sheraa-teal text-white rounded-full shadow-2xl overflow-hidden cursor-pointer"
           whileHover={{ 
             scale: 1.05, 
             rotate: 2,
@@ -62,7 +62,7 @@ export const StickyCornerCTA: React.FC<StickyCornerCTAProps> = ({ href, text, su
           
           {/* Pulse effect */}
           <motion.div
-            className="absolute inset-0 bg-white/10 rounded-2xl"
+            className="absolute inset-0 bg-white/10 rounded-full"
             animate={{ scale: [1, 1.1, 1], opacity: [0, 0.2, 0] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
           />
