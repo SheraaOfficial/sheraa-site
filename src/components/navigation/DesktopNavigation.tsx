@@ -1,15 +1,14 @@
 
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { NavigationItem } from './types';
-import { NavigationItem as NavItem } from './NavigationItem';
+import { NavigationItem } from './NavigationItem';
 import { SEFButton } from './SEFButton';
+import { NavigationItem as NavItemType } from './types';
 
 interface DesktopNavigationProps {
-  navigationItems: NavigationItem[];
-  isPathActive: (path: string, subItems?: NavigationItem['subItems']) => boolean;
+  navigationItems: NavItemType[];
+  isPathActive: (path: string, subItems?: NavItemType['subItems']) => boolean;
   activeDropdown: string | null;
-  onNavClick: (item: NavigationItem) => void;
+  onNavClick: (item: NavItemType) => void;
   onDropdownClose: () => void;
 }
 
@@ -20,37 +19,25 @@ export const DesktopNavigation: React.FC<DesktopNavigationProps> = ({
   onNavClick,
   onDropdownClose
 }) => {
-  const navigate = useNavigate();
-
-  const handleItemClick = (item: NavigationItem) => {
-    if (item.subItems && item.subItems.length > 0) {
-      onNavClick(item);
-    } else {
-      navigate(item.path);
-      onDropdownClose();
-    }
-  };
-
   return (
-    <div className="hidden lg:flex items-center justify-center flex-1">
-      <div className="flex items-center space-x-1 bg-white/20 backdrop-blur-sm rounded-2xl px-3 py-2 border border-white/30 shadow-inner">
-        {navigationItems.map((item, index) => {
-          const isActive = isPathActive(item.path, item.subItems);
-          return (
-            <NavItem
-              key={item.name}
-              item={item}
-              index={index}
-              isActive={isActive}
-              activeDropdown={activeDropdown}
-              onItemClick={handleItemClick}
-              onDropdownClose={onDropdownClose}
-            />
-          );
-        })}
+    <div className="hidden lg:flex items-center space-x-1">
+      {navigationItems.map((item, index) => {
+        if (item.special) {
+          return <SEFButton key={item.name} path={item.path} />;
+        }
         
-        <SEFButton path="/events/sef-landing" />
-      </div>
+        return (
+          <NavigationItem
+            key={item.name}
+            item={item}
+            index={index}
+            isActive={isPathActive(item.path, item.subItems)}
+            activeDropdown={activeDropdown}
+            onItemClick={onNavClick}
+            onDropdownClose={onDropdownClose}
+          />
+        );
+      })}
     </div>
   );
 };
