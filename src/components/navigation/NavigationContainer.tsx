@@ -93,7 +93,7 @@ export const NavigationContainer: React.FC = () => {
 
           <MobileNavigation
             isOpen={isOpen}
-            items={[...navigationItems, { name: 'SEF', path: '/events/sef-landing', icon: navigationItems[0].icon, special: true }]}
+            items={navigationItems}
             isPathActive={isPathActive}
             onItemClick={handleNavClick}
             onClose={() => setIsOpen(false)}
