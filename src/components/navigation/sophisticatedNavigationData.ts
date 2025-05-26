@@ -1,10 +1,10 @@
 
-import { Home, Users, BookOpen, Calendar, Star } from 'lucide-react';
+import { Home, Users, BookOpen, Calendar, Star, LucideIcon } from 'lucide-react';
 
 export interface SophisticatedNavigationItem {
   name: string;
   path: string;
-  icon: React.ComponentType<any>;
+  icon: LucideIcon;
   subItems?: {
     name: string;
     path: string;
