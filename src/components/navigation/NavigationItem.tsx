@@ -3,7 +3,7 @@ import React, { useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { NavigationItem as NavItemType } from './types';
+import { NavigationItem as NavItemType, NavigationSubItem } from './types';
 
 interface NavigationItemProps {
   item: NavItemType;
@@ -42,7 +42,7 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
     };
   }, [isDropdownOpen, onDropdownClose]);
 
-  const handleSubItemClick = (subItem: NavItemType['subItems'][0]) => {
+  const handleSubItemClick = (subItem: NavigationSubItem) => {
     navigate(subItem.path);
     onDropdownClose();
   };

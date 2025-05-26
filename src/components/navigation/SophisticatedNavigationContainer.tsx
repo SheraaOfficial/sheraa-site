@@ -15,7 +15,7 @@ const convertToNavigationItems = (): NavigationItem[] => {
   return sophisticatedNavigationItems.map(item => ({
     name: item.name,
     path: item.path,
-    icon: item.icon,
+    icon: item.icon as any, // Type assertion to handle the conversion
     subItems: item.subItems?.map(subItem => ({
       name: subItem.name,
       path: subItem.path,
@@ -125,10 +125,11 @@ export const SophisticatedNavigationContainer: React.FC = () => {
 
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <div>
-            {/* Mobile menu placeholder - this needs to be implemented with proper props */}
-            <div className="fixed inset-0 z-[9998] bg-black/50" onClick={() => setIsMobileMenuOpen(false)} />
-          </div>
+          <SophisticatedMobileMenu
+            navigationItems={navigationItems}
+            isPathActive={isPathActive}
+            onClose={() => setIsMobileMenuOpen(false)}
+          />
         )}
       </AnimatePresence>
     </>
