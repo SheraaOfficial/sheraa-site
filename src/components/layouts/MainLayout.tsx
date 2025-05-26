@@ -2,32 +2,33 @@
 import React from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import { cn } from "@/lib/utils";
 
 interface MainLayoutProps {
   children: React.ReactNode;
   className?: string;
-  headerClassName?: string;
   backgroundStyle?: React.CSSProperties;
+  hideNavigation?: boolean;
 }
 
 const MainLayout: React.FC<MainLayoutProps> = ({ 
   children, 
-  className = "",
-  headerClassName = "",
-  backgroundStyle = {} 
+  className, 
+  backgroundStyle,
+  hideNavigation = false
 }) => {
   return (
-    <div className={`min-h-screen flex flex-col ${className}`} style={backgroundStyle}>
-      <div className={headerClassName}>
-        <Navigation />
-      </div>
-      <main className="flex-grow">
+    <div 
+      className={cn("min-h-screen flex flex-col", className)}
+      style={backgroundStyle}
+    >
+      {!hideNavigation && <Navigation />}
+      
+      <main className="flex-1">
         {children}
       </main>
-      {/* Full-width footer */}
-      <div className="w-full">
-        <Footer />
-      </div>
+      
+      <Footer />
     </div>
   );
 };
