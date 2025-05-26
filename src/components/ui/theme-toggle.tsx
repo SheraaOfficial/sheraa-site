@@ -27,8 +27,8 @@ export const ThemeToggle: React.FC = () => {
         transition={{ duration: 0.3, ease: "easeInOut" }}
       >
         {theme === 'dark' ? 
-          <Sun className="text-yellow-400 h-4 w-4 md:h-5 md:w-5" /> : 
-          <Moon className="text-sheraa-primary h-4 w-4 md:h-5 md:w-5" />
+          <Moon className="text-blue-300 h-4 w-4 md:h-5 md:w-5" /> : 
+          <Sun className="text-yellow-500 h-4 w-4 md:h-5 md:w-5" />
         }
       </motion.div>
     </motion.button>
