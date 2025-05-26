@@ -42,14 +42,17 @@ const ImmersiveNavbar: React.FC<ImmersiveNavbarProps> = ({ onOpen, onClose }) =>
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Define navigation groups
+  // Define navigation groups with all links
   const navGroups: Record<string, NavGroup> = {
     discover: {
       title: 'Discover',
       links: [
         { title: 'About Sheraa', href: '/about', description: 'Learn about our mission and vision' },
         { title: 'Our Impact', href: '/about/impact', description: 'See how we are changing the ecosystem' },
-        { title: 'Why Sharjah', href: '/about/why-sharjah', description: 'Discover the advantages of Sharjah' }
+        { title: 'Why Sharjah', href: '/about/why-sharjah', description: 'Discover the advantages of Sharjah' },
+        { title: 'Leadership Team', href: '/about/team', description: 'Meet our visionary leaders' },
+        { title: 'Careers', href: '/careers', description: 'Join our mission to empower entrepreneurs' },
+        { title: 'Sharjah Perfume', href: '/perfume/sharjah-premium', description: 'Discover luxury fragrances' }
       ]
     },
     programs: {
@@ -78,6 +81,15 @@ const ImmersiveNavbar: React.FC<ImmersiveNavbarProps> = ({ onOpen, onClose }) =>
         { title: 'SEF 2026', href: '/events/sef-landing', description: 'Sharjah Entrepreneurship Festival' },
         { title: 'Upcoming Events', href: '/events/upcoming', description: 'Workshops, webinars & more' },
         { title: 'Past Events', href: '/events/past', description: 'Our previous community gatherings' }
+      ]
+    },
+    insights: {
+      title: 'Resources & Insights',
+      links: [
+        { title: 'Resources', href: '/resources', description: 'Access guides, templates, and tools' },
+        { title: 'Blog', href: '/blog', description: 'Read articles and interviews' },
+        { title: 'Podcast', href: '/podcast', description: 'Listen to inspiring stories' },
+        { title: 'Reports', href: '/reports', description: 'Download research reports' }
       ]
     }
   };

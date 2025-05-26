@@ -1,3 +1,4 @@
+
 import { Home, Compass, TrendingUp, Users, Info, FileText, Calendar, Sparkles, LucideIcon } from "lucide-react";
 
 export interface NavigationLink {

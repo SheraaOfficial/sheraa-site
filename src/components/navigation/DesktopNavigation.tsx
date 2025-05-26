@@ -3,7 +3,7 @@ import React, { memo } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { GradientButton } from "@/components/ui/gradient-button";
-import { Home, Compass, TrendingUp, Users, Info, ArrowRight, Calendar, Sun, Moon } from "lucide-react";
+import { Home, Compass, TrendingUp, Users, Info, ArrowRight, Calendar, Sun, Moon, Sparkles } from "lucide-react";
 import {
   NavigationMenu,
   NavigationMenuList,
@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import MegaMenuComponent from "./MegaMenuComponent";
 import { NavigationMenuItem } from "@radix-ui/react-navigation-menu";
-import { Sparkles } from "@/components/ui/sparkles";
+import { Sparkles as SparklesComponent } from "@/components/ui/sparkles";
 import { NavigationLink } from "./types";
 
 interface DesktopNavigationProps {
@@ -36,6 +36,7 @@ const DesktopNavigation: React.FC<DesktopNavigationProps> = memo(({
   communityLinks,
   insightsLinks,
   eventsLinks,
+  perfumeLinks,
   sefLink,
   isLoggedIn = false,
   theme,
@@ -51,6 +52,7 @@ const DesktopNavigation: React.FC<DesktopNavigationProps> = memo(({
           <MegaMenuComponent title="Community" icon={Users} links={communityLinks} />
           <MegaMenuComponent title="Insights" icon={Info} links={insightsLinks} />
           <MegaMenuComponent title="Events" icon={Calendar} links={eventsLinks} />
+          <MegaMenuComponent title="Sharjah Perfume" icon={Sparkles} links={perfumeLinks} />
           
           {/* SEF link with enhanced sparkles effect */}
           <NavigationMenuItem>
@@ -59,7 +61,7 @@ const DesktopNavigation: React.FC<DesktopNavigationProps> = memo(({
               className="group flex items-center gap-2 relative px-4 py-2 mx-1 rounded-md text-sm font-medium"
               aria-label={sefLink.description || sefLink.title}
             >
-              <Sparkles colors={["#9b87f5", "#FF6600", "#D946EF", "#F97316"]} count={20}>
+              <SparklesComponent colors={["#9b87f5", "#FF6600", "#D946EF", "#F97316"]} count={20}>
                 <div className="flex items-center gap-2 relative z-10 transition-all group-hover:scale-105">
                   <Calendar className="h-4 w-4" aria-hidden="true" />
                   <span className="bg-gradient-to-r from-sheraa-sef-primary to-sheraa-sef-accent bg-clip-text text-transparent font-bold">
@@ -67,7 +69,7 @@ const DesktopNavigation: React.FC<DesktopNavigationProps> = memo(({
                   </span>
                 </div>
                 <div className="absolute inset-0 rounded-full bg-gradient-to-r from-sheraa-sef-primary/30 to-sheraa-sef-accent/30 blur-sm group-hover:opacity-100 opacity-80 transition-opacity animate-pulse"></div>
-              </Sparkles>
+              </SparklesComponent>
             </Link>
           </NavigationMenuItem>
           

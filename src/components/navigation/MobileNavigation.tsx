@@ -89,7 +89,7 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({
         <div className="space-y-4 max-h-[calc(100vh-100px)] overflow-y-auto pb-6">
           <MobileDropdown title="Home" icon={Home} items={homeLinks} />
           <MobileDropdown title="Discover" icon={Compass} items={discoverLinks} />
-          <MobileDropdown title="Grow" icon={TrendingUp} items={growLinks} />
+          <MobileDropdown title="Programs" icon={TrendingUp} items={growLinks} />
           <MobileDropdown title="Community" icon={Users} items={communityLinks} />
           <MobileDropdown title="Insights" icon={Info} items={insightsLinks} />
           <MobileDropdown title="Events" icon={Calendar} items={eventsLinks} />
