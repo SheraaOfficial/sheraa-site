@@ -21,10 +21,13 @@ export const StickyCornerCTA: React.FC<StickyCornerCTAProps> = ({ href, text, su
       <Link to={href}>
         <motion.div
           className="group relative bg-gradient-to-r from-sheraa-primary to-sheraa-teal text-white rounded-2xl shadow-2xl overflow-hidden cursor-pointer"
-          whileHover={{ scale: 1.05, rotate: 2 }}
+          whileHover={{ 
+            scale: 1.05, 
+            rotate: 2,
+            boxShadow: "0 20px 40px rgba(0, 51, 102, 0.4)"
+          }}
           whileTap={{ scale: 0.95 }}
           initial={{ boxShadow: "0 10px 30px rgba(0, 51, 102, 0.3)" }}
-          whileHover={{ boxShadow: "0 20px 40px rgba(0, 51, 102, 0.4)" }}
         >
           {/* Animated background */}
           <div className="absolute inset-0 bg-gradient-to-r from-sheraa-orange/20 to-sheraa-teal/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
