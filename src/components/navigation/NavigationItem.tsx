@@ -1,9 +1,9 @@
 
-import React, { useRef, useEffect } from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
-import { NavigationItem as NavItemType, NavigationSubItem } from './types';
+import { NavigationItem as NavItemType } from './types';
 
 interface NavigationItemProps {
   item: NavItemType;
@@ -16,95 +16,96 @@ interface NavigationItemProps {
 
 export const NavigationItem: React.FC<NavigationItemProps> = ({
   item,
-  index,
   isActive,
   activeDropdown,
   onItemClick,
   onDropdownClose
 }) => {
-  const navigate = useNavigate();
-  const dropdownRef = useRef<HTMLDivElement>(null);
-  const isDropdownOpen = activeDropdown === item.name;
+  const [isHovered, setIsHovered] = useState(false);
+  const hasDropdown = item.subItems && item.subItems.length > 0;
+  const isDropdownOpen = activeDropdown === item.name || isHovered;
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        onDropdownClose();
-      }
-    };
-
-    if (isDropdownOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
+  const handleMouseEnter = () => {
+    if (hasDropdown) {
+      setIsHovered(true);
     }
+  };
 
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isDropdownOpen, onDropdownClose]);
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
 
-  const handleSubItemClick = (subItem: NavigationSubItem) => {
-    navigate(subItem.path);
-    onDropdownClose();
+  const handleClick = () => {
+    if (hasDropdown) {
+      onItemClick(item);
+    }
   };
 
   return (
-    <div className="relative" ref={dropdownRef}>
-      <motion.button
-        onClick={() => onItemClick(item)}
-        className={`
-          relative px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 flex items-center gap-1
-          ${isActive 
-            ? 'text-sheraa-primary bg-white/20 shadow-lg' 
-            : 'text-gray-700 dark:text-gray-200 hover:text-sheraa-primary hover:bg-white/10'
-          }
-        `}
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 * index }}
-      >
-        <span>{item.name}</span>
-        {item.subItems && item.subItems.length > 0 && (
+    <div 
+      className="relative"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      {hasDropdown ? (
+        <button
+          onClick={handleClick}
+          className={`flex items-center gap-1 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+            isActive || isDropdownOpen
+              ? 'text-sheraa-primary bg-sheraa-primary/10'
+              : 'text-gray-700 dark:text-gray-200 hover:text-sheraa-primary hover:bg-sheraa-primary/5'
+          }`}
+        >
+          <span>{item.name}</span>
           <motion.div
             animate={{ rotate: isDropdownOpen ? 180 : 0 }}
             transition={{ duration: 0.2 }}
           >
             <ChevronDown className="w-4 h-4" />
           </motion.div>
-        )}
-      </motion.button>
+        </button>
+      ) : (
+        <Link
+          to={item.path}
+          className={`flex items-center gap-1 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+            isActive
+              ? 'text-sheraa-primary bg-sheraa-primary/10'
+              : 'text-gray-700 dark:text-gray-200 hover:text-sheraa-primary hover:bg-sheraa-primary/5'
+          }`}
+        >
+          <span>{item.name}</span>
+        </Link>
+      )}
 
+      {/* Dropdown Menu */}
       <AnimatePresence>
-        {isDropdownOpen && item.subItems && (
+        {hasDropdown && isDropdownOpen && (
           <motion.div
             initial={{ opacity: 0, y: 10, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
-            transition={{ duration: 0.2 }}
-            className="absolute top-full left-0 mt-2 min-w-[220px] bg-white/95 dark:bg-sheraa-dark/95 backdrop-blur-xl border border-white/20 dark:border-gray-700/50 rounded-2xl shadow-2xl overflow-hidden z-[9999]"
+            transition={{ duration: 0.15 }}
+            className="absolute top-full left-0 mt-2 w-80 bg-white dark:bg-sheraa-dark border border-gray-200 dark:border-gray-700 rounded-xl shadow-xl overflow-hidden z-[9999]"
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
           >
-            <div className="py-2">
-              {item.subItems.map((subItem, subIndex) => (
-                <motion.button
-                  key={subItem.name}
-                  onClick={() => handleSubItemClick(subItem)}
-                  className="w-full text-left px-4 py-3 text-sm text-gray-700 dark:text-gray-200 hover:bg-sheraa-primary/10 hover:text-sheraa-primary transition-all duration-200 flex items-center gap-3"
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.05 * subIndex }}
-                  whileHover={{ x: 4 }}
+            <div className="p-2">
+              {item.subItems?.map((subItem, index) => (
+                <Link
+                  key={subItem.path}
+                  to={subItem.path}
+                  onClick={onDropdownClose}
+                  className="block p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors group"
                 >
-                  {subItem.icon && <subItem.icon className="w-4 h-4 flex-shrink-0" />}
-                  <div>
-                    <div className="font-medium">{subItem.name}</div>
-                    {subItem.description && (
-                      <div className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-                        {subItem.description}
-                      </div>
-                    )}
+                  <div className="font-medium text-gray-900 dark:text-white group-hover:text-sheraa-primary transition-colors">
+                    {subItem.name}
                   </div>
-                </motion.button>
+                  {subItem.description && (
+                    <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                      {subItem.description}
+                    </div>
+                  )}
+                </Link>
               ))}
             </div>
           </motion.div>
