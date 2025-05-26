@@ -79,7 +79,6 @@ const wordVariants = {
 export const SophisticatedHeroAnimation: React.FC = () => {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 500], [0, -150]);
@@ -105,7 +104,6 @@ export const SophisticatedHeroAnimation: React.FC = () => {
       
       springX.set(x * 20);
       springY.set(y * 20);
-      setMousePosition({ x: clientX, y: clientY });
     };
 
     window.addEventListener('mousemove', handleMouseMove);
@@ -174,14 +172,14 @@ export const SophisticatedHeroAnimation: React.FC = () => {
                 left: `calc(50% + ${x}px)`,
                 top: `calc(50% + ${y}px)`,
                 transform: 'translate(-50%, -50%)',
+                x: springX,
+                y: springY,
               }}
               initial={{ opacity: 0, scale: 0, rotate: -180 }}
               animate={{ 
                 opacity: [0.2, 0.6, 0.2],
                 scale: [0.8, 1.3, 0.8],
                 rotate: [0, 360],
-                x: springX,
-                y: springY,
               }}
               transition={{
                 duration: 12 + index,
@@ -189,8 +187,6 @@ export const SophisticatedHeroAnimation: React.FC = () => {
                 repeat: Infinity,
                 ease: "easeInOut",
                 rotate: { duration: 20, repeat: Infinity, ease: "linear" },
-                x: { type: "spring", stiffness: 300, damping: 30 },
-                y: { type: "spring", stiffness: 300, damping: 30 },
               }}
             >
               <IconComponent size={item.size} />
