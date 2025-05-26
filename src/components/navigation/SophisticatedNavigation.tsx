@@ -26,36 +26,38 @@ export const SophisticatedNavigation: React.FC = () => {
   };
 
   return (
-    <>
-      <ThemeToggle />
-      <div onMouseLeave={handleMouseLeave}>
-        <SophisticatedNavigationContainer>
-          <SophisticatedLogo />
+    <div onMouseLeave={handleMouseLeave}>
+      <SophisticatedNavigationContainer>
+        <SophisticatedLogo />
 
-          {/* Enhanced Navigation Menu */}
-          <div className="hidden lg:flex items-center space-x-2">
-            {sophisticatedNavigationItems.map((item, index) => {
-              const isActive = isPathActive(item.path, item.subItems);
+        {/* Enhanced Navigation Menu */}
+        <div className="hidden lg:flex items-center space-x-1">
+          {sophisticatedNavigationItems.map((item, index) => {
+            const isActive = isPathActive(item.path, item.subItems);
 
-              return (
-                <SophisticatedNavItem
-                  key={item.name}
-                  item={item}
-                  index={index}
-                  isActive={isActive}
-                  activeDropdown={activeDropdown}
-                  onMouseEnter={() => item.subItems && setActiveDropdown(item.name)}
-                  onMouseLeave={() => {
-                    if (!item.subItems) setActiveDropdown(null);
-                  }}
-                />
-              );
-            })}
-          </div>
+            return (
+              <SophisticatedNavItem
+                key={item.name}
+                item={item}
+                index={index}
+                isActive={isActive}
+                activeDropdown={activeDropdown}
+                onMouseEnter={() => item.subItems && setActiveDropdown(item.name)}
+                onMouseLeave={() => {
+                  if (!item.subItems) setActiveDropdown(null);
+                }}
+              />
+            );
+          })}
+        </div>
 
-          <SophisticatedMobileMenu />
-        </SophisticatedNavigationContainer>
-      </div>
-    </>
+        {/* Theme Toggle */}
+        <div className="flex items-center">
+          <ThemeToggle />
+        </div>
+
+        <SophisticatedMobileMenu />
+      </SophisticatedNavigationContainer>
+    </div>
   );
 };

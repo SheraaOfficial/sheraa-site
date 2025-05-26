@@ -44,9 +44,9 @@ export const SophisticatedNavItem: React.FC<SophisticatedNavItemProps> = ({
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: index * 0.1 }}
         className={cn(
-          "relative px-4 py-3 rounded-2xl transition-all duration-300 cursor-pointer",
+          "relative px-3 md:px-4 py-2 md:py-3 rounded-xl md:rounded-2xl transition-all duration-300 cursor-pointer",
           "hover:bg-white/30 dark:hover:bg-white/20 backdrop-blur-sm border border-transparent",
-          "flex items-center gap-2 font-medium",
+          "flex items-center gap-2 font-medium text-sm md:text-base",
           isActive && "bg-white/40 dark:bg-white/30 border-white/40 shadow-lg",
           item.special && "bg-gradient-to-r from-sheraa-sef-primary/30 to-sheraa-sef-secondary/20 border-sheraa-sef-primary/40"
         )}
@@ -55,13 +55,13 @@ export const SophisticatedNavItem: React.FC<SophisticatedNavItemProps> = ({
         onClick={handleClick}
       >
         <Icon className={cn(
-          "w-5 h-5",
+          "w-4 h-4 md:w-5 md:h-5",
           item.special 
             ? "text-sheraa-sef-primary dark:text-sheraa-sef-primary" 
             : "text-gray-800 dark:text-white"
         )} />
         <span className={cn(
-          "text-sm font-semibold",
+          "text-xs md:text-sm font-semibold",
           item.special 
             ? "bg-gradient-to-r from-sheraa-sef-primary to-sheraa-sef-secondary bg-clip-text text-transparent"
             : "text-gray-800 dark:text-white"
@@ -74,13 +74,13 @@ export const SophisticatedNavItem: React.FC<SophisticatedNavItemProps> = ({
             animate={{ rotate: isDropdownOpen ? 180 : 0 }}
             transition={{ duration: 0.2 }}
           >
-            <ChevronDown className="w-4 h-4 text-gray-700 dark:text-gray-300" />
+            <ChevronDown className="w-3 h-3 md:w-4 md:h-4 text-gray-700 dark:text-gray-300" />
           </motion.div>
         )}
         
         {item.special && (
           <motion.div
-            className="absolute -top-1 -right-1 w-3 h-3 bg-gradient-to-r from-sheraa-sef-primary to-sheraa-sef-secondary rounded-full"
+            className="absolute -top-1 -right-1 w-2 h-2 md:w-3 md:h-3 bg-gradient-to-r from-sheraa-sef-primary to-sheraa-sef-secondary rounded-full"
             animate={{ scale: [1, 1.2, 1] }}
             transition={{ duration: 2, repeat: Infinity }}
           />
@@ -95,7 +95,7 @@ export const SophisticatedNavItem: React.FC<SophisticatedNavItemProps> = ({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="absolute top-full left-0 mt-2 min-w-[280px] bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/20 dark:border-gray-700/50 py-2 z-50"
+            className="absolute top-full left-0 mt-2 min-w-[280px] bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/20 dark:border-gray-700/50 py-2 z-[10000]"
           >
             {item.subItems.map((subItem, subIndex) => (
               <Link
