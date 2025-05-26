@@ -1,6 +1,5 @@
 
 import React, { lazy, Suspense } from "react";
-import MainLayout from "@/components/layouts/MainLayout";
 import { useOptimizedScroll } from "@/hooks/useOptimizedScroll";
 import { useBackgroundAnimation } from "@/hooks/use-background-animation";
 import { useScrollDirection } from "@/hooks/use-scroll-direction";
@@ -10,7 +9,7 @@ import { useDevicePerformance } from "@/hooks/useDevicePerformance";
 import { useIsMobile } from "@/hooks/useDeviceDetection";
 import { SectionLoading } from "@/components/layout/SectionLoading";
 import { WelcomeAnimation } from "@/components/ui/welcome-animation";
-import NewNavigationBar from "@/components/navigation/NewNavigationBar";
+import NavigationBar from "@/components/NavigationBar";
 
 // Import critical components directly for better performance
 import HomepageHero from "@/components/homepage/HomepageHero";
@@ -28,8 +27,8 @@ const Index: React.FC = () => {
 
   return (
     <div className="relative bg-white dark:bg-sheraa-dark">
-      {/* New Navigation Bar - positioned at the top */}
-      <NewNavigationBar />
+      {/* Navigation Bar */}
+      <NavigationBar />
       
       {/* Welcome animation for first-time visitors */}
       <WelcomeAnimation />
@@ -37,7 +36,7 @@ const Index: React.FC = () => {
       {/* Progress bar for navigation */}
       {(!isMobile || devicePerformance === 'high') && <ProgressBar />}
 
-      {/* Main content without any additional navigation */}
+      {/* Main content */}
       <div 
         className="relative"
         style={backgroundStyle}
