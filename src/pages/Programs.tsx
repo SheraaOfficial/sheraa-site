@@ -1,4 +1,3 @@
-
 import React from 'react';
 import MainLayout from '@/components/layouts/MainLayout';
 import { motion } from 'framer-motion';
@@ -292,6 +291,51 @@ const Programs: React.FC = () => {
                   </Card>
                 </motion.div>
               ))}
+            </motion.div>
+
+            {/* Additional Programs Section */}
+            <motion.div 
+              variants={containerVariants}
+              className="mt-16 text-center"
+            >
+              <motion.h3 
+                variants={itemVariants}
+                className="text-2xl font-bold mb-8"
+              >
+                Specialized Programs
+              </motion.h3>
+              <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                <motion.div variants={itemVariants}>
+                  <Card className="hover:shadow-lg transition-all duration-300">
+                    <CardContent className="p-6 text-center">
+                      <GraduationCap className="w-12 h-12 text-blue-500 mx-auto mb-4" />
+                      <h4 className="text-lg font-bold mb-2">Startup Dojo</h4>
+                      <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">
+                        8-week summer incubation program for students
+                      </p>
+                      <Button asChild variant="outline" size="sm">
+                        <Link to="/programs/startup-dojo">Learn More</Link>
+                      </Button>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+                
+                <motion.div variants={itemVariants}>
+                  <Card className="hover:shadow-lg transition-all duration-300">
+                    <CardContent className="p-6 text-center">
+                      <Star className="w-12 h-12 text-purple-500 mx-auto mb-4" />
+                      <p className="text-sm text-gray-500 mb-2">Coming Soon</p>
+                      <h4 className="text-lg font-bold mb-2">Additional Programs</h4>
+                      <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">
+                        More specialized programs launching soon
+                      </p>
+                      <Button variant="outline" size="sm" disabled>
+                        Stay Tuned
+                      </Button>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              </div>
             </motion.div>
           </div>
         </section>

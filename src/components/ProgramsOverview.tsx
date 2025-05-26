@@ -42,16 +42,6 @@ const ProgramsOverview = () => {
       iconColor: "text-purple-500"
     },
     {
-      title: "Deal Dock",
-      subtitle: "Investment Platform",
-      description: "Investment readiness and funding opportunities for high-potential startups.",
-      link: "/programs/deal-dock",
-      icon: Handshake,
-      stats: "Investor Network",
-      color: "from-yellow-500/20 to-orange-500/20",
-      iconColor: "text-yellow-600"
-    },
-    {
       title: "SME Support",
       subtitle: "Business Growth",
       description: "Tailored resources and connections for established SMEs seeking growth and innovation.",
@@ -60,6 +50,16 @@ const ProgramsOverview = () => {
       stats: "60k+ SMEs",
       color: "from-orange-500/20 to-red-500/20",
       iconColor: "text-orange-500"
+    },
+    {
+      title: "Startup Dojo",
+      subtitle: "Summer Incubation",
+      description: "8-week intensive program for students to transform ideas into viable solutions.",
+      link: "/programs/startup-dojo",
+      icon: GraduationCap,
+      stats: "Summer Program",
+      color: "from-indigo-500/20 to-blue-500/20",
+      iconColor: "text-indigo-500"
     }
   ];
 
