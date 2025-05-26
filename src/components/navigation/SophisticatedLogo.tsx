@@ -52,9 +52,13 @@ export const SophisticatedLogo: React.FC = () => {
           />
         </motion.div>
         
-        {/* SHERAA Text */}
+        {/* SHERAA Text with better visibility for light theme */}
         <motion.div
-          className="text-2xl md:text-3xl font-black tracking-wide bg-gradient-to-r from-sheraa-primary to-sheraa-teal bg-clip-text text-transparent"
+          className={`text-2xl md:text-3xl font-black tracking-wide ${
+            theme === 'light' 
+              ? 'text-sheraa-primary' 
+              : 'bg-gradient-to-r from-sheraa-primary to-sheraa-teal bg-clip-text text-transparent'
+          }`}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.3 }}
