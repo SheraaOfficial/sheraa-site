@@ -10,6 +10,7 @@ import { CommunityPartnersSection } from "@/components/homepage/redesign/Communi
 import { VisionQuoteSection } from "@/components/homepage/redesign/VisionQuoteSection";
 import { FinalCTASection } from "@/components/homepage/redesign/FinalCTASection";
 import { StickyCornerCTA } from "@/components/ui/sticky-corner-cta";
+import { StickyJobCTA } from "@/components/ui/sticky-job-cta";
 
 const NewIndex: React.FC = () => {
   return (
@@ -23,21 +24,18 @@ const NewIndex: React.FC = () => {
       <VisionQuoteSection />
       <FinalCTASection />
       
-      {/* Multiple Sticky Corner CTAs */}
+      {/* Sticky CTAs */}
       <StickyCornerCTA 
         href="/eligibility"
         text="Find Your Program"
         subtext="AI-Powered Matcher"
       />
       
-      {/* Add Careers CTA positioned differently */}
-      <div className="fixed bottom-6 left-6 z-[9998]">
-        <StickyCornerCTA 
-          href="/careers"
-          text="Join Our Team"
-          subtext="Build the Future"
-        />
-      </div>
+      <StickyJobCTA 
+        href="/careers"
+        text="Join Our Team"
+        subtext="Shape the Future"
+      />
     </MainLayout>
   );
 };

@@ -9,21 +9,16 @@ interface NavigationItemProps {
   item: NavItemType;
   index: number;
   isActive: boolean;
-  activeDropdown: string | null;
-  onItemClick: (item: NavItemType) => void;
   onDropdownClose: () => void;
 }
 
 export const NavigationItem: React.FC<NavigationItemProps> = ({
   item,
   isActive,
-  activeDropdown,
-  onItemClick,
   onDropdownClose
 }) => {
   const [isHovered, setIsHovered] = useState(false);
   const hasDropdown = item.subItems && item.subItems.length > 0;
-  const isDropdownOpen = activeDropdown === item.name || isHovered;
 
   const handleMouseEnter = () => {
     if (hasDropdown) {
@@ -35,12 +30,6 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
     setIsHovered(false);
   };
 
-  const handleClick = () => {
-    if (hasDropdown) {
-      onItemClick(item);
-    }
-  };
-
   return (
     <div 
       className="relative"
@@ -48,22 +37,21 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
       onMouseLeave={handleMouseLeave}
     >
       {hasDropdown ? (
-        <button
-          onClick={handleClick}
-          className={`flex items-center gap-1 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-            isActive || isDropdownOpen
+        <div
+          className={`flex items-center gap-1 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 cursor-pointer ${
+            isActive || isHovered
               ? 'text-sheraa-primary bg-sheraa-primary/10'
               : 'text-gray-700 dark:text-gray-200 hover:text-sheraa-primary hover:bg-sheraa-primary/5'
           }`}
         >
           <span>{item.name}</span>
           <motion.div
-            animate={{ rotate: isDropdownOpen ? 180 : 0 }}
+            animate={{ rotate: isHovered ? 180 : 0 }}
             transition={{ duration: 0.2 }}
           >
             <ChevronDown className="w-4 h-4" />
           </motion.div>
-        </button>
+        </div>
       ) : (
         <Link
           to={item.path}
@@ -79,7 +67,7 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
 
       {/* Dropdown Menu */}
       <AnimatePresence>
-        {hasDropdown && isDropdownOpen && (
+        {hasDropdown && isHovered && (
           <motion.div
             initial={{ opacity: 0, y: 10, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -90,7 +78,7 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
             onMouseLeave={() => setIsHovered(false)}
           >
             <div className="p-2">
-              {item.subItems?.map((subItem, index) => (
+              {item.subItems?.map((subItem) => (
                 <Link
                   key={subItem.path}
                   to={subItem.path}
