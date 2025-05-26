@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Globe } from 'lucide-react';
 import {
@@ -8,38 +8,37 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import type { Language } from './types';
+import { useLanguage } from '@/contexts/LanguageContext';
 
-const languages: Language[] = [
-  { code: 'en', name: 'English', flag: '🇺🇸' },
-  { code: 'ar', name: 'العربية', flag: '🇦🇪' },
+const languages = [
+  { code: 'en' as const, name: 'English', flag: '🇺🇸' },
+  { code: 'ar' as const, name: 'العربية', flag: '🇦🇪' },
 ];
 
 export const LanguageSwitcher: React.FC = () => {
-  const [currentLanguage, setCurrentLanguage] = useState<Language>(languages[0]);
+  const { language, setLanguage } = useLanguage();
 
-  const handleLanguageChange = (language: Language) => {
-    setCurrentLanguage(language);
-    console.log('Language changed to:', language.code);
+  const handleLanguageChange = (newLanguage: 'en' | 'ar') => {
+    setLanguage(newLanguage);
   };
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="sm" className="text-gray-600 dark:text-gray-300 hover:text-sheraa-primary px-2 py-1.5 h-8">
-          <Globe className="w-3.5 h-3.5 mr-1.5" />
-          <span className="text-xs font-medium">{currentLanguage.code === 'en' ? 'EN' : 'AR'}</span>
+        <Button variant="ghost" size="sm" className="text-gray-600 dark:text-gray-300 hover:text-sheraa-primary px-3 py-2 h-9">
+          <Globe className="w-4 h-4 mr-2" />
+          <span className="text-sm font-medium">{language.toUpperCase()}</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="min-w-[120px]">
-        {languages.map((language) => (
+      <DropdownMenuContent align="end" className="min-w-[140px]">
+        {languages.map((lang) => (
           <DropdownMenuItem
-            key={language.code}
-            onClick={() => handleLanguageChange(language)}
-            className={`cursor-pointer text-sm ${currentLanguage.code === language.code ? 'bg-sheraa-primary/10 text-sheraa-primary' : ''}`}
+            key={lang.code}
+            onClick={() => handleLanguageChange(lang.code)}
+            className={`cursor-pointer text-sm ${language === lang.code ? 'bg-sheraa-primary/10 text-sheraa-primary' : ''}`}
           >
-            <span className="mr-2">{language.flag}</span>
-            {language.name}
+            <span className="mr-2">{lang.flag}</span>
+            {lang.name}
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>

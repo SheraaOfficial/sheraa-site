@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
+import { LanguageProvider } from '@/contexts/LanguageContext';
 import ScrollToTop from '@/components/utils/ScrollToTop';
 
 // Pages
@@ -45,58 +46,60 @@ const queryClient = new QueryClient();
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <div className="min-h-screen bg-white dark:bg-sheraa-dark text-gray-900 dark:text-white">
-          <ScrollToTop />
-          <Toaster />
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/about/leadership" element={<Leadership />} />
-            <Route path="/about/board" element={<Board />} />
-            <Route path="/careers" element={<Careers />} />
-            
-            {/* Programs Routes */}
-            <Route path="/programs" element={<Programs />} />
-            <Route path="/programs/s3-incubator" element={<S3Incubator />} />
-            <Route path="/programs/start-young" element={<StartYoung />} />
-            <Route path="/programs/startup-dojo" element={<StartupDojoPage />} />
-            <Route path="/programs/startup-dojo-plus" element={<StartupDojoPlus />} />
-            <Route path="/programs/access-sharjah-challenge" element={<AccessSharjahChallenge />} />
-            <Route path="/programs/sme-support" element={<SMESupport />} />
-            <Route path="/programs/deal-dock" element={<DealDockPage />} />
-            
-            {/* Community Routes */}
-            <Route path="/community" element={<Community />} />
-            <Route path="/community/join" element={<CommunityJoin />} />
-            <Route path="/community/partnerships" element={<Partnerships />} />
-            <Route path="/community/startups" element={<StartupDirectory />} />
-            
-            {/* Resources Routes */}
-            <Route path="/resources" element={<Resources />} />
-            <Route path="/resources/guides" element={<Guides />} />
-            <Route path="/resources/advisory" element={<Advisory />} />
-            <Route path="/resources/articles" element={<Articles />} />
-            <Route path="/resources/impact-reports" element={<ImpactReports />} />
-            
-            {/* Events Routes */}
-            <Route path="/events" element={<Events />} />
-            <Route path="/events/upcoming" element={<UpcomingEvents />} />
-            <Route path="/events/past" element={<PastEvents />} />
-            <Route path="/events/sef" element={<SEFLandingPage />} />
-            
-            {/* Other Routes */}
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/auth" element={<AuthPage />} />
-            <Route path="/auth/*" element={<AuthPage />} />
-            <Route path="/eligibility" element={<EligibilityCheckerPage />} />
-            <Route path="/book-consultation" element={<BookConsultationPage />} />
-            
-            {/* 404 Route */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </div>
-      </TooltipProvider>
+      <LanguageProvider>
+        <TooltipProvider>
+          <div className="min-h-screen bg-white dark:bg-sheraa-dark text-gray-900 dark:text-white">
+            <ScrollToTop />
+            <Toaster />
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/about/leadership" element={<Leadership />} />
+              <Route path="/about/board" element={<Board />} />
+              <Route path="/careers" element={<Careers />} />
+              
+              {/* Programs Routes */}
+              <Route path="/programs" element={<Programs />} />
+              <Route path="/programs/s3-incubator" element={<S3Incubator />} />
+              <Route path="/programs/start-young" element={<StartYoung />} />
+              <Route path="/programs/startup-dojo" element={<StartupDojoPage />} />
+              <Route path="/programs/startup-dojo-plus" element={<StartupDojoPlus />} />
+              <Route path="/programs/access-sharjah-challenge" element={<AccessSharjahChallenge />} />
+              <Route path="/programs/sme-support" element={<SMESupport />} />
+              <Route path="/programs/deal-dock" element={<DealDockPage />} />
+              
+              {/* Community Routes */}
+              <Route path="/community" element={<Community />} />
+              <Route path="/community/join" element={<CommunityJoin />} />
+              <Route path="/community/partnerships" element={<Partnerships />} />
+              <Route path="/community/startups" element={<StartupDirectory />} />
+              
+              {/* Resources Routes */}
+              <Route path="/resources" element={<Resources />} />
+              <Route path="/resources/guides" element={<Guides />} />
+              <Route path="/resources/advisory" element={<Advisory />} />
+              <Route path="/resources/articles" element={<Articles />} />
+              <Route path="/resources/impact-reports" element={<ImpactReports />} />
+              
+              {/* Events Routes */}
+              <Route path="/events" element={<Events />} />
+              <Route path="/events/upcoming" element={<UpcomingEvents />} />
+              <Route path="/events/past" element={<PastEvents />} />
+              <Route path="/events/sef" element={<SEFLandingPage />} />
+              
+              {/* Other Routes */}
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/auth" element={<AuthPage />} />
+              <Route path="/auth/*" element={<AuthPage />} />
+              <Route path="/eligibility" element={<EligibilityCheckerPage />} />
+              <Route path="/book-consultation" element={<BookConsultationPage />} />
+              
+              {/* 404 Route */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </div>
+        </TooltipProvider>
+      </LanguageProvider>
     </QueryClientProvider>
   );
 }

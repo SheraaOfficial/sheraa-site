@@ -5,11 +5,13 @@ import { Button } from '@/components/ui/button';
 import { User, LogOut } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import { useLanguage } from '@/contexts/LanguageContext';
 import type { User as SupabaseUser } from '@supabase/supabase-js';
 
 export const AuthButtons: React.FC = () => {
   const [user, setUser] = useState<SupabaseUser | null>(null);
   const { toast } = useToast();
+  const { t } = useLanguage();
 
   useEffect(() => {
     // Get initial session
@@ -54,7 +56,7 @@ export const AuthButtons: React.FC = () => {
           onClick={handleSignOut}
           variant="ghost"
           size="sm"
-          className="text-gray-600 dark:text-gray-300 hover:text-sheraa-primary"
+          className="text-gray-600 dark:text-gray-300 hover:text-sheraa-primary px-3 py-2"
         >
           <LogOut className="w-4 h-4" />
           <span className="hidden sm:inline ml-1">Sign Out</span>
@@ -65,11 +67,11 @@ export const AuthButtons: React.FC = () => {
 
   return (
     <div className="flex items-center gap-2">
-      <Button asChild variant="ghost" size="sm" className="text-gray-600 dark:text-gray-300 hover:text-sheraa-primary">
-        <Link to="/auth">Sign In</Link>
+      <Button asChild variant="ghost" size="sm" className="text-gray-600 dark:text-gray-300 hover:text-sheraa-primary px-3 py-2">
+        <Link to="/auth">{t('nav.login')}</Link>
       </Button>
-      <Button asChild size="sm" className="bg-sheraa-primary hover:bg-sheraa-primary/90 text-white">
-        <Link to="/auth">Sign Up</Link>
+      <Button asChild size="sm" className="bg-sheraa-primary hover:bg-sheraa-primary/90 text-white px-4 py-2">
+        <Link to="/auth">{t('nav.signup')}</Link>
       </Button>
     </div>
   );

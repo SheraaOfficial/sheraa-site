@@ -1,7 +1,7 @@
 
 import React from "react";
 import MainLayout from "@/components/layouts/MainLayout";
-import HomepageHero from "@/components/homepage/HomepageHero";
+import { ImmersiveHero } from "@/components/hero/ImmersiveHero";
 import { ImpactMetricsSection } from "@/components/homepage/redesign/ImpactMetricsSection";
 import { ProgramsJourneySection } from "@/components/homepage/redesign/ProgramsJourneySection";
 import { StartupEcosystemSection } from "@/components/homepage/redesign/StartupEcosystemSection";
@@ -14,7 +14,7 @@ import { CyclingStickyCornerCTA } from "@/components/ui/cycling-sticky-cta";
 const Index = () => {
   return (
     <MainLayout>
-      <HomepageHero />
+      <ImmersiveHero />
       <ImpactMetricsSection />
       <ProgramsJourneySection />
       <StartupEcosystemSection />
@@ -23,7 +23,6 @@ const Index = () => {
       <VisionQuoteSection />
       <FinalCTASection />
       
-      {/* Replace the old sticky CTAs with the new cycling one */}
       <CyclingStickyCornerCTA />
     </MainLayout>
   );
