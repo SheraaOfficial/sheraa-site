@@ -1,33 +1,19 @@
 
-import React from "react";
-import Footer from "@/components/Footer";
-import MainNavigation from "@/components/navigation/MainNavigation";
-import { cn } from "@/lib/utils";
+import React from 'react';
+import ModernNavigation from '@/components/navigation/ModernNavigation';
+import Footer from '@/components/Footer';
 
 interface MainLayoutProps {
   children: React.ReactNode;
-  className?: string;
-  backgroundStyle?: React.CSSProperties;
-  hideNavigation?: boolean;
 }
 
-const MainLayout: React.FC<MainLayoutProps> = ({ 
-  children, 
-  className, 
-  backgroundStyle,
-  hideNavigation = false
-}) => {
+const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   return (
-    <div 
-      className={cn("min-h-screen flex flex-col", className)}
-      style={backgroundStyle}
-    >
-      {!hideNavigation && <MainNavigation />}
-      
-      <main className={cn("flex-1", !hideNavigation && "pt-16")}>
+    <div className="min-h-screen flex flex-col">
+      <ModernNavigation />
+      <main className="flex-grow pt-16">
         {children}
       </main>
-      
       <Footer />
     </div>
   );

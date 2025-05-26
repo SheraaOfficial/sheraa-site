@@ -15,6 +15,9 @@ import Index from "@/pages/Index";
 import NewIndex from "@/pages/NewIndex";
 import ProgramsPage from "@/pages/programs/ProgramsPage";
 import DealDockPage from "@/pages/programs/DealDockPage";
+import S3IncubatorPage from "@/pages/programs/S3IncubatorPage";
+import StartupDojoPage from "@/pages/programs/StartupDojoPage";
+import AccessSharjahChallengePage from "@/pages/programs/AccessSharjahChallengePage";
 import SEFLandingPage from "@/pages/events/sef-landing";
 import EligibilityCheckerPage from "@/pages/eligibility/EligibilityCheckerPage";
 import LoginPage from "@/pages/auth/LoginPage";
@@ -62,6 +65,9 @@ const AppWrapper = () => {
                       {/* Programs Routes */}
                       <Route path="/programs" element={<ProgramsPage />} />
                       <Route path="/programs/deal-dock" element={<DealDockPage />} />
+                      <Route path="/programs/s3-incubator" element={<S3IncubatorPage />} />
+                      <Route path="/programs/startup-dojo" element={<StartupDojoPage />} />
+                      <Route path="/programs/access-sharjah-challenge" element={<AccessSharjahChallengePage />} />
                       
                       {/* Resources Routes */}
                       <Route path="/resources" element={<ResourcesRouter />} />
