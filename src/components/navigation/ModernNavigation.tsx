@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { SophisticatedNavigation } from '@/components/ui/sophisticated-navigation';
+import { SophisticatedNavigation } from './SophisticatedNavigation';
 
 const ModernNavigation = () => {
   return <SophisticatedNavigation />;
