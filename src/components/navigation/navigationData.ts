@@ -1,4 +1,4 @@
-import { Home, Compass, TrendingUp, Users, Info, FileText, Calendar, Sparkles } from "lucide-react";
+import { Home, Compass, TrendingUp, Users, Info, FileText, Calendar, Sparkles, LucideIcon } from "lucide-react";
 
 export interface NavigationLink {
   title: string;

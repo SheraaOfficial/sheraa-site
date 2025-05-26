@@ -1,4 +1,3 @@
-
 import React from "react";
 import MainLayout from "@/components/layouts/MainLayout";
 import { motion } from "framer-motion";
@@ -447,7 +446,7 @@ const ProgramsPage: React.FC = () => {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <EligibilityCheckerButton 
-                    variant="secondary"
+                    variant="gradient"
                     size="lg"
                     text="Start My Application"
                     className="bg-white text-sheraa-primary hover:bg-gray-50"

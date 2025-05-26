@@ -11,7 +11,7 @@ import {
   Users, Target, Heart, Globe, Coffee, Zap, 
   MapPin, Clock, DollarSign, Star, ArrowRight,
   Briefcase, GraduationCap, Code, Megaphone,
-  UserCheck, Upload, Send, CheckCircle
+  UserCheck, Upload, Send, CheckCircle, TrendingUp
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
