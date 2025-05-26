@@ -1,142 +1,64 @@
 
 import React from "react";
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
+import { Users, TrendingUp, Award, Target, Briefcase, Globe, Percent } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
-const metrics = [
-  { number: "180+", label: "Startups Supported", description: "Companies we've helped grow", color: "from-blue-500 to-blue-600" },
-  { number: "$248M+", label: "Revenue Generated", description: "Total revenue by our startups", color: "from-green-500 to-green-600" },
-  { number: "$171M+", label: "Capital Raised", description: "Investment secured", color: "from-purple-500 to-purple-600" },
-  { number: "1,900+", label: "Jobs Created", description: "Employment opportunities", color: "from-orange-500 to-orange-600" },
-  { number: "52%", label: "Women-Led Startups", description: "Diverse leadership", color: "from-pink-500 to-pink-600" },
-  { number: "71%", label: "Survival Rate", description: "Long-term success rate", color: "from-sheraa-primary to-sheraa-teal" }
+const impactMetrics = [
+  { icon: Users, number: "180+", labelKey: "impact.startups", color: "text-sheraa-primary" },
+  { icon: TrendingUp, number: "$248M+", labelKey: "impact.revenue", color: "text-sheraa-orange" },
+  { icon: Award, number: "$171M+", labelKey: "impact.funding", color: "text-sheraa-teal" },
+  { icon: Briefcase, number: "1,900+", labelKey: "impact.jobs", color: "text-sheraa-primary" },
+  { icon: Target, number: "52%", labelKey: "impact.women", color: "text-sheraa-secondary" },
+  { icon: Globe, number: "18,000+", labelKey: "impact.youth", color: "text-sheraa-orange" },
+  { icon: Users, number: "140+", labelKey: "impact.partners", color: "text-sheraa-teal" },
+  { icon: Percent, number: "71%", labelKey: "impact.survival", color: "text-sheraa-primary" },
 ];
 
 export const ImpactMetricsSection: React.FC = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t, language } = useLanguage();
 
   return (
-    <section ref={ref} className="py-24 bg-white dark:bg-sheraa-dark relative overflow-hidden">
-      {/* Background Animation */}
-      <div className="absolute inset-0">
+    <section className="py-16 md:py-24 bg-gradient-to-b from-white to-sheraa-light/30 dark:from-sheraa-dark dark:to-black">
+      <div className="container mx-auto px-4">
         <motion.div
-          className="absolute top-0 right-0 w-96 h-96 bg-sheraa-primary/5 rounded-full blur-3xl"
-          animate={{
-            scale: [1, 1.1, 1],
-            opacity: [0.3, 0.5, 0.3],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-      </div>
-
-      <div className="container mx-auto px-4 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className={`text-center mb-16 ${language === 'ar' ? 'font-arabic' : ''}`}
         >
-          <motion.h2 
-            className="text-4xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white"
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            Real Impact, Real Results
-          </motion.h2>
-          <motion.p 
-            className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-          >
-            Numbers that tell our story. See how we're building the future of entrepreneurship in Sharjah.
-          </motion.p>
+          <h2 className="text-4xl md:text-5xl font-bold text-sheraa-dark dark:text-white mb-6">
+            {t('impact.title')}
+          </h2>
+          <p className="text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
+            {t('impact.subtitle')}
+          </p>
         </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
-          {metrics.map((metric, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30, scale: 0.8 }}
-              animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 30, scale: 0.8 }}
-              transition={{ 
-                delay: index * 0.1 + 0.6, 
-                duration: 0.6,
-                type: "spring",
-                stiffness: 100
-              }}
-              className="text-center group cursor-pointer"
-              whileHover={{ scale: 1.05 }}
-            >
-              <motion.div 
-                className="relative mb-4"
-                whileHover={{ y: -5 }}
-                transition={{ duration: 0.2 }}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+          {impactMetrics.map((metric, index) => {
+            const IconComponent = metric.icon;
+            return (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="text-center group hover:scale-105 transition-transform duration-300 cursor-pointer bg-white/50 dark:bg-sheraa-dark/50 backdrop-blur-sm rounded-2xl p-6 border border-sheraa-primary/10"
               >
-                <div className={`absolute inset-0 bg-gradient-to-r ${metric.color} rounded-2xl opacity-20 group-hover:opacity-30 transition-opacity duration-300`} />
-                <div className="relative p-6 bg-white dark:bg-sheraa-dark rounded-2xl border border-gray-100 dark:border-gray-800 shadow-lg group-hover:shadow-xl transition-all duration-300">
-                  <motion.div 
-                    className="text-3xl md:text-4xl font-bold text-sheraa-primary mb-2"
-                    initial={{ scale: 0 }}
-                    animate={isInView ? { scale: 1 } : { scale: 0 }}
-                    transition={{ 
-                      delay: index * 0.1 + 0.8, 
-                      duration: 0.5,
-                      type: "spring",
-                      stiffness: 200
-                    }}
-                  >
-                    {metric.number}
-                  </motion.div>
-                  <motion.div 
-                    className="text-sm font-semibold text-gray-900 dark:text-white mb-1"
-                    initial={{ opacity: 0 }}
-                    animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-                    transition={{ delay: index * 0.1 + 1, duration: 0.5 }}
-                  >
-                    {metric.label}
-                  </motion.div>
-                  <motion.div 
-                    className="text-xs text-gray-600 dark:text-gray-400"
-                    initial={{ opacity: 0 }}
-                    animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-                    transition={{ delay: index * 0.1 + 1.2, duration: 0.5 }}
-                  >
-                    {metric.description}
-                  </motion.div>
+                <IconComponent className={`w-12 h-12 mx-auto mb-4 ${metric.color} group-hover:scale-110 transition-transform duration-300`} />
+                <div className="text-3xl md:text-4xl font-black mb-2 bg-gradient-to-r from-sheraa-primary to-sheraa-teal bg-clip-text text-transparent">
+                  {metric.number}
+                </div>
+                <div className={`text-sm font-medium text-gray-600 dark:text-gray-400 ${language === 'ar' ? 'font-arabic' : ''}`}>
+                  {t(metric.labelKey)}
                 </div>
               </motion.div>
-            </motion.div>
-          ))}
+            );
+          })}
         </div>
-
-        {/* Bottom CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ delay: 1.5, duration: 0.8 }}
-          className="text-center mt-16"
-        >
-          <motion.p 
-            className="text-gray-600 dark:text-gray-300 mb-6"
-            whileHover={{ scale: 1.02 }}
-          >
-            This proven track record offers credibility and assurance to potential founders, partners, and investors.
-          </motion.p>
-          <motion.button
-            className="inline-flex items-center gap-2 px-6 py-3 bg-sheraa-primary/10 text-sheraa-primary rounded-lg hover:bg-sheraa-primary/20 transition-colors duration-300 font-medium"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Read Our Latest Impact Report
-          </motion.button>
-        </motion.div>
       </div>
     </section>
   );

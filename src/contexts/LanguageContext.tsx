@@ -39,6 +39,34 @@ const translations = {
     // Impact Metrics
     'impact.title': 'Impact That Speaks Volumes',
     'impact.subtitle': 'We measure our success by the success of our founders and the growth of Sharjah\'s innovation ecosystem.',
+    'impact.startups': 'Startups Supported',
+    'impact.revenue': 'Revenue Generated',
+    'impact.funding': 'Capital Raised',
+    'impact.jobs': 'Jobs Created',
+    'impact.women': 'Women-Led Startups',
+    'impact.youth': 'Youth Upskilled',
+    'impact.partners': 'Ecosystem Partners',
+    'impact.survival': 'Startup Survival Rate',
+    
+    // Programs
+    'programs.title': 'Your Journey Starts Here',
+    'programs.subtitle': 'From validating your initial idea to scaling globally, Sheraa offers a suite of programs designed to meet you where you are.',
+    
+    // Community
+    'community.title': 'Powered by Community',
+    'community.subtitle': 'Entrepreneurship thrives in collaboration. Join a vibrant network of founders, mentors, and investors.',
+    
+    // SEF
+    'sef.title': 'Sharjah Entrepreneurship Festival',
+    'sef.subtitle': 'The region\'s premier entrepreneurship festival bringing together thousands of changemakers.',
+    
+    // Vision
+    'vision.quote': 'To establish Sharjah as a leading global hub for entrepreneurship and innovation.',
+    
+    // CTA
+    'cta.title': 'Ready to Transform Your Idea?',
+    'cta.subtitle': 'Join the region\'s most dynamic entrepreneurship ecosystem.',
+    'cta.button': 'Get Started Today',
   },
   ar: {
     // Hero Section
@@ -66,6 +94,34 @@ const translations = {
     // Impact Metrics
     'impact.title': 'تأثير يتحدث بأرقام',
     'impact.subtitle': 'نقيس نجاحنا بنجاح مؤسسينا ونمو النظام البيئي للابتكار في الشارقة.',
+    'impact.startups': 'مشروع ناشئ مدعوم',
+    'impact.revenue': 'إيرادات مُحققة',
+    'impact.funding': 'رأس مال مُجمع',
+    'impact.jobs': 'وظيفة مُوجدة',
+    'impact.women': 'مشاريع بقيادة نسائية',
+    'impact.youth': 'شاب مُدرب',
+    'impact.partners': 'شريك في النظام البيئي',
+    'impact.survival': 'معدل بقاء المشاريع',
+    
+    // Programs
+    'programs.title': 'رحلتك تبدأ من هنا',
+    'programs.subtitle': 'من التحقق من فكرتك الأولية إلى التوسع عالمياً، تقدم شراع مجموعة من البرامج المصممة لتلبية احتياجاتك.',
+    
+    // Community
+    'community.title': 'مدعوم بالمجتمع',
+    'community.subtitle': 'ريادة الأعمال تزدهر بالتعاون. انضم إلى شبكة نابضة بالحياة من المؤسسين والموجهين والمستثمرين.',
+    
+    // SEF
+    'sef.title': 'مهرجان الشارقة لريادة الأعمال',
+    'sef.subtitle': 'مهرجان ريادة الأعمال الرائد في المنطقة يجمع آلاف صناع التغيير.',
+    
+    // Vision
+    'vision.quote': 'جعل الشارقة مركزاً عالمياً رائداً لريادة الأعمال والابتكار.',
+    
+    // CTA
+    'cta.title': 'مستعد لتحويل فكرتك؟',
+    'cta.subtitle': 'انضم إلى أكثر النظم البيئية لريادة الأعمال ديناميكية في المنطقة.',
+    'cta.button': 'ابدأ اليوم',
   }
 };
 
