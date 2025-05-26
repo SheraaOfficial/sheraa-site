@@ -9,7 +9,6 @@ import { ThemeProvider } from "@/contexts/ThemeContext";
 import { PerformanceProvider } from "@/contexts/PerformanceContext";
 import { ErrorBoundary } from "@/components/layout/ErrorBoundary";
 import { SectionLoading } from "@/components/layout/SectionLoading";
-import NavigationBar from "@/components/NavigationBar";
 
 // Existing lazy imports
 const Index = lazy(() => import("./pages/Index"));
@@ -49,7 +48,6 @@ function App() {
           <TooltipProvider>
             <BrowserRouter>
               <div className="min-h-screen bg-background font-sans antialiased w-full">
-                <NavigationBar />
                 <ErrorBoundary FallbackComponent={({ error, resetErrorBoundary }) => (
                   <div className="min-h-screen flex items-center justify-center">
                     <div className="text-center">
@@ -64,7 +62,7 @@ function App() {
                     </div>
                   </div>
                 )}>
-                  <main style={{ paddingTop: navbarHeight }}>
+                  <main>
                     <Routes>
                       <Route path="/" element={<Suspense fallback={<SectionLoading />}><Index /></Suspense>} />
                       <Route path="/new" element={<Suspense fallback={<SectionLoading />}><NewIndex /></Suspense>} />
