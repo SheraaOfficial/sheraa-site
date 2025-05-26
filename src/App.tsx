@@ -1,9 +1,9 @@
-
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import ScrollToTop from '@/components/utils/ScrollToTop';
+import { ThemeProvider } from '@/contexts/ThemeContext';
 
 // Pages
 import Index from '@/pages/Index';
@@ -37,48 +37,40 @@ import SEFLandingPage from '@/pages/events/sef-landing';
 import Auth from '@/pages/Auth';
 import Eligibility from '@/pages/Eligibility';
 import BookConsultation from '@/pages/BookConsultation';
+import ProgramsRouter from '@/pages/programs';
+import CommunityRouter from '@/pages/community';
+import ResourcesPage from '@/pages/Resources';
+import EventsPage from '@/pages/Events';
+import ContactPage from '@/pages/Contact';
+import AuthPage from '@/pages/auth';
+import EligibilityCheckerPage from '@/pages/Eligibility';
+import BookConsultationPage from '@/pages/BookConsultation';
+import Homepage from '@/pages/Index';
 
 const queryClient = new QueryClient();
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <ScrollToTop />
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/careers" element={<Careers />} />
-          <Route path="/auth" element={<Auth />} />
-          <Route path="/eligibility" element={<Eligibility />} />
-          <Route path="/book-consultation" element={<BookConsultation />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/about/leadership" element={<Leadership />} />
-          <Route path="/about/board" element={<Board />} />
-          <Route path="/programs" element={<Programs />} />
-          <Route path="/programs/s3-incubator" element={<S3Incubator />} />
-          <Route path="/programs/start-young" element={<StartYoung />} />
-          <Route path="/programs/startup-dojo" element={<StartupDojo />} />
-          <Route path="/programs/access-sharjah-challenge" element={<AccessSharjahChallenge />} />
-          <Route path="/programs/sme-support" element={<SMESupport />} />
-          <Route path="/community" element={<Community />} />
-          <Route path="/community/join" element={<CommunityJoin />} />
-          <Route path="/community/partnerships" element={<Partnerships />} />
-          <Route path="/community/startups" element={<StartupDirectory />} />
-          <Route path="/resources" element={<Resources />} />
-          <Route path="/resources/guides" element={<Guides />} />
-          <Route path="/resources/advisory" element={<Advisory />} />
-          <Route path="/resources/articles" element={<Articles />} />
-          <Route path="/resources/impact-reports" element={<ImpactReports />} />
-          <Route path="/events" element={<Events />} />
-          <Route path="/events/upcoming" element={<UpcomingEvents />} />
-          <Route path="/events/past" element={<PastEvents />} />
-          <Route path="/events/sef" element={<SEFLandingPage />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-        <Toaster />
-      </TooltipProvider>
-    </QueryClientProvider>
+    <ThemeProvider>
+      <BrowserRouter>
+        <div className="min-h-screen bg-white dark:bg-sheraa-dark text-gray-900 dark:text-white">
+          <Toaster />
+          <Routes>
+            <Route path="/" element={<Homepage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/programs/*" element={<ProgramsRouter />} />
+            <Route path="/community/*" element={<CommunityRouter />} />
+            <Route path="/resources" element={<ResourcesPage />} />
+            <Route path="/events" element={<EventsPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/auth/*" element={<AuthPage />} />
+            <Route path="/auth" element={<AuthPage />} />
+            <Route path="/eligibility" element={<EligibilityCheckerPage />} />
+            <Route path="/book-consultation" element={<BookConsultationPage />} />
+          </Routes>
+        </div>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 
