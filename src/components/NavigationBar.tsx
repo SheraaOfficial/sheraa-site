@@ -8,7 +8,13 @@ import {
   ChevronDown,
   Sun,
   Moon,
-  ArrowRight
+  ArrowRight,
+  Home,
+  Compass,
+  TrendingUp,
+  Users,
+  BookOpen,
+  Calendar
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useTheme } from '@/contexts/ThemeContext';
@@ -24,16 +30,20 @@ const NavigationBar = () => {
 
   const navItems = [
     {
-      title: 'About',
+      title: 'Discover',
+      icon: Compass,
       subItems: [
         { title: 'About Sheraa', href: '/about', description: 'Our mission and vision' },
         { title: 'Why Sharjah', href: '/about/why-sharjah', description: 'Advantages of Sharjah' },
         { title: 'Our Impact', href: '/about/impact', description: 'Transforming entrepreneurship' },
-        { title: 'Leadership Team', href: '/about/team', description: 'Meet our leaders' }
+        { title: 'Leadership Team', href: '/about/team', description: 'Meet our leaders' },
+        { title: 'Careers', href: '/careers', description: 'Join our mission' },
+        { title: 'Sharjah Perfume', href: '/perfume/sharjah-premium', description: 'Discover luxury fragrances' }
       ]
     },
     {
       title: 'Programs',
+      icon: TrendingUp,
       subItems: [
         { title: 'All Programs', href: '/programs', description: 'Explore all programs' },
         { title: 'Startup Dojo', href: '/programs/startup-dojo', description: 'For student entrepreneurs' },
@@ -44,6 +54,7 @@ const NavigationBar = () => {
     },
     {
       title: 'Community',
+      icon: Users,
       subItems: [
         { title: 'Join Community', href: '/community/join', description: 'Become part of our ecosystem' },
         { title: 'Startup Directory', href: '/community/startups', description: 'Explore our startups' },
@@ -51,14 +62,20 @@ const NavigationBar = () => {
       ]
     },
     {
-      title: 'Events',
+      title: 'Resources',
+      icon: BookOpen,
       subItems: [
+        { title: 'All Resources', href: '/resources', description: 'Guides, templates & tools' },
+        { title: 'Blog', href: '/blog', description: 'Articles and insights' },
+        { title: 'Podcast', href: '/podcast', description: 'Inspiring stories' },
+        { title: 'Reports', href: '/reports', description: 'Research and data' },
         { title: 'Upcoming Events', href: '/events/upcoming', description: 'Workshops and webinars' },
         { title: 'Past Events', href: '/events/past', description: 'Previous gatherings' }
       ]
     },
     {
       title: 'SEF',
+      icon: Calendar,
       href: '/events/sef-landing',
       highlight: true
     }
@@ -101,6 +118,7 @@ const NavigationBar = () => {
             className="flex items-center space-x-2 z-50"
             onClick={closeMenu}
           >
+            <Home className="w-6 h-6 text-[#165A5A]" />
             <span className="text-2xl font-bold bg-gradient-to-r from-[#165A5A] to-[#C8A165] bg-clip-text text-transparent">
               SHERAA
             </span>
@@ -118,18 +136,20 @@ const NavigationBar = () => {
                 {item.href ? (
                   <Link
                     to={item.href}
-                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                    className={`flex items-center space-x-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                       item.highlight
                         ? 'bg-gradient-to-r from-purple-600 to-orange-500 text-white shadow-lg hover:shadow-xl'
                         : 'text-gray-700 dark:text-gray-200 hover:text-[#165A5A] hover:bg-gray-100/50 dark:hover:bg-gray-800/50'
                     }`}
                   >
-                    {item.title}
+                    <item.icon className="w-4 h-4" />
+                    <span>{item.title}</span>
                   </Link>
                 ) : (
                   <button 
-                    className="flex items-center space-x-1 px-4 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-[#165A5A] hover:bg-gray-100/50 dark:hover:bg-gray-800/50 transition-all duration-200"
+                    className="flex items-center space-x-2 px-4 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-[#165A5A] hover:bg-gray-100/50 dark:hover:bg-gray-800/50 transition-all duration-200"
                   >
+                    <item.icon className="w-4 h-4" />
                     <span>{item.title}</span>
                     <ChevronDown className="w-3 h-3" />
                   </button>
@@ -229,14 +249,15 @@ const NavigationBar = () => {
                   {item.href ? (
                     <Link
                       to={item.href}
-                      className={`block p-3 rounded-lg font-medium ${
+                      className={`flex items-center space-x-2 p-3 rounded-lg font-medium ${
                         item.highlight
                           ? 'bg-gradient-to-r from-purple-600 to-orange-500 text-white'
                           : 'text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800'
                       }`}
                       onClick={closeMenu}
                     >
-                      {item.title}
+                      <item.icon className="w-4 h-4" />
+                      <span>{item.title}</span>
                     </Link>
                   ) : (
                     <>
@@ -244,7 +265,10 @@ const NavigationBar = () => {
                         onClick={() => setActiveDropdown(activeDropdown === item.title ? null : item.title)}
                         className="flex items-center justify-between w-full p-3 text-left font-medium text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg"
                       >
-                        <span>{item.title}</span>
+                        <div className="flex items-center space-x-2">
+                          <item.icon className="w-4 h-4" />
+                          <span>{item.title}</span>
+                        </div>
                         <ChevronDown className="w-4 h-4" />
                       </button>
                       
