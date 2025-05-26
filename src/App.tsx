@@ -48,13 +48,19 @@ function App() {
         <ThemeProvider>
           <TooltipProvider>
             <BrowserRouter>
-              <div className="min-h-screen bg-background font-sans antialiased">
+              <div className="min-h-screen bg-background font-sans antialiased w-full">
                 <NavigationBar />
-                <ErrorBoundary FallbackComponent={({ error }) => (
+                <ErrorBoundary FallbackComponent={({ error, resetErrorBoundary }) => (
                   <div className="min-h-screen flex items-center justify-center">
                     <div className="text-center">
                       <h2 className="text-2xl font-bold mb-4">Something went wrong</h2>
-                      <p className="text-gray-600">{error.message}</p>
+                      <p className="text-gray-600 mb-4">{error.message}</p>
+                      <button 
+                        onClick={resetErrorBoundary}
+                        className="px-4 py-2 bg-[#165A5A] text-white rounded hover:bg-[#165A5A]/90"
+                      >
+                        Try again
+                      </button>
                     </div>
                   </div>
                 )}>
