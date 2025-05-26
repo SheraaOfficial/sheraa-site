@@ -33,6 +33,11 @@ import UpcomingEvents from '@/pages/events/UpcomingEvents';
 import PastEvents from '@/pages/events/PastEvents';
 import SEFLandingPage from '@/pages/events/sef-landing';
 
+// New Pages
+import Auth from '@/pages/Auth';
+import Eligibility from '@/pages/Eligibility';
+import BookConsultation from '@/pages/BookConsultation';
+
 const queryClient = new QueryClient();
 
 function App() {
@@ -44,6 +49,9 @@ function App() {
           <Route path="/" element={<Index />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/careers" element={<Careers />} />
+          <Route path="/auth" element={<Auth />} />
+          <Route path="/eligibility" element={<Eligibility />} />
+          <Route path="/book-consultation" element={<BookConsultation />} />
           <Route path="/about" element={<About />} />
           <Route path="/about/leadership" element={<Leadership />} />
           <Route path="/about/board" element={<Board />} />

@@ -1,3 +1,4 @@
+
 import React from "react";
 import MainLayout from "@/components/layouts/MainLayout";
 import { motion } from "framer-motion";
@@ -13,6 +14,7 @@ import { Badge } from "@/components/ui/badge";
 import EligibilityCheckerButton from "@/components/eligibility/EligibilityCheckerButton";
 import { ProgramsTestimonialsSection } from "@/components/programs/ProgramsTestimonialsSection";
 import { StickyCornerCTA } from "@/components/ui/sticky-corner-cta";
+import { ProgramsCTASection } from "@/components/programs/ProgramsCTASection";
 
 const ProgramsPage: React.FC = () => {
   const programs = [
@@ -150,8 +152,8 @@ const ProgramsPage: React.FC = () => {
                 text="Find My Perfect Program"
               />
               <Button asChild variant="outline" size="lg" className="border-sheraa-primary/30 text-sheraa-primary hover:bg-sheraa-primary/10">
-                <Link to="/community/join" className="flex items-center gap-2">
-                  Talk to a Founder
+                <Link to="/book-consultation" className="flex items-center gap-2">
+                  Book Free Consultation
                   <Users className="w-4 h-4" />
                 </Link>
               </Button>
@@ -359,38 +361,11 @@ const ProgramsPage: React.FC = () => {
 
           {/* Testimonials */}
           <ProgramsTestimonialsSection />
-
-          {/* Final CTA */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.5, duration: 0.5 }}
-            className="text-center"
-          >
-            <Card className="bg-gradient-to-r from-sheraa-primary to-sheraa-secondary text-white border-none overflow-hidden">
-              <div className="absolute inset-0 bg-black/10" />
-              <CardContent className="relative z-10 p-12">
-                <h3 className="text-3xl font-bold mb-4">Ready to Build Something Amazing?</h3>
-                <p className="text-xl mb-8 text-white/90 max-w-2xl mx-auto">
-                  Join 180+ founders who've turned their ideas into thriving businesses. Your journey starts with one click.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <EligibilityCheckerButton 
-                    variant="gradient"
-                    size="lg"
-                    text="Start My Application"
-                    className="bg-white text-sheraa-primary hover:bg-gray-50"
-                  />
-                  <Button asChild variant="outline" size="lg" className="border-white text-white hover:bg-white/10">
-                    <Link to="/contact">Talk to Our Team</Link>
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
         </div>
       </div>
+      
+      {/* Enhanced CTA Section */}
+      <ProgramsCTASection />
       
       {/* Add Sticky CTA */}
       <StickyCornerCTA 

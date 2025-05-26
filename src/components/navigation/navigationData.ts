@@ -19,7 +19,8 @@ export const navigationItems = [
       { name: 'Start Young', path: '/programs/start-young' },
       { name: 'Startup Dojo', path: '/programs/startup-dojo' },
       { name: 'Access Sharjah Challenge', path: '/programs/access-sharjah-challenge' },
-      { name: 'SME Support', path: '/programs/sme-support' }
+      { name: 'SME Support', path: '/programs/sme-support' },
+      { name: 'Eligibility Checker', path: '/eligibility' }
     ]
   },
   {
@@ -53,6 +54,10 @@ export const navigationItems = [
   {
     name: 'Contact',
     path: '/contact'
+  },
+  {
+    name: 'Sign In',
+    path: '/auth'
   },
   {
     name: 'SEF 2026',

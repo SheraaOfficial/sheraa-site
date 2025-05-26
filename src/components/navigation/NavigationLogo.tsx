@@ -5,23 +5,24 @@ import { motion } from 'framer-motion';
 
 export const NavigationLogo: React.FC = () => {
   return (
-    <Link to="/" className="flex items-center space-x-3 group relative z-10">
-      <motion.div
-        whileHover={{ scale: 1.1, rotate: 5 }}
-        whileTap={{ scale: 0.95 }}
-        transition={{ type: "spring", stiffness: 400, damping: 17 }}
-      >
-        <img 
-          src="/lovable-uploads/sheraa-logo.png" 
-          alt="Sheraa" 
-          className="h-10 w-auto drop-shadow-lg"
-        />
-      </motion.div>
+    <Link to="/">
       <motion.div 
-        className="absolute -inset-2 bg-gradient-to-r from-sheraa-primary/20 to-sheraa-teal/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm"
-        animate={{ rotate: 360 }}
-        transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-      />
+        className="flex items-center space-x-3"
+        whileHover={{ scale: 1.05 }}
+        transition={{ duration: 0.2 }}
+      >
+        <div className="w-10 h-10 bg-gradient-to-br from-sheraa-primary to-sheraa-secondary rounded-xl flex items-center justify-center shadow-lg">
+          <span className="text-white font-bold text-lg">S</span>
+        </div>
+        <div className="hidden sm:block">
+          <div className="text-xl font-bold bg-gradient-to-r from-sheraa-primary to-sheraa-secondary bg-clip-text text-transparent">
+            Sheraa
+          </div>
+          <div className="text-xs text-gray-600 dark:text-gray-400 -mt-1">
+            Entrepreneurship Center
+          </div>
+        </div>
+      </motion.div>
     </Link>
   );
 };
