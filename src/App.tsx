@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { ErrorBoundary } from "@/components/layout/ErrorBoundary";
+import { ErrorFallback } from "@/components/layout/ErrorFallback";
 import { SafeSuspense } from "@/components/layout/SafeSuspense";
 import { SectionLoading } from "@/components/layout/SectionLoading";
 import Index from "./pages/Index";
@@ -18,7 +19,7 @@ const StartYoung = lazy(() => import("./pages/programs/start-young/index"));
 const Community = lazy(() => import("./pages/community/index"));
 const Auth = lazy(() => import("./pages/Auth"));
 const Profile = lazy(() => import("./pages/Profile"));
-const EligibilityChecker = lazy(() => import("./pages/EligibilityChecker"));
+const EligibilityPage = lazy(() => import("./pages/EligibilityPage"));
 const SEFLanding = lazy(() => import("./pages/events/sef-landing"));
 const PerfumeMainPage = lazy(() => import("./pages/perfume/PerfumeMainPage"));
 const PerfumeLandingPage = lazy(() => import("./pages/perfume/PerfumeLandingPage"));
@@ -36,7 +37,7 @@ const App = () => (
         <TooltipProvider>
           <Toaster />
           <BrowserRouter>
-            <ErrorBoundary>
+            <ErrorBoundary FallbackComponent={ErrorFallback}>
               <Routes>
                 <Route path="/" element={<Index />} />
                 <Route
@@ -91,7 +92,7 @@ const App = () => (
                   path="/eligibility"
                   element={
                     <SafeSuspense fallback={<SectionLoading />}>
-                      <EligibilityChecker />
+                      <EligibilityPage />
                     </SafeSuspense>
                   }
                 />
