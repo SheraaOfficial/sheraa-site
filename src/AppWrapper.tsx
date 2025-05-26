@@ -1,3 +1,4 @@
+
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -26,6 +27,7 @@ import CommunityPage from "@/pages/community";
 import JoinPage from "@/pages/community/JoinPage";
 import PartnershipsPage from "@/pages/community/PartnershipsPage";
 import CareersPage from "@/pages/careers";
+import SharjahPerfumeLanding from "@/pages/perfume/SharjahPerfumeLanding";
 
 // Lazy load the perfume page for better performance
 const PerfumeMainPage = React.lazy(() => import("@/pages/perfume/PerfumeMainPage"));
@@ -98,6 +100,7 @@ const AppWrapper = () => {
                           </React.Suspense>
                         } 
                       />
+                      <Route path="/perfume/sharjah-premium" element={<SharjahPerfumeLanding />} />
                     </Routes>
                     <Toaster />
                   </Router>
