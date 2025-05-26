@@ -8,7 +8,6 @@ import {
   BookOpen, 
   Calendar, 
   Phone, 
-  Briefcase,
   FileText,
   Star,
   ChevronDown,
@@ -16,6 +15,7 @@ import {
   X
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { NavigationItem } from './types';
 
 const ModernNavigation = () => {
   const location = useLocation();
@@ -33,7 +33,7 @@ const ModernNavigation = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navigationItems = [
+  const navigationItems: NavigationItem[] = [
     { name: 'Home', path: '/', icon: Home },
     { 
       name: 'About', 
@@ -53,7 +53,6 @@ const ModernNavigation = () => {
         { name: 'Overview', path: '/programs' },
         { name: 'S3 Incubator', path: '/programs/s3-incubator' },
         { name: 'Startup Dojo', path: '/programs/startup-dojo' },
-        { name: 'Deal Dock', path: '/programs/deal-dock' },
         { name: 'Access Sharjah Challenge', path: '/programs/access-sharjah-challenge' }
       ]
     },
@@ -92,9 +91,14 @@ const ModernNavigation = () => {
     { name: 'Contact', path: '/contact', icon: Phone }
   ];
 
-  const sefItem = { name: 'SEF', path: '/events/sef-landing', icon: Star, special: true };
+  const sefItem: NavigationItem = { 
+    name: 'SEF', 
+    path: '/events/sef-landing', 
+    icon: Star, 
+    special: true 
+  };
 
-  const isPathActive = (path: string, subItems?: any[]) => {
+  const isPathActive = (path: string, subItems?: NavigationItem['subItems']) => {
     if (location.pathname === path) return true;
     if (subItems) {
       return subItems.some(item => location.pathname === item.path);
@@ -102,7 +106,7 @@ const ModernNavigation = () => {
     return false;
   };
 
-  const handleNavClick = (item: any) => {
+  const handleNavClick = (item: NavigationItem) => {
     if (item.subItems && item.subItems.length > 0) {
       if (activeDropdown === item.name) {
         setActiveDropdown(null);
@@ -120,8 +124,8 @@ const ModernNavigation = () => {
     <nav className={cn(
       "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
       scrolled 
-        ? "bg-white/95 backdrop-blur-xl border-b border-gray-200/50 shadow-sm" 
-        : "bg-transparent"
+        ? "bg-white/95 backdrop-blur-xl border-b border-gray-200/50 shadow-lg" 
+        : "bg-white/90 backdrop-blur-md"
     )}>
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
@@ -132,91 +136,120 @@ const ModernNavigation = () => {
               alt="Sheraa" 
               className="h-8 w-auto transition-transform group-hover:scale-105"
               whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
             />
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-1">
-            {navigationItems.map((item) => {
-              const isActive = isPathActive(item.path, item.subItems);
-              return (
-                <div key={item.name} className="relative">
-                  <button
-                    onClick={() => handleNavClick(item)}
-                    className={cn(
-                      "flex items-center space-x-1 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200",
-                      isActive
-                        ? "text-sheraa-primary bg-sheraa-primary/10"
-                        : "text-gray-700 hover:text-sheraa-primary hover:bg-gray-100/80"
-                    )}
-                  >
-                    <span>{item.name}</span>
-                    {item.subItems && (
-                      <ChevronDown 
-                        className={cn(
-                          "w-4 h-4 transition-transform duration-200",
-                          activeDropdown === item.name && "rotate-180"
-                        )} 
-                      />
-                    )}
-                  </button>
-                  
-                  {/* Dropdown */}
-                  <AnimatePresence>
-                    {activeDropdown === item.name && item.subItems && (
+          {/* Centered Desktop Navigation */}
+          <div className="hidden lg:flex items-center justify-center flex-1">
+            <div className="flex items-center space-x-1 bg-gray-50/80 backdrop-blur-sm rounded-2xl px-2 py-1 border border-gray-200/50">
+              {navigationItems.map((item) => {
+                const isActive = isPathActive(item.path, item.subItems);
+                const Icon = item.icon;
+                return (
+                  <div key={item.name} className="relative">
+                    <motion.button
+                      onClick={() => handleNavClick(item)}
+                      className={cn(
+                        "flex items-center space-x-2 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 relative",
+                        isActive
+                          ? "text-white bg-sheraa-primary shadow-md"
+                          : "text-gray-700 hover:text-sheraa-primary hover:bg-white/80"
+                      )}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
                       <motion.div
-                        initial={{ opacity: 0, y: -10, scale: 0.95 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                        className="absolute top-full mt-2 left-0 bg-white border border-gray-200 shadow-lg rounded-lg overflow-hidden min-w-48 z-50"
+                        animate={{ rotate: isActive ? 360 : 0 }}
+                        transition={{ duration: 0.3 }}
                       >
-                        {item.subItems.map((subItem: any) => (
-                          <Link
-                            key={subItem.path}
-                            to={subItem.path}
-                            onClick={() => setActiveDropdown(null)}
-                            className="block px-4 py-3 text-sm text-gray-700 hover:text-sheraa-primary hover:bg-gray-50 transition-colors border-b border-gray-100 last:border-b-0"
-                          >
-                            {subItem.name}
-                          </Link>
-                        ))}
+                        <Icon className="w-4 h-4" />
                       </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              );
-            })}
-            
-            {/* SEF Special Button */}
-            <Link
-              to={sefItem.path}
-              className="relative ml-4 px-6 py-2 bg-gradient-to-r from-sheraa-sef-primary to-sheraa-sef-secondary text-white font-medium rounded-lg hover:shadow-lg transition-all duration-200 group overflow-hidden"
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-sheraa-sef-primary/80 to-sheraa-sef-secondary/80 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
-              <span className="relative flex items-center space-x-2">
-                <Star className="w-4 h-4" />
-                <span>SEF</span>
-                <motion.span
-                  animate={{ 
-                    scale: [1, 1.2, 1],
-                    opacity: [0.7, 1, 0.7]
-                  }}
-                  transition={{ 
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
+                      <span>{item.name}</span>
+                      {item.subItems && (
+                        <motion.div
+                          animate={{ rotate: activeDropdown === item.name ? 180 : 0 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <ChevronDown className="w-3 h-3" />
+                        </motion.div>
+                      )}
+                    </motion.button>
+                    
+                    {/* Dropdown */}
+                    <AnimatePresence>
+                      {activeDropdown === item.name && item.subItems && (
+                        <motion.div
+                          initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                          transition={{ duration: 0.2, ease: "easeOut" }}
+                          className="absolute top-full mt-2 left-0 bg-white/95 backdrop-blur-xl border border-gray-200/50 shadow-xl rounded-xl overflow-hidden min-w-48 z-50"
+                        >
+                          {item.subItems.map((subItem) => (
+                            <motion.div
+                              key={subItem.path}
+                              whileHover={{ x: 4 }}
+                              transition={{ duration: 0.2 }}
+                            >
+                              <Link
+                                to={subItem.path}
+                                onClick={() => setActiveDropdown(null)}
+                                className="block px-4 py-3 text-sm text-gray-700 hover:text-sheraa-primary hover:bg-gray-50/80 transition-all duration-200 border-b border-gray-100/50 last:border-b-0"
+                              >
+                                {subItem.name}
+                              </Link>
+                            </motion.div>
+                          ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                );
+              })}
+              
+              {/* SEF Special Button */}
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Link
+                  to={sefItem.path}
+                  className="relative ml-2 px-4 py-2 bg-gradient-to-r from-sheraa-sef-primary to-sheraa-sef-secondary text-white font-medium rounded-xl hover:shadow-lg transition-all duration-200 group overflow-hidden"
                 >
-                  ✨
-                </motion.span>
-              </span>
-            </Link>
+                  <div className="absolute inset-0 bg-gradient-to-r from-sheraa-sef-primary/80 to-sheraa-sef-secondary/80 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+                  <span className="relative flex items-center space-x-2">
+                    <motion.div
+                      animate={{ rotate: [0, 360] }}
+                      transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                    >
+                      <Star className="w-4 h-4" />
+                    </motion.div>
+                    <span>SEF</span>
+                    <motion.span
+                      animate={{ 
+                        scale: [1, 1.2, 1],
+                        opacity: [0.7, 1, 0.7]
+                      }}
+                      transition={{ 
+                        duration: 2,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                      }}
+                    >
+                      ✨
+                    </motion.span>
+                  </span>
+                </Link>
+              </motion.div>
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
-          <button
+          <motion.button
             onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden flex items-center justify-center w-10 h-10 rounded-lg bg-gray-100 text-gray-700 hover:text-sheraa-primary hover:bg-gray-200 transition-all duration-200"
+            className="lg:hidden flex items-center justify-center w-10 h-10 rounded-xl bg-gray-100 text-gray-700 hover:text-sheraa-primary hover:bg-gray-200 transition-all duration-200"
+            whileTap={{ scale: 0.95 }}
           >
             <AnimatePresence mode="wait">
               {isOpen ? (
@@ -241,7 +274,7 @@ const ModernNavigation = () => {
                 </motion.div>
               )}
             </AnimatePresence>
-          </button>
+          </motion.button>
         </div>
 
         {/* Mobile Navigation */}
@@ -251,21 +284,27 @@ const ModernNavigation = () => {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              className="lg:hidden border-t border-gray-200 bg-white"
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="lg:hidden border-t border-gray-200/50 bg-white/95 backdrop-blur-xl"
             >
               <div className="py-4 space-y-2">
-                {[...navigationItems, sefItem].map((item) => {
+                {[...navigationItems, sefItem].map((item, index) => {
                   const isActive = isPathActive(item.path, item.subItems);
                   const Icon = item.icon;
                   
                   return (
-                    <div key={item.path}>
+                    <motion.div 
+                      key={item.path}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.1, duration: 0.3 }}
+                    >
                       <button
                         onClick={() => handleNavClick(item)}
                         className={cn(
-                          "w-full flex items-center justify-between px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200",
+                          "w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 mx-2",
                           isActive 
-                            ? "text-white bg-sheraa-primary" 
+                            ? "text-white bg-sheraa-primary shadow-md" 
                             : "text-gray-700 hover:text-sheraa-primary hover:bg-gray-100",
                           item.special && !isActive && "bg-gradient-to-r from-sheraa-sef-primary/10 to-sheraa-sef-secondary/10"
                         )}
@@ -302,7 +341,7 @@ const ModernNavigation = () => {
                       {/* Mobile Sub Items */}
                       {item.subItems && isActive && (
                         <div className="ml-6 mt-2 space-y-1">
-                          {item.subItems.map((subItem: any) => (
+                          {item.subItems.map((subItem) => (
                             <Link
                               key={subItem.path}
                               to={subItem.path}
@@ -314,7 +353,7 @@ const ModernNavigation = () => {
                           ))}
                         </div>
                       )}
-                    </div>
+                    </motion.div>
                   );
                 })}
               </div>
