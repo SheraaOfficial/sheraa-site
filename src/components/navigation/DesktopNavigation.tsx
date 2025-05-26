@@ -15,8 +15,6 @@ interface DesktopNavigationProps {
 export const DesktopNavigation: React.FC<DesktopNavigationProps> = ({
   navigationItems,
   isPathActive,
-  activeDropdown,
-  onNavClick,
   onDropdownClose
 }) => {
   return (
@@ -32,8 +30,6 @@ export const DesktopNavigation: React.FC<DesktopNavigationProps> = ({
             item={item}
             index={index}
             isActive={isPathActive(item.path, item.subItems)}
-            activeDropdown={activeDropdown}
-            onItemClick={onNavClick}
             onDropdownClose={onDropdownClose}
           />
         );
