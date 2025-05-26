@@ -1,5 +1,5 @@
 
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
@@ -36,35 +36,33 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <Router>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/careers" element={<Careers />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/about/leadership" element={<Leadership />} />
-            <Route path="/about/board" element={<Board />} />
-            <Route path="/programs" element={<Programs />} />
-            <Route path="/programs/s3-incubator" element={<S3Incubator />} />
-            <Route path="/programs/startup-dojo" element={<StartupDojo />} />
-            <Route path="/programs/access-sharjah-challenge" element={<AccessSharjahChallenge />} />
-            <Route path="/community" element={<Community />} />
-            <Route path="/community/join" element={<CommunityJoin />} />
-            <Route path="/community/partnerships" element={<Partnerships />} />
-            <Route path="/community/startups" element={<StartupDirectory />} />
-            <Route path="/resources" element={<Resources />} />
-            <Route path="/resources/guides" element={<Guides />} />
-            <Route path="/resources/advisory" element={<Advisory />} />
-            <Route path="/resources/articles" element={<Articles />} />
-            <Route path="/resources/impact-reports" element={<ImpactReports />} />
-            <Route path="/events" element={<Events />} />
-            <Route path="/events/upcoming" element={<UpcomingEvents />} />
-            <Route path="/events/past" element={<PastEvents />} />
-            <Route path="/events/sef-landing" element={<SEFLanding />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-          <Toaster />
-        </Router>
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/careers" element={<Careers />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/about/leadership" element={<Leadership />} />
+          <Route path="/about/board" element={<Board />} />
+          <Route path="/programs" element={<Programs />} />
+          <Route path="/programs/s3-incubator" element={<S3Incubator />} />
+          <Route path="/programs/startup-dojo" element={<StartupDojo />} />
+          <Route path="/programs/access-sharjah-challenge" element={<AccessSharjahChallenge />} />
+          <Route path="/community" element={<Community />} />
+          <Route path="/community/join" element={<CommunityJoin />} />
+          <Route path="/community/partnerships" element={<Partnerships />} />
+          <Route path="/community/startups" element={<StartupDirectory />} />
+          <Route path="/resources" element={<Resources />} />
+          <Route path="/resources/guides" element={<Guides />} />
+          <Route path="/resources/advisory" element={<Advisory />} />
+          <Route path="/resources/articles" element={<Articles />} />
+          <Route path="/resources/impact-reports" element={<ImpactReports />} />
+          <Route path="/events" element={<Events />} />
+          <Route path="/events/upcoming" element={<UpcomingEvents />} />
+          <Route path="/events/past" element={<PastEvents />} />
+          <Route path="/events/sef-landing" element={<SEFLanding />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+        <Toaster />
       </TooltipProvider>
     </QueryClientProvider>
   );
