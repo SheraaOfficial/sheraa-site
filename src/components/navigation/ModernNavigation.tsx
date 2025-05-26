@@ -1,9 +1,9 @@
 
 import React from 'react';
-import { NavigationContainer } from './NavigationContainer';
+import { SophisticatedNavigation } from '@/components/ui/sophisticated-navigation';
 
 const ModernNavigation = () => {
-  return <NavigationContainer />;
+  return <SophisticatedNavigation />;
 };
 
 export default ModernNavigation;
