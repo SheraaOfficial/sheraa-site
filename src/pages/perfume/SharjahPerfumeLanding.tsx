@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Star, ShoppingCart, Gift, Truck, Shield, Heart, Sparkles, Award, Crown } from 'lucide-react';
@@ -6,12 +5,14 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
-import Navigation from '@/components/Navigation';
+import NewNavigationBar from '@/components/navigation/NewNavigationBar';
+import BuyingFunction from '@/components/perfume/BuyingFunction';
 
 const SharjahPerfumeLanding = () => {
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [appliedDiscount, setAppliedDiscount] = useState(false);
+  const [showBuyingForm, setShowBuyingForm] = useState(false);
   const { toast } = useToast();
   const { scrollY } = useScroll();
   
@@ -56,15 +57,8 @@ const SharjahPerfumeLanding = () => {
     }
   };
 
-  const handleAddToCart = () => {
-    // Simulate Stripe/Ziina integration
-    toast({
-      title: "Redirecting to Payment...",
-      description: "You'll be redirected to our secure payment gateway.",
-    });
-    
-    // Here you would integrate with Stripe/Ziina
-    console.log('Initiating payment for Sharjah Perfume - AED', appliedDiscount ? 720 : 800);
+  const handleBuyNow = () => {
+    setShowBuyingForm(true);
   };
 
   const scrollToPricing = () => {
@@ -76,7 +70,7 @@ const SharjahPerfumeLanding = () => {
   return (
     <div className="min-h-screen bg-[#F7F3EE] overflow-x-hidden">
       {/* Navigation */}
-      <Navigation />
+      <NewNavigationBar />
       
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden mt-16">
@@ -155,7 +149,7 @@ const SharjahPerfumeLanding = () => {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 1, delay: 1 }}
           >
-            Handcrafted luxury perfume inspired by Sharjah's rich heritage
+            Handcrafted luxury perfume inspired by Sharjah's rich heritage and cultural tapestry
           </motion.p>
           
           <motion.div
@@ -170,23 +164,32 @@ const SharjahPerfumeLanding = () => {
           </motion.div>
 
           <motion.div
+            className="flex flex-col sm:flex-row gap-4 justify-center"
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 1, delay: 1.2 }}
           >
             <Button
-              onClick={scrollToPricing}
+              onClick={handleBuyNow}
               className="bg-[#C8A165] hover:bg-[#B8956A] text-white px-12 py-4 text-lg font-semibold rounded-none relative overflow-hidden group transition-all duration-300 transform hover:scale-105"
             >
               <span className="relative z-10 flex items-center gap-2">
                 <ShoppingCart className="w-5 h-5" />
-                Buy for AED {finalPrice}
+                Buy Now - AED {finalPrice}
               </span>
               <motion.div
                 className="absolute inset-0 bg-gradient-to-r from-[#C8A165] to-[#D4AF7A] opacity-0 group-hover:opacity-100"
                 initial={false}
                 transition={{ duration: 0.3 }}
               />
+            </Button>
+            
+            <Button
+              onClick={scrollToPricing}
+              variant="outline"
+              className="border-2 border-white text-white hover:bg-white hover:text-[#165A5A] px-8 py-4 text-lg font-semibold rounded-none transition-all duration-300"
+            >
+              Learn More
             </Button>
           </motion.div>
         </motion.div>
@@ -206,6 +209,34 @@ const SharjahPerfumeLanding = () => {
           </div>
         </motion.div>
       </section>
+
+      {/* Buying Function Modal/Section */}
+      {showBuyingForm && (
+        <motion.section 
+          className="py-20 bg-white"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="container mx-auto px-6">
+            <div className="flex justify-end mb-6">
+              <Button
+                onClick={() => setShowBuyingForm(false)}
+                variant="outline"
+                className="mb-4"
+              >
+                Continue Browsing
+              </Button>
+            </div>
+            <BuyingFunction
+              price={800}
+              discountedPrice={appliedDiscount ? 720 : undefined}
+              hasDiscount={appliedDiscount}
+              productName="Sharjah Perfume - Premium Collection"
+            />
+          </div>
+        </motion.section>
+      )}
 
       {/* Heritage Story Section */}
       <motion.section 
@@ -230,7 +261,7 @@ const SharjahPerfumeLanding = () => {
               Crafted with the finest ingredients and inspired by the architectural marvels and cultural 
               richness of Sharjah, this exclusive perfume captures the spirit of innovation and tradition 
               that defines the emirate. Each bottle tells a story of artisanal excellence, from the bustling 
-              souks to the serene desert landscapes.
+              souks to the serene desert landscapes, embodying the entrepreneurial spirit that drives Sharjah forward.
             </p>
             
             <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
@@ -238,8 +269,8 @@ const SharjahPerfumeLanding = () => {
                 <div className="w-16 h-16 bg-[#C8A165]/10 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Heart className="w-8 h-8 text-[#C8A165]" />
                 </div>
-                <h3 className="text-xl font-semibold text-[#165A5A] mb-2">Handcrafted</h3>
-                <p className="text-gray-600">Meticulously created by master perfumers using traditional techniques</p>
+                <h3 className="text-xl font-semibold text-[#165A5A] mb-2">Handcrafted Excellence</h3>
+                <p className="text-gray-600">Meticulously created by master perfumers using traditional techniques passed down through generations</p>
               </div>
               
               <div className="text-center">
@@ -247,7 +278,7 @@ const SharjahPerfumeLanding = () => {
                   <Crown className="w-8 h-8 text-[#165A5A]" />
                 </div>
                 <h3 className="text-xl font-semibold text-[#165A5A] mb-2">Premium Quality</h3>
-                <p className="text-gray-600">Only the finest natural ingredients from around the world</p>
+                <p className="text-gray-600">Only the finest natural ingredients sourced from around the world, ensuring unparalleled quality</p>
               </div>
               
               <div className="text-center">
@@ -255,7 +286,7 @@ const SharjahPerfumeLanding = () => {
                   <Sparkles className="w-8 h-8 text-[#C8A165]" />
                 </div>
                 <h3 className="text-xl font-semibold text-[#165A5A] mb-2">Limited Edition</h3>
-                <p className="text-gray-600">Exclusive collection celebrating Sharjah's cultural heritage</p>
+                <p className="text-gray-600">Exclusive collection celebrating Sharjah's cultural heritage and entrepreneurial spirit</p>
               </div>
             </div>
           </motion.div>
