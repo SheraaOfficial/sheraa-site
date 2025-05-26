@@ -1,6 +1,7 @@
 
 import React from "react";
 import Footer from "@/components/Footer";
+import MainNavigation from "@/components/navigation/MainNavigation";
 import { cn } from "@/lib/utils";
 
 interface MainLayoutProps {
@@ -21,7 +22,9 @@ const MainLayout: React.FC<MainLayoutProps> = ({
       className={cn("min-h-screen flex flex-col", className)}
       style={backgroundStyle}
     >
-      <main className="flex-1">
+      {!hideNavigation && <MainNavigation />}
+      
+      <main className={cn("flex-1", !hideNavigation && "pt-16")}>
         {children}
       </main>
       
