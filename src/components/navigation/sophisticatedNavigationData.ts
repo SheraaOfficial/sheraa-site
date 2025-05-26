@@ -1,19 +1,16 @@
 
-import { Home, Users, BookOpen, Calendar, Star, LucideIcon } from 'lucide-react';
+import { 
+  Home, 
+  Users, 
+  BookOpen, 
+  Users2, 
+  Calendar, 
+  FileText,
+  Star
+} from 'lucide-react';
+import { NavigationItem } from './types';
 
-export interface SophisticatedNavigationItem {
-  name: string;
-  path: string;
-  icon: LucideIcon;
-  subItems?: {
-    name: string;
-    path: string;
-    description?: string;
-  }[];
-  special?: boolean;
-}
-
-export const sophisticatedNavigationItems: SophisticatedNavigationItem[] = [
+export const sophisticatedNavigationItems: NavigationItem[] = [
   {
     name: 'Home',
     path: '/',
@@ -25,24 +22,19 @@ export const sophisticatedNavigationItems: SophisticatedNavigationItem[] = [
     icon: Users,
     subItems: [
       {
-        name: 'Our Story',
+        name: 'About Sheraa',
         path: '/about',
         description: 'Learn about our mission and vision'
       },
       {
         name: 'Leadership',
         path: '/about/leadership',
-        description: 'Meet our executive team'
+        description: 'Meet our leadership team'
       },
       {
-        name: 'Board',
+        name: 'Board of Advisors',
         path: '/about/board',
-        description: 'Our advisory board members'
-      },
-      {
-        name: 'Hubs & Locations',
-        path: '/about/hubs',
-        description: 'Our strategic locations in Sharjah'
+        description: 'Our distinguished board members'
       }
     ]
   },
@@ -52,66 +44,46 @@ export const sophisticatedNavigationItems: SophisticatedNavigationItem[] = [
     icon: BookOpen,
     subItems: [
       {
-        name: 'Overview',
-        path: '/programs',
-        description: 'Explore all our programs'
-      },
-      {
         name: 'S3 Incubator',
         path: '/programs/s3-incubator',
-        description: 'Our flagship equity-free program'
+        description: 'Our flagship 6-month incubation program'
+      },
+      {
+        name: 'Start Young',
+        path: '/programs/start-young',
+        description: 'Youth entrepreneurship programs'
       },
       {
         name: 'Startup Dojo',
         path: '/programs/startup-dojo',
-        description: 'Youth entrepreneurship program'
-      },
-      {
-        name: 'Startup Dojo+',
-        path: '/programs/startup-dojo-plus',
-        description: 'Advanced acceleration phase'
+        description: 'Summer incubation for students'
       },
       {
         name: 'Access Sharjah Challenge',
         path: '/programs/access-sharjah-challenge',
-        description: 'Global startup competition'
-      },
-      {
-        name: 'SME Support',
-        path: '/programs/sme-support',
-        description: 'Support for established businesses'
+        description: 'Global competition for growth-stage startups'
       }
     ]
   },
   {
     name: 'Community',
     path: '/community',
-    icon: Users,
+    icon: Users2,
     subItems: [
       {
-        name: 'Overview',
-        path: '/community',
-        description: 'Join our vibrant ecosystem'
-      },
-      {
-        name: 'Membership',
+        name: 'Join Community',
         path: '/community/join',
-        description: 'Become a Sheraa member'
+        description: 'Become part of our ecosystem'
       },
       {
         name: 'Startup Directory',
         path: '/community/startups',
-        description: 'Discover our portfolio companies'
+        description: 'Explore our portfolio companies'
       },
       {
         name: 'Partnerships',
         path: '/community/partnerships',
         description: 'Partner with Sheraa'
-      },
-      {
-        name: 'Founder Portal',
-        path: '/community/founder-portal',
-        description: 'Access exclusive resources'
       }
     ]
   },
@@ -121,63 +93,43 @@ export const sophisticatedNavigationItems: SophisticatedNavigationItem[] = [
     icon: Calendar,
     subItems: [
       {
-        name: 'Overview',
-        path: '/events',
-        description: 'All events and workshops'
-      },
-      {
         name: 'Upcoming Events',
         path: '/events/upcoming',
-        description: 'Join our next events'
+        description: 'Join our upcoming events'
       },
       {
         name: 'Past Events',
         path: '/events/past',
-        description: 'Event highlights and recordings'
-      },
-      {
-        name: 'Workshops',
-        path: '/events/workshops',
-        description: 'Skill-building sessions'
+        description: 'Browse past event highlights'
       }
     ]
   },
   {
     name: 'Resources',
     path: '/resources',
-    icon: BookOpen,
+    icon: FileText,
     subItems: [
-      {
-        name: 'Overview',
-        path: '/resources',
-        description: 'All resources and tools'
-      },
       {
         name: 'Guides & Toolkits',
         path: '/resources/guides',
-        description: 'Practical startup resources'
-      },
-      {
-        name: 'Advisory Services',
-        path: '/resources/advisory',
-        description: 'Expert mentorship'
+        description: 'Download practical resources'
       },
       {
         name: 'Articles & Insights',
         path: '/resources/articles',
-        description: 'Latest trends and insights'
+        description: 'Read the latest insights'
       },
       {
-        name: 'Impact Reports',
-        path: '/resources/impact-reports',
-        description: 'Our ecosystem impact'
+        name: 'Advisory Services',
+        path: '/resources/advisory',
+        description: 'Get expert guidance'
       }
     ]
   },
   {
     name: 'SEF',
-    path: '/events/sef-landing',
-    icon: Star,
-    special: true
+    path: '/events/sef',
+    special: true,
+    icon: Star
   }
 ];

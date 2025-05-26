@@ -1,126 +1,107 @@
 
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Star } from 'lucide-react';
+import { NavigationItem } from './types';
 import { cn } from '@/lib/utils';
-import { SophisticatedNavigationItem } from './sophisticatedNavigationData';
 
 interface SophisticatedNavItemProps {
-  item: SophisticatedNavigationItem;
-  index: number;
+  item: NavigationItem;
   isActive: boolean;
-  activeDropdown: string | null;
-  onMouseEnter: () => void;
-  onMouseLeave: () => void;
 }
 
 export const SophisticatedNavItem: React.FC<SophisticatedNavItemProps> = ({
   item,
-  index,
-  isActive,
-  activeDropdown,
-  onMouseEnter,
-  onMouseLeave
+  isActive
 }) => {
-  const navigate = useNavigate();
+  const [isHovered, setIsHovered] = useState(false);
+  const hasDropdown = item.subItems && item.subItems.length > 0;
   const Icon = item.icon;
-  const isDropdownOpen = activeDropdown === item.name;
 
-  const handleClick = () => {
-    if (!item.subItems || item.subItems.length === 0) {
-      navigate(item.path);
-    }
-  };
+  if (item.special) {
+    return (
+      <Link to={item.path}>
+        <motion.div
+          className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-sheraa-primary to-sheraa-secondary text-white font-medium text-sm shadow-lg hover:shadow-xl transition-all duration-300"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          {Icon && <Icon className="w-4 h-4" />}
+          <span>{item.name}</span>
+          <Star className="w-3 h-3 animate-pulse" />
+        </motion.div>
+      </Link>
+    );
+  }
 
   return (
     <div 
       className="relative"
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: index * 0.1 }}
-        className={cn(
-          "relative px-3 md:px-4 py-2 md:py-3 rounded-xl md:rounded-2xl transition-all duration-300 cursor-pointer",
-          "hover:bg-white/30 dark:hover:bg-white/20 backdrop-blur-sm border border-transparent",
-          "flex items-center gap-2 font-medium text-sm md:text-base",
-          isActive && "bg-white/40 dark:bg-white/30 border-white/40 shadow-lg",
-          item.special && "bg-gradient-to-r from-sheraa-sef-primary/30 to-sheraa-sef-secondary/20 border-sheraa-sef-primary/40"
-        )}
-        whileHover={{ scale: 1.05, y: -2 }}
-        whileTap={{ scale: 0.98 }}
-        onClick={handleClick}
-      >
-        <Icon className={cn(
-          "w-4 h-4 md:w-5 md:h-5",
-          item.special 
-            ? "text-sheraa-sef-primary dark:text-sheraa-sef-primary" 
-            : "text-gray-800 dark:text-white"
-        )} />
-        <span className={cn(
-          "text-xs md:text-sm font-semibold",
-          item.special 
-            ? "bg-gradient-to-r from-sheraa-sef-primary to-sheraa-sef-secondary bg-clip-text text-transparent"
-            : "text-gray-800 dark:text-white"
-        )}>
-          {item.name}
-        </span>
-        
-        {item.subItems && item.subItems.length > 0 && (
+      {hasDropdown ? (
+        <div
+          className={cn(
+            "flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 cursor-pointer",
+            isActive || isHovered
+              ? 'text-sheraa-primary bg-sheraa-primary/10'
+              : 'text-gray-700 dark:text-gray-200 hover:text-sheraa-primary hover:bg-sheraa-primary/5'
+          )}
+        >
+          {Icon && <Icon className="w-4 h-4" />}
+          <span>{item.name}</span>
           <motion.div
-            animate={{ rotate: isDropdownOpen ? 180 : 0 }}
+            animate={{ rotate: isHovered ? 180 : 0 }}
             transition={{ duration: 0.2 }}
           >
-            <ChevronDown className="w-3 h-3 md:w-4 md:h-4 text-gray-700 dark:text-gray-300" />
+            <ChevronDown className="w-4 h-4" />
           </motion.div>
-        )}
-        
-        {item.special && (
-          <motion.div
-            className="absolute -top-1 -right-1 w-2 h-2 md:w-3 md:h-3 bg-gradient-to-r from-sheraa-sef-primary to-sheraa-sef-secondary rounded-full"
-            animate={{ scale: [1, 1.2, 1] }}
-            transition={{ duration: 2, repeat: Infinity }}
-          />
-        )}
-      </motion.div>
+        </div>
+      ) : (
+        <Link
+          to={item.path}
+          className={cn(
+            "flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200",
+            isActive
+              ? 'text-sheraa-primary bg-sheraa-primary/10'
+              : 'text-gray-700 dark:text-gray-200 hover:text-sheraa-primary hover:bg-sheraa-primary/5'
+          )}
+        >
+          {Icon && <Icon className="w-4 h-4" />}
+          <span>{item.name}</span>
+        </Link>
+      )}
 
-      {/* Enhanced Dropdown Menu with maximum z-index */}
+      {/* Dropdown Menu */}
       <AnimatePresence>
-        {isDropdownOpen && item.subItems && (
+        {hasDropdown && isHovered && (
           <motion.div
             initial={{ opacity: 0, y: 10, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
-            transition={{ duration: 0.2 }}
-            className="absolute top-full left-0 mt-2 min-w-[280px] bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/20 dark:border-gray-700/50 py-2"
-            style={{ zIndex: 9999999 }}
+            transition={{ duration: 0.15 }}
+            className="absolute top-full left-0 mt-2 w-80 bg-white dark:bg-sheraa-dark border border-gray-200 dark:border-gray-700 rounded-xl shadow-xl overflow-hidden z-[9999]"
           >
-            {item.subItems.map((subItem, subIndex) => (
-              <Link
-                key={subItem.path}
-                to={subItem.path}
-                className="block px-4 py-3 hover:bg-sheraa-primary/10 dark:hover:bg-sheraa-primary/20 transition-colors group"
-              >
-                <motion.div
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: subIndex * 0.05 }}
-                  className="space-y-1"
+            <div className="p-2">
+              {item.subItems?.map((subItem) => (
+                <Link
+                  key={subItem.path}
+                  to={subItem.path}
+                  className="block p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors group"
                 >
-                  <div className="text-sm font-semibold text-gray-900 dark:text-gray-100 group-hover:text-sheraa-primary transition-colors">
+                  <div className="font-medium text-gray-900 dark:text-white group-hover:text-sheraa-primary transition-colors">
                     {subItem.name}
                   </div>
                   {subItem.description && (
-                    <div className="text-xs text-gray-600 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300">
+                    <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">
                       {subItem.description}
                     </div>
                   )}
-                </motion.div>
-              </Link>
-            ))}
+                </Link>
+              ))}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

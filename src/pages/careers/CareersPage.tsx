@@ -1,9 +1,9 @@
 
 import React from 'react';
-import ReframedCareersPage from './components/ReframedCareersPage';
+import DetailedCareersPage from './components/DetailedCareersPage';
 
 const CareersPage: React.FC = () => {
-  return <ReframedCareersPage />;
+  return <DetailedCareersPage />;
 };
 
 export default CareersPage;
