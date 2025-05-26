@@ -9,6 +9,7 @@ import { SEFHighlightSection } from "@/components/homepage/redesign/SEFHighlight
 import { CommunityPartnersSection } from "@/components/homepage/redesign/CommunityPartnersSection";
 import { VisionQuoteSection } from "@/components/homepage/redesign/VisionQuoteSection";
 import { FinalCTASection } from "@/components/homepage/redesign/FinalCTASection";
+import { StickyCornerCTA } from "@/components/ui/sticky-corner-cta";
 
 const NewIndex: React.FC = () => {
   return (
@@ -21,6 +22,13 @@ const NewIndex: React.FC = () => {
       <CommunityPartnersSection />
       <VisionQuoteSection />
       <FinalCTASection />
+      
+      {/* Sticky Corner CTA */}
+      <StickyCornerCTA 
+        href="/eligibility"
+        text="Find Your Program"
+        subtext="AI-Powered Matcher"
+      />
     </MainLayout>
   );
 };
