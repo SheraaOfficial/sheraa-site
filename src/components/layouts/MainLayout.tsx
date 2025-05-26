@@ -5,13 +5,15 @@ import Footer from '@/components/Footer';
 
 interface MainLayoutProps {
   children: React.ReactNode;
+  className?: string;
+  backgroundStyle?: React.CSSProperties;
 }
 
-const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
+const MainLayout: React.FC<MainLayoutProps> = ({ children, className, backgroundStyle }) => {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col" style={backgroundStyle}>
       <ModernNavigation />
-      <main className="flex-grow pt-16">
+      <main className={`flex-grow pt-20 ${className || ''}`}>
         {children}
       </main>
       <Footer />
