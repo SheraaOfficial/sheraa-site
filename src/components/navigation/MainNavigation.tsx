@@ -43,37 +43,54 @@ const MainNavigation = () => {
             />
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-1">
-            {navigationItems.map((item) => {
-              const isActive = location.pathname === item.path;
-              const Icon = item.icon;
-              
-              return (
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  className={cn(
-                    "flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-colors relative",
-                    isActive 
-                      ? "text-[#165A5A] bg-[#165A5A]/10" 
-                      : "text-gray-700 hover:text-[#165A5A] hover:bg-gray-100"
-                  )}
-                >
-                  <Icon size={16} />
-                  <span>{item.name}</span>
-                  {isActive && (
-                    <motion.div 
-                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#165A5A]"
-                      layoutId="underline"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                    />
-                  )}
-                </Link>
-              );
-            })}
+          {/* Centered Desktop Navigation */}
+          <div className="hidden md:flex items-center justify-center flex-1">
+            <div className="flex items-center space-x-1">
+              {navigationItems.map((item) => {
+                const isActive = location.pathname === item.path;
+                const Icon = item.icon;
+                const isSEF = item.name === 'SEF';
+                
+                return (
+                  <Link
+                    key={item.path}
+                    to={item.path}
+                    className={cn(
+                      "flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 relative",
+                      isActive 
+                        ? "text-[#165A5A] bg-[#165A5A]/10" 
+                        : "text-gray-700 hover:text-[#165A5A] hover:bg-gray-100",
+                      isSEF && "animate-pulse shadow-lg shadow-[#165A5A]/30 bg-gradient-to-r from-[#165A5A]/10 to-[#FF6B35]/10 border border-[#165A5A]/20"
+                    )}
+                  >
+                    <Icon size={16} className={isSEF ? "text-[#FF6B35]" : ""} />
+                    <span className={isSEF ? "font-bold text-[#165A5A]" : ""}>{item.name}</span>
+                    {isActive && (
+                      <motion.div 
+                        className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#165A5A]"
+                        layoutId="underline"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                      />
+                    )}
+                    {isSEF && (
+                      <motion.div
+                        className="absolute inset-0 rounded-md bg-gradient-to-r from-[#165A5A]/20 to-[#FF6B35]/20 -z-10"
+                        animate={{
+                          opacity: [0.3, 0.7, 0.3],
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                      />
+                    )}
+                  </Link>
+                );
+              })}
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
@@ -118,6 +135,7 @@ const MainNavigation = () => {
               {navigationItems.map((item) => {
                 const isActive = location.pathname === item.path;
                 const Icon = item.icon;
+                const isSEF = item.name === 'SEF';
                 
                 return (
                   <Link
@@ -125,14 +143,28 @@ const MainNavigation = () => {
                     to={item.path}
                     onClick={() => setIsOpen(false)}
                     className={cn(
-                      "flex items-center space-x-3 px-3 py-3 rounded-md text-sm font-medium transition-colors",
+                      "flex items-center space-x-3 px-3 py-3 rounded-md text-sm font-medium transition-all duration-300 relative",
                       isActive 
                         ? "text-[#165A5A] bg-[#165A5A]/10" 
-                        : "text-gray-700 hover:text-[#165A5A] hover:bg-gray-100"
+                        : "text-gray-700 hover:text-[#165A5A] hover:bg-gray-100",
+                      isSEF && "animate-pulse shadow-lg shadow-[#165A5A]/30 bg-gradient-to-r from-[#165A5A]/10 to-[#FF6B35]/10 border border-[#165A5A]/20"
                     )}
                   >
-                    <Icon size={18} />
-                    <span>{item.name}</span>
+                    <Icon size={18} className={isSEF ? "text-[#FF6B35]" : ""} />
+                    <span className={isSEF ? "font-bold text-[#165A5A]" : ""}>{item.name}</span>
+                    {isSEF && (
+                      <motion.div
+                        className="absolute inset-0 rounded-md bg-gradient-to-r from-[#165A5A]/20 to-[#FF6B35]/20 -z-10"
+                        animate={{
+                          opacity: [0.3, 0.7, 0.3],
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                      />
+                    )}
                   </Link>
                 );
               })}
