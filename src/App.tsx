@@ -1,3 +1,4 @@
+
 import { Suspense, lazy } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -33,6 +34,11 @@ const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const TermsOfUse = lazy(() => import("./pages/TermsOfUse"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
+// New auth pages
+const AuthLoginPage = lazy(() => import("./pages/auth/LoginPage"));
+const AuthSignupPage = lazy(() => import("./pages/auth/SignupPage"));
+const AuthForgotPasswordPage = lazy(() => import("./pages/auth/ForgotPasswordPage"));
+
 // New lazy imports for missing pages
 const BlogPage = lazy(() => import("./pages/blog"));
 const PodcastPage = lazy(() => import("./pages/podcast"));
@@ -63,8 +69,8 @@ function App() {
               )}>
                 <main>
                   <Routes>
-                    <Route path="/" element={<Suspense fallback={<SectionLoading />}><Index /></Suspense>} />
-                    <Route path="/new" element={<Suspense fallback={<SectionLoading />}><NewIndex /></Suspense>} />
+                    <Route path="/" element={<Suspense fallback={<SectionLoading />}><NewIndex /></Suspense>} />
+                    <Route path="/old" element={<Suspense fallback={<SectionLoading />}><Index /></Suspense>} />
                     <Route path="/about/*" element={<Suspense fallback={<SectionLoading />}><AboutPages /></Suspense>} />
                     <Route path="/programs/*" element={<Suspense fallback={<SectionLoading />}><ProgramsPages /></Suspense>} />
                     <Route path="/community/*" element={<Suspense fallback={<SectionLoading />}><CommunityPages /></Suspense>} />
@@ -74,9 +80,15 @@ function App() {
                     <Route path="/contact" element={<Suspense fallback={<SectionLoading />}><ContactPage /></Suspense>} />
                     <Route path="/careers" element={<Suspense fallback={<SectionLoading />}><CareersPage /></Suspense>} />
                     <Route path="/eligibility" element={<Suspense fallback={<SectionLoading />}><EligibilityPage /></Suspense>} />
+                    
+                    {/* Auth routes - both old and new */}
                     <Route path="/login" element={<Suspense fallback={<SectionLoading />}><LoginPage /></Suspense>} />
                     <Route path="/signup" element={<Suspense fallback={<SectionLoading />}><SignupPage /></Suspense>} />
                     <Route path="/forgot-password" element={<Suspense fallback={<SectionLoading />}><ForgotPasswordPage /></Suspense>} />
+                    <Route path="/auth/login" element={<Suspense fallback={<SectionLoading />}><AuthLoginPage /></Suspense>} />
+                    <Route path="/auth/signup" element={<Suspense fallback={<SectionLoading />}><AuthSignupPage /></Suspense>} />
+                    <Route path="/auth/forgot-password" element={<Suspense fallback={<SectionLoading />}><AuthForgotPasswordPage /></Suspense>} />
+                    
                     <Route path="/profile" element={<Suspense fallback={<SectionLoading />}><ProfilePage /></Suspense>} />
                     <Route path="/profile/setup" element={<Suspense fallback={<SectionLoading />}><ProfileSetupPage /></Suspense>} />
                     <Route path="/feed" element={<Suspense fallback={<SectionLoading />}><FeedPage /></Suspense>} />

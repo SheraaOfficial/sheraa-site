@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
-import { SophisticatedNavigationItem } from './sophisticatedNavigationData';
 
 interface SophisticatedNavigationContainerProps {
   children: React.ReactNode;
@@ -29,7 +28,7 @@ export const SophisticatedNavigationContainer: React.FC<SophisticatedNavigationC
   return (
     <motion.nav
       className={cn(
-        "fixed top-0 left-0 right-0 z-[9999] transition-all duration-500",
+        "fixed top-0 left-0 right-0 z-[99998] transition-all duration-500",
         isVisible ? "translate-y-0" : "-translate-y-full"
       )}
       initial={{ y: -100, opacity: 0 }}

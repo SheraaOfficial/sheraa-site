@@ -87,7 +87,7 @@ export const SophisticatedNavItem: React.FC<SophisticatedNavItemProps> = ({
         )}
       </motion.div>
 
-      {/* Dropdown Menu */}
+      {/* Enhanced Dropdown Menu with higher z-index */}
       <AnimatePresence>
         {isDropdownOpen && item.subItems && (
           <motion.div
@@ -95,7 +95,8 @@ export const SophisticatedNavItem: React.FC<SophisticatedNavItemProps> = ({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="absolute top-full left-0 mt-2 min-w-[280px] bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/20 dark:border-gray-700/50 py-2 z-[10000]"
+            className="absolute top-full left-0 mt-2 min-w-[280px] bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/20 dark:border-gray-700/50 py-2 z-[99999]"
+            style={{ zIndex: 99999 }}
           >
             {item.subItems.map((subItem, subIndex) => (
               <Link
