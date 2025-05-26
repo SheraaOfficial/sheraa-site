@@ -132,6 +132,8 @@ const ModernNavigation = () => {
     }
   };
 
+  const allNavigationItems = [...navigationItems, sefItem];
+
   return (
     <>
       {/* Floating Background Orb */}
@@ -416,7 +418,7 @@ const ModernNavigation = () => {
                 className="lg:hidden border-t border-white/20 bg-white/10 backdrop-blur-xl rounded-b-2xl"
               >
                 <div className="py-6 space-y-3 px-6">
-                  {[...navigationItems, sefItem].map((item, index) => {
+                  {allNavigationItems.map((item, index) => {
                     const isActive = isPathActive(item.path, item.subItems);
                     const Icon = item.icon;
                     
