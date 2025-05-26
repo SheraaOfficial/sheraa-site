@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Star, ShoppingCart, Gift, Truck, Shield, Heart, Sparkles, Award, Crown } from 'lucide-react';
@@ -58,6 +59,10 @@ const SharjahPerfumeLanding = () => {
   };
 
   const handleBuyNow = () => {
+    setShowBuyingForm(true);
+  };
+
+  const handleAddToCart = () => {
     setShowBuyingForm(true);
   };
 
