@@ -2,17 +2,17 @@
 import React from 'react';
 import MainLayout from '@/components/layouts/MainLayout';
 
-const PrivacyPolicy = () => {
+const Profile = () => {
   return (
     <MainLayout>
       <div className="min-h-screen pt-24 px-4">
         <div className="container mx-auto">
-          <h1 className="text-4xl font-bold text-center mb-8">Privacy Policy</h1>
-          <p className="text-center text-gray-600">Learn about how we protect your privacy</p>
+          <h1 className="text-4xl font-bold text-center mb-8">Profile</h1>
+          <p className="text-center text-gray-600">Manage your Sheraa profile</p>
         </div>
       </div>
     </MainLayout>
   );
 };
 
-export default PrivacyPolicy;
+export default Profile;

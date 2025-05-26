@@ -9,6 +9,7 @@ import { ThemeProvider } from "@/contexts/ThemeContext";
 import { PerformanceProvider } from "@/contexts/PerformanceContext";
 import { ErrorBoundary } from "@/components/layout/ErrorBoundary";
 import { SectionLoading } from "@/components/layout/SectionLoading";
+import NavigationBar from "@/components/NavigationBar";
 
 // Existing lazy imports
 const Index = lazy(() => import("./pages/Index"));
@@ -47,40 +48,47 @@ function App() {
         <ThemeProvider>
           <TooltipProvider>
             <BrowserRouter>
-              <div 
-                className="min-h-screen bg-background font-sans antialiased"
-                style={{ paddingTop: navbarHeight }}
-              >
-                <ErrorBoundary>
-                  <Routes>
-                    <Route path="/" element={<Suspense fallback={<SectionLoading />}><Index /></Suspense>} />
-                    <Route path="/new" element={<Suspense fallback={<SectionLoading />}><NewIndex /></Suspense>} />
-                    <Route path="/about/*" element={<Suspense fallback={<SectionLoading />}><AboutPages /></Suspense>} />
-                    <Route path="/programs/*" element={<Suspense fallback={<SectionLoading />}><ProgramsPages /></Suspense>} />
-                    <Route path="/community/*" element={<Suspense fallback={<SectionLoading />}><CommunityPages /></Suspense>} />
-                    <Route path="/resources/*" element={<Suspense fallback={<SectionLoading />}><ResourcesPages /></Suspense>} />
-                    <Route path="/events/*" element={<Suspense fallback={<SectionLoading />}><EventsPages /></Suspense>} />
-                    <Route path="/perfume/*" element={<Suspense fallback={<SectionLoading />}><PerfumePages /></Suspense>} />
-                    <Route path="/contact" element={<Suspense fallback={<SectionLoading />}><ContactPage /></Suspense>} />
-                    <Route path="/careers" element={<Suspense fallback={<SectionLoading />}><CareersPage /></Suspense>} />
-                    <Route path="/eligibility" element={<Suspense fallback={<SectionLoading />}><EligibilityPage /></Suspense>} />
-                    <Route path="/login" element={<Suspense fallback={<SectionLoading />}><LoginPage /></Suspense>} />
-                    <Route path="/signup" element={<Suspense fallback={<SectionLoading />}><SignupPage /></Suspense>} />
-                    <Route path="/forgot-password" element={<Suspense fallback={<SectionLoading />}><ForgotPasswordPage /></Suspense>} />
-                    <Route path="/profile" element={<Suspense fallback={<SectionLoading />}><ProfilePage /></Suspense>} />
-                    <Route path="/profile/setup" element={<Suspense fallback={<SectionLoading />}><ProfileSetupPage /></Suspense>} />
-                    <Route path="/feed" element={<Suspense fallback={<SectionLoading />}><FeedPage /></Suspense>} />
-                    <Route path="/impact-report" element={<Suspense fallback={<SectionLoading />}><ImpactReport /></Suspense>} />
-                    <Route path="/privacy-policy" element={<Suspense fallback={<SectionLoading />}><PrivacyPolicy /></Suspense>} />
-                    <Route path="/terms-of-use" element={<Suspense fallback={<SectionLoading />}><TermsOfUse /></Suspense>} />
-                    
-                    {/* New routes */}
-                    <Route path="/blog" element={<Suspense fallback={<SectionLoading />}><BlogPage /></Suspense>} />
-                    <Route path="/podcast" element={<Suspense fallback={<SectionLoading />}><PodcastPage /></Suspense>} />
-                    <Route path="/reports" element={<Suspense fallback={<SectionLoading />}><ReportsPage /></Suspense>} />
-                    
-                    <Route path="*" element={<Suspense fallback={<SectionLoading />}><NotFound /></Suspense>} />
-                  </Routes>
+              <div className="min-h-screen bg-background font-sans antialiased">
+                <NavigationBar />
+                <ErrorBoundary FallbackComponent={({ error }) => (
+                  <div className="min-h-screen flex items-center justify-center">
+                    <div className="text-center">
+                      <h2 className="text-2xl font-bold mb-4">Something went wrong</h2>
+                      <p className="text-gray-600">{error.message}</p>
+                    </div>
+                  </div>
+                )}>
+                  <main style={{ paddingTop: navbarHeight }}>
+                    <Routes>
+                      <Route path="/" element={<Suspense fallback={<SectionLoading />}><Index /></Suspense>} />
+                      <Route path="/new" element={<Suspense fallback={<SectionLoading />}><NewIndex /></Suspense>} />
+                      <Route path="/about/*" element={<Suspense fallback={<SectionLoading />}><AboutPages /></Suspense>} />
+                      <Route path="/programs/*" element={<Suspense fallback={<SectionLoading />}><ProgramsPages /></Suspense>} />
+                      <Route path="/community/*" element={<Suspense fallback={<SectionLoading />}><CommunityPages /></Suspense>} />
+                      <Route path="/resources/*" element={<Suspense fallback={<SectionLoading />}><ResourcesPages /></Suspense>} />
+                      <Route path="/events/*" element={<Suspense fallback={<SectionLoading />}><EventsPages /></Suspense>} />
+                      <Route path="/perfume/*" element={<Suspense fallback={<SectionLoading />}><PerfumePages /></Suspense>} />
+                      <Route path="/contact" element={<Suspense fallback={<SectionLoading />}><ContactPage /></Suspense>} />
+                      <Route path="/careers" element={<Suspense fallback={<SectionLoading />}><CareersPage /></Suspense>} />
+                      <Route path="/eligibility" element={<Suspense fallback={<SectionLoading />}><EligibilityPage /></Suspense>} />
+                      <Route path="/login" element={<Suspense fallback={<SectionLoading />}><LoginPage /></Suspense>} />
+                      <Route path="/signup" element={<Suspense fallback={<SectionLoading />}><SignupPage /></Suspense>} />
+                      <Route path="/forgot-password" element={<Suspense fallback={<SectionLoading />}><ForgotPasswordPage /></Suspense>} />
+                      <Route path="/profile" element={<Suspense fallback={<SectionLoading />}><ProfilePage /></Suspense>} />
+                      <Route path="/profile/setup" element={<Suspense fallback={<SectionLoading />}><ProfileSetupPage /></Suspense>} />
+                      <Route path="/feed" element={<Suspense fallback={<SectionLoading />}><FeedPage /></Suspense>} />
+                      <Route path="/impact-report" element={<Suspense fallback={<SectionLoading />}><ImpactReport /></Suspense>} />
+                      <Route path="/privacy-policy" element={<Suspense fallback={<SectionLoading />}><PrivacyPolicy /></Suspense>} />
+                      <Route path="/terms-of-use" element={<Suspense fallback={<SectionLoading />}><TermsOfUse /></Suspense>} />
+                      
+                      {/* New routes */}
+                      <Route path="/blog" element={<Suspense fallback={<SectionLoading />}><BlogPage /></Suspense>} />
+                      <Route path="/podcast" element={<Suspense fallback={<SectionLoading />}><PodcastPage /></Suspense>} />
+                      <Route path="/reports" element={<Suspense fallback={<SectionLoading />}><ReportsPage /></Suspense>} />
+                      
+                      <Route path="*" element={<Suspense fallback={<SectionLoading />}><NotFound /></Suspense>} />
+                    </Routes>
+                  </main>
                 </ErrorBoundary>
               </div>
               <Toaster />

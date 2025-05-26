@@ -9,7 +9,6 @@ import { useDevicePerformance } from "@/hooks/useDevicePerformance";
 import { useIsMobile } from "@/hooks/useDeviceDetection";
 import { SectionLoading } from "@/components/layout/SectionLoading";
 import { WelcomeAnimation } from "@/components/ui/welcome-animation";
-import NavigationBar from "@/components/NavigationBar";
 
 // Import critical components directly for better performance
 import HomepageHero from "@/components/homepage/HomepageHero";
@@ -27,9 +26,6 @@ const Index: React.FC = () => {
 
   return (
     <div className="relative bg-white dark:bg-sheraa-dark">
-      {/* Navigation Bar */}
-      <NavigationBar />
-      
       {/* Welcome animation for first-time visitors */}
       <WelcomeAnimation />
       
