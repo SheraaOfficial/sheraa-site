@@ -9,13 +9,14 @@ import { DesktopNavigation } from './DesktopNavigation';
 import { SophisticatedMobileMenu } from './SophisticatedMobileMenu';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { NavigationItem } from './types';
+import { LucideIcon } from 'lucide-react';
 
 // Convert sophisticated navigation items to standard navigation items
 const convertToNavigationItems = (): NavigationItem[] => {
   return sophisticatedNavigationItems.map(item => ({
     name: item.name,
     path: item.path,
-    icon: item.icon as any, // Type assertion to handle the conversion
+    icon: item.icon as LucideIcon, // Direct cast since we know these are Lucide icons
     subItems: item.subItems?.map(subItem => ({
       name: subItem.name,
       path: subItem.path,
