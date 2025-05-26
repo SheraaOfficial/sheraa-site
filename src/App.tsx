@@ -17,6 +17,10 @@ const About = lazy(() => import("./pages/about/index"));
 const Programs = lazy(() => import("./pages/programs/index"));
 const StartYoung = lazy(() => import("./pages/programs/start-young/index"));
 const Community = lazy(() => import("./pages/community/index"));
+const CommunityMembership = lazy(() => import("./pages/community/membership/index"));
+const MembershipApplication = lazy(() => import("./pages/community/membership/apply"));
+const MembershipConfirmation = lazy(() => import("./pages/community/membership/confirmation"));
+const SuccessStories = lazy(() => import("./pages/community/membership/success-stories"));
 const Auth = lazy(() => import("./pages/Auth"));
 const Profile = lazy(() => import("./pages/Profile"));
 const EligibilityPage = lazy(() => import("./pages/EligibilityPage"));
@@ -68,6 +72,38 @@ const App = () => (
                 element={
                   <SafeSuspense fallback={<SectionLoading />}>
                     <Community />
+                  </SafeSuspense>
+                }
+              />
+              <Route
+                path="/community/membership"
+                element={
+                  <SafeSuspense fallback={<SectionLoading />}>
+                    <CommunityMembership />
+                  </SafeSuspense>
+                }
+              />
+              <Route
+                path="/community/membership/apply"
+                element={
+                  <SafeSuspense fallback={<SectionLoading />}>
+                    <MembershipApplication />
+                  </SafeSuspense>
+                }
+              />
+              <Route
+                path="/community/membership/confirmation"
+                element={
+                  <SafeSuspense fallback={<SectionLoading />}>
+                    <MembershipConfirmation />
+                  </SafeSuspense>
+                }
+              />
+              <Route
+                path="/community/membership/success-stories"
+                element={
+                  <SafeSuspense fallback={<SectionLoading />}>
+                    <SuccessStories />
                   </SafeSuspense>
                 }
               />

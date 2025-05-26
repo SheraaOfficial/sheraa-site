@@ -17,7 +17,7 @@ const CommunityPage: React.FC = () => {
       icon: Users,
       color: 'from-blue-500 to-cyan-500',
       features: ['Co-working spaces access', 'Networking events', 'Mentor connections', 'Resource library'],
-      path: '/community/join'
+      path: '/community/membership'
     },
     {
       title: 'Our Startups',
@@ -199,7 +199,7 @@ const CommunityPage: React.FC = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" variant="secondary" className="bg-white text-sheraa-primary hover:bg-gray-50">
-                <Link to="/community/join">
+                <Link to="/community/membership">
                   <Users className="w-4 h-4 mr-2" />
                   Join Community
                 </Link>
