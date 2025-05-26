@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -94,6 +95,14 @@ export default {
         'glow': '0 0 20px rgba(155, 135, 245, 0.35)',
         'glow-sm': '0 0 10px rgba(155, 135, 245, 0.25)'
       },
+      backgroundImage: {
+        'gradient-primary': 'linear-gradient(to right, #003366, #008080)',
+        'gradient-secondary': 'linear-gradient(to right, #FF6600, #FF7F50)',
+        'gradient-purple': 'linear-gradient(to right, #9b87f5, #D946EF)',
+        'gradient-accent': 'linear-gradient(to right, #FF6600, #FF7F50)',
+        'gradient-blue': 'linear-gradient(to right, #0EA5E9, #33C3F0)',
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
@@ -166,13 +175,6 @@ export default {
       },
       fontFamily: {
         'plus-jakarta': ['"Plus Jakarta Sans"', 'sans-serif'],
-      },
-      backgroundImage: {
-        'gradient-primary': 'linear-gradient(to right, #003366, #008080)',
-        'gradient-secondary': 'linear-gradient(to right, #FF6600, #FF7F50)',
-        'gradient-purple': 'linear-gradient(to right, #9b87f5, #D946EF)',
-        'gradient-accent': 'linear-gradient(to right, #FF6600, #FF7F50)',
-        'gradient-blue': 'linear-gradient(to right, #0EA5E9, #33C3F0)',
       },
       dropShadow: {
         'glow': '0 0 10px rgba(214, 188, 250, 0.5)',

@@ -11,10 +11,13 @@ import {
   Briefcase,
   FileText,
   Star,
-  ChevronDown
+  ChevronDown,
+  Rss,
+  Mic,
+  BarChart3
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { Sparkles } from '@/components/ui/sparkles';
+import { MenuBar } from '@/components/ui/glow-menu';
 
 const MainNavigation = () => {
   const location = useLocation();
@@ -78,6 +81,9 @@ const MainNavigation = () => {
     },
     { name: 'Contact', path: '/contact', icon: Phone },
     { name: 'Careers', path: '/careers', icon: Briefcase },
+    { name: 'Blog', path: '/blog', icon: Rss },
+    { name: 'Podcast', path: '/podcast', icon: Mic },
+    { name: 'Reports', path: '/reports', icon: BarChart3 },
     { name: 'SEF', path: '/events/sef-landing', icon: Star, special: true },
   ];
 
@@ -87,6 +93,43 @@ const MainNavigation = () => {
       return subItems.some(item => location.pathname === item.path);
     }
     return false;
+  };
+
+  const getCurrentActiveItem = () => {
+    for (const item of navigationItems) {
+      if (isPathActive(item.path, item.subItems)) {
+        return item.name;
+      }
+    }
+    return '';
+  };
+
+  const menuItems = navigationItems.map((item) => {
+    const isActive = isPathActive(item.path, item.subItems);
+    const isSEF = item.special;
+    
+    return {
+      icon: item.icon,
+      label: item.name,
+      href: item.path,
+      gradient: isSEF 
+        ? "radial-gradient(circle, rgba(155,135,245,0.25) 0%, rgba(217,70,239,0.15) 50%, rgba(217,70,239,0) 100%)"
+        : isActive 
+          ? "radial-gradient(circle, rgba(0,51,102,0.2) 0%, rgba(0,128,128,0.1) 50%, rgba(0,128,128,0) 100%)"
+          : "radial-gradient(circle, rgba(59,130,246,0.15) 0%, rgba(37,99,235,0.06) 50%, rgba(29,78,216,0) 100%)",
+      iconColor: isSEF 
+        ? "text-sheraa-sef-primary" 
+        : isActive 
+          ? "text-sheraa-primary" 
+          : "text-blue-500",
+    };
+  });
+
+  const handleItemClick = (label: string) => {
+    const item = navigationItems.find(nav => nav.name === label);
+    if (item) {
+      // Handle navigation here if needed
+    }
   };
 
   return (
@@ -103,90 +146,14 @@ const MainNavigation = () => {
             />
           </Link>
 
-          {/* Centered Desktop Navigation */}
+          {/* Centered Desktop Navigation with Glow Menu */}
           <div className="hidden lg:flex items-center justify-center flex-1">
-            <div className="flex items-center space-x-1 bg-gray-50/80 rounded-full px-2 py-1 backdrop-blur-sm">
-              {navigationItems.map((item) => {
-                const isActive = isPathActive(item.path, item.subItems);
-                const Icon = item.icon;
-                const isSEF = item.special;
-                const hasSubItems = item.subItems && item.subItems.length > 0;
-                
-                return (
-                  <div
-                    key={item.path}
-                    className="relative"
-                    onMouseEnter={() => setHoveredItem(item.name)}
-                    onMouseLeave={() => setHoveredItem(null)}
-                  >
-                    <Link
-                      to={item.path}
-                      className={cn(
-                        "flex items-center space-x-2 px-4 py-2.5 rounded-full text-sm font-medium transition-all duration-300 relative group",
-                        isActive 
-                          ? "text-white bg-[#165A5A] shadow-lg" 
-                          : "text-gray-700 hover:text-[#165A5A] hover:bg-white/80",
-                        isSEF && !isActive && "text-transparent bg-clip-text bg-gradient-to-r from-[#165A5A] to-[#FF6B35]"
-                      )}
-                    >
-                      {isSEF ? (
-                        <Sparkles className="relative" colors={["#165A5A", "#FF6B35", "#9b87f5"]} size="sm" count={6}>
-                          <Icon size={16} className="text-[#FF6B35]" />
-                          <span className="font-bold bg-gradient-to-r from-[#165A5A] to-[#FF6B35] bg-clip-text text-transparent">
-                            {item.name}
-                          </span>
-                        </Sparkles>
-                      ) : (
-                        <>
-                          <Icon size={16} />
-                          <span>{item.name}</span>
-                          {hasSubItems && (
-                            <ChevronDown 
-                              size={14} 
-                              className={cn(
-                                "transition-transform duration-200",
-                                hoveredItem === item.name && "rotate-180"
-                              )} 
-                            />
-                          )}
-                        </>
-                      )}
-                      
-                      {isActive && !isSEF && (
-                        <motion.div 
-                          className="absolute inset-0 bg-[#165A5A] rounded-full -z-10"
-                          layoutId="navbar-active"
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                        />
-                      )}
-                    </Link>
-
-                    {/* Dropdown Menu */}
-                    {hasSubItems && hoveredItem === item.name && (
-                      <motion.div
-                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                        transition={{ duration: 0.2 }}
-                        className="absolute top-full left-0 mt-2 w-64 bg-white rounded-2xl shadow-xl border border-gray-200/50 py-2 backdrop-blur-xl"
-                      >
-                        {item.subItems?.map((subItem) => (
-                          <Link
-                            key={subItem.path}
-                            to={subItem.path}
-                            className="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#165A5A] transition-colors duration-200 first:rounded-t-2xl last:rounded-b-2xl"
-                          >
-                            {subItem.name}
-                          </Link>
-                        ))}
-                      </motion.div>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
+            <MenuBar
+              items={menuItems}
+              activeItem={getCurrentActiveItem()}
+              onItemClick={handleItemClick}
+              className="mx-auto"
+            />
           </div>
 
           {/* Mobile Menu Button */}
@@ -246,24 +213,15 @@ const MainNavigation = () => {
                       className={cn(
                         "flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 mx-2",
                         isActive 
-                          ? "text-white bg-[#165A5A] shadow-lg" 
-                          : "text-gray-700 hover:text-[#165A5A] hover:bg-gray-100",
-                        isSEF && !isActive && "bg-gradient-to-r from-[#165A5A]/10 to-[#FF6B35]/10"
+                          ? "text-white bg-sheraa-primary shadow-lg" 
+                          : "text-gray-700 hover:text-sheraa-primary hover:bg-gray-100",
+                        isSEF && !isActive && "bg-gradient-to-r from-sheraa-sef-primary/10 to-sheraa-sef-secondary/10"
                       )}
                     >
-                      {isSEF ? (
-                        <Sparkles colors={["#165A5A", "#FF6B35"]} size="sm" count={4}>
-                          <Icon size={18} className="text-[#FF6B35]" />
-                          <span className="font-bold bg-gradient-to-r from-[#165A5A] to-[#FF6B35] bg-clip-text text-transparent">
-                            {item.name}
-                          </span>
-                        </Sparkles>
-                      ) : (
-                        <>
-                          <Icon size={18} />
-                          <span>{item.name}</span>
-                        </>
-                      )}
+                      <Icon size={18} className={isSEF ? "text-sheraa-sef-primary" : ""} />
+                      <span className={isSEF && !isActive ? "font-bold bg-gradient-to-r from-sheraa-sef-primary to-sheraa-sef-secondary bg-clip-text text-transparent" : ""}>
+                        {item.name}
+                      </span>
                     </Link>
                     
                     {/* Mobile Sub Items */}
@@ -274,7 +232,7 @@ const MainNavigation = () => {
                             key={subItem.path}
                             to={subItem.path}
                             onClick={() => setIsOpen(false)}
-                            className="block px-4 py-2 text-sm text-gray-600 hover:text-[#165A5A] transition-colors duration-200"
+                            className="block px-4 py-2 text-sm text-gray-600 hover:text-sheraa-primary transition-colors duration-200"
                           >
                             {subItem.name}
                           </Link>
