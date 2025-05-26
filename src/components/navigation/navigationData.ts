@@ -1,68 +1,68 @@
 
-import { Star } from 'lucide-react';
+import { Home, BookOpen, Users, Calendar, Info, Mail, Rocket } from 'lucide-react';
+import { NavigationItem } from './types';
 
-export const navigationItems = [
-  {
-    name: 'About',
-    path: '/about',
-    subItems: [
-      { name: 'Our Story', path: '/about' },
-      { name: 'Leadership', path: '/about/leadership' },
-      { name: 'Board of Advisors', path: '/about/board' }
-    ]
-  },
+export const navigationItems: NavigationItem[] = [
   {
     name: 'Programs',
     path: '/programs',
+    icon: Rocket,
     subItems: [
-      { name: 'S3 Incubator', path: '/programs/s3-incubator' },
-      { name: 'Start Young', path: '/programs/start-young' },
-      { name: 'Startup Dojo', path: '/programs/startup-dojo' },
-      { name: 'Access Sharjah Challenge', path: '/programs/access-sharjah-challenge' },
-      { name: 'SME Support', path: '/programs/sme-support' },
-      { name: 'Eligibility Checker', path: '/eligibility' }
+      { name: 'Start Young', path: '/programs/start-young', description: 'Youth entrepreneurship programs' },
+      { name: 'S3 Incubator', path: '/programs/s3', description: 'Flagship incubator program' },
+      { name: 'Access Sharjah Challenge', path: '/programs/asc', description: 'Global startup competition' },
+      { name: 'SME Support', path: '/programs/sme', description: 'Support for established businesses' },
     ]
   },
   {
     name: 'Community',
     path: '/community',
+    icon: Users,
     subItems: [
-      { name: 'Join Community', path: '/community/join' },
-      { name: 'Partnerships', path: '/community/partnerships' },
-      { name: 'Startups', path: '/community/startups' }
+      { name: 'Join Community', path: '/community/join', description: 'Become a member' },
+      { name: 'Our Startups', path: '/community/startups', description: 'Portfolio showcase' },
+      { name: 'Partnerships', path: '/community/partnerships', description: 'Partner with us' },
     ]
   },
   {
     name: 'Resources',
     path: '/resources',
+    icon: BookOpen,
     subItems: [
-      { name: 'Guides & Toolkits', path: '/resources/guides' },
-      { name: 'Advisory Services', path: '/resources/advisory' },
-      { name: 'Articles & Insights', path: '/resources/articles' },
-      { name: 'Impact Reports', path: '/resources/impact-reports' }
+      { name: 'Guides & Toolkits', path: '/resources/guides', description: 'Practical resources' },
+      { name: 'Advisory Services', path: '/resources/advisory', description: 'Expert guidance' },
+      { name: 'Articles & Insights', path: '/resources/articles', description: 'Latest insights' },
     ]
   },
   {
     name: 'Events',
     path: '/events',
+    icon: Calendar,
     subItems: [
-      { name: 'Upcoming Events', path: '/events/upcoming' },
-      { name: 'Past Events', path: '/events/past' },
-      { name: 'SEF 2026', path: '/events/sef' }
+      { name: 'Upcoming Events', path: '/events/upcoming', description: 'Join our events' },
+      { name: 'SEF', path: '/events/sef', description: 'Entrepreneurship festival' },
+      { name: 'Workshops', path: '/events/workshops', description: 'Skill-building sessions' },
+    ]
+  },
+  {
+    name: 'About',
+    path: '/about',
+    icon: Info,
+    subItems: [
+      { name: 'Our Story', path: '/about/story', description: 'Learn about Sheraa' },
+      { name: 'Team', path: '/about/team', description: 'Meet our team' },
+      { name: 'Impact', path: '/about/impact', description: 'Our achievements' },
     ]
   },
   {
     name: 'Contact',
-    path: '/contact'
+    path: '/contact',
+    icon: Mail
   },
   {
-    name: 'Sign In',
-    path: '/auth'
-  },
-  {
-    name: 'SEF 2026',
+    name: 'SEF',
     path: '/events/sef',
-    icon: Star,
+    icon: Calendar,
     special: true
   }
 ];
