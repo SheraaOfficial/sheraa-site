@@ -1,68 +1,53 @@
 
-import { 
-  Home, 
-  Users, 
-  BookOpen, 
-  Calendar, 
-  Phone, 
-  FileText
-} from 'lucide-react';
-import { NavigationItem } from './types';
-
-export const navigationItems: NavigationItem[] = [
-  { name: 'Home', path: '/', icon: Home },
-  { 
-    name: 'About', 
-    path: '/about', 
-    icon: Users,
+export const navigationItems = [
+  {
+    label: 'About',
+    href: '/about',
     subItems: [
-      { name: 'Our Story', path: '/about' },
-      { name: 'Leadership', path: '/about/leadership' },
-      { name: 'Board', path: '/about/board' }
+      { label: 'Our Story', href: '/about' },
+      { label: 'Leadership', href: '/about/leadership' },
+      { label: 'Board of Advisors', href: '/about/board' }
     ]
   },
-  { 
-    name: 'Programs', 
-    path: '/programs', 
-    icon: BookOpen,
+  {
+    label: 'Programs',
+    href: '/programs',
     subItems: [
-      { name: 'Overview', path: '/programs' },
-      { name: 'S3 Incubator', path: '/programs/s3-incubator' },
-      { name: 'Startup Dojo', path: '/programs/startup-dojo' },
-      { name: 'Access Sharjah Challenge', path: '/programs/access-sharjah-challenge' }
+      { label: 'S3 Incubator', href: '/programs/s3-incubator' },
+      { label: 'Startup Dojo', href: '/programs/startup-dojo' },
+      { label: 'Access Sharjah Challenge', href: '/programs/access-sharjah-challenge' }
     ]
   },
-  { 
-    name: 'Community', 
-    path: '/community', 
-    icon: Users,
+  {
+    label: 'Community',
+    href: '/community',
     subItems: [
-      { name: 'Overview', path: '/community' },
-      { name: 'Join', path: '/community/join' },
-      { name: 'Partnerships', path: '/community/partnerships' }
+      { label: 'Join Community', href: '/community/join' },
+      { label: 'Partnerships', href: '/community/partnerships' },
+      { label: 'Startups', href: '/community/startups' }
     ]
   },
-  { 
-    name: 'Resources', 
-    path: '/resources', 
-    icon: FileText,
+  {
+    label: 'Resources',
+    href: '/resources',
     subItems: [
-      { name: 'Overview', path: '/resources' },
-      { name: 'Guides & Toolkits', path: '/resources/guides' },
-      { name: 'Advisory', path: '/resources/advisory' },
-      { name: 'Articles', path: '/resources/articles' },
-      { name: 'Impact Reports', path: '/resources/impact-reports' }
+      { label: 'Guides & Toolkits', href: '/resources/guides' },
+      { label: 'Advisory Services', href: '/resources/advisory' },
+      { label: 'Articles & Insights', href: '/resources/articles' },
+      { label: 'Impact Reports', href: '/resources/impact-reports' }
     ]
   },
-  { 
-    name: 'Events', 
-    path: '/events', 
-    icon: Calendar,
+  {
+    label: 'Events',
+    href: '/events',
     subItems: [
-      { name: 'Overview', path: '/events' },
-      { name: 'Upcoming Events', path: '/events/upcoming' },
-      { name: 'Past Events', path: '/events/past' }
+      { label: 'Upcoming Events', href: '/events/upcoming' },
+      { label: 'Past Events', href: '/events/past' },
+      { label: 'SEF 2026', href: '/events/sef-landing' }
     ]
   },
-  { name: 'Contact', path: '/contact', icon: Phone }
+  {
+    label: 'Contact',
+    href: '/contact'
+  }
 ];
