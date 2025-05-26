@@ -17,17 +17,17 @@ export const SEFButton: React.FC<SEFButtonProps> = ({ path }) => {
     >
       <Link 
         to={path} 
-        className="relative group flex items-center gap-3 px-6 py-2.5 bg-gradient-to-r from-orange-500 to-red-500 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 border border-orange-400/30"
+        className="relative group flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-orange-500 to-red-500 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 border border-orange-400/30"
       >
         {/* Background glow effect */}
         <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-red-400 rounded-lg blur opacity-0 group-hover:opacity-50 transition-opacity duration-300 -z-10" />
         
         {/* Icon */}
-        <Calendar className="w-5 h-5" />
+        <Calendar className="w-4 h-4" />
         
         {/* Text */}
         <span className="text-sm font-bold tracking-wide">
-          SEF 2026
+          SEF
         </span>
         
         {/* Arrow with animation */}
@@ -36,7 +36,7 @@ export const SEFButton: React.FC<SEFButtonProps> = ({ path }) => {
           initial={{ x: -10 }}
           whileHover={{ x: 0 }}
         >
-          <ArrowRight className="w-4 h-4" />
+          <ArrowRight className="w-3.5 h-3.5" />
         </motion.div>
       </Link>
     </motion.div>

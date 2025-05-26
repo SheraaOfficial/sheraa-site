@@ -20,25 +20,23 @@ export const LanguageSwitcher: React.FC = () => {
 
   const handleLanguageChange = (language: Language) => {
     setCurrentLanguage(language);
-    // Here you would typically integrate with i18n library
     console.log('Language changed to:', language.code);
   };
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="sm" className="text-gray-600 dark:text-gray-300 hover:text-sheraa-primary">
-          <Globe className="w-4 h-4 mr-1" />
-          <span className="hidden sm:inline">{currentLanguage.flag} {currentLanguage.code.toUpperCase()}</span>
-          <span className="sm:hidden">{currentLanguage.flag}</span>
+        <Button variant="ghost" size="sm" className="text-gray-600 dark:text-gray-300 hover:text-sheraa-primary px-2 py-1.5 h-8">
+          <Globe className="w-3.5 h-3.5 mr-1.5" />
+          <span className="text-xs font-medium">{currentLanguage.code === 'en' ? 'EN' : 'AR'}</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
+      <DropdownMenuContent align="end" className="min-w-[120px]">
         {languages.map((language) => (
           <DropdownMenuItem
             key={language.code}
             onClick={() => handleLanguageChange(language)}
-            className={`cursor-pointer ${currentLanguage.code === language.code ? 'bg-sheraa-primary/10' : ''}`}
+            className={`cursor-pointer text-sm ${currentLanguage.code === language.code ? 'bg-sheraa-primary/10 text-sheraa-primary' : ''}`}
           >
             <span className="mr-2">{language.flag}</span>
             {language.name}

@@ -20,9 +20,9 @@ export const DesktopNavigation: React.FC<DesktopNavigationProps> = ({
   onDropdownClose
 }) => {
   return (
-    <div className="hidden lg:flex items-center space-x-4">
+    <div className="hidden lg:flex items-center space-x-1">
       {/* Main Navigation */}
-      <div className="flex items-center space-x-1">
+      <div className="flex items-center space-x-0.5">
         {navigationItems.map((item, index) => {
           if (item.special) {
             return <SEFButton key={item.name} path={item.path} />;
@@ -41,7 +41,7 @@ export const DesktopNavigation: React.FC<DesktopNavigationProps> = ({
       </div>
       
       {/* Right side items */}
-      <div className="flex items-center space-x-2 border-l border-gray-200 dark:border-gray-700 pl-4">
+      <div className="flex items-center space-x-1 border-l border-gray-200 dark:border-gray-700 pl-3 ml-3">
         <LanguageSwitcher />
         <AuthButtons />
       </div>
