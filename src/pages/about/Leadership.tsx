@@ -3,7 +3,7 @@ import React from 'react';
 import MainLayout from '@/components/layouts/MainLayout';
 import { motion } from 'framer-motion';
 import { Card, CardContent } from '@/components/ui/card';
-import { LinkedIn, Twitter, Mail } from 'lucide-react';
+import { Linkedin, Twitter, Mail } from 'lucide-react';
 
 const Leadership: React.FC = () => {
   const leaders = [
@@ -85,7 +85,7 @@ const Leadership: React.FC = () => {
                       <div className="flex justify-center gap-4">
                         {leader.social.linkedin && (
                           <a href={leader.social.linkedin} className="text-gray-400 hover:text-sheraa-primary transition-colors">
-                            <LinkedIn className="w-5 h-5" />
+                            <Linkedin className="w-5 h-5" />
                           </a>
                         )}
                         {leader.social.twitter && (
