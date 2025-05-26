@@ -13,7 +13,7 @@ export const SEFButton: React.FC<SEFButtonProps> = ({
   }} whileTap={{
     scale: 0.95
   }} className="relative">
-      <Link to={path} className="relative ml-3 py-3 bg-gradient-to-r from-sheraa-sef-primary via-purple-600 to-sheraa-sef-secondary text-white font-bold rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 group overflow-hidden border border-white/20 px-0relative flex items-center space-x-2 z-10">
+      <Link to={path} className="relative ml-3 bg-gradient-to-r from-sheraa-sef-primary via-purple-600 to-sheraa-sef-secondary text-white font-bold shadow-xl hover:shadow-2xl transition-all duration-300 group overflow-hidden border border-white/20 px-0relative flex items-center space-x-2 z-10 mx-0 py-0 px-0 rounded-full">
         {/* Animated background glow */}
         <div className="absolute inset-0 bg-gradient-to-r from-sheraa-sef-primary/80 to-sheraa-sef-secondary/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm" />
         
