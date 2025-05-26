@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
   Home, 
@@ -11,17 +11,13 @@ import {
   Briefcase,
   FileText,
   Star,
-  ChevronDown,
-  Rss,
-  Mic,
-  BarChart3
+  ChevronDown
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { MenuBar } from '@/components/ui/glow-menu';
 
 const MainNavigation = () => {
   const location = useLocation();
-  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
@@ -34,7 +30,8 @@ const MainNavigation = () => {
       subItems: [
         { name: 'Our Story', path: '/about' },
         { name: 'Leadership', path: '/about/leadership' },
-        { name: 'Board', path: '/about/board' }
+        { name: 'Board', path: '/about/board' },
+        { name: 'Careers', path: '/careers' }
       ]
     },
     { 
@@ -122,26 +119,6 @@ const MainNavigation = () => {
     };
   });
 
-  const handleItemClick = (label: string) => {
-    const item = navigationItems.find(nav => nav.name === label);
-    if (item) {
-      if (item.subItems && item.subItems.length > 0) {
-        // For items with subItems, toggle dropdown or navigate to main path
-        if (activeDropdown === label) {
-          setActiveDropdown(null);
-        } else {
-          setActiveDropdown(label);
-        }
-        // Also navigate to the main path
-        navigate(item.path);
-      } else {
-        // For items without subItems, navigate directly
-        navigate(item.path);
-        setActiveDropdown(null);
-      }
-    }
-  };
-
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-xl border-b border-gray-200/50 shadow-sm">
       <div className="container mx-auto px-4">
@@ -156,38 +133,98 @@ const MainNavigation = () => {
             />
           </Link>
 
-          {/* Centered Desktop Navigation with Glow Menu */}
+          {/* Desktop Navigation with Hover-only Dropdowns */}
           <div className="hidden lg:flex items-center justify-center flex-1 relative">
-            <MenuBar
-              items={menuItems}
-              activeItem={getCurrentActiveItem()}
-              onItemClick={handleItemClick}
-              className="mx-auto"
-            />
-            
-            {/* Dropdown Menu */}
-            {activeDropdown && (
-              <motion.div
-                initial={{ opacity: 0, y: -10, scale: 0.95 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                className="absolute top-full mt-2 bg-white/95 backdrop-blur-xl border border-gray-200/50 shadow-lg rounded-xl overflow-hidden z-50"
-                style={{ left: '50%', transform: 'translateX(-50%)' }}
-              >
-                {navigationItems
-                  .find(item => item.name === activeDropdown)
-                  ?.subItems?.map((subItem) => (
-                    <Link
-                      key={subItem.path}
-                      to={subItem.path}
-                      onClick={() => setActiveDropdown(null)}
-                      className="block px-6 py-3 text-sm text-gray-700 hover:text-sheraa-primary hover:bg-gray-50/80 transition-all duration-200 border-b border-gray-100/50 last:border-b-0"
-                    >
-                      {subItem.name}
+            <div className="flex items-center space-x-1">
+              {navigationItems.map((item) => {
+                const isActive = isPathActive(item.path, item.subItems);
+                const Icon = item.icon;
+                const isSEF = item.special;
+                const hasDropdown = item.subItems && item.subItems.length > 0;
+
+                if (isSEF) {
+                  return (
+                    <Link key={item.name} to={item.path}>
+                      <motion.div
+                        className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-sheraa-primary to-sheraa-secondary text-white font-medium text-sm shadow-lg hover:shadow-xl transition-all duration-300"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        {Icon && <Icon className="w-4 h-4" />}
+                        <span>{item.name}</span>
+                        <Star className="w-3 h-3 animate-pulse" />
+                      </motion.div>
                     </Link>
-                  ))}
-              </motion.div>
-            )}
+                  );
+                }
+
+                return (
+                  <div 
+                    key={item.name}
+                    className="relative group"
+                    onMouseEnter={() => hasDropdown && setActiveDropdown(item.name)}
+                    onMouseLeave={() => setActiveDropdown(null)}
+                  >
+                    {hasDropdown ? (
+                      <div
+                        className={cn(
+                          "flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 cursor-pointer",
+                          isActive
+                            ? 'text-sheraa-primary bg-sheraa-primary/10'
+                            : 'text-gray-700 hover:text-sheraa-primary hover:bg-sheraa-primary/5'
+                        )}
+                      >
+                        {Icon && <Icon className="w-4 h-4" />}
+                        <span>{item.name}</span>
+                        <motion.div
+                          animate={{ rotate: activeDropdown === item.name ? 180 : 0 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <ChevronDown className="w-4 h-4" />
+                        </motion.div>
+                      </div>
+                    ) : (
+                      <Link
+                        to={item.path}
+                        className={cn(
+                          "flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200",
+                          isActive
+                            ? 'text-sheraa-primary bg-sheraa-primary/10'
+                            : 'text-gray-700 hover:text-sheraa-primary hover:bg-sheraa-primary/5'
+                        )}
+                      >
+                        {Icon && <Icon className="w-4 h-4" />}
+                        <span>{item.name}</span>
+                      </Link>
+                    )}
+
+                    {/* Hover Dropdown */}
+                    {hasDropdown && activeDropdown === item.name && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                        className="absolute top-full left-0 mt-2 w-80 bg-white border border-gray-200 shadow-xl rounded-xl overflow-hidden z-50"
+                      >
+                        <div className="p-2">
+                          {item.subItems?.map((subItem) => (
+                            <Link
+                              key={subItem.path}
+                              to={subItem.path}
+                              className="block p-3 rounded-lg hover:bg-gray-50 transition-colors group"
+                            >
+                              <div className="font-medium text-gray-900 group-hover:text-sheraa-primary transition-colors">
+                                {subItem.name}
+                              </div>
+                            </Link>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
@@ -296,14 +333,6 @@ const MainNavigation = () => {
           </motion.div>
         )}
       </div>
-      
-      {/* Click outside to close dropdown */}
-      {activeDropdown && (
-        <div 
-          className="fixed inset-0 z-40" 
-          onClick={() => setActiveDropdown(null)}
-        />
-      )}
     </nav>
   );
 };

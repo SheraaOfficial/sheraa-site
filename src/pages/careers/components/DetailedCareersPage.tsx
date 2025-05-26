@@ -5,6 +5,7 @@ import CareersHeroSection from './CareersHeroSection';
 import WhyJoinSection from './WhyJoinSection';
 import JobOpeningsSection from './JobOpeningsSection';
 import ApplicationProcess from './ApplicationProcess';
+import ApplicationForm from './ApplicationForm';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Trophy, Zap, MessageSquare } from 'lucide-react';
@@ -24,6 +25,33 @@ const DetailedCareersPage: React.FC = () => {
 
         {/* Application Process */}
         <ApplicationProcess />
+
+        {/* Application Form */}
+        <section className="py-20 bg-gray-50 dark:bg-sheraa-dark/30" id="apply">
+          <div className="container mx-auto px-4">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="text-center mb-12"
+            >
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Apply?</h2>
+              <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+                Submit your application and take the first step towards joining our mission to empower entrepreneurs across the region.
+              </p>
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <ApplicationForm />
+            </motion.div>
+          </div>
+        </section>
 
         {/* Final CTA */}
         <motion.section
@@ -61,21 +89,23 @@ const DetailedCareersPage: React.FC = () => {
           <div className="container mx-auto px-4 relative z-10 text-center">
             <Trophy className="w-16 h-16 mx-auto mb-6 opacity-90" />
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Ready to Shape the Future of Entrepreneurship?
+              Questions About Your Application?
             </h2>
             <p className="text-xl mb-8 text-white/90 max-w-3xl mx-auto leading-relaxed">
-              Join a team where your work creates ripple effects across the entire MENA startup ecosystem. 
-              Every day brings new challenges, growth opportunities, and the satisfaction of building something truly meaningful.
+              Our team is here to help you throughout the application process. 
+              Don't hesitate to reach out if you need any clarification or assistance.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" className="bg-white text-sheraa-primary hover:bg-gray-50 shadow-xl group">
-                Start Your Application
-                <Zap className="ml-2 w-4 h-4 transition-transform group-hover:scale-110" />
+                <a href="#apply" className="flex items-center gap-2">
+                  Apply Now
+                  <Zap className="w-4 h-4 transition-transform group-hover:scale-110" />
+                </a>
               </Button>
               <Button variant="outline" size="lg" className="border-white text-white hover:bg-white/10">
                 <MessageSquare className="mr-2 w-4 h-4" />
-                Questions? Let's Talk
+                Contact HR Team
               </Button>
             </div>
 

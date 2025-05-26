@@ -6,7 +6,8 @@ import {
   Users2, 
   Calendar, 
   FileText,
-  Star
+  Star,
+  Briefcase
 } from 'lucide-react';
 import { NavigationItem } from './types';
 
@@ -35,6 +36,11 @@ export const sophisticatedNavigationItems: NavigationItem[] = [
         name: 'Board of Advisors',
         path: '/about/board',
         description: 'Our distinguished board members'
+      },
+      {
+        name: 'Careers',
+        path: '/careers',
+        description: 'Join our mission to empower entrepreneurs'
       }
     ]
   },
