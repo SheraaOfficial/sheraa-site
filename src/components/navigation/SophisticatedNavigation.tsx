@@ -5,7 +5,6 @@ import { SophisticatedNavigationContainer } from './SophisticatedNavigationConta
 import { SophisticatedLogo } from './SophisticatedLogo';
 import { SophisticatedNavItem } from './SophisticatedNavItem';
 import { SophisticatedMobileMenu } from './SophisticatedMobileMenu';
-import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { sophisticatedNavigationItems, SophisticatedNavigationItem } from './sophisticatedNavigationData';
 
 export const SophisticatedNavigation: React.FC = () => {
@@ -26,36 +25,33 @@ export const SophisticatedNavigation: React.FC = () => {
   };
 
   return (
-    <>
-      <ThemeToggle />
-      <div onMouseLeave={handleMouseLeave}>
-        <SophisticatedNavigationContainer>
-          <SophisticatedLogo />
+    <div onMouseLeave={handleMouseLeave}>
+      <SophisticatedNavigationContainer>
+        <SophisticatedLogo />
 
-          {/* Enhanced Navigation Menu */}
-          <div className="hidden lg:flex items-center space-x-2">
-            {sophisticatedNavigationItems.map((item, index) => {
-              const isActive = isPathActive(item.path, item.subItems);
+        {/* Enhanced Navigation Menu */}
+        <div className="hidden lg:flex items-center space-x-2">
+          {sophisticatedNavigationItems.map((item, index) => {
+            const isActive = isPathActive(item.path, item.subItems);
 
-              return (
-                <SophisticatedNavItem
-                  key={item.name}
-                  item={item}
-                  index={index}
-                  isActive={isActive}
-                  activeDropdown={activeDropdown}
-                  onMouseEnter={() => item.subItems && setActiveDropdown(item.name)}
-                  onMouseLeave={() => {
-                    if (!item.subItems) setActiveDropdown(null);
-                  }}
-                />
-              );
-            })}
-          </div>
+            return (
+              <SophisticatedNavItem
+                key={item.name}
+                item={item}
+                index={index}
+                isActive={isActive}
+                activeDropdown={activeDropdown}
+                onMouseEnter={() => item.subItems && setActiveDropdown(item.name)}
+                onMouseLeave={() => {
+                  if (!item.subItems) setActiveDropdown(null);
+                }}
+              />
+            );
+          })}
+        </div>
 
-          <SophisticatedMobileMenu />
-        </SophisticatedNavigationContainer>
-      </div>
-    </>
+        <SophisticatedMobileMenu />
+      </SophisticatedNavigationContainer>
+    </div>
   );
 };
