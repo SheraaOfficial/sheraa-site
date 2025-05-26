@@ -23,12 +23,21 @@ const NewIndex: React.FC = () => {
       <VisionQuoteSection />
       <FinalCTASection />
       
-      {/* Sticky Corner CTA */}
+      {/* Multiple Sticky Corner CTAs */}
       <StickyCornerCTA 
         href="/eligibility"
         text="Find Your Program"
         subtext="AI-Powered Matcher"
       />
+      
+      {/* Add Careers CTA positioned differently */}
+      <div className="fixed bottom-6 left-6 z-[9998]">
+        <StickyCornerCTA 
+          href="/careers"
+          text="Join Our Team"
+          subtext="Build the Future"
+        />
+      </div>
     </MainLayout>
   );
 };

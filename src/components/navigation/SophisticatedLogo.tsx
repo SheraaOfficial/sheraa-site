@@ -15,40 +15,27 @@ export const SophisticatedLogo: React.FC = () => {
         transition={{ duration: 0.2 }}
         className="relative flex items-center gap-3"
       >
-        {/* Emblem */}
+        {/* Updated Logo with theme-based colors */}
         <motion.div
-          className="relative w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gradient-to-br from-sheraa-primary to-sheraa-teal flex items-center justify-center shadow-lg"
+          className="relative w-10 h-10 md:w-12 md:h-12 flex items-center justify-center"
           animate={{ 
-            boxShadow: [
-              "0 4px 20px rgba(0, 51, 102, 0.3)",
-              "0 6px 30px rgba(0, 128, 128, 0.4)",
-              "0 4px 20px rgba(0, 51, 102, 0.3)",
+            filter: [
+              "drop-shadow(0 4px 20px rgba(0, 51, 102, 0.3))",
+              "drop-shadow(0 6px 30px rgba(0, 128, 128, 0.4))",
+              "drop-shadow(0 4px 20px rgba(0, 51, 102, 0.3))",
             ]
           }}
           transition={{ duration: 3, repeat: Infinity }}
         >
-          {/* Inner geometric pattern */}
-          <div className="w-6 h-6 md:w-7 md:h-7 relative">
-            <motion.div
-              className="absolute inset-0 border-2 border-white/80 rounded-lg"
-              animate={{ rotate: 360 }}
-              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-            />
-            <motion.div
-              className="absolute inset-1 border border-white/60 rounded-md"
-              animate={{ rotate: -360 }}
-              transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-            />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-2 h-2 bg-white rounded-full" />
-            </div>
-          </div>
-          
-          {/* Corner accent */}
-          <motion.div
-            className="absolute -top-1 -right-1 w-3 h-3 bg-sheraa-orange rounded-full"
-            animate={{ scale: [1, 1.2, 1] }}
-            transition={{ duration: 2, repeat: Infinity }}
+          {/* Use uploaded logo with theme-appropriate colors */}
+          <img 
+            src="/lovable-uploads/5ab0dc9b-b752-42ff-ab16-a2c51a0ee68e.png" 
+            alt="Sheraa Logo" 
+            className={`w-full h-full object-contain transition-all duration-300 ${
+              theme === 'dark' 
+                ? 'filter brightness-0 invert' // Makes it white in dark theme
+                : '' // Keeps original blue in light theme
+            }`}
           />
         </motion.div>
         

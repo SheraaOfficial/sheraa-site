@@ -1,64 +1,121 @@
 
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
-import { cn } from '@/lib/utils';
+import { useScrollNavigation } from './useScrollNavigation';
+import { sophisticatedNavigationItems } from './sophisticatedNavigationData';
+import { SophisticatedLogo } from './SophisticatedLogo';
+import { DesktopNavigation } from './DesktopNavigation';
+import { SophisticatedMobileMenu } from './SophisticatedMobileMenu';
+import { ThemeToggle } from '@/components/ui/theme-toggle';
+import { NavigationItem } from './types';
 
-interface SophisticatedNavigationContainerProps {
-  children: React.ReactNode;
-}
-
-export const SophisticatedNavigationContainer: React.FC<SophisticatedNavigationContainerProps> = ({ children }) => {
-  const [scrolled, setScrolled] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
+export const SophisticatedNavigationContainer: React.FC = () => {
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
+  const { isScrolled } = useScrollNavigation();
 
   useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      setScrolled(currentScrollY > 50);
-      setIsVisible(currentScrollY < lastScrollY || currentScrollY < 100);
-      setLastScrollY(currentScrollY);
-    };
+    setActiveDropdown(null);
+    setIsMobileMenuOpen(false);
+  }, [location.pathname]);
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY]);
+  const isPathActive = (path: string, subItems?: NavigationItem['subItems']): boolean => {
+    if (location.pathname === path) return true;
+    if (subItems) {
+      return subItems.some(subItem => location.pathname.startsWith(subItem.path));
+    }
+    return location.pathname.startsWith(path) && path !== '/';
+  };
+
+  const handleNavClick = (item: NavigationItem) => {
+    if (item.subItems && item.subItems.length > 0) {
+      setActiveDropdown(prev => prev === item.name ? null : item.name);
+    }
+  };
+
+  const handleDropdownClose = () => {
+    setActiveDropdown(null);
+  };
 
   return (
-    <motion.nav
-      className={cn(
-        "fixed top-0 left-0 right-0 z-[999999] transition-all duration-500",
-        isVisible ? "translate-y-0" : "-translate-y-full"
-      )}
-      initial={{ y: -100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
-      style={{ zIndex: 999999 }}
-    >
-      <div className="mx-4 mt-4">
-        <motion.div
-          className={cn(
-            "relative overflow-hidden transition-all duration-500 mx-auto max-w-7xl",
-            scrolled
-              ? "bg-white/95 dark:bg-gray-900/95 backdrop-blur-3xl border border-gray-200/50 dark:border-gray-700/50 shadow-2xl rounded-2xl py-3"
-              : "bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-gray-200/30 dark:border-gray-700/30 shadow-xl rounded-xl py-4"
-          )}
-          whileHover={{
-            scale: 1.01,
-            boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)"
-          }}
-          transition={{ duration: 0.3 }}
-          style={{ zIndex: 999999 }}
-        >
-          {/* Enhanced gradient background overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-sheraa-primary/5 via-transparent to-sheraa-teal/5 pointer-events-none" />
-          
-          <div className="flex items-center justify-between px-6 md:px-8 relative z-10">
-            {children}
+    <>
+      <motion.nav
+        className={`fixed top-0 left-0 right-0 transition-all duration-300 z-[9999] ${
+          isScrolled 
+            ? 'bg-white/80 dark:bg-sheraa-dark/80 backdrop-blur-xl shadow-lg border-b border-white/20' 
+            : 'bg-transparent'
+        }`}
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-between h-20">
+            <SophisticatedLogo />
+            
+            <DesktopNavigation 
+              navigationItems={sophisticatedNavigationItems}
+              isPathActive={isPathActive}
+              activeDropdown={activeDropdown}
+              onNavClick={handleNavClick}
+              onDropdownClose={handleDropdownClose}
+            />
+            
+            <div className="flex items-center gap-4">
+              <ThemeToggle />
+              
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="lg:hidden p-2 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 shadow-lg"
+                aria-label="Toggle mobile menu"
+              >
+                <motion.div
+                  animate={{ rotate: isMobileMenuOpen ? 45 : 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <div className="w-6 h-6 flex flex-col justify-center items-center">
+                    <motion.span
+                      className="block h-0.5 w-6 bg-gray-700 dark:bg-gray-200 rounded"
+                      animate={{
+                        rotate: isMobileMenuOpen ? 45 : 0,
+                        y: isMobileMenuOpen ? 2 : 0,
+                      }}
+                      transition={{ duration: 0.2 }}
+                    />
+                    <motion.span
+                      className="block h-0.5 w-6 bg-gray-700 dark:bg-gray-200 rounded mt-1"
+                      animate={{
+                        opacity: isMobileMenuOpen ? 0 : 1,
+                      }}
+                      transition={{ duration: 0.2 }}
+                    />
+                    <motion.span
+                      className="block h-0.5 w-6 bg-gray-700 dark:bg-gray-200 rounded mt-1"
+                      animate={{
+                        rotate: isMobileMenuOpen ? -45 : 0,
+                        y: isMobileMenuOpen ? -2 : 0,
+                      }}
+                      transition={{ duration: 0.2 }}
+                    />
+                  </div>
+                </motion.div>
+              </button>
+            </div>
           </div>
-        </motion.div>
-      </div>
-    </motion.nav>
+        </div>
+      </motion.nav>
+
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <SophisticatedMobileMenu 
+            navigationItems={sophisticatedNavigationItems}
+            isPathActive={isPathActive}
+            onClose={() => setIsMobileMenuOpen(false)}
+          />
+        )}
+      </AnimatePresence>
+    </>
   );
 };
