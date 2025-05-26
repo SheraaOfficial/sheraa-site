@@ -28,7 +28,7 @@ const Index: React.FC = () => {
 
   return (
     <div className="relative bg-white dark:bg-sheraa-dark">
-      {/* New Navigation Bar */}
+      {/* New Navigation Bar - positioned at the top */}
       <NewNavigationBar />
       
       {/* Welcome animation for first-time visitors */}
@@ -37,11 +37,10 @@ const Index: React.FC = () => {
       {/* Progress bar for navigation */}
       {(!isMobile || devicePerformance === 'high') && <ProgressBar />}
 
-      {/* Main Layout without the old navigation */}
-      <MainLayout 
-        backgroundStyle={backgroundStyle}
+      {/* Main content without any additional navigation */}
+      <div 
         className="relative"
-        hideNavigation={true}
+        style={backgroundStyle}
       >
         {/* Hero Section - Primary brand introduction */}
         <HomepageHero />
@@ -53,7 +52,7 @@ const Index: React.FC = () => {
         <div className="relative z-10">
           <HomepageCore />
         </div>
-      </MainLayout>
+      </div>
     </div>
   );
 };

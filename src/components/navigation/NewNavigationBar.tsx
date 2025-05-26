@@ -54,17 +54,6 @@ const NewNavigationBar = () => {
       ]
     },
     {
-      title: 'Discover',
-      icon: Compass,
-      links: [
-        { title: 'About Sheraa', href: '/about', description: 'Learn about our mission and vision' },
-        { title: 'Why Sharjah', href: '/about/why-sharjah', description: 'Discover the advantages of Sharjah' },
-        { title: 'Our Impact', href: '/about/impact', description: 'See how we are changing the ecosystem' },
-        { title: 'Leadership Team', href: '/about/team', description: 'Meet our visionary leaders' },
-        { title: 'Careers', href: '/careers', description: 'Join our mission to empower entrepreneurs' }
-      ]
-    },
-    {
       title: 'Programs',
       icon: TrendingUp,
       links: [
@@ -90,19 +79,15 @@ const NewNavigationBar = () => {
       title: 'Events',
       icon: Calendar,
       links: [
-        { title: 'SEF 2026', href: '/events/sef-landing', description: 'Sharjah Entrepreneurship Festival' },
         { title: 'Upcoming Events', href: '/events/upcoming', description: 'Workshops, webinars & more' },
         { title: 'Past Events', href: '/events/past', description: 'Our previous community gatherings' }
       ]
     },
     {
-      title: 'Sharjah Perfume',
+      title: 'SEF',
       icon: Sparkles,
       links: [
-        { title: 'About Sharjah Perfume', href: '/perfume', description: 'Discover the essence of Sharjah' },
-        { title: 'Premium Collection', href: '/perfume/sharjah-premium', description: 'Our exclusive handcrafted luxury perfume' },
-        { title: 'Our Collection', href: '/perfume/collection', description: 'Explore our curated selection' },
-        { title: 'Visit Our Store', href: '/perfume/store', description: 'Find our exclusive perfumes' }
+        { title: 'SEF 2026', href: '/events/sef-landing', description: 'Sharjah Entrepreneurship Festival' }
       ]
     }
   ];
@@ -149,8 +134,8 @@ const NewNavigationBar = () => {
     <header 
       className={`fixed top-0 left-0 w-full z-[9999] transition-all duration-300 ${
         scrolled 
-          ? 'bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-lg' 
-          : 'bg-transparent'
+          ? 'bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-lg border-b border-gray-200/20 dark:border-gray-700/20' 
+          : 'bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm'
       }`}
     >
       <div className="container mx-auto px-4">
@@ -158,7 +143,7 @@ const NewNavigationBar = () => {
           {/* Logo */}
           <Link 
             to="/" 
-            className="flex items-center space-x-2 z-50"
+            className="flex items-center space-x-2 z-50 group"
             onClick={closeMenu}
           >
             <span className="text-2xl font-bold bg-gradient-to-r from-[#165A5A] to-[#C8A165] bg-clip-text text-transparent">
@@ -198,7 +183,7 @@ const NewNavigationBar = () => {
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: 10, scale: 0.95 }}
                       transition={{ duration: 0.15 }}
-                      className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-80 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden"
+                      className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-80 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden z-[10000]"
                     >
                       <div className="p-2">
                         {section.links.map((link, index) => (
@@ -225,19 +210,10 @@ const NewNavigationBar = () => {
               </div>
             ))}
 
-            {/* SEF Special Link */}
-            <Link 
-              to="/events/sef-landing"
-              className="flex items-center space-x-2 px-4 py-2 rounded-md bg-gradient-to-r from-purple-600 to-orange-500 text-white font-medium text-sm transition-all duration-200 hover:shadow-lg hover:scale-105"
-            >
-              <Calendar className="w-4 h-4" />
-              <span>SEF 2026</span>
-            </Link>
-
             {/* Apply Link */}
             <Link 
               to="/eligibility"
-              className="flex items-center space-x-2 px-4 py-2 rounded-md bg-[#165A5A] text-white font-medium text-sm transition-all duration-200 hover:bg-[#165A5A]/90 hover:shadow-md"
+              className="flex items-center space-x-2 px-4 py-2 rounded-md bg-[#165A5A] text-white font-medium text-sm transition-all duration-200 hover:bg-[#165A5A]/90 hover:shadow-md ml-4"
             >
               <ArrowRight className="w-4 h-4" />
               <span>Apply</span>
@@ -343,20 +319,11 @@ const NewNavigationBar = () => {
                 </div>
               ))}
 
-              {/* Mobile Special Links */}
-              <div className="border-t border-gray-200 dark:border-gray-700 pt-4 mt-4 space-y-3">
-                <Link 
-                  to="/events/sef-landing"
-                  className="flex items-center space-x-3 p-3 rounded-md bg-gradient-to-r from-purple-600 to-orange-500 text-white font-medium"
-                  onClick={closeMenu}
-                >
-                  <Calendar className="w-5 h-5" />
-                  <span>SEF 2026</span>
-                </Link>
-                
+              {/* Mobile Apply Button */}
+              <div className="border-t border-gray-200 dark:border-gray-700 pt-4 mt-4">
                 <Link 
                   to="/eligibility"
-                  className="flex items-center space-x-3 p-3 rounded-md bg-[#165A5A] text-white font-medium"
+                  className="flex items-center space-x-3 p-3 rounded-md bg-[#165A5A] text-white font-medium w-full"
                   onClick={closeMenu}
                 >
                   <ArrowRight className="w-5 h-5" />
