@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Star, Sparkles, Users, Target, Award, Zap } from "lucide-react";
+import { ArrowLeft, Star, Sparkles, Users, Target, Award, Zap, CheckCircle2, Rocket } from "lucide-react";
 import EligibilityCheckerPageContent from "@/components/eligibility/EligibilityCheckerPageContent";
 import { 
   eligibilityQuestions, 
@@ -23,13 +23,9 @@ const EligibilityPage: React.FC = () => {
   const [showResult, setShowResult] = useState(false);
   const [persona, setPersona] = useState<string | null>(null);
 
-  // Get the current question to display
   const currentQuestion = getCurrentQuestion(answers, currentStep, persona);
-  
-  // Get total questions for progress calculation
   const totalSteps = getTotalQuestionsForPersona(persona);
 
-  // Handle next button click
   const handleNext = () => {
     const currentQuestionId = currentQuestion?.id;
     
@@ -37,7 +33,6 @@ const EligibilityPage: React.FC = () => {
       return;
     }
 
-    // If it's the persona question, set the persona
     if (currentQuestionId === "persona") {
       const selectedOption = currentQuestion.options?.find(
         option => option.id === answers[currentQuestionId]
@@ -45,7 +40,6 @@ const EligibilityPage: React.FC = () => {
       setPersona(selectedOption?.persona || null);
       setCurrentStep(0);
     } else {
-      // Check if we have more questions for this persona
       const nextQuestions = eligibilityQuestions.filter(question => {
         if (question.dependsOn) {
           const { questionId, answerId } = question.dependsOn;
@@ -57,35 +51,28 @@ const EligibilityPage: React.FC = () => {
       if (currentStep < nextQuestions.length - 1) {
         setCurrentStep(currentStep + 1);
       } else {
-        // No more questions, show result
         setShowResult(true);
       }
     }
   };
 
-  // Handle back button click
   const handleBack = () => {
     if (currentStep > 0) {
       setCurrentStep(currentStep - 1);
     } else if (persona) {
-      // Reset to persona selection
       setPersona(null);
       setCurrentStep(0);
-      // Clear answers specific to the persona
       const personaAnswer = answers.persona;
       setAnswers({ persona: personaAnswer as string });
     }
   };
 
-  // Handle answer selection
   const handleAnswerChange = (questionId: string, value: string | string[]) => {
     setAnswers(prev => ({ ...prev, [questionId]: value }));
   };
 
-  // Check if the current question has valid answers
   const hasValidAnswers = currentQuestion && answers[currentQuestion.id] ? true : false;
 
-  // Check if this is the last question for the current persona
   const isLastQuestion = persona && 
     currentStep === eligibilityQuestions.filter(q => {
       if (q.dependsOn) {
@@ -95,7 +82,6 @@ const EligibilityPage: React.FC = () => {
       return false;
     }).length - 1;
 
-  // Reset the form
   const handleReset = () => {
     setCurrentStep(0);
     setAnswers({});
@@ -103,7 +89,6 @@ const EligibilityPage: React.FC = () => {
     setPersona(null);
   };
   
-  // Get recommended program safely
   const recommendedProgram = React.useMemo(() => {
     try {
       return getRecommendedProgram(answers, programRecommendations);
@@ -113,26 +98,54 @@ const EligibilityPage: React.FC = () => {
     }
   }, [answers]);
 
-  // Enhanced background particles
-  const particles = Array.from({ length: 30 }, (_, i) => ({
-    id: i,
-    x: Math.random() * 100,
-    y: Math.random() * 100,
-    delay: Math.random() * 4,
-    duration: Math.random() * 3 + 2,
-  }));
+  // Enhanced animated background particles
+  const particleVariants = {
+    hidden: { opacity: 0, scale: 0 },
+    visible: { 
+      opacity: [0, 0.8, 0],
+      scale: [0.5, 1.2, 0.5],
+      y: [0, -100, 0],
+      transition: {
+        duration: 3,
+        repeat: Infinity,
+        ease: "easeInOut"
+      }
+    }
+  };
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.3
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" }
+    }
+  };
 
   return (
     <MainLayout>
       <div className="relative bg-gradient-to-br from-white via-sheraa-light/30 to-sheraa-primary/10 dark:from-sheraa-dark/90 dark:via-sheraa-dark/70 dark:to-sheraa-primary/10 min-h-screen overflow-hidden">
         {/* Enhanced animated background */}
         <div className="absolute inset-0">
-          {/* Main gradient overlays */}
+          {/* Main gradient overlays with motion */}
           <motion.div 
             className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-sheraa-primary/20 to-sheraa-teal/10 rounded-full blur-3xl"
             animate={{
               scale: [1, 1.2, 1],
               opacity: [0.3, 0.6, 0.3],
+              x: [0, 20, 0],
+              y: [0, -20, 0]
             }}
             transition={{
               duration: 8,
@@ -145,6 +158,8 @@ const EligibilityPage: React.FC = () => {
             animate={{
               scale: [1, 1.3, 1],
               opacity: [0.2, 0.5, 0.2],
+              x: [0, -15, 0],
+              y: [0, 15, 0]
             }}
             transition={{
               duration: 6,
@@ -154,41 +169,40 @@ const EligibilityPage: React.FC = () => {
             }}
           />
           
-          {/* Floating particles */}
-          {particles.map((particle) => (
+          {/* Floating particles with motion variants */}
+          {Array.from({ length: 30 }, (_, i) => (
             <motion.div
-              key={particle.id}
+              key={i}
               className="absolute w-2 h-2 bg-sheraa-primary/20 dark:bg-sheraa-teal/30 rounded-full"
               style={{
-                left: `${particle.x}%`,
-                top: `${particle.y}%`,
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
               }}
-              animate={{
-                y: [0, -100, 0],
-                opacity: [0, 0.8, 0],
-                scale: [0.5, 1.2, 0.5],
-              }}
+              variants={particleVariants}
+              initial="hidden"
+              animate="visible"
               transition={{
-                duration: particle.duration,
-                delay: particle.delay,
-                repeat: Infinity,
-                ease: "easeInOut",
+                delay: Math.random() * 4,
+                duration: Math.random() * 3 + 2,
               }}
             />
           ))}
         </div>
 
-        <div className="container relative z-10 mx-auto px-4 py-16 md:py-24">
-          {/* Enhanced Header */}
+        <motion.div 
+          className="container relative z-10 mx-auto px-4 py-16 md:py-24"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          {/* Enhanced Header with staggered animations */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            variants={itemVariants}
             className="text-center mb-16"
           >
             <motion.div 
               className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-gradient-to-r from-sheraa-primary/15 to-sheraa-teal/15 border border-sheraa-primary/30 mb-8 backdrop-blur-sm"
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ scale: 1.05, rotate: 1 }}
               whileTap={{ scale: 0.95 }}
             >
               <motion.div
@@ -204,9 +218,7 @@ const EligibilityPage: React.FC = () => {
             
             <motion.h1 
               className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-sheraa-primary via-sheraa-teal to-sheraa-orange bg-clip-text text-transparent leading-tight"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.8 }}
+              variants={itemVariants}
             >
               Find Your Perfect
               <br />
@@ -234,9 +246,7 @@ const EligibilityPage: React.FC = () => {
             
             <motion.p 
               className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.8 }}
+              variants={itemVariants}
             >
               Answer a few questions and our intelligent system will recommend the best program 
               to accelerate your entrepreneurial journey in Sharjah's thriving ecosystem.
@@ -245,9 +255,7 @@ const EligibilityPage: React.FC = () => {
 
           {/* Enhanced Back Button */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.3, duration: 0.6 }}
+            variants={itemVariants}
             className="mb-8"
           >
             <Button 
@@ -269,9 +277,7 @@ const EligibilityPage: React.FC = () => {
 
           {/* Enhanced Main Content */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.8 }}
+            variants={itemVariants}
             className="max-w-3xl mx-auto"
           >
             <EligibilityCheckerPageContent
@@ -295,11 +301,12 @@ const EligibilityPage: React.FC = () => {
           <AnimatePresence>
             {!showResult && (
               <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -30 }}
-                transition={{ delay: 0.7, duration: 0.8 }}
+                variants={itemVariants}
                 className="text-center mt-16"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.5 }}
               >
                 <Card className="max-w-lg mx-auto bg-white/80 dark:bg-sheraa-dark/80 backdrop-blur-xl border border-sheraa-primary/20 rounded-3xl shadow-2xl overflow-hidden">
                   <motion.div 
@@ -360,7 +367,7 @@ const EligibilityPage: React.FC = () => {
             transition={{ delay: 1, duration: 0.5 }}
           >
             <motion.div
-              whileHover={{ scale: 1.1 }}
+              whileHover={{ scale: 1.1, rotate: 15 }}
               whileTap={{ scale: 0.9 }}
               className="w-12 h-12 bg-gradient-to-br from-sheraa-primary to-sheraa-teal rounded-full shadow-lg flex items-center justify-center cursor-pointer backdrop-blur-sm"
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
@@ -368,7 +375,7 @@ const EligibilityPage: React.FC = () => {
               <Target className="w-5 h-5 text-white" />
             </motion.div>
           </motion.div>
-        </div>
+        </motion.div>
       </div>
     </MainLayout>
   );

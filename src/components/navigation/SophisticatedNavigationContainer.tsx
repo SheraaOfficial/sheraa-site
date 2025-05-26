@@ -28,12 +28,13 @@ export const SophisticatedNavigationContainer: React.FC<SophisticatedNavigationC
   return (
     <motion.nav
       className={cn(
-        "fixed top-0 left-0 right-0 z-[99998] transition-all duration-500",
+        "fixed top-0 left-0 right-0 z-[999999] transition-all duration-500",
         isVisible ? "translate-y-0" : "-translate-y-full"
       )}
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
+      style={{ zIndex: 999999 }}
     >
       <div className="mx-4 mt-4">
         <motion.div
@@ -48,6 +49,7 @@ export const SophisticatedNavigationContainer: React.FC<SophisticatedNavigationC
             boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)"
           }}
           transition={{ duration: 0.3 }}
+          style={{ zIndex: 999999 }}
         >
           {/* Enhanced gradient background overlay */}
           <div className="absolute inset-0 bg-gradient-to-r from-sheraa-primary/5 via-transparent to-sheraa-teal/5 pointer-events-none" />
