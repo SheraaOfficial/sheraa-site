@@ -42,7 +42,7 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
     };
   }, [isDropdownOpen, onDropdownClose]);
 
-  const handleSubItemClick = (subItem: NavItemType) => {
+  const handleSubItemClick = (subItem: NavItemType['subItems'][0]) => {
     navigate(subItem.path);
     onDropdownClose();
   };

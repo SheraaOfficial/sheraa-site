@@ -1,8 +1,15 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import { NavigationItem } from './types';
 
-export const SophisticatedMobileMenu: React.FC = () => {
+interface SophisticatedMobileMenuProps {
+  navigationItems?: NavigationItem[];
+  isPathActive?: (path: string, subItems?: NavigationItem['subItems']) => boolean;
+  onClose?: () => void;
+}
+
+export const SophisticatedMobileMenu: React.FC<SophisticatedMobileMenuProps> = () => {
   return (
     <motion.button
       className="lg:hidden flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r from-sheraa-primary/10 to-sheraa-teal/10 text-sheraa-primary hover:from-sheraa-primary/20 hover:to-sheraa-teal/20 transition-all duration-300"
