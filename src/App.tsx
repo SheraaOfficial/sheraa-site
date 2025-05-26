@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -19,6 +18,7 @@ import AboutPage from "./pages/about";
 import EventsPage from "./pages/events";
 import ContactPage from "./pages/contact";
 import SEFLandingPage from "./pages/events/sef-landing";
+import CareersPage from "./pages/careers";
 
 const queryClient = new QueryClient();
 
@@ -45,6 +45,7 @@ const App = () => (
             <Route path="/events" element={<EventsPage />} />
             <Route path="/events/sef-landing" element={<SEFLandingPage />} />
             <Route path="/contact" element={<ContactPage />} />
+            <Route path="/careers" element={<CareersPage />} />
           </Routes>
         </BrowserRouter>
       </TooltipProvider>

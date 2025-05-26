@@ -25,6 +25,7 @@ import ResourcesRouter from "@/pages/resources/ResourcesRouter";
 import CommunityPage from "@/pages/community";
 import JoinPage from "@/pages/community/JoinPage";
 import PartnershipsPage from "@/pages/community/PartnershipsPage";
+import CareersPage from "@/pages/careers";
 
 // Lazy load the perfume page for better performance
 const PerfumeMainPage = React.lazy(() => import("@/pages/perfume/PerfumeMainPage"));
@@ -75,6 +76,9 @@ const AppWrapper = () => {
                       
                       {/* Contact Page */}
                       <Route path="/contact" element={<ContactPage />} />
+                      
+                      {/* Careers Page */}
+                      <Route path="/careers" element={<CareersPage />} />
                       
                       {/* Other Routes */}
                       <Route path="/eligibility" element={<EligibilityCheckerPage />} />
