@@ -2,7 +2,6 @@
 import React, { useEffect } from 'react';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
-import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 
 // Import enhanced components
@@ -32,11 +31,6 @@ const SEFLandingPage: React.FC = () => {
       <div className="min-h-screen w-full overflow-hidden">
         {/* Theme Toggle Button */}
         <ThemeToggle />
-        
-        {/* Navigation with transparent background */}
-        <div className="absolute top-0 left-0 right-0 z-50">
-          <Navigation />
-        </div>
         
         {/* Enhanced Hero Section */}
         <SEFEnhancedHero />

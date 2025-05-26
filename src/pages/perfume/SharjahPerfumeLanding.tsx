@@ -1,7 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import NavigationBar from '@/components/NavigationBar';
 import BuyingFunction from '@/components/perfume/BuyingFunction';
 import HeroSection from './components/HeroSection';
 import HeritageSection from './components/HeritageSection';
@@ -43,9 +42,6 @@ const SharjahPerfumeLanding = () => {
 
   return (
     <div className="min-h-screen bg-[#F7F3EE] overflow-x-hidden">
-      {/* Navigation */}
-      <NavigationBar />
-      
       {/* Hero Section */}
       <HeroSection 
         finalPrice={finalPrice} 
