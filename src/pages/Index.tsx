@@ -9,10 +9,8 @@ import ProgressBar from "@/components/ProgressBar";
 import { useDevicePerformance } from "@/hooks/useDevicePerformance";
 import { useIsMobile } from "@/hooks/useDeviceDetection";
 import { SectionLoading } from "@/components/layout/SectionLoading";
-import { ErrorFallback } from "@/components/layout/ErrorFallback";
-import { SafeSuspense } from "@/components/layout/SafeSuspense";
 import { WelcomeAnimation } from "@/components/ui/welcome-animation";
-import ModernNavigationBar from "@/components/navigation/ModernNavigationBar";
+import NewNavigationBar from "@/components/navigation/NewNavigationBar";
 
 // Import critical components directly for better performance
 import HomepageHero from "@/components/homepage/HomepageHero";
@@ -30,8 +28,8 @@ const Index: React.FC = () => {
 
   return (
     <div className="relative bg-white dark:bg-sheraa-dark">
-      {/* Modern Navigation Bar */}
-      <ModernNavigationBar />
+      {/* New Navigation Bar */}
+      <NewNavigationBar />
       
       {/* Welcome animation for first-time visitors */}
       <WelcomeAnimation />
