@@ -13,7 +13,9 @@ import {
   TrendingUp,
   Users,
   Award,
-  Lightbulb
+  Lightbulb,
+  LogIn,
+  UserPlus
 } from "lucide-react";
 
 const morphingShapes = [
@@ -23,13 +25,13 @@ const morphingShapes = [
   "M50,10 L80,40 L65,80 L35,80 L20,40 Z", // Pentagon
 ];
 
-const floatingParticles = Array.from({ length: 12 }, (_, i) => ({
+const floatingParticles = Array.from({ length: 20 }, (_, i) => ({
   id: i,
   x: Math.random() * 100,
   y: Math.random() * 100,
-  size: Math.random() * 8 + 4,
-  duration: Math.random() * 20 + 15,
-  delay: Math.random() * 5,
+  size: Math.random() * 6 + 2,
+  duration: Math.random() * 25 + 20,
+  delay: Math.random() * 10,
 }));
 
 const iconOrbiters = [
@@ -52,11 +54,11 @@ export const AdvancedHero: React.FC = () => {
   useEffect(() => {
     const shapeInterval = setInterval(() => {
       setShapeIndex((prev) => (prev + 1) % morphingShapes.length);
-    }, 3000);
+    }, 4000);
     
     const wordInterval = setInterval(() => {
       setWordIndex((prev) => (prev + 1) % words.length);
-    }, 2500);
+    }, 3000);
 
     return () => {
       clearInterval(shapeInterval);
@@ -65,24 +67,26 @@ export const AdvancedHero: React.FC = () => {
   }, []);
 
   return (
-    <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 flex items-center">
-      {/* Animated Background Grid */}
+    <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 flex items-center justify-center">
+      {/* Cinematic Background Grid */}
       <div className="absolute inset-0">
         <motion.div
-          className="absolute inset-0 opacity-20"
+          className="absolute inset-0 opacity-15"
           style={{
             backgroundImage: `
-              linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)
+              radial-gradient(circle at 25% 25%, rgba(255,255,255,0.1) 2px, transparent 2px),
+              radial-gradient(circle at 75% 75%, rgba(255,255,255,0.1) 2px, transparent 2px),
+              linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)
             `,
-            backgroundSize: '50px 50px',
+            backgroundSize: '100px 100px, 100px 100px, 50px 50px, 50px 50px',
           }}
           animate={{
-            x: [0, 50],
-            y: [0, 50],
+            x: [0, 100],
+            y: [0, 100],
           }}
           transition={{
-            duration: 20,
+            duration: 30,
             repeat: Infinity,
             ease: "linear",
           }}
@@ -102,9 +106,9 @@ export const AdvancedHero: React.FC = () => {
               top: `${particle.y}%`,
             }}
             animate={{
-              y: [0, -100, 0],
-              opacity: [0, 1, 0],
-              scale: [0.5, 1.5, 0.5],
+              y: [0, -150, 0],
+              opacity: [0, 0.8, 0],
+              scale: [0.3, 1.2, 0.3],
               rotate: [0, 360],
             }}
             transition={{
@@ -119,361 +123,278 @@ export const AdvancedHero: React.FC = () => {
 
       {/* Dynamic Morphing Shapes */}
       <div className="absolute inset-0 flex items-center justify-center">
-        <svg width="400" height="400" className="opacity-10">
+        <svg width="600" height="600" className="opacity-8">
           <motion.path
             d={morphingShapes[shapeIndex]}
-            fill="url(#gradient)"
+            fill="url(#cinematicGradient)"
             initial={false}
             animate={{ d: morphingShapes[shapeIndex] }}
-            transition={{ duration: 2, ease: "easeInOut" }}
+            transition={{ duration: 3, ease: "easeInOut" }}
           />
           <defs>
-            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#00D4FF" />
-              <stop offset="100%" stopColor="#8B5CF6" />
+            <linearGradient id="cinematicGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#00D4FF" stopOpacity="0.3" />
+              <stop offset="50%" stopColor="#8B5CF6" stopOpacity="0.2" />
+              <stop offset="100%" stopColor="#F97316" stopOpacity="0.3" />
             </linearGradient>
           </defs>
         </svg>
       </div>
 
       <motion.div style={{ y, opacity }} className="container mx-auto px-4 relative z-10">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            {/* Left Content */}
-            <div className="space-y-8">
-              {/* Animated Badge */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2, duration: 0.8 }}
-                className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20"
-              >
-                <motion.div
-                  animate={{ 
-                    rotate: 360,
-                    scale: [1, 1.2, 1],
-                  }}
-                  transition={{ 
-                    rotate: { duration: 8, repeat: Infinity, ease: "linear" },
-                    scale: { duration: 2, repeat: Infinity },
-                  }}
-                >
-                  <Sparkles className="w-5 h-5 text-cyan-400" />
-                </motion.div>
-                <span className="text-white font-semibold">Creating the Next Wave of Entrepreneurs</span>
-                <ArrowRight className="w-4 h-4 text-cyan-400" />
-              </motion.div>
-
-              {/* Main Title with Letter Animation */}
-              <div className="space-y-6">
-                <motion.h1 
-                  className="text-6xl md:text-7xl lg:text-8xl font-bold leading-tight"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.5, duration: 1 }}
-                >
-                  <motion.div
-                    className="block text-white mb-4"
-                    initial={{ opacity: 0, x: -100 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.7, duration: 0.8 }}
-                  >
-                    Dream to
-                  </motion.div>
-                  
-                  {/* Animated Rotating Word */}
-                  <div className="relative h-24 overflow-hidden">
-                    <AnimatePresence mode="wait">
-                      <motion.div
-                        key={wordIndex}
-                        className="absolute inset-0 flex items-center"
-                        initial={{ 
-                          opacity: 0, 
-                          rotateX: 90,
-                          scale: 0.8,
-                        }}
-                        animate={{ 
-                          opacity: 1, 
-                          rotateX: 0,
-                          scale: 1,
-                        }}
-                        exit={{ 
-                          opacity: 0, 
-                          rotateX: -90,
-                          scale: 0.8,
-                        }}
-                        transition={{ 
-                          duration: 0.8, 
-                          ease: "easeOutCubic",
-                        }}
-                      >
-                        <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent font-black tracking-tight">
-                          {words[wordIndex]}
-                        </span>
-                      </motion.div>
-                    </AnimatePresence>
-                  </div>
-                </motion.h1>
-
-                {/* Subtitle with Typewriter Effect */}
-                <motion.p 
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 1.2, duration: 0.8 }}
-                  className="text-xl md:text-2xl text-gray-300 max-w-2xl leading-relaxed"
-                >
-                  Sharjah's official hub for aspiring founders and established ventures. 
-                  We empower <motion.span 
-                    className="text-cyan-400 font-semibold"
-                    animate={{ 
-                      textShadow: [
-                        "0 0 10px rgba(34, 211, 238, 0.5)",
-                        "0 0 20px rgba(34, 211, 238, 0.8)",
-                        "0 0 10px rgba(34, 211, 238, 0.5)",
-                      ]
-                    }}
-                    transition={{ duration: 3, repeat: Infinity }}
-                  >
-                    changemakers
-                  </motion.span> to build impactful businesses and shape the future.
-                </motion.p>
-              </div>
-
-              {/* Stats with Pulse Animation */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.5, duration: 0.8 }}
-                className="grid grid-cols-3 gap-6"
-              >
-                {[
-                  { number: "180+", label: "Startups", icon: Rocket },
-                  { number: "$248M", label: "Revenue", icon: TrendingUp },
-                  { number: "1,900+", label: "Jobs", icon: Users }
-                ].map((stat, index) => {
-                  const Icon = stat.icon;
-                  return (
-                    <motion.div 
-                      key={index}
-                      className="text-center"
-                      initial={{ opacity: 0, scale: 0 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ 
-                        delay: 1.7 + (index * 0.1), 
-                        duration: 0.5,
-                        type: "spring",
-                        bounce: 0.4
-                      }}
-                    >
-                      <motion.div
-                        className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-sm mb-3"
-                        animate={{
-                          boxShadow: [
-                            "0 0 20px rgba(34, 211, 238, 0.3)",
-                            "0 0 30px rgba(34, 211, 238, 0.6)",
-                            "0 0 20px rgba(34, 211, 238, 0.3)",
-                          ]
-                        }}
-                        transition={{
-                          duration: 2,
-                          repeat: Infinity,
-                          delay: index * 0.5
-                        }}
-                      >
-                        <Icon className="w-8 h-8 text-cyan-400" />
-                      </motion.div>
-                      
-                      <motion.div 
-                        className="text-3xl font-bold text-white mb-1"
-                        animate={{ scale: [1, 1.05, 1] }}
-                        transition={{ duration: 2, repeat: Infinity, delay: index * 0.3 }}
-                      >
-                        {stat.number}
-                      </motion.div>
-                      <div className="text-gray-400 text-sm">{stat.label}</div>
-                    </motion.div>
-                  );
-                })}
-              </motion.div>
-
-              {/* CTA Buttons */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 2, duration: 0.8 }}
-                className="flex flex-col sm:flex-row gap-4"
-              >
-                <motion.div
-                  whileHover={{ scale: 1.05, y: -5 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Button asChild size="lg" className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white px-8 py-6 text-lg font-semibold shadow-2xl relative overflow-hidden group">
-                    <Link to="/programs" className="flex items-center gap-2">
-                      <span className="relative z-10">Launch Your Startup</span>
-                      <motion.div
-                        animate={{ x: [0, 5, 0] }}
-                        transition={{ duration: 1.5, repeat: Infinity }}
-                        className="relative z-10"
-                      >
-                        <ArrowRight className="w-5 h-5" />
-                      </motion.div>
-                      <motion.div
-                        className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent"
-                        initial={{ x: "-100%" }}
-                        animate={{ x: ["100%", "-100%"] }}
-                        transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                      />
-                    </Link>
-                  </Button>
-                </motion.div>
-                
-                <motion.div
-                  whileHover={{ scale: 1.05, y: -5 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Button asChild variant="outline" size="lg" className="border-2 border-cyan-400/50 text-cyan-400 hover:bg-cyan-400/10 px-8 py-6 text-lg font-semibold backdrop-blur-sm">
-                    <Link to="/community/join" className="flex items-center gap-2">
-                      Join Our Community
-                      <Star className="w-5 h-5" />
-                    </Link>
-                  </Button>
-                </motion.div>
-              </motion.div>
-            </div>
-
-            {/* Right Visual Element */}
+        <div className="max-w-5xl mx-auto text-center">
+          {/* Cinematic Badge */}
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 1 }}
+            className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 mb-8"
+          >
             <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.8, duration: 1 }}
-              className="relative flex items-center justify-center"
+              animate={{ 
+                rotate: 360,
+                scale: [1, 1.3, 1],
+              }}
+              transition={{ 
+                rotate: { duration: 10, repeat: Infinity, ease: "linear" },
+                scale: { duration: 3, repeat: Infinity },
+              }}
             >
-              <div className="relative w-96 h-96">
-                {/* Central Hub */}
-                <motion.div
-                  className="absolute inset-1/4 rounded-full bg-gradient-to-br from-cyan-400/20 to-purple-600/20 backdrop-blur-xl border border-white/20 flex items-center justify-center shadow-2xl"
-                  animate={{
-                    boxShadow: [
-                      "0 0 50px rgba(34, 211, 238, 0.3)",
-                      "0 0 80px rgba(34, 211, 238, 0.6)",
-                      "0 0 50px rgba(34, 211, 238, 0.3)",
-                    ]
-                  }}
-                  transition={{ duration: 4, repeat: Infinity }}
-                >
-                  <motion.img
-                    src="/lovable-uploads/sheraa-logo.png"
-                    alt="Sheraa"
-                    className="w-24 h-auto filter brightness-0 invert"
+              <Sparkles className="w-6 h-6 text-cyan-400" />
+            </motion.div>
+            <span className="text-white font-bold text-lg">Creating the Next Wave of Entrepreneurs</span>
+            <ArrowRight className="w-5 h-5 text-cyan-400" />
+          </motion.div>
+
+          {/* Cinematic Main Title */}
+          <div className="mb-12">
+            <motion.h1 
+              className="text-5xl md:text-7xl lg:text-9xl font-black leading-tight mb-8"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5, duration: 1.2 }}
+            >
+              <motion.div
+                className="block text-white mb-6"
+                initial={{ opacity: 0, x: -150 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.8, duration: 1 }}
+              >
+                Dream to
+              </motion.div>
+              
+              {/* Cinematic Rotating Word */}
+              <div className="relative h-32 overflow-hidden">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={wordIndex}
+                    className="absolute inset-0 flex items-center justify-center"
+                    initial={{ 
+                      opacity: 0, 
+                      rotateX: 90,
+                      scale: 0.5,
+                      z: -100
+                    }}
                     animate={{ 
-                      scale: [1, 1.1, 1],
-                      rotate: [0, 5, 0, -5, 0],
+                      opacity: 1, 
+                      rotateX: 0,
+                      scale: 1,
+                      z: 0
+                    }}
+                    exit={{ 
+                      opacity: 0, 
+                      rotateX: -90,
+                      scale: 0.5,
+                      z: 100
                     }}
                     transition={{ 
-                      scale: { duration: 3, repeat: Infinity },
-                      rotate: { duration: 6, repeat: Infinity }
+                      duration: 1, 
+                      ease: "easeOutCubic",
                     }}
-                  />
-                </motion.div>
-
-                {/* Orbiting Icons */}
-                {iconOrbiters.map((orbiter, index) => {
-                  const Icon = orbiter.icon;
-                  const angle = (orbiter.angle * Math.PI) / 180;
-                  const x = Math.cos(angle) * orbiter.radius;
-                  const y = Math.sin(angle) * orbiter.radius;
-                  
-                  return (
-                    <motion.div
-                      key={index}
-                      className="absolute w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center shadow-xl"
-                      style={{
-                        left: `calc(50% + ${x}px)`,
-                        top: `calc(50% + ${y}px)`,
-                        transform: 'translate(-50%, -50%)'
-                      }}
-                      animate={{
-                        rotate: [0, 360],
-                        scale: [1, 1.2, 1],
-                      }}
-                      transition={{
-                        rotate: { duration: 20, repeat: Infinity, ease: "linear" },
-                        scale: { 
-                          duration: 3, 
-                          repeat: Infinity, 
-                          delay: index * 0.4,
-                          ease: "easeInOut"
-                        }
-                      }}
-                      whileHover={{ scale: 1.3, z: 10 }}
-                    >
-                      <Icon className={`w-8 h-8 ${orbiter.color}`} />
-                    </motion.div>
-                  );
-                })}
-
-                {/* Connecting Lines */}
-                <svg className="absolute inset-0 w-full h-full" style={{ pointerEvents: 'none' }}>
-                  {iconOrbiters.map((_, index) => {
-                    const nextIndex = (index + 1) % iconOrbiters.length;
-                    const angle1 = (iconOrbiters[index].angle * Math.PI) / 180;
-                    const angle2 = (iconOrbiters[nextIndex].angle * Math.PI) / 180;
-                    const x1 = Math.cos(angle1) * iconOrbiters[index].radius + 192;
-                    const y1 = Math.sin(angle1) * iconOrbiters[index].radius + 192;
-                    const x2 = Math.cos(angle2) * iconOrbiters[nextIndex].radius + 192;
-                    const y2 = Math.sin(angle2) * iconOrbiters[nextIndex].radius + 192;
-                    
-                    return (
-                      <motion.line
-                        key={index}
-                        x1={x1}
-                        y1={y1}
-                        x2={x2}
-                        y2={y2}
-                        stroke="rgba(34, 211, 238, 0.3)"
-                        strokeWidth="2"
-                        initial={{ pathLength: 0, opacity: 0 }}
-                        animate={{ 
-                          pathLength: [0, 1, 0],
-                          opacity: [0, 0.6, 0]
-                        }}
-                        transition={{
-                          duration: 4,
-                          repeat: Infinity,
-                          delay: index * 0.3,
-                          ease: "easeInOut"
-                        }}
-                      />
-                    );
-                  })}
-                </svg>
+                  >
+                    <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent font-black tracking-tight">
+                      {words[wordIndex]}
+                    </span>
+                  </motion.div>
+                </AnimatePresence>
               </div>
-            </motion.div>
+            </motion.h1>
+
+            {/* Cinematic Subtitle */}
+            <motion.p 
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.5, duration: 1 }}
+              className="text-2xl md:text-3xl text-gray-300 max-w-4xl mx-auto leading-relaxed mb-12"
+            >
+              Sharjah's official hub for aspiring founders and established ventures. 
+              We empower <motion.span 
+                className="text-cyan-400 font-bold"
+                animate={{ 
+                  textShadow: [
+                    "0 0 20px rgba(34, 211, 238, 0.5)",
+                    "0 0 40px rgba(34, 211, 238, 0.8)",
+                    "0 0 20px rgba(34, 211, 238, 0.5)",
+                  ]
+                }}
+                transition={{ duration: 4, repeat: Infinity }}
+              >
+                changemakers
+              </motion.span> to build impactful businesses and shape the future.
+            </motion.p>
           </div>
+
+          {/* Enhanced CTAs */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 2, duration: 1 }}
+            className="flex flex-col lg:flex-row gap-6 justify-center items-center mb-16"
+          >
+            <motion.div
+              whileHover={{ scale: 1.05, y: -8 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Button asChild size="xl" className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white px-12 py-8 text-xl font-bold shadow-2xl relative overflow-hidden group">
+                <Link to="/programs" className="flex items-center gap-3">
+                  <span className="relative z-10">Launch Your Startup</span>
+                  <motion.div
+                    animate={{ x: [0, 8, 0] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                    className="relative z-10"
+                  >
+                    <ArrowRight className="w-6 h-6" />
+                  </motion.div>
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent"
+                    initial={{ x: "-100%" }}
+                    animate={{ x: ["100%", "-100%"] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                  />
+                </Link>
+              </Button>
+            </motion.div>
+            
+            <motion.div
+              whileHover={{ scale: 1.05, y: -8 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Button asChild variant="outline" size="xl" className="border-2 border-cyan-400/50 text-cyan-400 hover:bg-cyan-400/10 px-12 py-8 text-xl font-bold backdrop-blur-sm">
+                <Link to="/community/join" className="flex items-center gap-3">
+                  Join Our Community
+                  <Star className="w-6 h-6" />
+                </Link>
+              </Button>
+            </motion.div>
+            
+            {/* Enhanced Login/Signup CTAs */}
+            <div className="flex gap-4">
+              <motion.div
+                whileHover={{ scale: 1.05, y: -8 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Button asChild variant="secondary" size="lg" className="bg-white/10 text-white border border-white/30 hover:bg-white/20 backdrop-blur-sm px-8 py-6 text-lg font-semibold">
+                  <Link to="/auth/login" className="flex items-center gap-2">
+                    <LogIn className="w-5 h-5" />
+                    Login
+                  </Link>
+                </Button>
+              </motion.div>
+              
+              <motion.div
+                whileHover={{ scale: 1.05, y: -8 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Button asChild variant="outline" size="lg" className="border-2 border-white/30 text-white hover:bg-white/10 backdrop-blur-sm px-8 py-6 text-lg font-semibold">
+                  <Link to="/auth/signup" className="flex items-center gap-2">
+                    <UserPlus className="w-5 h-5" />
+                    Sign Up
+                  </Link>
+                </Button>
+              </motion.div>
+            </div>
+          </motion.div>
+
+          {/* Cinematic Stats */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 2.5, duration: 1 }}
+            className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto"
+          >
+            {[
+              { number: "180+", label: "Startups", icon: Rocket },
+              { number: "$248M", label: "Revenue", icon: TrendingUp },
+              { number: "1,900+", label: "Jobs", icon: Users }
+            ].map((stat, index) => {
+              const Icon = stat.icon;
+              return (
+                <motion.div 
+                  key={index}
+                  className="text-center"
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ 
+                    delay: 2.7 + (index * 0.2), 
+                    duration: 0.8,
+                    type: "spring",
+                    bounce: 0.4
+                  }}
+                >
+                  <motion.div
+                    className="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-white/10 backdrop-blur-xl mb-4 border border-white/20"
+                    animate={{
+                      boxShadow: [
+                        "0 0 30px rgba(34, 211, 238, 0.3)",
+                        "0 0 50px rgba(34, 211, 238, 0.6)",
+                        "0 0 30px rgba(34, 211, 238, 0.3)",
+                      ]
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      delay: index * 0.8
+                    }}
+                  >
+                    <Icon className="w-10 h-10 text-cyan-400" />
+                  </motion.div>
+                  
+                  <motion.div 
+                    className="text-4xl md:text-5xl font-black text-white mb-2"
+                    animate={{ scale: [1, 1.1, 1] }}
+                    transition={{ duration: 3, repeat: Infinity, delay: index * 0.5 }}
+                  >
+                    {stat.number}
+                  </motion.div>
+                  <div className="text-gray-400 text-lg font-medium">{stat.label}</div>
+                </motion.div>
+              );
+            })}
+          </motion.div>
         </div>
       </motion.div>
 
-      {/* Scroll Indicator */}
+      {/* Enhanced Scroll Indicator */}
       <motion.div 
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-center"
+        className="absolute bottom-12 left-1/2 transform -translate-x-1/2 text-center"
         animate={{ 
-          y: [0, 10, 0],
-          opacity: [0.7, 0.3, 0.7]
+          y: [0, 15, 0],
+          opacity: [0.8, 0.3, 0.8]
         }}
         transition={{ 
-          duration: 3,
+          duration: 4,
           repeat: Infinity,
           ease: "easeInOut"
         }}
       >
-        <div className="flex flex-col items-center space-y-2">
-          <span className="text-gray-400 text-sm">Scroll to explore</span>
-          <div className="w-6 h-12 border-2 border-cyan-400/50 rounded-full flex justify-center p-2">
+        <div className="flex flex-col items-center space-y-4">
+          <span className="text-gray-300 text-lg font-medium">Scroll to explore</span>
+          <div className="w-8 h-16 border-2 border-cyan-400/50 rounded-full flex justify-center p-3">
             <motion.div 
-              className="w-1.5 h-3 bg-gradient-to-b from-cyan-400 to-blue-500 rounded-full" 
-              animate={{ y: [0, 16, 0] }}
+              className="w-2 h-4 bg-gradient-to-b from-cyan-400 to-blue-500 rounded-full" 
+              animate={{ y: [0, 24, 0] }}
               transition={{ 
-                duration: 3,
+                duration: 4,
                 repeat: Infinity,
                 ease: "easeInOut"
               }}
