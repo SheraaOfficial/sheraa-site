@@ -3,7 +3,7 @@ import { Suspense, lazy } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { ErrorBoundary } from "@/components/layout/ErrorBoundary";
@@ -36,125 +36,123 @@ const App = () => (
       <LanguageProvider>
         <TooltipProvider>
           <Toaster />
-          <BrowserRouter>
-            <ErrorBoundary FallbackComponent={ErrorFallback}>
-              <Routes>
-                <Route path="/" element={<Index />} />
-                <Route
-                  path="/about"
-                  element={
-                    <SafeSuspense fallback={<SectionLoading />}>
-                      <About />
-                    </SafeSuspense>
-                  }
-                />
-                <Route
-                  path="/programs"
-                  element={
-                    <SafeSuspense fallback={<SectionLoading />}>
-                      <Programs />
-                    </SafeSuspense>
-                  }
-                />
-                <Route
-                  path="/programs/start-young"
-                  element={
-                    <SafeSuspense fallback={<SectionLoading />}>
-                      <StartYoung />
-                    </SafeSuspense>
-                  }
-                />
-                <Route
-                  path="/community"
-                  element={
-                    <SafeSuspense fallback={<SectionLoading />}>
-                      <Community />
-                    </SafeSuspense>
-                  }
-                />
-                <Route
-                  path="/auth"
-                  element={
-                    <SafeSuspense fallback={<SectionLoading />}>
-                      <Auth />
-                    </SafeSuspense>
-                  }
-                />
-                <Route
-                  path="/profile"
-                  element={
-                    <SafeSuspense fallback={<SectionLoading />}>
-                      <Profile />
-                    </SafeSuspense>
-                  }
-                />
-                <Route
-                  path="/eligibility"
-                  element={
-                    <SafeSuspense fallback={<SectionLoading />}>
-                      <EligibilityPage />
-                    </SafeSuspense>
-                  }
-                />
-                <Route
-                  path="/events/sef"
-                  element={
-                    <SafeSuspense fallback={<SectionLoading />}>
-                      <SEFLanding />
-                    </SafeSuspense>
-                  }
-                />
-                <Route
-                  path="/perfume"
-                  element={
-                    <SafeSuspense fallback={<SectionLoading />}>
-                      <PerfumeMainPage />
-                    </SafeSuspense>
-                  }
-                />
-                <Route
-                  path="/perfume/collection"
-                  element={
-                    <SafeSuspense fallback={<SectionLoading />}>
-                      <PerfumeLandingPage />
-                    </SafeSuspense>
-                  }
-                />
-                <Route
-                  path="/perfume/buy"
-                  element={
-                    <SafeSuspense fallback={<SectionLoading />}>
-                      <SharjahPerfumeLanding />
-                    </SafeSuspense>
-                  }
-                />
-                <Route
-                  path="/perfume/about"
-                  element={
-                    <SafeSuspense fallback={<SectionLoading />}>
-                      <AboutPerfume />
-                    </SafeSuspense>
-                  }
-                />
-                <Route
-                  path="/perfume/gallery"
-                  element={
-                    <SafeSuspense fallback={<SectionLoading />}>
-                      <PerfumeGallery />
-                    </SafeSuspense>
-                  }
-                />
-                <Route
-                  path="/perfume/pricing"
-                  element={
-                    <SafeSuspense fallback={<SectionLoading />}>
-                      <PricingPage />
-                    </SafeSuspense>
-                  }
-                />
-              </Routes>
-            </ErrorBoundary>
-          </BrowserRouter>
+          <ErrorBoundary FallbackComponent={ErrorFallback}>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route
+                path="/about"
+                element={
+                  <SafeSuspense fallback={<SectionLoading />}>
+                    <About />
+                  </SafeSuspense>
+                }
+              />
+              <Route
+                path="/programs"
+                element={
+                  <SafeSuspense fallback={<SectionLoading />}>
+                    <Programs />
+                  </SafeSuspense>
+                }
+              />
+              <Route
+                path="/programs/start-young"
+                element={
+                  <SafeSuspense fallback={<SectionLoading />}>
+                    <StartYoung />
+                  </SafeSuspense>
+                }
+              />
+              <Route
+                path="/community"
+                element={
+                  <SafeSuspense fallback={<SectionLoading />}>
+                    <Community />
+                  </SafeSuspense>
+                }
+              />
+              <Route
+                path="/auth"
+                element={
+                  <SafeSuspense fallback={<SectionLoading />}>
+                    <Auth />
+                  </SafeSuspense>
+                }
+              />
+              <Route
+                path="/profile"
+                element={
+                  <SafeSuspense fallback={<SectionLoading />}>
+                    <Profile />
+                  </SafeSuspense>
+                }
+              />
+              <Route
+                path="/eligibility"
+                element={
+                  <SafeSuspense fallback={<SectionLoading />}>
+                    <EligibilityPage />
+                  </SafeSuspense>
+                }
+              />
+              <Route
+                path="/events/sef"
+                element={
+                  <SafeSuspense fallback={<SectionLoading />}>
+                    <SEFLanding />
+                  </SafeSuspense>
+                }
+              />
+              <Route
+                path="/perfume"
+                element={
+                  <SafeSuspense fallback={<SectionLoading />}>
+                    <PerfumeMainPage />
+                  </SafeSuspense>
+                }
+              />
+              <Route
+                path="/perfume/collection"
+                element={
+                  <SafeSuspense fallback={<SectionLoading />}>
+                    <PerfumeLandingPage />
+                  </SafeSuspense>
+                }
+              />
+              <Route
+                path="/perfume/buy"
+                element={
+                  <SafeSuspense fallback={<SectionLoading />}>
+                    <SharjahPerfumeLanding />
+                  </SafeSuspense>
+                }
+              />
+              <Route
+                path="/perfume/about"
+                element={
+                  <SafeSuspense fallback={<SectionLoading />}>
+                    <AboutPerfume />
+                  </SafeSuspense>
+                }
+              />
+              <Route
+                path="/perfume/gallery"
+                element={
+                  <SafeSuspense fallback={<SectionLoading />}>
+                    <PerfumeGallery />
+                  </SafeSuspense>
+                }
+              />
+              <Route
+                path="/perfume/pricing"
+                element={
+                  <SafeSuspense fallback={<SectionLoading />}>
+                    <PricingPage />
+                  </SafeSuspense>
+                }
+              />
+            </Routes>
+          </ErrorBoundary>
         </TooltipProvider>
       </LanguageProvider>
     </ThemeProvider>
