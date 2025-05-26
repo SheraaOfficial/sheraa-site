@@ -7,7 +7,7 @@ import { Globe, TrendingUp, Users, Star, Building, Award, Zap, Target } from 'lu
 
 export const AnimatedStats: React.FC = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, threshold: 0.2 });
+  const isInView = useInView(ref, { once: true, amount: 0.2 });
 
   const stats = [
     { number: "140+", label: "Ecosystem Partners", icon: Globe, color: "text-blue-600" },
