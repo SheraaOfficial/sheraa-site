@@ -66,16 +66,30 @@ export const MenuBar = React.forwardRef<HTMLDivElement, MenuBarProps>(
     const { theme } = useTheme()
     const isDarkTheme = theme === "dark"
 
+    // Extract only the safe props to avoid conflicts
+    const { 
+      id, 
+      style, 
+      'aria-label': ariaLabel,
+      'aria-labelledby': ariaLabelledBy,
+      role,
+      ...restProps 
+    } = props
+
     return (
       <motion.nav
         ref={ref}
+        id={id}
+        style={style}
+        aria-label={ariaLabel}
+        aria-labelledby={ariaLabelledBy}
+        role={role}
         className={cn(
           "p-2 rounded-2xl bg-gradient-to-b from-background/80 to-background/40 backdrop-blur-lg border border-border/40 shadow-lg relative overflow-hidden",
           className,
         )}
         initial="initial"
         whileHover="hover"
-        {...props}
       >
         <motion.div
           className={`absolute -inset-2 bg-gradient-radial from-transparent ${
