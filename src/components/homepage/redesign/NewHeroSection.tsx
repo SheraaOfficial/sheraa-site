@@ -1,7 +1,7 @@
 
 import React from "react";
-import { SophisticatedHero } from "@/components/ui/sophisticated-hero";
+import { DynamicVideoHero } from "@/components/hero/DynamicVideoHero";
 
 export const NewHeroSection: React.FC = () => {
-  return <SophisticatedHero />;
+  return <DynamicVideoHero />;
 };
