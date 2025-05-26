@@ -32,7 +32,7 @@ export const SophisticatedLogo: React.FC = () => {
         <div className="text-xl font-bold bg-gradient-to-r from-sheraa-primary to-sheraa-teal bg-clip-text text-transparent">
           Sheraa
         </div>
-        <div className="text-xs text-gray-500 -mt-1">Entrepreneurship Center</div>
+        <div className="text-xs text-gray-600 dark:text-gray-400 -mt-1">Entrepreneurship Center</div>
       </motion.div>
     </Link>
   );
