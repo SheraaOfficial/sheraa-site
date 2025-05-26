@@ -16,8 +16,10 @@ export const navigationItems = [
     path: '/programs',
     subItems: [
       { name: 'S3 Incubator', path: '/programs/s3-incubator' },
+      { name: 'Start Young', path: '/programs/start-young' },
       { name: 'Startup Dojo', path: '/programs/startup-dojo' },
-      { name: 'Access Sharjah Challenge', path: '/programs/access-sharjah-challenge' }
+      { name: 'Access Sharjah Challenge', path: '/programs/access-sharjah-challenge' },
+      { name: 'SME Support', path: '/programs/sme-support' }
     ]
   },
   {
@@ -45,7 +47,7 @@ export const navigationItems = [
     subItems: [
       { name: 'Upcoming Events', path: '/events/upcoming' },
       { name: 'Past Events', path: '/events/past' },
-      { name: 'SEF 2026', path: '/events/sef-landing' }
+      { name: 'SEF 2026', path: '/events/sef' }
     ]
   },
   {
@@ -54,7 +56,7 @@ export const navigationItems = [
   },
   {
     name: 'SEF 2026',
-    path: '/events/sef-landing',
+    path: '/events/sef',
     icon: Star,
     special: true
   }

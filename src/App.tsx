@@ -14,8 +14,10 @@ import Leadership from '@/pages/about/Leadership';
 import Board from '@/pages/about/Board';
 import Programs from '@/pages/Programs';
 import S3Incubator from '@/pages/programs/S3Incubator';
+import StartYoung from '@/pages/programs/StartYoung';
 import StartupDojo from '@/pages/programs/StartupDojo';
 import AccessSharjahChallenge from '@/pages/programs/AccessSharjahChallenge';
+import SMESupport from '@/pages/programs/SMESupport';
 import Community from '@/pages/Community';
 import CommunityJoin from '@/pages/community/CommunityJoin';
 import Partnerships from '@/pages/community/Partnerships';
@@ -28,7 +30,7 @@ import ImpactReports from '@/pages/resources/ImpactReports';
 import Events from '@/pages/Events';
 import UpcomingEvents from '@/pages/events/UpcomingEvents';
 import PastEvents from '@/pages/events/PastEvents';
-import SEFLanding from '@/pages/events/SEFLanding';
+import SEFLandingPage from '@/pages/events/sef-landing';
 
 const queryClient = new QueryClient();
 
@@ -45,8 +47,10 @@ function App() {
           <Route path="/about/board" element={<Board />} />
           <Route path="/programs" element={<Programs />} />
           <Route path="/programs/s3-incubator" element={<S3Incubator />} />
+          <Route path="/programs/start-young" element={<StartYoung />} />
           <Route path="/programs/startup-dojo" element={<StartupDojo />} />
           <Route path="/programs/access-sharjah-challenge" element={<AccessSharjahChallenge />} />
+          <Route path="/programs/sme-support" element={<SMESupport />} />
           <Route path="/community" element={<Community />} />
           <Route path="/community/join" element={<CommunityJoin />} />
           <Route path="/community/partnerships" element={<Partnerships />} />
@@ -59,7 +63,7 @@ function App() {
           <Route path="/events" element={<Events />} />
           <Route path="/events/upcoming" element={<UpcomingEvents />} />
           <Route path="/events/past" element={<PastEvents />} />
-          <Route path="/events/sef-landing" element={<SEFLanding />} />
+          <Route path="/events/sef" element={<SEFLandingPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Toaster />
