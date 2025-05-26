@@ -22,68 +22,60 @@ interface MenuBarProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const itemVariants = {
-  initial: { rotateX: 0, opacity: 1 },
-  hover: { rotateX: -90, opacity: 0 },
-}
-
-const backVariants = {
-  initial: { rotateX: 90, opacity: 0 },
-  hover: { rotateX: 0, opacity: 1 },
-}
-
-const glowVariants = {
-  initial: { opacity: 0, scale: 0.8 },
-  hover: {
-    opacity: 1,
-    scale: 2,
+  initial: { 
+    scale: 1,
+    y: 0
+  },
+  hover: { 
+    scale: 1.05,
+    y: -2,
     transition: {
-      opacity: { duration: 0.5, ease: [0.4, 0, 0.2, 1] },
-      scale: { duration: 0.5, type: "spring", stiffness: 300, damping: 25 },
-    },
+      type: "spring",
+      stiffness: 400,
+      damping: 17
+    }
   },
 }
 
-const navGlowVariants = {
-  initial: { opacity: 0 },
+const glowVariants = {
+  initial: { 
+    opacity: 0,
+    scale: 0.8,
+    filter: "blur(8px)"
+  },
   hover: {
     opacity: 1,
+    scale: 1.2,
+    filter: "blur(0px)",
     transition: {
-      duration: 0.5,
-      ease: [0.4, 0, 0.2, 1],
+      duration: 0.3,
+      ease: "easeOut"
     },
   },
 }
 
 const sefSparkleVariants = {
   initial: { 
-    opacity: 0.6,
+    opacity: 0.7,
     scale: 1,
     rotate: 0
   },
   animate: {
-    opacity: [0.6, 1, 0.6],
-    scale: [1, 1.1, 1],
-    rotate: [0, 180, 360],
+    opacity: [0.7, 1, 0.7],
+    scale: [1, 1.2, 1],
+    rotate: [0, 360],
     transition: {
-      duration: 3,
+      duration: 2,
       repeat: Infinity,
       ease: "easeInOut"
     }
   }
 }
 
-const sharedTransition = {
-  type: "spring",
-  stiffness: 100,
-  damping: 20,
-  duration: 0.5,
-}
-
 export const MenuBar = React.forwardRef<HTMLDivElement, MenuBarProps>(
   ({ className, items, activeItem, onItemClick, ...props }, ref) => {
     const { theme } = useTheme()
-    const isDarkTheme = theme === "dark"
-
+    
     // Extract only the safe props to avoid conflicts
     const { 
       id, 
@@ -103,50 +95,65 @@ export const MenuBar = React.forwardRef<HTMLDivElement, MenuBarProps>(
         aria-labelledby={ariaLabelledBy}
         role={role}
         className={cn(
-          "p-2 rounded-2xl bg-gradient-to-b from-background/80 to-background/40 backdrop-blur-lg border border-border/40 shadow-lg relative overflow-hidden",
+          "relative p-1 rounded-2xl bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl border border-gray-200/50 dark:border-gray-700/50 shadow-xl",
           className,
         )}
-        initial="initial"
-        whileHover="hover"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
       >
-        <motion.div
-          className={`absolute -inset-2 bg-gradient-radial from-transparent ${
-            isDarkTheme
-              ? "via-blue-400/30 via-30% via-purple-400/30 via-60% via-red-400/30 via-90%"
-              : "via-blue-400/20 via-30% via-purple-400/20 via-60% via-red-400/20 via-90%"
-          } to-transparent rounded-3xl z-0 pointer-events-none`}
-          variants={navGlowVariants}
-        />
-        <ul className="flex items-center gap-2 relative z-10">
-          {items.map((item) => {
+        {/* Background gradient overlay */}
+        <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-sheraa-primary/5 via-sheraa-teal/5 to-sheraa-primary/5 pointer-events-none" />
+        
+        <ul className="flex items-center gap-1 relative z-10">
+          {items.map((item, index) => {
             const Icon = item.icon
             const isActive = item.label === activeItem
             const isSEF = item.label === "SEF"
 
             return (
-              <motion.li key={item.label} className="relative">
+              <motion.li 
+                key={item.label} 
+                className="relative"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: index * 0.1, duration: 0.4 }}
+              >
                 <button
                   onClick={() => onItemClick?.(item.label)}
-                  className="block w-full"
+                  className="relative block w-full group"
                 >
                   <motion.div
-                    className="block rounded-xl overflow-visible group relative"
-                    style={{ perspective: "600px" }}
-                    whileHover="hover"
+                    className="relative overflow-hidden rounded-xl"
+                    variants={itemVariants}
                     initial="initial"
+                    whileHover="hover"
                   >
+                    {/* Active background glow */}
+                    {isActive && (
+                      <motion.div
+                        className="absolute inset-0 z-0"
+                        style={{
+                          background: item.gradient,
+                          borderRadius: "12px",
+                        }}
+                        variants={glowVariants}
+                        initial="initial"
+                        animate="hover"
+                      />
+                    )}
+                    
+                    {/* Hover glow effect */}
                     <motion.div
-                      className="absolute inset-0 z-0 pointer-events-none"
-                      variants={glowVariants}
-                      animate={isActive ? "hover" : "initial"}
+                      className="absolute inset-0 z-0 opacity-0 group-hover:opacity-100"
                       style={{
-                        background: item.gradient,
-                        opacity: isActive ? 1 : 0,
-                        borderRadius: "16px",
+                        background: `linear-gradient(135deg, ${item.iconColor.replace('text-', '').replace('-500', '')}/10 0%, ${item.iconColor.replace('text-', '').replace('-500', '')}/20 50%, transparent 100%)`,
+                        borderRadius: "12px",
                       }}
+                      transition={{ duration: 0.3 }}
                     />
                     
-                    {/* SEF Sparkle Effect */}
+                    {/* SEF Sparkle Effects */}
                     {isSEF && (
                       <>
                         <motion.div
@@ -155,86 +162,75 @@ export const MenuBar = React.forwardRef<HTMLDivElement, MenuBarProps>(
                           initial="initial"
                           animate="animate"
                         >
-                          <span className="text-yellow-400 text-xs">✨</span>
+                          <span className="text-xs">✨</span>
                         </motion.div>
                         <motion.div
                           className="absolute -bottom-1 -left-1 z-20 pointer-events-none"
                           variants={sefSparkleVariants}
                           initial="initial"
                           animate="animate"
-                          transition={{ delay: 1 }}
+                          transition={{ delay: 0.7 }}
                         >
-                          <span className="text-purple-400 text-xs">⭐</span>
-                        </motion.div>
-                        <motion.div
-                          className="absolute top-1/2 -right-2 z-20 pointer-events-none"
-                          variants={sefSparkleVariants}
-                          initial="initial"
-                          animate="animate"
-                          transition={{ delay: 2 }}
-                        >
-                          <span className="text-pink-400 text-xs">💫</span>
+                          <span className="text-xs">⭐</span>
                         </motion.div>
                       </>
                     )}
                     
-                    <motion.div
+                    {/* Menu item content */}
+                    <div
                       className={cn(
-                        "flex items-center gap-2 px-4 py-2 relative z-10 bg-transparent transition-colors rounded-xl",
+                        "relative z-10 flex items-center gap-3 px-4 py-3 transition-all duration-300",
+                        "text-sm font-medium rounded-xl",
                         isActive
-                          ? "text-foreground"
-                          : "text-muted-foreground group-hover:text-foreground",
-                        isSEF && "font-semibold"
+                          ? "text-white shadow-lg" 
+                          : "text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white",
+                        isSEF && !isActive && "bg-gradient-to-r from-sheraa-sef-primary/10 to-sheraa-sef-secondary/10"
                       )}
-                      variants={itemVariants}
-                      transition={sharedTransition}
-                      style={{
-                        transformStyle: "preserve-3d",
-                        transformOrigin: "center bottom",
-                      }}
                     >
-                      <span
+                      <motion.span
                         className={cn(
-                          "transition-colors duration-300",
-                          isActive ? item.iconColor : "text-foreground",
-                          `group-hover:${item.iconColor}`,
+                          "transition-all duration-300",
+                          isActive 
+                            ? "text-white drop-shadow-sm" 
+                            : cn(
+                                item.iconColor,
+                                "group-hover:scale-110 group-hover:drop-shadow-sm"
+                              ),
+                          isSEF && "text-sheraa-sef-primary"
                         )}
+                        whileHover={{ rotate: isSEF ? 360 : 0 }}
+                        transition={{ duration: 0.6 }}
                       >
                         <Icon className="h-5 w-5" />
-                      </span>
-                      <span className={isSEF ? "bg-gradient-to-r from-sheraa-sef-primary to-sheraa-sef-secondary bg-clip-text text-transparent" : ""}>
-                        {item.label}
-                      </span>
-                    </motion.div>
-                    <motion.div
-                      className={cn(
-                        "flex items-center gap-2 px-4 py-2 absolute inset-0 z-10 bg-transparent transition-colors rounded-xl",
-                        isActive
-                          ? "text-foreground"
-                          : "text-muted-foreground group-hover:text-foreground",
-                        isSEF && "font-semibold"
-                      )}
-                      variants={backVariants}
-                      transition={sharedTransition}
-                      style={{
-                        transformStyle: "preserve-3d",
-                        transformOrigin: "center top",
-                        rotateX: 90,
-                      }}
-                    >
-                      <span
+                      </motion.span>
+                      
+                      <span 
                         className={cn(
-                          "transition-colors duration-300",
-                          isActive ? item.iconColor : "text-foreground",
-                          `group-hover:${item.iconColor}`,
+                          "transition-all duration-300",
+                          isActive && "drop-shadow-sm",
+                          isSEF && !isActive && "font-semibold bg-gradient-to-r from-sheraa-sef-primary to-sheraa-sef-secondary bg-clip-text text-transparent"
                         )}
                       >
-                        <Icon className="h-5 w-5" />
-                      </span>
-                      <span className={isSEF ? "bg-gradient-to-r from-sheraa-sef-primary to-sheraa-sef-secondary bg-clip-text text-transparent" : ""}>
                         {item.label}
                       </span>
-                    </motion.div>
+                      
+                      {isSEF && !isActive && (
+                        <motion.span
+                          className="text-xs"
+                          animate={{ 
+                            scale: [1, 1.2, 1],
+                            opacity: [0.7, 1, 0.7]
+                          }}
+                          transition={{ 
+                            duration: 1.5,
+                            repeat: Infinity,
+                            ease: "easeInOut"
+                          }}
+                        >
+                          🎪
+                        </motion.span>
+                      )}
+                    </div>
                   </motion.div>
                 </button>
               </motion.li>
