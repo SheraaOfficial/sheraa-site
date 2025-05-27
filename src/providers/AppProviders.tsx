@@ -1,5 +1,6 @@
 
 import React from "react";
+import { BrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -18,8 +19,10 @@ const AppProviders: React.FC<AppProvidersProps> = ({ children }) => {
       <ThemeProvider>
         <LanguageProvider>
           <TooltipProvider>
-            <Toaster />
-            {children}
+            <BrowserRouter>
+              <Toaster />
+              {children}
+            </BrowserRouter>
           </TooltipProvider>
         </LanguageProvider>
       </ThemeProvider>
