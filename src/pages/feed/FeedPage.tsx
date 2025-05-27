@@ -39,7 +39,7 @@ const FeedPage = () => {
             </CardContent>
           </Card>
           
-          <PostsList />
+          <PostsList posts={[]} />
         </div>
       </div>
     </MainLayout>
