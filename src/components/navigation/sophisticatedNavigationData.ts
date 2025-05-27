@@ -45,10 +45,15 @@ export const sophisticatedNavigationItems: NavigationItem[] = [
     ]
   },
   {
-    name: 'Programs',
+    name: 'Discover',
     path: '/programs',
     icon: BookOpen,
     subItems: [
+      {
+        name: 'Programs Overview',
+        path: '/programs',
+        description: 'Explore all our programs'
+      },
       {
         name: 'S3 Incubator',
         path: '/programs/s3-incubator',

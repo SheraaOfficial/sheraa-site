@@ -116,7 +116,7 @@ export function TimelineEvent({
   );
 }
 
-export function Timeline() {
+export function SEFTimeline() {
   return (
     <div className="w-3xl">
       <TimelineContainer>
@@ -190,4 +190,4 @@ const timeline = [
   },
 ] satisfies Event[];
 
-export { ShineBorder, Timeline };
+export { ShineBorder, SEFTimeline as Timeline };

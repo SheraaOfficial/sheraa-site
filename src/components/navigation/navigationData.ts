@@ -4,10 +4,11 @@ import { NavigationItem } from './types';
 
 export const navigationItems: NavigationItem[] = [
   {
-    name: 'Programs',
+    name: 'Discover',
     path: '/programs',
     icon: Rocket,
     subItems: [
+      { name: 'Programs Overview', path: '/programs', description: 'Explore all our programs' },
       { name: 'Start Young', path: '/programs/start-young', description: 'Youth entrepreneurship programs' },
       { name: 'S3 Incubator', path: '/programs/s3', description: 'Flagship incubator program' },
       { name: 'Access Sharjah Challenge', path: '/programs/asc', description: 'Global startup competition' },

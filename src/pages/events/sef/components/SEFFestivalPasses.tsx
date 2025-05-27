@@ -154,13 +154,17 @@ const PassCard: React.FC<{
         
         {/* CTA Button - Updated with direct links */}
         <div className="mt-4">
-          {pass.popular || pass.vip ? <Sparkles colors={["#9b87f5", "#FF6600", pass.vip ? "#10B981" : "#D946EF", pass.vip ? "#059669" : "#F97316"]} count={15}>
+          {pass.popular || pass.vip ? <motion.div 
+              className="relative"
+              whileHover={{ scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
+            >
               <Button variant="default" className={cn("w-full text-white shadow-glow", pass.vip ? "bg-gradient-to-r from-emerald-500 to-teal-600 border-none" : "bg-gradient-to-r from-purple-500 to-orange-500 border-none")} asChild>
                 <Link to={pass.registerLink}>
                   Get Your Pass
                 </Link>
               </Button>
-            </Sparkles> : <Button variant={pass.name === "Executive Pass" ? "secondary" : "outline"} className={cn("w-full", pass.name === "Executive Pass" ? "bg-amber-600 hover:bg-amber-500 text-white" : "")} asChild>
+            </motion.div> : <Button variant={pass.name === "Executive Pass" ? "secondary" : "outline"} className={cn("w-full", pass.name === "Executive Pass" ? "bg-amber-600 hover:bg-amber-500 text-white" : "")} asChild>
               <Link to={pass.registerLink}>
                 Get Your Pass
               </Link>
