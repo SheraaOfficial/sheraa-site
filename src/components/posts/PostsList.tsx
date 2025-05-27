@@ -1,101 +1,71 @@
-
 import React from 'react';
 import { formatDistanceToNow } from 'date-fns';
-import { Card, CardContent } from '@/components/ui/card';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Heart, MessageCircle, Share } from 'lucide-react';
+import { Heart, MessageCircle, Share2, MoreHorizontal } from 'lucide-react';
 
 interface Post {
-  id: string;
-  author: {
-    name: string;
-    imageUrl: string;
-  };
+  id: number;
+  title: string;
   content: string;
-  imageUrl?: string;
-  createdAt: Date;
+  author: string;
+  date: Date;
   likes: number;
   comments: number;
   shares: number;
 }
 
-interface PostsListProps {
-  posts?: Post[];
-  userId?: string | number;
-}
+const posts: Post[] = [
+  {
+    id: 1,
+    title: "The Future of AI in Web Development",
+    content: "AI is rapidly changing the landscape of web development, offering new tools and techniques to streamline the development process and enhance user experiences.",
+    author: "John Doe",
+    date: new Date(),
+    likes: 120,
+    comments: 35,
+    shares: 12,
+  },
+  {
+    id: 2,
+    title: "Mastering React Hooks in 2024",
+    content: "React Hooks have revolutionized the way we write React components, making it easier to manage state and side effects. This guide covers the most essential hooks you need to know.",
+    author: "Jane Smith",
+    date: new Date(),
+    likes: 95,
+    comments: 28,
+    shares: 8,
+  },
+];
 
-const PostsList: React.FC<PostsListProps> = ({ posts = [], userId }) => {
-  // If no posts provided, show sample posts for demo purposes
-  const samplePosts: Post[] = [
-    {
-      id: '1',
-      author: {
-        name: 'Ahmed Al Rashid',
-        imageUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face'
-      },
-      content: 'Excited to share our latest progress on the sustainability project! We\'ve successfully reduced waste by 40% through innovative recycling techniques.',
-      imageUrl: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500&h=300&fit=crop',
-      createdAt: new Date(Date.now() - 2 * 60 * 60 * 1000), // 2 hours ago
-      likes: 24,
-      comments: 8,
-      shares: 3
-    },
-    {
-      id: '2',
-      author: {
-        name: 'Sara Al Nuaimi',
-        imageUrl: 'https://images.unsplash.com/photo-1494790108755-2616b612b789?w=150&h=150&fit=crop&crop=face'
-      },
-      content: 'Just finished an amazing mentorship session with the S3 Incubator startups. The innovation and passion these entrepreneurs bring is truly inspiring!',
-      createdAt: new Date(Date.now() - 5 * 60 * 60 * 1000), // 5 hours ago
-      likes: 42,
-      comments: 12,
-      shares: 6
-    }
-  ];
-
-  const postsToShow = posts.length > 0 ? posts : samplePosts;
-
+const PostsList: React.FC = () => {
   return (
     <div>
-      {postsToShow.map((post) => (
+      {posts.map((post) => (
         <Card key={post.id} className="mb-4">
-          <CardContent className="p-4">
-            <div className="flex items-start mb-4">
-              <Avatar className="mr-4">
-                <AvatarImage src={post.author.imageUrl} alt={post.author.name} />
-                <AvatarFallback>{post.author.name.charAt(0)}</AvatarFallback>
-              </Avatar>
-              <div>
-                <div className="font-semibold">{post.author.name}</div>
-                <div className="text-sm text-gray-500">
-                  {formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })}
-                </div>
+          <CardHeader>
+            <CardTitle>{post.title}</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p>{post.content}</p>
+            <div className="mt-4 flex items-center justify-between">
+              <div className="text-sm text-gray-500">
+                Posted by {post.author} {formatDistanceToNow(post.date, { addSuffix: true })}
               </div>
-            </div>
-            {post.imageUrl && (
-              <img src={post.imageUrl} alt="Post" className="mb-4 rounded-md w-full" />
-            )}
-            <p className="text-gray-700 mb-4">{post.content}</p>
-            <div className="flex justify-between items-center">
-              <div className="flex gap-2">
-                <Button variant="ghost" size="sm" className="flex items-center gap-2">
-                  <Heart className="h-4 w-4" />
-                  <span>{post.likes}</span>
+              <div className="flex items-center space-x-3">
+                <Button variant="ghost" size="icon">
+                  <Heart className="h-4 w-4 mr-1" /> {post.likes}
                 </Button>
-                <Button variant="ghost" size="sm" className="flex items-center gap-2">
-                  <MessageCircle className="h-4 w-4" />
-                  <span>{post.comments}</span>
+                <Button variant="ghost" size="icon">
+                  <MessageCircle className="h-4 w-4 mr-1" /> {post.comments}
                 </Button>
-                <Button variant="ghost" size="sm" className="flex items-center gap-2">
-                  <Share className="h-4 w-4" />
-                  <span>{post.shares}</span>
+                <Button variant="ghost" size="icon">
+                  <Share2 className="h-4 w-4 mr-1" /> {post.shares}
+                </Button>
+                <Button variant="ghost" size="icon">
+                  <MoreHorizontal className="h-4 w-4" />
                 </Button>
               </div>
-              <Button variant="outline" size="sm">
-                Read More
-              </Button>
             </div>
           </CardContent>
         </Card>
