@@ -1,5 +1,5 @@
 
-import { StrictMode } from "react";
+import React from "react";
 import AppProviders from "./providers/AppProviders";
 import AppRoutes from "./routes/AppRoutes";
 
@@ -9,11 +9,9 @@ const App = () => {
   console.log('App component rendering');
   
   return (
-    <StrictMode>
-      <AppProviders>
-        <AppRoutes />
-      </AppProviders>
-    </StrictMode>
+    <AppProviders>
+      <AppRoutes />
+    </AppProviders>
   );
 };
 
