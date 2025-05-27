@@ -7,7 +7,7 @@ import { NavigationItem } from './types';
 import { NavigationLogo } from './NavigationLogo';
 import { DesktopNavigation } from './DesktopNavigation';
 import { MobileMenuButton } from './MobileMenuButton';
-import { MobileNavigation } from './MobileNavigation';
+import { MobileNavigationWithSubmenus } from './MobileNavigationWithSubmenus';
 import { FloatingBackground } from './FloatingBackground';
 import { navigationItems } from './navigationData';
 
@@ -91,7 +91,7 @@ export const NavigationContainer: React.FC = () => {
             <MobileMenuButton isOpen={isOpen} onClick={() => setIsOpen(!isOpen)} />
           </div>
 
-          <MobileNavigation
+          <MobileNavigationWithSubmenus
             isOpen={isOpen}
             items={navigationItems}
             isPathActive={isPathActive}

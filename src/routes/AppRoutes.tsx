@@ -12,6 +12,10 @@ const About = lazy(() => import("../pages/about/index"));
 const AboutLeadership = lazy(() => import("../pages/about/AboutLeadershipPage"));
 const Programs = lazy(() => import("../pages/programs/index"));
 const StartYoung = lazy(() => import("../pages/programs/start-young/index"));
+const S3Incubator = lazy(() => import("../pages/programs/S3IncubatorPage"));
+const AccessSharjahChallenge = lazy(() => import("../pages/programs/AccessSharjahChallengePage"));
+const DealDock = lazy(() => import("../pages/programs/DealDockPage"));
+const SMESupport = lazy(() => import("../pages/programs/SMESupport"));
 const Community = lazy(() => import("../pages/community/index"));
 const CommunityMembership = lazy(() => import("../pages/community/membership/index"));
 const CommunityStartups = lazy(() => import("../pages/community/startups/index"));
@@ -19,6 +23,8 @@ const CommunityPartnerships = lazy(() => import("../pages/community/partnerships
 const MembershipApplication = lazy(() => import("../pages/community/membership/apply"));
 const MembershipConfirmation = lazy(() => import("../pages/community/membership/confirmation"));
 const SuccessStories = lazy(() => import("../pages/community/membership/success-stories"));
+const Contact = lazy(() => import("../pages/contact/index"));
+const Careers = lazy(() => import("../pages/careers/index"));
 const Auth = lazy(() => import("../pages/Auth"));
 const Profile = lazy(() => import("../pages/Profile"));
 const EligibilityPage = lazy(() => import("../pages/EligibilityPage"));
@@ -63,6 +69,38 @@ const AppRoutes: React.FC = () => (
         element={
           <SafeSuspense fallback={<SectionLoading />}>
             <StartYoung />
+          </SafeSuspense>
+        }
+      />
+      <Route
+        path="/programs/s3-incubator"
+        element={
+          <SafeSuspense fallback={<SectionLoading />}>
+            <S3Incubator />
+          </SafeSuspense>
+        }
+      />
+      <Route
+        path="/programs/access-sharjah-challenge"
+        element={
+          <SafeSuspense fallback={<SectionLoading />}>
+            <AccessSharjahChallenge />
+          </SafeSuspense>
+        }
+      />
+      <Route
+        path="/programs/deal-dock"
+        element={
+          <SafeSuspense fallback={<SectionLoading />}>
+            <DealDock />
+          </SafeSuspense>
+        }
+      />
+      <Route
+        path="/programs/sme-support"
+        element={
+          <SafeSuspense fallback={<SectionLoading />}>
+            <SMESupport />
           </SafeSuspense>
         }
       />
@@ -119,6 +157,22 @@ const AppRoutes: React.FC = () => (
         element={
           <SafeSuspense fallback={<SectionLoading />}>
             <CommunityPartnerships />
+          </SafeSuspense>
+        }
+      />
+      <Route
+        path="/contact"
+        element={
+          <SafeSuspense fallback={<SectionLoading />}>
+            <Contact />
+          </SafeSuspense>
+        }
+      />
+      <Route
+        path="/careers"
+        element={
+          <SafeSuspense fallback={<SectionLoading />}>
+            <Careers />
           </SafeSuspense>
         }
       />

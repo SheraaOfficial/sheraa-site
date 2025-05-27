@@ -1,6 +1,6 @@
+
 import React from 'react';
 import { motion } from 'framer-motion';
-import { format } from 'date-fns';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -73,6 +73,14 @@ const HubsSection: React.FC = () => {
     }
   };
 
+  const formatDate = (date: Date) => {
+    return new Intl.DateTimeFormat('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    }).format(date);
+  };
+
   return (
     <motion.section
       id="hubs"
@@ -125,7 +133,7 @@ const HubsSection: React.FC = () => {
                     </a>
                   </div>
                   <p className="text-gray-500 dark:text-gray-400 text-sm">
-                    Founded on {format(hub.foundingDate, 'MMMM dd, yyyy')}
+                    Founded on {formatDate(hub.foundingDate)}
                   </p>
                   <Button asChild variant="secondary" className="w-full mt-4 bg-sheraa-primary/10 hover:bg-sheraa-primary/20 text-sheraa-primary">
                     <a href={hub.googleMapsLink} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
