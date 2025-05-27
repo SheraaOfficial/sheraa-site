@@ -1,5 +1,5 @@
 
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/sonner";
@@ -20,9 +20,9 @@ const queryClient = new QueryClient({
   },
 });
 
-console.log('AppProviders - React imported:', !!React);
+console.log('AppProviders module loaded');
 
-const AppProviders: React.FC<AppProvidersProps> = ({ children }) => {
+const AppProviders = ({ children }: AppProvidersProps) => {
   console.log('AppProviders rendering');
   
   return (

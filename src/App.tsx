@@ -1,17 +1,19 @@
 
-import React from "react";
+import { StrictMode } from "react";
 import AppProviders from "./providers/AppProviders";
 import AppRoutes from "./routes/AppRoutes";
 
-console.log('App.tsx - React imported:', !!React);
+console.log('App.tsx loaded');
 
-const App: React.FC = () => {
+const App = () => {
   console.log('App component rendering');
   
   return (
-    <AppProviders>
-      <AppRoutes />
-    </AppProviders>
+    <StrictMode>
+      <AppProviders>
+        <AppRoutes />
+      </AppProviders>
+    </StrictMode>
   );
 };
 
