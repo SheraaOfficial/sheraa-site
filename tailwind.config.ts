@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -159,6 +158,17 @@ export default {
           "0%, 100%": { opacity: "0.6", transform: "scale(0.95)" },
           "50%": { opacity: "1", transform: "scale(1)" }
         },
+        "shine-pulse": {
+          "0%": {
+            "background-position": "0% 0%",
+          },
+          "50%": {
+            "background-position": "100% 100%",
+          },
+          to: {
+            "background-position": "0% 0%",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -172,6 +182,7 @@ export default {
         "border-beam": "border-beam calc(var(--duration) * 1s) infinite linear",
         "float": "float 6s ease-in-out infinite",
         "pulse-glow": "pulse-glow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        "shine-pulse": "shine-pulse calc(var(--shine-pulse-duration) * 1s) infinite linear",
       },
       fontFamily: {
         'plus-jakarta': ['"Plus Jakarta Sans"', 'sans-serif'],

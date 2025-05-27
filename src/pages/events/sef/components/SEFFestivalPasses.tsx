@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { Sparkles } from '@/components/ui/sparkles';
+import { ShineBorder, Timeline } from '@/components/ui/shine-border';
 import { Link } from 'react-router-dom';
 import { Badge } from '@/components/ui/badge';
 import { ArrowRight, BadgeCheck, BadgePercent, ChevronDown, ChevronUp, Ticket } from 'lucide-react';
@@ -214,6 +214,7 @@ const SEFFestivalPasses: React.FC = () => {
   const handleSelectPersona = (pass: string) => {
     setSelectedPersona(currentPersona => currentPersona === pass ? null : pass);
   };
+  
   return <section className={`py-16 md:py-24 px-4 ${theme === 'dark' ? 'bg-gray-900' : 'bg-white'}`}>
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-16">
@@ -268,6 +269,31 @@ const SEFFestivalPasses: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {passes.map((pass, index) => <PassCard key={pass.name} pass={pass} index={index} selectedPersona={selectedPersona} />)}
         </div>
+        
+        {/* Add ShineBorder component with Timeline */}
+        <motion.div 
+          className="mt-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.8 }}
+        >
+          <ShineBorder
+            borderWidth={3}
+            className="border bg-white/5 shadow-2xl backdrop-blur-md dark:bg-black/5"
+            color={["#9b87f5", "#D946EF", "#F97316"]}
+          >
+            <div className="text-center py-8">
+              <h3 className="text-2xl md:text-3xl font-bold mb-4 bg-gradient-to-r from-sheraa-sef-primary to-sheraa-sef-accent bg-clip-text text-transparent">
+                Your SEF Journey
+              </h3>
+              <p className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} mb-8 max-w-2xl mx-auto`}>
+                From registration to transformation - here's what your SEF experience looks like.
+              </p>
+              <Timeline />
+            </div>
+          </ShineBorder>
+        </motion.div>
         
         <div className="text-center mt-12">
           <motion.div className={`${theme === 'dark' ? 'bg-gray-800/50' : 'bg-gray-50'} p-6 rounded-xl max-w-3xl mx-auto`} initial={{
