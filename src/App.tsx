@@ -1,4 +1,3 @@
-
 import { Suspense, lazy } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -18,6 +17,8 @@ const Programs = lazy(() => import("./pages/programs/index"));
 const StartYoung = lazy(() => import("./pages/programs/start-young/index"));
 const Community = lazy(() => import("./pages/community/index"));
 const CommunityMembership = lazy(() => import("./pages/community/membership/index"));
+const CommunityStartups = lazy(() => import("./pages/community/startups/index"));
+const CommunityPartnerships = lazy(() => import("./pages/community/partnerships/index"));
 const MembershipApplication = lazy(() => import("./pages/community/membership/apply"));
 const MembershipConfirmation = lazy(() => import("./pages/community/membership/confirmation"));
 const SuccessStories = lazy(() => import("./pages/community/membership/success-stories"));
@@ -104,6 +105,22 @@ const App = () => (
                 element={
                   <SafeSuspense fallback={<SectionLoading />}>
                     <SuccessStories />
+                  </SafeSuspense>
+                }
+              />
+              <Route
+                path="/community/startups"
+                element={
+                  <SafeSuspense fallback={<SectionLoading />}>
+                    <CommunityStartups />
+                  </SafeSuspense>
+                }
+              />
+              <Route
+                path="/community/partnerships"
+                element={
+                  <SafeSuspense fallback={<SectionLoading />}>
+                    <CommunityPartnerships />
                   </SafeSuspense>
                 }
               />
