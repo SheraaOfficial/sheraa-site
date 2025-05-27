@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { formatDistanceToNow } from 'date-fns';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
