@@ -45,10 +45,15 @@ export const sophisticatedNavigationItems: NavigationItem[] = [
     ]
   },
   {
-    name: 'Programs',
+    name: 'Discover',
     path: '/programs',
     icon: BookOpen,
     subItems: [
+      {
+        name: 'Programs Overview',
+        path: '/programs',
+        description: 'Explore all our programs'
+      },
       {
         name: 'S3 Incubator',
         path: '/programs/s3-incubator',
@@ -68,6 +73,11 @@ export const sophisticatedNavigationItems: NavigationItem[] = [
         name: 'Access Sharjah Challenge',
         path: '/programs/access-sharjah-challenge',
         description: 'Global competition for growth-stage startups'
+      },
+      {
+        name: 'Deal Dock',
+        path: '/programs/deal-dock',
+        description: 'Exclusive investment platform for investors'
       }
     ]
   },

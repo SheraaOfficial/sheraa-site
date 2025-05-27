@@ -3,11 +3,12 @@ import React from 'react';
 import MainLayout from '@/components/layouts/MainLayout';
 import { motion } from 'framer-motion';
 import StartupCard from '@/components/startups/StartupCard';
+import StartupSubmissionForm from '@/components/startups/StartupSubmissionForm';
 import { featuredStartups } from '@/components/startups/startupsData';
 import { useIsMobile } from '@/hooks/useDeviceDetection';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Search, Filter, Building } from 'lucide-react';
+import { Search, Filter, Building, Plus } from 'lucide-react';
 
 const StartupDirectory: React.FC = () => {
   const isMobile = useIsMobile();
@@ -40,8 +41,8 @@ const StartupDirectory: React.FC = () => {
                 Sheraa is proud to support a dynamic and diverse portfolio of over 180 startups. These ventures are tackling challenges, creating jobs, generating significant revenue, and attracting substantial investment.
               </p>
               
-              {/* Search */}
-              <div className="max-w-2xl mx-auto flex flex-col sm:flex-row gap-4 mb-8">
+              {/* Search and CTA */}
+              <div className="max-w-3xl mx-auto flex flex-col sm:flex-row gap-4 mb-8">
                 <div className="relative flex-1">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                   <input 
@@ -54,6 +55,7 @@ const StartupDirectory: React.FC = () => {
                   <Filter className="w-4 h-4 mr-2" />
                   Advanced Filter
                 </Button>
+                <StartupSubmissionForm />
               </div>
             </motion.div>
           </div>
@@ -142,9 +144,23 @@ const StartupDirectory: React.FC = () => {
                   ))}
                 </div>
                 
-                <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+                <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-8">
                   This showcase serves as a testament to the talent within our ecosystem and a vital resource for potential investors and partners seeking collaboration opportunities. These figures demonstrate the scale and effectiveness of Sheraa's programs and the significant economic contribution of its supported ventures.
                 </p>
+
+                {/* Call to Action for Startups */}
+                <div className="bg-white dark:bg-sheraa-dark rounded-2xl p-8 border border-sheraa-primary/20">
+                  <h3 className="text-xl font-bold mb-4">Are you building the next big thing?</h3>
+                  <p className="text-gray-600 dark:text-gray-400 mb-6">
+                    Join our portfolio of innovative startups making a real impact. Submit your startup to be featured in our directory.
+                  </p>
+                  <StartupSubmissionForm trigger={
+                    <Button size="lg" className="bg-sheraa-primary hover:bg-sheraa-primary/90 text-white">
+                      <Plus className="w-4 h-4 mr-2" />
+                      Submit Your Startup
+                    </Button>
+                  } />
+                </div>
               </div>
             </motion.div>
           </div>
