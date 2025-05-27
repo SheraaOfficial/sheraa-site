@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { formatDistanceToNow } from 'date-fns';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -15,7 +16,11 @@ interface Post {
   shares: number;
 }
 
-const posts: Post[] = [
+interface PostsListProps {
+  posts?: Post[];
+}
+
+const defaultPosts: Post[] = [
   {
     id: 1,
     title: "The Future of AI in Web Development",
@@ -38,7 +43,7 @@ const posts: Post[] = [
   },
 ];
 
-const PostsList: React.FC = () => {
+const PostsList: React.FC<PostsListProps> = ({ posts = defaultPosts }) => {
   return (
     <div>
       {posts.map((post) => (
