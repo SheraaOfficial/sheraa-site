@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Card, CardContent } from '@/components/ui/card';
@@ -14,6 +13,10 @@ const JobOpeningsSection: React.FC = () => {
   const [selectedDepartment, setSelectedDepartment] = useState('All');
 
   const departments = ['All', 'Programs', 'Marketing', 'Technology', 'Community', 'Operations'];
+
+  const handleApplyClick = () => {
+    document.getElementById('apply')?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   const openRoles = [
     {
@@ -107,44 +110,44 @@ const JobOpeningsSection: React.FC = () => {
     : openRoles.filter(role => role.department === selectedDepartment);
 
   return (
-    <section id="openings" className="py-20 bg-white dark:bg-sheraa-dark/30">
+    <section id="openings" className="py-12 md:py-20 bg-white dark:bg-sheraa-dark/30">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-12 md:mb-16"
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-sheraa-primary/10 border border-sheraa-primary/20 mb-6">
             <Star className="w-5 h-5 text-sheraa-primary" />
             <span className="text-sm font-medium text-sheraa-primary">Open Positions</span>
           </div>
           
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Join Our Growing Team</h2>
-          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-8">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 px-4">Join Our Growing Team</h2>
+          <p className="text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-6 md:mb-8 px-4">
             Find the perfect role that matches your skills and passion. Every position directly contributes 
             to empowering the next generation of entrepreneurs.
           </p>
 
           {/* Department Filter */}
-          <div className="flex flex-wrap justify-center gap-2 mb-8">
+          <div className="flex flex-wrap justify-center gap-2 mb-6 md:mb-8 px-4">
             {departments.map((dept) => (
               <Button
                 key={dept}
                 variant={selectedDepartment === dept ? "default" : "outline"}
                 size="sm"
                 onClick={() => setSelectedDepartment(dept)}
-                className={selectedDepartment === dept ? "bg-sheraa-primary" : ""}
+                className={`text-xs md:text-sm ${selectedDepartment === dept ? "bg-sheraa-primary" : ""}`}
               >
-                <Filter className="w-4 h-4 mr-1" />
+                <Filter className="w-3 h-3 md:w-4 md:h-4 mr-1" />
                 {dept}
               </Button>
             ))}
           </div>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-6 md:gap-8 max-w-6xl mx-auto">
           {filteredRoles.map((role, index) => (
             <motion.div
               key={role.id}
@@ -159,23 +162,23 @@ const JobOpeningsSection: React.FC = () => {
                   ? "border-sheraa-primary/30 bg-gradient-to-br from-sheraa-primary/5 to-white" 
                   : "border-gray-200 hover:border-sheraa-primary/30"
               }`}>
-                <CardContent className="p-8">
+                <CardContent className="p-6 md:p-8">
                   {role.featured && (
                     <div className="flex items-center gap-2 mb-4">
-                      <Badge className="bg-sheraa-primary text-white">
+                      <Badge className="bg-sheraa-primary text-white text-xs">
                         <Heart className="w-3 h-3 mr-1" />
                         Featured
                       </Badge>
                     </div>
                   )}
 
-                  <div className="flex items-start gap-4 mb-6">
-                    <div className="w-12 h-12 rounded-xl bg-sheraa-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                      <role.icon className="w-6 h-6 text-sheraa-primary" />
+                  <div className="flex items-start gap-3 md:gap-4 mb-4 md:mb-6">
+                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-sheraa-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <role.icon className="w-5 h-5 md:w-6 md:h-6 text-sheraa-primary" />
                     </div>
                     <div className="flex-1">
-                      <h3 className="text-xl font-bold mb-2">{role.title}</h3>
-                      <div className="flex flex-wrap gap-2 mb-3">
+                      <h3 className="text-lg md:text-xl font-bold mb-2">{role.title}</h3>
+                      <div className="flex flex-wrap gap-1 md:gap-2 mb-3">
                         <Badge variant="outline" className="text-xs">
                           {role.department}
                         </Badge>
@@ -189,26 +192,26 @@ const JobOpeningsSection: React.FC = () => {
                     </div>
                   </div>
 
-                  <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
+                  <p className="text-sm md:text-base text-gray-600 dark:text-gray-400 mb-4 md:mb-6 leading-relaxed">
                     {role.description}
                   </p>
 
-                  <div className="space-y-4 mb-6">
-                    <div className="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400">
+                  <div className="space-y-3 md:space-y-4 mb-4 md:mb-6">
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-xs md:text-sm text-gray-600 dark:text-gray-400">
                       <div className="flex items-center gap-1">
-                        <MapPin className="w-4 h-4" />
+                        <MapPin className="w-3 h-3 md:w-4 md:h-4" />
                         <span>{role.location}</span>
                       </div>
                       <div className="flex items-center gap-1">
-                        <Clock className="w-4 h-4" />
+                        <Clock className="w-3 h-3 md:w-4 md:h-4" />
                         <span>{role.experience}</span>
                       </div>
                     </div>
 
                     <div>
-                      <h4 className="font-semibold text-sm mb-2">Key Skills:</h4>
+                      <h4 className="font-semibold text-xs md:text-sm mb-2">Key Skills:</h4>
                       <div className="flex flex-wrap gap-1">
-                        {role.skills.map((skill, idx) => (
+                        {role.skills.slice(0, 4).map((skill, idx) => (
                           <Badge key={idx} variant="secondary" className="text-xs">
                             {skill}
                           </Badge>
@@ -217,11 +220,11 @@ const JobOpeningsSection: React.FC = () => {
                     </div>
 
                     <div>
-                      <h4 className="font-semibold text-sm mb-2">Benefits:</h4>
+                      <h4 className="font-semibold text-xs md:text-sm mb-2">Benefits:</h4>
                       <ul className="space-y-1">
-                        {role.benefits.map((benefit, idx) => (
-                          <li key={idx} className="text-sm text-gray-600 dark:text-gray-400 flex items-start gap-2">
-                            <span className="w-1.5 h-1.5 bg-sheraa-primary rounded-full mt-2 flex-shrink-0" />
+                        {role.benefits.slice(0, 3).map((benefit, idx) => (
+                          <li key={idx} className="text-xs md:text-sm text-gray-600 dark:text-gray-400 flex items-start gap-2">
+                            <span className="w-1.5 h-1.5 bg-sheraa-primary rounded-full mt-1.5 md:mt-2 flex-shrink-0" />
                             <span>{benefit}</span>
                           </li>
                         ))}
@@ -229,9 +232,12 @@ const JobOpeningsSection: React.FC = () => {
                     </div>
                   </div>
 
-                  <Button className="w-full bg-sheraa-primary hover:bg-sheraa-primary/90 group">
+                  <Button 
+                    className="w-full bg-sheraa-primary hover:bg-sheraa-primary/90 group text-sm md:text-base"
+                    onClick={handleApplyClick}
+                  >
                     Apply for This Role
-                    <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
+                    <ArrowRight className="ml-2 w-3 h-3 md:w-4 md:h-4 transition-transform group-hover:translate-x-1" />
                   </Button>
                 </CardContent>
               </Card>
@@ -244,12 +250,17 @@ const JobOpeningsSection: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="text-center mt-12"
+          className="text-center mt-8 md:mt-12 px-4"
         >
-          <p className="text-gray-600 dark:text-gray-400 mb-4">
+          <p className="text-sm md:text-base text-gray-600 dark:text-gray-400 mb-4">
             Don't see the perfect role? We're always looking for exceptional talent.
           </p>
-          <Button variant="outline" size="lg" className="border-sheraa-primary/30 text-sheraa-primary hover:bg-sheraa-primary/10">
+          <Button 
+            variant="outline" 
+            size="lg" 
+            className="border-sheraa-primary/30 text-sheraa-primary hover:bg-sheraa-primary/10"
+            onClick={handleApplyClick}
+          >
             Submit General Application
           </Button>
         </motion.div>

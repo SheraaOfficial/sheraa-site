@@ -47,7 +47,7 @@ export const MobileNavigationWithSubmenus: React.FC<MobileNavigationWithSubmenus
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          className="lg:hidden absolute top-full left-0 right-0 bg-white/95 dark:bg-sheraa-dark/95 backdrop-blur-xl border-t border-white/20 dark:border-gray-700/50 shadow-xl rounded-b-2xl overflow-hidden"
+          className="lg:hidden absolute top-full left-0 right-0 bg-white/95 dark:bg-sheraa-dark/95 backdrop-blur-xl border-t border-white/20 dark:border-gray-700/50 shadow-xl rounded-b-2xl overflow-hidden z-50"
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: 'auto' }}
           exit={{ opacity: 0, height: 0 }}
@@ -72,20 +72,20 @@ export const MobileNavigationWithSubmenus: React.FC<MobileNavigationWithSubmenus
                     </Link>
                   ) : (
                     <>
-                      <button
-                        onClick={() => handleItemClick(item)}
-                        className={cn(
-                          "flex items-center justify-between w-full py-3 text-left transition-colors duration-200",
-                          isPathActive(item.path, item.subItems)
-                            ? 'text-sheraa-primary font-semibold'
-                            : 'text-gray-700 dark:text-gray-200 hover:text-sheraa-primary'
-                        )}
-                      >
-                        <div className="flex items-center gap-3">
-                          <item.icon className="w-5 h-5" />
-                          <span className="text-lg">{item.name}</span>
-                        </div>
-                        {item.subItems && item.subItems.length > 0 && (
+                      {item.subItems && item.subItems.length > 0 ? (
+                        <button
+                          onClick={() => handleItemClick(item)}
+                          className={cn(
+                            "flex items-center justify-between w-full py-3 text-left transition-colors duration-200",
+                            isPathActive(item.path, item.subItems)
+                              ? 'text-sheraa-primary font-semibold'
+                              : 'text-gray-700 dark:text-gray-200 hover:text-sheraa-primary'
+                          )}
+                        >
+                          <div className="flex items-center gap-3">
+                            <item.icon className="w-5 h-5" />
+                            <span className="text-lg">{item.name}</span>
+                          </div>
                           <motion.div
                             animate={{ 
                               rotate: expandedItems.includes(item.name) ? 180 : 0 
@@ -94,8 +94,22 @@ export const MobileNavigationWithSubmenus: React.FC<MobileNavigationWithSubmenus
                           >
                             <ChevronDown className="w-4 h-4" />
                           </motion.div>
-                        )}
-                      </button>
+                        </button>
+                      ) : (
+                        <Link
+                          to={item.path}
+                          onClick={onClose}
+                          className={cn(
+                            "flex items-center gap-3 py-3 text-left transition-colors duration-200",
+                            isPathActive(item.path, item.subItems)
+                              ? 'text-sheraa-primary font-semibold'
+                              : 'text-gray-700 dark:text-gray-200 hover:text-sheraa-primary'
+                          )}
+                        >
+                          <item.icon className="w-5 h-5" />
+                          <span className="text-lg">{item.name}</span>
+                        </Link>
+                      )}
                       
                       <AnimatePresence>
                         {item.subItems && expandedItems.includes(item.name) && (
