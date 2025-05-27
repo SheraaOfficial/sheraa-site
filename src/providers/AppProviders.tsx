@@ -20,17 +20,21 @@ const queryClient = new QueryClient({
   },
 });
 
+console.log('AppProviders - React imported:', !!React);
+
 const AppProviders: React.FC<AppProvidersProps> = ({ children }) => {
+  console.log('AppProviders rendering');
+  
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         <LanguageProvider>
-          <TooltipProvider>
-            <BrowserRouter>
+          <BrowserRouter>
+            <TooltipProvider>
               <Toaster />
               {children}
-            </BrowserRouter>
-          </TooltipProvider>
+            </TooltipProvider>
+          </BrowserRouter>
         </LanguageProvider>
       </ThemeProvider>
     </QueryClientProvider>

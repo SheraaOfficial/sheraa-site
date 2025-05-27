@@ -5,6 +5,9 @@ import App from './App';
 import './styles/mobile-optimizations.css';
 import './index.css';
 
+console.log('React version:', React.version);
+console.log('React object:', React);
+
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 
 root.render(

@@ -18,6 +18,7 @@ interface Post {
 
 interface PostsListProps {
   posts?: Post[];
+  userId?: string | number;
 }
 
 const defaultPosts: Post[] = [
@@ -43,7 +44,9 @@ const defaultPosts: Post[] = [
   },
 ];
 
-const PostsList: React.FC<PostsListProps> = ({ posts = defaultPosts }) => {
+const PostsList: React.FC<PostsListProps> = ({ posts = defaultPosts, userId }) => {
+  console.log('PostsList rendered with userId:', userId);
+  
   return (
     <div>
       {posts.map((post) => (
