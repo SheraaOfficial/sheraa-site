@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+                            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd
+                            http://www.google.com/schemas/sitemap-image/1.1
+                            http://www.google.com/schemas/sitemap-image/1.1/sitemap-image.xsd">
+
+    <!-- Logo and Brand Images -->
+    <url>
+        <loc>https://sheraa.ae/</loc>
+        <lastmod>2024-03-20</lastmod>
+        <image:image>
+            <image:loc>https://sheraa.ae/images/logo.png</image:loc>
+            <image:title>Sheraa Logo</image:title>
+            <image:caption>Official Sheraa logo</image:caption>
+            <image:license>https://sheraa.ae/terms#image-license</image:license>
+            <image:lastmod>2024-03-20</image:lastmod>
+            <image:geo_location>Sharjah, UAE</image:geo_location>
+        </image:image>
+        <image:image>
+            <image:loc>https://sheraa.ae/images/logo-dark.png</image:loc>
+            <image:title>Sheraa Logo (Dark Version)</image:title>
+            <image:caption>Dark version of the Sheraa logo</image:caption>
+            <image:license>https://sheraa.ae/terms#image-license</image:license>
+            <image:lastmod>2024-03-20</image:lastmod>
+            <image:geo_location>Sharjah, UAE</image:geo_location>
+        </image:image>
+        <image:image>
+            <image:loc>https://sheraa.ae/images/hero-banner.jpg</image:loc>
+            <image:title>Sheraa Hero Banner</image:title>
+            <image:caption>Welcome to Sheraa - Empowering UAE Entrepreneurs</image:caption>
+            <image:license>https://sheraa.ae/terms#image-license</image:license>
+            <image:lastmod>2024-03-20</image:lastmod>
+            <image:geo_location>Sharjah, UAE</image:geo_location>
+        </image:image>
+    </url>
+
+    <!-- Program Images -->
+    <url>
+        <loc>https://sheraa.ae/programs/</loc>
+        <lastmod>2024-03-20</lastmod>
+        <image:image>
+            <image:loc>https://sheraa.ae/images/programs/startup-dojo.jpg</image:loc>
+            <image:title>Startup Dojo Program</image:title>
+            <image:caption>Early-stage startup incubation program at Sheraa</image:caption>
+            <image:license>https://sheraa.ae/terms#image-license</image:license>
+            <image:lastmod>2024-03-20</image:lastmod>
+            <image:geo_location>Sharjah, UAE</image:geo_location>
+        </image:image>
+        <image:image>
+            <image:loc>https://sheraa.ae/images/programs/s3-incubator.jpg</image:loc>
+            <image:title>S3 Incubator Program</image:title>
+            <image:caption>Advanced incubation program for growth-stage startups</image:caption>
+            <image:license>https://sheraa.ae/terms#image-license</image:license>
+            <image:lastmod>2024-03-20</image:lastmod>
+            <image:geo_location>Sharjah, UAE</image:geo_location>
+        </image:image>
+        <image:image>
+            <image:loc>https://sheraa.ae/images/programs/workshop.jpg</image:loc>
+            <image:title>Entrepreneurship Workshops</image:title>
+            <image:caption>Interactive workshops for aspiring entrepreneurs</image:caption>
+            <image:license>https://sheraa.ae/terms#image-license</image:license>
+            <image:lastmod>2024-03-20</image:lastmod>
+            <image:geo_location>Sharjah, UAE</image:geo_location>
+        </image:image>
+    </url>
+
+    <!-- Event Images -->
+    <url>
+        <loc>https://sheraa.ae/events/</loc>
+        <lastmod>2024-03-20</lastmod>
+        <image:image>
+            <image:loc>https://sheraa.ae/images/events/festival.jpg</image:loc>
+            <image:title>Sharjah Entrepreneurship Festival</image:title>
+            <image:caption>Annual entrepreneurship festival in Sharjah</image:caption>
+            <image:license>https://sheraa.ae/terms#image-license</image:license>
+            <image:lastmod>2024-03-20</image:lastmod>
+            <image:geo_location>Sharjah, UAE</image:geo_location>
+        </image:image>
+        <image:image>
+            <image:loc>https://sheraa.ae/images/events/pitch-competition.jpg</image:loc>
+            <image:title>Startup Pitch Competition</image:title>
+            <image:caption>Entrepreneurs pitching their innovative ideas</image:caption>
+            <image:license>https://sheraa.ae/terms#image-license</image:license>
+            <image:lastmod>2024-03-20</image:lastmod>
+            <image:geo_location>Sharjah, UAE</image:geo_location>
+        </image:image>
+        <image:image>
+            <image:loc>https://sheraa.ae/images/events/networking.jpg</image:loc>
+            <image:title>Networking Events</image:title>
+            <image:caption>Building connections in the startup ecosystem</image:caption>
+            <image:license>https://sheraa.ae/terms#image-license</image:license>
+            <image:lastmod>2024-03-20</image:lastmod>
+            <image:geo_location>Sharjah, UAE</image:geo_location>
+        </image:image>
+    </url>
+
+    <!-- Success Stories -->
+    <url>
+        <loc>https://sheraa.ae/success-stories/</loc>
+        <lastmod>2024-03-20</lastmod>
+        <image:image>
+            <image:loc>https://sheraa.ae/images/success-stories/startup-showcase.jpg</image:loc>
+            <image:title>Sheraa Startup Showcase</image:title>
+            <image:caption>Our successful startups presenting their innovations</image:caption>
+            <image:license>https://sheraa.ae/terms#image-license</image:license>
+            <image:lastmod>2024-03-20</image:lastmod>
+            <image:geo_location>Sharjah, UAE</image:geo_location>
+        </image:image>
+        <image:image>
+            <image:loc>https://sheraa.ae/images/success-stories/graduation.jpg</image:loc>
+            <image:title>Program Graduation Ceremony</image:title>
+            <image:caption>Celebrating the success of our program graduates</image:caption>
+            <image:license>https://sheraa.ae/terms#image-license</image:license>
+            <image:lastmod>2024-03-20</image:lastmod>
+            <image:geo_location>Sharjah, UAE</image:geo_location>
+        </image:image>
+        <image:image>
+            <image:loc>https://sheraa.ae/images/success-stories/startup-portraits.jpg</image:loc>
+            <image:title>Success Story Portraits</image:title>
+            <image:caption>Meet our successful entrepreneurs</image:caption>
+            <image:license>https://sheraa.ae/terms#image-license</image:license>
+            <image:lastmod>2024-03-20</image:lastmod>
+            <image:geo_location>Sharjah, UAE</image:geo_location>
+        </image:image>
+    </url>
+
+    <!-- Facility Images -->
+    <url>
+        <loc>https://sheraa.ae/about/</loc>
+        <lastmod>2024-03-20</lastmod>
+        <image:image>
+            <image:loc>https://sheraa.ae/images/facility/exterior.jpg</image:loc>
+            <image:title>Sheraa Facility Exterior</image:title>
+            <image:caption>Modern architecture of Sheraa's entrepreneurship center</image:caption>
+            <image:license>https://sheraa.ae/terms#image-license</image:license>
+            <image:lastmod>2024-03-20</image:lastmod>
+            <image:geo_location>Sharjah, UAE</image:geo_location>
+        </image:image>
+        <image:image>
+            <image:loc>https://sheraa.ae/images/facility/coworking.jpg</image:loc>
+            <image:title>Co-working Space</image:title>
+            <image:caption>Collaborative workspace for entrepreneurs</image:caption>
+            <image:license>https://sheraa.ae/terms#image-license</image:license>
+            <image:lastmod>2024-03-20</image:lastmod>
+            <image:geo_location>Sharjah, UAE</image:geo_location>
+        </image:image>
+        <image:image>
+            <image:loc>https://sheraa.ae/images/facility/meeting-rooms.jpg</image:loc>
+            <image:title>Meeting Rooms</image:title>
+            <image:caption>State-of-the-art meeting facilities</image:caption>
+            <image:license>https://sheraa.ae/terms#image-license</image:license>
+            <image:lastmod>2024-03-20</image:lastmod>
+            <image:geo_location>Sharjah, UAE</image:geo_location>
+        </image:image>
+        <image:image>
+            <image:loc>https://sheraa.ae/images/facility/event-space.jpg</image:loc>
+            <image:title>Event Space</image:title>
+            <image:caption>Versatile space for events and gatherings</image:caption>
+            <image:license>https://sheraa.ae/terms#image-license</image:license>
+            <image:lastmod>2024-03-20</image:lastmod>
+            <image:geo_location>Sharjah, UAE</image:geo_location>
+        </image:image>
+    </url>
+
+    <!-- Team Images -->
+    <url>
+        <loc>https://sheraa.ae/team/</loc>
+        <lastmod>2024-03-20</lastmod>
+        <image:image>
+            <image:loc>https://sheraa.ae/images/team/leadership.jpg</image:loc>
+            <image:title>Leadership Team</image:title>
+            <image:caption>Meet Sheraa's leadership team</image:caption>
+            <image:license>https://sheraa.ae/terms#image-license</image:license>
+            <image:lastmod>2024-03-20</image:lastmod>
+            <image:geo_location>Sharjah, UAE</image:geo_location>
+        </image:image>
+        <image:image>
+            <image:loc>https://sheraa.ae/images/team/mentors.jpg</image:loc>
+            <image:title>Mentors and Advisors</image:title>
+            <image:caption>Our experienced mentors and advisors</image:caption>
+            <image:license>https://sheraa.ae/terms#image-license</image:license>
+            <image:lastmod>2024-03-20</image:lastmod>
+            <image:geo_location>Sharjah, UAE</image:geo_location>
+        </image:image>
+    </url>
+
+</urlset> 

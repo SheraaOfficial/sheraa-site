@@ -1,0 +1,99 @@
+{
+  "name": "Sheraa - Sharjah Entrepreneurship Center",
+  "short_name": "Sheraa",
+  "description": "Empowering entrepreneurs and startups in the UAE through programs, resources, and a vibrant community.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#YOUR_PRIMARY_COLOR",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/home.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "platform": "wide",
+      "label": "Sheraa Home Page"
+    },
+    {
+      "src": "/screenshots/programs.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "platform": "wide",
+      "label": "Sheraa Programs"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Programs",
+      "short_name": "Programs",
+      "description": "View Sheraa Programs",
+      "url": "/programs",
+      "icons": [{ "src": "/icons/programs-96x96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Events",
+      "short_name": "Events",
+      "description": "View Upcoming Events",
+      "url": "/events",
+      "icons": [{ "src": "/icons/events-96x96.png", "sizes": "96x96" }]
+    }
+  ],
+  "categories": ["business", "education", "entrepreneurship"],
+  "lang": "en",
+  "dir": "ltr",
+  "prefer_related_applications": false,
+  "related_applications": [],
+  "scope": "/",
+  "iarc_rating_id": "YOUR_IARC_RATING_ID"
+} 

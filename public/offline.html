@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offline - Sheraa</title>
+    <style>
+        :root {
+            --primary-color: #YOUR_PRIMARY_COLOR;
+            --text-color: #333;
+            --background-color: #fff;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --text-color: #fff;
+                --background-color: #1a1a1a;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .offline-icon {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 24px;
+            animation: pulse 2s infinite;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 16px;
+            color: var(--primary-color);
+        }
+
+        p {
+            margin-bottom: 24px;
+            font-size: 1.1rem;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            background-color: var(--primary-color-dark);
+        }
+
+        .cached-content {
+            margin-top: 32px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            text-align: left;
+        }
+
+        .cached-content h2 {
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+        }
+
+        .cached-content ul {
+            list-style: none;
+        }
+
+        .cached-content li {
+            margin-bottom: 8px;
+        }
+
+        .cached-content a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .cached-content a:hover {
+            text-decoration: underline;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.75rem;
+            }
+
+            p {
+                font-size: 1rem;
+            }
+
+            .offline-icon {
+                width: 80px;
+                height: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <svg class="offline-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" fill="currentColor"/>
+        </svg>
+        
+        <h1>You're Offline</h1>
+        <p>Don't worry! You can still access some content while you're offline.</p>
+        
+        <button class="button" onclick="window.location.reload()">
+            Try Again
+        </button>
+
+        <div class="cached-content">
+            <h2>Available Offline</h2>
+            <ul>
+                <li><a href="/">Home Page</a></li>
+                <li><a href="/programs">Programs</a></li>
+                <li><a href="/about">About Sheraa</a></li>
+                <li><a href="/contact">Contact Information</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Check online status
+        window.addEventListener('online', () => {
+            window.location.reload();
+        });
+
+        // Register service worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .then(registration => {
+                    console.log('ServiceWorker registration successful');
+                })
+                .catch(err => {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+        }
+    </script>
+</body>
+</html> 

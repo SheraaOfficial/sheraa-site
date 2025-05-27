@@ -1,31 +1,192 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- Security Headers -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.gpteng.co 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://lovable.dev data:; connect-src 'self' https://api.sheraa.ae;">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    
+    <!-- SEO & Basic Meta -->
     <title>Sheraa - Sharjah Entrepreneurship Center</title>
     <meta name="description" content="Sharjah Entrepreneurship Center (Sheraa) - Empowering entrepreneurs and startups in the UAE through programs, resources, and a vibrant community." />
     <meta name="author" content="Sheraa" />
-
+    <meta name="robots" content="index, follow">
+    <meta name="keywords" content="Sheraa, Sharjah Entrepreneurship Center, UAE startups, entrepreneurship, business incubator, startup programs">
+    <meta name="application-name" content="Sheraa">
+    <link rel="canonical" href="https://sheraa.ae">
+    
+    <!-- Open Graph & Social Media -->
     <meta property="og:title" content="Sheraa - Sharjah Entrepreneurship Center" />
     <meta property="og:description" content="Empowering entrepreneurs and startups in the UAE through programs, resources, and a vibrant community." />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-
+    <meta property="og:url" content="https://sheraa.ae" />
+    <meta property="og:site_name" content="Sheraa" />
+    
+    <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@sheraasharjah" />
     <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-
+    
+    <!-- PWA Support -->
+    <meta name="theme-color" content="#YOUR_PRIMARY_COLOR">
+    <meta name="color-scheme" content="light dark">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Sheraa">
+    
+    <!-- Resource Hints -->
+    <link rel="dns-prefetch" href="https://api.sheraa.ae">
+    <link rel="preconnect" href="https://api.sheraa.ae">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="/src/main.tsx" as="script">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" as="style">
+    
+    <!-- Styles -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Sheraa - Sharjah Entrepreneurship Center",
+      "url": "https://sheraa.ae",
+      "logo": "https://sheraa.ae/logo.png",
+      "description": "Empowering entrepreneurs and startups in the UAE through programs, resources, and a vibrant community.",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "University City",
+        "addressLocality": "Sharjah",
+        "addressRegion": "Sharjah",
+        "postalCode": "00000",
+        "addressCountry": "AE"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+971-6-0000000",
+        "contactType": "customer service",
+        "email": "info@sheraa.ae",
+        "availableLanguage": ["English", "Arabic"]
+      },
+      "sameAs": [
+        "https://twitter.com/sheraasharjah",
+        "https://www.linkedin.com/company/sheraa",
+        "https://www.instagram.com/sheraasharjah",
+        "https://www.facebook.com/sheraasharjah"
+      ],
+      "offers": {
+        "@type": "AggregateOffer",
+        "offers": [
+          {
+            "@type": "Offer",
+            "name": "Startup Dojo Program",
+            "description": "A comprehensive program for early-stage startups"
+          },
+          {
+            "@type": "Offer",
+            "name": "S3 Incubator",
+            "description": "Advanced incubation program for growth-stage startups"
+          }
+        ]
+      },
+      "event": {
+        "@type": "Event",
+        "name": "Sharjah Entrepreneurship Festival",
+        "startDate": "2024-02-01",
+        "endDate": "2024-02-03",
+        "location": {
+          "@type": "Place",
+          "name": "Sharjah Research Technology and Innovation Park",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "University City",
+            "addressLocality": "Sharjah",
+            "addressRegion": "Sharjah",
+            "postalCode": "00000",
+            "addressCountry": "AE"
+          }
+        }
+      }
+    }
+    </script>
+
+    <!-- Additional Organization Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "EducationalOrganization",
+      "name": "Sheraa - Sharjah Entrepreneurship Center",
+      "description": "A leading entrepreneurship center in the UAE providing education, mentorship, and resources for startups.",
+      "educationalLevel": "Professional Development",
+      "programs": [
+        {
+          "@type": "EducationalProgram",
+          "name": "Startup Dojo",
+          "description": "A comprehensive program for early-stage startups",
+          "educationalCredentialAwarded": "Certificate of Completion"
+        },
+        {
+          "@type": "EducationalProgram",
+          "name": "S3 Incubator",
+          "description": "Advanced incubation program for growth-stage startups",
+          "educationalCredentialAwarded": "Certificate of Completion"
+        }
+      ]
+    }
+    </script>
+
+    <!-- Analytics (if needed) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=YOUR_GA_ID"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'YOUR_GA_ID', {
+        'anonymize_ip': true,
+        'cookie_flags': 'SameSite=None;Secure'
+      });
+    </script>
   </head>
 
   <body>
     <div id="root"></div>
-    <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
+    
+    <!-- Fallback Content -->
+    <noscript>
+      <div style="text-align: center; padding: 20px;">
+        <h1>JavaScript Required</h1>
+        <p>This application requires JavaScript to function properly. Please enable JavaScript in your browser settings.</p>
+      </div>
+    </noscript>
+    
+    <!-- Scripts -->
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
     <script type="module" src="/src/main.tsx"></script>
+
+    <!-- Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then(registration => {
+              console.log('ServiceWorker registration successful');
+            })
+            .catch(err => {
+              console.log('ServiceWorker registration failed: ', err);
+            });
+        });
+      }
+    </script>
   </body>
 </html>

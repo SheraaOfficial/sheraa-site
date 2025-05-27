@@ -1,14 +1,182 @@
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
-
+# Allow all crawlers
 User-agent: *
 Allow: /
+
+# Sitemap location
+Sitemap: https://sheraa.ae/sitemap.xml
+Sitemap: https://sheraa.ae/sitemap-images.xml
+
+# Disallow admin and private areas
+Disallow: /admin/
+Disallow: /private/
+Disallow: /api/
+Disallow: /auth/
+Disallow: /profile/
+Disallow: /dashboard/
+Disallow: /settings/
+Disallow: /notifications/
+Disallow: /analytics/
+Disallow: /logs/
+Disallow: /backup/
+Disallow: /temp/
+Disallow: /cache/
+Disallow: /debug/
+Disallow: /test/
+Disallow: /staging/
+Disallow: /beta/
+Disallow: /draft/
+Disallow: /search/
+Disallow: /cgi-bin/
+
+# Crawl-delay for specific bots
+User-agent: Googlebot
+Crawl-delay: 1
+Allow: /images/
+Allow: /news/
+Allow: /events/
+Allow: /programs/
+Allow: /blog/
+Allow: /press/
+Allow: /media/
+Allow: /assets/images/
+
+User-agent: Bingbot
+Crawl-delay: 2
+Allow: /images/
+Allow: /news/
+Allow: /events/
+Allow: /programs/
+Allow: /blog/
+Allow: /press/
+Allow: /media/
+Allow: /assets/images/
+
+User-agent: Slurp
+Crawl-delay: 3
+Allow: /images/
+Allow: /news/
+Allow: /events/
+Allow: /programs/
+Allow: /blog/
+Allow: /press/
+Allow: /media/
+Allow: /assets/images/
+
+# Block specific bots
+User-agent: BadBot
+Disallow: /
+
+User-agent: ScraperBot
+Disallow: /
+
+User-agent: Downloader
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+# Allow specific bots to access everything
+User-agent: Googlebot-Image
+Allow: /images/
+Allow: /media/
+Allow: /assets/images/
+Allow: /screenshots/
+Allow: /icons/
+
+User-agent: Googlebot-News
+Allow: /news/
+Allow: /blog/
+Allow: /press/
+Allow: /media/
+Allow: /events/
+
+# Block specific file types
+Disallow: /*.json$
+Disallow: /*.xml$
+Disallow: /*.txt$
+Disallow: /*.pdf$
+Disallow: /*.doc$
+Disallow: /*.docx$
+Disallow: /*.xls$
+Disallow: /*.xlsx$
+Disallow: /*.zip$
+Disallow: /*.rar$
+Disallow: /*.tar$
+Disallow: /*.gz$
+Disallow: /*.sql$
+Disallow: /*.log$
+Disallow: /*.bak$
+Disallow: /*.tmp$
+Disallow: /*.temp$
+Disallow: /*.swp$
+Disallow: /*.swo$
+Disallow: /*.DS_Store$
+Disallow: /*.git$
+Disallow: /*.env$
+Disallow: /*.config$
+Disallow: /*.ini$
+Disallow: /*.conf$
+Disallow: /*.md$
+Disallow: /*.markdown$
+Disallow: /*.yml$
+Disallow: /*.yaml$
+Disallow: /*.lock$
+Disallow: /*.map$
+Disallow: /*.min.js$
+Disallow: /*.min.css$
+
+# Allow specific file types
+Allow: /*.html$
+Allow: /*.htm$
+Allow: /*.php$
+Allow: /*.asp$
+Allow: /*.aspx$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.png$
+Allow: /*.gif$
+Allow: /*.svg$
+Allow: /*.webp$
+Allow: /*.avif$
+Allow: /*.ico$
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.woff$
+Allow: /*.woff2$
+Allow: /*.ttf$
+Allow: /*.eot$
+Allow: /*.otf$
+
+# Allow specific paths
+Allow: /programs/
+Allow: /events/
+Allow: /about/
+Allow: /contact/
+Allow: /resources/
+Allow: /news/
+Allow: /blog/
+Allow: /press/
+Allow: /media/
+Allow: /images/
+Allow: /assets/
+Allow: /css/
+Allow: /js/
+Allow: /fonts/
+Allow: /icons/
+Allow: /screenshots/
+Allow: /success-stories/
+Allow: /faq/
+Allow: /terms/
+Allow: /privacy/
+Allow: /sitemap.xml
+Allow: /sitemap-images.xml
+Allow: /robots.txt
+Allow: /manifest.json
+Allow: /sw.js
+Allow: /offline.html
+Allow: /.well-known/
+Allow: /security.txt
+Allow: /humans.txt
