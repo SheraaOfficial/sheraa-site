@@ -1,112 +1,72 @@
-import React from "react";
-import { useLocalStorage } from "@/hooks/use-local-storage";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Heart, MessageSquare, Share, Bookmark } from "lucide-react";
-import { formatDistanceToNow } from "date-fns";
-import { useIsMobile } from "@/hooks/use-mobile";
+import React from 'react';
+import { formatDistanceToNow } from 'date-fns';
+import { Card, CardContent } from '@/components/ui/card';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
+import { Heart, MessageCircle, Share } from 'lucide-react';
 
-interface PostsListProps {
-  userId?: string | number; // Updated to accept both string and number
+interface Post {
+  id: string;
+  author: {
+    name: string;
+    imageUrl: string;
+  };
+  content: string;
+  imageUrl?: string;
+  createdAt: Date;
+  likes: number;
+  comments: number;
+  shares: number;
 }
 
-const PostsList: React.FC<PostsListProps> = ({ userId }) => {
-  const [users] = useLocalStorage<any[]>("users", []);
-  const isMobile = useIsMobile();
-  
-  // Get all posts from all users
-  const allPosts = users.reduce((posts, user) => {
-    if (user.posts) {
-      if (userId) {
-        // If userId is provided, only include posts from this user
-        if (user.id === userId) {
-          return [...posts, ...user.posts];
-        }
-      } else {
-        // Otherwise include all posts
-        return [...posts, ...user.posts];
-      }
-    }
-    return posts;
-  }, []);
-  
-  // Sort posts by creation date (newest first)
-  const sortedPosts = [...allPosts].sort((a, b) => 
-    new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-  );
-  
-  // Function to find post author
-  const getPostAuthor = (authorId: string) => {
-    return users.find(user => user.id === authorId);
-  };
-  
-  if (sortedPosts.length === 0) {
-    return (
-      <Card>
-        <CardContent className="p-6 text-center">
-          <p className="text-gray-500">
-            {userId ? "You haven't published any posts yet." : "No posts to display."}
-          </p>
-        </CardContent>
-      </Card>
-    );
-  }
-  
+interface PostsListProps {
+  posts: Post[];
+}
+
+const PostsList: React.FC<PostsListProps> = ({ posts }) => {
   return (
-    <div className="space-y-6">
-      {sortedPosts.map((post) => {
-        const author = getPostAuthor(post.authorId);
-        if (!author) return null;
-        
-        return (
-          <Card key={post.id} className="overflow-hidden">
-            <CardContent className={`${isMobile ? 'p-4' : 'p-6'}`}>
-              <div className="flex items-start space-x-3 mb-4">
-                <div className={`${isMobile ? 'h-10 w-10' : 'h-12 w-12'} rounded-full bg-sheraa-primary/10 flex items-center justify-center text-xl font-bold text-sheraa-primary flex-shrink-0`}>
-                  {author.firstName[0]}{author.lastName[0]}
-                </div>
-                <div className="min-w-0">
-                  <p className="font-medium truncate">
-                    {author.firstName} {author.lastName}
-                  </p>
-                  {author.profile?.headline && (
-                    <p className="text-sm text-gray-500 truncate">{author.profile.headline}</p>
-                  )}
-                  <p className="text-xs text-gray-400">
-                    {formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })}
-                  </p>
+    <div>
+      {posts.map((post) => (
+        <Card key={post.id} className="mb-4">
+          <CardContent className="p-4">
+            <div className="flex items-start mb-4">
+              <Avatar className="mr-4">
+                <AvatarImage src={post.author.imageUrl} alt={post.author.name} />
+                <AvatarFallback>{post.author.name.charAt(0)}</AvatarFallback>
+              </Avatar>
+              <div>
+                <div className="font-semibold">{post.author.name}</div>
+                <div className="text-sm text-gray-500">
+                  {formatDistanceToNow(post.createdAt, { addSuffix: true })}
                 </div>
               </div>
-              
-              <div className="whitespace-pre-line break-words">
-                {post.content}
-              </div>
-            </CardContent>
-            
-            <CardFooter className={`${isMobile ? 'px-3 py-2' : 'px-6 py-4'} bg-gray-50 border-t flex justify-between`}>
-              <div className="flex space-x-2 md:space-x-4">
-                <Button variant="ghost" size={isMobile ? "sm" : "sm"} className="text-gray-600 hover:text-red-500">
-                  <Heart className={`${isMobile ? 'h-4 w-4' : 'h-5 w-5'} mr-1`} />
-                  <span>{post.likes || 0}</span>
+            </div>
+            {post.imageUrl && (
+              <img src={post.imageUrl} alt="Post" className="mb-4 rounded-md w-full" />
+            )}
+            <p className="text-gray-700 mb-4">{post.content}</p>
+            <div className="flex justify-between items-center">
+              <div className="flex gap-2">
+                <Button variant="ghost" size="icon">
+                  <Heart className="h-5 w-5 mr-2" />
+                  <span>{post.likes}</span>
                 </Button>
-                <Button variant="ghost" size={isMobile ? "sm" : "sm"} className="text-gray-600">
-                  <MessageSquare className={`${isMobile ? 'h-4 w-4' : 'h-5 w-5'} mr-1`} />
-                  <span>{post.comments?.length || 0}</span>
+                <Button variant="ghost" size="icon">
+                  <MessageCircle className="h-5 w-5 mr-2" />
+                  <span>{post.comments}</span>
                 </Button>
-              </div>
-              
-              <div className="flex space-x-1 md:space-x-2">
-                <Button variant="ghost" size={isMobile ? "sm" : "sm"} className="text-gray-600">
-                  <Share className={`${isMobile ? 'h-4 w-4' : 'h-5 w-5'}`} />
-                </Button>
-                <Button variant="ghost" size={isMobile ? "sm" : "sm"} className="text-gray-600">
-                  <Bookmark className={`${isMobile ? 'h-4 w-4' : 'h-5 w-5'}`} />
+                <Button variant="ghost" size="icon">
+                  <Share className="h-5 w-5 mr-2" />
+                  <span>{post.shares}</span>
                 </Button>
               </div>
-            </CardFooter>
-          </Card>
-        );
-      })}
+              <Button variant="outline" size="sm">
+                Read More
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      ))}
     </div>
   );
 };
