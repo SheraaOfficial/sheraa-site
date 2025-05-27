@@ -16,7 +16,7 @@ const PartnersSection = lazy(() =>
       default: module.default as React.ComponentType<any>
     }))
     .catch(() => ({ 
-      default: () => <ErrorFallback message="Failed to load Partners Section" /> 
+      default: () => <ErrorFallback error={new Error("Failed to load Partners Section")} resetErrorBoundary={() => window.location.reload()} /> 
     }))
 );
 
@@ -26,7 +26,7 @@ const ContactSection = lazy(() =>
       default: module.default as React.ComponentType<any>
     }))
     .catch(() => ({ 
-      default: () => <ErrorFallback message="Failed to load Contact Section" /> 
+      default: () => <ErrorFallback error={new Error("Failed to load Contact Section")} resetErrorBoundary={() => window.location.reload()} /> 
     }))
 );
 
@@ -36,7 +36,7 @@ const StartupsShowcase = lazy(() =>
       default: module.default as React.ComponentType<any>
     }))
     .catch(() => ({ 
-      default: () => <ErrorFallback message="Failed to load Startups Showcase" /> 
+      default: () => <ErrorFallback error={new Error("Failed to load Startups Showcase")} resetErrorBoundary={() => window.location.reload()} /> 
     }))
 );
 
@@ -46,7 +46,7 @@ const PodcastSection = lazy(() =>
       default: module.default as React.ComponentType<any>
     }))
     .catch(() => ({ 
-      default: () => <ErrorFallback message="Failed to load Podcast Section" /> 
+      default: () => <ErrorFallback error={new Error("Failed to load Podcast Section")} resetErrorBoundary={() => window.location.reload()} /> 
     }))
 );
 
@@ -56,7 +56,7 @@ const CommunitySection = lazy(() =>
       default: module.default as React.ComponentType<any>
     }))
     .catch(() => ({ 
-      default: () => <ErrorFallback message="Failed to load Community Section" /> 
+      default: () => <ErrorFallback error={new Error("Failed to load Community Section")} resetErrorBoundary={() => window.location.reload()} /> 
     }))
 );
 
@@ -66,7 +66,7 @@ const StartupTestimonials = lazy(() =>
       default: module.default as React.ComponentType<any>
     }))
     .catch(() => ({ 
-      default: () => <ErrorFallback message="Failed to load Startup Testimonials" /> 
+      default: () => <ErrorFallback error={new Error("Failed to load Startup Testimonials")} resetErrorBoundary={() => window.location.reload()} /> 
     }))
 );
 

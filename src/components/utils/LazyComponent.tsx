@@ -64,8 +64,8 @@ const LazyComponent = ({
       {isVisible && (
         hasError ? (
           <ErrorFallback 
-            message="Failed to load component" 
-            onRetry={handleRetry} 
+            error={new Error("Failed to load component")} 
+            resetErrorBoundary={handleRetry} 
           />
         ) : (
           <React.Suspense fallback={<div className="min-h-[60px]" />}>

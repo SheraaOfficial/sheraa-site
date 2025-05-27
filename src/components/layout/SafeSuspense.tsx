@@ -11,9 +11,7 @@ interface SafeSuspenseProps {
 export const SafeSuspense: React.FC<SafeSuspenseProps> = ({ children, fallback }) => {
   return (
     <ErrorBoundary
-      FallbackComponent={({ error }) => (
-        <ErrorFallback message={error.message} />
-      )}
+      FallbackComponent={ErrorFallback}
     >
       <Suspense fallback={fallback}>{children}</Suspense>
     </ErrorBoundary>
