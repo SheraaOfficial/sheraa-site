@@ -1,3 +1,4 @@
+
 import { Suspense, lazy } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -13,6 +14,7 @@ import Index from "./pages/Index";
 
 // Lazy load pages
 const About = lazy(() => import("./pages/about/index"));
+const AboutLeadership = lazy(() => import("./pages/about/AboutLeadershipPage"));
 const Programs = lazy(() => import("./pages/programs/index"));
 const StartYoung = lazy(() => import("./pages/programs/start-young/index"));
 const Community = lazy(() => import("./pages/community/index"));
@@ -49,6 +51,14 @@ const App = () => (
                 element={
                   <SafeSuspense fallback={<SectionLoading />}>
                     <About />
+                  </SafeSuspense>
+                }
+              />
+              <Route
+                path="/about/leadership"
+                element={
+                  <SafeSuspense fallback={<SectionLoading />}>
+                    <AboutLeadership />
                   </SafeSuspense>
                 }
               />
