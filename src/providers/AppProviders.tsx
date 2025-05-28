@@ -26,18 +26,18 @@ const AppProviders: React.FC<AppProvidersProps> = ({ children }) => {
   console.log('AppProviders rendering');
   
   return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider>
-        <LanguageProvider>
-          <BrowserRouter>
+    <BrowserRouter>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider>
+          <LanguageProvider>
             <TooltipProvider>
               {children}
-              <Toaster />
             </TooltipProvider>
-          </BrowserRouter>
-        </LanguageProvider>
-      </ThemeProvider>
-    </QueryClientProvider>
+            <Toaster />
+          </LanguageProvider>
+        </ThemeProvider>
+      </QueryClientProvider>
+    </BrowserRouter>
   );
 };
 
