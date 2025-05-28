@@ -22,7 +22,7 @@ const queryClient = new QueryClient({
 
 console.log('AppProviders module loaded');
 
-const AppProviders = ({ children }: AppProvidersProps) => {
+const AppProviders: React.FC<AppProvidersProps> = ({ children }) => {
   console.log('AppProviders rendering');
   
   return (
@@ -31,8 +31,8 @@ const AppProviders = ({ children }: AppProvidersProps) => {
         <LanguageProvider>
           <BrowserRouter>
             <TooltipProvider>
-              <Toaster />
               {children}
+              <Toaster />
             </TooltipProvider>
           </BrowserRouter>
         </LanguageProvider>
