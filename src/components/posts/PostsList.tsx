@@ -6,8 +6,27 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Heart, MessageCircle, Share } from 'lucide-react';
 
-// Mock data for posts
-const mockPosts = [
+interface Post {
+  id: number;
+  author: {
+    name: string;
+    avatar: string;
+    role: string;
+  };
+  content: string;
+  timestamp: Date;
+  likes: number;
+  comments: number;
+  isLiked: boolean;
+}
+
+interface PostsListProps {
+  posts?: Post[];
+  userId?: string | number;
+}
+
+// Mock data for posts - used as fallback
+const mockPosts: Post[] = [
   {
     id: 1,
     author: {
@@ -49,7 +68,7 @@ const mockPosts = [
   }
 ];
 
-const PostsList = () => {
+const PostsList: React.FC<PostsListProps> = ({ posts = mockPosts, userId }) => {
   const handleLike = (postId: number) => {
     // Handle like functionality
     console.log('Liked post:', postId);
@@ -65,9 +84,12 @@ const PostsList = () => {
     console.log('Share post:', postId);
   };
 
+  // Filter posts by userId if provided
+  const displayPosts = userId ? posts.filter(post => post.author.name.includes(userId.toString())) : posts;
+
   return (
     <div className="space-y-6">
-      {mockPosts.map((post) => (
+      {displayPosts.map((post) => (
         <Card key={post.id} className="w-full">
           <CardHeader className="pb-3">
             <div className="flex items-center space-x-3">
