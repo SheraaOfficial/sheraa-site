@@ -1,6 +1,5 @@
 
-import * as React from 'react';
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 type Theme = 'light' | 'dark';
 
@@ -17,12 +16,6 @@ interface ThemeProviderProps {
 }
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
-  // Add error boundary protection
-  if (!React || !useState) {
-    console.error('React hooks not available');
-    return <div>{children}</div>;
-  }
-
   const [theme, setTheme] = useState<Theme>(() => {
     // Check for saved theme preference or use system preference
     if (typeof window !== 'undefined') {

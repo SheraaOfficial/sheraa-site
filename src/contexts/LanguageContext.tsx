@@ -1,5 +1,5 @@
 
-import * as React from 'react';
+import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 export type Language = 'en' | 'ar';
 
@@ -9,7 +9,7 @@ interface LanguageContextType {
   t: (key: string) => string;
 }
 
-const LanguageContext = React.createContext<LanguageContextType | undefined>(undefined);
+const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 // Translation data
 const translations = {
@@ -126,19 +126,13 @@ const translations = {
 };
 
 interface LanguageProviderProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) => {
   console.log('LanguageProvider rendering');
   
-  // Add comprehensive React validation
-  if (!React || typeof React.useState !== 'function') {
-    console.error('React hooks not available in LanguageProvider');
-    return React.createElement('div', {}, children);
-  }
-
-  const [language, setLanguage] = React.useState<Language>('en');
+  const [language, setLanguage] = useState<Language>('en');
 
   const t = (key: string): string => {
     return translations[language][key] || key;
@@ -150,22 +144,20 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
     t
   };
 
-  return React.createElement(
-    LanguageContext.Provider,
-    { value: contextValue },
-    React.createElement(
-      'div',
-      { 
-        className: language === 'ar' ? 'rtl' : 'ltr', 
-        dir: language === 'ar' ? 'rtl' : 'ltr' 
-      },
-      children
-    )
+  return (
+    <LanguageContext.Provider value={contextValue}>
+      <div 
+        className={language === 'ar' ? 'rtl' : 'ltr'} 
+        dir={language === 'ar' ? 'rtl' : 'ltr'}
+      >
+        {children}
+      </div>
+    </LanguageContext.Provider>
   );
 };
 
 export const useLanguage = (): LanguageContextType => {
-  const context = React.useContext(LanguageContext);
+  const context = useContext(LanguageContext);
   if (!context) {
     throw new Error('useLanguage must be used within a LanguageProvider');
   }
