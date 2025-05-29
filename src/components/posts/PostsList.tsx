@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { formatDistanceToNow } from 'date-fns';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -24,6 +23,17 @@ interface PostsListProps {
   posts?: Post[];
   userId?: string | number;
 }
+
+// Helper function to format time ago
+const formatTimeAgo = (date: Date): string => {
+  const now = new Date();
+  const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
+  
+  if (diffInSeconds < 60) return 'just now';
+  if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)} minutes ago`;
+  if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)} hours ago`;
+  return `${Math.floor(diffInSeconds / 86400)} days ago`;
+};
 
 // Mock data for posts - used as fallback
 const mockPosts: Post[] = [
@@ -70,17 +80,14 @@ const mockPosts: Post[] = [
 
 const PostsList: React.FC<PostsListProps> = ({ posts = mockPosts, userId }) => {
   const handleLike = (postId: number) => {
-    // Handle like functionality
     console.log('Liked post:', postId);
   };
 
   const handleComment = (postId: number) => {
-    // Handle comment functionality
     console.log('Comment on post:', postId);
   };
 
   const handleShare = (postId: number) => {
-    // Handle share functionality
     console.log('Share post:', postId);
   };
 
@@ -102,7 +109,7 @@ const PostsList: React.FC<PostsListProps> = ({ posts = mockPosts, userId }) => {
                 <p className="text-sm text-gray-500">{post.author.role}</p>
               </div>
               <span className="text-sm text-gray-400">
-                {formatDistanceToNow(post.timestamp, { addSuffix: true })}
+                {formatTimeAgo(post.timestamp)}
               </span>
             </div>
           </CardHeader>
