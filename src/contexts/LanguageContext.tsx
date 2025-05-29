@@ -1,5 +1,6 @@
 
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import * as React from 'react';
+import { createContext, useContext, useState, ReactNode } from 'react';
 
 export type Language = 'en' | 'ar';
 
@@ -130,6 +131,12 @@ interface LanguageProviderProps {
 }
 
 export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) => {
+  // Add error boundary protection
+  if (!React || !useState) {
+    console.error('React hooks not available in LanguageProvider');
+    return <div>{children}</div>;
+  }
+
   const [language, setLanguage] = useState<Language>('en');
 
   const t = (key: string): string => {
