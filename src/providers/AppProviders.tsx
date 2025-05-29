@@ -1,5 +1,6 @@
 
-import React, { ReactNode } from "react";
+import * as React from "react";
+import { ReactNode } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/sonner";
@@ -24,6 +25,12 @@ console.log('AppProviders module loaded');
 
 const AppProviders: React.FC<AppProvidersProps> = ({ children }) => {
   console.log('AppProviders rendering');
+  
+  // Add React validation
+  if (!React) {
+    console.error('React not available in AppProviders');
+    return <div>Loading...</div>;
+  }
   
   return (
     <BrowserRouter>
