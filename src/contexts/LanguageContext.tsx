@@ -1,6 +1,9 @@
 
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
+console.log('LanguageContext module loaded');
+console.log('React in LanguageContext:', !!React);
+
 export type Language = 'en' | 'ar';
 
 interface LanguageContextType {
@@ -131,6 +134,7 @@ interface LanguageProviderProps {
 
 export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) => {
   console.log('LanguageProvider rendering');
+  console.log('React hooks available in LanguageProvider:', !!React.useState);
   
   const [language, setLanguage] = useState<Language>('en');
 
