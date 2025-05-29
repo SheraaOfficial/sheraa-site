@@ -2,78 +2,119 @@
 import React from 'react';
 import { formatDistanceToNow } from 'date-fns';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { Heart, MessageCircle, Share2, MoreHorizontal } from 'lucide-react';
+import { Heart, MessageCircle, Share } from 'lucide-react';
 
-interface Post {
-  id: number;
-  title: string;
-  content: string;
-  author: string;
-  date: Date;
-  likes: number;
-  comments: number;
-  shares: number;
-}
-
-interface PostsListProps {
-  posts?: Post[];
-  userId?: string | number;
-}
-
-const defaultPosts: Post[] = [
+// Mock data for posts
+const mockPosts = [
   {
     id: 1,
-    title: "The Future of AI in Web Development",
-    content: "AI is rapidly changing the landscape of web development, offering new tools and techniques to streamline the development process and enhance user experiences.",
-    author: "John Doe",
-    date: new Date(),
-    likes: 120,
-    comments: 35,
-    shares: 12,
+    author: {
+      name: 'Sarah Al Amiri',
+      avatar: 'https://randomuser.me/api/portraits/women/44.jpg',
+      role: 'Founder at TechStart'
+    },
+    content: 'Just launched our MVP! Excited to share our journey with the Sheraa community. Looking for feedback from fellow entrepreneurs.',
+    timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000), // 2 hours ago
+    likes: 24,
+    comments: 8,
+    isLiked: false
   },
   {
     id: 2,
-    title: "Mastering React Hooks in 2024",
-    content: "React Hooks have revolutionized the way we write React components, making it easier to manage state and side effects. This guide covers the most essential hooks you need to know.",
-    author: "Jane Smith",
-    date: new Date(),
-    likes: 95,
-    comments: 28,
-    shares: 8,
+    author: {
+      name: 'Mohammed Rahman',
+      avatar: 'https://randomuser.me/api/portraits/men/32.jpg',
+      role: 'S3 Incubator Graduate'
+    },
+    content: 'Grateful for the mentorship at Sheraa. Today we closed our seed round! To all the founders out there - keep pushing forward.',
+    timestamp: new Date(Date.now() - 5 * 60 * 60 * 1000), // 5 hours ago
+    likes: 56,
+    comments: 15,
+    isLiked: true
   },
+  {
+    id: 3,
+    author: {
+      name: 'Leila Janah',
+      avatar: 'https://randomuser.me/api/portraits/women/68.jpg',
+      role: 'Community Member'
+    },
+    content: 'Amazing workshop on digital marketing today. The Sheraa community never stops inspiring! Who else attended?',
+    timestamp: new Date(Date.now() - 24 * 60 * 60 * 1000), // 1 day ago
+    likes: 31,
+    comments: 12,
+    isLiked: false
+  }
 ];
 
-const PostsList: React.FC<PostsListProps> = ({ posts = defaultPosts, userId }) => {
-  console.log('PostsList rendered with userId:', userId);
-  
+const PostsList = () => {
+  const handleLike = (postId: number) => {
+    // Handle like functionality
+    console.log('Liked post:', postId);
+  };
+
+  const handleComment = (postId: number) => {
+    // Handle comment functionality
+    console.log('Comment on post:', postId);
+  };
+
+  const handleShare = (postId: number) => {
+    // Handle share functionality
+    console.log('Share post:', postId);
+  };
+
   return (
-    <div>
-      {posts.map((post) => (
-        <Card key={post.id} className="mb-4">
-          <CardHeader>
-            <CardTitle>{post.title}</CardTitle>
+    <div className="space-y-6">
+      {mockPosts.map((post) => (
+        <Card key={post.id} className="w-full">
+          <CardHeader className="pb-3">
+            <div className="flex items-center space-x-3">
+              <Avatar>
+                <AvatarImage src={post.author.avatar} alt={post.author.name} />
+                <AvatarFallback>{post.author.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+              </Avatar>
+              <div className="flex-1">
+                <CardTitle className="text-base font-semibold">{post.author.name}</CardTitle>
+                <p className="text-sm text-gray-500">{post.author.role}</p>
+              </div>
+              <span className="text-sm text-gray-400">
+                {formatDistanceToNow(post.timestamp, { addSuffix: true })}
+              </span>
+            </div>
           </CardHeader>
-          <CardContent>
-            <p>{post.content}</p>
-            <div className="mt-4 flex items-center justify-between">
-              <div className="text-sm text-gray-500">
-                Posted by {post.author} {formatDistanceToNow(post.date, { addSuffix: true })}
+          <CardContent className="pt-0">
+            <p className="text-gray-700 mb-4">{post.content}</p>
+            <div className="flex items-center justify-between pt-3 border-t">
+              <div className="flex items-center space-x-4">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className={`flex items-center space-x-2 ${post.isLiked ? 'text-red-500' : 'text-gray-500'}`}
+                  onClick={() => handleLike(post.id)}
+                >
+                  <Heart className={`h-4 w-4 ${post.isLiked ? 'fill-current' : ''}`} />
+                  <span>{post.likes}</span>
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="flex items-center space-x-2 text-gray-500"
+                  onClick={() => handleComment(post.id)}
+                >
+                  <MessageCircle className="h-4 w-4" />
+                  <span>{post.comments}</span>
+                </Button>
               </div>
-              <div className="flex items-center space-x-3">
-                <Button variant="ghost" size="icon">
-                  <Heart className="h-4 w-4 mr-1" /> {post.likes}
-                </Button>
-                <Button variant="ghost" size="icon">
-                  <MessageCircle className="h-4 w-4 mr-1" /> {post.comments}
-                </Button>
-                <Button variant="ghost" size="icon">
-                  <Share2 className="h-4 w-4 mr-1" /> {post.shares}
-                </Button>
-                <Button variant="ghost" size="icon">
-                  <MoreHorizontal className="h-4 w-4" />
-                </Button>
-              </div>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-gray-500"
+                onClick={() => handleShare(post.id)}
+              >
+                <Share className="h-4 w-4" />
+              </Button>
             </div>
           </CardContent>
         </Card>
