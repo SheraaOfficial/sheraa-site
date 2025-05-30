@@ -120,12 +120,13 @@ export const CinematicHero: React.FC = () => {
                     duration: 0.8, 
                     ease: "easeOutCubic",
                   }}
-                  className="flex items-center gap-4"
                 >
-                  <currentWord.icon className="w-12 h-12 text-cyan-400" />
-                  <span className={`text-6xl md:text-8xl font-black bg-gradient-to-r ${currentWord.color} bg-clip-text text-transparent`}>
-                    {currentWord.word}
-                  </span>
+                  <div className="flex items-center gap-4">
+                    <currentWord.icon className="w-12 h-12 text-cyan-400" />
+                    <span className={`text-6xl md:text-8xl font-black bg-gradient-to-r ${currentWord.color} bg-clip-text text-transparent`}>
+                      {currentWord.word}
+                    </span>
+                  </div>
                 </motion.div>
               </AnimatePresence>
             </div>

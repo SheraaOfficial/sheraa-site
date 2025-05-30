@@ -20,13 +20,7 @@ const queryClient = new QueryClient({
   },
 });
 
-console.log('AppProviders module loaded');
-console.log('React in AppProviders:', !!React);
-
 const AppProviders: React.FC<AppProvidersProps> = ({ children }) => {
-  console.log('AppProviders rendering');
-  console.log('React hooks available in AppProviders:', !!React.useState);
-  
   return (
     <BrowserRouter>
       <ThemeProvider>
