@@ -31,6 +31,13 @@
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
+    
+    /* Sheraa Brand Colors */
+    --sheraa-primary: 182 100% 24%;
+    --sheraa-secondary: 200 100% 40%;
+    --sheraa-dark: 222.2 84% 4.9%;
+    --sheraa-sef-primary: 280 100% 70%;
+    --sheraa-sef-secondary: 320 100% 74%;
   }
 
   .dark {

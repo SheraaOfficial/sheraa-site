@@ -14,7 +14,6 @@ import {
   ChevronDown
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { MenuBar } from '@/components/ui/glow-menu';
 
 const MainNavigation = () => {
   const location = useLocation();
@@ -42,6 +41,7 @@ const MainNavigation = () => {
         { name: 'Overview', path: '/programs' },
         { name: 'S3 Incubator', path: '/programs/s3-incubator' },
         { name: 'Startup Dojo', path: '/programs/startup-dojo' },
+        { name: 'Start Young', path: '/programs/start-young' },
         { name: 'Access Sharjah Challenge', path: '/programs/access-sharjah-challenge' }
       ]
     },
@@ -52,7 +52,8 @@ const MainNavigation = () => {
       subItems: [
         { name: 'Overview', path: '/community' },
         { name: 'Join', path: '/community/join' },
-        { name: 'Partnerships', path: '/community/partnerships' }
+        { name: 'Partnerships', path: '/community/partnerships' },
+        { name: 'Startups', path: '/community/startups' }
       ]
     },
     { 
@@ -74,7 +75,8 @@ const MainNavigation = () => {
       subItems: [
         { name: 'Overview', path: '/events' },
         { name: 'Upcoming Events', path: '/events/upcoming' },
-        { name: 'Past Events', path: '/events/past' }
+        { name: 'Past Events', path: '/events/past' },
+        { name: 'SEF', path: '/events/sef-landing' }
       ]
     },
     { name: 'Contact', path: '/contact', icon: Phone },
@@ -88,36 +90,6 @@ const MainNavigation = () => {
     }
     return false;
   };
-
-  const getCurrentActiveItem = () => {
-    for (const item of navigationItems) {
-      if (isPathActive(item.path, item.subItems)) {
-        return item.name;
-      }
-    }
-    return '';
-  };
-
-  const menuItems = navigationItems.map((item) => {
-    const isActive = isPathActive(item.path, item.subItems);
-    const isSEF = item.special;
-    
-    return {
-      icon: item.icon,
-      label: item.name,
-      href: item.path,
-      gradient: isSEF 
-        ? "radial-gradient(circle, rgba(155,135,245,0.4) 0%, rgba(217,70,239,0.25) 50%, rgba(217,70,239,0) 100%)"
-        : isActive 
-          ? "radial-gradient(circle, rgba(0,51,102,0.3) 0%, rgba(0,128,128,0.15) 50%, rgba(0,128,128,0) 100%)"
-          : "radial-gradient(circle, rgba(59,130,246,0.2) 0%, rgba(37,99,235,0.08) 50%, rgba(29,78,216,0) 100%)",
-      iconColor: isSEF 
-        ? "text-sheraa-sef-primary" 
-        : isActive 
-          ? "text-sheraa-primary" 
-          : "text-blue-500",
-    };
-  });
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-xl border-b border-gray-200/50 shadow-sm">
@@ -330,7 +302,7 @@ const MainNavigation = () => {
                 );
               })}
             </div>
-          </motion.div>
+          </div>
         )}
       </div>
     </nav>
