@@ -31,17 +31,17 @@ export const useSuccessMetrics = () => {
         }
       }, 50);
     });
-  };
+  }, []);
 
   const startCountUp = useCallback(async () => {
     // Animate startups count
-    const startupsSteps = await animateCounter(180, '+');
+    await animateCounter(180, '+');
     
     // Animate revenue
-    const revenueSteps = await animateCounter(248, 'M+', '$');
+    await animateCounter(248, 'M+', '$');
     
     // Animate jobs
-    const jobsSteps = await animateCounter(1900, '+');
+    await animateCounter(1900, '+');
 
     // Update final values
     setMetrics({
@@ -49,7 +49,7 @@ export const useSuccessMetrics = () => {
       revenue: '$248M+',
       jobs: '1,900+'
     });
-  }, []);
+  }, [animateCounter]);
 
   return {
     metrics,

@@ -2,6 +2,7 @@
 import React from "react";
 import MainLayout from "@/components/layouts/MainLayout";
 import { NewHeroSection } from "@/components/homepage/redesign/NewHeroSection";
+import DealDockMarquee from "@/components/homepage/DealDockMarquee";
 import { ImpactMetricsSection } from "@/components/homepage/redesign/ImpactMetricsSection";
 import { ProgramsJourneySection } from "@/components/homepage/redesign/ProgramsJourneySection";
 import { StartupEcosystemSection } from "@/components/homepage/redesign/StartupEcosystemSection";
@@ -15,6 +16,7 @@ const NewIndex: React.FC = () => {
   return (
     <MainLayout className="bg-white dark:bg-sheraa-dark">
       <NewHeroSection />
+      <DealDockMarquee />
       <ImpactMetricsSection />
       <ProgramsJourneySection />
       <StartupEcosystemSection />
