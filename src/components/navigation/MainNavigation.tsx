@@ -42,7 +42,8 @@ const MainNavigation = () => {
         { name: 'S3 Incubator', path: '/programs/s3-incubator' },
         { name: 'Startup Dojo', path: '/programs/startup-dojo' },
         { name: 'Start Young', path: '/programs/start-young' },
-        { name: 'Access Sharjah Challenge', path: '/programs/access-sharjah-challenge' }
+        { name: 'Access Sharjah Challenge', path: '/programs/access-sharjah-challenge' },
+        { name: 'Deal Dock', path: '/programs/deal-dock' }
       ]
     },
     { 
@@ -302,7 +303,7 @@ const MainNavigation = () => {
                 );
               })}
             </div>
-          </div>
+          </motion.div>
         )}
       </div>
     </nav>
