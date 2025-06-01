@@ -1,9 +1,6 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
-console.log('ThemeContext module loaded');
-console.log('React in ThemeContext:', !!React);
-
 type Theme = 'light' | 'dark';
 
 interface ThemeContextType {
@@ -19,9 +16,6 @@ interface ThemeProviderProps {
 }
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
-  console.log('ThemeProvider rendering');
-  console.log('React hooks available in ThemeProvider:', !!React.useState);
-  
   const [theme, setTheme] = useState<Theme>(() => {
     // Check for saved theme preference or use system preference
     if (typeof window !== 'undefined') {

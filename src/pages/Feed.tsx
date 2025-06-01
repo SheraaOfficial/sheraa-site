@@ -1,9 +1,10 @@
 
 import React from 'react';
-import CommunityFeedPage from './feed/index';
+import { Navigate } from 'react-router-dom';
 
 const Feed = () => {
-  return <CommunityFeedPage />;
+  // Redirect to the community feed page
+  return <Navigate to="/feed" replace />;
 };
 
 export default Feed;

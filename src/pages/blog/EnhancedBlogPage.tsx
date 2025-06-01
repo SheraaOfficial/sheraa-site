@@ -1,4 +1,3 @@
-
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import MainLayout from '@/components/layouts/MainLayout';
@@ -9,6 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { BlogSearchFilter } from './BlogSearchFilter';
 import { BlogReadingProgress } from './BlogReadingProgress';
+import { NewsletterSignup } from '@/components/newsletter/NewsletterSignup';
 import { ArrowRight, Clock, Eye, Heart, MessageCircle, Share2, Bookmark } from 'lucide-react';
 
 const EnhancedBlogPage = () => {
@@ -332,22 +332,9 @@ const EnhancedBlogPage = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
-            className="mt-16 bg-gradient-to-r from-sheraa-primary to-sheraa-teal p-8 rounded-xl text-white text-center"
+            className="mt-16"
           >
-            <h3 className="text-2xl font-bold mb-4">Stay Updated</h3>
-            <p className="mb-6 opacity-90">
-              Subscribe to our newsletter and never miss the latest insights from the Sheraa ecosystem.
-            </p>
-            <div className="max-w-md mx-auto flex gap-2">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 px-4 py-2 rounded-lg text-gray-900"
-              />
-              <Button className="bg-white text-sheraa-primary hover:bg-gray-100">
-                Subscribe
-              </Button>
-            </div>
+            <NewsletterSignup variant="default" />
           </motion.div>
         </div>
       </div>
