@@ -168,7 +168,10 @@ const UltimateHero = () => {
                     transition={{ duration: 0.6 }}
                   >
                     <div className={`p-3 rounded-full bg-gradient-to-br from-white to-gray-100 dark:from-gray-700 dark:to-gray-600 shadow-lg`}>
-                      <metrics[currentMetric].icon className={`w-8 h-8 ${metrics[currentMetric].color}`} />
+                      {(() => {
+                        const CurrentIcon = metrics[currentMetric].icon;
+                        return <CurrentIcon className={`w-8 h-8 ${metrics[currentMetric].color}`} />;
+                      })()}
                     </div>
                     <div className="text-left">
                       <div className="text-3xl md:text-4xl font-black text-gray-900 dark:text-white">
