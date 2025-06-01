@@ -1,64 +1,172 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Users, TrendingUp, Award, Target, Briefcase, Globe, Percent } from "lucide-react";
-import { useLanguage } from "@/contexts/LanguageContext";
+import { TrendingUp, Users, Award, Briefcase, Globe, Star } from "lucide-react";
 
-const impactMetrics = [
-  { icon: Users, number: "180+", labelKey: "impact.startups", color: "text-sheraa-primary" },
-  { icon: TrendingUp, number: "$248M+", labelKey: "impact.revenue", color: "text-sheraa-orange" },
-  { icon: Award, number: "$171M+", labelKey: "impact.funding", color: "text-sheraa-teal" },
-  { icon: Briefcase, number: "1,900+", labelKey: "impact.jobs", color: "text-sheraa-primary" },
-  { icon: Target, number: "52%", labelKey: "impact.women", color: "text-sheraa-secondary" },
-  { icon: Globe, number: "18,000+", labelKey: "impact.youth", color: "text-sheraa-orange" },
-  { icon: Users, number: "140+", labelKey: "impact.partners", color: "text-sheraa-teal" },
-  { icon: Percent, number: "71%", labelKey: "impact.survival", color: "text-sheraa-primary" },
-];
+export const ImpactMetricsSection = () => {
+  const metrics = [
+    {
+      icon: Users,
+      value: "180+",
+      label: "Startups Launched",
+      description: "From idea to market success",
+      color: "from-blue-500 to-cyan-500"
+    },
+    {
+      icon: TrendingUp,
+      value: "$248M+",
+      label: "Revenue Generated",
+      description: "By our portfolio companies",
+      color: "from-green-500 to-emerald-500"
+    },
+    {
+      icon: Briefcase,
+      value: "$171M+",
+      label: "Capital Raised",
+      description: "Total funding secured",
+      color: "from-purple-500 to-violet-500"
+    },
+    {
+      icon: Award,
+      value: "1,900+",
+      label: "Jobs Created",
+      description: "Driving economic growth",
+      color: "from-orange-500 to-red-500"
+    },
+    {
+      icon: Star,
+      value: "52%",
+      label: "Women-Led Startups",
+      description: "Championing diversity",
+      color: "from-pink-500 to-rose-500"
+    },
+    {
+      icon: Globe,
+      value: "71%",
+      label: "Success Rate",
+      description: "Above industry standard",
+      color: "from-indigo-500 to-blue-500"
+    }
+  ];
 
-export const ImpactMetricsSection: React.FC = () => {
-  const { t, language } = useLanguage();
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut"
+      }
+    }
+  };
 
   return (
-    <section className="py-16 md:py-24 bg-gradient-to-b from-white to-sheraa-light/30 dark:from-sheraa-dark dark:to-black">
+    <section className="py-20 bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
       <div className="container mx-auto px-4">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className={`text-center mb-16 ${language === 'ar' ? 'font-arabic' : ''}`}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-sheraa-dark dark:text-white mb-6">
-            {t('impact.title')}
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
+            Impact That Speaks
+            <span className="block bg-gradient-to-r from-sheraa-primary to-sheraa-secondary bg-clip-text text-transparent">
+              Volumes
+            </span>
           </h2>
-          <p className="text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
-            {t('impact.subtitle')}
+          <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            We measure our success by the success of our founders and the growth of Sharjah's innovation ecosystem. 
+            Our commitment translates into tangible results.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
-          {impactMetrics.map((metric, index) => {
-            const IconComponent = metric.icon;
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
+          {metrics.map((metric, index) => {
+            const Icon = metric.icon;
             return (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="text-center group hover:scale-105 transition-transform duration-300 cursor-pointer bg-white/50 dark:bg-sheraa-dark/50 backdrop-blur-sm rounded-2xl p-6 border border-sheraa-primary/10"
+                variants={itemVariants}
+                whileHover={{ scale: 1.05, y: -5 }}
+                className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-100 dark:border-gray-700"
               >
-                <IconComponent className={`w-12 h-12 mx-auto mb-4 ${metric.color} group-hover:scale-110 transition-transform duration-300`} />
-                <div className="text-3xl md:text-4xl font-black mb-2 bg-gradient-to-r from-sheraa-primary to-sheraa-teal bg-clip-text text-transparent">
-                  {metric.number}
+                <div className="flex items-center justify-between mb-6">
+                  <div className={`p-4 rounded-xl bg-gradient-to-r ${metric.color} shadow-lg`}>
+                    <Icon className="w-8 h-8 text-white" />
+                  </div>
+                  <motion.div
+                    animate={{ 
+                      scale: [1, 1.1, 1],
+                      opacity: [0.5, 1, 0.5]
+                    }}
+                    transition={{ 
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: index * 0.5
+                    }}
+                    className="text-2xl"
+                  >
+                    ✨
+                  </motion.div>
                 </div>
-                <div className={`text-sm font-medium text-gray-600 dark:text-gray-400 ${language === 'ar' ? 'font-arabic' : ''}`}>
-                  {t(metric.labelKey)}
+                
+                <div className="text-center">
+                  <motion.div 
+                    className="text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-2"
+                    whileHover={{ scale: 1.1 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    {metric.value}
+                  </motion.div>
+                  <div className="text-xl font-bold text-gray-800 dark:text-gray-200 mb-2">
+                    {metric.label}
+                  </div>
+                  <div className="text-gray-600 dark:text-gray-400 font-medium">
+                    {metric.description}
+                  </div>
                 </div>
               </motion.div>
             );
           })}
-        </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="text-center mt-16"
+        >
+          <div className="bg-gradient-to-r from-sheraa-primary/10 to-sheraa-secondary/10 rounded-2xl p-8 max-w-4xl mx-auto">
+            <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 leading-relaxed">
+              <span className="font-bold text-sheraa-primary">These figures demonstrate</span> the scale and effectiveness 
+              of Sheraa's programs and the significant economic contribution of its supported ventures. 
+              The high survival rate and strong representation of women-led startups underscore the quality 
+              and inclusivity of the support provided, positioning Sheraa as a vital engine for 
+              <span className="font-bold text-sheraa-secondary"> sustainable growth and diversification</span> in the UAE.
+            </p>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

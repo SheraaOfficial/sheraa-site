@@ -93,7 +93,7 @@ const MainNavigation = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-xl border-b border-gray-200/50 shadow-sm">
+    <nav className="fixed top-0 left-0 right-0 z-[9999] bg-white/98 backdrop-blur-xl border-b border-gray-200/80 shadow-lg">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -106,7 +106,7 @@ const MainNavigation = () => {
             />
           </Link>
 
-          {/* Desktop Navigation with Hover-only Dropdowns */}
+          {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center justify-center flex-1 relative">
             <div className="flex items-center space-x-1">
               {navigationItems.map((item) => {
@@ -171,13 +171,13 @@ const MainNavigation = () => {
                       </Link>
                     )}
 
-                    {/* Hover Dropdown */}
+                    {/* Dropdown */}
                     {hasDropdown && activeDropdown === item.name && (
                       <motion.div
                         initial={{ opacity: 0, y: -10, scale: 0.95 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                        className="absolute top-full left-0 mt-2 w-80 bg-white border border-gray-200 shadow-xl rounded-xl overflow-hidden z-50"
+                        className="absolute top-full left-0 mt-2 w-80 bg-white border border-gray-200 shadow-xl rounded-xl overflow-hidden z-[10000]"
                       >
                         <div className="p-2">
                           {item.subItems?.map((subItem) => (
@@ -203,7 +203,7 @@ const MainNavigation = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 text-gray-700 hover:text-[#165A5A] hover:bg-gray-200 transition-all duration-200"
+            className="lg:hidden flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 text-gray-700 hover:text-sheraa-primary hover:bg-gray-200 transition-all duration-200"
           >
             <motion.div
               animate={{ rotate: isOpen ? 45 : 0 }}
@@ -284,7 +284,6 @@ const MainNavigation = () => {
                       )}
                     </Link>
                     
-                    {/* Mobile Sub Items */}
                     {item.subItems && isActive && (
                       <div className="ml-6 mt-2 space-y-1">
                         {item.subItems.map((subItem) => (

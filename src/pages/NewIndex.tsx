@@ -1,7 +1,7 @@
 
 import React from "react";
 import MainLayout from "@/components/layouts/MainLayout";
-import { NewHeroSection } from "@/components/homepage/redesign/NewHeroSection";
+import UltimateHero from "@/components/hero/UltimateHero";
 import DealDockMarquee from "@/components/homepage/DealDockMarquee";
 import { ImpactMetricsSection } from "@/components/homepage/redesign/ImpactMetricsSection";
 import { ProgramsJourneySection } from "@/components/homepage/redesign/ProgramsJourneySection";
@@ -15,7 +15,7 @@ import { CyclingStickyCornerCTA } from "@/components/ui/cycling-sticky-cta";
 const NewIndex: React.FC = () => {
   return (
     <MainLayout className="bg-white dark:bg-sheraa-dark">
-      <NewHeroSection />
+      <UltimateHero />
       <DealDockMarquee />
       <ImpactMetricsSection />
       <ProgramsJourneySection />

@@ -1,23 +1,43 @@
 
-import React from 'react';
-import ModernNavigation from '@/components/navigation/ModernNavigation';
-import Footer from '@/components/Footer';
+import React from "react";
+import { cn } from "@/lib/utils";
+import MainNavigation from "@/components/navigation/MainNavigation";
+import Footer from "@/components/Footer";
+import SEOHead from "@/components/SEO/SEOHead";
 
 interface MainLayoutProps {
   children: React.ReactNode;
   className?: string;
-  backgroundStyle?: React.CSSProperties;
+  seoTitle?: string;
+  seoDescription?: string;
+  seoKeywords?: string;
+  noIndex?: boolean;
 }
 
-const MainLayout: React.FC<MainLayoutProps> = ({ children, className, backgroundStyle }) => {
+const MainLayout: React.FC<MainLayoutProps> = ({ 
+  children, 
+  className,
+  seoTitle,
+  seoDescription,
+  seoKeywords,
+  noIndex = false
+}) => {
   return (
-    <div className="min-h-screen flex flex-col" style={backgroundStyle}>
-      <ModernNavigation />
-      <main className={`flex-grow pt-20 ${className || ''}`}>
-        {children}
-      </main>
-      <Footer />
-    </div>
+    <>
+      <SEOHead 
+        title={seoTitle}
+        description={seoDescription}
+        keywords={seoKeywords}
+        noIndex={noIndex}
+      />
+      <div className={cn("min-h-screen bg-background text-foreground", className)}>
+        <MainNavigation />
+        <main className="flex-1">
+          {children}
+        </main>
+        <Footer />
+      </div>
+    </>
   );
 };
 
