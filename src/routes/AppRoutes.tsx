@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import NewIndex from "@/pages/NewIndex";
@@ -95,11 +96,7 @@ const AppRoutes: React.FC = () => {
       <Route path="/programs/deal-dock" element={<DealDockPage />} />
       
       {/* Resources Routes */}
-      <Route path="/resources" element={<ResourcesRouter />} />
-      <Route path="/resources/guides" element={<ResourcesRouter section="guides" />} />
-      <Route path="/resources/advisory" element={<ResourcesRouter section="advisory" />} />
-      <Route path="/resources/articles" element={<ResourcesRouter section="articles" />} />
-      <Route path="/resources/impact-reports" element={<ResourcesRouter section="impact-reports" />} />
+      <Route path="/resources/*" element={<ResourcesRouter />} />
       
       {/* Community Routes */}
       <Route path="/community" element={<CommunityPage />} />
@@ -150,6 +147,9 @@ const AppRoutes: React.FC = () => {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignupPage />} />
       <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+      
+      {/* SME Support Route - redirect to partnerships */}
+      <Route path="/programs/sme-support" element={<PartnershipsPage />} />
       
       {/* 404 Fallback */}
       <Route path="*" element={<NotFound />} />

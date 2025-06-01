@@ -1,101 +1,50 @@
 
-import React, { useState } from "react";
-import { ArrowRight } from "lucide-react";
-import { GradientButton } from "@/components/ui/gradient-button";
+import React from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import EligibilityCheckerDialog from "./EligibilityCheckerDialog";
-import { useToast } from "@/hooks/use-toast";
+import { Target, Zap } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface EligibilityCheckerButtonProps {
-  variant?: "gradient" | "default";
-  size?: "default" | "sm" | "lg" | "xl";
-  className?: string;
-  useDialog?: boolean;
+  variant?: "default" | "gradient" | "outline";
+  size?: "sm" | "md" | "lg" | "xl";
   text?: string;
-  onBeforeOpen?: () => boolean;
+  className?: string;
 }
 
 const EligibilityCheckerButton: React.FC<EligibilityCheckerButtonProps> = ({
-  variant = "gradient",
-  size = "default",
-  className = "",
-  useDialog = true,
-  text = "Try Eligibility Checker",
-  onBeforeOpen
+  variant = "default",
+  size = "md", 
+  text = "Check My Eligibility",
+  className
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const { toast } = useToast();
-
-  const handleClick = () => {
-    if (useDialog) {
-      // Check if there's a pre-open condition to verify
-      if (onBeforeOpen && !onBeforeOpen()) {
-        // If condition fails, don't open dialog
-        return;
-      }
-      
-      setIsOpen(true);
-    }
-    // If not using dialog, the link will navigate directly
+  const baseClasses = "inline-flex items-center gap-2 font-bold transition-all duration-300";
+  
+  const variantClasses = {
+    default: "bg-sheraa-primary hover:bg-sheraa-primary/90",
+    gradient: "bg-gradient-to-r from-sheraa-primary to-sheraa-secondary hover:shadow-xl",
+    outline: "border-2 border-sheraa-primary text-sheraa-primary hover:bg-sheraa-primary/10"
   };
 
-  const buttonContent = (
-    <>
-      <span className="whitespace-nowrap">{text}</span>
-      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" aria-hidden="true" />
-    </>
-  );
-
-  if (useDialog) {
-    const ButtonComponent = variant === "gradient" ? GradientButton : Button;
-    
-    return (
-      <>
-        <ButtonComponent
-          size={size as any}
-          className={`flex items-center gap-2 group ${className}`}
-          onClick={handleClick}
-          aria-haspopup="dialog"
-          aria-expanded={isOpen}
-        >
-          {buttonContent}
-        </ButtonComponent>
-
-        <EligibilityCheckerDialog 
-          open={isOpen} 
-          onOpenChange={setIsOpen} 
-        />
-      </>
-    );
-  }
-
-  // When using as a direct link
-  if (variant === "gradient") {
-    return (
-      <GradientButton
-        asChild
-        size={size as any}
-        className={`flex items-center gap-2 group ${className}`}
-      >
-        <Link to="/eligibility" aria-label="Open eligibility checker">
-          {buttonContent}
-        </Link>
-      </GradientButton>
-    );
-  }
-
   return (
-    <Button
-      asChild
+    <Button 
+      asChild 
       size={size}
-      className={`flex items-center gap-2 group ${className}`}
+      variant={variant === "outline" ? "outline" : "default"}
+      className={cn(
+        baseClasses,
+        variant !== "outline" && variantClasses[variant],
+        variant === "outline" && variantClasses.outline,
+        className
+      )}
     >
-      <Link to="/eligibility" aria-label="Open eligibility checker">
-        {buttonContent}
+      <Link to="/eligibility">
+        <Target className="w-5 h-5" />
+        <span>{text}</span>
+        <Zap className="w-4 h-4 animate-pulse" />
       </Link>
     </Button>
   );
 };
 
-export default React.memo(EligibilityCheckerButton);
+export default EligibilityCheckerButton;
