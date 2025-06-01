@@ -58,7 +58,7 @@ import ProfileSetupPage from "@/pages/profile/ProfileSetupPage";
 import BlogPage from "@/pages/blog/index";
 import PodcastPage from "@/pages/podcast/index";
 import ReportsPage from "@/pages/reports/index";
-import FeedPage from "@/pages/feed/FeedPage";
+import CommunityFeedPage from "@/pages/feed/index";
 import PrivacyPolicy from "@/pages/PrivacyPolicy";
 import TermsOfUse from "@/pages/TermsOfUse";
 
@@ -132,7 +132,7 @@ const AppRoutes: React.FC = () => {
       <Route path="/blog" element={<BlogPage />} />
       <Route path="/podcast" element={<PodcastPage />} />
       <Route path="/reports" element={<ReportsPage />} />
-      <Route path="/feed" element={<FeedPage />} />
+      <Route path="/feed" element={<CommunityFeedPage />} />
       <Route path="/privacy-policy" element={<PrivacyPolicy />} />
       <Route path="/terms-of-use" element={<TermsOfUse />} />
       
