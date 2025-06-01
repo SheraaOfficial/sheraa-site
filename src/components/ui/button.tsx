@@ -28,10 +28,12 @@ const buttonVariants = cva(
         neo: "bg-sheraa-primary text-white rounded-md shadow-[5px_5px_0px_0px_rgba(0,51,102,0.7)] border-sheraa-primary border-2 hover:shadow-none hover:translate-x-[5px] hover:translate-y-[5px] transition-all",
         sef: "bg-sheraa-sef-primary text-white hover:bg-sheraa-sef-primary/90 shadow-sm hover:shadow-md transition-all duration-200",
         'sef-outline': "border border-sheraa-sef-primary bg-transparent text-sheraa-sef-primary hover:bg-sheraa-sef-primary/10 transition-all duration-200",
+        warm: "bg-gradient-to-r from-orange-500 to-red-500 text-white hover:from-orange-600 hover:to-red-600 shadow-sm hover:shadow-md transition-all duration-200",
       },
       size: {
         default: "h-10 px-4 py-2",
         sm: "h-9 rounded-md px-3",
+        md: "h-10 rounded-md px-6",
         lg: "h-11 rounded-md px-8",
         xl: "h-12 rounded-md px-10 text-base",
         icon: "h-10 w-10",

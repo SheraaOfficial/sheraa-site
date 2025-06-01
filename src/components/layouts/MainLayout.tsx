@@ -12,6 +12,7 @@ interface MainLayoutProps {
   seoDescription?: string;
   seoKeywords?: string;
   noIndex?: boolean;
+  backgroundStyle?: React.CSSProperties;
 }
 
 const MainLayout: React.FC<MainLayoutProps> = ({ 
@@ -20,7 +21,8 @@ const MainLayout: React.FC<MainLayoutProps> = ({
   seoTitle,
   seoDescription,
   seoKeywords,
-  noIndex = false
+  noIndex = false,
+  backgroundStyle
 }) => {
   return (
     <>
@@ -30,7 +32,10 @@ const MainLayout: React.FC<MainLayoutProps> = ({
         keywords={seoKeywords}
         noIndex={noIndex}
       />
-      <div className={cn("min-h-screen bg-background text-foreground", className)}>
+      <div 
+        className={cn("min-h-screen bg-background text-foreground", className)}
+        style={backgroundStyle}
+      >
         <MainNavigation />
         <main className="flex-1">
           {children}
