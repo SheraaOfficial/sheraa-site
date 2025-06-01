@@ -100,6 +100,27 @@ const DealDockPage: React.FC = () => {
     "Shorooq Partners", "Continuous VC", "MEVP", "Global Ventures"
   ];
 
+  const successStories = [
+    {
+      startup: "TechFlow Solutions",
+      founder: "Ahmed Al-Rashid",
+      outcome: "Raised $1.2M seed round",
+      description: "Connected with three VCs at Deal Dock, closed funding within 60 days"
+    },
+    {
+      startup: "EcoLogistics",
+      founder: "Fatima Hassan",
+      outcome: "Strategic partnership",
+      description: "Secured major corporate partnership through investor introductions"
+    },
+    {
+      startup: "FinTech Arabia",
+      founder: "Omar Khalil",
+      outcome: "Series A preparation",
+      description: "Gained valuable feedback to refine pitch for upcoming Series A"
+    }
+  ];
+
   return (
     <MainLayout 
       seoTitle="Deal Dock - Investor-Startup Connect Event"
@@ -117,7 +138,7 @@ const DealDockPage: React.FC = () => {
             >
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-100 dark:bg-purple-900/30 border border-purple-200 dark:border-purple-700 mb-6">
                 <Zap className="w-5 h-5 text-purple-600" />
-                <span className="text-sm font-bold text-purple-600 dark:text-purple-400">LIVE EVENT</span>
+                <span className="text-sm font-bold text-purple-600 dark:text-purple-400">PREMIER INVESTOR EVENT</span>
               </div>
               
               <h1 className="text-4xl md:text-6xl font-bold mb-6">
@@ -127,7 +148,7 @@ const DealDockPage: React.FC = () => {
               </h1>
               
               <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-8">
-                Where Startups Meet Capital. Connect with the region's top VCs and angel investors 
+                Where Startups Meet Capital. Connect with the region&apos;s top VCs and angel investors 
                 in an exclusive investor-startup matching event.
               </p>
 
@@ -138,19 +159,34 @@ const DealDockPage: React.FC = () => {
                 </Button>
                 <Button size="lg" variant="outline">
                   <Video className="w-5 h-5 mr-2" />
-                  Watch Live Stream
+                  Watch Event Highlights
                 </Button>
               </div>
 
-              {/* Live Status Banner */}
-              <motion.div
-                animate={{ scale: [1, 1.02, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
-                className="bg-gradient-to-r from-red-500 to-pink-500 text-white px-6 py-3 rounded-full inline-flex items-center gap-2 font-bold"
-              >
-                <div className="w-3 h-3 bg-white rounded-full animate-pulse" />
-                LIVE NOW: Investor Meetings & Portfolio Reviews
-              </motion.div>
+              {/* Event Stats */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto">
+                {[
+                  { number: "30+", label: "Startups Pitched" },
+                  { number: "15+", label: "Top-tier VCs" },
+                  { number: "50+", label: "1:1 Meetings" },
+                  { number: "$12M+", label: "Funding Connected" }
+                ].map((stat, idx) => (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.1 * idx, duration: 0.5 }}
+                    className="text-center"
+                  >
+                    <div className="text-2xl md:text-3xl font-bold text-purple-600 mb-1">
+                      {stat.number}
+                    </div>
+                    <div className="text-sm text-gray-600 dark:text-gray-400">
+                      {stat.label}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
             </motion.div>
 
             {/* Key Highlights */}
@@ -186,7 +222,7 @@ const DealDockPage: React.FC = () => {
               viewport={{ once: true }}
               className="text-center mb-12"
             >
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Today's Agenda</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">Event Agenda</h2>
               <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
                 A full day of connections, insights, and opportunities to accelerate your startup journey.
               </p>
@@ -232,8 +268,53 @@ const DealDockPage: React.FC = () => {
           </div>
         </section>
 
-        {/* Investor Partners */}
+        {/* Success Stories */}
         <section className="py-16">
+          <div className="container mx-auto px-4">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center mb-12"
+            >
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">Success Stories</h2>
+              <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                Real founders who connected with investors and achieved their funding goals at Deal Dock.
+              </p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+              {successStories.map((story, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                >
+                  <Card className="h-full">
+                    <CardContent className="p-6">
+                      <div className="flex items-center gap-1 mb-4">
+                        {[...Array(5)].map((_, i) => (
+                          <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                        ))}
+                      </div>
+                      <h3 className="font-bold text-lg mb-1">{story.startup}</h3>
+                      <p className="text-purple-600 dark:text-purple-400 font-medium mb-2">{story.founder}</p>
+                      <div className="bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400 px-3 py-1 rounded-full text-sm font-medium mb-3 inline-block">
+                        {story.outcome}
+                      </div>
+                      <p className="text-gray-600 dark:text-gray-400 text-sm">{story.description}</p>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Investor Partners */}
+        <section className="py-16 bg-white/50 dark:bg-gray-800/50">
           <div className="container mx-auto px-4">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -291,6 +372,16 @@ const DealDockPage: React.FC = () => {
                   <Users className="w-5 h-5 mr-2" />
                   Join as Investor
                 </Button>
+                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10" asChild>
+                  <Link to="/programs">
+                    <Target className="w-5 h-5 mr-2" />
+                    Explore Programs
+                  </Link>
+                </Button>
+              </div>
+
+              <div className="mt-8 text-sm opacity-80">
+                <p>📧 For partnerships and sponsorship opportunities: partnerships@sheraa.ae</p>
               </div>
             </motion.div>
           </div>

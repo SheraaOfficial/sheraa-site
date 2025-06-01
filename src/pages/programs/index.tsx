@@ -78,7 +78,7 @@ const ProgramsPage: React.FC = () => {
               Your Startup Journey Starts Here
             </h1>
             <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto mb-8 leading-relaxed">
-              From day one idea to Series A funding. We've designed a clear path that takes you from wherever you are 
+              From day one idea to Series A funding. We&apos;ve designed a clear path that takes you from wherever you are 
               to wherever you want to go. No fluff, no theory - just practical support that gets results.
             </p>
             
@@ -176,7 +176,7 @@ const ProgramsPage: React.FC = () => {
                   <Trophy className="w-16 h-16 mx-auto text-sheraa-primary mb-4" />
                   <h2 className="text-2xl md:text-3xl font-bold mb-4">Real Results from Real Founders</h2>
                   <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                    These aren't just vanity metrics. These are real companies, built by real founders, creating real value.
+                    These aren&apos;t just vanity metrics. These are real companies, built by real founders, creating real value.
                   </p>
                 </div>
                 

@@ -191,7 +191,7 @@ export const ProgramsTimelineLayout: React.FC = () => {
                     <div className="mb-6">
                       <h4 className="font-semibold text-sm mb-3 flex items-center gap-2">
                         <Target className="w-4 h-4" />
-                        What You'll Achieve:
+                        What You&apos;ll Achieve:
                       </h4>
                       <div className="grid grid-cols-1 gap-2">
                         {program.outcomes.map((outcome, idx) => (
@@ -257,7 +257,7 @@ export const ProgramsTimelineLayout: React.FC = () => {
             <h3 className="text-2xl font-bold mb-4">Ready to Start Your Journey?</h3>
             <p className="text-gray-600 dark:text-gray-400 mb-6 max-w-2xl mx-auto">
               Not sure which stage fits you? Our AI-powered program matcher will recommend 
-              the perfect starting point based on your startup's current status.
+              the perfect starting point based on your startup&apos;s current status.
             </p>
             <Button size="lg" className="bg-gradient-to-r from-sheraa-primary to-sheraa-secondary">
               <Target className="w-5 h-5 mr-2" />

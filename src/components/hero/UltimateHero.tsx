@@ -105,7 +105,7 @@ const UltimateHero = () => {
             >
               <Sparkles className="w-5 h-5 text-sheraa-primary animate-pulse" />
               <span className="text-sm md:text-base font-bold bg-gradient-to-r from-sheraa-primary to-sheraa-secondary bg-clip-text text-transparent">
-                🚀 Sharjah's #1 Startup Accelerator - Where Dreams Become Billion-Dollar Companies
+                🚀 Sharjah&apos;s #1 Startup Accelerator - Where Dreams Become Billion-Dollar Companies
               </span>
               <ArrowRight className="w-4 h-4 text-sheraa-primary" />
             </motion.div>
@@ -147,7 +147,7 @@ const UltimateHero = () => {
                 className="text-xl md:text-2xl lg:text-3xl text-gray-700 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed font-medium"
               >
                 Join the <span className="font-bold text-sheraa-primary">fastest-growing startup ecosystem</span> in the Middle East. 
-                From idea validation to global scaling - we're your complete success partner.
+                From idea validation to global scaling - we&apos;re your complete success partner.
               </motion.p>
             </div>
 
@@ -237,14 +237,14 @@ const UltimateHero = () => {
               className="pt-8 border-t border-gray-200/50 dark:border-gray-700/50 max-w-4xl mx-auto"
             >
               <p className="text-gray-600 dark:text-gray-400 text-lg mb-4 font-medium">
-                Join founders who've already transformed their lives:
+                Join founders who&apos;ve already transformed their lives:
               </p>
               <div className="flex flex-wrap justify-center gap-6 text-sm md:text-base">
                 <span className="bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400 px-4 py-2 rounded-full font-medium">
                   📈 Ahmed raised $2M in Series A
                 </span>
                 <span className="bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-400 px-4 py-2 rounded-full font-medium">
-                  🌍 Sarah's startup went global
+                  🌍 Sarah&apos;s startup went global
                 </span>
                 <span className="bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-400 px-4 py-2 rounded-full font-medium">
                   🏆 Mohammed won Startup of the Year
