@@ -9,7 +9,8 @@ import About from "@/pages/about/index";
 import AboutLeadershipPage from "@/pages/about/AboutLeadershipPage";
 import AboutBoardPage from "@/pages/about/AboutBoardPage";
 
-// Auth pages
+// Auth pages - using enhanced versions
+import AuthPage from "@/pages/auth/AuthPage";
 import LoginPage from "@/pages/auth/LoginPage";
 import SignupPage from "@/pages/auth/SignupPage";
 import ForgotPasswordPage from "@/pages/auth/ForgotPasswordPage";
@@ -80,8 +81,8 @@ const AppRoutes: React.FC = () => {
       <Route path="/about/leadership" element={<AboutLeadershipPage />} />
       <Route path="/about/board" element={<AboutBoardPage />} />
       
-      {/* Auth Routes */}
-      <Route path="/auth" element={<LoginPage />} />
+      {/* Auth Routes - Enhanced integration */}
+      <Route path="/auth" element={<AuthPage />} />
       <Route path="/auth/login" element={<LoginPage />} />
       <Route path="/auth/signup" element={<SignupPage />} />
       <Route path="/auth/forgot-password" element={<ForgotPasswordPage />} />
@@ -143,10 +144,13 @@ const AppRoutes: React.FC = () => {
       <Route path="/perfume/gallery" element={<PerfumeGalleryPage />} />
       <Route path="/perfume/pricing" element={<PerfumePricingPage />} />
       
-      {/* Legacy redirects and aliases */}
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/signup" element={<SignupPage />} />
+      {/* Legacy redirects and aliases - using enhanced auth */}
+      <Route path="/login" element={<AuthPage />} />
+      <Route path="/signup" element={<AuthPage />} />
       <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+      
+      {/* Profile Setup alias */}
+      <Route path="/profile-setup" element={<ProfileSetupPage />} />
       
       {/* SME Support Route - redirect to partnerships */}
       <Route path="/programs/sme-support" element={<PartnershipsPage />} />

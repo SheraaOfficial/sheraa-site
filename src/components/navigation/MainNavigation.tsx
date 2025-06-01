@@ -11,9 +11,12 @@ import {
   Briefcase,
   FileText,
   Star,
-  ChevronDown
+  ChevronDown,
+  User,
+  LogIn
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
 
 const MainNavigation = () => {
   const location = useLocation();
@@ -66,7 +69,10 @@ const MainNavigation = () => {
         { name: 'Guides & Toolkits', path: '/resources/guides' },
         { name: 'Advisory', path: '/resources/advisory' },
         { name: 'Articles', path: '/resources/articles' },
-        { name: 'Impact Reports', path: '/resources/impact-reports' }
+        { name: 'Impact Reports', path: '/resources/impact-reports' },
+        { name: 'Blog', path: '/blog' },
+        { name: 'Podcast', path: '/podcast' },
+        { name: 'Reports', path: '/reports' }
       ]
     },
     { 
@@ -200,6 +206,22 @@ const MainNavigation = () => {
             </div>
           </div>
 
+          {/* Auth Buttons */}
+          <div className="hidden lg:flex items-center gap-3">
+            <Button variant="ghost" size="sm" asChild>
+              <Link to="/auth" className="flex items-center gap-2">
+                <LogIn className="w-4 h-4" />
+                Login
+              </Link>
+            </Button>
+            <Button size="sm" className="bg-sheraa-primary hover:bg-sheraa-primary/90" asChild>
+              <Link to="/auth" className="flex items-center gap-2">
+                <User className="w-4 h-4" />
+                Sign Up
+              </Link>
+            </Button>
+          </div>
+
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
@@ -301,6 +323,26 @@ const MainNavigation = () => {
                   </div>
                 );
               })}
+              
+              {/* Mobile Auth Links */}
+              <div className="mx-2 mt-4 pt-4 border-t border-gray-200 space-y-2">
+                <Link
+                  to="/auth"
+                  onClick={() => setIsOpen(false)}
+                  className="flex items-center gap-2 px-4 py-3 text-sm font-medium text-gray-700 hover:text-sheraa-primary hover:bg-gray-100 rounded-xl transition-all duration-200"
+                >
+                  <LogIn className="w-4 h-4" />
+                  Login
+                </Link>
+                <Link
+                  to="/auth"
+                  onClick={() => setIsOpen(false)}
+                  className="flex items-center gap-2 px-4 py-3 text-sm font-medium bg-sheraa-primary text-white rounded-xl hover:bg-sheraa-primary/90 transition-all duration-200"
+                >
+                  <User className="w-4 h-4" />
+                  Sign Up
+                </Link>
+              </div>
             </div>
           </motion.div>
         )}
