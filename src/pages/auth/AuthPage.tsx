@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -254,7 +253,7 @@ const AuthPage = () => {
               {/* Social Login Options */}
               <div className="grid grid-cols-3 gap-3">
                 <Button variant="outline" className="h-11">
-                  <Google className="w-4 h-4" />
+                  <Globe className="w-4 h-4" />
                 </Button>
                 <Button variant="outline" className="h-11">
                   <Github className="w-4 h-4" />

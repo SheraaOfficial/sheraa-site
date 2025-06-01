@@ -200,7 +200,7 @@ const CommunityFeedPage = () => {
               <Card>
                 <CardHeader>
                   <h3 className="font-semibold flex items-center gap-2">
-                    <Trending className="w-5 h-5 text-sheraa-primary" />
+                    <TrendingUp className="w-5 h-5 text-sheraa-primary" />
                     Community Stats
                   </h3>
                 </CardHeader>
