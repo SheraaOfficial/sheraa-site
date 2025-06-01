@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import MainLayout from '@/components/layouts/MainLayout';
 import { motion } from 'framer-motion';
@@ -17,11 +16,10 @@ import {
   Share2, 
   BookmarkPlus, 
   Filter,
-  Trending,
+  TrendingUp,
   Users,
   Calendar,
   Lightbulb,
-  TrendingUp,
   Award,
   MapPin,
   ExternalLink,

@@ -24,7 +24,8 @@ import {
   ExternalLink,
   Star,
   Briefcase,
-  GraduationCap
+  GraduationCap,
+  User
 } from "lucide-react";
 
 // Import existing components

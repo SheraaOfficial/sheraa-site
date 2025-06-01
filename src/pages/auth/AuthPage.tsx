@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
-import { Eye, EyeOff, ArrowLeft, Mail, Lock, User, Building2, Github, Linkedin, Google } from 'lucide-react';
+import { Eye, EyeOff, ArrowLeft, Mail, Lock, User, Building2, Github, Linkedin, Globe } from 'lucide-react';
 import { useLocalStorage } from '@/hooks/use-local-storage';
 
 const AuthPage = () => {
