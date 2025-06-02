@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import NewIndex from "@/pages/NewIndex";
@@ -70,11 +69,17 @@ import PerfumeBuyPage from "@/pages/perfume/buy/index";
 import PerfumeGalleryPage from "@/pages/perfume/gallery/index";
 import PerfumePricingPage from "@/pages/perfume/pricing/index";
 
+// Add dashboard import
+import DashboardPage from "@/pages/dashboard/DashboardPage";
+
 const AppRoutes: React.FC = () => {
   return (
     <Routes>
       {/* Homepage */}
       <Route path="/" element={<NewIndex />} />
+      
+      {/* Dashboard Route - New Phase 4 Feature */}
+      <Route path="/dashboard" element={<DashboardPage />} />
       
       {/* About Routes */}
       <Route path="/about" element={<About />} />

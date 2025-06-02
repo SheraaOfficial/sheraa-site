@@ -13,7 +13,8 @@ import {
   Star,
   ChevronDown,
   User,
-  LogIn
+  LogIn,
+  BarChart3 // Add this import for Dashboard
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -25,6 +26,7 @@ const MainNavigation = () => {
 
   const navigationItems = [
     { name: 'Home', path: '/', icon: Home },
+    { name: 'Dashboard', path: '/dashboard', icon: BarChart3 }, // New Phase 4 addition
     { 
       name: 'About', 
       path: '/about', 
