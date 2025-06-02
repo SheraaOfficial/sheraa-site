@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { ErrorBoundary } from 'react-error-boundary';
 import NewIndex from "@/pages/NewIndex";
 import NotFound from "@/pages/NotFound";
+import ProtectedRoute from "@/components/auth/ProtectedRoute";
 
 // About pages
 import About from "@/pages/about/index";
@@ -94,8 +95,12 @@ const AppRoutes: React.FC = () => {
         {/* Homepage */}
         <Route path="/" element={<NewIndex />} />
         
-        {/* Dashboard */}
-        <Route path="/dashboard" element={<DashboardPage />} />
+        {/* Protected Dashboard */}
+        <Route path="/dashboard" element={
+          <ProtectedRoute>
+            <DashboardPage />
+          </ProtectedRoute>
+        } />
         
         {/* About Routes */}
         <Route path="/about" element={<About />} />

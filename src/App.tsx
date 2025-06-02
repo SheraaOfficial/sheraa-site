@@ -8,6 +8,8 @@ import { BrowserRouter } from "react-router-dom";
 import { HelmetProvider } from 'react-helmet-async';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import { ExperienceThemeProvider } from '@/contexts/ExperienceThemeContext';
+import { LanguageProvider } from '@/contexts/LanguageContext';
+import { AuthProvider } from '@/contexts/AuthContext';
 import AppRoutes from './routes/AppRoutes';
 import ScrollToTop from '@/components/utils/ScrollToTop';
 
@@ -27,16 +29,20 @@ const App = () => {
       <HelmetProvider>
         <BrowserRouter>
           <ThemeProvider>
-            <ExperienceThemeProvider>
-              <TooltipProvider>
-                <Toaster />
-                <Sonner />
-                <ScrollToTop />
-                <Suspense fallback={<div>Loading...</div>}>
-                  <AppRoutes />
-                </Suspense>
-              </TooltipProvider>
-            </ExperienceThemeProvider>
+            <LanguageProvider>
+              <AuthProvider>
+                <ExperienceThemeProvider>
+                  <TooltipProvider>
+                    <Toaster />
+                    <Sonner />
+                    <ScrollToTop />
+                    <Suspense fallback={<div>Loading...</div>}>
+                      <AppRoutes />
+                    </Suspense>
+                  </TooltipProvider>
+                </ExperienceThemeProvider>
+              </AuthProvider>
+            </LanguageProvider>
           </ThemeProvider>
         </BrowserRouter>
       </HelmetProvider>

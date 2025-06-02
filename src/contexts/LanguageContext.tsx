@@ -1,9 +1,6 @@
 
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
-console.log('LanguageContext module loaded');
-console.log('React in LanguageContext:', !!React);
-
 export type Language = 'en' | 'ar';
 
 interface LanguageContextType {
@@ -14,9 +11,58 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
-// Translation data
+// Comprehensive translation data
 const translations = {
   en: {
+    // Brand
+    'brand.name': 'Sheraa',
+    
+    // Navigation
+    'nav.home': 'Home',
+    'nav.dashboard': 'Dashboard',
+    'nav.about': 'About',
+    'nav.about.overview': 'Our Story',
+    'nav.about.overview.desc': 'Learn about our mission and vision',
+    'nav.about.leadership': 'Leadership',
+    'nav.about.leadership.desc': 'Meet our leadership team',
+    'nav.about.board': 'Board',
+    'nav.about.board.desc': 'Our distinguished board members',
+    'nav.programs': 'Programs',
+    'nav.programs.overview': 'Overview',
+    'nav.programs.overview.desc': 'Explore all our programs',
+    'nav.programs.s3': 'S3 Incubator',
+    'nav.programs.s3.desc': 'Our flagship 6-month incubation program',
+    'nav.programs.start-young': 'Start Young',
+    'nav.programs.start-young.desc': 'Youth entrepreneurship programs',
+    'nav.programs.asc': 'Access Sharjah Challenge',
+    'nav.programs.asc.desc': 'Global competition for growth-stage startups',
+    'nav.community': 'Community',
+    'nav.community.overview': 'Overview',
+    'nav.community.overview.desc': 'Join our vibrant ecosystem',
+    'nav.community.membership': 'Membership',
+    'nav.community.membership.desc': 'Become a Sheraa member',
+    'nav.community.startups': 'Startups',
+    'nav.community.startups.desc': 'Explore our portfolio companies',
+    'nav.insights': 'Insights',
+    'nav.insights.overview': 'Overview',
+    'nav.insights.overview.desc': 'Access our insights library',
+    'nav.insights.guides': 'Guides & Toolkits',
+    'nav.insights.guides.desc': 'Download practical resources',
+    'nav.insights.articles': 'Articles',
+    'nav.insights.articles.desc': 'Read the latest insights',
+    'nav.events': 'Events',
+    'nav.events.overview': 'Overview',
+    'nav.events.overview.desc': 'Discover our events',
+    'nav.events.upcoming': 'Upcoming',
+    'nav.events.upcoming.desc': 'Join our upcoming events',
+    'nav.events.sef': 'SEF',
+    'nav.events.sef.desc': 'Sharjah Entrepreneurship Festival',
+    'nav.contact': 'Contact',
+    'nav.sef': 'SEF 2026',
+    'nav.login': 'Login',
+    'nav.signup': 'Sign Up',
+    'nav.signout': 'Sign Out',
+    
     // Hero Section
     'hero.badge': 'Creating the Next Wave of Entrepreneurs',
     'hero.title.line1': 'Dream to',
@@ -27,17 +73,6 @@ const translations = {
     'hero.stats.startups': 'Startups Supported',
     'hero.stats.revenue': 'Revenue Generated',
     'hero.stats.jobs': 'Jobs Created',
-    
-    // Navigation
-    'nav.programs': 'Programs',
-    'nav.community': 'Community',
-    'nav.resources': 'Resources',
-    'nav.events': 'Events',
-    'nav.about': 'About',
-    'nav.contact': 'Contact',
-    'nav.login': 'Login',
-    'nav.signup': 'Sign Up',
-    'nav.sef': 'SEF',
     
     // Impact Metrics
     'impact.title': 'Impact That Speaks Volumes',
@@ -72,6 +107,55 @@ const translations = {
     'cta.button': 'Get Started Today',
   },
   ar: {
+    // Brand
+    'brand.name': 'شراع',
+    
+    // Navigation
+    'nav.home': 'الرئيسية',
+    'nav.dashboard': 'لوحة التحكم',
+    'nav.about': 'من نحن',
+    'nav.about.overview': 'قصتنا',
+    'nav.about.overview.desc': 'تعرف على مهمتنا ورؤيتنا',
+    'nav.about.leadership': 'القيادة',
+    'nav.about.leadership.desc': 'تعرف على فريق القيادة',
+    'nav.about.board': 'مجلس الإدارة',
+    'nav.about.board.desc': 'أعضاء مجلس الإدارة المتميزون',
+    'nav.programs': 'البرامج',
+    'nav.programs.overview': 'نظرة عامة',
+    'nav.programs.overview.desc': 'استكشف جميع برامجنا',
+    'nav.programs.s3': 'حاضنة S3',
+    'nav.programs.s3.desc': 'برنامج الحضانة الرئيسي لمدة 6 أشهر',
+    'nav.programs.start-young': 'ابدأ صغيراً',
+    'nav.programs.start-young.desc': 'برامج ريادة الأعمال للشباب',
+    'nav.programs.asc': 'تحدي الوصول إلى الشارقة',
+    'nav.programs.asc.desc': 'مسابقة عالمية للشركات الناشئة في مرحلة النمو',
+    'nav.community': 'المجتمع',
+    'nav.community.overview': 'نظرة عامة',
+    'nav.community.overview.desc': 'انضم إلى نظامنا البيئي النابض بالحياة',
+    'nav.community.membership': 'العضوية',
+    'nav.community.membership.desc': 'أصبح عضواً في شراع',
+    'nav.community.startups': 'الشركات الناشئة',
+    'nav.community.startups.desc': 'استكشف شركات محفظتنا',
+    'nav.insights': 'الرؤى',
+    'nav.insights.overview': 'نظرة عامة',
+    'nav.insights.overview.desc': 'الوصول إلى مكتبة الرؤى الخاصة بنا',
+    'nav.insights.guides': 'أدلة وأدوات',
+    'nav.insights.guides.desc': 'تحميل الموارد العملية',
+    'nav.insights.articles': 'المقالات',
+    'nav.insights.articles.desc': 'اقرأ أحدث الرؤى',
+    'nav.events': 'الفعاليات',
+    'nav.events.overview': 'نظرة عامة',
+    'nav.events.overview.desc': 'اكتشف فعالياتنا',
+    'nav.events.upcoming': 'القادمة',
+    'nav.events.upcoming.desc': 'انضم إلى فعالياتنا القادمة',
+    'nav.events.sef': 'مهرجان ريادة الأعمال',
+    'nav.events.sef.desc': 'مهرجان الشارقة لريادة الأعمال',
+    'nav.contact': 'تواصل معنا',
+    'nav.sef': 'مهرجان ريادة الأعمال 2026',
+    'nav.login': 'تسجيل الدخول',
+    'nav.signup': 'إنشاء حساب',
+    'nav.signout': 'تسجيل الخروج',
+    
     // Hero Section
     'hero.badge': 'خلق الجيل القادم من رواد الأعمال',
     'hero.title.line1': 'احلم لتصنع',
@@ -82,17 +166,6 @@ const translations = {
     'hero.stats.startups': 'مشروع ناشئ مدعوم',
     'hero.stats.revenue': 'إيرادات مُحققة',
     'hero.stats.jobs': 'وظيفة مُوجدة',
-    
-    // Navigation
-    'nav.programs': 'البرامج',
-    'nav.community': 'المجتمع',
-    'nav.resources': 'الموارد',
-    'nav.events': 'الفعاليات',
-    'nav.about': 'من نحن',
-    'nav.contact': 'تواصل معنا',
-    'nav.login': 'تسجيل الدخول',
-    'nav.signup': 'إنشاء حساب',
-    'nav.sef': 'مهرجان ريادة الأعمال',
     
     // Impact Metrics
     'impact.title': 'تأثير يتحدث بأرقام',
@@ -133,9 +206,6 @@ interface LanguageProviderProps {
 }
 
 export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) => {
-  console.log('LanguageProvider rendering');
-  console.log('React hooks available in LanguageProvider:', !!React.useState);
-  
   const [language, setLanguage] = useState<Language>('en');
 
   const t = (key: string): string => {
