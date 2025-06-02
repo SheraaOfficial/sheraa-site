@@ -50,6 +50,9 @@ import SEFBePartPage from "@/pages/events/sef/SEFBePartPage";
 import SEFWhoShouldAttendPage from "@/pages/events/sef/SEFWhoShouldAttendPage";
 import SEFFAQPage from "@/pages/events/sef/SEFFAQPage";
 
+// Dashboard page
+import DashboardPage from "@/pages/dashboard/DashboardPage";
+
 // Other pages
 import Contact from "@/pages/contact/index";
 import CareersPage from "@/pages/careers/index";
@@ -113,6 +116,9 @@ const AppRoutes: React.FC = () => {
         <Route path="/programs/access-sharjah-challenge" element={<AccessSharjahChallengePage />} />
         <Route path="/programs/deal-dock" element={<DealDockPage />} />
         <Route path="/programs/sme-support" element={<SMESupportPage />} />
+        
+        {/* Dashboard Route */}
+        <Route path="/dashboard" element={<DashboardPage />} />
         
         {/* Insights Routes (renamed from Resources) */}
         <Route path="/insights/*" element={<InsightsRouter />} />
