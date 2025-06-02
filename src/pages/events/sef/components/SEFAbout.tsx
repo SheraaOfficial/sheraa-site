@@ -1,78 +1,99 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
+import { ArrowRight, Sparkles, MapPin, Calendar } from 'lucide-react';
 
-const SEFAbout = () => {
+const SEFAbout: React.FC = () => {
   return (
-    <section className="py-20 px-4 bg-white dark:bg-gray-900">
-      <div className="container mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          <motion.div 
-            initial={{ opacity: 0, x: -20 }}
+    <section className="py-20 bg-gradient-to-br from-gray-50 to-white dark:from-sheraa-dark/30 dark:to-sheraa-dark/50">
+      <div className="container mx-auto px-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
-            className="space-y-6"
           >
-            <div className="inline-block rounded-full bg-purple-100 px-3 py-1 text-sm text-[#9b87f5] dark:bg-purple-900/30">
-              About SEF
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-sheraa-sef-primary/10 border border-sheraa-sef-primary/20 mb-6">
+              <Sparkles className="w-4 h-4 text-sheraa-sef-primary" />
+              <span className="text-sm font-medium text-sheraa-sef-primary">About SEF 2026</span>
             </div>
             
-            <h2 className="text-4xl md:text-5xl font-bold text-[#1A1F2C] dark:text-white">
-              The Region's Largest Entrepreneurship Festival
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-800 dark:text-white">
+              Where Innovation Meets <span className="bg-gradient-to-r from-sheraa-sef-primary to-sheraa-sef-accent bg-clip-text text-transparent">Opportunity</span>
             </h2>
             
-            <p className="text-lg text-gray-700 dark:text-gray-300">
-              Experience the energy of the Sharjah Entrepreneurship Festival (SEF), our annual flagship event. 
-              SEF brings together thousands of entrepreneurs, investors, creators, and leaders from around the 
-              globe for inspiration, connection, and growth.
+            <p className="text-lg text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
+              SEF is more than just a festival; it's the region's largest gathering of entrepreneurial minds. 
+              Under the theme "Where We Belong," SEF unites visionaries, investors, innovators, and aspiring 
+              changemakers from across the globe.
             </p>
             
-            <p className="text-lg text-gray-700 dark:text-gray-300">
-              SEF is more than just a festival; it's a catalyst for innovation, collaboration, and meaningful 
-              connections that drive the entrepreneurial ecosystem forward. Each year, we create a vibrant 
-              platform where ideas collide, partnerships form, and possibilities expand.
+            <p className="text-gray-600 dark:text-gray-300 mb-8">
+              For two electrifying days at the Sharjah Research, Technology, and Innovation Park (SRTIP), 
+              experience a convergence of ideas, opportunities, and community spirit designed to fuel the 
+              next wave of impactful entrepreneurship.
             </p>
             
-            <div className="pt-4 grid grid-cols-1 sm:grid-cols-2 gap-5">
-              <div className="p-5 rounded-xl bg-purple-50 border border-purple-100 hover:shadow-md hover:bg-purple-100/50 transition-all duration-300 dark:bg-purple-900/20 dark:border-purple-800/30 dark:hover:bg-purple-900/30">
-                <h3 className="text-xl font-semibold text-[#9b87f5] mb-2">Vision</h3>
-                <p className="text-gray-700 dark:text-gray-300">To establish Sharjah as a leading global hub for entrepreneurship and innovation.</p>
+            <div className="space-y-4 mb-8">
+              <div className="flex items-center gap-3">
+                <Calendar className="w-5 h-5 text-sheraa-sef-primary" />
+                <span className="font-medium">January 31 - February 1, 2026</span>
               </div>
-              <div className="p-5 rounded-xl bg-orange-50 border border-orange-100 hover:shadow-md hover:bg-orange-100/50 transition-all duration-300 dark:bg-orange-900/20 dark:border-orange-800/30 dark:hover:bg-orange-900/30">
-                <h3 className="text-xl font-semibold text-[#F97316] mb-2">Mission</h3>
-                <p className="text-gray-700 dark:text-gray-300">To cultivate changemakers who address pressing challenges and contribute positively to society.</p>
+              <div className="flex items-center gap-3">
+                <MapPin className="w-5 h-5 text-sheraa-sef-primary" />
+                <span className="font-medium">Sharjah Research, Technology & Innovation Park</span>
               </div>
             </div>
+            
+            <Button asChild size="lg" className="bg-gradient-to-r from-sheraa-sef-primary to-sheraa-sef-accent hover:shadow-xl transition-all duration-300">
+              <Link to="/events/sef/register" className="flex items-center gap-2">
+                Register for SEF 2026
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </Button>
           </motion.div>
           
-          <motion.div 
-            initial={{ opacity: 0, x: 20 }}
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="relative h-[500px] md:h-[600px]"
+            className="relative"
           >
-            <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#9b87f5]/20 to-[#F97316]/20 transform -rotate-2" />
-            <div className="absolute inset-0 rounded-2xl bg-gradient-to-tr from-[#D6BCFA]/30 to-[#F97316]/30 transform rotate-3" />
-            
-            <div className="absolute inset-0 rounded-2xl overflow-hidden flex items-center justify-center">
-              <div className="absolute inset-0 bg-black/40 z-10" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent z-20" />
-              
-              {/* Festival image */}
-              <img 
-                src="https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=1169&auto=format&fit=crop" 
-                alt="Sharjah Entrepreneurship Festival" 
-                className="w-full h-full object-cover"
+            <div className="aspect-square bg-gradient-to-br from-sheraa-sef-primary/20 to-sheraa-sef-accent/20 rounded-3xl overflow-hidden">
+              <img
+                src="/placeholder.svg"
+                alt="SEF 2026 Event"
+                className="w-full h-full object-cover mix-blend-overlay"
               />
-              
-              <div className="absolute bottom-0 left-0 right-0 p-8 z-30 text-white">
-                <span className="text-sm text-white/70">SEF'25</span>
-                <h3 className="text-3xl font-bold mt-1">300+ Global Speakers</h3>
-                <p className="text-white/80 mt-2">10+ ZONES | 250+ ACTIVITIES</p>
-              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-sheraa-sef-primary/20 to-transparent" />
             </div>
+            
+            {/* Floating stats */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.5 }}
+              className="absolute -bottom-6 -left-6 bg-white dark:bg-sheraa-dark rounded-2xl p-6 shadow-xl border border-gray-100 dark:border-gray-800"
+            >
+              <div className="text-2xl font-bold text-sheraa-sef-primary">14,000+</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400">Expected Attendees</div>
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.7 }}
+              className="absolute -top-6 -right-6 bg-white dark:bg-sheraa-dark rounded-2xl p-6 shadow-xl border border-gray-100 dark:border-gray-800"
+            >
+              <div className="text-2xl font-bold text-sheraa-sef-accent">300+</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400">Global Speakers</div>
+            </motion.div>
           </motion.div>
         </div>
       </div>

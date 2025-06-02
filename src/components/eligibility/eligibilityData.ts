@@ -1,4 +1,3 @@
-
 export interface Question {
   id: string;
   text: string;
@@ -36,7 +35,7 @@ export const eligibilityQuestions: Question[] = [
       { id: "global", label: "Innovator with a solution to global/local challenges", persona: "global" }
     ]
   },
-  // Student path questions
+  // Enhanced student path questions with advanced levels
   {
     id: "studentStage",
     text: "What stage is your idea at?",
@@ -45,7 +44,20 @@ export const eligibilityQuestions: Question[] = [
     options: [
       { id: "concept", label: "Just a concept, not yet developed" },
       { id: "prototype", label: "Working on a prototype/MVP" },
-      { id: "validated", label: "MVP with some user validation" }
+      { id: "validated", label: "MVP with some user validation and early traction" },
+      { id: "advanced", label: "Validated concept with customer feedback and revenue potential" }
+    ]
+  },
+  {
+    id: "studentExperience", 
+    text: "What's your entrepreneurship experience level?",
+    type: "radio",
+    dependsOn: { questionId: "persona", answerId: "student" },
+    options: [
+      { id: "beginner", label: "First time entrepreneur, new to business" },
+      { id: "some", label: "Some experience, maybe completed basic programs" },
+      { id: "experienced", label: "Completed programs like Startup Dojo, have real experience" },
+      { id: "advanced", label: "Multiple ventures, advanced skills, ready for acceleration" }
     ]
   },
   {
@@ -68,6 +80,9 @@ export const eligibilityQuestions: Question[] = [
       { id: "sustainability", label: "Sustainability" },
       { id: "creative", label: "Creative Industries" },
       { id: "education", label: "Education" },
+      { id: "agritech", label: "AgriTech" },
+      { id: "healthtech", label: "HealthTech" },
+      { id: "fintech", label: "FinTech" },
       { id: "other", label: "Other" }
     ]
   },
@@ -80,10 +95,23 @@ export const eligibilityQuestions: Question[] = [
       { id: "learn", label: "Learn entrepreneurship skills" },
       { id: "launch", label: "Launch a real business" },
       { id: "impact", label: "Create social impact" },
-      { id: "compete", label: "Win competitions" }
+      { id: "compete", label: "Win competitions" },
+      { id: "scale", label: "Scale and grow rapidly" },
+      { id: "funding", label: "Raise investment funding" }
     ]
   },
-  // Founder path questions
+  {
+    id: "studentCommitment",
+    text: "How much time can you commit to an intensive program?",
+    type: "radio",
+    dependsOn: { questionId: "persona", answerId: "student" },
+    options: [
+      { id: "parttime", label: "Part-time, flexible schedule" },
+      { id: "intensive", label: "Full-time intensive (4-8 weeks)" },
+      { id: "longterm", label: "Long-term commitment (3-6 months)" }
+    ]
+  },
+  // ... keep existing code (founder path questions)
   {
     id: "founderStage",
     text: "What stage is your startup at?",
@@ -152,7 +180,7 @@ export const eligibilityQuestions: Question[] = [
       { id: "team", label: "Full team with employees" }
     ]
   },
-  // SME path questions
+  // ... keep existing code (SME and global path questions remain the same)
   {
     id: "smeSize",
     text: "How many employees does your business have?",
@@ -204,7 +232,6 @@ export const eligibilityQuestions: Question[] = [
       { id: "digitalization", label: "Digital transformation" }
     ]
   },
-  // Global innovator path questions
   {
     id: "globalSector",
     text: "Which sector does your solution address?",
@@ -266,18 +293,21 @@ export const programRecommendations: ProgramRecommendation[] = [
     criteria: {
       persona: ["student"],
       studentStage: ["concept", "prototype"],
-      studentUniversity: ["yes"]
+      studentUniversity: ["yes"],
+      studentExperience: ["beginner", "some"]
     }
   },
   {
     id: "startup-dojo-plus",
     title: "Startup Dojo+",
-    description: "An intensive accelerator program for top-performing teams emerging from Startup Dojo, offering bespoke attention to help validate and build concepts further.",
+    description: "An intensive 4-week accelerator program for high-potential student teams with validated concepts, advanced experience, and readiness for rapid scaling.",
     link: "/programs/startup-dojo-plus",
     criteria: {
       persona: ["student"],
-      studentStage: ["validated"],
-      studentUniversity: ["yes"]
+      studentStage: ["validated", "advanced"],
+      studentUniversity: ["yes"],
+      studentExperience: ["experienced", "advanced"],
+      studentCommitment: ["intensive", "longterm"]
     }
   },
   {
@@ -348,7 +378,7 @@ export const programRecommendations: ProgramRecommendation[] = [
   }
 ];
 
-// Benefits for each program to display in the results
+// Enhanced benefits for each program
 export const programBenefits: { [key: string]: string[] } = {
   "startup-dojo": [
     "8-week intensive entrepreneurial training",
@@ -358,11 +388,14 @@ export const programBenefits: { [key: string]: string[] } = {
     "Top teams may receive grants and business licenses"
   ],
   "startup-dojo-plus": [
-    "Focused accelerator for promising ideas",
-    "Bespoke mentorship and guidance",
-    "Funding opportunities for top teams",
+    "Intensive 4-week accelerator for advanced students",
+    "Bespoke mentorship for validated concepts",
+    "Funding opportunities up to AED 50,000 for top teams",
     "Fast-track to S3 Incubator consideration",
-    "Showcase opportunities to partners and investors"
+    "Showcase at 'Seal the Deal' pitch events",
+    "Direct mentor access and industry connections",
+    "Advanced business model refinement",
+    "Market validation and customer acquisition support"
   ],
   "student-membership": [
     "Access to co-working spaces",

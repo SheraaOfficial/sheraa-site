@@ -1,112 +1,97 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Star, Award, Users, BookOpen, Mic, Sparkles } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
+import { 
+  Mic, Users, Lightbulb, Trophy, 
+  Network, Globe, Building, Heart 
+} from 'lucide-react';
 
-const features = [
-  {
-    icon: Star,
-    title: "Innovation Showcase",
-    description: "Discover groundbreaking solutions from startups across every industry vertical."
-  },
-  {
-    icon: Award,
-    title: "Global Recognition",
-    description: "Gain visibility on an international stage and connect with media and potential partners."
-  },
-  {
-    icon: Users,
-    title: "Investor Connections",
-    description: "Meet with VCs, angel investors, and corporate innovators looking for the next big opportunity."
-  },
-  {
-    icon: BookOpen,
-    title: "Knowledge Exchange",
-    description: "Learn from industry pioneers and thought leaders through keynotes, panels, and workshops."
-  },
-  {
-    icon: Mic,
-    title: "Pitch Competitions",
-    description: "Compete for significant funding and showcase your venture to a captive audience."
-  },
-  {
-    icon: Sparkles,
-    title: "Cultural Celebration",
-    description: "Experience a fusion of entrepreneurship, art, music, and local culture."
-  }
-];
-
-const SEFFeatures = () => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
+const SEFFeatures: React.FC = () => {
+  const features = [
+    {
+      icon: Mic,
+      title: "World-Class Speakers",
+      description: "Learn from 300+ global leaders, industry titans, and inspiring founders sharing insights across technology, finance, sustainability, and creative industries.",
+      color: "from-blue-500 to-blue-600"
+    },
+    {
+      icon: Network,
+      title: "High-Impact Networking",
+      description: "Connect with potential co-founders, mentors, partners, and investors through curated meetings and dedicated networking spaces.",
+      color: "from-green-500 to-green-600"
+    },
+    {
+      icon: Trophy,
+      title: "Startup Opportunities",
+      description: "Showcase your venture, compete for significant funding in the Pitch Competition, and gain recognition through the SEFFY Awards.",
+      color: "from-purple-500 to-purple-600"
+    },
+    {
+      icon: Lightbulb,
+      title: "Actionable Learning",
+      description: "Participate in 60+ hands-on workshops and masterclasses at the SEF Academy, designed for entrepreneurs at all stages.",
+      color: "from-orange-500 to-orange-600"
+    },
+    {
+      icon: Users,
+      title: "Dynamic Zones",
+      description: "Explore diverse zones catering to every interest: Startup Town, Investors Lounge, Creative Zone, Sustainability Hub, and more.",
+      color: "from-pink-500 to-pink-600"
+    },
+    {
+      icon: Globe,
+      title: "Global Reach",
+      description: "Join attendees from 45+ countries in a truly international celebration of entrepreneurship and innovation.",
+      color: "from-indigo-500 to-indigo-600"
     }
-  };
-  
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 }
-  };
-  
+  ];
+
   return (
-    <section className="py-20 px-4 relative overflow-hidden bg-gradient-to-br from-[#1A1F2C] to-[#292D3E]">
-      {/* Background effects */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute top-20 left-1/4 w-[25rem] h-[25rem] bg-purple-500/10 rounded-full filter blur-[120px] opacity-60" />
-        <div className="absolute bottom-20 right-1/4 w-[25rem] h-[25rem] bg-orange-500/10 rounded-full filter blur-[120px] opacity-60" />
-      </div>
-      
-      <div className="container mx-auto relative z-10">
+    <section className="py-20 bg-white dark:bg-sheraa-dark/50">
+      <div className="container mx-auto px-4">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
           className="text-center mb-16"
         >
-          <div className="inline-block rounded-full bg-white/10 px-3 py-1 text-sm text-white mb-4">
-            Why Attend SEF'26
-          </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            An Unforgettable Experience
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-sheraa-sef-primary to-sheraa-sef-accent bg-clip-text text-transparent">
+            Key Features & Highlights
           </h2>
-          <p className="text-xl text-white/80 max-w-2xl mx-auto">
-            SEF'26 offers immersive experiences designed to inspire, connect, and empower 
-            entrepreneurs at every stage of their journey.
+          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            Discover what makes SEF the region's most impactful entrepreneurship event, offering 
+            unparalleled opportunities for learning, networking, and growth.
           </p>
         </motion.div>
-        
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-        >
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => (
             <motion.div
               key={index}
-              variants={itemVariants}
-              transition={{ duration: 0.5 }}
-              className="p-6 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/15 
-                transition-all duration-300 flex flex-col h-full"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1, duration: 0.6 }}
+              whileHover={{ scale: 1.02 }}
             >
-              <div className="bg-gradient-to-br from-[#9b87f5] to-[#D6BCFA] p-3 rounded-lg w-12 h-12 
-                flex items-center justify-center mb-5">
-                <feature.icon className="text-white h-5 w-5" />
-              </div>
-              
-              <h3 className="text-xl font-bold text-white mb-3">{feature.title}</h3>
-              <p className="text-white/70 flex-grow">{feature.description}</p>
-              
-              <div className="h-1 w-12 bg-gradient-to-r from-[#9b87f5] to-[#F97316] rounded-full mt-5"></div>
+              <Card className="h-full border-gray-100 dark:border-gray-800 hover:shadow-xl transition-all duration-300 group">
+                <CardContent className="p-8">
+                  <div className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${feature.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                    <feature.icon className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-4 text-gray-800 dark:text-white">
+                    {feature.title}
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                    {feature.description}
+                  </p>
+                </CardContent>
+              </Card>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

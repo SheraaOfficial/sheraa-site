@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -26,7 +27,7 @@ const MainNavigation = () => {
 
   const navigationItems = [
     { name: 'Home', path: '/', icon: Home },
-    { name: 'Dashboard', path: '/dashboard', icon: BarChart3 }, // New Phase 4 addition
+    { name: 'Dashboard', path: '/dashboard', icon: BarChart3 },
     { 
       name: 'About', 
       path: '/about', 
@@ -46,6 +47,7 @@ const MainNavigation = () => {
         { name: 'Overview', path: '/programs' },
         { name: 'S3 Incubator', path: '/programs/s3-incubator' },
         { name: 'Startup Dojo', path: '/programs/startup-dojo' },
+        { name: 'Startup Dojo+', path: '/programs/startup-dojo-plus' },
         { name: 'Start Young', path: '/programs/start-young' },
         { name: 'Access Sharjah Challenge', path: '/programs/access-sharjah-challenge' },
         { name: 'Deal Dock', path: '/programs/deal-dock' }
