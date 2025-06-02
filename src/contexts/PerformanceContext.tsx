@@ -18,6 +18,13 @@ interface PerformanceContextType {
   enableLazyLoading: boolean;
   enableCodeSplitting: boolean;
   enableOptimisticUI: boolean;
+  enableAdvancedSearch: boolean;
+  enableRealTimeFeatures: boolean;
+  
+  // Content settings
+  maxTestimonialsPerPage: number;
+  maxStartupsPerPage: number;
+  enableVideoTestimonials: boolean;
   
   // Debugging
   debugPerformance: boolean;
@@ -89,10 +96,17 @@ export function PerformanceProvider({ children }: { children: React.ReactNode })
     // Only enable background effects on higher-end devices
     enableBackgroundEffects: devicePerformance !== 'low',
     
-    // Feature flags
+    // Feature flags based on device performance
     enableLazyLoading: true, // Always enable lazy loading
     enableCodeSplitting: true, // Always enable code splitting
     enableOptimisticUI: devicePerformance !== 'low', // Only on medium/high devices
+    enableAdvancedSearch: devicePerformance !== 'low', // Search with filters and advanced features
+    enableRealTimeFeatures: devicePerformance === 'high', // Real-time updates, live features
+    
+    // Content pagination based on device performance
+    maxTestimonialsPerPage: devicePerformance === 'high' ? 9 : (devicePerformance === 'medium' ? 6 : 3),
+    maxStartupsPerPage: devicePerformance === 'high' ? 12 : (devicePerformance === 'medium' ? 8 : 4),
+    enableVideoTestimonials: devicePerformance !== 'low', // Only on medium/high devices
     
     // Debugging
     debugPerformance,
@@ -119,12 +133,14 @@ export function usePerformance() {
   return context;
 }
 
-// Simple debug overlay component to monitor performance metrics
+// Enhanced debug overlay component to monitor performance metrics
 function PerformanceDebugOverlay() {
   const [metrics, setMetrics] = useState({
     fps: 0,
     memory: 0,
-    networkLatency: 0
+    networkLatency: 0,
+    renderTime: 0,
+    bundleSize: 0
   });
   
   useEffect(() => {
@@ -132,28 +148,30 @@ function PerformanceDebugOverlay() {
     let lastTimestamp = performance.now();
     let frameId: number;
     
-    // Track FPS
-    const measureFPS = (timestamp: number) => {
+    // Track FPS and render time
+    const measurePerformance = (timestamp: number) => {
       frameCount++;
       
       const elapsed = timestamp - lastTimestamp;
       
       if (elapsed >= 1000) { // Update every second
         const fps = Math.round((frameCount * 1000) / elapsed);
+        const renderTime = performance.now() - timestamp;
         
         setMetrics(prev => ({
           ...prev,
-          fps
+          fps,
+          renderTime: Math.round(renderTime * 100) / 100
         }));
         
         frameCount = 0;
         lastTimestamp = timestamp;
       }
       
-      frameId = requestAnimationFrame(measureFPS);
+      frameId = requestAnimationFrame(measurePerformance);
     };
     
-    frameId = requestAnimationFrame(measureFPS);
+    frameId = requestAnimationFrame(measurePerformance);
     
     // Track memory if available
     const memoryInterval = setInterval(() => {
@@ -197,10 +215,38 @@ function PerformanceDebugOverlay() {
   }, []);
   
   return (
-    <div className="fixed bottom-0 right-0 bg-black/80 text-white p-2 text-xs z-[9999] font-mono">
-      <div>FPS: {metrics.fps}</div>
-      {metrics.memory > 0 && <div>Memory: {metrics.memory} MB</div>}
-      {metrics.networkLatency > 0 && <div>Network: {metrics.networkLatency} ms</div>}
+    <div className="fixed bottom-0 right-0 bg-black/90 text-white p-3 text-xs z-[9999] font-mono rounded-tl-lg min-w-[200px]">
+      <div className="text-green-400 font-semibold mb-2">Performance Monitor</div>
+      <div className="space-y-1">
+        <div className="flex justify-between">
+          <span>FPS:</span>
+          <span className={metrics.fps > 55 ? 'text-green-400' : metrics.fps > 30 ? 'text-yellow-400' : 'text-red-400'}>
+            {metrics.fps}
+          </span>
+        </div>
+        {metrics.memory > 0 && (
+          <div className="flex justify-between">
+            <span>Memory:</span>
+            <span className={metrics.memory < 100 ? 'text-green-400' : metrics.memory < 200 ? 'text-yellow-400' : 'text-red-400'}>
+              {metrics.memory} MB
+            </span>
+          </div>
+        )}
+        {metrics.networkLatency > 0 && (
+          <div className="flex justify-between">
+            <span>Network:</span>
+            <span className={metrics.networkLatency < 100 ? 'text-green-400' : metrics.networkLatency < 300 ? 'text-yellow-400' : 'text-red-400'}>
+              {metrics.networkLatency} ms
+            </span>
+          </div>
+        )}
+        <div className="flex justify-between">
+          <span>Render:</span>
+          <span className={metrics.renderTime < 1 ? 'text-green-400' : metrics.renderTime < 5 ? 'text-yellow-400' : 'text-red-400'}>
+            {metrics.renderTime} ms
+          </span>
+        </div>
+      </div>
     </div>
   );
 }

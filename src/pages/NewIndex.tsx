@@ -11,17 +11,37 @@ import { CommunityPartnersSection } from "@/components/homepage/redesign/Communi
 import { VisionQuoteSection } from "@/components/homepage/redesign/VisionQuoteSection";
 import { FinalCTASection } from "@/components/homepage/redesign/FinalCTASection";
 import { CyclingStickyCornerCTA } from "@/components/ui/cycling-sticky-cta";
+import { TestimonialsSection } from "@/components/testimonials/TestimonialsSection";
+import { PerformanceOptimizer } from "@/components/performance/PerformanceOptimizer";
 
 const NewIndex: React.FC = () => {
   return (
     <MainLayout className="bg-white dark:bg-sheraa-dark">
+      {/* Critical above-the-fold content */}
       <UltimateHero />
       <DealDockMarquee />
+      
+      {/* High priority content */}
       <ImpactMetricsSection />
       <ProgramsJourneySection />
-      <StartupEcosystemSection />
-      <SEFHighlightSection />
-      <CommunityPartnersSection />
+      
+      {/* Medium priority content with performance optimization */}
+      <PerformanceOptimizer componentName="Testimonials" priority="medium" height={600}>
+        <TestimonialsSection />
+      </PerformanceOptimizer>
+      
+      <PerformanceOptimizer componentName="Startup Ecosystem" priority="medium">
+        <StartupEcosystemSection />
+      </PerformanceOptimizer>
+      
+      <PerformanceOptimizer componentName="SEF Highlight" priority="low">
+        <SEFHighlightSection />
+      </PerformanceOptimizer>
+      
+      <PerformanceOptimizer componentName="Community Partners" priority="low">
+        <CommunityPartnersSection />
+      </PerformanceOptimizer>
+      
       <VisionQuoteSection />
       <FinalCTASection />
       

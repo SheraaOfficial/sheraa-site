@@ -1,53 +1,49 @@
-
-import { Suspense, lazy } from "react";
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter } from "react-router-dom";
-import { HelmetProvider } from 'react-helmet-async';
-import { ThemeProvider } from '@/contexts/ThemeContext';
-import { ExperienceThemeProvider } from '@/contexts/ExperienceThemeContext';
-import { LanguageProvider } from '@/contexts/LanguageContext';
-import { AuthProvider } from '@/contexts/AuthContext';
+import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import { ThemeProvider } from "@/components/theme-provider"
+import { Toaster } from "@/components/ui/toaster"
 import AppRoutes from './routes/AppRoutes';
-import ScrollToTop from '@/components/utils/ScrollToTop';
+import { AuthProvider } from './contexts/AuthContext';
+import { LanguageProvider } from './contexts/LanguageContext';
+import { ExperienceThemeProvider } from './contexts/ExperienceThemeContext';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { HelmetProvider } from 'react-helmet-async';
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 1000 * 60 * 5, // 5 minutes
-      retry: 1,
-      refetchOnWindowFocus: false,
-    },
-  },
-});
+const queryClient = new QueryClient();
 
-const App = () => {
+import { AccessibilityProvider } from '@/components/accessibility/AccessibilityProvider';
+import { PerformanceProvider } from '@/contexts/PerformanceContext';
+import { SEOHead } from '@/components/seo/SEOHead';
+import { organizationStructuredData } from '@/data/structuredData';
+
+function App() {
   return (
-    <QueryClientProvider client={queryClient}>
+    <BrowserRouter>
       <HelmetProvider>
-        <BrowserRouter>
-          <ThemeProvider>
-            <LanguageProvider>
-              <AuthProvider>
-                <ExperienceThemeProvider>
-                  <TooltipProvider>
-                    <Toaster />
-                    <Sonner />
-                    <ScrollToTop />
-                    <Suspense fallback={<div>Loading...</div>}>
-                      <AppRoutes />
-                    </Suspense>
-                  </TooltipProvider>
-                </ExperienceThemeProvider>
-              </AuthProvider>
-            </LanguageProvider>
-          </ThemeProvider>
-        </BrowserRouter>
+        <QueryClient>
+          <QueryClientProvider client={queryClient}>
+            <ThemeProvider defaultTheme="light" storageKey="sheraa-ui-theme">
+              <ExperienceThemeProvider>
+                <AuthProvider>
+                  <LanguageProvider>
+                    <AccessibilityProvider>
+                      <PerformanceProvider>
+                        <SEOHead structuredData={organizationStructuredData} />
+                        <div className="min-h-screen bg-background text-foreground">
+                          <Toaster />
+                          <AppRoutes />
+                        </div>
+                      </PerformanceProvider>
+                    </AccessibilityProvider>
+                  </LanguageProvider>
+                </AuthProvider>
+              </ExperienceThemeProvider>
+            </ThemeProvider>
+          </QueryClientProvider>
+        </QueryClient>
       </HelmetProvider>
-    </QueryClientProvider>
+    </BrowserRouter>
   );
-};
+}
 
 export default App;
