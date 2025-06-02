@@ -118,7 +118,7 @@ const AppRoutes: React.FC = () => {
         <Route path="/programs/deal-dock" element={<DealDockPage />} />
         <Route path="/programs/sme-support" element={<SMESupportPage />} />
         
-        {/* Resources Routes */}
+        {/* Resources Routes - Using nested router */}
         <Route path="/resources/*" element={<ResourcesRouter />} />
         
         {/* Community Routes */}
