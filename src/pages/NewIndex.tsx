@@ -1,6 +1,6 @@
 
 import React from "react";
-import MainLayout from "@/layouts/MainLayout";
+import MainLayout from "@/components/layouts/MainLayout";
 import UltimateHero from "@/components/hero/UltimateHero";
 import DealDockMarquee from "@/components/homepage/DealDockMarquee";
 import { ImpactMetricsSection } from "@/components/homepage/redesign/ImpactMetricsSection";
