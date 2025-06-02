@@ -22,6 +22,8 @@ const queryClient = new QueryClient({
   },
 });
 
+// This component is kept for potential future use but not currently used
+// The main App.tsx handles providers directly to avoid conflicts
 const AppProviders: React.FC<AppProvidersProps> = ({ children }) => {
   return (
     <HelmetProvider>

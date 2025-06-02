@@ -16,25 +16,37 @@ interface ThemeProviderProps {
 }
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
-  const [theme, setTheme] = useState<Theme>(() => {
-    // Check for saved theme preference or use system preference
-    if (typeof window !== 'undefined') {
+  // Ensure we're in a browser environment before accessing localStorage
+  const getInitialTheme = (): Theme => {
+    if (typeof window === 'undefined') {
+      return 'light';
+    }
+    
+    try {
       const savedTheme = localStorage.getItem('theme') as Theme;
       if (savedTheme && (savedTheme === 'light' || savedTheme === 'dark')) {
         return savedTheme;
       }
       return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    } catch (error) {
+      console.warn('Error accessing localStorage:', error);
+      return 'light';
     }
-    return 'light'; // Default fallback
-  });
+  };
+
+  const [theme, setTheme] = useState<Theme>(getInitialTheme);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
+    if (typeof window === 'undefined') return;
+    
+    try {
       // Apply theme class to document
       const root = window.document.documentElement;
       root.classList.remove('light', 'dark');
       root.classList.add(theme);
       localStorage.setItem('theme', theme);
+    } catch (error) {
+      console.warn('Error setting theme:', error);
     }
   }, [theme]);
 

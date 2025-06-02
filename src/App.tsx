@@ -11,26 +11,34 @@ import { ExperienceThemeProvider } from '@/contexts/ExperienceThemeContext';
 import AppRoutes from './routes/AppRoutes';
 import ScrollToTop from '@/components/utils/ScrollToTop';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5, // 5 minutes
+      retry: 1,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <HelmetProvider>
-        <ThemeProvider>
-          <ExperienceThemeProvider>
-            <TooltipProvider>
-              <Toaster />
-              <Sonner />
-              <BrowserRouter>
+        <BrowserRouter>
+          <ThemeProvider>
+            <ExperienceThemeProvider>
+              <TooltipProvider>
+                <Toaster />
+                <Sonner />
                 <ScrollToTop />
                 <Suspense fallback={<div>Loading...</div>}>
                   <AppRoutes />
                 </Suspense>
-              </BrowserRouter>
-            </TooltipProvider>
-          </ExperienceThemeProvider>
-        </ThemeProvider>
+              </TooltipProvider>
+            </ExperienceThemeProvider>
+          </ThemeProvider>
+        </BrowserRouter>
       </HelmetProvider>
     </QueryClientProvider>
   );
