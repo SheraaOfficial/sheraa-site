@@ -347,7 +347,7 @@ const MainNavigation = () => {
                 </Link>
               </div>
             </div>
-          </div>
+          </motion.div>
         )}
       </div>
     </nav>
