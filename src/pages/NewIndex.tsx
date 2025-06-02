@@ -11,7 +11,7 @@ import { CommunityPartnersSection } from "@/components/homepage/redesign/Communi
 import { VisionQuoteSection } from "@/components/homepage/redesign/VisionQuoteSection";
 import { FinalCTASection } from "@/components/homepage/redesign/FinalCTASection";
 import { CyclingStickyCornerCTA } from "@/components/ui/cycling-sticky-cta";
-import { TestimonialsSection } from "@/components/testimonials/TestimonialsSection";
+import SheraaTestimonials from "@/components/testimonials/SheraaTestimonials";
 import { PerformanceOptimizer } from "@/components/performance/PerformanceOptimizer";
 
 const NewIndex: React.FC = () => {
@@ -26,8 +26,8 @@ const NewIndex: React.FC = () => {
       <ProgramsJourneySection />
       
       {/* Medium priority content with performance optimization */}
-      <PerformanceOptimizer componentName="Testimonials" priority="medium" height={600}>
-        <TestimonialsSection />
+      <PerformanceOptimizer componentName="Sheraa Testimonials" priority="medium" height={600}>
+        <SheraaTestimonials />
       </PerformanceOptimizer>
       
       <PerformanceOptimizer componentName="Startup Ecosystem" priority="medium">
