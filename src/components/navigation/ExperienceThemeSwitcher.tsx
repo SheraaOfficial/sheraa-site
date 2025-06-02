@@ -56,7 +56,9 @@ export const ExperienceThemeSwitcher: React.FC = () => {
 
   const handleThemeSwitch = (newTheme: typeof themes[0]) => {
     if (newTheme.id !== theme) {
+      // Set theme first
       newTheme.action();
+      // Then navigate to the route
       navigate(newTheme.route);
       setIsOpen(false);
     }

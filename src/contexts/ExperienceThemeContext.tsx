@@ -34,9 +34,17 @@ export const ExperienceThemeProvider: React.FC<ExperienceThemeProviderProps> = (
     }
   }, [theme]);
 
-  const switchToMain = () => setTheme('main');
-  const switchToSEF = () => setTheme('sef');
-  const switchToDashboard = () => setTheme('dashboard');
+  const switchToMain = () => {
+    setTheme('main');
+  };
+  
+  const switchToSEF = () => {
+    setTheme('sef');
+  };
+  
+  const switchToDashboard = () => {
+    setTheme('dashboard');
+  };
 
   const contextValue: ExperienceThemeContextType = {
     theme,

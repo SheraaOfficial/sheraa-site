@@ -1,36 +1,24 @@
 
 import React from 'react';
-import { Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import ResourcesPage from './index';
 import AdvisoryPage from './AdvisoryPage';
 import ArticlesPage from './ArticlesPage';
 import ImpactReportsPage from './ImpactReportsPage';
-import GuidesPage from './guides'; // Updated import to point to the new guides directory
+import GuidesPage from './guides';
 import { ResourcesGameProvider } from '@/components/resources/ResourcesGameContext';
 
-interface ResourcesRouterProps {
-  section?: string;
-}
-
-const ResourcesRouter: React.FC<ResourcesRouterProps> = ({ section }) => {
+const ResourcesRouter: React.FC = () => {
   return (
     <ResourcesGameProvider>
-      {(() => {
-        switch(section) {
-          case 'guides':
-            return <GuidesPage />;
-          case 'advisory':
-            return <AdvisoryPage />;
-          case 'articles':
-            return <ArticlesPage />;
-          case 'impact-reports':
-            return <ImpactReportsPage />;
-          case undefined:
-            return <ResourcesPage />;
-          default:
-            return <Navigate to="/resources" replace />;
-        }
-      })()}
+      <Routes>
+        <Route path="/" element={<ResourcesPage />} />
+        <Route path="/guides" element={<GuidesPage />} />
+        <Route path="/advisory" element={<AdvisoryPage />} />
+        <Route path="/articles" element={<ArticlesPage />} />
+        <Route path="/impact-reports" element={<ImpactReportsPage />} />
+        <Route path="*" element={<Navigate to="/resources" replace />} />
+      </Routes>
     </ResourcesGameProvider>
   );
 };
