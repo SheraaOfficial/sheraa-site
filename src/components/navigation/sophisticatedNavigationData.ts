@@ -142,8 +142,8 @@ export const sophisticatedNavigationItems: NavigationItem[] = [
     ]
   },
   {
-    name: 'SEF',
-    path: '/events/sef',
+    name: "SEF'26",
+    path: '/events/sef-landing',
     special: true,
     icon: Star
   }

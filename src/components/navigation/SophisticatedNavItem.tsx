@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import { NavigationItem } from './types';
+import { SEFButton } from './SEFButton';
 
 interface SophisticatedNavItemProps {
   item: NavigationItem;
@@ -19,6 +20,11 @@ export const SophisticatedNavItem: React.FC<SophisticatedNavItemProps> = ({
 
   const isCurrentPage = location.pathname === item.path;
   const hasSubItems = item.subItems && item.subItems.length > 0;
+
+  // Special handling for SEF button
+  if (item.special) {
+    return <SEFButton path={item.path} />;
+  }
 
   if (!hasSubItems) {
     return (
@@ -63,13 +69,14 @@ export const SophisticatedNavItem: React.FC<SophisticatedNavItemProps> = ({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.15 }}
-            className="absolute top-full left-0 mt-2 w-64 bg-white dark:bg-sheraa-dark rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 py-2 z-50"
+            className="absolute top-full left-0 mt-2 w-64 bg-white dark:bg-sheraa-dark rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 py-2 z-[100] backdrop-blur-sm"
+            style={{ backgroundColor: 'rgba(255, 255, 255, 0.95)' }}
           >
             {item.subItems?.map((subItem) => (
               <Link
                 key={subItem.name}
                 to={subItem.path}
-                className="flex flex-col px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                className="flex flex-col px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-800/80 transition-colors"
               >
                 <span className="font-medium text-gray-900 dark:text-white">
                   {subItem.name}

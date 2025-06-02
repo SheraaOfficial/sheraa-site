@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { NavigationItem as NavItemType } from './types';
-import { useLanguage } from '@/contexts/LanguageContext';
+import { SEFButton } from './SEFButton';
 
 interface NavigationItemProps {
   item: NavItemType;
@@ -21,7 +21,6 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
   onDropdownClose
 }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const { language } = useLanguage();
   const Icon = item.icon;
 
   const handleMouseEnter = () => {
@@ -40,6 +39,11 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
     }
   };
 
+  // Special handling for SEF button
+  if (item.special) {
+    return <SEFButton path={item.path} />;
+  }
+
   return (
     <div 
       className="relative"
@@ -52,45 +56,22 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
             "flex items-center gap-2 px-4 py-2 text-sm font-medium transition-all duration-300 rounded-lg group",
             isActive || isDropdownOpen
               ? "text-sheraa-primary bg-sheraa-primary/10" 
-              : "text-gray-700 dark:text-gray-300 hover:text-sheraa-primary hover:bg-sheraa-primary/5",
-            item.special && "bg-gradient-to-r from-sheraa-sef-primary/20 to-sheraa-sef-secondary/20 border border-sheraa-sef-primary/30"
+              : "text-gray-700 dark:text-gray-300 hover:text-sheraa-primary hover:bg-sheraa-primary/5"
           )}
         >
           {Icon && (
             <motion.div
-              whileHover={{ scale: 1.1, rotate: item.special ? 15 : 0 }}
+              whileHover={{ scale: 1.1 }}
               transition={{ duration: 0.2 }}
             >
-              <Icon className={cn(
-                "w-4 h-4",
-                item.special && "text-sheraa-sef-primary"
-              )} />
+              <Icon className="w-4 h-4" />
             </motion.div>
           )}
-          <span className={cn(
-            item.special && "font-bold bg-gradient-to-r from-sheraa-sef-primary to-sheraa-sef-secondary bg-clip-text text-transparent"
-          )}>
-            {item.name}
-          </span>
+          <span>{item.name}</span>
           <ChevronDown className={cn(
             "w-4 h-4 transition-transform duration-200",
             isDropdownOpen && "rotate-180"
           )} />
-          {item.special && (
-            <motion.span
-              animate={{ 
-                scale: [1, 1.2, 1],
-                opacity: [0.7, 1, 0.7]
-              }}
-              transition={{ 
-                duration: 1.5,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            >
-              ✨
-            </motion.span>
-          )}
         </button>
       ) : (
         <Link
@@ -100,41 +81,18 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
             "flex items-center gap-2 px-4 py-2 text-sm font-medium transition-all duration-300 rounded-lg group",
             isActive
               ? "text-sheraa-primary bg-sheraa-primary/10" 
-              : "text-gray-700 dark:text-gray-300 hover:text-sheraa-primary hover:bg-sheraa-primary/5",
-            item.special && "bg-gradient-to-r from-sheraa-sef-primary/20 to-sheraa-sef-secondary/20 border border-sheraa-sef-primary/30"
+              : "text-gray-700 dark:text-gray-300 hover:text-sheraa-primary hover:bg-sheraa-primary/5"
           )}
         >
           {Icon && (
             <motion.div
-              whileHover={{ scale: 1.1, rotate: item.special ? 15 : 0 }}
+              whileHover={{ scale: 1.1 }}
               transition={{ duration: 0.2 }}
             >
-              <Icon className={cn(
-                "w-4 h-4",
-                item.special && "text-sheraa-sef-primary"
-              )} />
+              <Icon className="w-4 h-4" />
             </motion.div>
           )}
-          <span className={cn(
-            item.special && "font-bold bg-gradient-to-r from-sheraa-sef-primary to-sheraa-sef-secondary bg-clip-text text-transparent"
-          )}>
-            {item.name}
-          </span>
-          {item.special && (
-            <motion.span
-              animate={{ 
-                scale: [1, 1.2, 1],
-                opacity: [0.7, 1, 0.7]
-              }}
-              transition={{ 
-                duration: 1.5,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            >
-              ✨
-            </motion.span>
-          )}
+          <span>{item.name}</span>
         </Link>
       )}
 
@@ -146,7 +104,8 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="absolute top-full left-0 mt-2 w-64 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-xl z-50 overflow-hidden"
+            className="absolute top-full left-0 mt-2 w-64 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-xl z-[100] overflow-hidden backdrop-blur-sm"
+            style={{ backgroundColor: 'rgba(255, 255, 255, 0.95)' }}
           >
             <div className="p-2">
               {item.subItems.map((subItem, subIndex) => (

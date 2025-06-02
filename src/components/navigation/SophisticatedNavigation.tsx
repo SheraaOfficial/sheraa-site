@@ -8,12 +8,32 @@ import { SophisticatedNavItem } from './SophisticatedNavItem';
 import { SophisticatedMobileMenu } from './SophisticatedMobileMenu';
 import { ExperienceThemeSwitcher } from './ExperienceThemeSwitcher';
 import { SearchButton } from './SearchButton';
+import { ThemeToggle } from '@/components/ui/theme-toggle';
+import { LanguageSwitcher } from './LanguageSwitcher';
+import { AuthButtons } from './AuthButtons';
 import { useScrollNavigation } from './useScrollNavigation';
+import { NavigationItem } from './types';
+
+// Convert sophisticated navigation items to standard navigation items
+const convertToNavigationItems = (): NavigationItem[] => {
+  return sophisticatedNavigationItems.map(item => ({
+    name: item.name,
+    path: item.path,
+    icon: item.icon,
+    subItems: item.subItems?.map(subItem => ({
+      name: subItem.name,
+      path: subItem.path,
+      description: subItem.description
+    })),
+    special: item.special
+  }));
+};
 
 export const SophisticatedNavigation: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
   const { isScrolled, isScrollingUp } = useScrollNavigation();
+  const navigationItems = convertToNavigationItems();
 
   // Close mobile menu when route changes
   useEffect(() => {
@@ -32,6 +52,14 @@ export const SophisticatedNavigation: React.FC = () => {
       document.body.style.overflow = 'unset';
     };
   }, [isMobileMenuOpen]);
+
+  const isPathActive = (path: string, subItems?: NavigationItem['subItems']): boolean => {
+    if (location.pathname === path) return true;
+    if (subItems) {
+      return subItems.some(subItem => location.pathname.startsWith(subItem.path));
+    }
+    return location.pathname.startsWith(path) && path !== '/';
+  };
 
   return (
     <motion.header
@@ -54,15 +82,18 @@ export const SophisticatedNavigation: React.FC = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-1" role="navigation" aria-label="Main navigation">
-            {sophisticatedNavigationItems.map((item) => (
+            {navigationItems.map((item) => (
               <SophisticatedNavItem key={item.name} item={item} />
             ))}
           </nav>
 
-          {/* Desktop Actions */}
-          <div className="hidden lg:flex items-center space-x-4">
+          {/* Desktop Actions - Ordered: Search → Experience Theme → Theme Toggle → Auth Buttons → Language Switcher */}
+          <div className="hidden lg:flex items-center space-x-2">
             <SearchButton />
             <ExperienceThemeSwitcher />
+            <ThemeToggle />
+            <AuthButtons />
+            <LanguageSwitcher />
           </div>
 
           {/* Mobile Menu Button */}
@@ -112,6 +143,8 @@ export const SophisticatedNavigation: React.FC = () => {
           <SophisticatedMobileMenu
             isOpen={isMobileMenuOpen}
             onClose={() => setIsMobileMenuOpen(false)}
+            navigationItems={navigationItems}
+            isPathActive={isPathActive}
           />
         )}
       </AnimatePresence>

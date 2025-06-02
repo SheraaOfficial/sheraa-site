@@ -14,7 +14,7 @@ const queryClient = new QueryClient();
 
 import { AccessibilityProvider } from '@/components/accessibility/AccessibilityProvider';
 import { PerformanceProvider } from '@/contexts/PerformanceContext';
-import { SEOHead } from '@/components/SEO/SEOHead';
+import SEOHead from '@/components/SEO/SEOHead';
 import { organizationStructuredData } from '@/data/structuredData';
 
 function App() {
