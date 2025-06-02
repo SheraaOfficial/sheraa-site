@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { motion } from "framer-motion";
-import { GraduationCap, Rocket, Globe, Building2, ArrowRight, Handshake } from "lucide-react";
+import { GraduationCap, Rocket, Globe, Building2, ArrowRight } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const ProgramsOverview = () => {
@@ -13,13 +13,14 @@ const ProgramsOverview = () => {
   const programs = [
     {
       title: "Start Young",
-      subtitle: "Student & Youth Programs",
-      description: "Nurturing the next generation of innovators through education and mentorship.",
+      subtitle: "Youth & Student Programs",
+      description: "Nurturing the next generation through Startup Dojo and Dojo+ programs for students and youth.",
       link: "/programs/start-young",
       icon: GraduationCap,
       stats: "18k+ Youth",
       color: "from-blue-500/20 to-sheraa-primary/20",
-      iconColor: "text-blue-500"
+      iconColor: "text-blue-500",
+      subPrograms: ["Startup Dojo", "Startup Dojo+"]
     },
     {
       title: "S3 Incubator",
@@ -50,16 +51,6 @@ const ProgramsOverview = () => {
       stats: "60k+ SMEs",
       color: "from-orange-500/20 to-red-500/20",
       iconColor: "text-orange-500"
-    },
-    {
-      title: "Startup Dojo",
-      subtitle: "Summer Incubation",
-      description: "8-week intensive program for students to transform ideas into viable solutions.",
-      link: "/programs/startup-dojo",
-      icon: GraduationCap,
-      stats: "Summer Program",
-      color: "from-indigo-500/20 to-blue-500/20",
-      iconColor: "text-indigo-500"
     }
   ];
 
@@ -113,7 +104,6 @@ const ProgramsOverview = () => {
           )}
         </motion.div>
         
-        {/* Vertical layout for condensed view */}
         <motion.div 
           variants={containerVariants}
           initial="hidden"
@@ -146,6 +136,16 @@ const ProgramsOverview = () => {
                       </div>
                       <p className="text-sm text-sheraa-primary font-medium mb-2">{program.subtitle}</p>
                       <p className="text-sm text-gray-600 mb-3">{program.description}</p>
+                      
+                      {program.subPrograms && (
+                        <div className="flex gap-2 mb-3">
+                          {program.subPrograms.map((subProgram, idx) => (
+                            <span key={idx} className="text-xs bg-blue-50 text-blue-700 px-2 py-1 rounded-full">
+                              {subProgram}
+                            </span>
+                          ))}
+                        </div>
+                      )}
                       
                       <Link 
                         to={program.link}
