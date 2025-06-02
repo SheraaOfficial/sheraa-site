@@ -48,6 +48,7 @@ const MainNavigation = () => {
         { name: 'S3 Incubator', path: '/programs/s3-incubator' },
         { name: 'Start Young', path: '/programs/start-young' },
         { name: 'Access Sharjah Challenge', path: '/programs/access-sharjah-challenge' },
+        { name: 'Deal Dock', path: '/programs/deal-dock' },
         { name: 'SME Support', path: '/programs/sme-support' }
       ]
     },

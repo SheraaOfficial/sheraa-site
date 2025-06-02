@@ -1,5 +1,6 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { ErrorBoundary } from 'react-error-boundary';
 import NewIndex from "@/pages/NewIndex";
 import NotFound from "@/pages/NotFound";
 
@@ -8,7 +9,7 @@ import About from "@/pages/about/index";
 import AboutLeadershipPage from "@/pages/about/AboutLeadershipPage";
 import AboutBoardPage from "@/pages/about/AboutBoardPage";
 
-// Auth pages - using enhanced versions
+// Auth pages
 import AuthPage from "@/pages/auth/AuthPage";
 import LoginPage from "@/pages/auth/LoginPage";
 import SignupPage from "@/pages/auth/SignupPage";
@@ -62,6 +63,7 @@ import ReportsPage from "@/pages/reports/index";
 import CommunityFeedPage from "@/pages/feed/index";
 import PrivacyPolicy from "@/pages/PrivacyPolicy";
 import TermsOfUse from "@/pages/TermsOfUse";
+import DashboardPage from "@/pages/dashboard/DashboardPage";
 
 // Perfume pages
 import PerfumePage from "@/pages/perfume/index";
@@ -70,100 +72,112 @@ import PerfumeBuyPage from "@/pages/perfume/buy/index";
 import PerfumeGalleryPage from "@/pages/perfume/gallery/index";
 import PerfumePricingPage from "@/pages/perfume/pricing/index";
 
-// Add dashboard import
-import DashboardPage from "@/pages/dashboard/DashboardPage";
+const ErrorFallback = ({ error }: { error: Error }) => (
+  <div className="min-h-screen flex items-center justify-center">
+    <div className="text-center">
+      <h2 className="text-2xl font-bold mb-4">Route Error</h2>
+      <p className="text-gray-600 mb-4">{error.message}</p>
+      <button 
+        onClick={() => window.location.href = '/'} 
+        className="px-4 py-2 bg-sheraa-primary text-white rounded hover:bg-sheraa-primary/90"
+      >
+        Go Home
+      </button>
+    </div>
+  </div>
+);
 
 const AppRoutes: React.FC = () => {
   return (
-    <Routes>
-      {/* Homepage */}
-      <Route path="/" element={<NewIndex />} />
-      
-      {/* Dashboard Route - New Phase 4 Feature */}
-      <Route path="/dashboard" element={<DashboardPage />} />
-      
-      {/* About Routes */}
-      <Route path="/about" element={<About />} />
-      <Route path="/about/leadership" element={<AboutLeadershipPage />} />
-      <Route path="/about/board" element={<AboutBoardPage />} />
-      
-      {/* Auth Routes - Enhanced integration */}
-      <Route path="/auth" element={<AuthPage />} />
-      <Route path="/auth/login" element={<LoginPage />} />
-      <Route path="/auth/signup" element={<SignupPage />} />
-      <Route path="/auth/forgot-password" element={<ForgotPasswordPage />} />
-      
-      {/* Programs Routes */}
-      <Route path="/programs" element={<ProgramsPage />} />
-      <Route path="/programs/s3-incubator" element={<S3IncubatorPage />} />
-      <Route path="/programs/startup-dojo" element={<StartupDojoPage />} />
-      <Route path="/programs/startup-dojo-plus" element={<StartupDojoPlusPage />} />
-      <Route path="/programs/start-young" element={<StartYoungPage />} />
-      <Route path="/programs/access-sharjah-challenge" element={<AccessSharjahChallengePage />} />
-      <Route path="/programs/deal-dock" element={<DealDockPage />} />
-      <Route path="/programs/sme-support" element={<SMESupportPage />} />
-      
-      {/* Resources Routes */}
-      <Route path="/resources/*" element={<ResourcesRouter />} />
-      
-      {/* Community Routes */}
-      <Route path="/community" element={<CommunityPage />} />
-      <Route path="/community/join" element={<MembershipPage />} />
-      <Route path="/community/membership" element={<MembershipPage />} />
-      <Route path="/community/membership/apply" element={<MembershipApplyPage />} />
-      <Route path="/community/membership/confirmation" element={<MembershipConfirmationPage />} />
-      <Route path="/community/membership/success-stories" element={<MembershipSuccessStoriesPage />} />
-      <Route path="/community/partnerships" element={<PartnershipsPage />} />
-      <Route path="/community/startups" element={<StartupsPage />} />
-      
-      {/* Events Routes */}
-      <Route path="/events" element={<EventsPage />} />
-      <Route path="/events/upcoming" element={<UpcomingEventsPage />} />
-      <Route path="/events/past" element={<PastEventsPage />} />
-      <Route path="/events/sef-landing" element={<SEFLandingPage />} />
-      <Route path="/events/sef" element={<SEFLandingPage />} />
-      <Route path="/events/sef/agenda" element={<SEFAgendaPage />} />
-      <Route path="/events/sef/speakers" element={<SEFSpeakersPage />} />
-      <Route path="/events/sef/experience" element={<SEFExperiencePage />} />
-      <Route path="/events/sef/register" element={<SEFRegisterPage />} />
-      <Route path="/events/sef/be-part" element={<SEFBePartPage />} />
-      <Route path="/events/sef/who-should-attend" element={<SEFWhoShouldAttendPage />} />
-      <Route path="/events/sef/faq" element={<SEFFAQPage />} />
-      
-      {/* Other Pages */}
-      <Route path="/contact" element={<Contact />} />
-      <Route path="/careers" element={<CareersPage />} />
-      <Route path="/eligibility" element={<EligibilityPage />} />
-      <Route path="/impact-report" element={<ImpactReport />} />
-      <Route path="/profile" element={<ProfilePage />} />
-      <Route path="/profile/setup" element={<ProfileSetupPage />} />
-      <Route path="/blog" element={<BlogPage />} />
-      <Route path="/podcast" element={<PodcastPage />} />
-      <Route path="/reports" element={<ReportsPage />} />
-      <Route path="/feed" element={<CommunityFeedPage />} />
-      <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-      <Route path="/privacy" element={<PrivacyPolicy />} />
-      <Route path="/terms-of-use" element={<TermsOfUse />} />
-      <Route path="/terms" element={<TermsOfUse />} />
-      
-      {/* Perfume Routes */}
-      <Route path="/perfume" element={<PerfumePage />} />
-      <Route path="/perfume/about" element={<PerfumeAboutPage />} />
-      <Route path="/perfume/buy" element={<PerfumeBuyPage />} />
-      <Route path="/perfume/gallery" element={<PerfumeGalleryPage />} />
-      <Route path="/perfume/pricing" element={<PerfumePricingPage />} />
-      
-      {/* Legacy redirects and aliases - using enhanced auth */}
-      <Route path="/login" element={<AuthPage />} />
-      <Route path="/signup" element={<AuthPage />} />
-      <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-      
-      {/* Profile Setup alias */}
-      <Route path="/profile-setup" element={<ProfileSetupPage />} />
-      
-      {/* 404 Fallback */}
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+    <ErrorBoundary FallbackComponent={ErrorFallback}>
+      <Routes>
+        {/* Homepage */}
+        <Route path="/" element={<NewIndex />} />
+        
+        {/* Dashboard */}
+        <Route path="/dashboard" element={<DashboardPage />} />
+        
+        {/* About Routes */}
+        <Route path="/about" element={<About />} />
+        <Route path="/about/leadership" element={<AboutLeadershipPage />} />
+        <Route path="/about/board" element={<AboutBoardPage />} />
+        
+        {/* Auth Routes */}
+        <Route path="/auth" element={<AuthPage />} />
+        <Route path="/auth/login" element={<LoginPage />} />
+        <Route path="/auth/signup" element={<SignupPage />} />
+        <Route path="/auth/forgot-password" element={<ForgotPasswordPage />} />
+        
+        {/* Programs Routes */}
+        <Route path="/programs" element={<ProgramsPage />} />
+        <Route path="/programs/s3-incubator" element={<S3IncubatorPage />} />
+        <Route path="/programs/startup-dojo" element={<StartupDojoPage />} />
+        <Route path="/programs/startup-dojo-plus" element={<StartupDojoPlusPage />} />
+        <Route path="/programs/start-young" element={<StartYoungPage />} />
+        <Route path="/programs/access-sharjah-challenge" element={<AccessSharjahChallengePage />} />
+        <Route path="/programs/deal-dock" element={<DealDockPage />} />
+        <Route path="/programs/sme-support" element={<SMESupportPage />} />
+        
+        {/* Resources Routes */}
+        <Route path="/resources/*" element={<ResourcesRouter />} />
+        
+        {/* Community Routes */}
+        <Route path="/community" element={<CommunityPage />} />
+        <Route path="/community/join" element={<MembershipPage />} />
+        <Route path="/community/membership" element={<MembershipPage />} />
+        <Route path="/community/membership/apply" element={<MembershipApplyPage />} />
+        <Route path="/community/membership/confirmation" element={<MembershipConfirmationPage />} />
+        <Route path="/community/membership/success-stories" element={<MembershipSuccessStoriesPage />} />
+        <Route path="/community/partnerships" element={<PartnershipsPage />} />
+        <Route path="/community/startups" element={<StartupsPage />} />
+        
+        {/* Events Routes */}
+        <Route path="/events" element={<EventsPage />} />
+        <Route path="/events/upcoming" element={<UpcomingEventsPage />} />
+        <Route path="/events/past" element={<PastEventsPage />} />
+        <Route path="/events/sef-landing" element={<SEFLandingPage />} />
+        <Route path="/events/sef" element={<SEFLandingPage />} />
+        <Route path="/events/sef/agenda" element={<SEFAgendaPage />} />
+        <Route path="/events/sef/speakers" element={<SEFSpeakersPage />} />
+        <Route path="/events/sef/experience" element={<SEFExperiencePage />} />
+        <Route path="/events/sef/register" element={<SEFRegisterPage />} />
+        <Route path="/events/sef/be-part" element={<SEFBePartPage />} />
+        <Route path="/events/sef/who-should-attend" element={<SEFWhoShouldAttendPage />} />
+        <Route path="/events/sef/faq" element={<SEFFAQPage />} />
+        
+        {/* Other Pages */}
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/careers" element={<CareersPage />} />
+        <Route path="/eligibility" element={<EligibilityPage />} />
+        <Route path="/impact-report" element={<ImpactReport />} />
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/profile/setup" element={<ProfileSetupPage />} />
+        <Route path="/blog" element={<BlogPage />} />
+        <Route path="/podcast" element={<PodcastPage />} />
+        <Route path="/reports" element={<ReportsPage />} />
+        <Route path="/feed" element={<CommunityFeedPage />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/privacy" element={<Navigate to="/privacy-policy" replace />} />
+        <Route path="/terms-of-use" element={<TermsOfUse />} />
+        <Route path="/terms" element={<Navigate to="/terms-of-use" replace />} />
+        
+        {/* Perfume Routes */}
+        <Route path="/perfume" element={<PerfumePage />} />
+        <Route path="/perfume/about" element={<PerfumeAboutPage />} />
+        <Route path="/perfume/buy" element={<PerfumeBuyPage />} />
+        <Route path="/perfume/gallery" element={<PerfumeGalleryPage />} />
+        <Route path="/perfume/pricing" element={<PerfumePricingPage />} />
+        
+        {/* Legacy redirects */}
+        <Route path="/login" element={<Navigate to="/auth/login" replace />} />
+        <Route path="/signup" element={<Navigate to="/auth/signup" replace />} />
+        <Route path="/forgot-password" element={<Navigate to="/auth/forgot-password" replace />} />
+        <Route path="/profile-setup" element={<Navigate to="/profile/setup" replace />} />
+        
+        {/* 404 Fallback */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </ErrorBoundary>
   );
 };
 

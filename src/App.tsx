@@ -9,6 +9,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import { ExperienceThemeProvider } from '@/contexts/ExperienceThemeContext';
 import AppRoutes from './routes/AppRoutes';
+import ScrollToTop from '@/components/utils/ScrollToTop';
 
 const queryClient = new QueryClient();
 
@@ -22,6 +23,7 @@ const App = () => {
               <Toaster />
               <Sonner />
               <BrowserRouter>
+                <ScrollToTop />
                 <Suspense fallback={<div>Loading...</div>}>
                   <AppRoutes />
                 </Suspense>
