@@ -6,7 +6,7 @@ import { ArrowRight, Calendar, MapPin, Users } from 'lucide-react';
 import { Sparkles } from '@/components/ui/sparkles';
 import { Button } from '@/components/ui/button';
 import { GradientButton } from '@/components/ui/gradient-button';
-import { useTheme } from '@/contexts/ThemeContext';
+import { useTheme } from 'next-themes';
 
 const SEFHero = () => {
   const { theme } = useTheme();
