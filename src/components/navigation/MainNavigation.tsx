@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -14,10 +13,11 @@ import {
   ChevronDown,
   User,
   LogIn,
-  BarChart3 // Add this import for Dashboard
+  BarChart3
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
+import { ExperienceThemeSwitcher } from './ExperienceThemeSwitcher';
 
 const MainNavigation = () => {
   const location = useLocation();
@@ -208,8 +208,9 @@ const MainNavigation = () => {
             </div>
           </div>
 
-          {/* Auth Buttons */}
+          {/* Auth Buttons & Theme Switcher */}
           <div className="hidden lg:flex items-center gap-3">
+            <ExperienceThemeSwitcher />
             <Button variant="ghost" size="sm" asChild>
               <Link to="/auth" className="flex items-center gap-2">
                 <LogIn className="w-4 h-4" />
@@ -225,38 +226,41 @@ const MainNavigation = () => {
           </div>
 
           {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 text-gray-700 hover:text-sheraa-primary hover:bg-gray-200 transition-all duration-200"
-          >
-            <motion.div
-              animate={{ rotate: isOpen ? 45 : 0 }}
-              transition={{ duration: 0.2 }}
+          <div className="lg:hidden flex items-center gap-2">
+            <ExperienceThemeSwitcher />
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 text-gray-700 hover:text-sheraa-primary hover:bg-gray-200 transition-all duration-200"
             >
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+              <motion.div
+                animate={{ rotate: isOpen ? 45 : 0 }}
+                transition={{ duration: 0.2 }}
               >
-                {isOpen ? (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                ) : (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                )}
-              </svg>
-            </motion.div>
-          </button>
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  {isOpen ? (
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  ) : (
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M4 6h16M4 12h16M4 18h16"
+                    />
+                  )}
+                </svg>
+              </motion.div>
+            </button>
+          </div>
         </div>
 
         {/* Mobile Navigation */}

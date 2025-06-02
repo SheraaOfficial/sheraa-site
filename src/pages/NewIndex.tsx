@@ -11,10 +11,12 @@ import { CommunityPartnersSection } from "@/components/homepage/redesign/Communi
 import { VisionQuoteSection } from "@/components/homepage/redesign/VisionQuoteSection";
 import { FinalCTASection } from "@/components/homepage/redesign/FinalCTASection";
 import { CyclingStickyCornerCTA } from "@/components/ui/cycling-sticky-cta";
+import { SmartThemeRouter } from "@/components/navigation/SmartThemeRouter";
 
 const NewIndex: React.FC = () => {
   return (
     <MainLayout className="bg-white dark:bg-sheraa-dark">
+      <SmartThemeRouter />
       <UltimateHero />
       <DealDockMarquee />
       <ImpactMetricsSection />
