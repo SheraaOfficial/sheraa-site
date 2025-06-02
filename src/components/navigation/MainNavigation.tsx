@@ -46,11 +46,9 @@ const MainNavigation = () => {
       subItems: [
         { name: 'Overview', path: '/programs' },
         { name: 'S3 Incubator', path: '/programs/s3-incubator' },
-        { name: 'Startup Dojo', path: '/programs/startup-dojo' },
-        { name: 'Startup Dojo+', path: '/programs/startup-dojo-plus' },
         { name: 'Start Young', path: '/programs/start-young' },
         { name: 'Access Sharjah Challenge', path: '/programs/access-sharjah-challenge' },
-        { name: 'Deal Dock', path: '/programs/deal-dock' }
+        { name: 'SME Support', path: '/programs/sme-support' }
       ]
     },
     { 
@@ -73,10 +71,7 @@ const MainNavigation = () => {
         { name: 'Guides & Toolkits', path: '/resources/guides' },
         { name: 'Advisory', path: '/resources/advisory' },
         { name: 'Articles', path: '/resources/articles' },
-        { name: 'Impact Reports', path: '/resources/impact-reports' },
-        { name: 'Blog', path: '/blog' },
-        { name: 'Podcast', path: '/podcast' },
-        { name: 'Reports', path: '/reports' }
+        { name: 'Impact Reports', path: '/resources/impact-reports' }
       ]
     },
     { 
@@ -352,7 +347,7 @@ const MainNavigation = () => {
                 </Link>
               </div>
             </div>
-          </motion.div>
+          </div>
         )}
       </div>
     </nav>

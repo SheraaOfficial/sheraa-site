@@ -27,7 +27,7 @@ const Footer = () => {
           {/* Logo and Description */}
           <div className="lg:col-span-1">
             <Link to="/" className="inline-block mb-6">
-              <img src="/logo.png" alt="Sheraa" className="h-12 w-auto" />
+              <img src="/lovable-uploads/sheraa-logo.png" alt="Sheraa" className="h-12 w-auto" />
             </Link>
             <p className="text-gray-300 mb-6 leading-relaxed">
               Sharjah's official hub for aspiring founders and established ventures. 
@@ -121,10 +121,10 @@ const Footer = () => {
               © 2024 Sheraa. All rights reserved.
             </p>
             <div className="flex gap-6 text-sm">
-              <Link to="/privacy" className="text-gray-400 hover:text-white transition-colors">
+              <Link to="/privacy-policy" className="text-gray-400 hover:text-white transition-colors">
                 Privacy Policy
               </Link>
-              <Link to="/terms" className="text-gray-400 hover:text-white transition-colors">
+              <Link to="/terms-of-use" className="text-gray-400 hover:text-white transition-colors">
                 Terms of Use
               </Link>
             </div>

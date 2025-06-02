@@ -22,6 +22,7 @@ import StartupDojoPlusPage from "@/pages/programs/startup-dojo-plus/index";
 import StartYoungPage from "@/pages/programs/start-young/index";
 import AccessSharjahChallengePage from "@/pages/programs/AccessSharjahChallengePage";
 import DealDockPage from "@/pages/programs/DealDockPage";
+import SMESupportPage from "@/pages/programs/SMESupportPage";
 
 // Resources pages
 import ResourcesRouter from "@/pages/resources/ResourcesRouter";
@@ -100,6 +101,7 @@ const AppRoutes: React.FC = () => {
       <Route path="/programs/start-young" element={<StartYoungPage />} />
       <Route path="/programs/access-sharjah-challenge" element={<AccessSharjahChallengePage />} />
       <Route path="/programs/deal-dock" element={<DealDockPage />} />
+      <Route path="/programs/sme-support" element={<SMESupportPage />} />
       
       {/* Resources Routes */}
       <Route path="/resources/*" element={<ResourcesRouter />} />
@@ -140,7 +142,9 @@ const AppRoutes: React.FC = () => {
       <Route path="/reports" element={<ReportsPage />} />
       <Route path="/feed" element={<CommunityFeedPage />} />
       <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+      <Route path="/privacy" element={<PrivacyPolicy />} />
       <Route path="/terms-of-use" element={<TermsOfUse />} />
+      <Route path="/terms" element={<TermsOfUse />} />
       
       {/* Perfume Routes */}
       <Route path="/perfume" element={<PerfumePage />} />
@@ -156,9 +160,6 @@ const AppRoutes: React.FC = () => {
       
       {/* Profile Setup alias */}
       <Route path="/profile-setup" element={<ProfileSetupPage />} />
-      
-      {/* SME Support Route - redirect to partnerships */}
-      <Route path="/programs/sme-support" element={<PartnershipsPage />} />
       
       {/* 404 Fallback */}
       <Route path="*" element={<NotFound />} />
