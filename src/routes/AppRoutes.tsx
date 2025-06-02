@@ -53,19 +53,23 @@ import SEFFAQPage from "@/pages/events/sef/SEFFAQPage";
 // Dashboard page
 import DashboardPage from "@/pages/dashboard/DashboardPage";
 
-// Other pages
-import Contact from "@/pages/contact/index";
-import CareersPage from "@/pages/careers/index";
-import EligibilityPage from "@/pages/eligibility/EligibilityCheckerPage";
-import ImpactReport from "@/pages/ImpactReport";
-import ProfilePage from "@/pages/profile/ProfilePage";
-import ProfileSetupPage from "@/pages/profile/ProfileSetupPage";
+// Blog & Media pages
 import BlogPage from "@/pages/blog/index";
 import PodcastPage from "@/pages/podcast/index";
 import ReportsPage from "@/pages/reports/index";
+
+// Profile & Auth related pages
+import ProfilePage from "@/pages/profile/ProfilePage";
+import ProfileSetupPage from "@/pages/profile/ProfileSetupPage";
+
+// Other core pages
+import Contact from "@/pages/contact/index";
+import CareersPage from "@/pages/careers/index";
+import EligibilityPage from "@/pages/eligibility/EligibilityCheckerPage";
+import ImpactReportPage from "@/pages/impact-report/index";
 import CommunityFeedPage from "@/pages/feed/index";
-import PrivacyPolicy from "@/pages/PrivacyPolicy";
-import TermsOfUse from "@/pages/TermsOfUse";
+import PrivacyPolicyPage from "@/pages/privacy-policy/index";
+import TermsOfUsePage from "@/pages/terms-of-use/index";
 
 // Perfume pages
 import PerfumePage from "@/pages/perfume/index";
@@ -151,21 +155,23 @@ const AppRoutes: React.FC = () => {
         <Route path="/events/sef/who-should-attend" element={<SEFWhoShouldAttendPage />} />
         <Route path="/events/sef/faq" element={<SEFFAQPage />} />
         
-        {/* Other Pages */}
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/careers" element={<CareersPage />} />
-        <Route path="/eligibility" element={<EligibilityPage />} />
-        <Route path="/impact-report" element={<ImpactReport />} />
+        {/* Profile Routes */}
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/profile/setup" element={<ProfileSetupPage />} />
+        
+        {/* Content & Media Routes */}
         <Route path="/blog" element={<BlogPage />} />
         <Route path="/podcast" element={<PodcastPage />} />
         <Route path="/reports" element={<ReportsPage />} />
         <Route path="/feed" element={<CommunityFeedPage />} />
-        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-        <Route path="/privacy" element={<Navigate to="/privacy-policy" replace />} />
-        <Route path="/terms-of-use" element={<TermsOfUse />} />
-        <Route path="/terms" element={<Navigate to="/terms-of-use" replace />} />
+        
+        {/* Core Pages */}
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/careers" element={<CareersPage />} />
+        <Route path="/eligibility" element={<EligibilityPage />} />
+        <Route path="/impact-report" element={<ImpactReportPage />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+        <Route path="/terms-of-use" element={<TermsOfUsePage />} />
         
         {/* Perfume Routes */}
         <Route path="/perfume" element={<PerfumePage />} />
@@ -174,11 +180,13 @@ const AppRoutes: React.FC = () => {
         <Route path="/perfume/gallery" element={<PerfumeGalleryPage />} />
         <Route path="/perfume/pricing" element={<PerfumePricingPage />} />
         
-        {/* Legacy redirects */}
+        {/* Legacy redirects for backwards compatibility */}
         <Route path="/login" element={<Navigate to="/auth/login" replace />} />
         <Route path="/signup" element={<Navigate to="/auth/signup" replace />} />
         <Route path="/forgot-password" element={<Navigate to="/auth/forgot-password" replace />} />
         <Route path="/profile-setup" element={<Navigate to="/profile/setup" replace />} />
+        <Route path="/privacy" element={<Navigate to="/privacy-policy" replace />} />
+        <Route path="/terms" element={<Navigate to="/terms-of-use" replace />} />
         
         {/* 404 Fallback */}
         <Route path="*" element={<NotFound />} />
