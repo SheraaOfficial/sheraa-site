@@ -2,17 +2,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { sophisticatedNavigationItems } from './sophisticatedNavigationData';
+import { NavigationItem } from './types';
 import { ExperienceThemeSwitcher } from './ExperienceThemeSwitcher';
 
 interface SophisticatedMobileMenuProps {
   isOpen: boolean;
   onClose: () => void;
+  navigationItems: NavigationItem[];
+  isPathActive: (path: string, subItems?: NavigationItem['subItems']) => boolean;
 }
 
 export const SophisticatedMobileMenu: React.FC<SophisticatedMobileMenuProps> = ({
   isOpen,
-  onClose
+  onClose,
+  navigationItems,
+  isPathActive
 }) => {
   if (!isOpen) return null;
 
@@ -27,10 +31,10 @@ export const SophisticatedMobileMenu: React.FC<SophisticatedMobileMenuProps> = (
     >
       <div className="container mx-auto px-4 py-6">
         <nav className="space-y-4">
-          {sophisticatedNavigationItems.map((item) => (
+          {navigationItems.map((item) => (
             <div key={item.name} className="space-y-2">
               <Link
-                to={item.href}
+                to={item.path}
                 onClick={onClose}
                 className="block text-lg font-medium text-gray-900 dark:text-white hover:text-sheraa-primary transition-colors"
               >
@@ -41,7 +45,7 @@ export const SophisticatedMobileMenu: React.FC<SophisticatedMobileMenuProps> = (
                   {item.subItems.map((subItem) => (
                     <Link
                       key={subItem.name}
-                      to={subItem.href}
+                      to={subItem.path}
                       onClick={onClose}
                       className="block text-gray-600 dark:text-gray-400 hover:text-sheraa-primary transition-colors"
                     >

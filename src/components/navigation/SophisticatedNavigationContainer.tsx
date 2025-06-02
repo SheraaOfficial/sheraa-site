@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
@@ -14,7 +15,7 @@ const convertToNavigationItems = (): NavigationItem[] => {
   return sophisticatedNavigationItems.map(item => ({
     name: item.name,
     path: item.path,
-    icon: item.icon, // No casting needed since types now match
+    icon: item.icon,
     subItems: item.subItems?.map(subItem => ({
       name: subItem.name,
       path: subItem.path,
@@ -125,6 +126,7 @@ export const SophisticatedNavigationContainer: React.FC = () => {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <SophisticatedMobileMenu
+            isOpen={isMobileMenuOpen}
             navigationItems={navigationItems}
             isPathActive={isPathActive}
             onClose={() => setIsMobileMenuOpen(false)}

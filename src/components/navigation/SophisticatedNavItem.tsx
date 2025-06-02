@@ -17,13 +17,13 @@ export const SophisticatedNavItem: React.FC<SophisticatedNavItemProps> = ({
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
 
-  const isCurrentPage = location.pathname === item.href;
+  const isCurrentPage = location.pathname === item.path;
   const hasSubItems = item.subItems && item.subItems.length > 0;
 
   if (!hasSubItems) {
     return (
       <Link
-        to={item.href}
+        to={item.path}
         className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 ${
           isCurrentPage || isActive
             ? 'text-sheraa-primary bg-sheraa-primary/10'
@@ -68,7 +68,7 @@ export const SophisticatedNavItem: React.FC<SophisticatedNavItemProps> = ({
             {item.subItems?.map((subItem) => (
               <Link
                 key={subItem.name}
-                to={subItem.href}
+                to={subItem.path}
                 className="flex flex-col px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
               >
                 <span className="font-medium text-gray-900 dark:text-white">
