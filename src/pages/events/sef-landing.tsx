@@ -20,6 +20,12 @@ import SEFFAQ from './sef/components/SEFFAQ';
 import SEFCtaSection from './sef/components/SEFCtaSection';
 import SEFFooterCTA from './sef/components/SEFFooterCTA';
 
+// Import modern enhanced sections
+import { SEFEnhancedEventDetails } from './sef/components/SEFEnhancedEventDetails';
+import { SEFEnhancedZones } from './sef/components/SEFEnhancedZones';
+import { SEFEnhancedSpeakers } from './sef/components/SEFEnhancedSpeakers';
+import { SEFEnhancedRegistration } from './sef/components/SEFEnhancedRegistration';
+
 const SEFLandingPage: React.FC = () => {
   const { switchToSEF } = useExperienceTheme();
 
@@ -36,6 +42,15 @@ const SEFLandingPage: React.FC = () => {
       
       {/* Main Content */}
       <main className="relative z-10">
+        {/* Enhanced Event Details Section */}
+        <SEFEnhancedEventDetails />
+        
+        {/* Enhanced SEF Zones */}
+        <SEFEnhancedZones />
+        
+        {/* Enhanced Featured Speakers */}
+        <SEFEnhancedSpeakers />
+        
         {/* Legacy of SEF Section */}
         <SEFLegacySection />
         
@@ -71,6 +86,9 @@ const SEFLandingPage: React.FC = () => {
         
         {/* FAQ Section */}
         <SEFFAQ />
+        
+        {/* Enhanced Registration CTA */}
+        <SEFEnhancedRegistration />
         
         {/* CTA Section */}
         <SEFCtaSection />

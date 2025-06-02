@@ -7,7 +7,7 @@ import AdvisoryPage from './AdvisoryPage';
 import ArticlesPage from './ArticlesPage';
 import ImpactReportsPage from './ImpactReportsPage';
 import GuidesPage from './guides';
-import { InsightsGameProvider } from '@/components/insights/InsightsGameContext';
+import { ResourcesGameProvider } from '@/components/resources/ResourcesGameContext';
 
 const ErrorFallback = ({ error }: { error: Error }) => (
   <div className="min-h-screen flex items-center justify-center">
@@ -27,7 +27,7 @@ const ErrorFallback = ({ error }: { error: Error }) => (
 const InsightsRouter: React.FC = () => {
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback}>
-      <InsightsGameProvider>
+      <ResourcesGameProvider>
         <Routes>
           <Route path="/" element={<InsightsPage />} />
           <Route path="/guides" element={<GuidesPage />} />
@@ -36,7 +36,7 @@ const InsightsRouter: React.FC = () => {
           <Route path="/impact-reports" element={<ImpactReportsPage />} />
           <Route path="*" element={<Navigate to="/insights" replace />} />
         </Routes>
-      </InsightsGameProvider>
+      </ResourcesGameProvider>
     </ErrorBoundary>
   );
 };

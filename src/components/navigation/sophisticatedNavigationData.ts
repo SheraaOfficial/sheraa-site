@@ -7,7 +7,8 @@ import {
   Calendar, 
   FileText,
   Star,
-  Briefcase
+  Briefcase,
+  Lightbulb
 } from 'lucide-react';
 import { NavigationItem } from './types';
 
@@ -100,14 +101,12 @@ export const sophisticatedNavigationItems: NavigationItem[] = [
         name: 'Partnerships',
         path: '/community/partnerships',
         description: 'Partner with Sheraa'
-      }
-    ]
-  },
-  {
-    name: 'Events',
-    path: '/events',
-    icon: Calendar,
-    subItems: [
+      },
+      {
+        name: 'Events',
+        path: '/events',
+        description: 'Join our events and activities'
+      },
       {
         name: 'Upcoming Events',
         path: '/events/upcoming',
@@ -121,23 +120,23 @@ export const sophisticatedNavigationItems: NavigationItem[] = [
     ]
   },
   {
-    name: 'Resources',
-    path: '/resources',
-    icon: FileText,
+    name: 'Insights',
+    path: '/insights',
+    icon: Lightbulb,
     subItems: [
       {
         name: 'Guides & Toolkits',
-        path: '/resources/guides',
+        path: '/insights/guides',
         description: 'Download practical resources'
       },
       {
         name: 'Articles & Insights',
-        path: '/resources/articles',
+        path: '/insights/articles',
         description: 'Read the latest insights'
       },
       {
         name: 'Advisory Services',
-        path: '/resources/advisory',
+        path: '/insights/advisory',
         description: 'Get expert guidance'
       }
     ]

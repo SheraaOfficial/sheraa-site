@@ -39,7 +39,10 @@ export const navigationItems: NavigationItem[] = [
       { name: 'Overview', path: '/community' },
       { name: 'Membership', path: '/community/membership' },
       { name: 'Startups', path: '/community/startups' },
-      { name: 'Partnerships', path: '/community/partnerships' }
+      { name: 'Partnerships', path: '/community/partnerships' },
+      { name: 'Events', path: '/events' },
+      { name: 'Upcoming Events', path: '/events/upcoming' },
+      { name: 'Past Events', path: '/events/past' }
     ]
   },
   {
@@ -47,10 +50,5 @@ export const navigationItems: NavigationItem[] = [
     path: '/events/sef',
     icon: Award,
     special: true
-  },
-  {
-    name: 'Contact',
-    path: '/contact',
-    icon: Mail
   }
 ];

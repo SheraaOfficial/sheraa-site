@@ -1,10 +1,8 @@
-
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { ErrorBoundary } from 'react-error-boundary';
 import NewIndex from "@/pages/NewIndex";
 import NotFound from "@/pages/NotFound";
-import ProtectedRoute from "@/components/auth/ProtectedRoute";
 
 // About pages
 import About from "@/pages/about/index";
@@ -65,7 +63,6 @@ import ReportsPage from "@/pages/reports/index";
 import CommunityFeedPage from "@/pages/feed/index";
 import PrivacyPolicy from "@/pages/PrivacyPolicy";
 import TermsOfUse from "@/pages/TermsOfUse";
-import DashboardPage from "@/pages/dashboard/DashboardPage";
 
 // Perfume pages
 import PerfumePage from "@/pages/perfume/index";
@@ -95,13 +92,6 @@ const AppRoutes: React.FC = () => {
       <Routes>
         {/* Homepage */}
         <Route path="/" element={<NewIndex />} />
-        
-        {/* Protected Dashboard */}
-        <Route path="/dashboard" element={
-          <ProtectedRoute>
-            <DashboardPage />
-          </ProtectedRoute>
-        } />
         
         {/* About Routes */}
         <Route path="/about" element={<About />} />
