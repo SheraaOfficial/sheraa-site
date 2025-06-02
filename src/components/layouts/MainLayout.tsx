@@ -1,7 +1,7 @@
 
 import React from "react";
 import { cn } from "@/lib/utils";
-import MainNavigation from "@/components/navigation/MainNavigation";
+import { SophisticatedNavigation } from "@/components/navigation/SophisticatedNavigation";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEO/SEOHead";
 
@@ -36,7 +36,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
         className={cn("min-h-screen bg-background text-foreground", className)}
         style={backgroundStyle}
       >
-        <MainNavigation />
+        <SophisticatedNavigation />
         <main className="flex-1">
           {children}
         </main>

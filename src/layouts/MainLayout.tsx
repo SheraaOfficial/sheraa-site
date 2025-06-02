@@ -1,7 +1,7 @@
 
 import React, { ReactNode } from 'react';
 import { Helmet } from 'react-helmet-async';
-import EnhancedMainNavigation from '@/components/navigation/EnhancedMainNavigation';
+import { SophisticatedNavigation } from '@/components/navigation/SophisticatedNavigation';
 import Footer from '@/components/Footer';
 import { cn } from '@/lib/utils';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -42,7 +42,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
         <html lang={language} dir={language === 'ar' ? 'rtl' : 'ltr'} />
       </Helmet>
       
-      <EnhancedMainNavigation />
+      <SophisticatedNavigation />
       
       <main className="flex-1">
         {children}
