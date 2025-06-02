@@ -1,79 +1,96 @@
 
-import React from "react";
-import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { ArrowRight, Sparkles } from "lucide-react";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { AdvancedMotion, GradientBackground, FloatingElement } from '@/components/ui/advanced-motion';
+import { ModernButton } from '@/components/ui/modern-button';
+import { ArrowRight, Rocket, Users, Sparkles } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 export const FinalCTASection: React.FC = () => {
+  const { t, language } = useLanguage();
+
   return (
-    <section className="py-24 bg-gradient-to-r from-sheraa-primary to-sheraa-teal relative overflow-hidden">
-      {/* Simple background pattern */}
-      <div className="absolute inset-0 opacity-20">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-80 h-80 bg-white/10 rounded-full blur-3xl" />
-      </div>
-
+    <section className="relative py-24 md:py-32 overflow-hidden">
+      <GradientBackground variant="primary" className="absolute inset-0">
+        <div className="absolute inset-0 bg-gradient-to-r from-sheraa-primary via-sheraa-teal to-sheraa-primary opacity-90" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(255,255,255,0.1),transparent_70%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_60%,rgba(255,255,255,0.05),transparent_70%)]" />
+      </GradientBackground>
+      
       <div className="container mx-auto px-4 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center max-w-4xl mx-auto"
-        >
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full border border-white/30 mb-8">
-            <Sparkles className="w-5 h-5 text-yellow-300" />
-            <span className="text-sm font-medium text-white">Ready to Start?</span>
-          </div>
+        <div className="max-w-4xl mx-auto text-center text-white">
+          <AdvancedMotion variant="fadeInUp">
+            <FloatingElement intensity="light">
+              <div className="inline-flex items-center gap-3 px-6 py-3 bg-white/10 backdrop-blur-sm rounded-full mb-8 border border-white/20">
+                <Sparkles className="w-5 h-5 text-sheraa-orange" />
+                <span className={cn(
+                  "text-sm font-semibold",
+                  language === 'ar' ? 'font-arabic' : ''
+                )}>
+                  {t('cta.title')}
+                </span>
+              </div>
+            </FloatingElement>
+          </AdvancedMotion>
 
-          <h2 className="text-4xl md:text-6xl font-bold text-white mb-8 leading-tight">
-            Your Success Story
-            <span className="block text-yellow-300">Starts Here</span>
-          </h2>
+          <AdvancedMotion variant="fadeInUp" delay={0.2}>
+            <h2 className={cn(
+              "text-4xl md:text-6xl font-black mb-8 text-white",
+              language === 'ar' ? 'font-arabic' : ''
+            )}>
+              {t('cta.title')}
+            </h2>
+            <p className={cn(
+              "text-xl md:text-2xl mb-12 text-white/90 leading-relaxed max-w-3xl mx-auto",
+              language === 'ar' ? 'font-arabic' : ''
+            )}>
+              {t('cta.subtitle')}
+            </p>
+          </AdvancedMotion>
 
-          <p className="text-xl md:text-2xl text-white/90 mb-12 leading-relaxed">
-            Join hundreds of entrepreneurs who've turned their ideas into thriving businesses. 
-            Apply today and take the first step toward your future.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <Button asChild size="lg" className="bg-white text-sheraa-primary hover:bg-white/90 px-8 py-6 text-lg font-semibold shadow-xl">
-              <Link to="/programs" className="flex items-center gap-2">
-                Apply to Programs
-                <ArrowRight className="w-5 h-5" />
-              </Link>
-            </Button>
-            
-            <Button asChild variant="outline" size="lg" className="border-2 border-white/40 text-white hover:bg-white/20 px-8 py-6 text-lg font-semibold backdrop-blur-sm">
-              <Link to="/contact">
-                Talk to Our Team
-              </Link>
-            </Button>
-          </div>
-
-          {/* Simple stats */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3 }}
-            className="mt-16 grid grid-cols-3 gap-8 max-w-2xl mx-auto"
-          >
-            <div className="text-center">
-              <div className="text-3xl font-bold text-white">Free</div>
-              <div className="text-sm text-white/80">Application Process</div>
+          <AdvancedMotion variant="fadeInUp" delay={0.4}>
+            <div className={cn(
+              "flex flex-col sm:flex-row gap-6 justify-center",
+              language === 'ar' ? 'sm:flex-row-reverse' : ''
+            )}>
+              <ModernButton 
+                asChild 
+                variant="glass" 
+                size="xl" 
+                className="bg-white/10 border-white/30 text-white hover:bg-white/20 group"
+              >
+                <Link to="/programs" className="flex items-center gap-3">
+                  {language === 'ar' && (
+                    <ArrowRight className="w-5 h-5 group-hover:-translate-x-1 transition-transform rotate-180" />
+                  )}
+                  <Rocket className="w-5 h-5" />
+                  <span>{t('cta.button')}</span>
+                  {language === 'en' && (
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  )}
+                </Link>
+              </ModernButton>
+              
+              <ModernButton 
+                asChild 
+                variant="glass" 
+                size="xl"
+                className="bg-white/10 border-white/30 text-white hover:bg-white/20 group"
+              >
+                <Link to="/community/join" className="flex items-center gap-3">
+                  <Users className="w-5 h-5" />
+                  <span>{t('form.join')}</span>
+                </Link>
+              </ModernButton>
             </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-white">2 Weeks</div>
-              <div className="text-sm text-white/80">Review Time</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-white">24/7</div>
-              <div className="text-sm text-white/80">Support Available</div>
-            </div>
-          </motion.div>
-        </motion.div>
+          </AdvancedMotion>
+        </div>
       </div>
+      
+      {/* Floating elements for visual enhancement */}
+      <FloatingElement intensity="medium" className="absolute top-20 left-20 w-32 h-32 bg-white/10 rounded-full blur-2xl" />
+      <FloatingElement intensity="light" className="absolute bottom-20 right-20 w-48 h-48 bg-white/5 rounded-full blur-3xl" />
     </section>
   );
 };
