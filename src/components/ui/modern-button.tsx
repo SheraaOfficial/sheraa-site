@@ -26,8 +26,6 @@ export const ModernButton: React.FC<ModernButtonProps> = ({
   glow = false,
   ...props
 }) => {
-  const Comp = asChild ? Slot : motion.button;
-
   const variants = {
     primary: cn(
       "bg-gradient-to-r from-sheraa-primary to-sheraa-teal",
@@ -65,33 +63,20 @@ export const ModernButton: React.FC<ModernButtonProps> = ({
 
   const glowEffect = glow ? "before:absolute before:inset-0 before:rounded-[inherit] before:p-[2px] before:bg-gradient-to-r before:from-sheraa-primary before:to-sheraa-teal before:-z-10 before:blur-sm" : "";
 
-  return (
-    <Comp
-      whileHover={{ 
-        y: -2, 
-        scale: 1.02,
-        transition: { type: "spring", damping: 20, stiffness: 300 }
-      }}
-      whileTap={{ 
-        y: 0, 
-        scale: 0.98,
-        transition: { type: "spring", damping: 20, stiffness: 300 }
-      }}
-      className={cn(
-        "relative inline-flex items-center justify-center gap-2",
-        "transition-all duration-300 ease-out",
-        "focus:outline-none focus:ring-2 focus:ring-sheraa-primary/50 focus:ring-offset-2",
-        "disabled:opacity-50 disabled:cursor-not-allowed",
-        "overflow-hidden cursor-pointer",
-        variants[variant],
-        sizes[size],
-        glowEffect,
-        className
-      )}
-      disabled={disabled}
-      onClick={onClick}
-      {...props}
-    >
+  const buttonClasses = cn(
+    "relative inline-flex items-center justify-center gap-2",
+    "transition-all duration-300 ease-out",
+    "focus:outline-none focus:ring-2 focus:ring-sheraa-primary/50 focus:ring-offset-2",
+    "disabled:opacity-50 disabled:cursor-not-allowed",
+    "overflow-hidden cursor-pointer",
+    variants[variant],
+    sizes[size],
+    glowEffect,
+    className
+  );
+
+  const buttonContent = (
+    <>
       {/* Shine effect */}
       <motion.div
         className="absolute inset-0 -skew-x-12 bg-gradient-to-r from-transparent via-white/20 to-transparent"
@@ -104,6 +89,40 @@ export const ModernButton: React.FC<ModernButtonProps> = ({
       <span className="relative z-10 flex items-center gap-2">
         {children}
       </span>
-    </Comp>
+    </>
+  );
+
+  if (asChild) {
+    return (
+      <Slot
+        className={buttonClasses}
+        {...props}
+      >
+        {React.cloneElement(children as React.ReactElement, {
+          children: buttonContent
+        })}
+      </Slot>
+    );
+  }
+
+  return (
+    <motion.button
+      whileHover={{ 
+        y: -2, 
+        scale: 1.02,
+        transition: { type: "spring", damping: 20, stiffness: 300 }
+      }}
+      whileTap={{ 
+        y: 0, 
+        scale: 0.98,
+        transition: { type: "spring", damping: 20, stiffness: 300 }
+      }}
+      className={buttonClasses}
+      disabled={disabled}
+      onClick={onClick}
+      {...props}
+    >
+      {buttonContent}
+    </motion.button>
   );
 };
