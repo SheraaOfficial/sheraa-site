@@ -15,7 +15,6 @@ const queryClient = new QueryClient();
 import { AccessibilityProvider } from '@/components/accessibility/AccessibilityProvider';
 import { PerformanceProvider } from '@/contexts/PerformanceContext';
 import SEOHead from '@/components/SEO/SEOHead';
-import { organizationStructuredData } from '@/data/structuredData';
 
 function App() {
   return (
@@ -28,7 +27,7 @@ function App() {
                 <LanguageProvider>
                   <AccessibilityProvider>
                     <PerformanceProvider>
-                      <SEOHead structuredData={organizationStructuredData} />
+                      <SEOHead />
                       <div className="min-h-screen bg-background text-foreground">
                         <Toaster />
                         <AppRoutes />
