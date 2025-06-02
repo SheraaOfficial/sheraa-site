@@ -1,107 +1,86 @@
 
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, Star } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import { NavigationItem } from './types';
-import { cn } from '@/lib/utils';
 
 interface SophisticatedNavItemProps {
   item: NavigationItem;
-  isActive: boolean;
+  isActive?: boolean;
 }
 
-export const SophisticatedNavItem: React.FC<SophisticatedNavItemProps> = ({
-  item,
-  isActive
+export const SophisticatedNavItem: React.FC<SophisticatedNavItemProps> = ({ 
+  item, 
+  isActive = false 
 }) => {
-  const [isHovered, setIsHovered] = useState(false);
-  const hasDropdown = item.subItems && item.subItems.length > 0;
-  const Icon = item.icon;
+  const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
 
-  if (item.special) {
+  const isCurrentPage = location.pathname === item.href;
+  const hasSubItems = item.subItems && item.subItems.length > 0;
+
+  if (!hasSubItems) {
     return (
-      <Link to={item.path}>
-        <motion.div
-          className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-sheraa-primary to-sheraa-secondary text-white font-medium text-sm shadow-lg hover:shadow-xl transition-all duration-300"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          {Icon && <Icon className="w-4 h-4" />}
-          <span>{item.name}</span>
-          <Star className="w-3 h-3 animate-pulse" />
-        </motion.div>
+      <Link
+        to={item.href}
+        className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 ${
+          isCurrentPage || isActive
+            ? 'text-sheraa-primary bg-sheraa-primary/10'
+            : 'text-gray-700 dark:text-gray-300 hover:text-sheraa-primary hover:bg-sheraa-primary/5'
+        }`}
+      >
+        {item.name}
       </Link>
     );
   }
 
   return (
-    <div 
+    <div
       className="relative"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseEnter={() => setIsOpen(true)}
+      onMouseLeave={() => setIsOpen(false)}
     >
-      {hasDropdown ? (
-        <div
-          className={cn(
-            "flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 cursor-pointer",
-            isActive || isHovered
-              ? 'text-sheraa-primary bg-sheraa-primary/10'
-              : 'text-gray-700 dark:text-gray-200 hover:text-sheraa-primary hover:bg-sheraa-primary/5'
-          )}
-        >
-          {Icon && <Icon className="w-4 h-4" />}
-          <span>{item.name}</span>
-          <motion.div
-            animate={{ rotate: isHovered ? 180 : 0 }}
-            transition={{ duration: 0.2 }}
-          >
-            <ChevronDown className="w-4 h-4" />
-          </motion.div>
-        </div>
-      ) : (
-        <Link
-          to={item.path}
-          className={cn(
-            "flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200",
-            isActive
-              ? 'text-sheraa-primary bg-sheraa-primary/10'
-              : 'text-gray-700 dark:text-gray-200 hover:text-sheraa-primary hover:bg-sheraa-primary/5'
-          )}
-        >
-          {Icon && <Icon className="w-4 h-4" />}
-          <span>{item.name}</span>
-        </Link>
-      )}
+      <button
+        className={`flex items-center gap-1 px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 ${
+          isCurrentPage || isActive
+            ? 'text-sheraa-primary bg-sheraa-primary/10'
+            : 'text-gray-700 dark:text-gray-300 hover:text-sheraa-primary hover:bg-sheraa-primary/5'
+        }`}
+      >
+        {item.name}
+        <ChevronDown 
+          className={`w-4 h-4 transition-transform duration-200 ${
+            isOpen ? 'rotate-180' : ''
+          }`} 
+        />
+      </button>
 
-      {/* Dropdown Menu */}
       <AnimatePresence>
-        {hasDropdown && isHovered && (
+        {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: 10, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 10, scale: 0.95 }}
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.15 }}
-            className="absolute top-full left-0 mt-2 w-80 bg-white dark:bg-sheraa-dark border border-gray-200 dark:border-gray-700 rounded-xl shadow-xl overflow-hidden z-[9999]"
+            className="absolute top-full left-0 mt-2 w-64 bg-white dark:bg-sheraa-dark rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 py-2 z-50"
           >
-            <div className="p-2">
-              {item.subItems?.map((subItem) => (
-                <Link
-                  key={subItem.path}
-                  to={subItem.path}
-                  className="block p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors group"
-                >
-                  <div className="font-medium text-gray-900 dark:text-white group-hover:text-sheraa-primary transition-colors">
-                    {subItem.name}
-                  </div>
-                  {subItem.description && (
-                    <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                      {subItem.description}
-                    </div>
-                  )}
-                </Link>
-              ))}
-            </div>
+            {item.subItems?.map((subItem) => (
+              <Link
+                key={subItem.name}
+                to={subItem.href}
+                className="flex flex-col px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+              >
+                <span className="font-medium text-gray-900 dark:text-white">
+                  {subItem.name}
+                </span>
+                {subItem.description && (
+                  <span className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                    {subItem.description}
+                  </span>
+                )}
+              </Link>
+            ))}
           </motion.div>
         )}
       </AnimatePresence>

@@ -5,7 +5,6 @@ import { usePerformance } from '@/contexts/PerformanceContext';
 
 // Lazy load heavy components
 const TestimonialsSection = lazy(() => import('@/components/testimonials/TestimonialsSection').then(mod => ({ default: mod.TestimonialsSection })));
-const InteractiveStartupsShowcase = lazy(() => import('@/components/startups/InteractiveStartupsShowcase'));
 
 interface PerformanceOptimizerProps {
   children: React.ReactNode;

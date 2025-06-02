@@ -4,12 +4,18 @@ import { useState, useEffect } from 'react';
 export function useScrollNavigation() {
   const [isSticky, setIsSticky] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isScrollingUp, setIsScrollingUp] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
 
-  // Add scroll event listener to track when to make the nav sticky
   useEffect(() => {
     const handleScroll = () => {
-      // Make the nav sticky after scrolling past 100px
       const scrollPosition = window.scrollY;
+      
+      // Track scroll direction
+      setIsScrollingUp(scrollPosition < lastScrollY);
+      setLastScrollY(scrollPosition);
+      
+      // Make the nav sticky after scrolling past 100px
       if (scrollPosition > 100) {
         setIsSticky(true);
       } else {
@@ -31,7 +37,7 @@ export function useScrollNavigation() {
         timeout = setTimeout(() => {
           handleScroll();
           timeout = undefined;
-        }, 100); // Throttle to once every 100ms
+        }, 100);
       }
     };
 
@@ -40,7 +46,7 @@ export function useScrollNavigation() {
       window.removeEventListener('scroll', throttledHandleScroll);
       if (timeout) clearTimeout(timeout);
     };
-  }, []);
+  }, [lastScrollY]);
 
-  return { isSticky, isScrolled };
+  return { isSticky, isScrolled, isScrollingUp };
 }

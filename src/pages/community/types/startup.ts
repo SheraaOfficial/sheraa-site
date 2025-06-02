@@ -11,5 +11,16 @@ export interface Startup {
   achievement?: string;
   impact?: string;
   stats?: string;
-  badges?: string[]; // Added badges array for SHERAA ALUMNI, COMMUNITY MEMBER, SEF, SHERAA BACKED
+  badges?: string[];
+  foundedYear?: number;
+  technologies?: string[];
+  founderStory?: string;
+  achievements?: string[];
+  metrics?: {
+    revenue?: string;
+    funding?: string;
+    employees?: number;
+    customers?: string;
+    growth?: string;
+  };
 }

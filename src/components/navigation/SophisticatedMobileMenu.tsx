@@ -1,83 +1,63 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
-import { NavigationItem } from './types';
-import { Calendar, ArrowRight } from 'lucide-react';
+import { sophisticatedNavigationItems } from './sophisticatedNavigationData';
+import { ExperienceThemeSwitcher } from './ExperienceThemeSwitcher';
 
 interface SophisticatedMobileMenuProps {
-  navigationItems: NavigationItem[];
-  isPathActive: (path: string, subItems?: NavigationItem['subItems']) => boolean;
+  isOpen: boolean;
   onClose: () => void;
 }
 
 export const SophisticatedMobileMenu: React.FC<SophisticatedMobileMenuProps> = ({
-  navigationItems,
-  isPathActive,
+  isOpen,
   onClose
 }) => {
-  const navigate = useNavigate();
-
-  const handleItemClick = (item: NavigationItem) => {
-    navigate(item.path);
-    onClose();
-  };
+  if (!isOpen) return null;
 
   return (
     <motion.div
-      className="fixed inset-0 z-[9998] lg:hidden"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
+      initial={{ opacity: 0, height: 0 }}
+      animate={{ opacity: 1, height: 'auto' }}
+      exit={{ opacity: 0, height: 0 }}
+      transition={{ duration: 0.3, ease: 'easeOut' }}
+      className="lg:hidden bg-white dark:bg-sheraa-dark border-t border-gray-200 dark:border-gray-700"
+      id="mobile-menu"
     >
-      {/* Backdrop */}
-      <div className="absolute inset-0 bg-black/50" onClick={onClose} />
-      
-      {/* Menu */}
-      <motion.div
-        className="absolute top-20 left-4 right-4 bg-white/95 dark:bg-sheraa-dark/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/20 dark:border-gray-700/50 overflow-hidden"
-        initial={{ opacity: 0, y: -20, scale: 0.95 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        exit={{ opacity: 0, y: -20, scale: 0.95 }}
-        transition={{ duration: 0.2 }}
-      >
-        <div className="py-4">
-          {navigationItems.map((item, index) => (
-            <motion.button
-              key={item.name}
-              onClick={() => handleItemClick(item)}
-              className={`w-full text-left px-6 py-4 text-lg font-medium transition-all duration-200 flex items-center gap-3 relative overflow-hidden ${
-                item.special
-                  ? 'bg-gradient-to-r from-orange-500/20 to-red-500/20 text-white border-y border-orange-500/30'
-                  : isPathActive(item.path, item.subItems)
-                  ? 'text-sheraa-primary bg-sheraa-primary/10'
-                  : 'text-gray-700 dark:text-gray-200 hover:bg-sheraa-primary/10 hover:text-sheraa-primary'
-              }`}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.1 * index }}
-              whileHover={{ x: 4 }}
-              style={item.special ? {
-                background: 'linear-gradient(135deg, #f97316, #ef4444)',
-              } : {}}
-            >
-              <div className="flex items-center gap-3 relative z-10">
-                {item.special ? (
-                  <Calendar className="w-5 h-5 text-white" />
-                ) : (
-                  <item.icon className="w-5 h-5 flex-shrink-0" />
-                )}
-                <span className={`${item.special ? 'font-bold text-white' : ''}`}>
-                  {item.name}
-                </span>
-                {item.special && (
-                  <ArrowRight className="w-4 h-4 text-white ml-auto" />
-                )}
-              </div>
-            </motion.button>
+      <div className="container mx-auto px-4 py-6">
+        <nav className="space-y-4">
+          {sophisticatedNavigationItems.map((item) => (
+            <div key={item.name} className="space-y-2">
+              <Link
+                to={item.href}
+                onClick={onClose}
+                className="block text-lg font-medium text-gray-900 dark:text-white hover:text-sheraa-primary transition-colors"
+              >
+                {item.name}
+              </Link>
+              {item.subItems && (
+                <div className="ml-4 space-y-2">
+                  {item.subItems.map((subItem) => (
+                    <Link
+                      key={subItem.name}
+                      to={subItem.href}
+                      onClick={onClose}
+                      className="block text-gray-600 dark:text-gray-400 hover:text-sheraa-primary transition-colors"
+                    >
+                      {subItem.name}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
           ))}
+        </nav>
+        
+        <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+          <ExperienceThemeSwitcher />
         </div>
-      </motion.div>
+      </div>
     </motion.div>
   );
 };

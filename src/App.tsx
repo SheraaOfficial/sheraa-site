@@ -1,12 +1,13 @@
+
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { ThemeProvider } from "@/components/theme-provider"
+import { ThemeProvider } from "next-themes"
 import { Toaster } from "@/components/ui/toaster"
 import AppRoutes from './routes/AppRoutes';
 import { AuthProvider } from './contexts/AuthContext';
 import { LanguageProvider } from './contexts/LanguageContext';
 import { ExperienceThemeProvider } from './contexts/ExperienceThemeContext';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { HelmetProvider } from 'react-helmet-async';
 
 const queryClient = new QueryClient();
@@ -20,27 +21,25 @@ function App() {
   return (
     <BrowserRouter>
       <HelmetProvider>
-        <QueryClient>
-          <QueryClientProvider client={queryClient}>
-            <ThemeProvider defaultTheme="light" storageKey="sheraa-ui-theme">
-              <ExperienceThemeProvider>
-                <AuthProvider>
-                  <LanguageProvider>
-                    <AccessibilityProvider>
-                      <PerformanceProvider>
-                        <SEOHead structuredData={organizationStructuredData} />
-                        <div className="min-h-screen bg-background text-foreground">
-                          <Toaster />
-                          <AppRoutes />
-                        </div>
-                      </PerformanceProvider>
-                    </AccessibilityProvider>
-                  </LanguageProvider>
-                </AuthProvider>
-              </ExperienceThemeProvider>
-            </ThemeProvider>
-          </QueryClientProvider>
-        </QueryClient>
+        <QueryClientProvider client={queryClient}>
+          <ThemeProvider defaultTheme="light" storageKey="sheraa-ui-theme">
+            <ExperienceThemeProvider>
+              <AuthProvider>
+                <LanguageProvider>
+                  <AccessibilityProvider>
+                    <PerformanceProvider>
+                      <SEOHead structuredData={organizationStructuredData} />
+                      <div className="min-h-screen bg-background text-foreground">
+                        <Toaster />
+                        <AppRoutes />
+                      </div>
+                    </PerformanceProvider>
+                  </AccessibilityProvider>
+                </LanguageProvider>
+              </AuthProvider>
+            </ExperienceThemeProvider>
+          </ThemeProvider>
+        </QueryClientProvider>
       </HelmetProvider>
     </BrowserRouter>
   );

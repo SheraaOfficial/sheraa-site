@@ -10,6 +10,11 @@ const createSearchIndex = (): SearchResult[] => {
 
   // Add startups to search index
   enhancedStartupsData.forEach(startup => {
+    const tags = [startup.sector];
+    if (startup.program) tags.push(startup.program);
+    if (startup.stage) tags.push(startup.stage);
+    if (startup.technologies) tags.push(...startup.technologies);
+
     results.push({
       id: startup.id,
       type: 'startup',
@@ -17,7 +22,7 @@ const createSearchIndex = (): SearchResult[] => {
       description: startup.description,
       path: `/community/startups?highlight=${startup.id}`,
       relevanceScore: 0,
-      tags: [startup.sector, startup.program, startup.stage, ...startup.technologies]
+      tags
     });
   });
 
