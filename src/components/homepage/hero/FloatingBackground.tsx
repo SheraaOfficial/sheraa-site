@@ -3,7 +3,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Users, Award, TrendingUp, Rocket } from "lucide-react";
 import { RetroGrid } from "@/components/ui/retro-grid";
-import { useTheme } from "@/contexts/ThemeContext";
+import { useTheme } from "next-themes";
 
 export const FloatingBackground: React.FC = () => {
   const { theme } = useTheme();

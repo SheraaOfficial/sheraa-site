@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, Star, Sparkles, Rocket, Globe, Users, Award, TrendingUp } from "lucide-react";
 import { TextShimmer } from "@/components/ui/text-shimmer";
-import { useTheme } from "@/contexts/ThemeContext";
+import { useTheme } from "next-themes";
 import { RetroGrid } from "@/components/ui/retro-grid";
 
 const EnhancedHero = () => {

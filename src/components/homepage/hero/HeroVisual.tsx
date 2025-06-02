@@ -3,7 +3,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Star, Rocket, Globe } from "lucide-react";
 import { TextShimmer } from "@/components/ui/text-shimmer";
-import { useTheme } from "@/contexts/ThemeContext";
+import { useTheme } from "next-themes";
 
 export const HeroVisual: React.FC = () => {
   const { theme } = useTheme();

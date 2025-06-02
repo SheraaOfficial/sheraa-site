@@ -2,7 +2,7 @@
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { Quote, Star, Sparkles } from "lucide-react";
-import { useTheme } from "@/contexts/ThemeContext";
+import { useTheme } from "next-themes";
 
 export const ImmersiveQuoteSection: React.FC = () => {
   const { theme } = useTheme();

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useMemo, lazy, Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import { GradientButton } from "@/components/ui/gradient-button";
@@ -6,7 +5,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight, Star, Sparkles, Rocket, Globe } from "lucide-react";
 import { TextShimmer } from "./ui/text-shimmer";
-import { useTheme } from "@/contexts/ThemeContext";
+import { useTheme } from "next-themes";
 
 // Lazy-load components that aren't needed immediately
 const AnimatedGradient = lazy(() => import("./ui/animated-gradient-with-svg").then(mod => ({ default: mod.AnimatedGradient })));

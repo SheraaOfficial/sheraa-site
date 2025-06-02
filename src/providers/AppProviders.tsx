@@ -6,7 +6,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { LanguageProvider } from "@/contexts/LanguageContext";
-import { ThemeProvider } from "@/contexts/ThemeContext";
+import { ThemeProvider } from "next-themes";
 
 interface AppProvidersProps {
   children: ReactNode;
@@ -28,7 +28,13 @@ const AppProviders: React.FC<AppProvidersProps> = ({ children }) => {
   return (
     <HelmetProvider>
       <BrowserRouter>
-        <ThemeProvider>
+        <ThemeProvider 
+          defaultTheme="light" 
+          storageKey="sheraa-ui-theme"
+          attribute="class"
+          enableSystem={false}
+          disableTransitionOnChange={false}
+        >
           <LanguageProvider>
             <QueryClientProvider client={queryClient}>
               <TooltipProvider>

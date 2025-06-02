@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { RetroGrid } from "@/components/ui/retro-grid";
 import { FloatingHero } from "@/components/hero/FloatingHero";
 import { motion, AnimatePresence } from "framer-motion";
-import { useTheme } from "@/contexts/ThemeContext";
+import { useTheme } from "next-themes";
 
 export function HeroSection() {
   const { theme } = useTheme();
