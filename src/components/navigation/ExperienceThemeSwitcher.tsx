@@ -70,7 +70,7 @@ export const ExperienceThemeSwitcher: React.FC = () => {
         variant="outline"
         size="sm"
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 bg-white/90 backdrop-blur-sm border-gray-200 hover:bg-white/95 transition-all duration-200"
+        className="flex items-center gap-2 bg-white dark:bg-gray-800 backdrop-blur-sm border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-200"
       >
         <currentTheme.icon className={`w-4 h-4 ${currentTheme.textColor}`} />
         <span className="hidden md:inline font-medium">{currentTheme.name}</span>
@@ -90,11 +90,10 @@ export const ExperienceThemeSwitcher: React.FC = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="absolute top-full right-0 mt-2 w-80 bg-white border border-gray-200 shadow-xl rounded-xl overflow-hidden z-[10000]"
-            style={{ backgroundColor: 'rgba(255, 255, 255, 0.98)' }}
+            className="absolute top-full right-0 mt-2 w-80 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 shadow-xl rounded-xl overflow-hidden z-[50000]"
           >
             <div className="p-2">
-              <div className="text-xs font-medium text-gray-500 mb-2 px-3 py-1">
+              <div className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-2 px-3 py-1">
                 Switch Experience
               </div>
               {themes.map((themeOption, index) => {
@@ -110,8 +109,8 @@ export const ExperienceThemeSwitcher: React.FC = () => {
                     onClick={() => handleThemeSwitch(themeOption)}
                     className={`w-full p-3 rounded-lg transition-all duration-200 group ${
                       isActive 
-                        ? 'bg-gray-50 border border-gray-200' 
-                        : 'hover:bg-gray-50'
+                        ? 'bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700' 
+                        : 'hover:bg-gray-50 dark:hover:bg-gray-800'
                     }`}
                   >
                     <div className="flex items-center gap-3">
@@ -120,7 +119,7 @@ export const ExperienceThemeSwitcher: React.FC = () => {
                       </div>
                       <div className="flex-1 text-left">
                         <div className="flex items-center gap-2">
-                          <span className="font-medium text-gray-900">
+                          <span className="font-medium text-gray-900 dark:text-white">
                             {themeOption.name}
                           </span>
                           {isActive && (
@@ -132,7 +131,7 @@ export const ExperienceThemeSwitcher: React.FC = () => {
                             <Sparkles className="w-3 h-3 text-purple-500" />
                           )}
                         </div>
-                        <span className="text-sm text-gray-600">
+                        <span className="text-sm text-gray-600 dark:text-gray-400">
                           {themeOption.description}
                         </span>
                       </div>
@@ -142,8 +141,8 @@ export const ExperienceThemeSwitcher: React.FC = () => {
               })}
             </div>
             
-            <div className="px-4 py-3 bg-gray-50 border-t border-gray-100">
-              <p className="text-xs text-gray-500 text-center">
+            <div className="px-4 py-3 bg-gray-50 dark:bg-gray-800 border-t border-gray-100 dark:border-gray-700">
+              <p className="text-xs text-gray-500 dark:text-gray-400 text-center">
                 Quickly switch between different Sheraa experiences
               </p>
             </div>
@@ -154,7 +153,7 @@ export const ExperienceThemeSwitcher: React.FC = () => {
       {/* Click outside to close */}
       {isOpen && (
         <div 
-          className="fixed inset-0 z-[9999]" 
+          className="fixed inset-0 z-[49999]" 
           onClick={() => setIsOpen(false)}
         />
       )}

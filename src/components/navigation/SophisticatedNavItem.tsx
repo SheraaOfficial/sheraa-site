@@ -69,8 +69,7 @@ export const SophisticatedNavItem: React.FC<SophisticatedNavItemProps> = ({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.15 }}
-            className="absolute top-full left-0 mt-2 w-64 bg-white dark:bg-sheraa-dark rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 py-2 z-[100] backdrop-blur-sm"
-            style={{ backgroundColor: 'rgba(255, 255, 255, 0.98)' }}
+            className="absolute top-full left-0 mt-2 w-64 bg-white dark:bg-gray-900 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 py-2 z-[40000] backdrop-blur-sm"
           >
             {item.subItems?.map((subItem) => (
               <Link

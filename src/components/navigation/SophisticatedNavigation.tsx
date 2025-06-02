@@ -91,12 +91,12 @@ export const SophisticatedNavigation: React.FC = () => {
             ))}
           </nav>
 
-          {/* Desktop Actions - Ordered: Search → Experience Theme → Theme Toggle → Auth Buttons → Language Switcher */}
+          {/* Desktop Actions - Fixed Order: Search → Experience Theme → Auth Buttons → Theme Toggle → Language Switcher */}
           <div className="hidden lg:flex items-center space-x-2">
             <SearchButton />
             <ExperienceThemeSwitcher />
-            <ThemeToggle />
             <AuthButtons />
+            <ThemeToggle />
             <LanguageSwitcher />
           </div>
 

@@ -29,7 +29,7 @@ export const SophisticatedMobileMenu: React.FC<SophisticatedMobileMenuProps> = (
       animate={{ opacity: 1, height: 'auto' }}
       exit={{ opacity: 0, height: 0 }}
       transition={{ duration: 0.3, ease: 'easeOut' }}
-      className="lg:hidden bg-white/98 dark:bg-sheraa-dark/98 backdrop-blur-xl border-t border-gray-200 dark:border-gray-700 shadow-xl"
+      className="lg:hidden bg-white dark:bg-sheraa-dark backdrop-blur-xl border-t border-gray-200 dark:border-gray-700 shadow-xl"
       id="mobile-menu"
     >
       <div className="container mx-auto px-4 py-6">
@@ -73,14 +73,15 @@ export const SophisticatedMobileMenu: React.FC<SophisticatedMobileMenuProps> = (
           ))}
         </nav>
         
+        {/* Fixed order for mobile: Experience Theme → Auth Buttons → Theme Toggle → Language */}
         <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700 space-y-4">
-          <div className="flex items-center justify-between">
-            <ExperienceThemeSwitcher />
-            <ThemeToggle />
-          </div>
+          <ExperienceThemeSwitcher />
           <div className="flex flex-col space-y-3">
             <AuthButtons />
-            <LanguageSwitcher />
+            <div className="flex items-center justify-between">
+              <ThemeToggle />
+              <LanguageSwitcher />
+            </div>
           </div>
         </div>
       </div>

@@ -20,7 +20,7 @@ export const ThemeToggle: React.FC = () => {
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.3 }}
       aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-      className="relative p-2 md:p-3 rounded-xl bg-white/10 dark:bg-white/10 backdrop-blur-lg border border-white/20 dark:border-white/20 shadow-lg hover:bg-white/20 dark:hover:bg-white/20 transition-all duration-300"
+      className="relative p-2 md:p-3 rounded-xl bg-white dark:bg-gray-800 backdrop-blur-lg border border-gray-200 dark:border-gray-700 shadow-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-300"
     >
       <motion.div
         initial={false}
