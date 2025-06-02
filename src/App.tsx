@@ -21,7 +21,13 @@ function App() {
     <BrowserRouter>
       <HelmetProvider>
         <QueryClientProvider client={queryClient}>
-          <ThemeProvider defaultTheme="light" storageKey="sheraa-ui-theme">
+          <ThemeProvider 
+            defaultTheme="light" 
+            storageKey="sheraa-ui-theme"
+            attribute="class"
+            enableSystem={false}
+            disableTransitionOnChange={false}
+          >
             <ExperienceThemeProvider>
               <AuthProvider>
                 <LanguageProvider>

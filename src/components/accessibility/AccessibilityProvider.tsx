@@ -22,6 +22,8 @@ export function AccessibilityProvider({ children }: { children: React.ReactNode 
 
   // Detect user preferences on mount
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+
     // Check for reduced motion preference
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) {
@@ -35,20 +37,26 @@ export function AccessibilityProvider({ children }: { children: React.ReactNode 
     }
 
     // Load saved preferences
-    const savedFontSize = localStorage.getItem('accessibility-font-size') as 'normal' | 'large' | 'extra-large';
-    if (savedFontSize) {
-      setFontSize(savedFontSize);
+    try {
+      const savedFontSize = localStorage.getItem('accessibility-font-size') as 'normal' | 'large' | 'extra-large';
+      if (savedFontSize) {
+        setFontSize(savedFontSize);
+      }
+
+      const savedHighContrast = localStorage.getItem('accessibility-high-contrast') === 'true';
+      setHighContrast(prev => savedHighContrast || prev);
+
+      const savedReduceMotion = localStorage.getItem('accessibility-reduce-motion') === 'true';
+      setReduceMotion(prev => savedReduceMotion || prev);
+    } catch (error) {
+      console.warn('Error loading accessibility preferences:', error);
     }
-
-    const savedHighContrast = localStorage.getItem('accessibility-high-contrast') === 'true';
-    setHighContrast(prev => savedHighContrast || prev);
-
-    const savedReduceMotion = localStorage.getItem('accessibility-reduce-motion') === 'true';
-    setReduceMotion(prev => savedReduceMotion || prev);
   }, []);
 
   // Apply accessibility settings to document
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+
     const root = document.documentElement;
     
     // Font size
@@ -63,9 +71,13 @@ export function AccessibilityProvider({ children }: { children: React.ReactNode 
     root.classList.toggle('reduce-motion', reduceMotion);
 
     // Save preferences
-    localStorage.setItem('accessibility-font-size', fontSize);
-    localStorage.setItem('accessibility-high-contrast', String(highContrast));
-    localStorage.setItem('accessibility-reduce-motion', String(reduceMotion));
+    try {
+      localStorage.setItem('accessibility-font-size', fontSize);
+      localStorage.setItem('accessibility-high-contrast', String(highContrast));
+      localStorage.setItem('accessibility-reduce-motion', String(reduceMotion));
+    } catch (error) {
+      console.warn('Error saving accessibility preferences:', error);
+    }
   }, [fontSize, highContrast, reduceMotion]);
 
   const toggleHighContrast = () => setHighContrast(prev => !prev);
