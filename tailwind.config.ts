@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 const config: Config = {
@@ -58,9 +57,9 @@ const config: Config = {
           foreground: "hsl(var(--card-foreground))",
         },
         sheraa: {
-          primary: "#e11d48",
-          secondary: "#fb7185",
-          accent: "#fda4af",
+          primary: "#0d9488",
+          secondary: "#14b8a6",
+          accent: "#5eead4",
           teal: "#0d9488",
           dark: "#1a1a2e",
           light: "#f8fafc",

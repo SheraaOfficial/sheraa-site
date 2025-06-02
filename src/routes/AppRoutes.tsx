@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { ErrorBoundary } from 'react-error-boundary';
@@ -26,8 +27,8 @@ import AccessSharjahChallengePage from "@/pages/programs/AccessSharjahChallengeP
 import DealDockPage from "@/pages/programs/DealDockPage";
 import SMESupportPage from "@/pages/programs/SMESupportPage";
 
-// Resources pages
-import ResourcesRouter from "@/pages/resources/ResourcesRouter";
+// Insights pages (renamed from Resources)
+import InsightsRouter from "@/pages/insights/InsightsRouter";
 
 // Community pages
 import CommunityPage from "@/pages/community/index";
@@ -123,8 +124,12 @@ const AppRoutes: React.FC = () => {
         <Route path="/programs/deal-dock" element={<DealDockPage />} />
         <Route path="/programs/sme-support" element={<SMESupportPage />} />
         
-        {/* Resources Routes - Using nested router */}
-        <Route path="/resources/*" element={<ResourcesRouter />} />
+        {/* Insights Routes (renamed from Resources) */}
+        <Route path="/insights/*" element={<InsightsRouter />} />
+        
+        {/* Legacy Resources redirects */}
+        <Route path="/resources" element={<Navigate to="/insights" replace />} />
+        <Route path="/resources/*" element={<Navigate to="/insights" replace />} />
         
         {/* Community Routes */}
         <Route path="/community" element={<CommunityPage />} />
