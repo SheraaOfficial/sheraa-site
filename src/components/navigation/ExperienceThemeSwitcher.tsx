@@ -91,6 +91,7 @@ export const ExperienceThemeSwitcher: React.FC = () => {
             exit={{ opacity: 0, y: -10, scale: 0.95 }}
             transition={{ duration: 0.2 }}
             className="absolute top-full right-0 mt-2 w-80 bg-white border border-gray-200 shadow-xl rounded-xl overflow-hidden z-[10000]"
+            style={{ backgroundColor: 'rgba(255, 255, 255, 0.98)' }}
           >
             <div className="p-2">
               <div className="text-xs font-medium text-gray-500 mb-2 px-3 py-1">

@@ -83,7 +83,11 @@ export const SophisticatedNavigation: React.FC = () => {
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-1" role="navigation" aria-label="Main navigation">
             {navigationItems.map((item) => (
-              <SophisticatedNavItem key={item.name} item={item} />
+              <SophisticatedNavItem 
+                key={item.name} 
+                item={item} 
+                isActive={isPathActive(item.path, item.subItems)}
+              />
             ))}
           </nav>
 

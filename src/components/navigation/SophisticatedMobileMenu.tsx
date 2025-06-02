@@ -29,9 +29,8 @@ export const SophisticatedMobileMenu: React.FC<SophisticatedMobileMenuProps> = (
       animate={{ opacity: 1, height: 'auto' }}
       exit={{ opacity: 0, height: 0 }}
       transition={{ duration: 0.3, ease: 'easeOut' }}
-      className="lg:hidden bg-white/95 dark:bg-sheraa-dark/95 backdrop-blur-xl border-t border-gray-200 dark:border-gray-700 shadow-xl"
+      className="lg:hidden bg-white/98 dark:bg-sheraa-dark/98 backdrop-blur-xl border-t border-gray-200 dark:border-gray-700 shadow-xl"
       id="mobile-menu"
-      style={{ backgroundColor: 'rgba(255, 255, 255, 0.95)' }}
     >
       <div className="container mx-auto px-4 py-6">
         <nav className="space-y-4">

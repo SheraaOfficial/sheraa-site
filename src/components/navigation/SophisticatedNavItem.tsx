@@ -70,7 +70,7 @@ export const SophisticatedNavItem: React.FC<SophisticatedNavItemProps> = ({
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.15 }}
             className="absolute top-full left-0 mt-2 w-64 bg-white dark:bg-sheraa-dark rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 py-2 z-[100] backdrop-blur-sm"
-            style={{ backgroundColor: 'rgba(255, 255, 255, 0.95)' }}
+            style={{ backgroundColor: 'rgba(255, 255, 255, 0.98)' }}
           >
             {item.subItems?.map((subItem) => (
               <Link

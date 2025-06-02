@@ -105,7 +105,7 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
             className="absolute top-full left-0 mt-2 w-64 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-xl z-[100] overflow-hidden backdrop-blur-sm"
-            style={{ backgroundColor: 'rgba(255, 255, 255, 0.95)' }}
+            style={{ backgroundColor: 'rgba(255, 255, 255, 0.98)' }}
           >
             <div className="p-2">
               {item.subItems.map((subItem, subIndex) => (
