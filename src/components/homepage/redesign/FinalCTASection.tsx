@@ -89,8 +89,12 @@ export const FinalCTASection: React.FC = () => {
       </div>
       
       {/* Floating elements for visual enhancement */}
-      <FloatingElement intensity="medium" className="absolute top-20 left-20 w-32 h-32 bg-white/10 rounded-full blur-2xl" />
-      <FloatingElement intensity="light" className="absolute bottom-20 right-20 w-48 h-48 bg-white/5 rounded-full blur-3xl" />
+      <FloatingElement intensity="medium" className="absolute top-20 left-20 w-32 h-32 bg-white/10 rounded-full blur-2xl">
+        <div></div>
+      </FloatingElement>
+      <FloatingElement intensity="light" className="absolute bottom-20 right-20 w-48 h-48 bg-white/5 rounded-full blur-3xl">
+        <div></div>
+      </FloatingElement>
     </section>
   );
 };
