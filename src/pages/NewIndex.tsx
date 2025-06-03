@@ -1,7 +1,7 @@
 
 import React from "react";
 import MainLayout from "@/components/layouts/MainLayout";
-import { ImmersiveHero } from "@/components/hero/ImmersiveHero";
+import UltimateHero from "@/components/hero/UltimateHero";
 import DealDockMarquee from "@/components/homepage/DealDockMarquee";
 import { ImpactMetricsSection } from "@/components/homepage/redesign/ImpactMetricsSection";
 import { ProgramsJourneySection } from "@/components/homepage/redesign/ProgramsJourneySection";
@@ -18,7 +18,7 @@ const NewIndex: React.FC = () => {
   return (
     <MainLayout className="bg-white dark:bg-sheraa-dark">
       {/* Critical above-the-fold content */}
-      <ImmersiveHero />
+      <UltimateHero />
       <DealDockMarquee />
       
       {/* High priority content */}
