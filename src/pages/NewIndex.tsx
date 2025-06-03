@@ -8,7 +8,7 @@ import { ProgramsJourneySection } from "@/components/homepage/redesign/ProgramsJ
 import { StartupEcosystemSection } from "@/components/homepage/redesign/StartupEcosystemSection";
 import { SEFHighlightSection } from "@/components/homepage/redesign/SEFHighlightSection";
 import { CommunityPartnersSection } from "@/components/homepage/redesign/CommunityPartnersSection";
-import { VisionQuoteSection } from "@/components/homepage/redesign/VisionQuoteSection";
+import { WhySharjahSection } from "@/components/homepage/sections/WhySharjahSection";
 import { FinalCTASection } from "@/components/homepage/redesign/FinalCTASection";
 import { CyclingStickyCornerCTA } from "@/components/ui/cycling-sticky-cta";
 import SheraaTestimonials from "@/components/testimonials/SheraaTestimonials";
@@ -43,7 +43,7 @@ const NewIndex: React.FC = () => {
         <CommunityPartnersSection />
       </PerformanceOptimizer>
       
-      <VisionQuoteSection />
+      <WhySharjahSection />
       <FinalCTASection />
       
       {/* Enhanced Cycling Sticky CTA */}
