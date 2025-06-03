@@ -10,6 +10,7 @@ import { CommunityPartnersSection } from "@/components/homepage/redesign/Communi
 import { VisionQuoteSection } from "@/components/homepage/redesign/VisionQuoteSection";
 import { FinalCTASection } from "@/components/homepage/redesign/FinalCTASection";
 import { CyclingStickyCornerCTA } from "@/components/ui/cycling-sticky-cta";
+import { ThemeSelector } from "@/components/theme/ThemeSelector";
 
 const Index = () => {
   return (
@@ -24,6 +25,9 @@ const Index = () => {
       <FinalCTASection />
       
       <CyclingStickyCornerCTA />
+      
+      {/* Theme Selector for Preview */}
+      <ThemeSelector />
     </MainLayout>
   );
 };

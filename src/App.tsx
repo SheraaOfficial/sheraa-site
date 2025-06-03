@@ -7,6 +7,7 @@ import AppRoutes from './routes/AppRoutes';
 import { AuthProvider } from './contexts/AuthContext';
 import { LanguageProvider } from './contexts/LanguageContext';
 import { ExperienceThemeProvider } from './contexts/ExperienceThemeContext';
+import { ThemeProvider as HomepageThemeProvider } from './contexts/ThemeContext';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { HelmetProvider } from 'react-helmet-async';
 
@@ -28,21 +29,23 @@ function App() {
             enableSystem={false}
             disableTransitionOnChange={false}
           >
-            <ExperienceThemeProvider>
-              <AuthProvider>
-                <LanguageProvider>
-                  <AccessibilityProvider>
-                    <PerformanceProvider>
-                      <SEOHead />
-                      <div className="min-h-screen bg-background text-foreground">
-                        <Toaster />
-                        <AppRoutes />
-                      </div>
-                    </PerformanceProvider>
-                  </AccessibilityProvider>
-                </LanguageProvider>
-              </AuthProvider>
-            </ExperienceThemeProvider>
+            <HomepageThemeProvider>
+              <ExperienceThemeProvider>
+                <AuthProvider>
+                  <LanguageProvider>
+                    <AccessibilityProvider>
+                      <PerformanceProvider>
+                        <SEOHead />
+                        <div className="min-h-screen bg-background text-foreground">
+                          <Toaster />
+                          <AppRoutes />
+                        </div>
+                      </PerformanceProvider>
+                    </AccessibilityProvider>
+                  </LanguageProvider>
+                </AuthProvider>
+              </ExperienceThemeProvider>
+            </HomepageThemeProvider>
           </ThemeProvider>
         </QueryClientProvider>
       </HelmetProvider>

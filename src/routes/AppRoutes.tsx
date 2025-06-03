@@ -1,7 +1,8 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { ErrorBoundary } from 'react-error-boundary';
-import NewIndex from "@/pages/NewIndex";
+import { ThemeAwareHomepage } from "@/components/homepage/ThemeAwareHomepage";
+import ThemePreviewPage from "@/pages/themes/ThemePreviewPage";
 import NotFound from "@/pages/NotFound";
 
 // About pages
@@ -97,8 +98,11 @@ const AppRoutes: React.FC = () => {
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback}>
       <Routes>
-        {/* Homepage */}
-        <Route path="/" element={<NewIndex />} />
+        {/* Homepage with theme awareness */}
+        <Route path="/" element={<ThemeAwareHomepage />} />
+        
+        {/* Theme showcase route */}
+        <Route path="/themes/preview" element={<ThemePreviewPage />} />
         
         {/* About Routes */}
         <Route path="/about" element={<About />} />
