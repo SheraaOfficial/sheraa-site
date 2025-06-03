@@ -1,7 +1,8 @@
+
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { ErrorBoundary } from 'react-error-boundary';
-import NewIndex from "@/pages/NewIndex";
+import Index from "@/pages/Index";
 import NotFound from "@/pages/NotFound";
 
 // About pages
@@ -98,7 +99,7 @@ const AppRoutes: React.FC = () => {
     <ErrorBoundary FallbackComponent={ErrorFallback}>
       <Routes>
         {/* Homepage */}
-        <Route path="/" element={<NewIndex />} />
+        <Route path="/" element={<Index />} />
         
         {/* About Routes */}
         <Route path="/about" element={<About />} />
