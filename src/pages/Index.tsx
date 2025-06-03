@@ -8,7 +8,7 @@ import { StartupEcosystemSection } from "@/components/homepage/redesign/StartupE
 import { SEFHighlightSection } from "@/components/homepage/redesign/SEFHighlightSection";
 import { CommunityPartnersSection } from "@/components/homepage/redesign/CommunityPartnersSection";
 import { WhySharjahSection } from "@/components/homepage/sections/WhySharjahSection";
-import { FinalCTASection } from "@/components/homepage/redesign/FinalCTASection";
+import { ReadyToStartSection } from "@/components/homepage/sections/ReadyToStartSection";
 import { CyclingStickyCornerCTA } from "@/components/ui/cycling-sticky-cta";
 import { ThemeSelector } from "@/components/theme/ThemeSelector";
 
@@ -22,7 +22,7 @@ const Index = () => {
       <SEFHighlightSection />
       <CommunityPartnersSection />
       <WhySharjahSection />
-      <FinalCTASection />
+      <ReadyToStartSection />
       
       <CyclingStickyCornerCTA />
       

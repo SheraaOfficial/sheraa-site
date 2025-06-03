@@ -9,7 +9,7 @@ import { StartupEcosystemSection } from "@/components/homepage/redesign/StartupE
 import { SEFHighlightSection } from "@/components/homepage/redesign/SEFHighlightSection";
 import { CommunityPartnersSection } from "@/components/homepage/redesign/CommunityPartnersSection";
 import { WhySharjahSection } from "@/components/homepage/sections/WhySharjahSection";
-import { FinalCTASection } from "@/components/homepage/redesign/FinalCTASection";
+import { ReadyToStartSection } from "@/components/homepage/sections/ReadyToStartSection";
 import { CyclingStickyCornerCTA } from "@/components/ui/cycling-sticky-cta";
 import SheraaTestimonials from "@/components/testimonials/SheraaTestimonials";
 import { PerformanceOptimizer } from "@/components/performance/PerformanceOptimizer";
@@ -44,7 +44,7 @@ const NewIndex: React.FC = () => {
       </PerformanceOptimizer>
       
       <WhySharjahSection />
-      <FinalCTASection />
+      <ReadyToStartSection />
       
       {/* Enhanced Cycling Sticky CTA */}
       <CyclingStickyCornerCTA />
