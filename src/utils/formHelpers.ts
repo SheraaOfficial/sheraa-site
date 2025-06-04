@@ -1,4 +1,3 @@
-
 import { FormSubmissionResponse, ContactFormData, ProgramApplicationData } from '@/types/forms';
 
 // Form submission utilities
@@ -63,12 +62,20 @@ export const transformContactFormData = (formData: any): ContactFormData => {
     phone: formData.phone || '',
     company: formData.company || '',
     position: formData.position || '',
-    inquiryType: formData.inquiryType || 'general',
-    audience: formData.audience || 'other',
+    inquiryType: (['program', 'partnership', 'investment', 'general', 'media'].includes(formData.inquiryType)) 
+      ? formData.inquiryType as ContactFormData['inquiryType']
+      : 'general',
+    audience: (['startup', 'investor', 'partner', 'student', 'other'].includes(formData.audience))
+      ? formData.audience as ContactFormData['audience'] 
+      : 'other',
     subject: formData.subject || '',
     message: formData.message || '',
-    preferredContact: formData.preferredContact || 'email',
-    urgency: formData.urgency || 'medium'
+    preferredContact: (['email', 'phone', 'either'].includes(formData.preferredContact))
+      ? formData.preferredContact as ContactFormData['preferredContact']
+      : 'email',
+    urgency: (['low', 'medium', 'high'].includes(formData.urgency))
+      ? formData.urgency as ContactFormData['urgency']
+      : 'medium'
   };
 };
 

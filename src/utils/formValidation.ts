@@ -1,5 +1,5 @@
-
-import { ApplicationFormData, ContactFormData } from '@/hooks/useApplicationForm';
+import { ContactFormData } from '@/types/forms';
+import { ApplicationFormData } from '@/hooks/useApplicationForm';
 
 export interface ValidationRule {
   required?: boolean;
