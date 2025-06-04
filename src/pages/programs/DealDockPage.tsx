@@ -1,387 +1,522 @@
 
-import React from "react";
-import MainLayout from "@/components/layouts/MainLayout";
-import { motion } from "framer-motion";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Link } from "react-router-dom";
+import React, { useState } from 'react';
+import MainLayout from '@/components/layouts/MainLayout';
+import { motion } from 'framer-motion';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Link } from 'react-router-dom';
 import { 
-  Calendar, Clock, Users, Handshake, Award, Building, 
-  TrendingUp, Star, Camera, Video, Globe, ArrowRight,
-  CheckCircle, Zap, Target, DollarSign, Network
-} from "lucide-react";
+  TrendingUp, Users, DollarSign, Globe, 
+  CheckCircle, Star, ArrowRight, Building,
+  Briefcase, Target, Crown, Shield,
+  Calendar, MapPin, Award, User
+} from 'lucide-react';
 
 const DealDockPage: React.FC = () => {
-  const highlights = [
+  const [activeTab, setActiveTab] = useState<'startups' | 'investors'>('startups');
+
+  const platformStats = [
+    { icon: DollarSign, number: '$45M+', label: 'Total Funding Facilitated', color: 'text-green-600' },
+    { icon: Users, number: '120+', label: 'Active Investors', color: 'text-blue-600' },
+    { icon: Building, number: '85+', label: 'Startups Funded', color: 'text-purple-600' },
+    { icon: Globe, number: '25+', label: 'Countries Represented', color: 'text-sheraa-primary' }
+  ];
+
+  const investorProfiles = [
     {
-      icon: <Users className="w-6 h-6" />,
-      title: "30+ Startups Pitching",
-      description: "Selected high-potential startups presenting to investors"
+      name: 'Wamda Capital',
+      type: 'Venture Capital',
+      focus: 'MENA Tech Startups',
+      ticketSize: '$500K - $5M',
+      stage: 'Series A & B',
+      logo: '/lovable-uploads/sheraa-logo.png',
+      description: 'Leading MENA VC with $75M+ deployed across 40+ startups',
+      sectors: ['FinTech', 'E-commerce', 'B2B SaaS']
     },
     {
-      icon: <Building className="w-6 h-6" />,
-      title: "Regional Investment Leaders",
-      description: "VCs from Wamda Capital, Oraseya Capital, Beco Capital, Shorooq Partners"
+      name: 'Dubai Angels',
+      type: 'Angel Network',
+      focus: 'Early-Stage Tech',
+      ticketSize: '$25K - $250K',
+      stage: 'Pre-Seed & Seed',
+      logo: '/lovable-uploads/sheraa-logo.png',
+      description: 'Premier angel network with 200+ successful entrepreneurs',
+      sectors: ['PropTech', 'HealthTech', 'EdTech']
     },
     {
-      icon: <Handshake className="w-6 h-6" />,
-      title: "1:1 Connect Sessions",
-      description: "Direct investor-startup matching and meetings"
+      name: 'CE-Ventures',
+      type: 'Corporate VC',
+      focus: 'Social Impact',
+      ticketSize: '$100K - $2M',
+      stage: 'Seed to Series A',
+      logo: '/lovable-uploads/sheraa-logo.png',
+      description: 'Impact-focused investment arm of Crescent Enterprises',
+      sectors: ['Social Impact', 'Sustainability', 'Healthcare']
     },
     {
-      icon: <Award className="w-6 h-6" />,
-      title: "Live Portfolio Reviews",
-      description: "Real-time feedback and evaluation sessions"
+      name: 'BECO Capital',
+      type: 'Venture Capital',
+      focus: 'MENA Startups',
+      ticketSize: '$250K - $3M',
+      stage: 'Seed & Series A',
+      logo: '/lovable-uploads/sheraa-logo.png',
+      description: 'Regional VC focused on high-growth tech companies',
+      sectors: ['Marketplace', 'SaaS', 'Mobile']
     }
   ];
 
-  const agenda = [
+  const startupBenefits = [
     {
-      time: "9:00 AM",
-      title: "Registration & Welcome Coffee",
-      type: "networking",
-      description: "Meet fellow entrepreneurs and investors"
+      icon: Users,
+      title: 'Curated Investor Access',
+      description: 'Direct access to pre-qualified investors actively seeking opportunities in your sector'
     },
     {
-      time: "9:30 AM",
-      title: "Opening Keynote",
-      type: "keynote",
-      speaker: "H.E. Sheikha Bodour Al Qasimi",
-      description: "Vision for Sharjah's startup ecosystem"
+      icon: Target,
+      title: 'Smart Matching',
+      description: 'AI-powered matching based on stage, sector, geography, and investment thesis alignment'
     },
     {
-      time: "10:00 AM",
-      title: "Fireside Chat with Sonia Weymuller",
-      type: "fireside",
-      speaker: "Sonia Weymuller (VentureSouq)",
-      description: "Insights on regional venture capital trends"
+      icon: Shield,
+      title: 'Quality Assurance',
+      description: 'All investors are vetted and verified for legitimacy, experience, and portfolio quality'
     },
     {
-      time: "10:45 AM",
-      title: "Startup Pitch Session 1",
-      type: "pitch",
-      description: "10 startups present to investor panel"
+      icon: Briefcase,
+      title: 'Deal Room Access',
+      description: 'Secure virtual deal rooms for due diligence and document sharing'
     },
     {
-      time: "12:00 PM",
-      title: "MoU Signing Ceremony",
-      type: "ceremony",
-      description: "Sheraa x Continuous VC Partnership"
+      icon: Calendar,
+      title: 'Pitch Events',
+      description: 'Regular pitch events and demo days with high-net-worth individuals and VCs'
     },
     {
-      time: "12:30 PM",
-      title: "Networking Lunch",
-      type: "networking",
-      description: "Connect with investors and fellow founders"
-    },
-    {
-      time: "1:30 PM",
-      title: "Startup Pitch Session 2",
-      type: "pitch",
-      description: "10 more startups pitch to investors"
-    },
-    {
-      time: "2:45 PM",
-      title: "1:1 Investor Meetings",
-      type: "meetings",
-      description: "Private sessions between startups and VCs"
-    },
-    {
-      time: "4:00 PM",
-      title: "Group Photo & Closing",
-      type: "ceremony",
-      description: "Official group photo with leadership"
+      icon: Award,
+      title: 'Success Support',
+      description: 'End-to-end support from initial introduction to term sheet negotiation'
     }
   ];
 
-  const investorPartners = [
-    "Wamda Capital", "VentureSouq", "Oraseya Capital", "Beco Capital", 
-    "Shorooq Partners", "Continuous VC", "MEVP", "Global Ventures"
+  const investorBenefits = [
+    {
+      icon: Target,
+      title: 'Deal Flow Quality',
+      description: 'Access to pre-screened, high-potential startups from Sheraa\'s ecosystem'
+    },
+    {
+      icon: Globe,
+      title: 'Regional Access',
+      description: 'Unique access to MENA startups with global ambitions and local market knowledge'
+    },
+    {
+      icon: Users,
+      title: 'Co-Investment',
+      description: 'Opportunities to co-invest with other reputable investors and funds'
+    },
+    {
+      icon: Building,
+      title: 'Due Diligence',
+      description: 'Comprehensive startup vetting and due diligence support from our team'
+    },
+    {
+      icon: CheckCircle,
+      title: 'Portfolio Support',
+      description: 'Ongoing support for portfolio companies through Sheraa\'s programs and network'
+    },
+    {
+      icon: Crown,
+      title: 'Exclusive Events',
+      description: 'VIP access to exclusive investor events, roundtables, and market insights'
+    }
   ];
 
   const successStories = [
     {
-      startup: "TechFlow Solutions",
-      founder: "Ahmed Al-Rashid",
-      outcome: "Raised $1.2M seed round",
-      description: "Connected with three VCs at Deal Dock, closed funding within 60 days"
+      startup: 'Baytuki',
+      sector: 'PropTech',
+      funding: '$1.2M Seed',
+      investor: 'Multiple Angels',
+      outcome: '300% revenue growth, expanded to 3 cities'
     },
     {
-      startup: "EcoLogistics",
-      founder: "Fatima Hassan",
-      outcome: "Strategic partnership",
-      description: "Secured major corporate partnership through investor introductions"
+      startup: 'Caena',
+      sector: 'AgriTech',
+      funding: '$800K Pre-Series A',
+      investor: 'CE-Ventures + Angels',
+      outcome: 'Deployed across 15 farms, 40% cost reduction'
     },
     {
-      startup: "FinTech Arabia",
-      founder: "Omar Khalil",
-      outcome: "Series A preparation",
-      description: "Gained valuable feedback to refine pitch for upcoming Series A"
+      startup: 'KRISPR',
+      sector: 'B2B SaaS',
+      funding: '$2.1M Series A',
+      investor: 'BECO Capital',
+      outcome: 'Acquired by regional tech giant'
+    }
+  ];
+
+  const applicationProcess = [
+    {
+      step: 1,
+      title: 'Submit Application',
+      description: 'Complete detailed startup profile with financials and pitch deck',
+      duration: '15 minutes'
+    },
+    {
+      step: 2,
+      title: 'Sheraa Review',
+      description: 'Our investment team reviews and scores your application',
+      duration: '3-5 days'
+    },
+    {
+      step: 3,
+      title: 'Investor Matching',
+      description: 'AI-powered matching with relevant investors based on criteria',
+      duration: '1-2 days'
+    },
+    {
+      step: 4,
+      title: 'Introductions',
+      description: 'Warm introductions to interested investors via our platform',
+      duration: 'Ongoing'
+    },
+    {
+      step: 5,
+      title: 'Deal Support',
+      description: 'Support through negotiations, due diligence, and closing',
+      duration: '4-8 weeks'
     }
   ];
 
   return (
-    <MainLayout 
-      seoTitle="Deal Dock - Investor-Startup Connect Event"
-      seoDescription="Connect with top Middle East VCs and angel investors at Sheraa's Deal Dock event. Live pitches, 1:1 meetings, and networking opportunities."
-    >
-      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-black">
+    <MainLayout>
+      <div className="min-h-screen bg-gradient-to-br from-white via-sheraa-light/10 to-sheraa-teal/5">
         {/* Hero Section */}
-        <section className="pt-24 pb-16">
+        <section className="py-20 md:py-24">
           <div className="container mx-auto px-4">
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="text-center mb-12"
+              className="text-center mb-16"
             >
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-100 dark:bg-purple-900/30 border border-purple-200 dark:border-purple-700 mb-6">
-                <Zap className="w-5 h-5 text-purple-600" />
-                <span className="text-sm font-bold text-purple-600 dark:text-purple-400">PREMIER INVESTOR EVENT</span>
-              </div>
+              <Badge className="mb-6 bg-gradient-to-r from-purple-500 to-pink-500 text-white">
+                <Crown className="w-4 h-4 mr-2" />
+                Deal Dock - Investment Platform
+              </Badge>
               
-              <h1 className="text-4xl md:text-6xl font-bold mb-6">
-                <span className="bg-gradient-to-r from-purple-600 via-blue-600 to-purple-600 bg-clip-text text-transparent">
-                  Deal Dock
-                </span>
+              <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-purple-600 via-pink-500 to-sheraa-primary bg-clip-text text-transparent">
+                Where Startups
+                <br />
+                Meet Capital
               </h1>
-              
-              <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-8">
-                Where Startups Meet Capital. Connect with the region&apos;s top VCs and angel investors 
-                in an exclusive investor-startup matching event.
+              <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto mb-8">
+                Deal Dock is Sheraa's exclusive investment platform connecting high-potential startups 
+                with vetted investors across the MENA region and beyond.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-                <Button size="lg" className="bg-purple-600 hover:bg-purple-700">
-                  <Calendar className="w-5 h-5 mr-2" />
-                  Register for Next Event
-                </Button>
-                <Button size="lg" variant="outline">
-                  <Video className="w-5 h-5 mr-2" />
-                  Watch Event Highlights
-                </Button>
+              {/* Tab Navigation */}
+              <div className="flex justify-center mb-8">
+                <div className="bg-white rounded-full p-1 shadow-lg border">
+                  <button
+                    onClick={() => setActiveTab('startups')}
+                    className={`px-8 py-3 rounded-full font-medium transition-all ${
+                      activeTab === 'startups' 
+                        ? 'bg-sheraa-primary text-white shadow-md' 
+                        : 'text-gray-600 hover:text-sheraa-primary'
+                    }`}
+                  >
+                    For Startups
+                  </button>
+                  <button
+                    onClick={() => setActiveTab('investors')}
+                    className={`px-8 py-3 rounded-full font-medium transition-all ${
+                      activeTab === 'investors' 
+                        ? 'bg-sheraa-primary text-white shadow-md' 
+                        : 'text-gray-600 hover:text-sheraa-primary'
+                    }`}
+                  >
+                    For Investors
+                  </button>
+                </div>
               </div>
 
-              {/* Event Stats */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto">
-                {[
-                  { number: "30+", label: "Startups Pitched" },
-                  { number: "15+", label: "Top-tier VCs" },
-                  { number: "50+", label: "1:1 Meetings" },
-                  { number: "$12M+", label: "Funding Connected" }
-                ].map((stat, idx) => (
+              <div className="flex flex-col sm:flex-row gap-6 justify-center">
+                {activeTab === 'startups' ? (
+                  <>
+                    <Button asChild size="lg" className="bg-sheraa-primary hover:bg-sheraa-primary/90 px-8 py-6 text-lg">
+                      <Link to="/programs/deal-dock/apply">
+                        <TrendingUp className="w-5 h-5 mr-2" />
+                        Submit Your Startup
+                      </Link>
+                    </Button>
+                    <Button asChild variant="outline" size="lg" className="px-8 py-6 text-lg">
+                      <Link to="/contact?type=deal-dock&audience=startup">
+                        Learn More
+                      </Link>
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <Button asChild size="lg" className="bg-gradient-to-r from-purple-600 to-pink-500 hover:from-purple-700 hover:to-pink-600 px-8 py-6 text-lg">
+                      <Link to="/programs/deal-dock/investor-apply">
+                        <Crown className="w-5 h-5 mr-2" />
+                        Join as Investor
+                      </Link>
+                    </Button>
+                    <Button asChild variant="outline" size="lg" className="px-8 py-6 text-lg">
+                      <Link to="/contact?type=deal-dock&audience=investor">
+                        Schedule Demo
+                      </Link>
+                    </Button>
+                  </>
+                )}
+              </div>
+            </motion.div>
+
+            {/* Platform Stats */}
+            <div className="grid md:grid-cols-4 gap-6 mb-16">
+              {platformStats.map((stat, index) => {
+                const IconComponent = stat.icon;
+                return (
                   <motion.div
-                    key={idx}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.1 * idx, duration: 0.5 }}
-                    className="text-center"
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 * index }}
                   >
-                    <div className="text-2xl md:text-3xl font-bold text-purple-600 mb-1">
-                      {stat.number}
+                    <Card className="text-center border border-gray-200/50 bg-white/80 backdrop-blur-sm">
+                      <CardContent className="p-6">
+                        <IconComponent className={`w-12 h-12 mx-auto mb-4 ${stat.color}`} />
+                        <div className="text-3xl font-bold mb-2 bg-gradient-to-r from-sheraa-primary to-sheraa-teal bg-clip-text text-transparent">
+                          {stat.number}
+                        </div>
+                        <div className="text-sm font-medium text-gray-600">{stat.label}</div>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* Benefits Section */}
+        <section className="py-16 bg-gray-50">
+          <div className="container mx-auto px-4">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center mb-12"
+            >
+              <h2 className="text-4xl font-bold mb-6">
+                {activeTab === 'startups' ? 'Why Startups Choose Deal Dock' : 'Why Investors Choose Deal Dock'}
+              </h2>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                {activeTab === 'startups' 
+                  ? 'Get access to quality investors who understand your market and can accelerate your growth.'
+                  : 'Access high-quality deal flow from the fastest-growing startup ecosystem in the MENA region.'
+                }
+              </p>
+            </motion.div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {(activeTab === 'startups' ? startupBenefits : investorBenefits).map((benefit, index) => {
+                const IconComponent = benefit.icon;
+                return (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.1 * index }}
+                  >
+                    <Card className="h-full hover:shadow-lg transition-shadow">
+                      <CardContent className="p-6">
+                        <IconComponent className="w-12 h-12 text-sheraa-primary mb-4" />
+                        <h3 className="text-xl font-bold mb-3">{benefit.title}</h3>
+                        <p className="text-gray-600">{benefit.description}</p>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* Investor Profiles */}
+        {activeTab === 'startups' && (
+          <section className="py-16">
+            <div className="container mx-auto px-4">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="text-center mb-12"
+              >
+                <h2 className="text-4xl font-bold mb-6">Meet Our Investor Network</h2>
+                <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                  Connect with leading VCs, angel investors, and corporate investors actively seeking opportunities.
+                </p>
+              </motion.div>
+
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {investorProfiles.map((investor, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.1 * index }}
+                  >
+                    <Card className="h-full hover:shadow-lg transition-shadow">
+                      <CardContent className="p-6">
+                        <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-sheraa-primary to-sheraa-teal flex items-center justify-center">
+                          <Building className="w-8 h-8 text-white" />
+                        </div>
+                        <h3 className="font-bold text-lg mb-2 text-center">{investor.name}</h3>
+                        <Badge className="w-full justify-center mb-3">{investor.type}</Badge>
+                        <div className="space-y-2 text-sm">
+                          <div><strong>Focus:</strong> {investor.focus}</div>
+                          <div><strong>Ticket Size:</strong> {investor.ticketSize}</div>
+                          <div><strong>Stage:</strong> {investor.stage}</div>
+                        </div>
+                        <p className="text-xs text-gray-600 mt-3">{investor.description}</p>
+                        <div className="flex flex-wrap gap-1 mt-3">
+                          {investor.sectors.map((sector, idx) => (
+                            <Badge key={idx} variant="outline" className="text-xs">{sector}</Badge>
+                          ))}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+        )}
+
+        {/* Success Stories */}
+        <section className="py-16 bg-gradient-to-r from-sheraa-primary to-sheraa-teal text-white">
+          <div className="container mx-auto px-4">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center mb-12"
+            >
+              <h2 className="text-4xl font-bold mb-6">Success Stories</h2>
+              <p className="text-xl text-white/90 max-w-3xl mx-auto">
+                Deal Dock has facilitated over $45M in funding for high-growth startups.
+              </p>
+            </motion.div>
+
+            <div className="grid md:grid-cols-3 gap-8">
+              {successStories.map((story, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.1 * index }}
+                >
+                  <Card className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
+                    <CardContent className="p-6">
+                      <div className="flex items-center gap-3 mb-4">
+                        <Star className="w-6 h-6 text-yellow-300" />
+                        <h3 className="font-bold text-lg">{story.startup}</h3>
+                        <Badge className="bg-white/20 text-white">{story.sector}</Badge>
+                      </div>
+                      <div className="space-y-2 text-sm">
+                        <div><strong>Funding:</strong> {story.funding}</div>
+                        <div><strong>Investor:</strong> {story.investor}</div>
+                        <div><strong>Outcome:</strong> {story.outcome}</div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Application Process */}
+        {activeTab === 'startups' && (
+          <section className="py-16 bg-gray-50">
+            <div className="container mx-auto px-4">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="text-center mb-12"
+              >
+                <h2 className="text-4xl font-bold mb-6">How It Works</h2>
+                <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                  Our streamlined process gets you in front of the right investors quickly.
+                </p>
+              </motion.div>
+
+              <div className="max-w-4xl mx-auto">
+                {applicationProcess.map((phase, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.1 * index }}
+                    className="flex items-center mb-8 last:mb-0"
+                  >
+                    <div className="w-12 h-12 bg-sheraa-primary text-white rounded-full flex items-center justify-center font-bold mr-6 flex-shrink-0">
+                      {phase.step}
                     </div>
-                    <div className="text-sm text-gray-600 dark:text-gray-400">
-                      {stat.label}
+                    <div className="flex-1">
+                      <div className="flex items-center gap-4 mb-2">
+                        <h3 className="text-xl font-bold">{phase.title}</h3>
+                        <Badge variant="outline">{phase.duration}</Badge>
+                      </div>
+                      <p className="text-gray-600">{phase.description}</p>
                     </div>
                   </motion.div>
                 ))}
               </div>
-            </motion.div>
-
-            {/* Key Highlights */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-              {highlights.map((highlight, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1, duration: 0.6 }}
-                >
-                  <Card className="h-full text-center hover:shadow-lg transition-shadow">
-                    <CardContent className="p-6">
-                      <div className="w-16 h-16 mx-auto bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center mb-4 text-purple-600">
-                        {highlight.icon}
-                      </div>
-                      <h3 className="font-bold text-lg mb-2">{highlight.title}</h3>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm">{highlight.description}</p>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
             </div>
           </div>
         </section>
-
-        {/* Agenda Section */}
-        <section className="py-16 bg-white/50 dark:bg-gray-800/50">
-          <div className="container mx-auto px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-center mb-12"
-            >
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Event Agenda</h2>
-              <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                A full day of connections, insights, and opportunities to accelerate your startup journey.
-              </p>
-            </motion.div>
-
-            <div className="max-w-4xl mx-auto">
-              {agenda.map((item, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="flex gap-4 mb-6 last:mb-0"
-                >
-                  <div className="flex-shrink-0">
-                    <div className="w-20 h-20 bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center">
-                      <span className="text-sm font-bold text-purple-600 dark:text-purple-400">
-                        {item.time}
-                      </span>
-                    </div>
-                  </div>
-                  
-                  <Card className="flex-1">
-                    <CardContent className="p-6">
-                      <div className="flex items-start justify-between mb-2">
-                        <h3 className="font-bold text-lg">{item.title}</h3>
-                        <Badge variant={item.type === 'pitch' ? 'default' : 'secondary'}>
-                          {item.type}
-                        </Badge>
-                      </div>
-                      {item.speaker && (
-                        <p className="text-purple-600 dark:text-purple-400 font-medium mb-1">
-                          {item.speaker}
-                        </p>
-                      )}
-                      <p className="text-gray-600 dark:text-gray-400">{item.description}</p>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Success Stories */}
-        <section className="py-16">
-          <div className="container mx-auto px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-center mb-12"
-            >
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Success Stories</h2>
-              <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Real founders who connected with investors and achieved their funding goals at Deal Dock.
-              </p>
-            </motion.div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-              {successStories.map((story, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                >
-                  <Card className="h-full">
-                    <CardContent className="p-6">
-                      <div className="flex items-center gap-1 mb-4">
-                        {[...Array(5)].map((_, i) => (
-                          <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                        ))}
-                      </div>
-                      <h3 className="font-bold text-lg mb-1">{story.startup}</h3>
-                      <p className="text-purple-600 dark:text-purple-400 font-medium mb-2">{story.founder}</p>
-                      <div className="bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400 px-3 py-1 rounded-full text-sm font-medium mb-3 inline-block">
-                        {story.outcome}
-                      </div>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm">{story.description}</p>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Investor Partners */}
-        <section className="py-16 bg-white/50 dark:bg-gray-800/50">
-          <div className="container mx-auto px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-center mb-12"
-            >
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Featured Investor Partners</h2>
-              <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Connect with leading VCs and angel investors actively seeking investment opportunities in the region.
-              </p>
-            </motion.div>
-
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
-              {investorPartners.map((investor, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.05 }}
-                  className="bg-white dark:bg-gray-800 rounded-lg p-6 text-center shadow-md hover:shadow-lg transition-shadow"
-                >
-                  <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-full mx-auto mb-3 flex items-center justify-center">
-                    <Building className="w-6 h-6 text-purple-600" />
-                  </div>
-                  <h3 className="font-semibold text-sm">{investor}</h3>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
+        )}
 
         {/* CTA Section */}
-        <section className="py-16 bg-gradient-to-r from-purple-600 to-blue-600 text-white">
+        <section className="py-20 bg-gradient-to-r from-purple-600 via-sheraa-primary to-sheraa-teal text-white">
           <div className="container mx-auto px-4 text-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                Ready to Connect with Investors?
+              <h2 className="text-4xl md:text-5xl font-bold mb-6">
+                {activeTab === 'startups' ? 'Ready to Raise Capital?' : 'Ready to Invest?'}
               </h2>
-              <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
-                Join the next Deal Dock event and pitch your startup to regional investment leaders.
+              <p className="text-xl text-white/90 max-w-3xl mx-auto mb-10">
+                {activeTab === 'startups' 
+                  ? 'Join Deal Dock and get connected with investors who can fuel your growth journey.'
+                  : 'Get exclusive access to the most promising startups in the MENA region.'
+                }
               </p>
               
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" variant="secondary" className="bg-white text-purple-600 hover:bg-gray-100">
-                  <ArrowRight className="w-5 h-5 mr-2" />
-                  Apply for Next Event
-                </Button>
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
-                  <Users className="w-5 h-5 mr-2" />
-                  Join as Investor
-                </Button>
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10" asChild>
-                  <Link to="/programs">
-                    <Target className="w-5 h-5 mr-2" />
-                    Explore Programs
+              <div className="flex flex-col sm:flex-row gap-6 justify-center">
+                <Button asChild size="lg" variant="secondary" className="bg-white text-sheraa-primary hover:bg-gray-50 px-10 py-6 text-lg">
+                  <Link to={activeTab === 'startups' ? '/programs/deal-dock/apply' : '/programs/deal-dock/investor-apply'}>
+                    <ArrowRight className="w-5 h-5 mr-2" />
+                    {activeTab === 'startups' ? 'Apply Now' : 'Join Network'}
                   </Link>
                 </Button>
-              </div>
-
-              <div className="mt-8 text-sm opacity-80">
-                <p>📧 For partnerships and sponsorship opportunities: partnerships@sheraa.ae</p>
+                <Button asChild size="lg" variant="outline" className="border-white text-white hover:bg-white/10 px-10 py-6 text-lg">
+                  <Link to={`/contact?type=deal-dock&audience=${activeTab === 'startups' ? 'startup' : 'investor'}`}>
+                    Schedule Call
+                  </Link>
+                </Button>
               </div>
             </motion.div>
           </div>
