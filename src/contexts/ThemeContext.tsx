@@ -1,7 +1,7 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
-export type HomepageTheme = 'corporate' | 'dynamic';
+export type HomepageTheme = 'corporate' | 'dynamic' | 'immersive' | 'floating' | 'video' | 'cinematic' | 'ultimate';
 
 interface ThemeMetadata {
   id: HomepageTheme;
@@ -48,6 +48,71 @@ export const themeMetadata: ThemeMetadata[] = [
       'Mobile-first approach'
     ],
     useCase: 'Perfect for engaging young entrepreneurs and showcasing innovation'
+  },
+  {
+    id: 'immersive',
+    name: 'Immersive Experience',
+    description: 'Rich visual experience with immersive hero section and advanced animations',
+    targetAudience: 'Creative Community, Visual Learners',
+    keyFeatures: [
+      'Immersive visual design',
+      'Advanced motion graphics',
+      'Creative storytelling',
+      'Rich interactions'
+    ],
+    useCase: 'Best for creative showcases and visual impact'
+  },
+  {
+    id: 'floating',
+    name: 'Floating Elements',
+    description: 'Playful design with floating images and dynamic visual elements',
+    targetAudience: 'Young Entrepreneurs, Students',
+    keyFeatures: [
+      'Floating image animations',
+      'Playful interactions',
+      'Dynamic visual elements',
+      'Engaging user experience'
+    ],
+    useCase: 'Great for engaging younger audiences and student programs'
+  },
+  {
+    id: 'video',
+    name: 'Video Background',
+    description: 'Video-driven experience with entrepreneur stories and testimonials',
+    targetAudience: 'Media-focused Audiences, Storytellers',
+    keyFeatures: [
+      'Video background hero',
+      'Story-driven content',
+      'Multimedia experience',
+      'Emotional engagement'
+    ],
+    useCase: 'Perfect for storytelling and emotional connection'
+  },
+  {
+    id: 'cinematic',
+    name: 'Cinematic Hero',
+    description: 'Cinematic approach with dramatic visuals and sophisticated animations',
+    targetAudience: 'High-profile Events, Premium Audiences',
+    keyFeatures: [
+      'Cinematic visuals',
+      'Premium aesthetics',
+      'Sophisticated animations',
+      'Dramatic impact'
+    ],
+    useCase: 'Ideal for high-profile events and premium presentations'
+  },
+  {
+    id: 'ultimate',
+    name: 'Ultimate Performance',
+    description: 'Feature-rich experience combining the best elements from all themes',
+    targetAudience: 'All Audiences, Comprehensive Use',
+    keyFeatures: [
+      'Comprehensive features',
+      'Adaptive design',
+      'Rich content sections',
+      'Maximum engagement'
+    ],
+    useCase: 'All-in-one solution for maximum impact and functionality'
   }
 ];
 
@@ -65,7 +130,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     const themeParam = urlParams.get('theme') as HomepageTheme;
     const previewParam = urlParams.get('preview') === 'true';
     
-    if (themeParam && ['corporate', 'dynamic'].includes(themeParam)) {
+    if (themeParam && themeMetadata.some(t => t.id === themeParam)) {
       setCurrentTheme(themeParam);
     }
     
