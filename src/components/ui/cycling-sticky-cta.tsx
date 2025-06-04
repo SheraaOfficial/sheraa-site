@@ -45,7 +45,7 @@ export const CyclingStickyCornerCTA: React.FC = () => {
 
   return (
     <motion.div
-      className="fixed bottom-6 right-6 z-[9999]"
+      className="fixed bottom-6 left-6 z-[9999]"
       initial={{ opacity: 0, scale: 0.8, y: 100 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
       transition={{ delay: 2, duration: 0.6, ease: "easeOut" }}
