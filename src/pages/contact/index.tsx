@@ -2,17 +2,16 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import MainLayout from '@/components/layouts/MainLayout';
-import { motion } from 'framer-motion';
-import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
+import { Card, CardContent } from '@/components/ui/card';
 import ContactForm from './ContactForm';
 import CalendarBookingModal from '@/components/contact/CalendarBookingModal';
 import { 
   MapPin, Phone, Mail, Clock, MessageSquare, 
-  Calendar, Users, Building, Globe, Star,
+  Calendar, Users, Building, Globe,
   Coffee, Video, ArrowRight
 } from 'lucide-react';
+import { HeroSection } from '@/components/common';
 
 const ContactPage: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -113,13 +112,13 @@ const ContactPage: React.FC = () => {
       title: 'Investment Discussion',
       description: 'Explore funding opportunities and investor connections',
       bookingType: 'investment',
-      icon: Star
+      icon: Building
     },
     {
       title: 'Partnership Exploration',
       description: 'Discuss collaboration and strategic partnerships',
       bookingType: 'partnership',
-      icon: Building
+      icon: Globe
     },
     {
       title: 'General Consultation',
@@ -133,37 +132,26 @@ const ContactPage: React.FC = () => {
     <MainLayout>
       <div className="min-h-screen bg-gradient-to-br from-white via-sheraa-light/10 to-sheraa-teal/5">
         {/* Hero Section */}
-        <section className="py-20 md:py-24">
-          <div className="container mx-auto px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-center mb-16"
-            >
-              <Badge className="mb-6 bg-gradient-to-r from-sheraa-primary to-sheraa-teal text-white">
-                <MessageSquare className="w-4 h-4 mr-2" />
-                Get in Touch
-              </Badge>
-              
-              <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-sheraa-primary via-sheraa-teal to-purple-500 bg-clip-text text-transparent">
-                Let's Connect
-              </h1>
-              <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto mb-8">
-                Whether you're an aspiring entrepreneur, seasoned founder, investor, or potential partner, 
-                we're here to help you navigate Sharjah's thriving entrepreneurship ecosystem.
-              </p>
-            </motion.div>
+        <HeroSection
+          badge={{
+            text: 'Get in Touch',
+            icon: MessageSquare
+          }}
+          title="Let's Connect"
+          subtitle="Whether you're an aspiring entrepreneur, seasoned founder, investor, or potential partner, we're here to help you navigate Sharjah's thriving entrepreneurship ecosystem."
+          actions={[]}
+          backgroundVariant="default"
+        />
 
-            {/* Contact Methods */}
+        {/* Contact Methods */}
+        <section className="py-16">
+          <div className="container mx-auto px-4">
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
               {contactMethods.map((method, index) => {
                 const IconComponent = method.icon;
                 return (
-                  <motion.div
+                  <div
                     key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1 * index }}
                     className="group cursor-pointer"
                     onClick={method.onClick}
                   >
@@ -183,18 +171,13 @@ const ContactPage: React.FC = () => {
                         </Button>
                       </CardContent>
                     </Card>
-                  </motion.div>
+                  </div>
                 );
               })}
             </div>
 
             {/* Quick Booking Actions */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
-              className="text-center mb-16"
-            >
+            <div className="text-center mb-16">
               <h2 className="text-3xl font-bold mb-6">Schedule a Consultation</h2>
               <p className="text-lg text-gray-600 mb-8">Choose the type of meeting that best fits your needs</p>
               
@@ -219,73 +202,60 @@ const ContactPage: React.FC = () => {
                   );
                 })}
               </div>
-            </motion.div>
+            </div>
           </div>
         </section>
 
         {/* Office Locations */}
         <section className="py-16 bg-gray-50">
           <div className="container mx-auto px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-center mb-12"
-            >
+            <div className="text-center mb-12">
               <h2 className="text-4xl font-bold mb-6">Visit Our Hubs</h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
                 Sheraa operates from strategic locations across Sharjah's innovation ecosystem
               </p>
-            </motion.div>
+            </div>
 
             <div className="grid md:grid-cols-3 gap-8 mb-12">
               {officeLocations.map((location, index) => {
                 const IconComponent = location.icon;
                 return (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.1 * index }}
-                  >
-                    <Card className="h-full hover:shadow-lg transition-shadow">
-                      <CardContent className="p-6">
-                        <div className="flex items-center gap-3 mb-4">
-                          <div className="w-12 h-12 bg-sheraa-primary/10 rounded-lg flex items-center justify-center">
-                            <IconComponent className="w-6 h-6 text-sheraa-primary" />
-                          </div>
-                          <h3 className="text-xl font-bold">{location.name}</h3>
+                  <Card key={index} className="h-full hover:shadow-lg transition-shadow">
+                    <CardContent className="p-6">
+                      <div className="flex items-center gap-3 mb-4">
+                        <div className="w-12 h-12 bg-sheraa-primary/10 rounded-lg flex items-center justify-center">
+                          <IconComponent className="w-6 h-6 text-sheraa-primary" />
                         </div>
-                        
-                        <p className="text-sm text-gray-600 mb-4">{location.description}</p>
-                        
-                        <div className="space-y-3 text-sm">
-                          <div className="flex items-start gap-2">
-                            <MapPin className="w-4 h-4 text-gray-400 mt-0.5 flex-shrink-0" />
-                            <span>{location.address}</span>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <Phone className="w-4 h-4 text-gray-400" />
-                            <span>{location.phone}</span>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <Mail className="w-4 h-4 text-gray-400" />
-                            <span>{location.email}</span>
-                          </div>
-                          <div className="flex items-start gap-2">
-                            <Clock className="w-4 h-4 text-gray-400 mt-0.5 flex-shrink-0" />
-                            <span>{location.hours}</span>
-                          </div>
+                        <h3 className="text-xl font-bold">{location.name}</h3>
+                      </div>
+                      
+                      <p className="text-sm text-gray-600 mb-4">{location.description}</p>
+                      
+                      <div className="space-y-3 text-sm">
+                        <div className="flex items-start gap-2">
+                          <MapPin className="w-4 h-4 text-gray-400 mt-0.5 flex-shrink-0" />
+                          <span>{location.address}</span>
                         </div>
-                        
-                        <Button variant="outline" size="sm" className="w-full mt-4">
-                          Get Directions
-                          <ArrowRight className="w-4 h-4 ml-2" />
-                        </Button>
-                      </CardContent>
-                    </Card>
-                  </motion.div>
+                        <div className="flex items-center gap-2">
+                          <Phone className="w-4 h-4 text-gray-400" />
+                          <span>{location.phone}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Mail className="w-4 h-4 text-gray-400" />
+                          <span>{location.email}</span>
+                        </div>
+                        <div className="flex items-start gap-2">
+                          <Clock className="w-4 h-4 text-gray-400 mt-0.5 flex-shrink-0" />
+                          <span>{location.hours}</span>
+                        </div>
+                      </div>
+                      
+                      <Button variant="outline" size="sm" className="w-full mt-4">
+                        Get Directions
+                        <ArrowRight className="w-4 h-4 ml-2" />
+                      </Button>
+                    </CardContent>
+                  </Card>
                 );
               })}
             </div>
