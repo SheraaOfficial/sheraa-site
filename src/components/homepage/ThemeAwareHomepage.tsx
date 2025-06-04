@@ -7,7 +7,7 @@ import MainLayout from '@/components/layouts/MainLayout';
 import { ImmersiveHero } from '@/components/hero/ImmersiveHero';
 import { FloatingHero } from '@/components/hero/FloatingHero';
 import { VideoHeroSection } from '@/components/hero/VideoHeroSection';
-import CinematicHero from '@/components/hero/CinematicHero';
+import { CinematicHero } from '@/components/hero/CinematicHero';
 import UltimateHero from '@/components/hero/UltimateHero';
 import { ImpactMetricsSection } from '@/components/homepage/redesign/ImpactMetricsSection';
 import { ProgramsJourneySection } from '@/components/homepage/redesign/ProgramsJourneySection';
