@@ -11,7 +11,7 @@ import {
   Star, Globe, Zap, Building, Coffee, Wifi, BookOpen,
   UserPlus, Target, TrendingUp, Award, Rocket,
   Brain, Network, Shield, Calendar, MessageSquare,
-  Trophy, Briefcase, Heart, ChevronRight
+  Trophy, Briefcase, Heart, ChevronRight, User
 } from 'lucide-react';
 
 const MembershipLanding: React.FC = () => {
