@@ -1,4 +1,3 @@
-
 import { FormSubmissionResponse, ContactFormData, ProgramApplicationData } from '@/types/forms';
 
 // Form submission utilities
@@ -57,31 +56,25 @@ export const submitProgramApplication = async (
 
 // Form data transformation utilities
 export const transformContactFormData = (formData: any): ContactFormData => {
-  // Define valid values for union types
-  const validInquiryTypes: ContactFormData['inquiryType'][] = ['program', 'partnership', 'investment', 'general', 'media'];
-  const validAudiences: ContactFormData['audience'][] = ['startup', 'investor', 'partner', 'student', 'other'];
-  const validPreferredContacts: ContactFormData['preferredContact'][] = ['email', 'phone', 'either'];
-  const validUrgencies: ContactFormData['urgency'][] = ['low', 'medium', 'high'];
-
   return {
     fullName: formData.fullName || '',
     email: formData.email || '',
     phone: formData.phone || '',
     company: formData.company || '',
     position: formData.position || '',
-    inquiryType: validInquiryTypes.includes(formData.inquiryType) 
-      ? formData.inquiryType 
+    inquiryType: (['program', 'partnership', 'investment', 'general', 'media'].includes(formData.inquiryType)) 
+      ? formData.inquiryType as ContactFormData['inquiryType']
       : 'general',
-    audience: validAudiences.includes(formData.audience)
-      ? formData.audience 
+    audience: (['startup', 'investor', 'partner', 'student', 'other'].includes(formData.audience))
+      ? formData.audience as ContactFormData['audience'] 
       : 'other',
     subject: formData.subject || '',
     message: formData.message || '',
-    preferredContact: validPreferredContacts.includes(formData.preferredContact)
-      ? formData.preferredContact
+    preferredContact: (['email', 'phone', 'either'].includes(formData.preferredContact))
+      ? formData.preferredContact as ContactFormData['preferredContact']
       : 'email',
-    urgency: validUrgencies.includes(formData.urgency)
-      ? formData.urgency
+    urgency: (['low', 'medium', 'high'].includes(formData.urgency))
+      ? formData.urgency as ContactFormData['urgency']
       : 'medium'
   };
 };
@@ -126,8 +119,8 @@ export const getFormPreFillData = (): Partial<ContactFormData> => {
   const urlParams = new URLSearchParams(window.location.search);
   
   return {
-    inquiryType: urlParams.get('type') as ContactFormData['inquiryType'] || undefined,
-    audience: urlParams.get('audience') as ContactFormData['audience'] || undefined,
+    inquiryType: urlParams.get('type') || undefined,
+    audience: urlParams.get('audience') || undefined,
     subject: urlParams.get('subject') || undefined
   };
 };
