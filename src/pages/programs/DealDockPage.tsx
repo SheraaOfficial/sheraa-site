@@ -395,8 +395,7 @@ const DealDockPage: React.FC = () => {
                 ))}
               </div>
             </div>
-          </div>
-        </section>
+          </section>
         )}
 
         {/* Success Stories */}
@@ -483,8 +482,7 @@ const DealDockPage: React.FC = () => {
                 ))}
               </div>
             </div>
-          </div>
-        </section>
+          </section>
         )}
 
         {/* CTA Section */}
