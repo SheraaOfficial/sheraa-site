@@ -1,5 +1,5 @@
 
-import { Home, Info, Rocket, Users, Calendar, Mail, Award, Users2, Building2, Crown } from 'lucide-react';
+import { Home, Info, Rocket, Users, Calendar, Mail, Award, Users2, Building2, Crown, Palette } from 'lucide-react';
 import type { NavigationItem } from './types';
 
 export const navigationItems: NavigationItem[] = [
@@ -25,6 +25,8 @@ export const navigationItems: NavigationItem[] = [
     subItems: [
       { name: 'All Programs', path: '/programs' },
       { name: 'Start Young', path: '/programs/start-young' },
+      { name: 'Startup Dojo', path: '/programs/startup-dojo' },
+      { name: 'Startup Dojo Plus', path: '/programs/startup-dojo-plus' },
       { name: 'S3 Incubator', path: '/programs/s3-incubator' },
       { name: 'Access Sharjah Challenge', path: '/programs/access-sharjah-challenge' },
       { name: 'Deal Dock', path: '/programs/deal-dock' },
@@ -43,6 +45,18 @@ export const navigationItems: NavigationItem[] = [
       { name: 'Events', path: '/events' },
       { name: 'Upcoming Events', path: '/events/upcoming' },
       { name: 'Past Events', path: '/events/past' }
+    ]
+  },
+  {
+    name: 'Sharjah Perfume',
+    path: '/perfume',
+    icon: Palette,
+    subItems: [
+      { name: 'Overview', path: '/perfume' },
+      { name: 'About', path: '/perfume/about' },
+      { name: 'Buy Now', path: '/perfume/buy' },
+      { name: 'Gallery', path: '/perfume/gallery' },
+      { name: 'Pricing', path: '/perfume/pricing' }
     ]
   },
   {

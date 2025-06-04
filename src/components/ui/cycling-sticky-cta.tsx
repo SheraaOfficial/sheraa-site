@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Zap, Briefcase, ArrowRight, Sparkles } from 'lucide-react';
+import { Zap, Briefcase, ArrowRight, Sparkles, Palette } from 'lucide-react';
 
 interface CTAOption {
   href: string;
@@ -19,6 +19,13 @@ const ctaOptions: CTAOption[] = [
     subtext: "AI-Powered Matcher",
     icon: Zap,
     gradient: "from-sheraa-primary to-sheraa-teal"
+  },
+  {
+    href: "/perfume",
+    text: "Sharjah Perfume",
+    subtext: "Signature Fragrance",
+    icon: Palette,
+    gradient: "from-purple-500 to-pink-500"
   },
   {
     href: "/careers",

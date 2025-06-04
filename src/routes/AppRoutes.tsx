@@ -177,7 +177,7 @@ const AppRoutes: React.FC = () => {
         <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
         <Route path="/terms-of-use" element={<TermsOfUsePage />} />
         
-        {/* Perfume Routes */}
+        {/* Perfume Routes - Ensuring all are accessible */}
         <Route path="/perfume" element={<PerfumePage />} />
         <Route path="/perfume/about" element={<PerfumeAboutPage />} />
         <Route path="/perfume/buy" element={<PerfumeBuyPage />} />

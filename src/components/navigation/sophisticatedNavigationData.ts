@@ -8,7 +8,8 @@ import {
   FileText,
   Star,
   Briefcase,
-  Lightbulb
+  Lightbulb,
+  Palette
 } from 'lucide-react';
 import { NavigationItem } from './types';
 
@@ -71,6 +72,11 @@ export const sophisticatedNavigationItems: NavigationItem[] = [
         description: 'Summer incubation for students'
       },
       {
+        name: 'Startup Dojo Plus',
+        path: '/programs/startup-dojo-plus',
+        description: 'Advanced accelerator phase'
+      },
+      {
         name: 'Access Sharjah Challenge',
         path: '/programs/access-sharjah-challenge',
         description: 'Global competition for growth-stage startups'
@@ -79,6 +85,11 @@ export const sophisticatedNavigationItems: NavigationItem[] = [
         name: 'Deal Dock',
         path: '/programs/deal-dock',
         description: 'Exclusive investment platform for investors'
+      },
+      {
+        name: 'SME Support',
+        path: '/programs/sme-support',
+        description: 'Support for established businesses'
       }
     ]
   },
@@ -138,6 +149,38 @@ export const sophisticatedNavigationItems: NavigationItem[] = [
         name: 'Advisory Services',
         path: '/insights/advisory',
         description: 'Get expert guidance'
+      }
+    ]
+  },
+  {
+    name: 'Sharjah Perfume',
+    path: '/perfume',
+    icon: Palette,
+    subItems: [
+      {
+        name: 'Overview',
+        path: '/perfume',
+        description: 'Discover our signature fragrance'
+      },
+      {
+        name: 'About',
+        path: '/perfume/about',
+        description: 'The story behind our perfume'
+      },
+      {
+        name: 'Buy Now',
+        path: '/perfume/buy',
+        description: 'Purchase your bottle today'
+      },
+      {
+        name: 'Gallery',
+        path: '/perfume/gallery',
+        description: 'Visual showcase of our product'
+      },
+      {
+        name: 'Pricing',
+        path: '/perfume/pricing',
+        description: 'View pricing and packages'
       }
     ]
   },
