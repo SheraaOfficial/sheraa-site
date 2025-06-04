@@ -1,3 +1,4 @@
+
 import { FormSubmissionResponse, ContactFormData, ProgramApplicationData } from '@/types/forms';
 
 // Form submission utilities
@@ -103,7 +104,7 @@ export const transformApplicationFormData = (formData: any): ProgramApplicationD
       location: formData.location || ''
     },
     
-    // Program Specific
+    // Program Specific - Fixed type checking
     programType: formData.programType || '',
     motivation: formData.motivation || '',
     expectations: formData.expectations || '',
