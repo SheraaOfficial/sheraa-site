@@ -57,25 +57,31 @@ export const submitProgramApplication = async (
 
 // Form data transformation utilities
 export const transformContactFormData = (formData: any): ContactFormData => {
+  // Define valid values for union types
+  const validInquiryTypes: ContactFormData['inquiryType'][] = ['program', 'partnership', 'investment', 'general', 'media'];
+  const validAudiences: ContactFormData['audience'][] = ['startup', 'investor', 'partner', 'student', 'other'];
+  const validPreferredContacts: ContactFormData['preferredContact'][] = ['email', 'phone', 'either'];
+  const validUrgencies: ContactFormData['urgency'][] = ['low', 'medium', 'high'];
+
   return {
     fullName: formData.fullName || '',
     email: formData.email || '',
     phone: formData.phone || '',
     company: formData.company || '',
     position: formData.position || '',
-    inquiryType: (['program', 'partnership', 'investment', 'general', 'media'].includes(formData.inquiryType)) 
-      ? formData.inquiryType as ContactFormData['inquiryType']
+    inquiryType: validInquiryTypes.includes(formData.inquiryType) 
+      ? formData.inquiryType 
       : 'general',
-    audience: (['startup', 'investor', 'partner', 'student', 'other'].includes(formData.audience))
-      ? formData.audience as ContactFormData['audience'] 
+    audience: validAudiences.includes(formData.audience)
+      ? formData.audience 
       : 'other',
     subject: formData.subject || '',
     message: formData.message || '',
-    preferredContact: (['email', 'phone', 'either'].includes(formData.preferredContact))
-      ? formData.preferredContact as ContactFormData['preferredContact']
+    preferredContact: validPreferredContacts.includes(formData.preferredContact)
+      ? formData.preferredContact
       : 'email',
-    urgency: (['low', 'medium', 'high'].includes(formData.urgency))
-      ? formData.urgency as ContactFormData['urgency']
+    urgency: validUrgencies.includes(formData.urgency)
+      ? formData.urgency
       : 'medium'
   };
 };
@@ -104,7 +110,7 @@ export const transformApplicationFormData = (formData: any): ProgramApplicationD
       location: formData.location || ''
     },
     
-    // Program Specific - Fixed type checking
+    // Program Specific
     programType: formData.programType || '',
     motivation: formData.motivation || '',
     expectations: formData.expectations || '',
@@ -120,8 +126,8 @@ export const getFormPreFillData = (): Partial<ContactFormData> => {
   const urlParams = new URLSearchParams(window.location.search);
   
   return {
-    inquiryType: urlParams.get('type') || undefined,
-    audience: urlParams.get('audience') || undefined,
+    inquiryType: urlParams.get('type') as ContactFormData['inquiryType'] || undefined,
+    audience: urlParams.get('audience') as ContactFormData['audience'] || undefined,
     subject: urlParams.get('subject') || undefined
   };
 };
