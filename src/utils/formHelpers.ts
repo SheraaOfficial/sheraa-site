@@ -7,7 +7,7 @@ export const submitContactForm = async (data: ContactFormData): Promise<FormSubm
     // For now, we'll simulate the submission
     await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate network delay
     
-    console.log('Contact form submitted:', data);
+    // Removed console.log for security - no longer logging sensitive data
     
     // Simulate success response
     return {
@@ -35,7 +35,7 @@ export const submitProgramApplication = async (
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 2000));
     
-    console.log(`Program application submitted for ${programId}:`, data);
+    // Removed console.log for security - no longer logging sensitive data
     
     return {
       success: true,
@@ -54,22 +54,30 @@ export const submitProgramApplication = async (
   }
 };
 
-// Form data transformation utilities
+// Form data transformation utilities with proper type validation
 export const transformContactFormData = (formData: any): ContactFormData => {
+  // Validate and sanitize inquiry type
+  const validInquiryTypes: ContactFormData['inquiryType'][] = ['program', 'partnership', 'investment', 'general', 'media'];
+  const inquiryType = validInquiryTypes.includes(formData.inquiryType) 
+    ? formData.inquiryType as ContactFormData['inquiryType']
+    : 'general';
+  
+  // Validate and sanitize audience type  
+  const validAudienceTypes: ContactFormData['audience'][] = ['startup', 'investor', 'partner', 'student', 'other'];
+  const audience = validAudienceTypes.includes(formData.audience)
+    ? formData.audience as ContactFormData['audience'] 
+    : 'other';
+
   return {
-    fullName: formData.fullName || '',
-    email: formData.email || '',
-    phone: formData.phone || '',
-    company: formData.company || '',
-    position: formData.position || '',
-    inquiryType: (['program', 'partnership', 'investment', 'general', 'media'].includes(formData.inquiryType)) 
-      ? formData.inquiryType as ContactFormData['inquiryType']
-      : 'general',
-    audience: (['startup', 'investor', 'partner', 'student', 'other'].includes(formData.audience))
-      ? formData.audience as ContactFormData['audience'] 
-      : 'other',
-    subject: formData.subject || '',
-    message: formData.message || '',
+    fullName: sanitizeInput(formData.fullName || ''),
+    email: sanitizeInput(formData.email || ''),
+    phone: sanitizeInput(formData.phone || ''),
+    company: sanitizeInput(formData.company || ''),
+    position: sanitizeInput(formData.position || ''),
+    inquiryType,
+    audience,
+    subject: sanitizeInput(formData.subject || ''),
+    message: sanitizeInput(formData.message || ''),
     preferredContact: (['email', 'phone', 'either'].includes(formData.preferredContact))
       ? formData.preferredContact as ContactFormData['preferredContact']
       : 'email',
@@ -81,35 +89,63 @@ export const transformContactFormData = (formData: any): ContactFormData => {
 
 export const transformApplicationFormData = (formData: any): ProgramApplicationData => {
   return {
-    // Personal Information
-    firstName: formData.firstName || '',
-    lastName: formData.lastName || '',
-    email: formData.email || '',
-    phone: formData.phone || '',
-    nationality: formData.nationality || '',
-    linkedinProfile: formData.linkedinProfile || '',
-    currentRole: formData.currentRole || '',
-    previousExperience: formData.previousExperience || '',
+    // Personal Information - sanitized
+    firstName: sanitizeInput(formData.firstName || ''),
+    lastName: sanitizeInput(formData.lastName || ''),
+    email: sanitizeInput(formData.email || ''),
+    phone: sanitizeInput(formData.phone || ''),
+    nationality: sanitizeInput(formData.nationality || ''),
+    linkedinProfile: sanitizeUrl(formData.linkedinProfile || ''),
+    currentRole: sanitizeInput(formData.currentRole || ''),
+    previousExperience: sanitizeInput(formData.previousExperience || ''),
     
-    // Startup Information
+    // Startup Information - sanitized
     startup: {
-      name: formData.startupName || '',
-      description: formData.startupDescription || '',
-      website: formData.startupWebsite || '',
-      industry: formData.industry || '',
+      name: sanitizeInput(formData.startupName || ''),
+      description: sanitizeInput(formData.startupDescription || ''),
+      website: sanitizeUrl(formData.startupWebsite || ''),
+      industry: sanitizeInput(formData.industry || ''),
       stage: formData.stage || 'idea',
-      fundingRaised: formData.fundingRaised || '',
-      teamSize: formData.teamSize || '',
-      location: formData.location || ''
+      fundingRaised: sanitizeInput(formData.fundingRaised || ''),
+      teamSize: sanitizeInput(formData.teamSize || ''),
+      location: sanitizeInput(formData.location || '')
     },
     
-    // Program Specific
-    programType: formData.programType || '',
-    motivation: formData.motivation || '',
-    expectations: formData.expectations || '',
-    referralSource: formData.referralSource || '',
-    additionalInfo: formData.additionalInfo || ''
+    // Program Specific - sanitized
+    programType: sanitizeInput(formData.programType || ''),
+    motivation: sanitizeInput(formData.motivation || ''),
+    expectations: sanitizeInput(formData.expectations || ''),
+    referralSource: sanitizeInput(formData.referralSource || ''),
+    additionalInfo: sanitizeInput(formData.additionalInfo || '')
   };
+};
+
+// Input sanitization function
+const sanitizeInput = (input: string): string => {
+  if (!input || typeof input !== 'string') return '';
+  
+  // Remove potentially dangerous characters and scripts
+  return input
+    .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+    .replace(/<[^>]+>/g, '')
+    .trim()
+    .slice(0, 1000); // Limit length
+};
+
+// URL sanitization function
+const sanitizeUrl = (url: string): string => {
+  if (!url || typeof url !== 'string') return '';
+  
+  try {
+    // Only allow http and https protocols
+    const urlObj = new URL(url);
+    if (urlObj.protocol !== 'http:' && urlObj.protocol !== 'https:') {
+      return '';
+    }
+    return urlObj.toString();
+  } catch {
+    return '';
+  }
 };
 
 // URL parameter utilities for pre-filling forms
@@ -118,10 +154,18 @@ export const getFormPreFillData = (): Partial<ContactFormData> => {
   
   const urlParams = new URLSearchParams(window.location.search);
   
+  const inquiryType = urlParams.get('type');
+  const audience = urlParams.get('audience');
+  const subject = urlParams.get('subject');
+  
   return {
-    inquiryType: urlParams.get('type') || undefined,
-    audience: urlParams.get('audience') || undefined,
-    subject: urlParams.get('subject') || undefined
+    inquiryType: inquiryType && ['program', 'partnership', 'investment', 'general', 'media'].includes(inquiryType) 
+      ? inquiryType as ContactFormData['inquiryType'] 
+      : undefined,
+    audience: audience && ['startup', 'investor', 'partner', 'student', 'other'].includes(audience)
+      ? audience as ContactFormData['audience']
+      : undefined,
+    subject: subject ? sanitizeInput(subject) : undefined
   };
 };
 

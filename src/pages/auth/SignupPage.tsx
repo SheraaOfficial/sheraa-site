@@ -1,7 +1,7 @@
 
 import React from "react";
 import MainLayout from "@/components/layouts/MainLayout";
-import SignupForm from "@/components/auth/SignupForm";
+import SecureSignupForm from "@/components/auth/SecureSignupForm";
 import { Card } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { Sparkles, Users, Target, Award } from "lucide-react";
@@ -98,7 +98,7 @@ const SignupPage = () => {
               transition={{ duration: 0.8, delay: 0.4 }}
             >
               <Card className="p-8 shadow-2xl bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-sheraa-primary/20 rounded-3xl">
-                <SignupForm />
+                <SecureSignupForm />
               </Card>
             </motion.div>
           </div>
