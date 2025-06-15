@@ -2,6 +2,8 @@
 import React, { useCallback, useState } from 'react';
 import { Upload, File, X, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { supabase } from '@/integrations/supabase/client';
+import { useAuth } from '@/contexts/AuthContext';
 
 interface FileUploadProps {
   onFileSelect: (file: File | null) => void;
@@ -9,6 +11,8 @@ interface FileUploadProps {
   maxSize?: number;
   description?: string;
   className?: string;
+  bucket?: 'avatars' | 'documents';
+  folder?: string;
 }
 
 export const FileUpload: React.FC<FileUploadProps> = ({
@@ -16,11 +20,15 @@ export const FileUpload: React.FC<FileUploadProps> = ({
   accept = "*/*",
   maxSize = 5 * 1024 * 1024, // 5MB default
   description,
-  className = ""
+  className = "",
+  bucket = 'documents',
+  folder
 }) => {
+  const { user } = useAuth();
   const [dragActive, setDragActive] = useState(false);
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [uploading, setUploading] = useState(false);
 
   const handleDrag = useCallback((e: React.DragEvent) => {
     e.preventDefault();
@@ -42,7 +50,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
     }
   }, []);
 
-  const handleFileSelection = (file: File) => {
+  const handleFileSelection = async (file: File) => {
     setError(null);
     
     // Check file size
@@ -67,8 +75,41 @@ export const FileUpload: React.FC<FileUploadProps> = ({
       }
     }
     
-    setUploadedFile(file);
-    onFileSelect(file);
+    // Upload file to Supabase Storage if user is authenticated
+    if (user && bucket) {
+      setUploading(true);
+      try {
+        const fileExt = file.name.split('.').pop();
+        const fileName = folder 
+          ? `${user.id}/${folder}/${Date.now()}.${fileExt}`
+          : `${user.id}/${Date.now()}.${fileExt}`;
+        
+        const { error: uploadError } = await supabase.storage
+          .from(bucket)
+          .upload(fileName, file, { upsert: true });
+
+        if (uploadError) throw uploadError;
+
+        // Get public URL for avatars bucket, private URL for documents
+        const { data: { publicUrl } } = supabase.storage
+          .from(bucket)
+          .getPublicUrl(fileName);
+
+        // Create a file object with the storage URL
+        const fileWithUrl = Object.assign(file, { storageUrl: publicUrl });
+        
+        setUploadedFile(fileWithUrl);
+        onFileSelect(fileWithUrl);
+      } catch (error) {
+        console.error('Upload error:', error);
+        setError('Upload failed. Please try again.');
+      } finally {
+        setUploading(false);
+      }
+    } else {
+      setUploadedFile(file);
+      onFileSelect(file);
+    }
   };
 
   const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -108,11 +149,14 @@ export const FileUpload: React.FC<FileUploadProps> = ({
           onDrop={handleDrop}
         >
           <Upload className={`w-12 h-12 mx-auto mb-4 ${
-            error ? 'text-red-400' : 'text-gray-400'
+            error ? 'text-red-400' : uploading ? 'text-blue-400 animate-spin' : 'text-gray-400'
           }`} />
           
           <p className={`mb-2 ${error ? 'text-red-600' : 'text-gray-600'}`}>
-            {error || 'Drag and drop your file here, or click to browse'}
+            {uploading 
+              ? 'Uploading...' 
+              : error || 'Drag and drop your file here, or click to browse'
+            }
           </p>
           
           {description && (
@@ -125,6 +169,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
             onChange={handleFileInput}
             className="hidden"
             id="file-upload"
+            disabled={uploading}
           />
           
           <Button
@@ -132,8 +177,9 @@ export const FileUpload: React.FC<FileUploadProps> = ({
             variant="outline"
             onClick={() => document.getElementById('file-upload')?.click()}
             className="mt-2"
+            disabled={uploading}
           >
-            Select File
+            {uploading ? 'Uploading...' : 'Select File'}
           </Button>
         </div>
       ) : (

@@ -8,7 +8,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Plus, BookOpen, Calendar, User, Bell } from 'lucide-react';
+import { Plus, BookOpen, Calendar, User, Bell, FileText } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Profile } from '@/contexts/AuthContext';
 
@@ -79,6 +79,15 @@ export const QuickActions: React.FC<QuickActionsProps> = ({ profile }) => {
               </DropdownMenuContent>
             </DropdownMenu>
           )}
+          
+          <Button 
+            variant="outline" 
+            className="w-full justify-start"
+            onClick={() => navigate('/applications')}
+          >
+            <FileText className="w-4 h-4 mr-2" />
+            View Applications
+          </Button>
           
           <Button 
             variant="outline" 
