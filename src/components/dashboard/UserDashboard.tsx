@@ -1,28 +1,12 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
-import { motion } from 'framer-motion';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Progress } from '@/components/ui/progress';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useAuth, Profile } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
-import { 
-  User, 
-  Calendar, 
-  TrendingUp, 
-  Award, 
-  BookOpen, 
-  Users, 
-  Target,
-  Clock,
-  Star,
-  ArrowRight,
-  CheckCircle2,
-  AlertCircle,
-  Plus
-} from 'lucide-react';
+import { WelcomeHeader } from './WelcomeHeader';
+import { ProgressCards } from './ProgressCards';
+import { ActivityFeed } from './ActivityFeed';
+import { RecommendationsSection } from './RecommendationsSection';
 
 type ApplicationStatus = 'draft' | 'submitted' | 'under_review' | 'accepted' | 'rejected' | 'withdrawn';
 
@@ -145,35 +129,12 @@ export const UserDashboard: React.FC = () => {
     }));
   }, [applications]);
 
-  const getStatusIcon = (status: DashboardActivity['status']) => {
-    switch (status) {
-      case 'completed': return <CheckCircle2 className="w-4 h-4 text-green-600" />;
-      case 'pending': return <Clock className="w-4 h-4 text-yellow-600" />;
-      case 'in-progress': return <AlertCircle className="w-4 h-4 text-blue-600" />;
-    }
-  };
-
-  const formatTimeAgo = (date: Date): string => {
-    const now = new Date();
-    const diffInHours = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60));
-    
-    if (diffInHours < 1) return 'Just now';
-    if (diffInHours < 24) return `${diffInHours}h ago`;
-    const diffInDays = Math.floor(diffInHours / 24);
-    return `${diffInDays}d ago`;
-  };
-
   if (loading || authLoading) {
     return (
       <div className="p-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {[...Array(6)].map((_, i) => (
-            <Card key={i} className="animate-pulse">
-              <CardContent className="p-6">
-                <div className="h-4 bg-gray-200 rounded mb-2"></div>
-                <div className="h-8 bg-gray-200 rounded"></div>
-              </CardContent>
-            </Card>
+            <div key={i} className="animate-pulse bg-gray-200 rounded-lg h-32"></div>
           ))}
         </div>
       </div>
@@ -189,213 +150,21 @@ export const UserDashboard: React.FC = () => {
     );
   }
 
-  const userInitials = profile?.first_name && profile.last_name ? 
-    `${profile.first_name[0]}${profile.last_name[0]}` : (user.email?.[0] || 'U').toUpperCase();
-
   return (
     <div className="p-6 space-y-6">
-      {/* Welcome Header */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <Avatar className="h-16 w-16">
-            <AvatarImage src={profile?.avatar_url || ''} />
-            <AvatarFallback className="bg-sheraa-primary/10 text-sheraa-primary text-lg font-bold">
-              {userInitials}
-            </AvatarFallback>
-          </Avatar>
-          <div>
-            <h1 className="text-2xl font-bold">
-              Welcome back, {profile?.first_name || 'Entrepreneur'}!
-            </h1>
-            <p className="text-gray-600">Here's your entrepreneurial journey overview</p>
-          </div>
-        </div>
-        <Button className="flex items-center gap-2">
-          <Plus className="w-4 h-4" />
-          Quick Action
-        </Button>
-      </div>
+      <WelcomeHeader user={user} profile={profile} />
+      
+      <ProgressCards userProgress={userProgress} />
 
-      {/* Progress Overview */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="bg-sheraa-primary/10 p-2 rounded-full">
-                  <User className="w-5 h-5 text-sheraa-primary" />
-                </div>
-                <div>
-                  <p className="text-sm text-gray-600">Profile</p>
-                  <p className="font-semibold">{userProgress.profileCompletion}% Complete</p>
-                </div>
-              </div>
-              <Progress value={userProgress.profileCompletion} className="h-2" />
-            </CardContent>
-          </Card>
-        </motion.div>
-
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center gap-3">
-                <div className="bg-blue-100 p-2 rounded-full">
-                  <BookOpen className="w-5 h-5 text-blue-600" />
-                </div>
-                <div>
-                  <p className="text-sm text-gray-600">Applications</p>
-                  <p className="text-2xl font-bold">{userProgress.applicationsSubmitted}</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
-
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center gap-3">
-                <div className="bg-purple-100 p-2 rounded-full">
-                  <Calendar className="w-5 h-5 text-purple-600" />
-                </div>
-                <div>
-                  <p className="text-sm text-gray-600">Events</p>
-                  <p className="text-2xl font-bold">{userProgress.eventsAttended}</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
-
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center gap-3">
-                <div className="bg-green-100 p-2 rounded-full">
-                  <Users className="w-5 h-5 text-green-600" />
-                </div>
-                <div>
-                  <p className="text-sm text-gray-600">Connections</p>
-                  <p className="text-2xl font-bold">{userProgress.networkConnections}</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
-      </div>
-
-      {/* Main Content */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Recent Activity */}
         <div className="lg:col-span-2">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <TrendingUp className="w-5 h-5" />
-                Recent Activity
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {recentActivity.length > 0 ? recentActivity.map((activity, index) => (
-                  <motion.div
-                    key={activity.id}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                    className="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors"
-                  >
-                    <div className="bg-blue-100 p-2 rounded-full text-blue-600">
-                      <BookOpen className="w-4 h-4" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 mb-1">
-                        <h4 className="font-medium text-sm">{activity.title}</h4>
-                        {getStatusIcon(activity.status)}
-                      </div>
-                      <p className="text-sm text-gray-600 capitalize">{activity.description}</p>
-                      <p className="text-xs text-gray-500 mt-1">
-                        {formatTimeAgo(activity.timestamp)}
-                      </p>
-                    </div>
-                  </motion.div>
-                )) : <p className="text-gray-500 text-sm">No recent activity to show.</p>}
-              </div>
-            </CardContent>
-          </Card>
+          <ActivityFeed recentActivity={recentActivity} />
         </div>
 
-        {/* Recommendations & Achievements */}
-        <div className="space-y-6">
-          {/* Recommendations */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Target className="w-5 h-5" />
-                Recommended for You
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-3">
-                {mockRecommendations.slice(0, 3).map((rec, index) => (
-                  <motion.div
-                    key={rec.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                    className="p-3 border rounded-lg hover:shadow-md transition-shadow"
-                  >
-                    <div className="flex items-start justify-between gap-2 mb-2">
-                      <h4 className="font-medium text-sm line-clamp-1">{rec.title}</h4>
-                      <Badge variant="outline" className="text-xs">
-                        {rec.relevance}%
-                      </Badge>
-                    </div>
-                    <p className="text-xs text-gray-600 mb-3 line-clamp-2">
-                      {rec.description}
-                    </p>
-                    <Button asChild variant="outline" size="sm" className="w-full">
-                      <a href={rec.actionUrl}>
-                        {rec.actionText}
-                        <ArrowRight className="w-3 h-3 ml-1" />
-                      </a>
-                    </Button>
-                  </motion.div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Achievements */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Award className="w-5 h-5" />
-                Recent Achievements
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-3">
-                {userProgress.achievementsUnlocked.slice(0, 4).map((achievement, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: index * 0.1 }}
-                    className="flex items-center gap-3 p-2 rounded-lg bg-yellow-50 border border-yellow-200"
-                  >
-                    <div className="bg-yellow-100 p-2 rounded-full">
-                      <Star className="w-4 h-4 text-yellow-600" />
-                    </div>
-                    <span className="text-sm font-medium text-yellow-800">
-                      {achievement}
-                    </span>
-                  </motion.div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </div>
+        <RecommendationsSection 
+          mockRecommendations={mockRecommendations} 
+          userProgress={userProgress} 
+        />
       </div>
     </div>
   );
