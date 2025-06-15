@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
-import { MultiStepApplicationForm } from './MultiStepApplicationForm';
+import { EnhancedMultiStepForm } from './EnhancedMultiStepForm';
+import { ApplicationErrorBoundary } from './ApplicationErrorBoundary';
 import { 
   PersonalInformationStep,
   StartupInformationStep,
@@ -223,14 +224,16 @@ export const ProgramApplicationForm: React.FC<ProgramApplicationFormProps> = ({
   };
 
   return (
-    <MultiStepApplicationForm
-      programId={programId}
-      programName={programName}
-      steps={steps}
-      onSubmit={handleSubmit}
-      onSave={handleSave}
-      initialData={initialData}
-      applicationId={applicationId}
-    />
+    <ApplicationErrorBoundary>
+      <EnhancedMultiStepForm
+        programId={programId}
+        programName={programName}
+        steps={steps}
+        onSubmit={handleSubmit}
+        onSave={handleSave}
+        initialData={initialData}
+        applicationId={applicationId}
+      />
+    </ApplicationErrorBoundary>
   );
 };

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useMemo } from 'react';
 import { useAuth, Profile } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
@@ -7,6 +6,7 @@ import { ProgressCards } from './ProgressCards';
 import { ActivityFeed } from './ActivityFeed';
 import { RecommendationsSection } from './RecommendationsSection';
 import { ApplicationStatusCard } from './ApplicationStatusCard';
+import { ApplicationStatusTracker } from '../applications/ApplicationStatusTracker';
 
 type ApplicationStatus = 'draft' | 'submitted' | 'under_review' | 'accepted' | 'rejected' | 'withdrawn';
 
@@ -158,10 +158,13 @@ export const UserDashboard: React.FC = () => {
           <ApplicationStatusCard applications={applications} />
         </div>
 
-        <RecommendationsSection 
-          mockRecommendations={mockRecommendations} 
-          userProgress={userProgress} 
-        />
+        <div className="space-y-6">
+          <ApplicationStatusTracker />
+          <RecommendationsSection 
+            mockRecommendations={mockRecommendations} 
+            userProgress={userProgress} 
+          />
+        </div>
       </div>
     </div>
   );
