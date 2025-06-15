@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -36,9 +37,9 @@ interface Application {
 interface UserProgress {
   profileCompletion: number;
   applicationsSubmitted: number;
-  eventsAttended: number; // Will be mock for now
-  networkConnections: number; // Will be mock for now
-  achievementsUnlocked: string[]; // Will be mock for now
+  eventsAttended: number;
+  networkConnections: number;
+  achievementsUnlocked: string[];
 }
 
 interface DashboardActivity {
@@ -143,26 +144,6 @@ export const UserDashboard: React.FC = () => {
       status: app.status === 'submitted' || app.status === 'under_review' ? 'pending' : 'completed',
     }));
   }, [applications]);
-
-  const getActivityIcon = (type: DashboardActivity['type']) => {
-    switch (type) {
-      case 'application': return <BookOpen className="w-4 h-4" />;
-      case 'event': return <Calendar className="w-4 h-4" />;
-      case 'connection': return <Users className="w-4 h-4" />;
-      case 'achievement': return <Award className="w-4 h-4" />;
-      default: return <User className="w-4 h-4" />;
-    }
-  };
-
-  const getActivityColor = (type: DashboardActivity['type']) => {
-    switch (type) {
-      case 'application': return 'bg-blue-100 text-blue-600';
-      case 'event': return 'bg-purple-100 text-purple-600';
-      case 'connection': return 'bg-green-100 text-green-600';
-      case 'achievement': return 'bg-yellow-100 text-yellow-600';
-      default: return 'bg-gray-100 text-gray-600';
-    }
-  };
 
   const getStatusIcon = (status: DashboardActivity['status']) => {
     switch (status) {
@@ -324,8 +305,8 @@ export const UserDashboard: React.FC = () => {
                     transition={{ delay: index * 0.1 }}
                     className="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors"
                   >
-                    <div className={`p-2 rounded-full ${getActivityColor(activity.type)}`}>
-                      {getActivityIcon(activity.type)}
+                    <div className="bg-blue-100 p-2 rounded-full text-blue-600">
+                      <BookOpen className="w-4 h-4" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-1">
