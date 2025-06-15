@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { ErrorBoundary } from 'react-error-boundary';
@@ -214,6 +215,7 @@ const AppRoutes: React.FC = () => {
         <Route path="/profile-setup" element={<Navigate to="/profile/setup" replace />} />
         <Route path="/privacy" element={<Navigate to="/privacy-policy" replace />} />
         <Route path="/terms" element={<Navigate to="/terms-of-use" replace />} />
+        <Route path="/past" element={<Navigate to="/events/past" replace />} />
         
         {/* 404 Fallback */}
         <Route path="*" element={<NotFound />} />

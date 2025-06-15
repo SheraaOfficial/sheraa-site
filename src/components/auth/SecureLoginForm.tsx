@@ -11,6 +11,7 @@ import { ArrowRight, Mail, Lock } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { useState } from "react";
+import { checkRateLimit, sanitizeEmail } from "@/utils/securityUtils";
 
 // Secure form schema with proper validation
 const formSchema = z.object({
@@ -35,10 +36,20 @@ const SecureLoginForm = () => {
   
   const onSubmit = async (data: FormValues) => {
     setIsLoading(true);
+
+    if (!checkRateLimit(data.email, 5, 60000)) {
+      toast({
+        title: "Too many login attempts",
+        description: "Please wait a moment before trying again.",
+        variant: "destructive",
+      });
+      setIsLoading(false);
+      return;
+    }
     
     try {
       const { data: authData, error } = await supabase.auth.signInWithPassword({
-        email: data.email,
+        email: sanitizeEmail(data.email),
         password: data.password,
       });
 
@@ -48,6 +59,7 @@ const SecureLoginForm = () => {
           description: error.message,
           variant: "destructive",
         });
+        setIsLoading(false); // Make sure to stop loading on error
         return;
       }
 

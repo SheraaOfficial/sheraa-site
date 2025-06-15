@@ -13,7 +13,7 @@ const NotFound = () => {
     { name: 'Programs', path: '/programs', icon: BookOpen, description: 'Explore our startup programs' },
     { name: 'Community', path: '/community', icon: Users, description: 'Join our entrepreneur community' },
     { name: 'Events', path: '/events', icon: Calendar, description: 'Discover upcoming events' },
-    { name: 'Resources', path: '/resources', icon: Search, description: 'Access guides and toolkits' },
+    { name: 'Insights', path: '/insights', icon: Search, description: 'Access guides and toolkits' },
     { name: 'Contact Us', path: '/contact', icon: HelpCircle, description: 'Get help from our team' },
   ];
 
