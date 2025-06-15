@@ -1,5 +1,5 @@
-
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import * as React from 'react';
+import { ReactNode } from 'react';
 
 export type ExperienceTheme = 'main' | 'sef' | 'dashboard';
 
@@ -11,14 +11,14 @@ interface ExperienceThemeContextType {
   switchToDashboard: () => void;
 }
 
-const ExperienceThemeContext = createContext<ExperienceThemeContextType | undefined>(undefined);
+const ExperienceThemeContext = React.createContext<ExperienceThemeContextType | undefined>(undefined);
 
 interface ExperienceThemeProviderProps {
   children: ReactNode;
 }
 
 export const ExperienceThemeProvider: React.FC<ExperienceThemeProviderProps> = ({ children }) => {
-  const [theme, setTheme] = useState<ExperienceTheme>(() => {
+  const [theme, setTheme] = React.useState<ExperienceTheme>(() => {
     if (typeof window !== 'undefined') {
       const savedTheme = localStorage.getItem('sheraa-experience-theme') as ExperienceTheme;
       if (savedTheme && ['main', 'sef', 'dashboard'].includes(savedTheme)) {
@@ -28,7 +28,7 @@ export const ExperienceThemeProvider: React.FC<ExperienceThemeProviderProps> = (
     return 'main';
   });
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (typeof window !== 'undefined') {
       localStorage.setItem('sheraa-experience-theme', theme);
     }
@@ -62,7 +62,7 @@ export const ExperienceThemeProvider: React.FC<ExperienceThemeProviderProps> = (
 };
 
 export const useExperienceTheme = (): ExperienceThemeContextType => {
-  const context = useContext(ExperienceThemeContext);
+  const context = React.useContext(ExperienceThemeContext);
   if (context === undefined) {
     throw new Error('useExperienceTheme must be used within an ExperienceThemeProvider');
   }
