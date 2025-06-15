@@ -9,6 +9,14 @@ export interface Profile {
   last_name: string | null;
   avatar_url: string | null;
   headline: string | null;
+  bio: string | null;
+  industry: string | null;
+  company: string | null;
+  location: string | null;
+  website: string | null;
+  linkedin_url: string | null;
+  portfolio_data: any | null;
+  profile_completion_score: number | null;
   updated_at: string | null;
 }
 

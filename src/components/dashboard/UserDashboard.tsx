@@ -1,12 +1,12 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
-import { Button } from '@/components/ui/button';
 import { useAuth, Profile } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { WelcomeHeader } from './WelcomeHeader';
 import { ProgressCards } from './ProgressCards';
 import { ActivityFeed } from './ActivityFeed';
 import { RecommendationsSection } from './RecommendationsSection';
+import { ApplicationStatusCard } from './ApplicationStatusCard';
 
 type ApplicationStatus = 'draft' | 'submitted' | 'under_review' | 'accepted' | 'rejected' | 'withdrawn';
 
@@ -46,10 +46,7 @@ interface Recommendation {
 }
 
 const getProfileCompletion = (profile: Profile | null) => {
-  if (!profile) return 0;
-  const fields = [profile.first_name, profile.last_name, profile.avatar_url, profile.headline];
-  const completedFields = fields.filter(f => f).length;
-  return Math.round((completedFields / fields.length) * 100);
+  return profile?.profile_completion_score || 0;
 };
 
 export const UserDashboard: React.FC = () => {
@@ -62,10 +59,10 @@ export const UserDashboard: React.FC = () => {
     {
       id: '1',
       type: 'program',
-      title: 'Access Sharjah Challenge',
-      description: 'Based on your interest in sustainability, this challenge might be perfect for you.',
+      title: 'S3 Incubator Program',
+      description: 'Based on your profile completion and interests, this program is perfect for you.',
       relevance: 95,
-      actionUrl: '/programs/access-sharjah-challenge',
+      actionUrl: '/programs/s3-incubator',
       actionText: 'Learn More'
     },
     {
@@ -145,7 +142,6 @@ export const UserDashboard: React.FC = () => {
     return (
       <div className="p-6 text-center">
         <p>Could not load dashboard data. Please try logging in again.</p>
-        <Button onClick={() => window.location.href = '/auth/login'} className="mt-4">Login</Button>
       </div>
     );
   }
@@ -157,8 +153,9 @@ export const UserDashboard: React.FC = () => {
       <ProgressCards userProgress={userProgress} />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2">
+        <div className="lg:col-span-2 space-y-6">
           <ActivityFeed recentActivity={recentActivity} />
+          <ApplicationStatusCard applications={applications} />
         </div>
 
         <RecommendationsSection 
