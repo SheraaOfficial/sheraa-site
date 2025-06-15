@@ -1,7 +1,6 @@
-
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { ProtectedRoute } from '@/components/auth/ProtectedRoute';
+import ProtectedRoute from '@/components/auth/ProtectedRoute';
 import MainLayout from '@/components/layouts/MainLayout';
 import { ProgramApplicationForm } from '@/components/applications/ProgramApplicationForm';
 import Index from '@/pages/Index';
