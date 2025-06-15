@@ -68,7 +68,7 @@ const SecureLoginForm = () => {
           title: "Login successful!",
           description: `Welcome back!`,
         });
-        navigate("/profile");
+        navigate("/dashboard");
       }
     } catch (error: any) {
       toast({

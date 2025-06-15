@@ -1,13 +1,12 @@
-
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { useLocalStorage } from '@/hooks/use-local-storage';
+import { useAuth, Profile } from '@/contexts/AuthContext';
+import { supabase } from '@/integrations/supabase/client';
 import { 
   User, 
   Calendar, 
@@ -24,18 +23,27 @@ import {
   Plus
 } from 'lucide-react';
 
+type ApplicationStatus = 'draft' | 'submitted' | 'under_review' | 'accepted' | 'rejected' | 'withdrawn';
+
+interface Application {
+  id: string;
+  program_name: string;
+  status: ApplicationStatus;
+  created_at: string;
+  submitted_at: string | null;
+}
+
 interface UserProgress {
   profileCompletion: number;
   applicationsSubmitted: number;
-  eventsAttended: number;
-  networkConnections: number;
-  skillsAcquired: string[];
-  achievementsUnlocked: string[];
+  eventsAttended: number; // Will be mock for now
+  networkConnections: number; // Will be mock for now
+  achievementsUnlocked: string[]; // Will be mock for now
 }
 
 interface DashboardActivity {
   id: string;
-  type: 'application' | 'event' | 'connection' | 'achievement';
+  type: 'application';
   title: string;
   description: string;
   timestamp: Date;
@@ -52,58 +60,19 @@ interface Recommendation {
   actionText: string;
 }
 
+const getProfileCompletion = (profile: Profile | null) => {
+  if (!profile) return 0;
+  const fields = [profile.first_name, profile.last_name, profile.avatar_url, profile.headline];
+  const completedFields = fields.filter(f => f).length;
+  return Math.round((completedFields / fields.length) * 100);
+};
+
 export const UserDashboard: React.FC = () => {
-  const [loggedInUser] = useLocalStorage<any | null>("loggedInUser", null);
-  const [userProgress, setUserProgress] = useState<UserProgress | null>(null);
-  const [recentActivity, setRecentActivity] = useState<DashboardActivity[]>([]);
-  const [recommendations, setRecommendations] = useState<Recommendation[]>([]);
+  const { user, profile, loading: authLoading } = useAuth();
+  const [applications, setApplications] = useState<Application[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Mock data
-  const mockProgress: UserProgress = {
-    profileCompletion: 85,
-    applicationsSubmitted: 2,
-    eventsAttended: 5,
-    networkConnections: 12,
-    skillsAcquired: ['Lean Startup', 'Pitch Deck Creation', 'Market Research', 'Financial Modeling'],
-    achievementsUnlocked: ['Profile Master', 'Early Adopter', 'Networker', 'Event Enthusiast']
-  };
-
-  const mockActivity: DashboardActivity[] = [
-    {
-      id: '1',
-      type: 'application',
-      title: 'S3 Incubator Application',
-      description: 'Application submitted and under review',
-      timestamp: new Date(Date.now() - 1000 * 60 * 60 * 2),
-      status: 'pending'
-    },
-    {
-      id: '2',
-      type: 'event',
-      title: 'SEF 2024 Registration',
-      description: 'Successfully registered for the festival',
-      timestamp: new Date(Date.now() - 1000 * 60 * 60 * 24),
-      status: 'completed'
-    },
-    {
-      id: '3',
-      type: 'connection',
-      title: 'New Connection',
-      description: 'Connected with Sarah Al-Mansouri',
-      timestamp: new Date(Date.now() - 1000 * 60 * 60 * 24 * 2),
-      status: 'completed'
-    },
-    {
-      id: '4',
-      type: 'achievement',
-      title: 'Achievement Unlocked',
-      description: 'Earned the "Networker" badge',
-      timestamp: new Date(Date.now() - 1000 * 60 * 60 * 24 * 3),
-      status: 'completed'
-    }
-  ];
-
+  // Mock data for features not yet implemented with backend
   const mockRecommendations: Recommendation[] = [
     {
       id: '1',
@@ -123,28 +92,57 @@ export const UserDashboard: React.FC = () => {
       actionUrl: '/events/upcoming',
       actionText: 'Register'
     },
-    {
-      id: '3',
-      type: 'resource',
-      title: 'Business Model Canvas Guide',
-      description: 'Perfect for your current stage of startup development.',
-      relevance: 82,
-      actionUrl: '/resources/guides',
-      actionText: 'Download'
-    }
   ];
 
   useEffect(() => {
     const loadDashboardData = async () => {
+      if (!user) {
+        if (!authLoading) setLoading(false);
+        return;
+      }
       setLoading(true);
-      await new Promise(resolve => setTimeout(resolve, 800));
-      setUserProgress(mockProgress);
-      setRecentActivity(mockActivity);
-      setRecommendations(mockRecommendations);
+
+      const { data, error } = await supabase
+        .from('applications')
+        .select('id, program_name, status, created_at, submitted_at')
+        .eq('user_id', user.id)
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        console.error("Error fetching applications:", error);
+      } else {
+        setApplications(data as Application[]);
+      }
+      
       setLoading(false);
     };
-    loadDashboardData();
-  }, []);
+
+    if (!authLoading) {
+      loadDashboardData();
+    }
+  }, [user, authLoading]);
+
+  const userProgress: UserProgress | null = useMemo(() => {
+    if (!profile) return null;
+    return {
+      profileCompletion: getProfileCompletion(profile),
+      applicationsSubmitted: applications.filter(a => a.status !== 'draft').length,
+      eventsAttended: 5, // Mock
+      networkConnections: 12, // Mock
+      achievementsUnlocked: ['Profile Master', 'Early Adopter', 'Networker'] // Mock
+    };
+  }, [profile, applications]);
+
+  const recentActivity: DashboardActivity[] = useMemo(() => {
+    return applications.slice(0, 4).map(app => ({
+      id: app.id,
+      type: 'application',
+      title: `${app.program_name} Application`,
+      description: `Status: ${app.status.replace('_', ' ')}`,
+      timestamp: new Date(app.submitted_at || app.created_at),
+      status: app.status === 'submitted' || app.status === 'under_review' ? 'pending' : 'completed',
+    }));
+  }, [applications]);
 
   const getActivityIcon = (type: DashboardActivity['type']) => {
     switch (type) {
@@ -184,7 +182,7 @@ export const UserDashboard: React.FC = () => {
     return `${diffInDays}d ago`;
   };
 
-  if (loading || !userProgress) {
+  if (loading || authLoading) {
     return (
       <div className="p-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -200,9 +198,18 @@ export const UserDashboard: React.FC = () => {
       </div>
     );
   }
+  
+  if (!user || !profile || !userProgress) {
+    return (
+      <div className="p-6 text-center">
+        <p>Could not load dashboard data. Please try logging in again.</p>
+        <Button onClick={() => window.location.href = '/auth/login'} className="mt-4">Login</Button>
+      </div>
+    );
+  }
 
-  const userInitials = loggedInUser ? 
-    `${loggedInUser.firstName?.[0] || ''}${loggedInUser.lastName?.[0] || ''}` : 'U';
+  const userInitials = profile?.first_name && profile.last_name ? 
+    `${profile.first_name[0]}${profile.last_name[0]}` : (user.email?.[0] || 'U').toUpperCase();
 
   return (
     <div className="p-6 space-y-6">
@@ -210,14 +217,14 @@ export const UserDashboard: React.FC = () => {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           <Avatar className="h-16 w-16">
-            <AvatarImage src={loggedInUser?.profileImage} />
+            <AvatarImage src={profile?.avatar_url || ''} />
             <AvatarFallback className="bg-sheraa-primary/10 text-sheraa-primary text-lg font-bold">
               {userInitials}
             </AvatarFallback>
           </Avatar>
           <div>
             <h1 className="text-2xl font-bold">
-              Welcome back, {loggedInUser?.firstName || 'Entrepreneur'}!
+              Welcome back, {profile?.first_name || 'Entrepreneur'}!
             </h1>
             <p className="text-gray-600">Here's your entrepreneurial journey overview</p>
           </div>
@@ -309,7 +316,7 @@ export const UserDashboard: React.FC = () => {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {recentActivity.map((activity, index) => (
+                {recentActivity.length > 0 ? recentActivity.map((activity, index) => (
                   <motion.div
                     key={activity.id}
                     initial={{ opacity: 0, x: -20 }}
@@ -325,13 +332,13 @@ export const UserDashboard: React.FC = () => {
                         <h4 className="font-medium text-sm">{activity.title}</h4>
                         {getStatusIcon(activity.status)}
                       </div>
-                      <p className="text-sm text-gray-600">{activity.description}</p>
+                      <p className="text-sm text-gray-600 capitalize">{activity.description}</p>
                       <p className="text-xs text-gray-500 mt-1">
                         {formatTimeAgo(activity.timestamp)}
                       </p>
                     </div>
                   </motion.div>
-                ))}
+                )) : <p className="text-gray-500 text-sm">No recent activity to show.</p>}
               </div>
             </CardContent>
           </Card>
@@ -349,7 +356,7 @@ export const UserDashboard: React.FC = () => {
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
-                {recommendations.slice(0, 3).map((rec, index) => (
+                {mockRecommendations.slice(0, 3).map((rec, index) => (
                   <motion.div
                     key={rec.id}
                     initial={{ opacity: 0, y: 20 }}
@@ -366,9 +373,11 @@ export const UserDashboard: React.FC = () => {
                     <p className="text-xs text-gray-600 mb-3 line-clamp-2">
                       {rec.description}
                     </p>
-                    <Button variant="outline" size="sm" className="w-full">
-                      {rec.actionText}
-                      <ArrowRight className="w-3 h-3 ml-1" />
+                    <Button asChild variant="outline" size="sm" className="w-full">
+                      <a href={rec.actionUrl}>
+                        {rec.actionText}
+                        <ArrowRight className="w-3 h-3 ml-1" />
+                      </a>
                     </Button>
                   </motion.div>
                 ))}
