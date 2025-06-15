@@ -1,7 +1,7 @@
-
 import React, { useState, useEffect } from 'react';
 import { EnhancedMultiStepForm } from './EnhancedMultiStepForm';
 import { ApplicationErrorBoundary } from './ApplicationErrorBoundary';
+import { ApplicationSuccessModal } from './ApplicationSuccessModal';
 import { 
   PersonalInformationStep,
   StartupInformationStep,
@@ -13,6 +13,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import { useNavigate } from 'react-router-dom';
+import { uploadFile } from '@/utils/fileUpload';
 
 interface ProgramApplicationFormProps {
   programId: string;
@@ -28,6 +29,7 @@ export const ProgramApplicationForm: React.FC<ProgramApplicationFormProps> = ({
   const navigate = useNavigate();
   const [applicationId, setApplicationId] = useState<string | null>(null);
   const [initialData, setInitialData] = useState({});
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const steps = [
     {
@@ -149,14 +151,14 @@ export const ProgramApplicationForm: React.FC<ProgramApplicationFormProps> = ({
           category: 'application'
         });
 
-      toast({
-        title: "Application submitted successfully!",
-        description: "We'll review your application and get back to you soon."
-      });
-
-      navigate('/dashboard');
+      setShowSuccessModal(true);
     } catch (error) {
       console.error('Submission error:', error);
+      toast({
+        title: "Submission failed",
+        description: "Please try again or contact support.",
+        variant: "destructive"
+      });
       throw error;
     }
   };
@@ -201,21 +203,14 @@ export const ProgramApplicationForm: React.FC<ProgramApplicationFormProps> = ({
       const file = formData[field];
       if (file && file instanceof File) {
         try {
-          const fileExt = file.name.split('.').pop();
-          const fileName = `${user!.id}/${appId}/${field}.${fileExt}`;
+          const filePath = `${user!.id}/${appId}/${field}`;
+          const result = await uploadFile(file, 'documents', filePath);
           
-          const { error: uploadError } = await supabase.storage
-            .from('documents')
-            .upload(fileName, file, { upsert: true });
-
-          if (uploadError) throw uploadError;
-
-          // Update form data with file URL
-          const { data: { publicUrl } } = supabase.storage
-            .from('documents')
-            .getPublicUrl(fileName);
-
-          formData[field + '_url'] = publicUrl;
+          if (result.success && result.url) {
+            formData[field + '_url'] = result.url;
+          } else {
+            console.error(`Error uploading ${field}:`, result.error);
+          }
         } catch (error) {
           console.error(`Error uploading ${field}:`, error);
         }
@@ -233,6 +228,11 @@ export const ProgramApplicationForm: React.FC<ProgramApplicationFormProps> = ({
         onSave={handleSave}
         initialData={initialData}
         applicationId={applicationId}
+      />
+      <ApplicationSuccessModal 
+        isOpen={showSuccessModal}
+        onClose={() => setShowSuccessModal(false)}
+        programName={programName}
       />
     </ApplicationErrorBoundary>
   );
