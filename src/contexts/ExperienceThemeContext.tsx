@@ -1,14 +1,11 @@
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode } from 'react';
 
-type ExperienceTheme = 'main' | 'sef' | 'dashboard';
+export type ExperienceTheme = 'minimal' | 'vibrant' | 'professional' | 'creative';
 
 interface ExperienceThemeContextType {
-  theme: ExperienceTheme;
+  currentTheme: ExperienceTheme;
   setTheme: (theme: ExperienceTheme) => void;
-  switchToMain: () => void;
-  switchToSEF: () => void;
-  switchToDashboard: () => void;
 }
 
 const ExperienceThemeContext = createContext<ExperienceThemeContextType | undefined>(undefined);
@@ -18,44 +15,19 @@ interface ExperienceThemeProviderProps {
 }
 
 export const ExperienceThemeProvider: React.FC<ExperienceThemeProviderProps> = ({ children }) => {
-  const [theme, setTheme] = useState<ExperienceTheme>(() => {
-    if (typeof window !== 'undefined') {
-      const savedTheme = localStorage.getItem('sheraa-experience-theme') as ExperienceTheme;
-      if (savedTheme && ['main', 'sef', 'dashboard'].includes(savedTheme)) {
-        return savedTheme;
-      }
-    }
-    return 'main';
-  });
+  const [currentTheme, setCurrentTheme] = useState<ExperienceTheme>('vibrant');
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('sheraa-experience-theme', theme);
-    }
-  }, [theme]);
-
-  const switchToMain = () => {
-    setTheme('main');
-  };
-  
-  const switchToSEF = () => {
-    setTheme('sef');
-  };
-  
-  const switchToDashboard = () => {
-    setTheme('dashboard');
-  };
-
-  const contextValue: ExperienceThemeContextType = {
-    theme,
-    setTheme,
-    switchToMain,
-    switchToSEF,
-    switchToDashboard
+  const setTheme = (theme: ExperienceTheme) => {
+    setCurrentTheme(theme);
   };
 
   return (
-    <ExperienceThemeContext.Provider value={contextValue}>
+    <ExperienceThemeContext.Provider
+      value={{
+        currentTheme,
+        setTheme
+      }}
+    >
       {children}
     </ExperienceThemeContext.Provider>
   );
@@ -63,7 +35,7 @@ export const ExperienceThemeProvider: React.FC<ExperienceThemeProviderProps> = (
 
 export const useExperienceTheme = (): ExperienceThemeContextType => {
   const context = useContext(ExperienceThemeContext);
-  if (context === undefined) {
+  if (!context) {
     throw new Error('useExperienceTheme must be used within an ExperienceThemeProvider');
   }
   return context;
