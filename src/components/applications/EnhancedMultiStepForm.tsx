@@ -17,7 +17,8 @@ import {
   CheckCircle, 
   Clock,
   AlertCircle,
-  Smartphone 
+  Smartphone,
+  AlertTriangle
 } from 'lucide-react';
 
 interface ApplicationStep {
