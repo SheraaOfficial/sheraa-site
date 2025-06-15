@@ -1,8 +1,7 @@
-
 import React from 'react';
 import { Eye, Download, Share2, Star } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
 export type AchievementType = 'explorer' | 'collector' | 'expert' | 'contributor';
 
@@ -115,19 +114,17 @@ export const AchievementBadge = ({
   if (!showTooltip) return badge;
   
   return (
-    <TooltipProvider>
-      <Tooltip delayDuration={300}>
-        <TooltipTrigger asChild>
-          {badge}
-        </TooltipTrigger>
-        <TooltipContent side="bottom" className="max-w-[200px]">
-          <div>
-            <p className="font-semibold">{getTitle(type, level)}</p>
-            <p className="text-xs text-muted-foreground">{getDescription(type, level)}</p>
-            <p className="text-xs mt-1 font-medium">{achieved ? 'Achieved' : 'Locked'}</p>
-          </div>
-        </TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
+    <Tooltip delayDuration={300}>
+      <TooltipTrigger asChild>
+        {badge}
+      </TooltipTrigger>
+      <TooltipContent side="bottom" className="max-w-[200px]">
+        <div>
+          <p className="font-semibold">{getTitle(type, level)}</p>
+          <p className="text-xs text-muted-foreground">{getDescription(type, level)}</p>
+          <p className="text-xs mt-1 font-medium">{achieved ? 'Achieved' : 'Locked'}</p>
+        </div>
+      </TooltipContent>
+    </Tooltip>
   );
 };

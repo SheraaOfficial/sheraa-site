@@ -1,10 +1,8 @@
-
 import React, { ReactNode } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { HelmetProvider } from 'react-helmet-async';
 import { Toaster } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { ThemeProvider } from "next-themes";
 
@@ -37,15 +35,13 @@ const AppProviders: React.FC<AppProvidersProps> = ({ children }) => {
         >
           <LanguageProvider>
             <QueryClientProvider client={queryClient}>
-              <TooltipProvider>
-                {children}
-                <Toaster 
-                  position="bottom-right"
-                  expand={false}
-                  richColors
-                  closeButton
-                />
-              </TooltipProvider>
+              {children}
+              <Toaster 
+                position="bottom-right"
+                expand={false}
+                richColors
+                closeButton
+              />
             </QueryClientProvider>
           </LanguageProvider>
         </ThemeProvider>
