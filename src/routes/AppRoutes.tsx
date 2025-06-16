@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import ProtectedRoute from '@/components/auth/ProtectedRoute';
@@ -10,6 +11,7 @@ import Community from '@/pages/Community';
 import Resources from '@/pages/Resources';
 import Contact from '@/pages/Contact';
 import Events from '@/pages/Events';
+import Auth from '@/pages/Auth';
 import Login from '@/pages/auth/LoginPage';
 import Signup from '@/pages/auth/SignupPage';
 import ForgotPassword from '@/pages/auth/ForgotPasswordPage';
@@ -17,6 +19,7 @@ import Profile from '@/pages/profile/ProfilePage';
 import ProfileSetupPage from '@/pages/profile/ProfileSetupPage';
 import DashboardPage from '@/pages/dashboard/DashboardPage';
 import ApplicationsPage from '@/pages/applications/ApplicationsPage';
+import ApplicationFormPage from '@/pages/applications/ApplicationFormPage';
 import S3IncubatorPage from '@/pages/programs/S3IncubatorPage';
 import StartupDojoPage from '@/pages/programs/StartupDojoPage';
 import AccessSharjahChallengePage from '@/pages/programs/AccessSharjahChallengePage';
@@ -39,6 +42,7 @@ const AppRoutes: React.FC = () => {
       <Route path="/events/sef" element={<SEFLanding />} />
       
       {/* Auth Routes */}
+      <Route path="/auth" element={<Auth />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
@@ -62,6 +66,11 @@ const AppRoutes: React.FC = () => {
       <Route path="/applications" element={
         <ProtectedRoute>
           <ApplicationsPage />
+        </ProtectedRoute>
+      } />
+      <Route path="/applications/:programId" element={
+        <ProtectedRoute>
+          <ApplicationFormPage />
         </ProtectedRoute>
       } />
       

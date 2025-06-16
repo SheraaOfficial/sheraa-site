@@ -25,7 +25,9 @@ interface AuthContextType {
   session: Session | null;
   profile: Profile | null;
   loading: boolean;
+  error: string | null;
   signOut: () => Promise<void>;
+  refreshProfile: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -39,41 +41,91 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [session, setSession] = useState<Session | null>(null);
   const [profile, setProfile] = useState<Profile | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const fetchProfile = async (userId: string) => {
+    try {
+      const { data: profileData, error: profileError } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', userId)
+        .maybeSingle();
+
+      if (profileError && profileError.code !== 'PGRST116') {
+        console.error("Error fetching profile:", profileError.message);
+        setError(`Failed to load profile: ${profileError.message}`);
+        return null;
+      }
+
+      return profileData as Profile | null;
+    } catch (err) {
+      console.error("Unexpected error fetching profile:", err);
+      setError("An unexpected error occurred while loading your profile");
+      return null;
+    }
+  };
+
+  const refreshProfile = async () => {
+    if (!user) return;
+    
+    const profileData = await fetchProfile(user.id);
+    setProfile(profileData);
+  };
 
   useEffect(() => {
-    const { data: authListener } = supabase.auth.onAuthStateChange(
+    // Set up auth state listener
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
+        console.log('Auth state changed:', event, session?.user?.id);
         setSession(session);
-        const currentUser = session?.user;
-        setUser(currentUser ?? null);
+        setUser(session?.user ?? null);
+        setError(null);
         
-        if (currentUser) {
-          const { data: profileData, error } = await supabase
-            .from('profiles')
-            .select('*')
-            .eq('id', currentUser.id)
-            .single();
-
-          if (error && error.code !== 'PGRST116') {
-            console.error("Error fetching profile:", error.message);
-            setProfile(null);
-          } else {
-            setProfile(profileData as Profile | null);
-          }
+        if (session?.user) {
+          // Defer profile fetch to avoid blocking auth state
+          setTimeout(async () => {
+            const profileData = await fetchProfile(session.user.id);
+            setProfile(profileData);
+          }, 0);
         } else {
           setProfile(null);
         }
+        
         setLoading(false);
       }
     );
 
+    // Get initial session
+    supabase.auth.getSession().then(({ data: { session }, error: sessionError }) => {
+      if (sessionError) {
+        console.error("Error getting session:", sessionError);
+        setError(`Authentication error: ${sessionError.message}`);
+      }
+      
+      setSession(session);
+      setUser(session?.user ?? null);
+      
+      if (session?.user) {
+        fetchProfile(session.user.id).then(setProfile);
+      }
+      
+      setLoading(false);
+    });
+
     return () => {
-      authListener.subscription.unsubscribe();
+      subscription.unsubscribe();
     };
   }, []);
 
   const signOut = async () => {
-    await supabase.auth.signOut();
+    try {
+      setError(null);
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
+    } catch (err) {
+      console.error("Error signing out:", err);
+      setError("Failed to sign out. Please try again.");
+    }
   };
 
   const contextValue: AuthContextType = {
@@ -81,7 +133,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     session,
     profile,
     loading,
-    signOut
+    error,
+    signOut,
+    refreshProfile
   };
 
   return (

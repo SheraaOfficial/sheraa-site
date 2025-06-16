@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { EnhancedMultiStepForm } from './EnhancedMultiStepForm';
 import { ApplicationErrorBoundary } from './ApplicationErrorBoundary';
@@ -9,11 +10,9 @@ import {
   ProgramFitStep,
   DocumentsStep
 } from './ApplicationFormSteps';
-import { supabase } from '@/integrations/supabase/client';
-import { useAuth } from '@/contexts/AuthContext';
-import { useToast } from '@/hooks/use-toast';
-import { useNavigate } from 'react-router-dom';
+import { useApplicationForm } from '@/hooks/useApplicationForm';
 import { uploadFile } from '@/utils/fileUpload';
+import { useAuth } from '@/contexts/AuthContext';
 
 interface ProgramApplicationFormProps {
   programId: string;
@@ -25,11 +24,17 @@ export const ProgramApplicationForm: React.FC<ProgramApplicationFormProps> = ({
   programName
 }) => {
   const { user } = useAuth();
-  const { toast } = useToast();
-  const navigate = useNavigate();
-  const [applicationId, setApplicationId] = useState<string | null>(null);
-  const [initialData, setInitialData] = useState({});
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  
+  const {
+    formData,
+    updateFormData,
+    saveApplication,
+    submitApplication,
+    loadExistingApplication,
+    applicationId,
+    loading
+  } = useApplicationForm(programId, programName);
 
   const steps = [
     {
@@ -76,138 +81,45 @@ export const ProgramApplicationForm: React.FC<ProgramApplicationFormProps> = ({
 
   useEffect(() => {
     loadExistingApplication();
-  }, [user, programId]);
+  }, [loadExistingApplication]);
 
-  const loadExistingApplication = async () => {
+  const handleSubmit = async (finalFormData: any) => {
     if (!user) return;
 
     try {
-      const { data, error } = await supabase
-        .from('applications')
-        .select('*')
-        .eq('user_id', user.id)
-        .eq('program_name', programName)
-        .eq('status', 'draft')
-        .maybeSingle();
-
-      if (error) throw error;
-
-      if (data) {
-        setApplicationId(data.id);
-        setInitialData(data.form_data || {});
-      }
-    } catch (error) {
-      console.error('Error loading application:', error);
-    }
-  };
-
-  const handleSubmit = async (formData: any) => {
-    if (!user) return;
-
-    try {
-      let appId = applicationId;
-
-      if (!appId) {
-        // Create new application
-        const { data, error } = await supabase
-          .from('applications')
-          .insert({
-            user_id: user.id,
-            program_name: programName,
-            form_data: formData,
-            status: 'submitted',
-            submitted_at: new Date().toISOString()
-          })
-          .select()
-          .single();
-
-        if (error) throw error;
-        appId = data.id;
-      } else {
-        // Update existing application
-        const { error } = await supabase
-          .from('applications')
-          .update({
-            form_data: formData,
-            status: 'submitted',
-            submitted_at: new Date().toISOString()
-          })
-          .eq('id', appId);
-
-        if (error) throw error;
-      }
-
       // Handle file uploads if any
-      await handleFileUploads(formData, appId);
-
-      // Create notification
-      await supabase
-        .from('notifications')
-        .insert({
-          user_id: user.id,
-          title: 'Application Submitted',
-          message: `Your ${programName} application has been submitted successfully.`,
-          type: 'success',
-          category: 'application'
-        });
-
-      setShowSuccessModal(true);
+      const processedData = await handleFileUploads(finalFormData);
+      
+      const success = await submitApplication(processedData);
+      if (success) {
+        setShowSuccessModal(true);
+      }
     } catch (error) {
       console.error('Submission error:', error);
-      toast({
-        title: "Submission failed",
-        description: "Please try again or contact support.",
-        variant: "destructive"
-      });
       throw error;
     }
   };
 
-  const handleSave = async (formData: any) => {
-    if (!user) return;
-
-    try {
-      if (applicationId) {
-        const { error } = await supabase
-          .from('applications')
-          .update({
-            form_data: formData
-          })
-          .eq('id', applicationId);
-
-        if (error) throw error;
-      } else {
-        const { data, error } = await supabase
-          .from('applications')
-          .insert({
-            user_id: user.id,
-            program_name: programName,
-            form_data: formData,
-            status: 'draft'
-          })
-          .select()
-          .single();
-
-        if (error) throw error;
-        setApplicationId(data.id);
-      }
-    } catch (error) {
-      console.error('Save error:', error);
-    }
+  const handleSave = async (data: any) => {
+    await saveApplication(data);
   };
 
-  const handleFileUploads = async (formData: any, appId: string) => {
+  const handleFileUploads = async (data: any) => {
+    if (!user || !applicationId) return data;
+
     const fileFields = ['pitchDeck', 'businessPlan', 'financials'];
+    const processedData = { ...data };
     
     for (const field of fileFields) {
-      const file = formData[field];
+      const file = data[field];
       if (file && file instanceof File) {
         try {
-          const filePath = `${user!.id}/${appId}/${field}`;
+          const filePath = `${user.id}/${applicationId}/${field}`;
           const result = await uploadFile(file, 'documents', filePath);
           
           if (result.success && result.url) {
-            formData[field + '_url'] = result.url;
+            processedData[field + '_url'] = result.url;
+            delete processedData[field]; // Remove the file object
           } else {
             console.error(`Error uploading ${field}:`, result.error);
           }
@@ -216,7 +128,20 @@ export const ProgramApplicationForm: React.FC<ProgramApplicationFormProps> = ({
         }
       }
     }
+
+    return processedData;
   };
+
+  if (loading && !formData) {
+    return (
+      <div className="flex items-center justify-center min-h-96">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-sheraa-primary mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading your application...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <ApplicationErrorBoundary>
@@ -226,8 +151,8 @@ export const ProgramApplicationForm: React.FC<ProgramApplicationFormProps> = ({
         steps={steps}
         onSubmit={handleSubmit}
         onSave={handleSave}
-        initialData={initialData}
-        applicationId={applicationId}
+        initialData={formData}
+        applicationId={applicationId || undefined}
       />
       <ApplicationSuccessModal 
         isOpen={showSuccessModal}
