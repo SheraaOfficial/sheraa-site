@@ -14,4 +14,8 @@ if (!rootElement) {
 // Create root and render app
 const root = createRoot(rootElement);
 
-root.render(<App />);
+root.render(
+  <StrictMode>
+    <App />
+  </StrictMode>
+);
