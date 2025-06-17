@@ -36,7 +36,7 @@ interface AuthProviderProps {
   children: ReactNode;
 }
 
-export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [profile, setProfile] = useState<Profile | null>(null);
@@ -73,9 +73,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   useEffect(() => {
+    console.log('AuthProvider: Setting up auth listener');
+    
     // Set up auth state listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
+      (event, session) => {
         console.log('Auth state changed:', event, session?.user?.id);
         setSession(session);
         setUser(session?.user ?? null);
@@ -97,6 +99,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
     // Get initial session
     supabase.auth.getSession().then(({ data: { session }, error: sessionError }) => {
+      console.log('Initial session check:', session?.user?.id);
+      
       if (sessionError) {
         console.error("Error getting session:", sessionError);
         setError(`Authentication error: ${sessionError.message}`);
@@ -113,6 +117,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     });
 
     return () => {
+      console.log('AuthProvider: Cleaning up auth listener');
       subscription.unsubscribe();
     };
   }, []);
