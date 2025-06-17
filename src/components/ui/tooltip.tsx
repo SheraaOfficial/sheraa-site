@@ -1,9 +1,8 @@
 
 import * as React from "react"
-import { cn } from "@/lib/utils"
 
-// Completely disable all tooltip functionality to avoid React hook issues
-// This is a safe fallback that doesn't use any Radix UI components
+// Completely safe tooltip components that don't use any external dependencies
+// These are fallback components that simply render children without tooltip functionality
 
 const TooltipProvider: React.FC<{ 
   children: React.ReactNode; 
@@ -11,11 +10,9 @@ const TooltipProvider: React.FC<{
   skipDelayDuration?: number;
   disableHoverableContent?: boolean;
 }> = ({ children }) => {
-  // Just return children without any tooltip functionality
   return <>{children}</>;
 };
 
-// Create safe fallback components that don't render anything
 const Tooltip: React.FC<{ 
   children: React.ReactNode;
   open?: boolean;
@@ -31,6 +28,7 @@ const TooltipTrigger = React.forwardRef<
     asChild?: boolean;
   }
 >(({ children, asChild, ...props }, ref) => {
+  // Simply render the children without any tooltip behavior
   if (asChild && React.isValidElement(children)) {
     return React.cloneElement(children, { ...props, ref } as any);
   }
@@ -58,7 +56,7 @@ const TooltipContent = React.forwardRef<
     asChild?: boolean;
   }
 >(({ className, sideOffset = 4, children, asChild, ...props }, ref) => {
-  // Return null to not render tooltip content at all
+  // Don't render any tooltip content to avoid issues
   return null;
 });
 TooltipContent.displayName = "TooltipContent";
