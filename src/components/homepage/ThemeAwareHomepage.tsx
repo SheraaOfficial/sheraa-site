@@ -17,7 +17,9 @@ import { CommunityPartnersSection } from '@/components/homepage/redesign/Communi
 import { WhySharjahSection } from '@/components/homepage/sections/WhySharjahSection';
 import { ReadyToStartSection } from '@/components/homepage/sections/ReadyToStartSection';
 import { CyclingStickyCornerCTA } from '@/components/ui/cycling-sticky-cta';
-import { ThemeSelector } from '@/components/theme/ThemeSelector';
+
+// Temporarily remove ThemeSelector to isolate tooltip issues
+// import { ThemeSelector } from '@/components/theme/ThemeSelector';
 
 const ImmersiveHomepage: React.FC = () => (
   <MainLayout>
@@ -30,7 +32,6 @@ const ImmersiveHomepage: React.FC = () => (
     <WhySharjahSection />
     <ReadyToStartSection />
     <CyclingStickyCornerCTA />
-    <ThemeSelector />
   </MainLayout>
 );
 
@@ -47,7 +48,6 @@ const FloatingHomepage: React.FC = () => (
     <WhySharjahSection />
     <ReadyToStartSection />
     <CyclingStickyCornerCTA />
-    <ThemeSelector />
   </MainLayout>
 );
 
@@ -62,7 +62,6 @@ const VideoHomepage: React.FC = () => (
     <WhySharjahSection />
     <ReadyToStartSection />
     <CyclingStickyCornerCTA />
-    <ThemeSelector />
   </MainLayout>
 );
 
@@ -77,7 +76,6 @@ const CinematicHomepage: React.FC = () => (
     <WhySharjahSection />
     <ReadyToStartSection />
     <CyclingStickyCornerCTA />
-    <ThemeSelector />
   </MainLayout>
 );
 
@@ -92,7 +90,6 @@ const UltimateHomepage: React.FC = () => (
     <WhySharjahSection />
     <ReadyToStartSection />
     <CyclingStickyCornerCTA />
-    <ThemeSelector />
   </MainLayout>
 );
 
