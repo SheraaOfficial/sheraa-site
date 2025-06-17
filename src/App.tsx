@@ -10,6 +10,8 @@ import AppRoutes from "@/routes/AppRoutes";
 import { AppErrorBoundary } from '@/components/layout/AppErrorBoundary';
 
 console.log('App: Module loading');
+console.log('React version:', React.version);
+console.log('React object:', React);
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -23,6 +25,7 @@ const queryClient = new QueryClient({
 
 const App: React.FC = () => {
   console.log('App: Component rendering');
+  console.log('React in App component:', React);
   
   return (
     <AppErrorBoundary>
