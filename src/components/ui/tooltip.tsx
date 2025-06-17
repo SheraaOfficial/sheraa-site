@@ -1,5 +1,4 @@
 
-
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
@@ -65,4 +64,3 @@ const TooltipContent = React.forwardRef<
 TooltipContent.displayName = "TooltipContent";
 
 export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider }
-
