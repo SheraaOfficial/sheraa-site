@@ -1,8 +1,8 @@
 
 import * as React from "react"
 
-// Completely safe tooltip components that don't use any external dependencies
-// These are fallback components that simply render children without tooltip functionality
+// Safe fallback tooltip components that render nothing to avoid any React issues
+// These components are designed to be completely safe and not cause any errors
 
 const TooltipProvider: React.FC<{ 
   children: React.ReactNode; 
@@ -10,7 +10,8 @@ const TooltipProvider: React.FC<{
   skipDelayDuration?: number;
   disableHoverableContent?: boolean;
 }> = ({ children }) => {
-  return <>{children}</>;
+  console.log('TooltipProvider fallback called - rendering children only');
+  return <React.Fragment>{children}</React.Fragment>;
 };
 
 const Tooltip: React.FC<{ 
@@ -20,7 +21,10 @@ const Tooltip: React.FC<{
   onOpenChange?: (open: boolean) => void;
   delayDuration?: number;
   disableHoverableContent?: boolean;
-}> = ({ children }) => <>{children}</>;
+}> = ({ children }) => {
+  console.log('Tooltip fallback called - rendering children only');
+  return <React.Fragment>{children}</React.Fragment>;
+};
 
 const TooltipTrigger = React.forwardRef<
   HTMLElement,
@@ -28,6 +32,7 @@ const TooltipTrigger = React.forwardRef<
     asChild?: boolean;
   }
 >(({ children, asChild, ...props }, ref) => {
+  console.log('TooltipTrigger fallback called');
   // Simply render the children without any tooltip behavior
   if (asChild && React.isValidElement(children)) {
     return React.cloneElement(children, { ...props, ref } as any);
@@ -56,6 +61,7 @@ const TooltipContent = React.forwardRef<
     asChild?: boolean;
   }
 >(({ className, sideOffset = 4, children, asChild, ...props }, ref) => {
+  console.log('TooltipContent fallback called - rendering nothing to avoid issues');
   // Don't render any tooltip content to avoid issues
   return null;
 });

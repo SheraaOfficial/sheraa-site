@@ -27,21 +27,27 @@ const App: React.FC = () => {
   console.log('App: Component rendering');
   console.log('React in App component:', React);
   
-  return (
-    <AppErrorBoundary>
-      <QueryClientProvider client={queryClient}>
-        <BrowserRouter>
-          <AuthProvider>
-            <NotificationProvider>
-              <AppRoutes />
-              <Toaster />
-              <Sonner />
-            </NotificationProvider>
-          </AuthProvider>
-        </BrowserRouter>
-      </QueryClientProvider>
-    </AppErrorBoundary>
-  );
+  // Add error boundary around the problematic area
+  try {
+    return (
+      <AppErrorBoundary>
+        <QueryClientProvider client={queryClient}>
+          <BrowserRouter>
+            <AuthProvider>
+              <NotificationProvider>
+                <AppRoutes />
+                <Toaster />
+                <Sonner />
+              </NotificationProvider>
+            </AuthProvider>
+          </BrowserRouter>
+        </QueryClientProvider>
+      </AppErrorBoundary>
+    );
+  } catch (error) {
+    console.error('Error in App component:', error);
+    return <div>Application Error: {String(error)}</div>;
+  }
 };
 
 export default App;
