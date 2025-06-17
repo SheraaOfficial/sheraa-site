@@ -6,7 +6,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { NotificationProvider } from "@/components/notifications/NotificationProvider";
-import { TooltipProvider } from "@/components/ui/tooltip";
 import AppRoutes from "@/routes/AppRoutes";
 import { AppErrorBoundary } from '@/components/layout/AppErrorBoundary';
 
@@ -31,11 +30,9 @@ const App: React.FC = () => {
         <BrowserRouter>
           <AuthProvider>
             <NotificationProvider>
-              <TooltipProvider delayDuration={300}>
-                <AppRoutes />
-                <Toaster />
-                <Sonner />
-              </TooltipProvider>
+              <AppRoutes />
+              <Toaster />
+              <Sonner />
             </NotificationProvider>
           </AuthProvider>
         </BrowserRouter>
