@@ -27,6 +27,12 @@ const convertToNavigationItems = (): NavigationItem[] => {
 };
 
 const NavigationContent: React.FC = () => {
+  // Defensive React hooks usage
+  if (!React || !React.useState || !React.useEffect) {
+    console.error('NavigationContent: React hooks not available');
+    return <div>Navigation unavailable</div>;
+  }
+
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();

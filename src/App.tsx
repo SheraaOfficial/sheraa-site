@@ -11,18 +11,16 @@ import { AppErrorBoundary } from '@/components/layout/AppErrorBoundary';
 import { ReactSafetyCheck } from '@/components/utils/ReactSafetyCheck';
 
 console.log('App: Module loading');
-console.log('React version:', React.version);
-console.log('React object:', React);
 
-// Verify React is available
+// Verify React is available before creating QueryClient
 if (!React || !React.useState || !React.useContext || !React.useEffect) {
-  console.error('React hooks are not available:', {
+  console.error('App: React hooks are not available:', {
     React: !!React,
     useState: !!(React && React.useState),
     useContext: !!(React && React.useContext),
     useEffect: !!(React && React.useEffect)
   });
-  throw new Error('React hooks are not properly available');
+  throw new Error('React hooks are not properly available in App component');
 }
 
 const queryClient = new QueryClient({
@@ -37,13 +35,6 @@ const queryClient = new QueryClient({
 
 const App: React.FC = () => {
   console.log('App: Component rendering');
-  console.log('React in App component:', React);
-  
-  // Verify React is still available in component context
-  if (!React || !React.useState) {
-    console.error('React is null in App component context');
-    return <div>Error: React is not properly initialized</div>;
-  }
   
   return (
     <ReactSafetyCheck fallback={<div>Initializing application...</div>}>

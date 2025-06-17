@@ -10,16 +10,42 @@ export const ReactSafetyCheck: React.FC<ReactSafetyCheckProps> = ({
   children, 
   fallback = <div>Loading...</div> 
 }) => {
-  // Verify React and its hooks are available
-  if (!React || !React.useState || !React.useEffect || !React.useContext) {
-    console.error('React hooks are not available:', {
+  // Comprehensive React availability check
+  const checkReactFeatures = () => {
+    const requiredFeatures = [
+      'useState',
+      'useEffect', 
+      'useContext',
+      'createElement',
+      'Fragment'
+    ];
+    
+    return requiredFeatures.every(feature => 
+      React && typeof React[feature as keyof typeof React] === 'function'
+    );
+  };
+
+  if (!React) {
+    console.error('ReactSafetyCheck: React is null or undefined');
+    return <>{fallback}</>;
+  }
+
+  if (!checkReactFeatures()) {
+    console.error('ReactSafetyCheck: Required React features are not available:', {
       React: !!React,
       useState: !!(React && React.useState),
       useEffect: !!(React && React.useEffect),
-      useContext: !!(React && React.useContext)
+      useContext: !!(React && React.useContext),
+      createElement: !!(React && React.createElement),
+      Fragment: !!(React && React.Fragment)
     });
     return <>{fallback}</>;
   }
 
-  return <>{children}</>;
+  try {
+    return <>{children}</>;
+  } catch (error) {
+    console.error('ReactSafetyCheck: Error rendering children:', error);
+    return <>{fallback}</>;
+  }
 };
