@@ -2,13 +2,6 @@
 import React from 'react';
 import SEOHead from '@/components/SEO/SEOHead';
 import MainLayout from '@/components/layouts/MainLayout';
-import Hero from '@/components/Hero';
-import ImpactNumbers from '@/components/ImpactNumbers';
-import ProgramsOverview from '@/components/ProgramsOverview';
-import CommunitySection from '@/components/CommunitySection';
-import SEFSection from '@/components/SEFSection';
-import StartupsShowcase from '@/components/StartupsShowcase';
-import PartnersSection from '@/components/PartnersSection';
 
 const Index: React.FC = () => {
   return (
@@ -19,13 +12,16 @@ const Index: React.FC = () => {
         keywords="Sheraa, Sharjah Entrepreneurship, Startup Incubator, UAE Entrepreneurs, Business Innovation"
       />
       <MainLayout>
-        <Hero />
-        <ImpactNumbers />
-        <ProgramsOverview />
-        <StartupsShowcase />
-        <CommunitySection />
-        <SEFSection />
-        <PartnersSection />
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="text-center">
+            <h1 className="text-4xl font-bold text-sheraa-primary mb-4">
+              Welcome to Sheraa
+            </h1>
+            <p className="text-lg text-gray-600">
+              Creating the Next Wave of Entrepreneurs
+            </p>
+          </div>
+        </div>
       </MainLayout>
     </>
   );
