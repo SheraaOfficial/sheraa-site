@@ -20,7 +20,7 @@ const queryClient = new QueryClient({
   },
 });
 
-const App = () => (
+const App: React.FC = () => (
   <AppErrorBoundary>
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
