@@ -1,360 +1,531 @@
 
-import React, { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Label } from '@/components/ui/label';
-import { Progress } from '@/components/ui/progress';
-import { Badge } from '@/components/ui/badge';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { useAuth } from '@/contexts/AuthContext';
-import { supabase } from '@/integrations/supabase/client';
-import { useToast } from '@/hooks/use-toast';
-import { FileUpload } from '@/components/ui/file-upload';
-import { 
-  User, 
-  Building, 
-  Globe, 
-  Camera, 
-  Save,
-  CheckCircle,
-  AlertCircle
-} from 'lucide-react';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/hooks/use-toast";
+import { useLocalStorage } from "@/hooks/use-local-storage";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { motion } from "framer-motion";
+import { Camera, MapPin, Building2, Globe, User, Award, Plus, X, ArrowRight, ArrowLeft } from "lucide-react";
 
-const EnhancedProfileSetupForm: React.FC = () => {
-  const { user, profile } = useAuth();
+const profileSchema = z.object({
+  headline: z.string().min(5, { message: "Headline must be at least 5 characters" }),
+  bio: z.string().min(10, { message: "Bio must be at least 10 characters" }),
+  currentPosition: z.string().optional(),
+  currentCompany: z.string().optional(),
+  location: z.string().min(2, { message: "Location is required" }),
+  website: z.string().url({ message: "Website must be a valid URL" }).optional().or(z.literal('')),
+  industry: z.string().min(1, { message: "Please select an industry" }),
+  skills: z.array(z.string()).min(1, { message: "Add at least one skill" }),
+  interests: z.array(z.string()).optional(),
+});
+
+type ProfileFormValues = z.infer<typeof profileSchema>;
+
+const industries = [
+  "Technology", "Healthcare", "Finance", "Education", "E-commerce", 
+  "Manufacturing", "Sustainability", "Media & Entertainment", "Real Estate",
+  "Food & Beverage", "Transportation", "Energy", "Agriculture", "Tourism",
+  "Fashion", "Sports", "Government", "Non-profit", "Other"
+];
+
+const EnhancedProfileSetupForm = () => {
+  const navigate = useNavigate();
   const { toast } = useToast();
+  const [loggedInUser, setLoggedInUser] = useLocalStorage<any | null>("loggedInUser", null);
+  const [users, setUsers] = useLocalStorage<any[]>("users", []);
+  const [step, setStep] = useState(1);
+  const [skills, setSkills] = useState<string[]>([]);
+  const [interests, setInterests] = useState<string[]>([]);
+  const [currentSkill, setCurrentSkill] = useState("");
+  const [currentInterest, setCurrentInterest] = useState("");
+  const [profileImage, setProfileImage] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   
-  const [formData, setFormData] = useState({
-    firstName: profile?.first_name || '',
-    lastName: profile?.last_name || '',
-    headline: profile?.headline || '',
-    bio: profile?.bio || '',
-    industry: profile?.industry || '',
-    company: profile?.company || '',
-    location: profile?.location || '',
-    website: profile?.website || '',
-    linkedinUrl: profile?.linkedin_url || '',
-    portfolioData: profile?.portfolio_data || {}
+  React.useEffect(() => {
+    if (!loggedInUser) {
+      toast({
+        title: "Not logged in",
+        description: "Please log in to set up your profile",
+      });
+      navigate("/auth");
+    } else if (loggedInUser.profile?.skills) {
+      setSkills(loggedInUser.profile.skills);
+    }
+  }, [loggedInUser, navigate, toast]);
+  
+  const form = useForm<ProfileFormValues>({
+    resolver: zodResolver(profileSchema),
+    defaultValues: {
+      headline: loggedInUser?.profile?.headline || "",
+      bio: loggedInUser?.profile?.bio || "",
+      currentPosition: loggedInUser?.profile?.currentPosition || "",
+      currentCompany: loggedInUser?.profile?.currentCompany || "",
+      location: loggedInUser?.profile?.location || "",
+      website: loggedInUser?.profile?.website || "",
+      industry: loggedInUser?.profile?.industry || "",
+      skills: loggedInUser?.profile?.skills || [],
+      interests: loggedInUser?.profile?.interests || []
+    }
   });
   
-  const [avatarFile, setAvatarFile] = useState<File | null>(null);
-  const [saving, setSaving] = useState(false);
-  const [completionScore, setCompletionScore] = useState(0);
-
-  const industries = [
-    'Technology', 'Healthcare', 'Education', 'Finance', 'Retail', 
-    'Manufacturing', 'Agriculture', 'Energy', 'Real Estate', 
-    'Transportation', 'Entertainment', 'Consulting', 'Other'
-  ];
-
-  useEffect(() => {
-    calculateCompletionScore();
-  }, [formData, avatarFile]);
-
-  const calculateCompletionScore = () => {
-    let score = 0;
-    const totalFields = 9;
-    
-    if (formData.firstName) score += 1;
-    if (formData.lastName) score += 1;
-    if (formData.headline) score += 1;
-    if (formData.bio && formData.bio.length > 50) score += 1;
-    if (formData.industry) score += 1;
-    if (formData.company) score += 1;
-    if (formData.location) score += 1;
-    if (formData.linkedinUrl) score += 1;
-    if (avatarFile || profile?.avatar_url) score += 1;
-    
-    setCompletionScore(Math.round((score / totalFields) * 100));
-  };
-
-  const handleInputChange = (field: string, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
-  };
-
-  const handleAvatarUpload = async (file: File) => {
-    if (!user) return null;
-    
-    try {
-      const fileExt = file.name.split('.').pop();
-      const fileName = `${user.id}-${Date.now()}.${fileExt}`;
-      
-      const { error: uploadError } = await supabase.storage
-        .from('avatars')
-        .upload(fileName, file);
-
-      if (uploadError) throw uploadError;
-
-      const { data: { publicUrl } } = supabase.storage
-        .from('avatars')
-        .getPublicUrl(fileName);
-
-      return publicUrl;
-    } catch (error) {
-      console.error('Avatar upload failed:', error);
-      return null;
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setProfileImage(reader.result as string);
+      };
+      reader.readAsDataURL(file);
     }
   };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!user) return;
-
-    setSaving(true);
-    try {
-      let avatarUrl = profile?.avatar_url;
-      
-      if (avatarFile) {
-        avatarUrl = await handleAvatarUpload(avatarFile);
-      }
-
-      const { error } = await supabase
-        .from('profiles')
-        .update({
-          first_name: formData.firstName,
-          last_name: formData.lastName,
-          headline: formData.headline,
-          bio: formData.bio,
-          industry: formData.industry,
-          company: formData.company,
-          location: formData.location,
-          website: formData.website,
-          linkedin_url: formData.linkedinUrl,
-          avatar_url: avatarUrl,
-          portfolio_data: formData.portfolioData,
-          updated_at: new Date().toISOString()
-        })
-        .eq('id', user.id);
-
-      if (error) throw error;
-
-      toast({
-        title: "Profile updated successfully!",
-        description: `Your profile is now ${completionScore}% complete.`
-      });
-
-      // Refresh the page to show updated profile
-      window.location.reload();
-      
-    } catch (error) {
-      console.error('Profile update failed:', error);
-      toast({
-        title: "Profile update failed",
-        description: "Please try again later.",
-        variant: "destructive"
-      });
-    } finally {
-      setSaving(false);
+  
+  const addSkill = () => {
+    if (currentSkill.trim() && !skills.includes(currentSkill.trim())) {
+      const newSkills = [...skills, currentSkill.trim()];
+      setSkills(newSkills);
+      form.setValue('skills', newSkills);
+      setCurrentSkill("");
     }
   };
-
-  const getCompletionColor = () => {
-    if (completionScore >= 80) return 'text-green-600';
-    if (completionScore >= 60) return 'text-yellow-600';
-    return 'text-red-600';
+  
+  const removeSkill = (skillToRemove: string) => {
+    const newSkills = skills.filter(skill => skill !== skillToRemove);
+    setSkills(newSkills);
+    form.setValue('skills', newSkills);
   };
 
-  const getCompletionIcon = () => {
-    if (completionScore >= 80) return <CheckCircle className="w-5 h-5 text-green-600" />;
-    return <AlertCircle className="w-5 h-5 text-yellow-600" />;
+  const addInterest = () => {
+    if (currentInterest.trim() && !interests.includes(currentInterest.trim())) {
+      const newInterests = [...interests, currentInterest.trim()];
+      setInterests(newInterests);
+      form.setValue('interests', newInterests);
+      setCurrentInterest("");
+    }
+  };
+  
+  const removeInterest = (interestToRemove: string) => {
+    const newInterests = interests.filter(interest => interest !== interestToRemove);
+    setInterests(newInterests);
+    form.setValue('interests', newInterests);
+  };
+
+  const onSubmit = async (data: ProfileFormValues) => {
+    if (!loggedInUser) return;
+    
+    setIsSubmitting(true);
+    
+    const updatedUser = {
+      ...loggedInUser,
+      profile: {
+        ...data,
+        skills,
+        interests
+      },
+      profileImage: profileImage || loggedInUser.profileImage,
+      profileComplete: true
+    };
+    
+    // Update user in users array
+    const updatedUsers = users.map(user => 
+      user.id === loggedInUser.id ? updatedUser : user
+    );
+    setUsers(updatedUsers);
+    setLoggedInUser(updatedUser);
+    
+    await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate API call
+    
+    toast({
+      title: "Profile completed! 🎉",
+      description: "Welcome to the Sheraa community. Your profile is now live.",
+    });
+    
+    navigate("/profile");
+  };
+  
+  if (!loggedInUser) return null;
+  
+  const userInitials = `${loggedInUser.firstName?.[0] || ''}${loggedInUser.lastName?.[0] || ''}`;
+  const totalSteps = 3;
+
+  const renderStep = () => {
+    switch (step) {
+      case 1:
+        return (
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="space-y-6"
+          >
+            <div className="text-center space-y-4">
+              <h2 className="text-2xl font-bold">Tell us about yourself</h2>
+              <p className="text-gray-600">Let's start with the basics and your professional background</p>
+            </div>
+
+            {/* Profile Picture */}
+            <div className="flex flex-col items-center space-y-4">
+              <div className="relative">
+                <Avatar className="h-24 w-24">
+                  <AvatarImage src={profileImage || loggedInUser.profileImage} alt="Profile" />
+                  <AvatarFallback className="bg-sheraa-primary/10 text-sheraa-primary text-xl">
+                    {userInitials}
+                  </AvatarFallback>
+                </Avatar>
+                <label 
+                  htmlFor="profile-image" 
+                  className="absolute bottom-0 right-0 bg-sheraa-primary text-white p-2 rounded-full cursor-pointer hover:bg-sheraa-primary/90 transition-colors shadow-lg"
+                >
+                  <Camera className="w-4 h-4" />
+                  <input 
+                    id="profile-image" 
+                    type="file" 
+                    accept="image/*" 
+                    className="hidden" 
+                    onChange={handleImageUpload}
+                  />
+                </label>
+              </div>
+              <p className="text-sm text-gray-500">Upload a profile picture</p>
+            </div>
+
+            <div className="grid gap-4">
+              <FormField
+                control={form.control}
+                name="headline"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="flex items-center gap-2">
+                      <User className="w-4 h-4" />
+                      Professional Headline
+                    </FormLabel>
+                    <FormControl>
+                      <Input placeholder="e.g. Startup Founder | AI Enthusiast | Product Manager" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              
+              <FormField
+                control={form.control}
+                name="bio"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>About You</FormLabel>
+                    <FormControl>
+                      <Textarea 
+                        placeholder="Tell us about your background, interests, and what you're passionate about..."
+                        className="min-h-[120px]"
+                        {...field} 
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+          </motion.div>
+        );
+
+      case 2:
+        return (
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="space-y-6"
+          >
+            <div className="text-center space-y-4">
+              <h2 className="text-2xl font-bold">Professional Details</h2>
+              <p className="text-gray-600">Share your current role and professional information</p>
+            </div>
+
+            <div className="grid gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <FormField
+                  control={form.control}
+                  name="currentPosition"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="flex items-center gap-2">
+                        <Building2 className="w-4 h-4" />
+                        Current Position
+                      </FormLabel>
+                      <FormControl>
+                        <Input placeholder="e.g. CEO, Founder, Developer" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                
+                <FormField
+                  control={form.control}
+                  name="currentCompany"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Company/Organization</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Where do you work?" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <FormField
+                  control={form.control}
+                  name="location"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="flex items-center gap-2">
+                        <MapPin className="w-4 h-4" />
+                        Location
+                      </FormLabel>
+                      <FormControl>
+                        <Input placeholder="e.g. Sharjah, UAE" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                
+                <FormField
+                  control={form.control}
+                  name="industry"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Industry</FormLabel>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select your industry" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {industries.map((industry) => (
+                            <SelectItem key={industry} value={industry}>
+                              {industry}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
+              <FormField
+                control={form.control}
+                name="website"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="flex items-center gap-2">
+                      <Globe className="w-4 h-4" />
+                      Website (Optional)
+                    </FormLabel>
+                    <FormControl>
+                      <Input placeholder="https://yourwebsite.com" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+          </motion.div>
+        );
+
+      case 3:
+        return (
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="space-y-6"
+          >
+            <div className="text-center space-y-4">
+              <h2 className="text-2xl font-bold">Skills & Interests</h2>
+              <p className="text-gray-600">Help others find you by adding your skills and interests</p>
+            </div>
+
+            <div className="space-y-6">
+              <FormField
+                control={form.control}
+                name="skills"
+                render={() => (
+                  <FormItem>
+                    <FormLabel className="flex items-center gap-2">
+                      <Award className="w-4 h-4" />
+                      Skills & Expertise
+                    </FormLabel>
+                    <div className="flex gap-2">
+                      <Input 
+                        value={currentSkill} 
+                        onChange={(e) => setCurrentSkill(e.target.value)}
+                        placeholder="e.g. JavaScript, Marketing, UX Design"
+                        onKeyPress={(e) => e.key === "Enter" && (e.preventDefault(), addSkill())}
+                        className="flex-1"
+                      />
+                      <Button 
+                        type="button" 
+                        onClick={addSkill}
+                        className="bg-sheraa-primary hover:bg-sheraa-primary/90"
+                        size="icon"
+                      >
+                        <Plus className="w-4 h-4" />
+                      </Button>
+                    </div>
+                    
+                    <div className="flex flex-wrap gap-2 mt-3">
+                      {skills.map((skill, index) => (
+                        <div 
+                          key={index} 
+                          className="bg-sheraa-primary/10 text-sheraa-primary px-3 py-1 rounded-full text-sm flex items-center gap-2"
+                        >
+                          {skill}
+                          <button 
+                            type="button" 
+                            className="hover:text-sheraa-primary/80"
+                            onClick={() => removeSkill(skill)}
+                          >
+                            <X className="w-3 h-3" />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                    
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="interests"
+                render={() => (
+                  <FormItem>
+                    <FormLabel>Interests (Optional)</FormLabel>
+                    <div className="flex gap-2">
+                      <Input 
+                        value={currentInterest} 
+                        onChange={(e) => setCurrentInterest(e.target.value)}
+                        placeholder="e.g. Sustainability, AI, Blockchain"
+                        onKeyPress={(e) => e.key === "Enter" && (e.preventDefault(), addInterest())}
+                        className="flex-1"
+                      />
+                      <Button 
+                        type="button" 
+                        onClick={addInterest}
+                        variant="outline"
+                        size="icon"
+                      >
+                        <Plus className="w-4 h-4" />
+                      </Button>
+                    </div>
+                    
+                    <div className="flex flex-wrap gap-2 mt-3">
+                      {interests.map((interest, index) => (
+                        <div 
+                          key={index} 
+                          className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm flex items-center gap-2"
+                        >
+                          {interest}
+                          <button 
+                            type="button" 
+                            className="hover:text-gray-500"
+                            onClick={() => removeInterest(interest)}
+                          >
+                            <X className="w-3 h-3" />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </FormItem>
+                )}
+              />
+            </div>
+          </motion.div>
+        );
+
+      default:
+        return null;
+    }
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6 space-y-6">
-      {/* Progress Header */}
-      <Card>
-        <CardHeader>
-          <div className="flex items-center justify-between">
-            <CardTitle className="flex items-center gap-2">
-              <User className="w-5 h-5" />
+    <div className="min-h-screen bg-gradient-to-br from-sheraa-primary/5 via-white to-sheraa-teal/5 py-8">
+      <div className="container mx-auto px-4 max-w-2xl">
+        {/* Progress Bar */}
+        <div className="mb-8">
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-sm font-medium">Profile Setup</span>
+            <span className="text-sm text-gray-500">{step} of {totalSteps}</span>
+          </div>
+          <div className="w-full bg-gray-200 rounded-full h-2">
+            <div 
+              className="bg-gradient-to-r from-sheraa-primary to-sheraa-teal h-2 rounded-full transition-all duration-300"
+              style={{ width: `${(step / totalSteps) * 100}%` }}
+            />
+          </div>
+        </div>
+
+        <Card className="shadow-xl border-0 bg-white/90 backdrop-blur-sm">
+          <CardHeader className="text-center">
+            <CardTitle className="text-3xl font-bold bg-gradient-to-r from-sheraa-primary to-sheraa-teal bg-clip-text text-transparent">
               Complete Your Profile
             </CardTitle>
-            <div className="flex items-center gap-2">
-              {getCompletionIcon()}
-              <span className={`font-semibold ${getCompletionColor()}`}>
-                {completionScore}% Complete
-              </span>
-            </div>
-          </div>
-          <Progress value={completionScore} className="mt-4" />
-        </CardHeader>
-      </Card>
-
-      <form onSubmit={handleSubmit} className="space-y-6">
-        {/* Basic Information */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <User className="w-5 h-5" />
-              Basic Information
-            </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
-            {/* Avatar Upload */}
-            <div>
-              <Label>Profile Picture</Label>
-              <FileUpload
-                accept="image/*"
-                onFileSelect={setAvatarFile}
-                maxSize={2 * 1024 * 1024} // 2MB
-                description="Upload a profile picture (JPG, PNG, max 2MB)"
-              />
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-4">
-              <div>
-                <Label htmlFor="firstName">First Name *</Label>
-                <Input
-                  id="firstName"
-                  value={formData.firstName}
-                  onChange={(e) => handleInputChange('firstName', e.target.value)}
-                  required
-                />
-              </div>
-              <div>
-                <Label htmlFor="lastName">Last Name *</Label>
-                <Input
-                  id="lastName"
-                  value={formData.lastName}
-                  onChange={(e) => handleInputChange('lastName', e.target.value)}
-                  required
-                />
-              </div>
-            </div>
-
-            <div>
-              <Label htmlFor="headline">Professional Headline</Label>
-              <Input
-                id="headline"
-                value={formData.headline}
-                onChange={(e) => handleInputChange('headline', e.target.value)}
-                placeholder="e.g., Serial Entrepreneur & Tech Innovation Expert"
-              />
-            </div>
-
-            <div>
-              <Label htmlFor="bio">About Me</Label>
-              <Textarea
-                id="bio"
-                value={formData.bio}
-                onChange={(e) => handleInputChange('bio', e.target.value)}
-                placeholder="Tell us about your background, experience, and what drives you as an entrepreneur..."
-                rows={4}
-              />
-              <p className="text-sm text-gray-500 mt-1">
-                {formData.bio.length}/500 characters (minimum 50 recommended)
-              </p>
-            </div>
+          
+          <CardContent>
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                {renderStep()}
+                
+                <div className="flex justify-between pt-6">
+                  <Button 
+                    type="button" 
+                    variant="outline" 
+                    onClick={() => step > 1 ? setStep(step - 1) : navigate("/")}
+                    className="flex items-center gap-2"
+                  >
+                    <ArrowLeft className="w-4 h-4" />
+                    {step > 1 ? 'Previous' : 'Skip for Now'}
+                  </Button>
+                  
+                  {step < totalSteps ? (
+                    <Button 
+                      type="button" 
+                      onClick={() => setStep(step + 1)}
+                      className="bg-sheraa-primary hover:bg-sheraa-primary/90 flex items-center gap-2"
+                    >
+                      Next
+                      <ArrowRight className="w-4 h-4" />
+                    </Button>
+                  ) : (
+                    <Button 
+                      type="submit" 
+                      className="bg-gradient-to-r from-sheraa-primary to-sheraa-teal hover:from-sheraa-primary/90 hover:to-sheraa-teal/90 flex items-center gap-2"
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? 'Completing...' : 'Complete Profile'}
+                      {!isSubmitting && <ArrowRight className="w-4 h-4" />}
+                    </Button>
+                  )}
+                </div>
+              </form>
+            </Form>
           </CardContent>
         </Card>
-
-        {/* Professional Information */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Building className="w-5 h-5" />
-              Professional Information
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="grid md:grid-cols-2 gap-4">
-              <div>
-                <Label htmlFor="industry">Industry</Label>
-                <Select value={formData.industry} onValueChange={(value) => handleInputChange('industry', value)}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select your industry" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {industries.map(industry => (
-                      <SelectItem key={industry} value={industry}>{industry}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div>
-                <Label htmlFor="company">Current Company/Startup</Label>
-                <Input
-                  id="company"
-                  value={formData.company}
-                  onChange={(e) => handleInputChange('company', e.target.value)}
-                  placeholder="Your current company or startup"
-                />
-              </div>
-            </div>
-
-            <div>
-              <Label htmlFor="location">Location</Label>
-              <Input
-                id="location"
-                value={formData.location}
-                onChange={(e) => handleInputChange('location', e.target.value)}
-                placeholder="City, Country"
-              />
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Online Presence */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Globe className="w-5 h-5" />
-              Online Presence
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div>
-              <Label htmlFor="website">Website</Label>
-              <Input
-                id="website"
-                type="url"
-                value={formData.website}
-                onChange={(e) => handleInputChange('website', e.target.value)}
-                placeholder="https://yourwebsite.com"
-              />
-            </div>
-
-            <div>
-              <Label htmlFor="linkedinUrl">LinkedIn Profile</Label>
-              <Input
-                id="linkedinUrl"
-                type="url"
-                value={formData.linkedinUrl}
-                onChange={(e) => handleInputChange('linkedinUrl', e.target.value)}
-                placeholder="https://linkedin.com/in/yourname"
-              />
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Submit Button */}
-        <div className="flex justify-end">
-          <Button type="submit" disabled={saving} size="lg">
-            <Save className="w-4 h-4 mr-2" />
-            {saving ? 'Saving...' : 'Save Profile'}
-          </Button>
-        </div>
-      </form>
-
-      {/* Profile Completion Tips */}
-      {completionScore < 80 && (
-        <Card className="bg-blue-50 border-blue-200">
-          <CardContent className="p-4">
-            <h3 className="font-semibold text-blue-900 mb-2">Complete your profile to unlock more opportunities!</h3>
-            <div className="space-y-1 text-sm text-blue-800">
-              {!formData.headline && <p>• Add a professional headline</p>}
-              {!formData.bio || formData.bio.length < 50 && <p>• Write a compelling bio (at least 50 characters)</p>}
-              {!formData.industry && <p>• Select your industry</p>}
-              {!formData.company && <p>• Add your current company</p>}
-              {!formData.location && <p>• Add your location</p>}
-              {!formData.linkedinUrl && <p>• Connect your LinkedIn profile</p>}
-              {!avatarFile && !profile?.avatar_url && <p>• Upload a profile picture</p>}
-            </div>
-          </CardContent>
-        </Card>
-      )}
+      </div>
     </div>
   );
 };

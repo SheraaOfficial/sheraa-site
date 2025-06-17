@@ -1,7 +1,7 @@
 
 import React from "react";
 import MainLayout from "@/components/layouts/MainLayout";
-import SecureLoginForm from "@/components/auth/SecureLoginForm";
+import LoginForm from "@/components/auth/LoginForm";
 import { Card } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { Sparkles, Users, Target } from "lucide-react";
@@ -106,7 +106,7 @@ const LoginPage = () => {
               transition={{ duration: 0.8, delay: 0.4 }}
             >
               <Card className="p-8 shadow-2xl bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-sheraa-primary/20 rounded-3xl">
-                <SecureLoginForm />
+                <LoginForm />
               </Card>
             </motion.div>
           </div>

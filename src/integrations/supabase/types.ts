@@ -9,188 +9,16 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      application_steps: {
-        Row: {
-          application_id: string
-          completed: boolean | null
-          created_at: string | null
-          data: Json | null
-          id: string
-          step_name: string
-          step_number: number
-          updated_at: string | null
-        }
-        Insert: {
-          application_id: string
-          completed?: boolean | null
-          created_at?: string | null
-          data?: Json | null
-          id?: string
-          step_name: string
-          step_number: number
-          updated_at?: string | null
-        }
-        Update: {
-          application_id?: string
-          completed?: boolean | null
-          created_at?: string | null
-          data?: Json | null
-          id?: string
-          step_name?: string
-          step_number?: number
-          updated_at?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "application_steps_application_id_fkey"
-            columns: ["application_id"]
-            isOneToOne: false
-            referencedRelation: "applications"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      applications: {
-        Row: {
-          created_at: string
-          form_data: Json | null
-          id: string
-          program_name: string
-          status: Database["public"]["Enums"]["application_status"]
-          submitted_at: string | null
-          updated_at: string
-          user_id: string
-        }
-        Insert: {
-          created_at?: string
-          form_data?: Json | null
-          id?: string
-          program_name: string
-          status?: Database["public"]["Enums"]["application_status"]
-          submitted_at?: string | null
-          updated_at?: string
-          user_id: string
-        }
-        Update: {
-          created_at?: string
-          form_data?: Json | null
-          id?: string
-          program_name?: string
-          status?: Database["public"]["Enums"]["application_status"]
-          submitted_at?: string | null
-          updated_at?: string
-          user_id?: string
-        }
-        Relationships: []
-      }
-      notifications: {
-        Row: {
-          action_text: string | null
-          action_url: string | null
-          category: string | null
-          created_at: string | null
-          id: string
-          message: string
-          read: boolean | null
-          title: string
-          type: string
-          user_id: string
-        }
-        Insert: {
-          action_text?: string | null
-          action_url?: string | null
-          category?: string | null
-          created_at?: string | null
-          id?: string
-          message: string
-          read?: boolean | null
-          title: string
-          type?: string
-          user_id: string
-        }
-        Update: {
-          action_text?: string | null
-          action_url?: string | null
-          category?: string | null
-          created_at?: string | null
-          id?: string
-          message?: string
-          read?: boolean | null
-          title?: string
-          type?: string
-          user_id?: string
-        }
-        Relationships: []
-      }
-      profiles: {
-        Row: {
-          avatar_url: string | null
-          bio: string | null
-          company: string | null
-          first_name: string | null
-          headline: string | null
-          id: string
-          industry: string | null
-          last_name: string | null
-          linkedin_url: string | null
-          location: string | null
-          portfolio_data: Json | null
-          profile_completion_score: number | null
-          updated_at: string | null
-          website: string | null
-        }
-        Insert: {
-          avatar_url?: string | null
-          bio?: string | null
-          company?: string | null
-          first_name?: string | null
-          headline?: string | null
-          id: string
-          industry?: string | null
-          last_name?: string | null
-          linkedin_url?: string | null
-          location?: string | null
-          portfolio_data?: Json | null
-          profile_completion_score?: number | null
-          updated_at?: string | null
-          website?: string | null
-        }
-        Update: {
-          avatar_url?: string | null
-          bio?: string | null
-          company?: string | null
-          first_name?: string | null
-          headline?: string | null
-          id?: string
-          industry?: string | null
-          last_name?: string | null
-          linkedin_url?: string | null
-          location?: string | null
-          portfolio_data?: Json | null
-          profile_completion_score?: number | null
-          updated_at?: string | null
-          website?: string | null
-        }
-        Relationships: []
-      }
+      [_ in never]: never
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      calculate_profile_completion: {
-        Args: { profile_id: string }
-        Returns: number
-      }
+      [_ in never]: never
     }
     Enums: {
-      application_status:
-        | "draft"
-        | "submitted"
-        | "under_review"
-        | "accepted"
-        | "rejected"
-        | "withdrawn"
+      [_ in never]: never
     }
     CompositeTypes: {
       [_ in never]: never
@@ -305,15 +133,6 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {
-      application_status: [
-        "draft",
-        "submitted",
-        "under_review",
-        "accepted",
-        "rejected",
-        "withdrawn",
-      ],
-    },
+    Enums: {},
   },
 } as const

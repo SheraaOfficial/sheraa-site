@@ -3,27 +3,9 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 import { User, Session } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
 
-export interface Profile {
-  id: string;
-  first_name: string | null;
-  last_name: string | null;
-  avatar_url: string | null;
-  headline: string | null;
-  bio: string | null;
-  industry: string | null;
-  company: string | null;
-  location: string | null;
-  website: string | null;
-  linkedin_url: string | null;
-  portfolio_data: any | null;
-  profile_completion_score: number | null;
-  updated_at: string | null;
-}
-
 interface AuthContextType {
   user: User | null;
   session: Session | null;
-  profile: Profile | null;
   loading: boolean;
   signOut: () => Promise<void>;
 }
@@ -37,39 +19,26 @@ interface AuthProviderProps {
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
-  const [profile, setProfile] = useState<Profile | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const { data: authListener } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
+    // Set up auth state listener FIRST
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (event, session) => {
         setSession(session);
-        const currentUser = session?.user;
-        setUser(currentUser ?? null);
-        
-        if (currentUser) {
-          const { data: profileData, error } = await supabase
-            .from('profiles')
-            .select('*')
-            .eq('id', currentUser.id)
-            .single();
-
-          if (error && error.code !== 'PGRST116') {
-            console.error("Error fetching profile:", error.message);
-            setProfile(null);
-          } else {
-            setProfile(profileData as Profile | null);
-          }
-        } else {
-          setProfile(null);
-        }
+        setUser(session?.user ?? null);
         setLoading(false);
       }
     );
 
-    return () => {
-      authListener.subscription.unsubscribe();
-    };
+    // THEN check for existing session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      setUser(session?.user ?? null);
+      setLoading(false);
+    });
+
+    return () => subscription.unsubscribe();
   }, []);
 
   const signOut = async () => {
@@ -79,7 +48,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const contextValue: AuthContextType = {
     user,
     session,
-    profile,
     loading,
     signOut
   };

@@ -17,14 +17,6 @@ export interface ApplicationFormData {
   fundingRaised: string;
   teamSize: string;
   
-  // Business Model
-  businessModel: string;
-  targetMarket: string;
-
-  // Program Fit
-  whyProgram: string;
-  expectedOutcomes: string;
-
   // Program Specific
   programType: string;
   motivation: string;
@@ -56,10 +48,6 @@ const initialFormData: ApplicationFormData = {
   stage: '',
   fundingRaised: '',
   teamSize: '',
-  businessModel: '',
-  targetMarket: '',
-  whyProgram: '',
-  expectedOutcomes: '',
   programType: '',
   motivation: '',
   previousExperience: ''

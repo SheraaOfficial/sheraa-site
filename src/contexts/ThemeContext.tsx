@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { ReactNode } from 'react';
+
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 export type HomepageTheme = 'corporate' | 'dynamic' | 'immersive' | 'floating' | 'video' | 'cinematic' | 'ultimate';
 
@@ -20,7 +20,7 @@ interface ThemeContextType {
   setPreviewMode: (enabled: boolean) => void;
 }
 
-const ThemeContext = React.createContext<ThemeContextType | undefined>(undefined);
+const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const themeMetadata: ThemeMetadata[] = [
   {
@@ -121,10 +121,10 @@ interface ThemeProviderProps {
 }
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
-  const [currentTheme, setCurrentTheme] = React.useState<HomepageTheme>('dynamic');
-  const [isPreviewMode, setIsPreviewMode] = React.useState(false);
+  const [currentTheme, setCurrentTheme] = useState<HomepageTheme>('dynamic');
+  const [isPreviewMode, setIsPreviewMode] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     // Check URL parameters for theme selection
     const urlParams = new URLSearchParams(window.location.search);
     const themeParam = urlParams.get('theme') as HomepageTheme;
@@ -177,7 +177,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
 };
 
 export const useTheme = (): ThemeContextType => {
-  const context = React.useContext(ThemeContext);
+  const context = useContext(ThemeContext);
   if (!context) {
     throw new Error('useTheme must be used within a ThemeProvider');
   }
