@@ -1,5 +1,5 @@
 
-import React from 'react';
+import * as React from 'react';
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -9,6 +9,8 @@ import { NotificationProvider } from "@/components/notifications/NotificationPro
 import { TooltipProvider } from "@/components/ui/tooltip";
 import AppRoutes from "@/routes/AppRoutes";
 import { AppErrorBoundary } from '@/components/layout/AppErrorBoundary';
+
+console.log('App: Module loading');
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -20,22 +22,26 @@ const queryClient = new QueryClient({
   },
 });
 
-const App: React.FC = () => (
-  <AppErrorBoundary>
-    <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <AuthProvider>
-          <NotificationProvider>
-            <TooltipProvider>
-              <AppRoutes />
-              <Toaster />
-              <Sonner />
-            </TooltipProvider>
-          </NotificationProvider>
-        </AuthProvider>
-      </BrowserRouter>
-    </QueryClientProvider>
-  </AppErrorBoundary>
-);
+const App: React.FC = () => {
+  console.log('App: Component rendering');
+  
+  return (
+    <AppErrorBoundary>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <AuthProvider>
+            <NotificationProvider>
+              <TooltipProvider>
+                <AppRoutes />
+                <Toaster />
+                <Sonner />
+              </TooltipProvider>
+            </NotificationProvider>
+          </AuthProvider>
+        </BrowserRouter>
+      </QueryClientProvider>
+    </AppErrorBoundary>
+  );
+};
 
 export default App;
