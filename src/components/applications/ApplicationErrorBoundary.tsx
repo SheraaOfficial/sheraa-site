@@ -1,74 +1,82 @@
 
-import React, { Component, ReactNode } from 'react';
+import React from 'react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { AlertTriangle, RefreshCcw } from 'lucide-react';
+import { AlertTriangle, RefreshCw, Home } from 'lucide-react';
 
-interface Props {
-  children: ReactNode;
-  fallback?: ReactNode;
+interface ApplicationErrorBoundaryProps {
+  children: React.ReactNode;
 }
 
-interface State {
+interface ApplicationErrorBoundaryState {
   hasError: boolean;
-  error: Error | null;
+  error?: Error;
 }
 
-export class ApplicationErrorBoundary extends Component<Props, State> {
-  constructor(props: Props) {
+export class ApplicationErrorBoundary extends React.Component<
+  ApplicationErrorBoundaryProps,
+  ApplicationErrorBoundaryState
+> {
+  constructor(props: ApplicationErrorBoundaryProps) {
     super(props);
-    this.state = { hasError: false, error: null };
+    this.state = { hasError: false };
   }
 
-  static getDerivedStateFromError(error: Error): State {
+  static getDerivedStateFromError(error: Error) {
     return { hasError: true, error };
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error('Application Error:', error, errorInfo);
+    console.error('Application Error Boundary caught an error:', error.message);
+    console.error('Component stack:', errorInfo.componentStack);
   }
-
-  handleReset = () => {
-    this.setState({ hasError: false, error: null });
-  };
 
   render() {
     if (this.state.hasError) {
-      if (this.props.fallback) {
-        return this.props.fallback;
-      }
-
       return (
-        <div className="min-h-screen flex items-center justify-center p-4">
-          <Card className="max-w-md w-full">
-            <CardHeader className="text-center">
-              <AlertTriangle className="w-12 h-12 text-red-500 mx-auto mb-4" />
-              <CardTitle className="text-red-600">Something went wrong</CardTitle>
-            </CardHeader>
-            <CardContent className="text-center space-y-4">
-              <p className="text-gray-600">
-                We encountered an error while processing your application. 
-                Please try refreshing the page or contact support if the problem persists.
-              </p>
-              <div className="space-y-2">
-                <Button onClick={this.handleReset} className="w-full">
-                  <RefreshCcw className="w-4 h-4 mr-2" />
+        <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+          <div className="max-w-md w-full text-center">
+            <div className="bg-white rounded-lg shadow-lg p-8">
+              <div className="mb-6">
+                <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <AlertTriangle className="w-8 h-8 text-red-600" />
+                </div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                  Application Error
+                </h2>
+                <p className="text-gray-600 mb-4">
+                  We encountered an error while loading your application. Please try again.
+                </p>
+                {this.state.error && (
+                  <details className="text-left bg-gray-50 rounded p-3 mb-4">
+                    <summary className="cursor-pointer text-sm font-medium text-gray-700">
+                      Error Details
+                    </summary>
+                    <pre className="text-xs text-red-600 mt-2 whitespace-pre-wrap break-words">
+                      {this.state.error.message}
+                    </pre>
+                  </details>
+                )}
+              </div>
+              
+              <div className="space-y-3">
+                <Button 
+                  onClick={() => this.setState({ hasError: false })} 
+                  className="w-full"
+                >
+                  <RefreshCw className="w-4 h-4 mr-2" />
                   Try Again
                 </Button>
-                <Button variant="outline" onClick={() => window.location.href = '/'} className="w-full">
+                <Button 
+                  variant="outline" 
+                  onClick={() => window.location.href = '/'} 
+                  className="w-full"
+                >
+                  <Home className="w-4 h-4 mr-2" />
                   Go to Homepage
                 </Button>
               </div>
-              {process.env.NODE_ENV === 'development' && this.state.error && (
-                <details className="text-left text-xs bg-gray-100 p-2 rounded mt-4">
-                  <summary className="cursor-pointer">Error Details</summary>
-                  <pre className="mt-2 overflow-auto">
-                    {this.state.error.toString()}
-                  </pre>
-                </details>
-              )}
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         </div>
       );
     }

@@ -8,14 +8,10 @@ export const useIsMobile = (): boolean => {
     const checkDevice = () => {
       setIsMobile(window.innerWidth < 768);
     };
-    
-    // Check on initial load
+
     checkDevice();
-    
-    // Add event listener for window resize
     window.addEventListener('resize', checkDevice);
-    
-    // Clean up
+
     return () => window.removeEventListener('resize', checkDevice);
   }, []);
 
@@ -27,17 +23,12 @@ export const useIsTablet = (): boolean => {
 
   useEffect(() => {
     const checkDevice = () => {
-      const width = window.innerWidth;
-      setIsTablet(width >= 768 && width < 1024);
+      setIsTablet(window.innerWidth >= 768 && window.innerWidth < 1024);
     };
-    
-    // Check on initial load
+
     checkDevice();
-    
-    // Add event listener for window resize
     window.addEventListener('resize', checkDevice);
-    
-    // Clean up
+
     return () => window.removeEventListener('resize', checkDevice);
   }, []);
 
@@ -51,14 +42,10 @@ export const useIsDesktop = (): boolean => {
     const checkDevice = () => {
       setIsDesktop(window.innerWidth >= 1024);
     };
-    
-    // Check on initial load
+
     checkDevice();
-    
-    // Add event listener for window resize
     window.addEventListener('resize', checkDevice);
-    
-    // Clean up
+
     return () => window.removeEventListener('resize', checkDevice);
   }, []);
 

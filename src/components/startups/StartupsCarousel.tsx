@@ -1,103 +1,99 @@
 
-import React, { useState, useCallback, useEffect, useMemo } from "react";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from "@/components/ui/carousel";
-import StartupCard from "./StartupCard";
-import MobilePagination from "./MobilePagination";
-import { featuredStartups } from "./startupsData";
-import { useIsMobile } from "@/hooks/useDeviceDetection";
-import { useDevicePerformance } from "@/hooks/useDevicePerformance";
+import React from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { ExternalLink, TrendingUp } from "lucide-react";
 
-interface StartupsCarouselProps {
-  onSlideChange?: (index: number) => void;
+interface Startup {
+  id: string;
+  name: string;
+  description: string;
+  sector: string;
+  stage: string;
+  logo?: string;
 }
 
-const StartupsCarousel: React.FC<StartupsCarouselProps> = ({ onSlideChange }) => {
-  const isMobile = useIsMobile();
-  const devicePerformance = useDevicePerformance();
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [api, setApi] = useState<CarouselApi | null>(null);
-  
-  // Memoize options based on device performance
-  const carouselOptions = useMemo(() => ({
-    align: "start" as const,  // Fixed: Use TypeScript const assertion
-    loop: true,
-    dragFree: devicePerformance !== 'low',
-    // Use more passive dragging for low-end devices
-    dragThreshold: devicePerformance === 'low' ? 20 : 10,
-  }), [devicePerformance]);
-  
-  // Setup API event listeners when the carousel API is available
-  useEffect(() => {
-    if (!api) return;
-    
-    // Handler for slide change
-    const handleSelect = () => {
-      const currentIndex = api.selectedScrollSnap();
-      setActiveIndex(currentIndex);
-      
-      if (onSlideChange) {
-        onSlideChange(currentIndex);
-      }
-    };
-    
-    // Subscribe to carousel events
-    api.on('select', handleSelect);
-    
-    // Set initial value
-    handleSelect();
-    
-    // Cleanup
-    return () => {
-      api.off('select', handleSelect);
-    };
-  }, [api, onSlideChange]);
+const mockStartups: Startup[] = [
+  {
+    id: '1',
+    name: 'EcoTech Solutions',
+    description: 'Sustainable technology for waste management and circular economy solutions.',
+    sector: 'Sustainability',
+    stage: 'Growth'
+  },
+  {
+    id: '2',
+    name: 'EduLearn AI',
+    description: 'AI-powered personalized learning platform for K-12 education.',
+    sector: 'EdTech',
+    stage: 'Seed'
+  },
+  {
+    id: '3',
+    name: 'HealthTrack Pro',
+    description: 'Digital health monitoring and telemedicine platform.',
+    sector: 'HealthTech',
+    stage: 'Pre-Seed'
+  },
+  {
+    id: '4',
+    name: 'AgriSmart',
+    description: 'IoT solutions for precision agriculture and crop optimization.',
+    sector: 'AgriTech',
+    stage: 'Growth'
+  },
+  {
+    id: '5',
+    name: 'FinFlow',
+    description: 'Digital payments and financial inclusion platform for SMEs.',
+    sector: 'FinTech',
+    stage: 'Seed'
+  },
+  {
+    id: '6',
+    name: 'Creative Hub',
+    description: 'Platform connecting creative professionals with businesses.',
+    sector: 'Creative',
+    stage: 'Pre-Seed'
+  }
+];
 
-  // Only display a subset of startups for low-end devices
-  const displayedStartups = useMemo(() => {
-    return devicePerformance === 'low' && isMobile 
-      ? featuredStartups.slice(0, 6) 
-      : featuredStartups;
-  }, [devicePerformance, isMobile]);
-  
+const StartupsCarousel: React.FC = () => {
   return (
-    <div className="mb-10 md:mb-14 max-w-full">
-      <Carousel 
-        opts={carouselOptions}
-        className="w-full"
-        setApi={setApi}
-      >
-        <CarouselContent className="-ml-2 md:-ml-4">
-          {displayedStartups.map((startup, index) => (
-            <CarouselItem 
-              key={startup.id} 
-              className="pl-2 md:pl-4 basis-full sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
-            >
-              <div className="h-full">
-                <StartupCard 
-                  startup={startup} 
-                  index={index} 
-                  isMobile={isMobile} 
-                />
+    <div className="relative overflow-hidden">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
+        {mockStartups.map((startup) => (
+          <Card key={startup.id} className="group hover:shadow-lg transition-all duration-300 border border-gray-200 hover:border-sheraa-primary/20">
+            <CardContent className="p-4 md:p-6">
+              <div className="flex items-start justify-between mb-3">
+                <div className="w-12 h-12 bg-gradient-to-br from-sheraa-primary to-sheraa-coral rounded-lg flex items-center justify-center">
+                  <TrendingUp className="w-6 h-6 text-white" />
+                </div>
+                <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-sheraa-primary transition-colors" />
               </div>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        
-        <div className="hidden md:block" aria-hidden="true">
-          <CarouselPrevious className="left-2" />
-          <CarouselNext className="right-2" />
-        </div>
-      </Carousel>
-      
-      {/* Mobile pagination indicators */}
-      {isMobile && (
-        <MobilePagination 
-          activeIndex={activeIndex} 
-          itemCount={displayedStartups.length} 
-        />
-      )}
+              
+              <h3 className="font-semibold text-lg text-gray-900 mb-2 group-hover:text-sheraa-primary transition-colors">
+                {startup.name}
+              </h3>
+              
+              <p className="text-sm text-gray-600 mb-4 leading-relaxed">
+                {startup.description}
+              </p>
+              
+              <div className="flex items-center justify-between">
+                <Badge variant="secondary" className="text-xs">
+                  {startup.sector}
+                </Badge>
+                <Badge variant="outline" className="text-xs">
+                  {startup.stage}
+                </Badge>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
     </div>
   );
 };
 
-export default React.memo(StartupsCarousel);
+export default StartupsCarousel;

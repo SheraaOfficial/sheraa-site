@@ -1,69 +1,90 @@
 
-/* Mobile performance optimizations */
+/* Mobile-first responsive design optimizations */
 
-/* Applied to root when performance is low */
-html.reduce-animations * {
-  animation-duration: 0.001ms !important;
-  transition-duration: 0.001ms !important;
-}
-
-html.reduce-effects .blur-sm,
-html.reduce-effects .blur-md,
-html.reduce-effects .blur-lg,
-html.reduce-effects .blur-xl,
-html.reduce-effects .blur-2xl,
-html.reduce-effects .blur-3xl {
-  filter: none !important;
-}
-
-html.reduce-effects .shadow-sm,
-html.reduce-effects .shadow,
-html.reduce-effects .shadow-md,
-html.reduce-effects .shadow-lg,
-html.reduce-effects .shadow-xl,
-html.reduce-effects .shadow-2xl {
-  box-shadow: none !important;
-}
-
-/* Mobile-specific touch optimizations */
-@media (max-width: 767px) {
-  body {
-    overscroll-behavior: contain;
-    -webkit-touch-callout: none;
-    touch-action: manipulation;
-  }
-  
-  /* Increase tap target sizes on mobile */
-  button, 
-  .tap-target,
-  a {
+/* Ensure proper touch targets on mobile */
+@media (max-width: 768px) {
+  button, a, input, select, textarea {
     min-height: 44px;
-    min-width: 44px;
   }
   
-  /* Optimize images for mobile performance */
-  img {
-    content-visibility: auto;
+  /* Optimize font sizes for mobile readability */
+  body {
+    font-size: 16px;
+    line-height: 1.5;
   }
   
-  /* Optimize layout performance */
-  .mobile-optimized {
-    contain: content;
-    content-visibility: auto;
+  /* Prevent horizontal scrolling */
+  body, html {
+    overflow-x: hidden;
   }
   
-  /* Layout optimizations */
-  .optimized-container {
-    contain: layout style paint;
+  /* Optimize form inputs for mobile */
+  input, select, textarea {
+    font-size: 16px; /* Prevents zoom on iOS */
+    border-radius: 8px;
+    padding: 12px 16px;
+  }
+  
+  /* Card spacing optimization */
+  .card {
+    margin-bottom: 16px;
+  }
+  
+  /* Navigation improvements */
+  .mobile-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+  }
+  
+  /* Loading states */
+  .mobile-loading {
+    padding: 24px;
+    text-align: center;
+  }
+  
+  /* Error states */
+  .mobile-error {
+    padding: 24px;
+    text-align: center;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 8px;
+    margin: 16px;
   }
 }
 
-/* Reduce motion for users who prefer it */
-@media (prefers-reduced-motion: reduce) {
-  *, ::before, ::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-    scroll-behavior: auto !important;
+/* Tablet optimizations */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .container {
+    padding-left: 24px;
+    padding-right: 24px;
   }
+}
+
+/* Desktop optimizations */
+@media (min-width: 1025px) {
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+}
+
+/* Focus states for accessibility */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Smooth animations */
+* {
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
 }
