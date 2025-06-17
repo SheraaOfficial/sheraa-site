@@ -25,7 +25,10 @@ export interface ApplicationFormData {
   whyProgram: string;
   expectedOutcomes: string;
   
-  // Documents - store as URLs after upload
+  // Documents - store as URLs after upload or File objects before upload
+  pitchDeck?: File | string;
+  businessPlan?: File | string;
+  financials?: File | string;
   pitchDeck_url?: string;
   businessPlan_url?: string;
   financials_url?: string;
@@ -58,7 +61,7 @@ export const useApplicationForm = (programId: string, programName: string) => {
       
       // Remove File objects before saving to database
       const sanitizedData = Object.entries(dataToSave).reduce((acc, [key, value]) => {
-        if (value instanceof File) {
+        if (value && typeof value === 'object' && 'type' in value && 'size' in value) {
           // Skip File objects - they should be uploaded separately and stored as URLs
           return acc;
         }
@@ -178,7 +181,11 @@ export const useApplicationForm = (programId: string, programName: string) => {
 
       if (data) {
         setApplicationId(data.id);
-        setFormData(data.form_data || {});
+        // Safely handle the form_data which could be any JSON structure
+        const savedFormData = data.form_data || {};
+        if (typeof savedFormData === 'object' && savedFormData !== null) {
+          setFormData(savedFormData as Partial<ApplicationFormData>);
+        }
       }
     } catch (error) {
       console.error('Error loading application:', error);

@@ -79,7 +79,8 @@ export const validateApplicationStep = (
       break;
 
     case 'documents':
-      if (!formData.pitchDeck) {
+      // Check for either a File object or a URL string
+      if (!formData.pitchDeck && !formData.pitchDeck_url) {
         errors.push({ field: 'pitchDeck', message: 'Pitch deck is required' });
       }
       break;
