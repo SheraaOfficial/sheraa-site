@@ -9,7 +9,7 @@ import { CheckCircle, Clock, AlertCircle, XCircle } from 'lucide-react';
 interface ApplicationStatus {
   id: string;
   program_name: string;
-  status: 'draft' | 'submitted' | 'under_review' | 'accepted' | 'rejected';
+  status: 'draft' | 'submitted' | 'under_review' | 'accepted' | 'rejected' | 'withdrawn';
   created_at: string;
   submitted_at: string | null;
 }
@@ -89,6 +89,8 @@ export const ApplicationStatusTracker: React.FC = () => {
         return 'bg-green-100 text-green-800';
       case 'rejected':
         return 'bg-red-100 text-red-800';
+      case 'withdrawn':
+        return 'bg-gray-100 text-gray-800';
       default:
         return 'bg-gray-100 text-gray-800';
     }
