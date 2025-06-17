@@ -1,88 +1,106 @@
 
 import React, { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import './styles/mobile-optimizations.css';
 import './index.css';
 
-console.log('Main: Starting React application');
+console.log('=== REACT INITIALIZATION DEBUG ===');
 console.log('React version:', React.version);
-console.log('React object:', React);
-
-// Ensure React is available globally for debugging
-if (typeof window !== 'undefined') {
-  (window as any).React = React;
-}
+console.log('React object available:', !!React);
+console.log('React.useState available:', !!(React && React.useState));
+console.log('React.useEffect available:', !!(React && React.useEffect));
+console.log('React.createElement available:', !!(React && React.createElement));
 
 // Comprehensive React availability check
-const checkReactAvailability = () => {
-  const checks = {
-    React: !!React,
-    useState: !!(React && React.useState),
-    useEffect: !!(React && React.useEffect),
-    useContext: !!(React && React.useContext),
-    createElement: !!(React && React.createElement),
-    Fragment: !!(React && React.Fragment)
-  };
+const performReactHealthCheck = () => {
+  const requiredFeatures = [
+    'useState', 'useEffect', 'useContext', 'createElement', 
+    'Fragment', 'Component', 'StrictMode'
+  ];
   
-  console.log('React availability checks:', checks);
+  const availableFeatures = requiredFeatures.filter(feature => 
+    React && typeof React[feature as keyof typeof React] !== 'undefined'
+  );
   
-  const missingFeatures = Object.entries(checks)
-    .filter(([, available]) => !available)
-    .map(([feature]) => feature);
-    
+  const missingFeatures = requiredFeatures.filter(feature => 
+    !React || typeof React[feature as keyof typeof React] === 'undefined'
+  );
+  
+  console.log('Available React features:', availableFeatures);
+  console.log('Missing React features:', missingFeatures);
+  
   if (missingFeatures.length > 0) {
-    throw new Error(`React features not available: ${missingFeatures.join(', ')}`);
+    throw new Error(`Critical React features missing: ${missingFeatures.join(', ')}`);
   }
   
   return true;
 };
 
-// Verify React before proceeding
-try {
-  checkReactAvailability();
-  console.log('Main: React availability check passed');
-} catch (error) {
-  console.error('Main: React availability check failed:', error);
-  throw error;
-}
-
 // Ensure we have a root element
 const rootElement = document.getElementById('root');
 if (!rootElement) {
-  throw new Error('Root element not found. Make sure there is a div with id="root" in your HTML.');
+  throw new Error('Root element not found');
 }
 
-console.log('Main: Root element found, creating React root');
+console.log('Root element found:', !!rootElement);
 
-// Dynamically import App to ensure React is fully initialized
+// Progressive app loading function
 const initializeApp = async () => {
   try {
-    // Verify React one more time before importing App
-    checkReactAvailability();
+    console.log('=== STARTING APP INITIALIZATION ===');
     
-    const { default: App } = await import('./App');
-    console.log('Main: App component imported successfully');
+    // Step 1: Verify React health
+    performReactHealthCheck();
+    console.log('✅ React health check passed');
+    
+    // Step 2: Test minimal React rendering
+    console.log('🧪 Testing minimal React component...');
+    const { default: MinimalApp } = await import('./MinimalApp');
     
     const root = createRoot(rootElement);
     
+    // Step 3: Render minimal app first
     root.render(
       <StrictMode>
-        <App />
+        <MinimalApp />
       </StrictMode>
     );
     
-    console.log('Main: React application rendered successfully');
-  } catch (error) {
-    console.error('Main: Error during app initialization:', error);
+    console.log('✅ Minimal app rendered successfully');
     
-    // Fallback: render basic error message
+    // Step 4: Wait a moment then try to load full app
+    setTimeout(async () => {
+      try {
+        console.log('🚀 Attempting to load full application...');
+        const { default: App } = await import('./App');
+        
+        root.render(
+          <StrictMode>
+            <App />
+          </StrictMode>
+        );
+        
+        console.log('✅ Full application loaded successfully');
+      } catch (fullAppError) {
+        console.error('❌ Full app failed to load:', fullAppError);
+        console.log('🔄 Staying with minimal app');
+      }
+    }, 2000);
+    
+  } catch (error) {
+    console.error('❌ Critical initialization error:', error);
+    
+    // Emergency fallback
     rootElement.innerHTML = `
-      <div style="display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; text-align: center; font-family: system-ui, -apple-system, sans-serif;">
-        <div>
-          <h1 style="color: #dc2626; margin-bottom: 16px;">Application Error</h1>
-          <p style="color: #666; margin-bottom: 16px;">Failed to initialize the React application.</p>
-          <button onclick="window.location.reload()" style="background: #3b82f6; color: white; padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer;">
-            Reload Page
+      <div style="display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; text-align: center; font-family: system-ui, -apple-system, sans-serif; background: #f8fafc;">
+        <div style="background: white; padding: 32px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); max-width: 500px;">
+          <h1 style="color: #dc2626; margin-bottom: 16px; font-size: 24px;">Application Initialization Failed</h1>
+          <p style="color: #64748b; margin-bottom: 16px;">React failed to initialize properly.</p>
+          <details style="text-align: left; margin-bottom: 16px;">
+            <summary style="cursor: pointer; font-weight: 500; margin-bottom: 8px;">Error Details</summary>
+            <pre style="background: #f1f5f9; padding: 12px; border-radius: 6px; font-size: 12px; overflow: auto;">${error}</pre>
+          </details>
+          <button onclick="window.location.reload()" style="background: #3b82f6; color: white; padding: 12px 24px; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; font-weight: 500;">
+            Reload Application
           </button>
         </div>
       </div>
@@ -90,5 +108,5 @@ const initializeApp = async () => {
   }
 };
 
-// Initialize the app
+// Initialize the application
 initializeApp();
