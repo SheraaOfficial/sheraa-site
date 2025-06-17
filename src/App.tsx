@@ -13,6 +13,17 @@ console.log('App: Module loading');
 console.log('React version:', React.version);
 console.log('React object:', React);
 
+// Verify React is available
+if (!React || !React.useState || !React.useContext || !React.useEffect) {
+  console.error('React hooks are not available:', {
+    React: !!React,
+    useState: !!(React && React.useState),
+    useContext: !!(React && React.useContext),
+    useEffect: !!(React && React.useEffect)
+  });
+  throw new Error('React hooks are not properly available');
+}
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -26,6 +37,12 @@ const queryClient = new QueryClient({
 const App: React.FC = () => {
   console.log('App: Component rendering');
   console.log('React in App component:', React);
+  
+  // Verify React is still available in component context
+  if (!React || !React.useState) {
+    console.error('React is null in App component context');
+    return <div>Error: React is not properly initialized</div>;
+  }
   
   // Add error boundary around the problematic area
   try {

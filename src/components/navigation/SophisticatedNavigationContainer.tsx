@@ -26,6 +26,12 @@ const convertToNavigationItems = (): NavigationItem[] => {
 };
 
 export const SophisticatedNavigationContainer: React.FC = () => {
+  // Safety check for React availability
+  if (!React || !React.useState || !React.useEffect) {
+    console.error('React hooks not available in SophisticatedNavigationContainer');
+    return <div>Navigation Error: React not properly initialized</div>;
+  }
+
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
