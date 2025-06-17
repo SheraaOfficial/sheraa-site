@@ -8,6 +8,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import { NotificationProvider } from "@/components/notifications/NotificationProvider";
 import AppRoutes from "@/routes/AppRoutes";
 import { AppErrorBoundary } from '@/components/layout/AppErrorBoundary';
+import { ReactSafetyCheck } from '@/components/utils/ReactSafetyCheck';
 
 console.log('App: Module loading');
 console.log('React version:', React.version);
@@ -44,9 +45,8 @@ const App: React.FC = () => {
     return <div>Error: React is not properly initialized</div>;
   }
   
-  // Add error boundary around the problematic area
-  try {
-    return (
+  return (
+    <ReactSafetyCheck fallback={<div>Initializing application...</div>}>
       <AppErrorBoundary>
         <QueryClientProvider client={queryClient}>
           <BrowserRouter>
@@ -60,11 +60,8 @@ const App: React.FC = () => {
           </BrowserRouter>
         </QueryClientProvider>
       </AppErrorBoundary>
-    );
-  } catch (error) {
-    console.error('Error in App component:', error);
-    return <div>Application Error: {String(error)}</div>;
-  }
+    </ReactSafetyCheck>
+  );
 };
 
 export default App;
