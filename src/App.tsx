@@ -31,7 +31,7 @@ const App: React.FC = () => {
         <BrowserRouter>
           <AuthProvider>
             <NotificationProvider>
-              <TooltipProvider>
+              <TooltipProvider delayDuration={300}>
                 <AppRoutes />
                 <Toaster />
                 <Sonner />
