@@ -2,7 +2,9 @@
 import React, { ReactNode } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { HelmetProvider } from 'react-helmet-async';
 import { Toaster } from "@/components/ui/sonner";
+import { TooltipProvider } from "@/components/ui/tooltip";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { ThemeProvider } from "next-themes";
 
@@ -22,30 +24,33 @@ const queryClient = new QueryClient({
 
 // This component is kept for potential future use but not currently used
 // The main App.tsx handles providers directly to avoid conflicts
-// Removed HelmetProvider to avoid react-helmet-async issues
 const AppProviders: React.FC<AppProvidersProps> = ({ children }) => {
   return (
-    <BrowserRouter>
-      <ThemeProvider 
-        defaultTheme="light" 
-        storageKey="sheraa-ui-theme"
-        attribute="class"
-        enableSystem={false}
-        disableTransitionOnChange={false}
-      >
-        <LanguageProvider>
-          <QueryClientProvider client={queryClient}>
-            {children}
-            <Toaster 
-              position="bottom-right"
-              expand={false}
-              richColors
-              closeButton
-            />
-          </QueryClientProvider>
-        </LanguageProvider>
-      </ThemeProvider>
-    </BrowserRouter>
+    <HelmetProvider>
+      <BrowserRouter>
+        <ThemeProvider 
+          defaultTheme="light" 
+          storageKey="sheraa-ui-theme"
+          attribute="class"
+          enableSystem={false}
+          disableTransitionOnChange={false}
+        >
+          <LanguageProvider>
+            <QueryClientProvider client={queryClient}>
+              <TooltipProvider>
+                {children}
+                <Toaster 
+                  position="bottom-right"
+                  expand={false}
+                  richColors
+                  closeButton
+                />
+              </TooltipProvider>
+            </QueryClientProvider>
+          </LanguageProvider>
+        </ThemeProvider>
+      </BrowserRouter>
+    </HelmetProvider>
   );
 };
 

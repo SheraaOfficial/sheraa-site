@@ -7,7 +7,6 @@ import { ActivityFeed } from './ActivityFeed';
 import { RecommendationsSection } from './RecommendationsSection';
 import { ApplicationStatusCard } from './ApplicationStatusCard';
 import { ApplicationStatusTracker } from '../applications/ApplicationStatusTracker';
-import { ApplicationQuickActions } from './ApplicationQuickActions';
 
 type ApplicationStatus = 'draft' | 'submitted' | 'under_review' | 'accepted' | 'rejected' | 'withdrawn';
 
@@ -103,29 +102,6 @@ export const UserDashboard: React.FC = () => {
     if (!authLoading) {
       loadDashboardData();
     }
-
-    // Set up real-time subscription for applications
-    if (user) {
-      const channel = supabase
-        .channel('dashboard-applications')
-        .on(
-          'postgres_changes',
-          {
-            event: '*',
-            schema: 'public',
-            table: 'applications',
-            filter: `user_id=eq.${user.id}`
-          },
-          () => {
-            loadDashboardData(); // Refresh applications on changes
-          }
-        )
-        .subscribe();
-
-      return () => {
-        supabase.removeChannel(channel);
-      };
-    }
   }, [user, authLoading]);
 
   const userProgress: UserProgress | null = useMemo(() => {
@@ -183,7 +159,6 @@ export const UserDashboard: React.FC = () => {
         </div>
 
         <div className="space-y-6">
-          <ApplicationQuickActions applications={applications} />
           <ApplicationStatusTracker />
           <RecommendationsSection 
             mockRecommendations={mockRecommendations} 

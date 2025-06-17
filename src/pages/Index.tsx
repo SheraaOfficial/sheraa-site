@@ -1,29 +1,34 @@
 
-import React from 'react';
-import SEOHead from '@/components/SEO/SEOHead';
-import MainLayout from '@/components/layouts/MainLayout';
+import React from "react";
+import MainLayout from "@/components/layouts/MainLayout";
+import { ImmersiveHero } from "@/components/hero/ImmersiveHero";
+import { ImpactMetricsSection } from "@/components/homepage/redesign/ImpactMetricsSection";
+import { ProgramsJourneySection } from "@/components/homepage/redesign/ProgramsJourneySection";
+import { StartupEcosystemSection } from "@/components/homepage/redesign/StartupEcosystemSection";
+import { SEFHighlightSection } from "@/components/homepage/redesign/SEFHighlightSection";
+import { CommunityPartnersSection } from "@/components/homepage/redesign/CommunityPartnersSection";
+import { WhySharjahSection } from "@/components/homepage/sections/WhySharjahSection";
+import { ReadyToStartSection } from "@/components/homepage/sections/ReadyToStartSection";
+import { CyclingStickyCornerCTA } from "@/components/ui/cycling-sticky-cta";
+import { ThemeSelector } from "@/components/theme/ThemeSelector";
 
-const Index: React.FC = () => {
+const Index = () => {
   return (
-    <>
-      <SEOHead 
-        title="Sheraa: Creating the Next Wave of Entrepreneurs"
-        description="Sharjah's official hub for aspiring founders and established ventures. We empower changemakers to build impactful businesses and shape the future."
-        keywords="Sheraa, Sharjah Entrepreneurship, Startup Incubator, UAE Entrepreneurs, Business Innovation"
-      />
-      <MainLayout>
-        <div className="min-h-screen flex items-center justify-center">
-          <div className="text-center">
-            <h1 className="text-4xl font-bold text-sheraa-primary mb-4">
-              Welcome to Sheraa
-            </h1>
-            <p className="text-lg text-gray-600">
-              Creating the Next Wave of Entrepreneurs
-            </p>
-          </div>
-        </div>
-      </MainLayout>
-    </>
+    <MainLayout>
+      <ImmersiveHero />
+      <ImpactMetricsSection />
+      <ProgramsJourneySection />
+      <StartupEcosystemSection />
+      <SEFHighlightSection />
+      <CommunityPartnersSection />
+      <WhySharjahSection />
+      <ReadyToStartSection />
+      
+      <CyclingStickyCornerCTA />
+      
+      {/* Theme Selector for Preview */}
+      <ThemeSelector />
+    </MainLayout>
   );
 };
 

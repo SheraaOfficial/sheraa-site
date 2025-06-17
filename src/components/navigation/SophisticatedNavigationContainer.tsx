@@ -9,7 +9,6 @@ import { DesktopNavigation } from './DesktopNavigation';
 import { SophisticatedMobileMenu } from './SophisticatedMobileMenu';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { NavigationItem } from './types';
-import { ReactSafetyCheck } from '@/components/utils/ReactSafetyCheck';
 
 // Convert sophisticated navigation items to standard navigation items
 const convertToNavigationItems = (): NavigationItem[] => {
@@ -26,13 +25,7 @@ const convertToNavigationItems = (): NavigationItem[] => {
   }));
 };
 
-const NavigationContent: React.FC = () => {
-  // Defensive React hooks usage
-  if (!React || !React.useState || !React.useEffect) {
-    console.error('NavigationContent: React hooks not available');
-    return <div>Navigation unavailable</div>;
-  }
-
+export const SophisticatedNavigationContainer: React.FC = () => {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
@@ -141,13 +134,5 @@ const NavigationContent: React.FC = () => {
         )}
       </AnimatePresence>
     </>
-  );
-};
-
-export const SophisticatedNavigationContainer: React.FC = () => {
-  return (
-    <ReactSafetyCheck fallback={<div>Loading navigation...</div>}>
-      <NavigationContent />
-    </ReactSafetyCheck>
   );
 };
