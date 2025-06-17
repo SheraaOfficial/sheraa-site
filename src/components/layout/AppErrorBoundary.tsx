@@ -2,7 +2,6 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { RefreshCw, Home } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
 
 interface AppErrorBoundaryProps {
   children: React.ReactNode;
@@ -43,11 +42,9 @@ interface AppErrorFallbackProps {
 }
 
 const AppErrorFallback: React.FC<AppErrorFallbackProps> = ({ error, onReset }) => {
-  const navigate = useNavigate();
-
   const handleGoHome = () => {
     onReset();
-    navigate('/');
+    window.location.href = '/';
   };
 
   const handleReload = () => {

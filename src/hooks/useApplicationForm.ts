@@ -25,10 +25,10 @@ export interface ApplicationFormData {
   whyProgram: string;
   expectedOutcomes: string;
   
-  // Documents
-  pitchDeck?: File | null;
-  businessPlan?: File | null;
-  financials?: File | null;
+  // Documents - store as URLs after upload
+  pitchDeck_url?: string;
+  businessPlan_url?: string;
+  financials_url?: string;
 }
 
 export const useApplicationForm = (programId: string, programName: string) => {
@@ -56,11 +56,21 @@ export const useApplicationForm = (programId: string, programName: string) => {
     try {
       const dataToSave = data || formData;
       
+      // Remove File objects before saving to database
+      const sanitizedData = Object.entries(dataToSave).reduce((acc, [key, value]) => {
+        if (value instanceof File) {
+          // Skip File objects - they should be uploaded separately and stored as URLs
+          return acc;
+        }
+        acc[key] = value;
+        return acc;
+      }, {} as any);
+      
       if (applicationId) {
         const { error } = await supabase
           .from('applications')
           .update({
-            form_data: dataToSave,
+            form_data: sanitizedData,
             updated_at: new Date().toISOString()
           })
           .eq('id', applicationId);
@@ -73,7 +83,7 @@ export const useApplicationForm = (programId: string, programName: string) => {
           .insert({
             user_id: user.id,
             program_name: programName,
-            form_data: dataToSave,
+            form_data: sanitizedData,
             status: 'draft'
           })
           .select()

@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { AppErrorBoundary } from '@/components/layout/AppErrorBoundary';
 import ProtectedRoute from '@/components/auth/ProtectedRoute';
 import MainLayout from '@/components/layouts/MainLayout';
 import { ProgramApplicationForm } from '@/components/applications/ProgramApplicationForm';
@@ -27,70 +28,72 @@ import SEFLanding from '@/pages/events/SEFLanding';
 
 const AppRoutes: React.FC = () => {
   return (
-    <Routes>
-      {/* Public Routes */}
-      <Route path="/" element={<Index />} />
-      <Route path="/about" element={<About />} />
-      <Route path="/programs" element={<Programs />} />
-      <Route path="/programs/s3-incubator" element={<S3IncubatorPage />} />
-      <Route path="/programs/startup-dojo" element={<StartupDojoPage />} />
-      <Route path="/programs/access-sharjah" element={<AccessSharjahChallengePage />} />
-      <Route path="/community" element={<Community />} />
-      <Route path="/resources" element={<Resources />} />
-      <Route path="/contact" element={<Contact />} />
-      <Route path="/events" element={<Events />} />
-      <Route path="/events/sef" element={<SEFLanding />} />
-      
-      {/* Auth Routes */}
-      <Route path="/auth" element={<Auth />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup />} />
-      <Route path="/forgot-password" element={<ForgotPassword />} />
-      
-      {/* Protected Routes */}
-      <Route path="/profile" element={
-        <ProtectedRoute>
-          <Profile />
-        </ProtectedRoute>
-      } />
-      <Route path="/profile-setup" element={
-        <ProtectedRoute>
-          <ProfileSetupPage />
-        </ProtectedRoute>
-      } />
-      <Route path="/dashboard" element={
-        <ProtectedRoute>
-          <DashboardPage />
-        </ProtectedRoute>
-      } />
-      <Route path="/applications" element={
-        <ProtectedRoute>
-          <ApplicationsPage />
-        </ProtectedRoute>
-      } />
-      <Route path="/applications/:programId" element={
-        <ProtectedRoute>
-          <ApplicationFormPage />
-        </ProtectedRoute>
-      } />
-      
-      {/* Program Application Routes */}
-      <Route path="/programs/s3-incubator/apply" element={
-        <ProtectedRoute>
-          <S3IncubatorApplicationPage />
-        </ProtectedRoute>
-      } />
-      <Route path="/programs/startup-dojo/apply" element={
-        <ProtectedRoute>
-          <StartupDojoApplicationPage />
-        </ProtectedRoute>
-      } />
-      <Route path="/programs/access-sharjah/apply" element={
-        <ProtectedRoute>
-          <AccessSharjahApplicationPage />
-        </ProtectedRoute>
-      } />
-    </Routes>
+    <AppErrorBoundary>
+      <Routes>
+        {/* Public Routes */}
+        <Route path="/" element={<Index />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/programs" element={<Programs />} />
+        <Route path="/programs/s3-incubator" element={<S3IncubatorPage />} />
+        <Route path="/programs/startup-dojo" element={<StartupDojoPage />} />
+        <Route path="/programs/access-sharjah" element={<AccessSharjahChallengePage />} />
+        <Route path="/community" element={<Community />} />
+        <Route path="/resources" element={<Resources />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/events" element={<Events />} />
+        <Route path="/events/sef" element={<SEFLanding />} />
+        
+        {/* Auth Routes */}
+        <Route path="/auth" element={<Auth />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        
+        {/* Protected Routes */}
+        <Route path="/profile" element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        } />
+        <Route path="/profile-setup" element={
+          <ProtectedRoute>
+            <ProfileSetupPage />
+          </ProtectedRoute>
+        } />
+        <Route path="/dashboard" element={
+          <ProtectedRoute>
+            <DashboardPage />
+          </ProtectedRoute>
+        } />
+        <Route path="/applications" element={
+          <ProtectedRoute>
+            <ApplicationsPage />
+          </ProtectedRoute>
+        } />
+        <Route path="/applications/:programId" element={
+          <ProtectedRoute>
+            <ApplicationFormPage />
+          </ProtectedRoute>
+        } />
+        
+        {/* Program Application Routes */}
+        <Route path="/programs/s3-incubator/apply" element={
+          <ProtectedRoute>
+            <S3IncubatorApplicationPage />
+          </ProtectedRoute>
+        } />
+        <Route path="/programs/startup-dojo/apply" element={
+          <ProtectedRoute>
+            <StartupDojoApplicationPage />
+          </ProtectedRoute>
+        } />
+        <Route path="/programs/access-sharjah/apply" element={
+          <ProtectedRoute>
+            <AccessSharjahApplicationPage />
+          </ProtectedRoute>
+        } />
+      </Routes>
+    </AppErrorBoundary>
   );
 };
 
