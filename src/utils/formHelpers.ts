@@ -1,3 +1,4 @@
+
 import { FormSubmissionResponse, ContactFormData, ProgramApplicationData } from '@/types/forms';
 
 // Form submission utilities
@@ -56,24 +57,29 @@ export const submitProgramApplication = async (
 
 // Form data transformation utilities
 export const transformContactFormData = (formData: any): ContactFormData => {
+  const validInquiryTypes = ['program', 'partnership', 'investment', 'general', 'media'] as const;
+  const validAudiences = ['startup', 'investor', 'partner', 'student', 'other'] as const;
+  const validContacts = ['email', 'phone', 'either'] as const;
+  const validUrgencies = ['low', 'medium', 'high'] as const;
+
   return {
     fullName: formData.fullName || '',
     email: formData.email || '',
     phone: formData.phone || '',
     company: formData.company || '',
     position: formData.position || '',
-    inquiryType: (['program', 'partnership', 'investment', 'general', 'media'].includes(formData.inquiryType)) 
+    inquiryType: validInquiryTypes.includes(formData.inquiryType) 
       ? formData.inquiryType as ContactFormData['inquiryType']
       : 'general',
-    audience: (['startup', 'investor', 'partner', 'student', 'other'].includes(formData.audience))
+    audience: validAudiences.includes(formData.audience)
       ? formData.audience as ContactFormData['audience'] 
       : 'other',
     subject: formData.subject || '',
     message: formData.message || '',
-    preferredContact: (['email', 'phone', 'either'].includes(formData.preferredContact))
+    preferredContact: validContacts.includes(formData.preferredContact)
       ? formData.preferredContact as ContactFormData['preferredContact']
       : 'email',
-    urgency: (['low', 'medium', 'high'].includes(formData.urgency))
+    urgency: validUrgencies.includes(formData.urgency)
       ? formData.urgency as ContactFormData['urgency']
       : 'medium'
   };
