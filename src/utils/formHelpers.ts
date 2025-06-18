@@ -54,42 +54,37 @@ export const submitProgramApplication = async (
   }
 };
 
+// Type guard functions
+const isValidInquiryType = (value: any): value is ContactFormData['inquiryType'] => {
+  return ['general', 'program', 'partnership', 'investment', 'media'].includes(value);
+};
+
+const isValidAudience = (value: any): value is ContactFormData['audience'] => {
+  return ['startup', 'investor', 'partner', 'student', 'other'].includes(value);
+};
+
+const isValidPreferredContact = (value: any): value is ContactFormData['preferredContact'] => {
+  return ['email', 'phone', 'either'].includes(value);
+};
+
+const isValidUrgency = (value: any): value is ContactFormData['urgency'] => {
+  return ['low', 'medium', 'high'].includes(value);
+};
+
 // Form data transformation utilities
 export const transformContactFormData = (formData: any): ContactFormData => {
-  const validInquiryTypes = ['program', 'partnership', 'investment', 'general', 'media'] as const;
-  const validAudiences = ['startup', 'investor', 'partner', 'student', 'other'] as const;
-  const validContacts = ['email', 'phone', 'either'] as const;
-  const validUrgencies = ['low', 'medium', 'high'] as const;
-
-  // Type-safe validation with fallbacks
-  const inquiryType = validInquiryTypes.includes(formData.inquiryType) 
-    ? formData.inquiryType as ContactFormData['inquiryType']
-    : 'general';
-  
-  const audience = validAudiences.includes(formData.audience)
-    ? formData.audience as ContactFormData['audience']
-    : 'other';
-  
-  const preferredContact = validContacts.includes(formData.preferredContact)
-    ? formData.preferredContact as ContactFormData['preferredContact']
-    : 'email';
-  
-  const urgency = validUrgencies.includes(formData.urgency)
-    ? formData.urgency as ContactFormData['urgency']
-    : 'medium';
-
   return {
     fullName: formData.fullName || '',
     email: formData.email || '',
     phone: formData.phone || '',
     company: formData.company || '',
     position: formData.position || '',
-    inquiryType,
-    audience,
+    inquiryType: isValidInquiryType(formData.inquiryType) ? formData.inquiryType : 'general',
+    audience: isValidAudience(formData.audience) ? formData.audience : 'other',
     subject: formData.subject || '',
     message: formData.message || '',
-    preferredContact,
-    urgency
+    preferredContact: isValidPreferredContact(formData.preferredContact) ? formData.preferredContact : 'email',
+    urgency: isValidUrgency(formData.urgency) ? formData.urgency : 'medium'
   };
 };
 
