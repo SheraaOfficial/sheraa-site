@@ -1,193 +1,259 @@
 
-import { 
-  Home, 
-  Users, 
-  BookOpen, 
-  Users2, 
-  Calendar, 
-  FileText,
-  Star,
-  Briefcase,
-  Lightbulb,
-  Palette
-} from 'lucide-react';
-import { NavigationItem } from './types';
+import { Home, Info, Rocket, Users, Calendar, Award, Search, FileText, Target, Palette, BarChart3, BookOpen, Mic, Shield, Briefcase, Coffee, Zap } from 'lucide-react';
 
-export const sophisticatedNavigationItems: NavigationItem[] = [
-  {
-    name: 'Home',
-    path: '/',
-    icon: Home
-  },
+export interface SophisticatedNavigationItem {
+  name: string;
+  path: string;
+  icon: any;
+  special?: boolean;
+  subItems?: {
+    name: string;
+    path: string;
+    description?: string;
+  }[];
+}
+
+export const sophisticatedNavigationItems: SophisticatedNavigationItem[] = [
   {
     name: 'About',
     path: '/about',
-    icon: Users,
+    icon: Info,
     subItems: [
-      {
-        name: 'About Sheraa',
+      { 
+        name: 'Overview', 
         path: '/about',
-        description: 'Learn about our mission and vision'
+        description: 'Learn about Sheraa\'s mission and vision'
       },
-      {
-        name: 'Leadership',
+      { 
+        name: 'Leadership Team', 
         path: '/about/leadership',
-        description: 'Meet our leadership team'
+        description: 'Meet our executive leadership'
       },
-      {
-        name: 'Board of Advisors',
+      { 
+        name: 'Board of Advisors', 
         path: '/about/board',
-        description: 'Our distinguished board members'
-      },
-      {
-        name: 'Careers',
-        path: '/careers',
-        description: 'Join our mission to empower entrepreneurs'
+        description: 'Our strategic advisors and board members'
       }
     ]
   },
   {
-    name: 'Discover',
+    name: 'Programs',
     path: '/programs',
-    icon: BookOpen,
+    icon: Rocket,
     subItems: [
-      {
-        name: 'Programs Overview',
+      { 
+        name: 'All Programs', 
         path: '/programs',
-        description: 'Explore all our programs'
+        description: 'Explore our complete program portfolio'
       },
-      {
-        name: 'S3 Incubator',
-        path: '/programs/s3-incubator',
-        description: 'Our flagship 6-month incubation program'
-      },
-      {
-        name: 'Start Young',
+      { 
+        name: 'Start Young', 
         path: '/programs/start-young',
         description: 'Youth entrepreneurship programs'
       },
-      {
-        name: 'Startup Dojo',
+      { 
+        name: 'Startup Dojo', 
         path: '/programs/startup-dojo',
-        description: 'Summer incubation for students'
+        description: 'Intensive startup incubation'
       },
-      {
-        name: 'Startup Dojo Plus',
-        path: '/programs/startup-dojo-plus',
-        description: 'Advanced accelerator phase'
+      { 
+        name: 'S3 Incubator', 
+        path: '/programs/s3-incubator',
+        description: 'Our flagship growth program'
       },
-      {
-        name: 'Access Sharjah Challenge',
+      { 
+        name: 'Access Sharjah Challenge', 
         path: '/programs/access-sharjah-challenge',
-        description: 'Global competition for growth-stage startups'
+        description: 'Global startup challenge'
       },
-      {
-        name: 'Deal Dock',
+      { 
+        name: 'Deal Dock', 
         path: '/programs/deal-dock',
-        description: 'Exclusive investment platform for investors'
-      },
-      {
-        name: 'SME Support',
-        path: '/programs/sme-support',
-        description: 'Support for established businesses'
+        description: 'Investment matching platform'
       }
     ]
   },
   {
     name: 'Community',
     path: '/community',
-    icon: Users2,
+    icon: Users,
     subItems: [
-      {
-        name: 'Join Community',
-        path: '/community/join',
-        description: 'Become part of our ecosystem'
+      { 
+        name: 'Overview', 
+        path: '/community',
+        description: 'Join our thriving ecosystem'
       },
-      {
-        name: 'Startup Directory',
+      { 
+        name: 'Membership', 
+        path: '/community/membership',
+        description: 'Become a Sheraa member'
+      },
+      { 
+        name: 'Startups', 
         path: '/community/startups',
-        description: 'Explore our portfolio companies'
+        description: 'Discover our portfolio companies'
       },
-      {
-        name: 'Partnerships',
+      { 
+        name: 'Partnerships', 
         path: '/community/partnerships',
         description: 'Partner with Sheraa'
       },
-      {
-        name: 'Events',
+      { 
+        name: 'Feed', 
+        path: '/feed',
+        description: 'Community updates and news'
+      }
+    ]
+  },
+  {
+    name: 'Events',
+    path: '/events',
+    icon: Calendar,
+    subItems: [
+      { 
+        name: 'All Events', 
         path: '/events',
-        description: 'Join our events and activities'
+        description: 'Upcoming and past events'
       },
-      {
-        name: 'Upcoming Events',
+      { 
+        name: 'SEF 2026', 
+        path: '/events/sef',
+        description: 'Sharjah Entrepreneurship Festival'
+      },
+      { 
+        name: 'Upcoming Events', 
         path: '/events/upcoming',
-        description: 'Join our upcoming events'
-      },
-      {
-        name: 'Past Events',
-        path: '/events/past',
-        description: 'Browse past event highlights'
+        description: 'What\'s coming next'
       }
     ]
   },
   {
     name: 'Insights',
     path: '/insights',
-    icon: Lightbulb,
+    icon: Search,
     subItems: [
-      {
-        name: 'Guides & Toolkits',
+      { 
+        name: 'Guides & Toolkits', 
         path: '/insights/guides',
-        description: 'Download practical resources'
+        description: 'Practical resources for entrepreneurs'
       },
-      {
-        name: 'Articles & Insights',
-        path: '/insights/articles',
-        description: 'Read the latest insights'
-      },
-      {
-        name: 'Advisory Services',
+      { 
+        name: 'Advisory Services', 
         path: '/insights/advisory',
-        description: 'Get expert guidance'
+        description: 'Expert guidance and mentorship'
+      },
+      { 
+        name: 'Articles', 
+        path: '/insights/articles',
+        description: 'Latest insights and trends'
+      },
+      { 
+        name: 'Impact Reports', 
+        path: '/insights/impact-reports',
+        description: 'Our ecosystem impact data'
       }
     ]
   },
   {
-    name: 'Sharjah Perfume',
+    name: 'Resources',
+    path: '/reports',
+    icon: FileText,
+    subItems: [
+      { 
+        name: 'Reports', 
+        path: '/reports',
+        description: 'Research and analysis reports'
+      },
+      { 
+        name: 'Blog', 
+        path: '/blog',
+        description: 'Stories and updates from our ecosystem'
+      },
+      { 
+        name: 'Podcast', 
+        path: '/podcast',
+        description: 'Conversations with entrepreneurs'
+      },
+      { 
+        name: 'Impact Report', 
+        path: '/impact-report',
+        description: 'Annual impact and achievements'
+      }
+    ]
+  },
+  {
+    name: 'More',
+    path: '#',
+    icon: Target,
+    subItems: [
+      { 
+        name: 'Careers', 
+        path: '/careers',
+        description: 'Join the Sheraa team'
+      },
+      { 
+        name: 'Eligibility Checker', 
+        path: '/eligibility',
+        description: 'Check program eligibility'
+      },
+      { 
+        name: 'Dashboard', 
+        path: '/dashboard',
+        description: 'Your personal dashboard'
+      },
+      { 
+        name: 'Profile', 
+        path: '/profile',
+        description: 'Manage your profile'
+      },
+      { 
+        name: 'Contact', 
+        path: '/contact',
+        description: 'Get in touch with us'
+      },
+      { 
+        name: 'Privacy Policy', 
+        path: '/privacy-policy',
+        description: 'Our privacy commitment'
+      },
+      { 
+        name: 'Terms of Use', 
+        path: '/terms-of-use',
+        description: 'Terms and conditions'
+      }
+    ]
+  },
+  {
+    name: 'Perfume',
     path: '/perfume',
     icon: Palette,
     subItems: [
-      {
-        name: 'Overview',
+      { 
+        name: 'Overview', 
         path: '/perfume',
-        description: 'Discover our signature fragrance'
+        description: 'Discover Sharjah Perfume'
       },
-      {
-        name: 'About',
+      { 
+        name: 'About', 
         path: '/perfume/about',
-        description: 'The story behind our perfume'
+        description: 'The story behind our fragrance'
       },
-      {
-        name: 'Buy Now',
+      { 
+        name: 'Buy Now', 
         path: '/perfume/buy',
-        description: 'Purchase your bottle today'
+        description: 'Purchase Sharjah Perfume'
       },
-      {
-        name: 'Gallery',
+      { 
+        name: 'Gallery', 
         path: '/perfume/gallery',
-        description: 'Visual showcase of our product'
-      },
-      {
-        name: 'Pricing',
-        path: '/perfume/pricing',
-        description: 'View pricing and packages'
+        description: 'Visual journey of our perfume'
       }
     ]
   },
   {
-    name: "SEF'26",
-    path: '/events/sef-landing',
-    special: true,
-    icon: Star
+    name: 'SEF 2026',
+    path: '/events/sef',
+    icon: Award,
+    special: true
   }
 ];

@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { ErrorBoundary } from 'react-error-boundary';
@@ -192,11 +193,13 @@ const AppRoutes: React.FC = () => {
         <Route path="/reports" element={<ReportsPage />} />
         <Route path="/feed" element={<CommunityFeedPage />} />
         
+        {/* Impact Report Route - Added this key route */}
+        <Route path="/impact-report" element={<ImpactReportPage />} />
+        
         {/* Core Pages */}
         <Route path="/contact" element={<Contact />} />
         <Route path="/careers" element={<CareersPage />} />
         <Route path="/eligibility" element={<EligibilityPage />} />
-        <Route path="/impact-report" element={<ImpactReportPage />} />
         <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
         <Route path="/terms-of-use" element={<TermsOfUsePage />} />
         

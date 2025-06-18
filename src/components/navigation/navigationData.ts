@@ -1,5 +1,5 @@
 
-import { Home, Info, Rocket, Users, Calendar, Mail, Award, Users2, Building2, Crown, Palette } from 'lucide-react';
+import { Home, Info, Rocket, Users, Calendar, Mail, Award, Users2, Building2, Crown, Palette, BarChart3, BookOpen, Mic, Shield, FileText, Briefcase, Target, Search, Zap, Coffee } from 'lucide-react';
 import type { NavigationItem } from './types';
 
 export const navigationItems: NavigationItem[] = [
@@ -15,6 +15,7 @@ export const navigationItems: NavigationItem[] = [
     subItems: [
       { name: 'Overview', path: '/about' },
       { name: 'Leadership Team', path: '/about/leadership' },
+      { name: 'Board of Advisors', path: '/about/board' },
       { name: 'Our Hubs', path: '/about#hubs' }
     ]
   },
@@ -42,9 +43,56 @@ export const navigationItems: NavigationItem[] = [
       { name: 'Membership', path: '/community/membership' },
       { name: 'Startups', path: '/community/startups' },
       { name: 'Partnerships', path: '/community/partnerships' },
-      { name: 'Events', path: '/events' },
+      { name: 'Feed', path: '/feed' }
+    ]
+  },
+  {
+    name: 'Events',
+    path: '/events',
+    icon: Calendar,
+    subItems: [
+      { name: 'All Events', path: '/events' },
       { name: 'Upcoming Events', path: '/events/upcoming' },
-      { name: 'Past Events', path: '/events/past' }
+      { name: 'Past Events', path: '/events/past' },
+      { name: 'SEF 2026', path: '/events/sef' }
+    ]
+  },
+  {
+    name: 'Insights',
+    path: '/insights',
+    icon: Search,
+    subItems: [
+      { name: 'Overview', path: '/insights' },
+      { name: 'Guides & Toolkits', path: '/insights/guides' },
+      { name: 'Advisory Services', path: '/insights/advisory' },
+      { name: 'Articles & Insights', path: '/insights/articles' },
+      { name: 'Impact Reports', path: '/insights/impact-reports' }
+    ]
+  },
+  {
+    name: 'Resources',
+    path: '/reports',
+    icon: FileText,
+    subItems: [
+      { name: 'Reports', path: '/reports' },
+      { name: 'Blog', path: '/blog' },
+      { name: 'Podcast', path: '/podcast' },
+      { name: 'Impact Report', path: '/impact-report' }
+    ]
+  },
+  {
+    name: 'More',
+    path: '#',
+    icon: Target,
+    subItems: [
+      { name: 'Careers', path: '/careers' },
+      { name: 'Eligibility Checker', path: '/eligibility' },
+      { name: 'Dashboard', path: '/dashboard' },
+      { name: 'Profile', path: '/profile' },
+      { name: 'Contact', path: '/contact' },
+      { name: 'Privacy Policy', path: '/privacy-policy' },
+      { name: 'Terms of Use', path: '/terms-of-use' },
+      { name: 'Themes', path: '/themes/preview' }
     ]
   },
   {
