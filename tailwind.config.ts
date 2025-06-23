@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 const config: Config = {
@@ -20,6 +21,7 @@ const config: Config = {
     extend: {
       fontFamily: {
         sans: ["Inter", "system-ui", "sans-serif"],
+        serif: ["Playfair Display", "serif"],
         arabic: ["Noto Sans Arabic", "system-ui", "sans-serif"],
       },
       colors: {
@@ -63,10 +65,20 @@ const config: Config = {
           teal: "#0d9488",
           dark: "#1a1a2e",
           light: "#f8fafc",
+          orange: "#C8A165",
           sef: {
             primary: "#8b5cf6",
             secondary: "#a855f7",
           }
+        },
+        // Luxury perfume color palette
+        luxury: {
+          beige: "#F5F1EB",
+          cream: "#FDFCFA", 
+          charcoal: "#2D2D2D",
+          gold: "#C8A165",
+          sage: "#9CAF88",
+          stone: "#D4CFC4"
         },
       },
       borderRadius: {

@@ -140,8 +140,8 @@ export const getFormPreFillData = (): Partial<ContactFormData> => {
   const urlParams = new URLSearchParams(window.location.search);
   
   return {
-    inquiryType: urlParams.get('type') || undefined,
-    audience: urlParams.get('audience') || undefined,
+    inquiryType: getValidInquiryType(urlParams.get('type')),
+    audience: getValidAudience(urlParams.get('audience')),
     subject: urlParams.get('subject') || undefined
   };
 };

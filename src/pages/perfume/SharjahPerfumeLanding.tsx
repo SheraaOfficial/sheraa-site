@@ -2,8 +2,10 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import BuyingFunction from '@/components/perfume/BuyingFunction';
-import HeroSection from './components/HeroSection';
-import HeritageSection from './components/HeritageSection';
+import LuxuryHeroSection from './components/LuxuryHeroSection';
+import CulturalHeritageSection from './components/CulturalHeritageSection';
+import ScentPyramidSection from './components/ScentPyramidSection';
+import StorytellingSection from './components/StorytellingSection';
 import EmailCaptureSection from './components/EmailCaptureSection';
 import ProductGallerySection from './components/ProductGallerySection';
 import PricingSection from './components/PricingSection';
@@ -22,12 +24,12 @@ const SharjahPerfumeLanding = () => {
     }
   }, []);
 
-  const handleBuyNow = () => {
+  const handleReserveBottle = () => {
     setShowBuyingForm(true);
   };
 
-  const handleAddToCart = () => {
-    setShowBuyingForm(true);
+  const handleDiscoverEssence = () => {
+    document.getElementById('heritage')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   const scrollToPricing = () => {
@@ -41,18 +43,18 @@ const SharjahPerfumeLanding = () => {
   const finalPrice = appliedDiscount ? 720 : 800;
 
   return (
-    <div className="min-h-screen bg-[#F7F3EE] overflow-x-hidden">
-      {/* Hero Section */}
-      <HeroSection 
+    <div className="min-h-screen bg-luxury-cream overflow-x-hidden">
+      {/* Luxury Hero Section */}
+      <LuxuryHeroSection 
         finalPrice={finalPrice} 
-        onBuyNow={handleBuyNow} 
-        onLearnMore={scrollToPricing} 
+        onReserveBottle={handleReserveBottle} 
+        onDiscoverEssence={handleDiscoverEssence} 
       />
 
       {/* Buying Function Modal/Section */}
       {showBuyingForm && (
         <motion.section 
-          className="py-20 bg-white"
+          className="py-20 bg-luxury-beige"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
@@ -61,23 +63,31 @@ const SharjahPerfumeLanding = () => {
             <div className="flex justify-end mb-6">
               <button
                 onClick={() => setShowBuyingForm(false)}
-                className="mb-4 px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
+                className="mb-4 px-6 py-2 border border-luxury-charcoal/30 text-luxury-charcoal rounded-sm hover:bg-luxury-charcoal hover:text-luxury-cream transition-colors font-light text-sm tracking-wide"
               >
-                Continue Browsing
+                Continue Exploring
               </button>
             </div>
             <BuyingFunction
               price={800}
               discountedPrice={appliedDiscount ? 720 : undefined}
               hasDiscount={appliedDiscount}
-              productName="Sharjah Perfume - Premium Collection"
+              productName="Sharjah Essence - Limited Edition"
             />
           </div>
         </motion.section>
       )}
 
-      {/* Heritage Story Section */}
-      <HeritageSection />
+      {/* Cultural Heritage Section */}
+      <div id="heritage">
+        <CulturalHeritageSection />
+      </div>
+
+      {/* Scent Pyramid Section */}
+      <ScentPyramidSection />
+
+      {/* Storytelling Section */}
+      <StorytellingSection />
 
       {/* Email Capture Section */}
       <EmailCaptureSection 
@@ -92,7 +102,7 @@ const SharjahPerfumeLanding = () => {
       <PricingSection 
         finalPrice={finalPrice} 
         appliedDiscount={appliedDiscount} 
-        onAddToCart={handleAddToCart} 
+        onAddToCart={handleReserveBottle} 
       />
 
       {/* Delivery Info */}

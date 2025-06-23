@@ -6,69 +6,57 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
-import { 
-  Star, Heart, Gift, Sparkles, ShoppingBag, Camera, 
-  Award, MapPin, Clock, Users, ArrowRight, Crown,
-  Flower, Gem, Sun, Moon
-} from "lucide-react";
+import { ArrowRight, MapPin, Clock, Users } from "lucide-react";
 
 const PerfumePage: React.FC = () => {
   const features = [
     {
-      icon: <Crown className="w-6 h-6" />,
-      title: "Signature Scent",
-      description: "Exclusively crafted to represent Sharjah's entrepreneurial spirit"
+      title: "Artisanal Craftsmanship",
+      description: "Meticulously created by master perfumers using traditional techniques"
     },
     {
-      icon: <Gem className="w-6 h-6" />,
+      title: "Cultural Heritage",
+      description: "Inspired by Sharjah's rich entrepreneurial legacy and architectural beauty"
+    },
+    {
       title: "Limited Edition",
-      description: "Only 1,000 bottles available worldwide"
+      description: "Only 1,000 bottles available worldwide, each numbered and authenticated"
     },
     {
-      icon: <Award className="w-6 h-6" />,
-      title: "Premium Quality",
-      description: "Finest ingredients sourced from around the world"
-    },
-    {
-      icon: <Gift className="w-6 h-6" />,
-      title: "Perfect Gift",
-      description: "Commemorate achievements and milestones"
+      title: "Sustainable Luxury",
+      description: "Ethically sourced ingredients and eco-conscious packaging"
     }
   ];
 
   const notes = [
     {
       time: "Top Notes",
-      icon: <Sun className="w-5 h-5" />,
       scents: ["Bergamot", "Pink Pepper", "Cardamom"],
-      description: "Energizing and bold, like the spark of a new idea"
+      description: "Bright and invigorating, like dawn over Sharjah's horizon"
     },
     {
       time: "Heart Notes", 
-      icon: <Heart className="w-5 h-5" />,
       scents: ["Rose", "Jasmine", "Oud"],
-      description: "The passionate heart of entrepreneurship"
+      description: "Rich and complex, embodying passion and tradition"
     },
     {
       time: "Base Notes",
-      icon: <Moon className="w-5 h-5" />,
       scents: ["Sandalwood", "Amber", "Musk"],
-      description: "Lasting foundation, like a successful venture"
+      description: "Warm and grounding, like the enduring spirit of enterprise"
     }
   ];
 
   return (
     <MainLayout
-      seoTitle="Sheraa Signature Perfume - Limited Edition Entrepreneurial Fragrance"
-      seoDescription="Discover Sheraa's exclusive signature perfume - a limited edition fragrance capturing the essence of Sharjah's entrepreneurial spirit. Only 1,000 bottles available."
-      seoKeywords="Sheraa perfume, Sharjah fragrance, entrepreneurial scent, limited edition perfume, signature fragrance"
+      seoTitle="Sharjah Essence - Limited Edition Luxury Fragrance"
+      seoDescription="Experience Sharjah Essence, an exclusive luxury fragrance capturing the cultural heritage and entrepreneurial spirit of Sharjah. Limited to 1,000 bottles worldwide."
+      seoKeywords="Sharjah perfume, luxury fragrance, limited edition, cultural heritage, artisanal perfume"
     >
-      <div className="min-h-screen bg-gradient-to-br from-rose-50 via-white to-amber-50 dark:from-gray-900 dark:via-gray-800 dark:to-black">
+      <div className="min-h-screen bg-luxury-cream">
         {/* Hero Section */}
         <section className="pt-24 pb-16 relative overflow-hidden">
-          <div className="absolute inset-0">
-            <div className="absolute top-20 right-20 w-64 h-64 bg-rose-200/30 rounded-full blur-3xl" />
-            <div className="absolute bottom-20 left-20 w-64 h-64 bg-amber-200/30 rounded-full blur-3xl" />
+          <div className="absolute inset-0 opacity-5">
+            <div className="w-full h-full bg-gradient-to-br from-luxury-beige via-transparent to-luxury-stone" />
           </div>
           
           <div className="container mx-auto px-4 relative z-10">
@@ -78,99 +66,93 @@ const PerfumePage: React.FC = () => {
                 initial={{ opacity: 0, x: -50 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8 }}
+                className="space-y-8"
               >
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-rose-100 dark:bg-rose-900/30 border border-rose-200 dark:border-rose-700 mb-6">
-                  <Sparkles className="w-5 h-5 text-rose-600" />
-                  <span className="text-sm font-bold text-rose-600 dark:text-rose-400">LIMITED EDITION</span>
-                </div>
-                
-                <h1 className="text-4xl md:text-6xl font-bold mb-6">
-                  <span className="bg-gradient-to-r from-rose-600 via-amber-600 to-rose-600 bg-clip-text text-transparent">
-                    Sheraa Signature
-                  </span>
-                  <br />
-                  <span className="text-gray-900 dark:text-white">Perfume</span>
-                </h1>
-                
-                <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
-                  Capture the essence of entrepreneurial success with our exclusive signature fragrance. 
-                  A unique blend that embodies the innovation, passion, and determination of Sharjah's startup ecosystem.
-                </p>
+                <div className="space-y-6">
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.3 }}
+                    className="inline-block"
+                  >
+                    <span className="text-sm tracking-[0.2em] uppercase text-luxury-charcoal/70 font-light">
+                      Limited Edition
+                    </span>
+                  </motion.div>
+                  
+                  <h1 className="text-4xl md:text-6xl font-serif text-luxury-charcoal leading-tight">
+                    <span className="block">Sharjah</span>
+                    <span className="block text-luxury-gold italic font-light">Essence</span>
+                  </h1>
+                  
+                  <p className="text-xl text-luxury-charcoal/80 font-light leading-relaxed">
+                    A refined olfactory journey through Sharjah's cultural tapestry. 
+                    Where ancient traditions meet contemporary innovation in perfect harmony.
+                  </p>
 
-                <div className="flex flex-wrap gap-4 mb-8">
-                  <Badge className="bg-rose-100 text-rose-800 border-rose-200">
-                    Only 1,000 Bottles
-                  </Badge>
-                  <Badge className="bg-amber-100 text-amber-800 border-amber-200">
-                    50ml Eau de Parfum
-                  </Badge>
-                  <Badge className="bg-purple-100 text-purple-800 border-purple-200">
-                    Unisex Fragrance
-                  </Badge>
+                  <div className="flex flex-wrap gap-4">
+                    <Badge className="bg-luxury-stone/20 text-luxury-charcoal border-luxury-stone/30 font-light">
+                      50ml Eau de Parfum
+                    </Badge>
+                    <Badge className="bg-luxury-gold/20 text-luxury-charcoal border-luxury-gold/30 font-light">
+                      Unisex Fragrance
+                    </Badge>
+                    <Badge className="bg-luxury-charcoal/10 text-luxury-charcoal border-luxury-charcoal/20 font-light">
+                      Only 1,000 Bottles
+                    </Badge>
+                  </div>
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Button size="lg" className="bg-gradient-to-r from-rose-600 to-amber-600 hover:from-rose-700 hover:to-amber-700">
-                    <ShoppingBag className="w-5 h-5 mr-2" />
-                    Order Now - $299
+                  <Button 
+                    size="lg" 
+                    className="bg-luxury-charcoal hover:bg-luxury-charcoal/90 text-luxury-cream font-light tracking-wide"
+                  >
+                    Reserve Your Bottle - AED 800
                   </Button>
-                  <Button size="lg" variant="outline" asChild>
-                    <Link to="/perfume/gallery" className="flex items-center gap-2">
-                      <Camera className="w-5 h-5" />
-                      View Gallery
+                  <Button 
+                    size="lg" 
+                    variant="outline" 
+                    asChild
+                    className="border-luxury-charcoal text-luxury-charcoal hover:bg-luxury-charcoal hover:text-luxury-cream font-light tracking-wide"
+                  >
+                    <Link to="/perfume/gallery">
+                      Explore Gallery
                     </Link>
                   </Button>
                 </div>
               </motion.div>
 
-              {/* Product Image */}
+              {/* Product Visualization */}
               <motion.div
                 initial={{ opacity: 0, x: 50, scale: 0.8 }}
                 animate={{ opacity: 1, x: 0, scale: 1 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
-                className="relative"
+                className="relative flex items-center justify-center"
               >
-                <div className="relative mx-auto w-80 h-96 bg-gradient-to-br from-rose-100 to-amber-100 rounded-3xl shadow-2xl flex items-center justify-center">
-                  <div className="absolute inset-4 bg-white rounded-2xl shadow-inner flex items-center justify-center">
-                    <div className="text-6xl">🌹</div>
-                  </div>
-                  <div className="absolute -top-4 -right-4 w-12 h-12 bg-rose-500 rounded-full flex items-center justify-center shadow-lg">
-                    <Crown className="w-6 h-6 text-white" />
+                <div className="relative w-80 h-96 bg-luxury-beige/30 rounded-sm shadow-2xl flex items-center justify-center">
+                  <div className="w-64 h-80 bg-gradient-to-b from-luxury-gold/20 to-luxury-charcoal/10 rounded-sm flex items-center justify-center">
+                    <div className="w-32 h-48 bg-luxury-charcoal/80 rounded-sm shadow-inner" />
                   </div>
                 </div>
-                
-                {/* Floating Elements */}
-                <motion.div
-                  animate={{ y: [-10, 10, -10], opacity: [0.7, 1, 0.7] }}
-                  transition={{ duration: 3, repeat: Infinity }}
-                  className="absolute top-4 left-4 text-2xl"
-                >
-                  ✨
-                </motion.div>
-                <motion.div
-                  animate={{ y: [10, -10, 10], opacity: [0.7, 1, 0.7] }}
-                  transition={{ duration: 3, repeat: Infinity, delay: 1.5 }}
-                  className="absolute bottom-4 right-4 text-2xl"
-                >
-                  🌟
-                </motion.div>
               </motion.div>
             </div>
           </div>
         </section>
 
         {/* Features Section */}
-        <section className="py-16 bg-white/50 dark:bg-gray-800/50">
+        <section className="py-16 bg-luxury-beige/50">
           <div className="container mx-auto px-4">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-center mb-12"
+              className="text-center mb-12 space-y-6"
             >
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Why Choose Sheraa Signature?</h2>
-              <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                More than just a fragrance - it's a statement of ambition, success, and the entrepreneurial journey.
+              <h2 className="text-3xl md:text-4xl font-serif text-luxury-charcoal">Exceptional by Design</h2>
+              <div className="w-24 h-px bg-luxury-gold mx-auto" />
+              <p className="text-luxury-charcoal/80 font-light max-w-2xl mx-auto">
+                Every element crafted with intention, every note selected for its significance in telling the story of Sharjah's entrepreneurial spirit.
               </p>
             </motion.div>
 
@@ -183,13 +165,13 @@ const PerfumePage: React.FC = () => {
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
                 >
-                  <Card className="h-full text-center hover:shadow-lg transition-shadow group">
-                    <CardContent className="p-6">
-                      <div className="w-16 h-16 mx-auto bg-gradient-to-br from-rose-100 to-amber-100 dark:from-rose-900/30 dark:to-amber-900/30 rounded-full flex items-center justify-center mb-4 text-rose-600 group-hover:scale-110 transition-transform">
-                        {feature.icon}
+                  <Card className="h-full text-center hover:shadow-lg transition-shadow border-luxury-stone/20 bg-luxury-cream/80">
+                    <CardContent className="p-6 space-y-4">
+                      <div className="w-16 h-16 mx-auto bg-luxury-beige/50 rounded-full flex items-center justify-center border border-luxury-gold/20">
+                        <div className="w-6 h-6 border border-luxury-gold rounded-full" />
                       </div>
-                      <h3 className="font-bold text-lg mb-2">{feature.title}</h3>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm">{feature.description}</p>
+                      <h3 className="font-serif text-lg text-luxury-charcoal">{feature.title}</h3>
+                      <p className="text-luxury-charcoal/70 text-sm font-light leading-relaxed">{feature.description}</p>
                     </CardContent>
                   </Card>
                 </motion.div>
@@ -198,18 +180,19 @@ const PerfumePage: React.FC = () => {
           </div>
         </section>
 
-        {/* Fragrance Notes */}
-        <section className="py-16">
+        {/* Fragrance Notes Preview */}
+        <section className="py-16 bg-luxury-cream">
           <div className="container mx-auto px-4">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-center mb-12"
+              className="text-center mb-12 space-y-6"
             >
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Fragrance Profile</h2>
-              <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                A complex composition that evolves throughout the day, just like the entrepreneurial journey.
+              <h2 className="text-3xl md:text-4xl font-serif text-luxury-charcoal">Olfactory Journey</h2>
+              <div className="w-24 h-px bg-luxury-gold mx-auto" />
+              <p className="text-luxury-charcoal/80 font-light max-w-2xl mx-auto">
+                A sophisticated composition that unfolds in layers, revealing new depths with each encounter.
               </p>
             </motion.div>
 
@@ -222,25 +205,31 @@ const PerfumePage: React.FC = () => {
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.2 }}
                 >
-                  <Card className="overflow-hidden hover:shadow-lg transition-shadow">
+                  <Card className="overflow-hidden hover:shadow-lg transition-shadow border-luxury-stone/20 bg-luxury-beige/30">
                     <CardContent className="p-8">
                       <div className="flex items-center gap-6">
                         <div className="flex-shrink-0">
-                          <div className="w-16 h-16 bg-gradient-to-br from-rose-500 to-amber-500 rounded-full flex items-center justify-center text-white shadow-lg">
-                            {note.icon}
+                          <div className="w-16 h-16 bg-luxury-gold/20 border border-luxury-gold/30 rounded-full flex items-center justify-center">
+                            <span className="text-xs tracking-wider uppercase text-luxury-charcoal font-light">
+                              {note.time.split(' ')[0]}
+                            </span>
                           </div>
                         </div>
                         
-                        <div className="flex-1">
-                          <h3 className="text-2xl font-bold mb-2">{note.time}</h3>
-                          <div className="flex flex-wrap gap-2 mb-3">
+                        <div className="flex-1 space-y-3">
+                          <h3 className="text-2xl font-serif text-luxury-charcoal">{note.time}</h3>
+                          <div className="flex flex-wrap gap-2">
                             {note.scents.map((scent, idx) => (
-                              <Badge key={idx} variant="outline" className="bg-rose-50 border-rose-200 text-rose-700">
+                              <Badge 
+                                key={idx} 
+                                variant="outline" 
+                                className="bg-luxury-cream border-luxury-stone/30 text-luxury-charcoal font-light"
+                              >
                                 {scent}
                               </Badge>
                             ))}
                           </div>
-                          <p className="text-gray-600 dark:text-gray-400 italic">{note.description}</p>
+                          <p className="text-luxury-charcoal/70 font-light italic">{note.description}</p>
                         </div>
                       </div>
                     </CardContent>
@@ -252,42 +241,53 @@ const PerfumePage: React.FC = () => {
         </section>
 
         {/* CTA Section */}
-        <section className="py-16 bg-gradient-to-r from-rose-600 via-amber-600 to-rose-600 text-white">
+        <section className="py-16 bg-luxury-charcoal text-luxury-cream">
           <div className="container mx-auto px-4 text-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
+              className="max-w-3xl mx-auto space-y-8"
             >
-              <Star className="w-16 h-16 mx-auto mb-6 animate-pulse" />
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                Own a Piece of Entrepreneurial History
-              </h2>
-              <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
-                Join the exclusive club of entrepreneurs who wear success. Limited to 1,000 bottles worldwide.
-              </p>
+              <div className="space-y-6">
+                <h2 className="text-3xl md:text-4xl font-serif">
+                  Reserve Your Essence
+                </h2>
+                <div className="w-24 h-px bg-luxury-gold mx-auto" />
+                <p className="text-xl font-light text-luxury-cream/80 leading-relaxed">
+                  Join an exclusive circle of individuals who appreciate the finer details of craftsmanship, 
+                  heritage, and the subtle art of distinction.
+                </p>
+              </div>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" variant="secondary" className="bg-white text-rose-600 hover:bg-gray-100">
-                  <ShoppingBag className="w-5 h-5 mr-2" />
-                  Order Your Bottle - $299
+                <Button 
+                  size="lg" 
+                  className="bg-luxury-gold hover:bg-luxury-gold/90 text-luxury-charcoal font-light tracking-wide"
+                >
+                  Reserve Your Bottle - AED 800
                 </Button>
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10" asChild>
+                <Button 
+                  size="lg" 
+                  variant="outline" 
+                  className="border-luxury-cream text-luxury-cream hover:bg-luxury-cream hover:text-luxury-charcoal font-light tracking-wide" 
+                  asChild
+                >
                   <Link to="/perfume/about" className="flex items-center gap-2">
-                    <ArrowRight className="w-5 h-5" />
-                    Learn the Story
+                    Discover the Story
+                    <ArrowRight className="w-4 h-4" />
                   </Link>
                 </Button>
               </div>
               
-              <div className="mt-8 flex items-center justify-center gap-4 text-sm opacity-80">
+              <div className="flex items-center justify-center gap-8 text-sm text-luxury-cream/60 font-light pt-4">
                 <div className="flex items-center gap-2">
                   <Clock className="w-4 h-4" />
-                  Limited Time Offer
+                  Limited Time
                 </div>
                 <div className="flex items-center gap-2">
                   <Users className="w-4 h-4" />
-                  Only 247 Left
+                  247 Remaining
                 </div>
                 <div className="flex items-center gap-2">
                   <MapPin className="w-4 h-4" />
