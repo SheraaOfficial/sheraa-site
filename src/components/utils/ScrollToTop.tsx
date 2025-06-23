@@ -3,21 +3,21 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 /**
- * ScrollToTop is a utility component that scrolls the window to the top
- * only when the route (pathname) changes, not on every scroll.
+ * ScrollToTop component that handles smooth scrolling to top on route changes
+ * Uses instant scroll for better UX and prevents bounce-back issues
  */
 const ScrollToTop = () => {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    // Scroll to top ONLY when pathname changes, not on every scroll
+    // Use instant scroll to prevent bounce-back effect
     window.scrollTo({
       top: 0,
-      behavior: "smooth", // Enable smooth scrolling for better UX
+      behavior: "instant"
     });
-  }, [pathname]); // This effect now properly runs only when pathname changes
+  }, [pathname]);
 
-  return null; // This component doesn't render anything
+  return null;
 };
 
 export default ScrollToTop;

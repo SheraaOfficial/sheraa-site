@@ -59,7 +59,8 @@ const MainLayout: React.FC<MainLayoutProps> = ({
         dir={language === 'ar' ? 'rtl' : 'ltr'}
       >
         <SophisticatedNavigation />
-        <main className="flex-1">
+        {/* Add proper spacing for fixed navigation */}
+        <main className="flex-1 pt-20">
           {children}
         </main>
         <Footer />

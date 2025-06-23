@@ -8,21 +8,70 @@ import { cn } from '@/lib/utils';
 const Footer = () => {
   const { t, language } = useLanguage();
 
-  const quickLinks = [
-    { name: t('nav.about'), path: '/about' },
-    { name: t('nav.programs'), path: '/programs' },
-    { name: t('nav.community'), path: '/community' },
-    { name: t('nav.insights'), path: '/resources' },
-    { name: t('nav.events'), path: '/events' },
-    { name: t('nav.contact'), path: '/contact' },
-  ];
+  const siteMap = {
+    about: {
+      title: language === 'ar' ? 'حول شراع' : 'About Sheraa',
+      links: [
+        { name: language === 'ar' ? 'من نحن' : 'About Us', path: '/about' },
+        { name: language === 'ar' ? 'القيادة' : 'Leadership', path: '/about/leadership' },
+        { name: language === 'ar' ? 'مجلس الإدارة' : 'Board of Directors', path: '/about/board' },
+        { name: language === 'ar' ? 'تقرير الأثر' : 'Impact Report', path: '/impact-report' },
+      ]
+    },
+    programs: {
+      title: language === 'ar' ? 'البرامج' : 'Programs',
+      links: [
+        { name: 'S3 Incubator', path: '/programs/s3-incubator' },
+        { name: 'Start Young', path: '/programs/start-young' },
+        { name: 'Startup Dojo', path: '/programs/startup-dojo' },
+        { name: 'Access Sharjah Challenge', path: '/programs/access-sharjah-challenge' },
+        { name: 'Deal Dock', path: '/programs/deal-dock' },
+        { name: 'SME Support', path: '/programs/sme-support' },
+      ]
+    },
+    community: {
+      title: language === 'ar' ? 'المجتمع' : 'Community',
+      links: [
+        { name: language === 'ar' ? 'انضم إلينا' : 'Join Community', path: '/community' },
+        { name: language === 'ar' ? 'العضوية' : 'Membership', path: '/community/membership' },
+        { name: language === 'ar' ? 'الشراكات' : 'Partnerships', path: '/community/partnerships' },
+        { name: language === 'ar' ? 'الشركات الناشئة' : 'Startups', path: '/community/startups' },
+      ]
+    },
+    events: {
+      title: language === 'ar' ? 'الفعاليات' : 'Events',
+      links: [
+        { name: language === 'ar' ? 'جميع الفعاليات' : 'All Events', path: '/events' },
+        { name: 'SEF Festival', path: '/events/sef' },
+        { name: language === 'ar' ? 'الفعاليات القادمة' : 'Upcoming Events', path: '/events/upcoming' },
+        { name: language === 'ar' ? 'الفعاليات السابقة' : 'Past Events', path: '/events/past' },
+      ]
+    },
+    insights: {
+      title: language === 'ar' ? 'الرؤى' : 'Insights',
+      links: [
+        { name: language === 'ar' ? 'الأدلة والأدوات' : 'Guides & Toolkits', path: '/insights/guides' },
+        { name: language === 'ar' ? 'الخدمات الاستشارية' : 'Advisory Services', path: '/insights/advisory' },
+        { name: language === 'ar' ? 'المقالات' : 'Articles & Insights', path: '/insights/articles' },
+        { name: language === 'ar' ? 'التقارير' : 'Impact Reports', path: '/insights/impact-reports' },
+      ]
+    },
+    media: {
+      title: language === 'ar' ? 'الإعلام' : 'Media',
+      links: [
+        { name: language === 'ar' ? 'المدونة' : 'Blog', path: '/blog' },
+        { name: language === 'ar' ? 'البودكاست' : 'Podcast', path: '/podcast' },
+        { name: language === 'ar' ? 'التقارير' : 'Reports', path: '/reports' },
+        { name: language === 'ar' ? 'خلاصة المجتمع' : 'Community Feed', path: '/feed' },
+      ]
+    }
+  };
 
-  const programs = [
-    { name: t('nav.programs.s3'), path: '/programs/s3-incubator' },
-    { name: t('nav.programs.start-young'), path: '/programs/start-young' },
-    { name: t('nav.programs.asc'), path: '/programs/access-sharjah-challenge' },
-    { name: 'Deal Dock', path: '/programs/deal-dock' },
-    { name: 'SME Support', path: '/programs/sme-support' },
+  const supportLinks = [
+    { name: language === 'ar' ? 'تواصل معنا' : 'Contact Us', path: '/contact' },
+    { name: language === 'ar' ? 'الوظائف' : 'Careers', path: '/careers' },
+    { name: language === 'ar' ? 'فحص الأهلية' : 'Eligibility Checker', path: '/eligibility' },
+    { name: language === 'ar' ? 'الأسئلة الشائعة' : 'FAQ', path: '/events/sef/faq' },
   ];
 
   return (
@@ -34,6 +83,7 @@ const Footer = () => {
       dir={language === 'ar' ? 'rtl' : 'ltr'}
     >
       <div className="container mx-auto px-4">
+        {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           {/* Brand and Description */}
           <div className="lg:col-span-1">
@@ -69,44 +119,6 @@ const Footer = () => {
                 <Facebook className="w-5 h-5" />
               </a>
             </div>
-          </div>
-
-          {/* Quick Links */}
-          <div>
-            <h3 className="text-lg font-semibold mb-6">
-              {language === 'ar' ? 'روابط سريعة' : 'Quick Links'}
-            </h3>
-            <ul className="space-y-3">
-              {quickLinks.map((link) => (
-                <li key={link.name}>
-                  <Link 
-                    to={link.path} 
-                    className="text-gray-300 hover:text-white transition-colors duration-200"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Programs */}
-          <div>
-            <h3 className="text-lg font-semibold mb-6">
-              {language === 'ar' ? 'البرامج' : 'Programs'}
-            </h3>
-            <ul className="space-y-3">
-              {programs.map((program) => (
-                <li key={program.name}>
-                  <Link 
-                    to={program.path} 
-                    className="text-gray-300 hover:text-white transition-colors duration-200"
-                  >
-                    {program.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
           </div>
 
           {/* Contact Info */}
@@ -151,6 +163,70 @@ const Footer = () => {
                 </a>
               </div>
             </div>
+          </div>
+
+          {/* Support Links */}
+          <div>
+            <h3 className="text-lg font-semibold mb-6">
+              {language === 'ar' ? 'الدعم' : 'Support'}
+            </h3>
+            <ul className="space-y-3">
+              {supportLinks.map((link) => (
+                <li key={link.name}>
+                  <Link 
+                    to={link.path} 
+                    className="text-gray-300 hover:text-white transition-colors duration-200"
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Special Collections */}
+          <div>
+            <h3 className="text-lg font-semibold mb-6">
+              {language === 'ar' ? 'مجموعات خاصة' : 'Special Collections'}
+            </h3>
+            <ul className="space-y-3">
+              <li>
+                <Link to="/perfume" className="text-gray-300 hover:text-white transition-colors duration-200">
+                  {language === 'ar' ? 'عطر الشارقة' : 'Sharjah Perfume'}
+                </Link>
+              </li>
+              <li>
+                <Link to="/themes/preview" className="text-gray-300 hover:text-white transition-colors duration-200">
+                  {language === 'ar' ? 'معاينة التصاميم' : 'Theme Preview'}
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Comprehensive Site Map */}
+        <div className="border-t border-gray-800 pt-8 mb-8">
+          <h3 className="text-xl font-bold mb-6 text-center">
+            {language === 'ar' ? 'خريطة الموقع' : 'Site Map'}
+          </h3>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+            {Object.entries(siteMap).map(([key, section]) => (
+              <div key={key}>
+                <h4 className="font-semibold text-sheraa-primary mb-3">{section.title}</h4>
+                <ul className="space-y-2">
+                  {section.links.map((link) => (
+                    <li key={link.name}>
+                      <Link 
+                        to={link.path} 
+                        className="text-sm text-gray-400 hover:text-white transition-colors duration-200"
+                      >
+                        {link.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
         </div>
 

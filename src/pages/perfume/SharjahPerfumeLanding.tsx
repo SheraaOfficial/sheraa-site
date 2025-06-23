@@ -44,12 +44,14 @@ const SharjahPerfumeLanding = () => {
 
   return (
     <div className="min-h-screen bg-luxury-cream overflow-x-hidden">
-      {/* Luxury Hero Section */}
-      <LuxuryHeroSection 
-        finalPrice={finalPrice} 
-        onReserveBottle={handleReserveBottle} 
-        onDiscoverEssence={handleDiscoverEssence} 
-      />
+      {/* Luxury Hero Section with proper spacing */}
+      <div className="pt-20">
+        <LuxuryHeroSection 
+          finalPrice={finalPrice} 
+          onReserveBottle={handleReserveBottle} 
+          onDiscoverEssence={handleDiscoverEssence} 
+        />
+      </div>
 
       {/* Buying Function Modal/Section */}
       {showBuyingForm && (
