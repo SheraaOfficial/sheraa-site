@@ -14,7 +14,8 @@ export const featuredStartups: Startup[] = [
     website: "https://example.com",
     achievement: "Winner - Access Sharjah Challenge",
     impact: "Reduced carbon emissions by 40%",
-    stats: "Raised $2.5M"
+    stats: "Raised $2.5M",
+    tags: ["Access Sharjah Challenge", "Environmental Tech", "AI-Powered"]
   },
   {
     id: "2",
@@ -27,7 +28,8 @@ export const featuredStartups: Startup[] = [
     website: "https://example.com",
     achievement: "Successfully scaled across MENA",
     impact: "100,000+ Active Users",
-    stats: "Present in 5 Countries"
+    stats: "Present in 5 Countries",
+    tags: ["S3 Incubator", "AI-Powered", "Language Learning"]
   },
   {
     id: "3",
@@ -40,7 +42,8 @@ export const featuredStartups: Startup[] = [
     website: "https://example.com",
     achievement: "Raised $2M in funding",
     impact: "30% Yield Improvement",
-    stats: "8 Patents Filed"
+    stats: "8 Patents Filed",
+    tags: ["S3 Incubator", "AgriTech", "Sustainable Farming"]
   },
   {
     id: "4",
@@ -53,6 +56,7 @@ export const featuredStartups: Startup[] = [
     website: "https://example.com",
     achievement: "Patent-pending technology",
     impact: "2M Liters Saved",
-    stats: "Featured by UNESCO"
+    stats: "Featured by UNESCO",
+    tags: ["Startup Dojo+", "Water Conservation", "Patent-Pending"]
   }
 ];

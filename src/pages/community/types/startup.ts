@@ -12,6 +12,7 @@ export interface Startup {
   impact?: string;
   stats?: string;
   badges?: string[];
+  tags?: string[];
   foundedYear?: number;
   technologies?: string[];
   founderStory?: string;
