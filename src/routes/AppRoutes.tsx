@@ -40,6 +40,7 @@ import MembershipConfirmationPage from "@/pages/community/membership/confirmatio
 import MembershipSuccessStoriesPage from "@/pages/community/membership/success-stories";
 import PartnershipsPage from "@/pages/community/partnerships/index";
 import StartupsPage from "@/pages/community/startups/index";
+import StartupDirectory from "@/pages/community/StartupDirectory";
 
 // Events pages
 import EventsPage from "@/pages/events/index";
