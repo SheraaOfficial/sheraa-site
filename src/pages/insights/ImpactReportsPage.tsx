@@ -1,11 +1,10 @@
-
 import React, { useState } from 'react';
 import MainLayout from '@/components/layouts/MainLayout';
 import { motion } from 'framer-motion';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Tabs, TabsList, TabsT rigger, TabsContent } from '@/components/ui/tabs';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { 
   TrendingUp, Users, Building, Globe, Download, 
   Calendar, BarChart3, PieChart, Target, Award,
