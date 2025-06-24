@@ -1,6 +1,8 @@
 
 import React from 'react';
 import { useTheme } from '@/contexts/ThemeContext';
+import { useThemeSelection } from '@/hooks/useThemeSelection';
+import { ThemeSelectionModal } from '@/components/theme/ThemeSelectionModal';
 import Index from '@/pages/Index';
 import NewIndex from '@/pages/NewIndex';
 import MainLayout from '@/components/layouts/MainLayout';
@@ -98,23 +100,36 @@ const UltimateHomepage: React.FC = () => (
 
 export const ThemeAwareHomepage: React.FC = () => {
   const { currentTheme } = useTheme();
+  const { showThemeModal, setShowThemeModal } = useThemeSelection();
   
-  switch (currentTheme) {
-    case 'corporate':
-      return <Index />;
-    case 'dynamic':
-      return <NewIndex />;
-    case 'immersive':
-      return <ImmersiveHomepage />;
-    case 'floating':
-      return <FloatingHomepage />;
-    case 'video':
-      return <VideoHomepage />;
-    case 'cinematic':
-      return <CinematicHomepage />;
-    case 'ultimate':
-      return <UltimateHomepage />;
-    default:
-      return <NewIndex />;
-  }
+  const renderHomepage = () => {
+    switch (currentTheme) {
+      case 'corporate':
+        return <Index />;
+      case 'dynamic':
+        return <NewIndex />;
+      case 'immersive':
+        return <ImmersiveHomepage />;
+      case 'floating':
+        return <FloatingHomepage />;
+      case 'video':
+        return <VideoHomepage />;
+      case 'cinematic':
+        return <CinematicHomepage />;
+      case 'ultimate':
+        return <UltimateHomepage />;
+      default:
+        return <NewIndex />;
+    }
+  };
+
+  return (
+    <>
+      {renderHomepage()}
+      <ThemeSelectionModal 
+        isOpen={showThemeModal} 
+        onClose={() => setShowThemeModal(false)} 
+      />
+    </>
+  );
 };
