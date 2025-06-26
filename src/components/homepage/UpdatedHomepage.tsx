@@ -13,8 +13,6 @@ import { ReadyToStartSection } from "@/components/homepage/sections/ReadyToStart
 import { CyclingStickyCornerCTA } from "@/components/ui/cycling-sticky-cta";
 
 const UpdatedHomepage: React.FC = () => {
-  console.log("UpdatedHomepage component is rendering");
-  
   return (
     <MainLayout className="bg-white dark:bg-sheraa-dark">
       {/* Sticky Join Community Button - moved to top-right */}
