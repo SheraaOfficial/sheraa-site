@@ -86,10 +86,22 @@ const EnhancedHero = () => {
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="space-y-8 text-left"
+            className="space-y-8"
           >
+            {/* Removed "Sharjah's #1" tag as requested */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/80 dark:bg-sheraa-dark/80 backdrop-blur-sm border border-sheraa-primary/10 shadow-sm"
+            >
+              <Sparkles className="w-4 h-4 text-sheraa-orange" />
+              <span className="text-sm font-medium dark:text-white">Creating the Next Wave of Entrepreneurs</span>
+              <ArrowRight className="h-3 w-3 dark:text-white" />
+            </motion.div>
+
             <div className="space-y-4">
-              <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight text-left">
+              <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight">
                 <span className="block text-sheraa-dark dark:text-white mb-2">
                   Transform Ideas Into
                 </span>
@@ -114,7 +126,7 @@ const EnhancedHero = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
-                className="text-lg sm:text-xl text-muted-foreground max-w-xl dark:text-gray-300 text-left"
+                className="text-lg sm:text-xl text-muted-foreground max-w-xl dark:text-gray-300"
               >
                 Sharjah's official hub for aspiring founders and established ventures. 
                 We empower changemakers to build impactful businesses and shape the future.
@@ -125,7 +137,7 @@ const EnhancedHero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
-              className="flex flex-col sm:flex-row gap-4"
+              className="flex flex-wrap gap-4"
             >
               <Button asChild size="xl" className="bg-sheraa-primary hover:bg-sheraa-primary/90 group">
                 <Link to="/programs" className="flex items-center gap-2">
@@ -144,7 +156,7 @@ const EnhancedHero = () => {
             </motion.div>
           </motion.div>
           
-          {/* Simplified hero visual element */}
+          {/* Enhanced hero visual element */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
