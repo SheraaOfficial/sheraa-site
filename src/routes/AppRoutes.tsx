@@ -3,7 +3,7 @@ import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { ErrorBoundary } from 'react-error-boundary';
 import ScrollToTop from "@/components/utils/ScrollToTop";
-import { ThemeAwareHomepage } from "@/components/homepage/ThemeAwareHomepage";
+import UpdatedHomepage from "@/components/homepage/UpdatedHomepage";
 import ThemePreviewPage from "@/pages/themes/ThemePreviewPage";
 import NotFound from "@/pages/NotFound";
 
@@ -109,8 +109,8 @@ const AppRoutes: React.FC = () => {
     <ErrorBoundary FallbackComponent={ErrorFallback}>
       <ScrollToTop />
       <Routes>
-        {/* Homepage with theme awareness */}
-        <Route path="/" element={<ThemeAwareHomepage />} />
+        {/* Homepage with updated design */}
+        <Route path="/" element={<UpdatedHomepage />} />
         
         {/* Theme showcase route */}
         <Route path="/themes/preview" element={<ThemePreviewPage />} />
