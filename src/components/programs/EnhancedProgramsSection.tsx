@@ -222,7 +222,7 @@ export const EnhancedProgramsSection: React.FC = () => {
           className="text-center mt-12"
         >
           <Button asChild size="lg" className="bg-sheraa-primary hover:bg-sheraa-primary/90">
-            <Link to="/programs/find-my-program" className="flex items-center gap-2">
+            <Link to="/eligibility" className="flex items-center gap-2">
               Find My Program
               <ArrowRight className="w-5 h-5" />
             </Link>

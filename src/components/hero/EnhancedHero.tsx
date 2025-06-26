@@ -146,9 +146,9 @@ const EnhancedHero = () => {
                 </Link>
               </Button>
               
-              {/* Excel Integration Button - as per Umer's note */}
+              {/* Find My Program Button - Excel Integration */}
               <Button asChild variant="outline" size="xl" className="border-2 border-sheraa-primary text-sheraa-primary hover:bg-sheraa-primary/10">
-                <Link to="/programs/find-my-program" className="flex items-center gap-2">
+                <Link to="/eligibility" className="flex items-center gap-2">
                   Find My Program
                   <Star className="w-4 h-4 text-sheraa-orange" />
                 </Link>
