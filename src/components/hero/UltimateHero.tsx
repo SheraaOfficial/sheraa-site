@@ -14,10 +14,10 @@ const UltimateHero = () => {
   const opacity = useTransform(scrollY, [0, 300], [1, 0.9]);
 
   const metrics = [
-    { icon: Users, value: "180+", label: "Startups Launched", color: "text-blue-500" },
-    { icon: TrendingUp, value: "$248M+", label: "Revenue Generated", color: "text-green-500" },
-    { icon: Award, value: "1,900+", label: "Jobs Created", color: "text-purple-500" },
-    { icon: Globe, value: "71%", label: "Success Rate", color: "text-orange-500" }
+    { icon: Users, value: "180+", label: "Startups Launched", color: "text-sheraa-primary" },
+    { icon: TrendingUp, value: "$248M+", label: "Revenue Generated", color: "text-sheraa-accent" },
+    { icon: Award, value: "1,900+", label: "Jobs Created", color: "text-sheraa-secondary" },
+    { icon: Globe, value: "71%", label: "Success Rate", color: "text-sheraa-orange" }
   ];
 
   const inspirationalWords = [
@@ -51,17 +51,17 @@ const UltimateHero = () => {
   ];
 
   return (
-    <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-white via-gray-50 to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-black pt-20">
-      {/* Enhanced Background Effects */}
+    <section className="relative min-h-screen overflow-hidden sheraa-gradient-bg pt-20">
+      {/* Enhanced Background Effects with Sheraa Brand Colors */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-sheraa-primary/20 to-blue-500/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-sheraa-secondary/20 to-purple-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+        <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-sheraa-primary/20 to-sheraa-accent/10 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-sheraa-secondary/20 to-sheraa-orange/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
         
         {/* Grid Pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px] opacity-20" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--sheraa-primary))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--sheraa-primary))_1px,transparent_1px)] bg-[size:14px_24px] opacity-[0.05]" />
       </div>
 
-      {/* Floating Elements */}
+      {/* Floating Elements with Sheraa Brand Colors */}
       {mounted && (
         <div className="absolute inset-0 pointer-events-none">
           {floatingElements.map((element, index) => (
@@ -96,21 +96,21 @@ const UltimateHero = () => {
       >
         <div className="w-full max-w-7xl mx-auto">
           <div className="text-center space-y-8">
-            {/* Hero Badge */}
+            {/* Hero Badge with Sheraa Brand Colors */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl border border-sheraa-primary/20 shadow-xl"
+              className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white/90 dark:bg-sheraa-dark/90 backdrop-blur-xl border border-sheraa-primary/20 sheraa-shadow"
             >
               <Sparkles className="w-5 h-5 text-sheraa-primary animate-pulse" />
-              <span className="text-sm md:text-base font-bold bg-gradient-to-r from-sheraa-primary to-sheraa-secondary bg-clip-text text-transparent">
-                🚀 Sharjah&apos;s #1 Startup Accelerator - Where Dreams Become Billion-Dollar Companies
+              <span className="text-sm md:text-base font-bold sheraa-gradient-text">
+                🚀 Sharjah&apos;s Premier Startup Accelerator - Where Dreams Become Reality
               </span>
               <ArrowRight className="w-4 h-4 text-sheraa-primary" />
             </motion.div>
 
-            {/* Main Headline */}
+            {/* Main Headline with Sheraa Brand Colors */}
             <div className="space-y-6">
               <motion.h1 
                 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black tracking-tight leading-[0.9]"
@@ -125,7 +125,7 @@ const UltimateHero = () => {
                   {mounted && (
                     <motion.span
                       key={currentWordIndex}
-                      className="absolute inset-0 bg-gradient-to-r from-sheraa-primary via-blue-600 to-purple-600 bg-clip-text text-transparent"
+                      className="absolute inset-0 sheraa-gradient-text"
                       initial={{ opacity: 0, y: 100, rotateX: -90 }}
                       animate={{ opacity: 1, y: 0, rotateX: 0 }}
                       exit={{ opacity: 0, y: -100, rotateX: 90 }}
@@ -151,7 +151,7 @@ const UltimateHero = () => {
               </motion.p>
             </div>
 
-            {/* Dynamic Metrics Display */}
+            {/* Dynamic Metrics Display with Sheraa Brand Colors */}
             {mounted && (
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
@@ -159,7 +159,7 @@ const UltimateHero = () => {
                 transition={{ duration: 0.8, delay: 0.7 }}
                 className="flex justify-center mb-8"
               >
-                <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-2xl p-6 border border-gray-200/50 dark:border-gray-700/50 shadow-2xl">
+                <div className="bg-white/90 dark:bg-sheraa-dark/90 backdrop-blur-xl rounded-2xl p-6 border border-sheraa-primary/20 sheraa-shadow-lg">
                   <motion.div
                     key={currentMetric}
                     className="flex items-center gap-4"
@@ -167,7 +167,7 @@ const UltimateHero = () => {
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.6 }}
                   >
-                    <div className={`p-3 rounded-full bg-gradient-to-br from-white to-gray-100 dark:from-gray-700 dark:to-gray-600 shadow-lg`}>
+                    <div className={`p-3 rounded-full bg-gradient-to-br from-white to-gray-100 dark:from-sheraa-dark dark:to-gray-600 sheraa-shadow`}>
                       {(() => {
                         const CurrentIcon = metrics[currentMetric].icon;
                         return <CurrentIcon className={`w-8 h-8 ${metrics[currentMetric].color}`} />;
@@ -186,7 +186,7 @@ const UltimateHero = () => {
               </motion.div>
             )}
 
-            {/* Action Buttons */}
+            {/* Action Buttons with Sheraa Brand Colors */}
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
@@ -200,7 +200,7 @@ const UltimateHero = () => {
                 <GradientButton 
                   asChild 
                   size="xl" 
-                  className="group relative overflow-hidden bg-gradient-to-r from-sheraa-primary to-blue-600 hover:from-sheraa-primary/90 hover:to-blue-500 shadow-2xl hover:shadow-sheraa-primary/25 px-8 py-4 text-lg font-bold"
+                  className="group relative overflow-hidden bg-gradient-to-r from-sheraa-primary to-sheraa-accent hover:from-sheraa-primary/90 hover:to-sheraa-accent/90 sheraa-shadow-lg hover:sheraa-shadow px-8 py-4 text-lg font-bold"
                 >
                   <Link to="/programs" className="flex items-center gap-3">
                     <span className="relative z-10">🚀 Start Your Success Journey</span>
@@ -226,30 +226,30 @@ const UltimateHero = () => {
                 >
                   <Link to="/community/startups" className="flex items-center gap-3">
                     💫 See Success Stories
-                    <Star className="w-5 h-5 text-yellow-500" />
+                    <Star className="w-5 h-5 text-sheraa-orange" />
                   </Link>
                 </Button>
               </motion.div>
             </motion.div>
 
-            {/* Social Proof */}
+            {/* Social Proof with Sheraa Brand Colors */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1.2, duration: 0.8 }}
-              className="pt-8 border-t border-gray-200/50 dark:border-gray-700/50 max-w-4xl mx-auto"
+              className="pt-8 border-t border-sheraa-primary/20 max-w-4xl mx-auto"
             >
               <p className="text-gray-600 dark:text-gray-400 text-lg mb-4 font-medium">
                 Join founders who&apos;ve already transformed their lives:
               </p>
               <div className="flex flex-wrap justify-center gap-6 text-sm md:text-base">
-                <span className="bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400 px-4 py-2 rounded-full font-medium">
+                <span className="bg-sheraa-accent/20 text-sheraa-accent px-4 py-2 rounded-full font-medium">
                   📈 Ahmed raised $2M in Series A
                 </span>
-                <span className="bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-400 px-4 py-2 rounded-full font-medium">
+                <span className="bg-sheraa-primary/20 text-sheraa-primary px-4 py-2 rounded-full font-medium">
                   🌍 Sarah&apos;s startup went global
                 </span>
-                <span className="bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-400 px-4 py-2 rounded-full font-medium">
+                <span className="bg-sheraa-orange/20 text-sheraa-orange px-4 py-2 rounded-full font-medium">
                   🏆 Mohammed won Startup of the Year
                 </span>
               </div>
@@ -258,7 +258,7 @@ const UltimateHero = () => {
         </div>
       </motion.div>
 
-      {/* Enhanced Scroll Indicator */}
+      {/* Enhanced Scroll Indicator with Sheraa Brand Colors */}
       <motion.div 
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20" 
         initial={{ opacity: 0 }}

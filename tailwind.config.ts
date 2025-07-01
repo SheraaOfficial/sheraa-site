@@ -59,17 +59,28 @@ const config: Config = {
           foreground: "hsl(var(--card-foreground))",
         },
         sheraa: {
-          primary: "#0d9488",
-          secondary: "#14b8a6",
-          accent: "#5eead4",
-          teal: "#0d9488",
-          dark: "#1a1a2e",
-          light: "#f8fafc",
-          orange: "#C8A165",
+          primary: "hsl(var(--sheraa-primary))",
+          secondary: "hsl(var(--sheraa-secondary))",
+          accent: "hsl(var(--sheraa-accent))",
+          teal: "hsl(var(--sheraa-teal))",
+          orange: "hsl(var(--sheraa-orange))",
+          dark: "hsl(var(--sheraa-dark))",
+          light: "hsl(var(--sheraa-light))",
           sef: {
             primary: "#8b5cf6",
             secondary: "#a855f7",
           }
+        },
+        // Official Sheraa Brand Colors
+        'sheraa-brand': {
+          'ik-blue': '#286CB4',
+          'red-accent': '#E85A5A',
+          'malibu-blue': '#87CEEB',
+          'sandy-brown': '#F4A460',
+          'salmon': '#FA8072',
+          'turquoise': '#48D1CC',
+          'light-gray': '#EAEFF4',
+          'navy-blue': '#0E1630',
         },
         // Luxury perfume color palette
         luxury: {
@@ -126,6 +137,10 @@ const config: Config = {
         "glow": {
           "0%, 100%": { opacity: "1" },
           "50%": { opacity: "0.5" }
+        },
+        "sheraa-shimmer": {
+          "0%, 100%": { backgroundPosition: "200% 0" },
+          "50%": { backgroundPosition: "-200% 0" }
         }
       },
       animation: {
@@ -140,7 +155,16 @@ const config: Config = {
         "float": "float 3s ease-in-out infinite",
         "glow": "glow 2s ease-in-out infinite",
         "enter": "fade-in 0.3s ease-out, scale-in 0.2s ease-out",
-        "exit": "fade-out 0.3s ease-out, scale-out 0.2s ease-out"
+        "exit": "fade-out 0.3s ease-out, scale-out 0.2s ease-out",
+        "sheraa-shimmer": "sheraa-shimmer 3s ease-in-out infinite"
+      },
+      backgroundImage: {
+        'sheraa-gradient-primary': 'linear-gradient(135deg, hsl(var(--sheraa-primary)), hsl(var(--sheraa-accent)))',
+        'sheraa-gradient-accent': 'linear-gradient(135deg, hsl(var(--sheraa-secondary)), hsl(var(--sheraa-orange)))',
+        'sheraa-gradient-inspire': 'linear-gradient(135deg, #87CEEB, hsl(var(--sheraa-primary)))',
+        'sheraa-gradient-educate': 'linear-gradient(135deg, #F4A460, hsl(var(--sheraa-orange)))',
+        'sheraa-gradient-accelerate': 'linear-gradient(135deg, #FA8072, hsl(var(--sheraa-secondary)))',
+        'sheraa-gradient-grow': 'linear-gradient(135deg, #48D1CC, hsl(var(--sheraa-accent)))',
       }
     },
   },

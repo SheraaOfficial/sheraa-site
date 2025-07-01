@@ -1,6 +1,7 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800;900&display=swap");
+@import "./styles/sheraa-brand-colors.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -33,42 +34,52 @@
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     
-    /* Enhanced Sheraa Brand Colors */
-    --sheraa-primary: 182 100% 24%;
-    --sheraa-secondary: 200 100% 40%;
-    --sheraa-teal: 182 100% 29%;
-    --sheraa-orange: 24 100% 50%;
-    --sheraa-dark: 222.2 84% 4.9%;
-    --sheraa-light: 210 40% 98%;
+    /* Official Sheraa Brand Colors - Light Theme */
+    --sheraa-primary: 211 80% 43%; /* IK Blue #286CB4 */
+    --sheraa-secondary: 9 78% 69%; /* Red Accent #E85A5A */
+    --sheraa-accent: 180 62% 55%; /* Turquoise #48D1CC */
+    --sheraa-teal: 180 62% 55%; /* Turquoise #48D1CC */
+    --sheraa-orange: 27 88% 67%; /* Sandy Brown #F4A460 */
+    --sheraa-dark: 228 71% 12%; /* Navy Blue #0E1630 */
+    --sheraa-light: 216 40% 94%; /* Light Gray #EAEFF4 */
     --sheraa-sef-primary: 280 100% 70%;
     --sheraa-sef-secondary: 320 100% 74%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
+    --background: 228 71% 12%; /* Navy Blue */
+    --foreground: 216 40% 94%; /* Light Gray */
+    --card: 228 71% 12%;
+    --card-foreground: 216 40% 94%;
+    --popover: 228 71% 12%;
+    --popover-foreground: 216 40% 94%;
+    --primary: 216 40% 94%;
+    --primary-foreground: 228 71% 12%;
+    --secondary: 228 57% 18%;
+    --secondary-foreground: 216 40% 94%;
+    --muted: 228 57% 18%;
     --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 228 57% 18%;
+    --accent-foreground: 216 40% 94%;
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --destructive-foreground: 216 40% 94%;
+    --border: 228 57% 18%;
+    --input: 228 57% 18%;
+    --ring: 216 40% 94%;
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+
+    /* Official Sheraa Brand Colors - Dark Theme */
+    --sheraa-primary: 211 80% 55%; /* Lighter IK Blue for dark mode */
+    --sheraa-secondary: 9 78% 75%; /* Lighter Red Accent */
+    --sheraa-accent: 180 62% 65%; /* Lighter Turquoise */
+    --sheraa-teal: 180 62% 65%; /* Lighter Turquoise */
+    --sheraa-orange: 27 88% 75%; /* Lighter Sandy Brown */
+    --sheraa-light: 228 71% 12%; /* Navy Blue as dark background */
+    --sheraa-dark: 216 40% 94%; /* Light Gray as dark text */
   }
 }
 
@@ -99,7 +110,7 @@
     font-family: "Noto Sans Arabic", system-ui, sans-serif;
   }
 
-  /* Enhanced scrollbar styling */
+  /* Enhanced scrollbar styling with Sheraa brand colors */
   ::-webkit-scrollbar {
     width: 8px;
   }
@@ -109,48 +120,50 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    background: linear-gradient(to bottom, hsl(var(--sheraa-primary)), hsl(var(--sheraa-teal)));
+    background: linear-gradient(to bottom, hsl(var(--sheraa-primary)), hsl(var(--sheraa-accent)));
     border-radius: 4px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(to bottom, hsl(var(--sheraa-teal)), hsl(var(--sheraa-primary)));
+    background: linear-gradient(to bottom, hsl(var(--sheraa-accent)), hsl(var(--sheraa-primary)));
   }
 
-  /* Advanced glassmorphism */
+  /* Advanced glassmorphism with Sheraa brand colors */
   .glass-effect {
     backdrop-filter: blur(20px);
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
+    background: rgba(40, 108, 180, 0.1); /* IK Blue with opacity */
+    border: 1px solid rgba(40, 108, 180, 0.2);
+    box-shadow: 0 25px 45px rgba(40, 108, 180, 0.1);
   }
 
   .dark .glass-effect {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(72, 209, 204, 0.05); /* Turquoise with opacity */
+    border: 1px solid rgba(72, 209, 204, 0.1);
   }
 
-  /* Advanced gradients */
+  /* Advanced gradients with Sheraa brand colors */
   .gradient-mesh {
     background: 
       radial-gradient(circle at 20% 50%, hsl(var(--sheraa-primary) / 0.2) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, hsl(var(--sheraa-teal) / 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, hsl(var(--sheraa-accent) / 0.15) 0%, transparent 50%),
       radial-gradient(circle at 40% 80%, hsl(var(--sheraa-orange) / 0.1) 0%, transparent 50%);
   }
 
-  /* Text effects */
+  /* Text effects with Sheraa brand colors */
   .text-shimmer {
-    background: linear-gradient(110deg, hsl(var(--sheraa-primary)), hsl(var(--sheraa-teal)), hsl(var(--sheraa-primary)));
+    background: linear-gradient(110deg, hsl(var(--sheraa-primary)), hsl(var(--sheraa-accent)), hsl(var(--sheraa-primary)));
     background-size: 200% 100%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    animation: shimmer 3s ease-in-out infinite;
+    animation: sheraa-shimmer 3s ease-in-out infinite;
   }
 
-  @keyframes shimmer {
-    0%, 100% { background-position: 200% 0; }
-    50% { background-position: -200% 0; }
+  .sheraa-text-gradient {
+    background: linear-gradient(135deg, hsl(var(--sheraa-primary)), hsl(var(--sheraa-accent)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
   /* 3D perspective effects */
@@ -210,6 +223,23 @@
   .rtl\:scale-x-[-1] {
     transform: scaleX(-1);
   }
+
+  /* Sheraa Brand Utilities */
+  .sheraa-gradient-text {
+    @apply bg-gradient-to-r from-sheraa-primary to-sheraa-accent bg-clip-text text-transparent;
+  }
+
+  .sheraa-gradient-bg {
+    @apply bg-gradient-to-br from-sheraa-primary/10 via-sheraa-accent/5 to-sheraa-orange/10;
+  }
+
+  .sheraa-shadow {
+    box-shadow: 0 10px 25px hsl(var(--sheraa-primary) / 0.15);
+  }
+
+  .sheraa-shadow-lg {
+    box-shadow: 0 20px 40px hsl(var(--sheraa-primary) / 0.2);
+  }
 }
 
 /* Custom animations */
@@ -225,7 +255,7 @@
 
 @keyframes glow {
   from { box-shadow: 0 0 20px hsl(var(--sheraa-primary)); }
-  to { box-shadow: 0 0 30px hsl(var(--sheraa-teal)), 0 0 40px hsl(var(--sheraa-primary)); }
+  to { box-shadow: 0 0 30px hsl(var(--sheraa-accent)), 0 0 40px hsl(var(--sheraa-primary)); }
 }
 
 @keyframes fadeInUp {
@@ -279,7 +309,7 @@
 @media (prefers-contrast: high) {
   :root {
     --sheraa-primary: 0 0% 0%;
-    --sheraa-teal: 0 0% 20%;
+    --sheraa-accent: 0 0% 20%;
   }
 }
 
