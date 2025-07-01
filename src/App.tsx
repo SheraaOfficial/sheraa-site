@@ -10,18 +10,17 @@ import { ExperienceThemeProvider } from './contexts/ExperienceThemeContext';
 import { HomepageThemeProvider } from './contexts/ThemeContext';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { HelmetProvider } from 'react-helmet-async';
-
-const queryClient = new QueryClient();
-
 import { AccessibilityProvider } from '@/components/accessibility/AccessibilityProvider';
 import { PerformanceProvider } from '@/contexts/PerformanceContext';
 import SEOHead from '@/components/SEO/SEOHead';
 
+const queryClient = new QueryClient();
+
 function App() {
   return (
-    <BrowserRouter>
+    <QueryClientProvider client={queryClient}>
       <HelmetProvider>
-        <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
           <ThemeProvider 
             defaultTheme="light" 
             storageKey="sheraa-ui-theme"
@@ -47,9 +46,9 @@ function App() {
               </ExperienceThemeProvider>
             </HomepageThemeProvider>
           </ThemeProvider>
-        </QueryClientProvider>
+        </BrowserRouter>
       </HelmetProvider>
-    </BrowserRouter>
+    </QueryClientProvider>
   );
 }
 
