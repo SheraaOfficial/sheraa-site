@@ -9,7 +9,7 @@ import {
   Camera, Video, Play, Users, Mic, Trophy,
   Calendar, Filter, Search, Download, Share2,
   ChevronLeft, ChevronRight, X, Volume2, VolumeX,
-  Heart, Star, Grid3X3, LayoutMasonry, ExternalLink,
+  Heart, Star, Grid3X3, Grid2X2, ExternalLink,
   Clock, Eye, MapPin, User
 } from 'lucide-react';
 
@@ -433,7 +433,7 @@ const SEFGallery: React.FC = () => {
                     : 'text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700'
                 }`}
               >
-                <LayoutMasonry className="w-4 h-4" />
+                <Grid2X2 className="w-4 h-4" />
                 Masonry
               </button>
             </div>
