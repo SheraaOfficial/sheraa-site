@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 export type HomepageTheme = 'corporate' | 'dynamic' | 'immersive' | 'floating' | 'video' | 'cinematic' | 'ultimate';
@@ -120,7 +119,7 @@ interface ThemeProviderProps {
   children: ReactNode;
 }
 
-export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
+export const HomepageThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   const [currentTheme, setCurrentTheme] = useState<HomepageTheme>('dynamic');
   const [isPreviewMode, setIsPreviewMode] = useState(false);
 
