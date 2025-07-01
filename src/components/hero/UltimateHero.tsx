@@ -52,26 +52,26 @@ const UltimateHero = () => {
 
   return (
     <section className="relative min-h-screen overflow-hidden sheraa-gradient-bg pt-20">
-      {/* Enhanced Background Effects with Sheraa Brand Colors */}
+      {/* Enhanced Background Effects with Better Contrast */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-sheraa-primary/20 to-sheraa-accent/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-sheraa-secondary/20 to-sheraa-orange/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+        <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-sheraa-primary/15 to-sheraa-accent/8 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-sheraa-secondary/12 to-sheraa-orange/8 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
         
-        {/* Grid Pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--sheraa-primary))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--sheraa-primary))_1px,transparent_1px)] bg-[size:14px_24px] opacity-[0.05]" />
+        {/* Grid Pattern with Better Contrast */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--sheraa-primary))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--sheraa-primary))_1px,transparent_1px)] bg-[size:14px_24px] opacity-[0.03] dark:opacity-[0.05]" />
       </div>
 
-      {/* Floating Elements with Sheraa Brand Colors */}
+      {/* Floating Elements with Enhanced Colors */}
       {mounted && (
         <div className="absolute inset-0 pointer-events-none">
           {floatingElements.map((element, index) => (
             <motion.div
               key={index}
-              className="absolute text-sheraa-primary/30"
+              className="absolute text-sheraa-primary/40 dark:text-sheraa-primary/60"
               style={{ left: element.x, top: element.y }}
               initial={{ opacity: 0, scale: 0 }}
               animate={{ 
-                opacity: [0.3, 0.7, 0.3],
+                opacity: [0.3, 0.6, 0.3],
                 scale: [0.8, 1.2, 0.8],
                 y: [-10, 10, -10],
                 rotate: [0, 180, 360]
@@ -96,12 +96,12 @@ const UltimateHero = () => {
       >
         <div className="w-full max-w-7xl mx-auto">
           <div className="text-center space-y-8">
-            {/* Hero Badge with Sheraa Brand Colors */}
+            {/* Hero Badge with Enhanced Contrast */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white/90 dark:bg-sheraa-dark/90 backdrop-blur-xl border border-sheraa-primary/20 sheraa-shadow"
+              className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-sheraa-bg-primary/95 dark:bg-sheraa-bg-secondary/95 backdrop-blur-xl border border-sheraa-border sheraa-shadow"
             >
               <Sparkles className="w-5 h-5 text-sheraa-primary animate-pulse" />
               <span className="text-sm md:text-base font-bold sheraa-gradient-text">
@@ -110,7 +110,7 @@ const UltimateHero = () => {
               <ArrowRight className="w-4 h-4 text-sheraa-primary" />
             </motion.div>
 
-            {/* Main Headline with Sheraa Brand Colors */}
+            {/* Main Headline with Enhanced Text Contrast */}
             <div className="space-y-6">
               <motion.h1 
                 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black tracking-tight leading-[0.9]"
@@ -118,7 +118,7 @@ const UltimateHero = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
               >
-                <span className="block text-gray-900 dark:text-white mb-2">
+                <span className="block text-sheraa-text-primary mb-2">
                   Turn Your
                 </span>
                 <div className="relative h-[1.1em] overflow-hidden">
@@ -135,7 +135,7 @@ const UltimateHero = () => {
                     </motion.span>
                   )}
                 </div>
-                <span className="block text-gray-900 dark:text-white">
+                <span className="block text-sheraa-text-primary">
                   Into Reality
                 </span>
               </motion.h1>
@@ -144,14 +144,14 @@ const UltimateHero = () => {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.5 }}
-                className="text-xl md:text-2xl lg:text-3xl text-gray-700 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed font-medium"
+                className="text-xl md:text-2xl lg:text-3xl text-sheraa-text-secondary max-w-4xl mx-auto leading-relaxed font-medium"
               >
                 Join the <span className="font-bold text-sheraa-primary">fastest-growing startup ecosystem</span> in the Middle East. 
                 From idea validation to global scaling - we&apos;re your complete success partner.
               </motion.p>
             </div>
 
-            {/* Dynamic Metrics Display with Sheraa Brand Colors */}
+            {/* Dynamic Metrics Display with Enhanced Contrast */}
             {mounted && (
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
@@ -159,7 +159,7 @@ const UltimateHero = () => {
                 transition={{ duration: 0.8, delay: 0.7 }}
                 className="flex justify-center mb-8"
               >
-                <div className="bg-white/90 dark:bg-sheraa-dark/90 backdrop-blur-xl rounded-2xl p-6 border border-sheraa-primary/20 sheraa-shadow-lg">
+                <div className="bg-sheraa-bg-primary/95 dark:bg-sheraa-bg-secondary/95 backdrop-blur-xl rounded-2xl p-6 border border-sheraa-border sheraa-shadow-lg">
                   <motion.div
                     key={currentMetric}
                     className="flex items-center gap-4"
@@ -167,17 +167,17 @@ const UltimateHero = () => {
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.6 }}
                   >
-                    <div className={`p-3 rounded-full bg-gradient-to-br from-white to-gray-100 dark:from-sheraa-dark dark:to-gray-600 sheraa-shadow`}>
+                    <div className="p-3 rounded-full bg-sheraa-bg-secondary dark:bg-sheraa-bg-primary sheraa-shadow">
                       {(() => {
                         const CurrentIcon = metrics[currentMetric].icon;
                         return <CurrentIcon className={`w-8 h-8 ${metrics[currentMetric].color}`} />;
                       })()}
                     </div>
                     <div className="text-left">
-                      <div className="text-3xl md:text-4xl font-black text-gray-900 dark:text-white">
+                      <div className="text-3xl md:text-4xl font-black text-sheraa-text-primary">
                         {metrics[currentMetric].value}
                       </div>
-                      <div className="text-gray-600 dark:text-gray-400 font-medium">
+                      <div className="text-sheraa-text-secondary font-medium">
                         {metrics[currentMetric].label}
                       </div>
                     </div>
@@ -186,7 +186,7 @@ const UltimateHero = () => {
               </motion.div>
             )}
 
-            {/* Action Buttons with Sheraa Brand Colors */}
+            {/* Action Buttons with Enhanced Styling */}
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
@@ -232,14 +232,14 @@ const UltimateHero = () => {
               </motion.div>
             </motion.div>
 
-            {/* Social Proof with Sheraa Brand Colors */}
+            {/* Social Proof with Enhanced Contrast */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1.2, duration: 0.8 }}
-              className="pt-8 border-t border-sheraa-primary/20 max-w-4xl mx-auto"
+              className="pt-8 border-t border-sheraa-border max-w-4xl mx-auto"
             >
-              <p className="text-gray-600 dark:text-gray-400 text-lg mb-4 font-medium">
+              <p className="text-sheraa-text-secondary text-lg mb-4 font-medium">
                 Join founders who&apos;ve already transformed their lives:
               </p>
               <div className="flex flex-wrap justify-center gap-6 text-sm md:text-base">
@@ -258,7 +258,7 @@ const UltimateHero = () => {
         </div>
       </motion.div>
 
-      {/* Enhanced Scroll Indicator with Sheraa Brand Colors */}
+      {/* Enhanced Scroll Indicator */}
       <motion.div 
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20" 
         initial={{ opacity: 0 }}
@@ -279,8 +279,8 @@ const UltimateHero = () => {
           onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}
         >
           <div className="flex flex-col items-center gap-2">
-            <span className="text-gray-500 dark:text-gray-400 text-sm font-medium">Discover More</span>
-            <div className="w-6 h-10 border-2 border-sheraa-primary/40 dark:border-sheraa-primary/60 rounded-full flex justify-center backdrop-blur-sm">
+            <span className="text-sheraa-text-secondary text-sm font-medium">Discover More</span>
+            <div className="w-6 h-10 border-2 border-sheraa-primary/60 rounded-full flex justify-center backdrop-blur-sm">
               <motion.div 
                 className="w-1.5 h-1.5 bg-sheraa-primary rounded-full mt-2" 
                 animate={{ 

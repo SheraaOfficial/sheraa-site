@@ -1,13 +1,11 @@
 
-/* Sheraa Official Brand Colors */
+/* Sheraa Official Brand Colors - Enhanced for Light/Dark Themes */
 :root {
-  /* Primary Sheraa Brand Colors */
+  /* Core Sheraa Brand Colors (unchanged) */
   --sheraa-ik-blue: #286CB4;
   --sheraa-ik-blue-rgb: 40, 108, 180;
   --sheraa-red-accent: #E85A5A;
   --sheraa-red-accent-rgb: 232, 90, 90;
-  
-  /* Secondary Brand Colors */
   --sheraa-malibu-blue: #87CEEB;
   --sheraa-malibu-blue-rgb: 135, 206, 235;
   --sheraa-sandy-brown: #F4A460;
@@ -16,45 +14,48 @@
   --sheraa-salmon-rgb: 250, 128, 114;
   --sheraa-turquoise: #48D1CC;
   --sheraa-turquoise-rgb: 72, 209, 204;
-  
-  /* Tertiary Brand Colors */
   --sheraa-light-gray: #EAEFF4;
   --sheraa-light-gray-rgb: 234, 239, 244;
   --sheraa-navy-blue: #0E1630;
   --sheraa-navy-blue-rgb: 14, 22, 48;
   
-  /* Brand Color Utilities */
-  --sheraa-brand-primary: var(--sheraa-ik-blue);
-  --sheraa-brand-primary-rgb: var(--sheraa-ik-blue-rgb);
-  --sheraa-brand-accent: var(--sheraa-red-accent);
-  --sheraa-brand-accent-rgb: var(--sheraa-red-accent-rgb);
-  --sheraa-brand-secondary: var(--sheraa-turquoise);
-  --sheraa-brand-secondary-rgb: var(--sheraa-turquoise-rgb);
+  /* Light Theme Optimized Colors */
+  --sheraa-primary: 211 80% 43%; /* IK Blue - strong contrast on light */
+  --sheraa-secondary: 9 78% 60%; /* Red Accent - slightly muted for light backgrounds */
+  --sheraa-accent: 180 62% 45%; /* Turquoise - darker for light backgrounds */
+  --sheraa-teal: 180 62% 45%; /* Same as accent */
+  --sheraa-orange: 27 88% 57%; /* Sandy Brown - darker for contrast */
+  --sheraa-light: 216 40% 98%; /* Pure white/very light gray */
+  --sheraa-dark: 228 71% 12%; /* Navy Blue for text */
+  
+  /* Light Theme Background & Text */
+  --sheraa-bg-primary: 0 0% 100%; /* Pure white */
+  --sheraa-bg-secondary: 216 40% 98%; /* Very light gray */
+  --sheraa-text-primary: 228 71% 12%; /* Navy blue for high contrast */
+  --sheraa-text-secondary: 228 50% 35%; /* Lighter navy for secondary text */
+  --sheraa-border: 216 40% 88%; /* Light border */
 }
 
-/* Light Theme Brand Colors */
-:root {
-  --sheraa-primary: 211 80% 43%; /* IK Blue */
-  --sheraa-secondary: 9 78% 69%; /* Red Accent */
-  --sheraa-accent: 180 62% 55%; /* Turquoise */
-  --sheraa-teal: 180 62% 55%; /* Turquoise */
-  --sheraa-orange: 27 88% 67%; /* Sandy Brown */
-  --sheraa-light: 216 40% 94%; /* Light Gray */
-  --sheraa-dark: 228 71% 12%; /* Navy Blue */
-}
-
-/* Dark Theme Brand Colors */
+/* Dark Theme Optimized Colors */
 .dark {
-  --sheraa-primary: 211 80% 55%; /* Lighter IK Blue for dark mode */
-  --sheraa-secondary: 9 78% 75%; /* Lighter Red Accent */
-  --sheraa-accent: 180 62% 65%; /* Lighter Turquoise */
-  --sheraa-teal: 180 62% 65%; /* Lighter Turquoise */
-  --sheraa-orange: 27 88% 75%; /* Lighter Sandy Brown */
-  --sheraa-light: 228 71% 12%; /* Navy Blue as dark background */
-  --sheraa-dark: 216 40% 94%; /* Light Gray as dark text */
+  /* Dark Theme Colors - Enhanced for visibility */
+  --sheraa-primary: 211 80% 65%; /* Brighter IK Blue for dark backgrounds */
+  --sheraa-secondary: 9 78% 75%; /* Brighter Red Accent */
+  --sheraa-accent: 180 62% 70%; /* Brighter Turquoise */
+  --sheraa-teal: 180 62% 70%; /* Same as accent */
+  --sheraa-orange: 27 88% 75%; /* Brighter Sandy Brown */
+  --sheraa-light: 228 71% 15%; /* Dark navy as background */
+  --sheraa-dark: 216 40% 92%; /* Light gray for text */
+  
+  /* Dark Theme Background & Text */
+  --sheraa-bg-primary: 228 71% 8%; /* Very dark navy */
+  --sheraa-bg-secondary: 228 71% 12%; /* Navy blue */
+  --sheraa-text-primary: 216 40% 94%; /* Light gray for high contrast */
+  --sheraa-text-secondary: 216 30% 75%; /* Slightly darker for secondary text */
+  --sheraa-border: 228 50% 25%; /* Dark border with some visibility */
 }
 
-/* Brand Gradient Utilities */
+/* Enhanced Gradient Utilities */
 .sheraa-gradient-primary {
   background: linear-gradient(135deg, hsl(var(--sheraa-primary)), hsl(var(--sheraa-accent)));
 }
@@ -67,23 +68,22 @@
   background: linear-gradient(135deg, var(--sheraa-malibu-blue), hsl(var(--sheraa-primary)));
 }
 
-.sheraa-gradient-educate {
-  background: linear-gradient(135deg, var(--sheraa-sandy-brown), hsl(var(--sheraa-orange)));
+.sheraa-gradient-subtle-bg {
+  background: linear-gradient(135deg, hsl(var(--sheraa-primary) / 0.05), hsl(var(--sheraa-accent) / 0.03));
 }
 
-.sheraa-gradient-accelerate {
-  background: linear-gradient(135deg, var(--sheraa-salmon), hsl(var(--sheraa-secondary)));
+/* Dark theme gradient adjustments */
+.dark .sheraa-gradient-subtle-bg {
+  background: linear-gradient(135deg, hsl(var(--sheraa-primary) / 0.08), hsl(var(--sheraa-accent) / 0.05));
 }
 
-.sheraa-gradient-grow {
-  background: linear-gradient(135deg, var(--sheraa-turquoise), hsl(var(--sheraa-accent)));
-}
-
-/* Text Color Utilities */
+/* Text Color Utilities with Better Contrast */
 .text-sheraa-primary { color: hsl(var(--sheraa-primary)); }
 .text-sheraa-secondary { color: hsl(var(--sheraa-secondary)); }
 .text-sheraa-accent { color: hsl(var(--sheraa-accent)); }
 .text-sheraa-orange { color: hsl(var(--sheraa-orange)); }
+.text-sheraa-text-primary { color: hsl(var(--sheraa-text-primary)); }
+.text-sheraa-text-secondary { color: hsl(var(--sheraa-text-secondary)); }
 
 /* Background Color Utilities */
 .bg-sheraa-primary { background-color: hsl(var(--sheraa-primary)); }
@@ -92,16 +92,20 @@
 .bg-sheraa-orange { background-color: hsl(var(--sheraa-orange)); }
 .bg-sheraa-light { background-color: hsl(var(--sheraa-light)); }
 .bg-sheraa-dark { background-color: hsl(var(--sheraa-dark)); }
+.bg-sheraa-bg-primary { background-color: hsl(var(--sheraa-bg-primary)); }
+.bg-sheraa-bg-secondary { background-color: hsl(var(--sheraa-bg-secondary)); }
 
 /* Border Color Utilities */
 .border-sheraa-primary { border-color: hsl(var(--sheraa-primary)); }
 .border-sheraa-secondary { border-color: hsl(var(--sheraa-secondary)); }
 .border-sheraa-accent { border-color: hsl(var(--sheraa-accent)); }
+.border-sheraa-border { border-color: hsl(var(--sheraa-border)); }
 
-/* Brand-specific Component Styles */
+/* Enhanced Component Styles with Better Contrast */
 .sheraa-card-primary {
-  background: linear-gradient(135deg, hsl(var(--sheraa-primary) / 0.05), hsl(var(--sheraa-accent) / 0.05));
-  border: 1px solid hsl(var(--sheraa-primary) / 0.2);
+  background: hsl(var(--sheraa-bg-secondary));
+  border: 1px solid hsl(var(--sheraa-border));
+  color: hsl(var(--sheraa-text-primary));
 }
 
 .sheraa-button-primary {
@@ -117,12 +121,12 @@
 }
 
 .sheraa-button-secondary {
-  background: transparent;
+  background: hsl(var(--sheraa-bg-primary));
   color: hsl(var(--sheraa-primary));
-  border: 1px solid hsl(var(--sheraa-primary) / 0.3);
+  border: 1px solid hsl(var(--sheraa-border));
 }
 
 .sheraa-button-secondary:hover {
   background: hsl(var(--sheraa-primary) / 0.1);
-  border-color: hsl(var(--sheraa-primary) / 0.5);
+  border-color: hsl(var(--sheraa-primary));
 }

@@ -66,12 +66,18 @@ const config: Config = {
           orange: "hsl(var(--sheraa-orange))",
           dark: "hsl(var(--sheraa-dark))",
           light: "hsl(var(--sheraa-light))",
+          // Enhanced semantic colors
+          'bg-primary': "hsl(var(--sheraa-bg-primary))",
+          'bg-secondary': "hsl(var(--sheraa-bg-secondary))",
+          'text-primary': "hsl(var(--sheraa-text-primary))",
+          'text-secondary': "hsl(var(--sheraa-text-secondary))",
+          'border': "hsl(var(--sheraa-border))",
           sef: {
             primary: "#8b5cf6",
             secondary: "#a855f7",
           }
         },
-        // Official Sheraa Brand Colors
+        // Official Sheraa Brand Colors (for specific use cases)
         'sheraa-brand': {
           'ik-blue': '#286CB4',
           'red-accent': '#E85A5A',
@@ -161,6 +167,7 @@ const config: Config = {
       backgroundImage: {
         'sheraa-gradient-primary': 'linear-gradient(135deg, hsl(var(--sheraa-primary)), hsl(var(--sheraa-accent)))',
         'sheraa-gradient-accent': 'linear-gradient(135deg, hsl(var(--sheraa-secondary)), hsl(var(--sheraa-orange)))',
+        'sheraa-gradient-subtle': 'linear-gradient(135deg, hsl(var(--sheraa-primary) / 0.05), hsl(var(--sheraa-accent) / 0.03))',
         'sheraa-gradient-inspire': 'linear-gradient(135deg, #87CEEB, hsl(var(--sheraa-primary)))',
         'sheraa-gradient-educate': 'linear-gradient(135deg, #F4A460, hsl(var(--sheraa-orange)))',
         'sheraa-gradient-accelerate': 'linear-gradient(135deg, #FA8072, hsl(var(--sheraa-secondary)))',

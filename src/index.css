@@ -8,6 +8,7 @@
 
 @layer base {
   :root {
+    /* System colors - unchanged */
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
     --card: 0 0% 100%;
@@ -33,53 +34,34 @@
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
-    
-    /* Official Sheraa Brand Colors - Light Theme */
-    --sheraa-primary: 211 80% 43%; /* IK Blue #286CB4 */
-    --sheraa-secondary: 9 78% 69%; /* Red Accent #E85A5A */
-    --sheraa-accent: 180 62% 55%; /* Turquoise #48D1CC */
-    --sheraa-teal: 180 62% 55%; /* Turquoise #48D1CC */
-    --sheraa-orange: 27 88% 67%; /* Sandy Brown #F4A460 */
-    --sheraa-dark: 228 71% 12%; /* Navy Blue #0E1630 */
-    --sheraa-light: 216 40% 94%; /* Light Gray #EAEFF4 */
-    --sheraa-sef-primary: 280 100% 70%;
-    --sheraa-sef-secondary: 320 100% 74%;
   }
 
   .dark {
-    --background: 228 71% 12%; /* Navy Blue */
-    --foreground: 216 40% 94%; /* Light Gray */
-    --card: 228 71% 12%;
+    /* Dark theme system colors */
+    --background: 228 71% 8%; /* Very dark navy for main background */
+    --foreground: 216 40% 94%; /* Light gray for main text */
+    --card: 228 71% 12%; /* Navy blue for cards */
     --card-foreground: 216 40% 94%;
     --popover: 228 71% 12%;
     --popover-foreground: 216 40% 94%;
     --primary: 216 40% 94%;
-    --primary-foreground: 228 71% 12%;
+    --primary-foreground: 228 71% 8%;
     --secondary: 228 57% 18%;
     --secondary-foreground: 216 40% 94%;
     --muted: 228 57% 18%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted-foreground: 215 20.2% 70%; /* Lighter for better readability */
     --accent: 228 57% 18%;
     --accent-foreground: 216 40% 94%;
-    --destructive: 0 62.8% 30.6%;
+    --destructive: 0 62.8% 50%; /* Brighter for visibility */
     --destructive-foreground: 216 40% 94%;
-    --border: 228 57% 18%;
-    --input: 228 57% 18%;
+    --border: 228 50% 25%; /* More visible borders */
+    --input: 228 57% 20%; /* Slightly lighter inputs */
     --ring: 216 40% 94%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
-
-    /* Official Sheraa Brand Colors - Dark Theme */
-    --sheraa-primary: 211 80% 55%; /* Lighter IK Blue for dark mode */
-    --sheraa-secondary: 9 78% 75%; /* Lighter Red Accent */
-    --sheraa-accent: 180 62% 65%; /* Lighter Turquoise */
-    --sheraa-teal: 180 62% 65%; /* Lighter Turquoise */
-    --sheraa-orange: 27 88% 75%; /* Lighter Sandy Brown */
-    --sheraa-light: 228 71% 12%; /* Navy Blue as dark background */
-    --sheraa-dark: 216 40% 94%; /* Light Gray as dark text */
+    --chart-1: 220 70% 60%; /* Brighter charts */
+    --chart-2: 160 60% 55%;
+    --chart-3: 30 80% 65%;
+    --chart-4: 280 65% 70%;
+    --chart-5: 340 75% 65%;
   }
 }
 
@@ -116,7 +98,7 @@
   }
 
   ::-webkit-scrollbar-track {
-    background: hsl(var(--muted));
+    background: hsl(var(--sheraa-bg-secondary));
   }
 
   ::-webkit-scrollbar-thumb {
@@ -128,28 +110,28 @@
     background: linear-gradient(to bottom, hsl(var(--sheraa-accent)), hsl(var(--sheraa-primary)));
   }
 
-  /* Advanced glassmorphism with Sheraa brand colors */
+  /* Enhanced glassmorphism with proper contrast */
   .glass-effect {
     backdrop-filter: blur(20px);
-    background: rgba(40, 108, 180, 0.1); /* IK Blue with opacity */
-    border: 1px solid rgba(40, 108, 180, 0.2);
-    box-shadow: 0 25px 45px rgba(40, 108, 180, 0.1);
+    background: hsl(var(--sheraa-bg-primary) / 0.9);
+    border: 1px solid hsl(var(--sheraa-border));
+    box-shadow: 0 25px 45px hsl(var(--sheraa-primary) / 0.1);
   }
 
   .dark .glass-effect {
-    background: rgba(72, 209, 204, 0.05); /* Turquoise with opacity */
-    border: 1px solid rgba(72, 209, 204, 0.1);
+    background: hsl(var(--sheraa-bg-secondary) / 0.9);
+    border: 1px solid hsl(var(--sheraa-border));
   }
 
-  /* Advanced gradients with Sheraa brand colors */
+  /* Enhanced gradients with better contrast */
   .gradient-mesh {
     background: 
-      radial-gradient(circle at 20% 50%, hsl(var(--sheraa-primary) / 0.2) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, hsl(var(--sheraa-accent) / 0.15) 0%, transparent 50%),
-      radial-gradient(circle at 40% 80%, hsl(var(--sheraa-orange) / 0.1) 0%, transparent 50%);
+      radial-gradient(circle at 20% 50%, hsl(var(--sheraa-primary) / 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, hsl(var(--sheraa-accent) / 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 40% 80%, hsl(var(--sheraa-orange) / 0.06) 0%, transparent 50%);
   }
 
-  /* Text effects with Sheraa brand colors */
+  /* Text effects with proper contrast */
   .text-shimmer {
     background: linear-gradient(110deg, hsl(var(--sheraa-primary)), hsl(var(--sheraa-accent)), hsl(var(--sheraa-primary)));
     background-size: 200% 100%;
@@ -224,13 +206,17 @@
     transform: scaleX(-1);
   }
 
-  /* Sheraa Brand Utilities */
+  /* Enhanced Sheraa Brand Utilities */
   .sheraa-gradient-text {
     @apply bg-gradient-to-r from-sheraa-primary to-sheraa-accent bg-clip-text text-transparent;
   }
 
   .sheraa-gradient-bg {
-    @apply bg-gradient-to-br from-sheraa-primary/10 via-sheraa-accent/5 to-sheraa-orange/10;
+    background: linear-gradient(135deg, hsl(var(--sheraa-primary) / 0.05), hsl(var(--sheraa-accent) / 0.03));
+  }
+
+  .dark .sheraa-gradient-bg {
+    background: linear-gradient(135deg, hsl(var(--sheraa-primary) / 0.08), hsl(var(--sheraa-accent) / 0.05));
   }
 
   .sheraa-shadow {
@@ -240,7 +226,22 @@
   .sheraa-shadow-lg {
     box-shadow: 0 20px 40px hsl(var(--sheraa-primary) / 0.2);
   }
+
+  /* Enhanced contrast utilities */
+  .sheraa-text-contrast {
+    color: hsl(var(--sheraa-text-primary));
+  }
+
+  .sheraa-bg-contrast {
+    background-color: hsl(var(--sheraa-bg-primary));
+  }
+
+  .sheraa-border-contrast {
+    border-color: hsl(var(--sheraa-border));
+  }
 }
+
+/* ... keep existing code (custom animations, focus styles, print styles, high contrast, reduced motion) the same ... */
 
 /* Custom animations */
 @keyframes marquee {
