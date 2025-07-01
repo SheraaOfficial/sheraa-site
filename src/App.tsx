@@ -7,7 +7,7 @@ import AppRoutes from './routes/AppRoutes';
 import { AuthProvider } from './contexts/AuthContext';
 import { LanguageProvider } from './contexts/LanguageContext';
 import { ExperienceThemeProvider } from './contexts/ExperienceThemeContext';
-import { ThemeProvider as HomepageThemeProvider } from './contexts/ThemeContext';
+import { HomepageThemeProvider } from './contexts/ThemeContext';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { HelmetProvider } from 'react-helmet-async';
 
