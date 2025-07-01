@@ -122,43 +122,80 @@ interface ThemeProviderProps {
 export const HomepageThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   const [currentTheme, setCurrentTheme] = useState<HomepageTheme>('dynamic');
   const [isPreviewMode, setIsPreviewMode] = useState(false);
+  const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {
-    // Check URL parameters for theme selection
-    const urlParams = new URLSearchParams(window.location.search);
-    const themeParam = urlParams.get('theme') as HomepageTheme;
-    const previewParam = urlParams.get('preview') === 'true';
-    
-    if (themeParam && themeMetadata.some(t => t.id === themeParam)) {
-      setCurrentTheme(themeParam);
-    }
-    
-    if (previewParam) {
-      setIsPreviewMode(true);
+    try {
+      // Safely check URL parameters for theme selection
+      const urlParams = new URLSearchParams(window.location.search);
+      const themeParam = urlParams.get('theme') as HomepageTheme;
+      const previewParam = urlParams.get('preview') === 'true';
+      
+      if (themeParam && themeMetadata.some(t => t.id === themeParam)) {
+        setCurrentTheme(themeParam);
+      }
+      
+      if (previewParam) {
+        setIsPreviewMode(true);
+      }
+    } catch (error) {
+      console.warn('Error reading URL parameters:', error);
+      // Fallback to default theme
+      setCurrentTheme('dynamic');
+    } finally {
+      setIsInitialized(true);
     }
   }, []);
 
   const setTheme = (theme: HomepageTheme) => {
-    setCurrentTheme(theme);
-    
-    // Update URL parameters
-    const url = new URL(window.location.href);
-    url.searchParams.set('theme', theme);
-    window.history.pushState({}, '', url.toString());
+    try {
+      setCurrentTheme(theme);
+      
+      // Safely update URL parameters
+      if (typeof window !== 'undefined') {
+        const url = new URL(window.location.href);
+        url.searchParams.set('theme', theme);
+        window.history.pushState({}, '', url.toString());
+      }
+    } catch (error) {
+      console.warn('Error setting theme:', error);
+      // Still update the theme state even if URL update fails
+      setCurrentTheme(theme);
+    }
   };
 
   const setPreviewMode = (enabled: boolean) => {
-    setIsPreviewMode(enabled);
-    
-    // Update URL parameters
-    const url = new URL(window.location.href);
-    if (enabled) {
-      url.searchParams.set('preview', 'true');
-    } else {
-      url.searchParams.delete('preview');
+    try {
+      setIsPreviewMode(enabled);
+      
+      // Safely update URL parameters
+      if (typeof window !== 'undefined') {
+        const url = new URL(window.location.href);
+        if (enabled) {
+          url.searchParams.set('preview', 'true');
+        } else {
+          url.searchParams.delete('preview');
+        }
+        window.history.pushState({}, '', url.toString());
+      }
+    } catch (error) {
+      console.warn('Error setting preview mode:', error);
+      // Still update the state even if URL update fails
+      setIsPreviewMode(enabled);
     }
-    window.history.pushState({}, '', url.toString());
   };
+
+  // Don't render children until initialized to prevent hook violations
+  if (!isInitialized) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-sheraa-primary mx-auto mb-4"></div>
+          <p className="text-muted-foreground">Loading theme...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <ThemeContext.Provider

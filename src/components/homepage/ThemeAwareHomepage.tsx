@@ -3,6 +3,7 @@ import React from 'react';
 import { useTheme } from '@/contexts/ThemeContext';
 import { useThemeSelection } from '@/hooks/useThemeSelection';
 import { ThemeSelectionModal } from '@/components/theme/ThemeSelectionModal';
+import { ErrorBoundary, ThemeErrorFallback } from '@/components/layout/ErrorBoundary';
 import Index from '@/pages/Index';
 import NewIndex from '@/pages/NewIndex';
 import MainLayout from '@/components/layouts/MainLayout';
@@ -105,33 +106,74 @@ export const ThemeAwareHomepage: React.FC = () => {
   const { showThemeModal, setShowThemeModal } = useThemeSelection();
   
   const renderHomepage = () => {
-    switch (currentTheme) {
-      case 'corporate':
-        return <Index />;
-      case 'dynamic':
-        return <NewIndex />;
-      case 'immersive':
-        return <ImmersiveHomepage />;
-      case 'floating':
-        return <FloatingHomepage />;
-      case 'video':
-        return <VideoHomepage />;
-      case 'cinematic':
-        return <CinematicHomepage />;
-      case 'ultimate':
-        return <UltimateHomepage />;
-      default:
-        return <UltimateHomepage />;
+    try {
+      switch (currentTheme) {
+        case 'corporate':
+          return (
+            <ErrorBoundary fallback={ThemeErrorFallback}>
+              <Index />
+            </ErrorBoundary>
+          );
+        case 'dynamic':
+          return (
+            <ErrorBoundary fallback={ThemeErrorFallback}>
+              <NewIndex />
+            </ErrorBoundary>
+          );
+        case 'immersive':
+          return (
+            <ErrorBoundary fallback={ThemeErrorFallback}>
+              <ImmersiveHomepage />
+            </ErrorBoundary>
+          );
+        case 'floating':
+          return (
+            <ErrorBoundary fallback={ThemeErrorFallback}>
+              <FloatingHomepage />
+            </ErrorBoundary>
+          );
+        case 'video':
+          return (
+            <ErrorBoundary fallback={ThemeErrorFallback}>
+              <VideoHomepage />
+            </ErrorBoundary>
+          );
+        case 'cinematic':
+          return (
+            <ErrorBoundary fallback={ThemeErrorFallback}>
+              <CinematicHomepage />
+            </ErrorBoundary>
+          );
+        case 'ultimate':
+          return (
+            <ErrorBoundary fallback={ThemeErrorFallback}>
+              <UltimateHomepage />
+            </ErrorBoundary>
+          );
+        default:
+          return (
+            <ErrorBoundary fallback={ThemeErrorFallback}>
+              <UltimateHomepage />
+            </ErrorBoundary>
+          );
+      }
+    } catch (error) {
+      console.error('Error rendering theme:', error);
+      return (
+        <ErrorBoundary fallback={ThemeErrorFallback}>
+          <UltimateHomepage />
+        </ErrorBoundary>
+      );
     }
   };
 
   return (
-    <>
+    <ErrorBoundary fallback={ThemeErrorFallback}>
       {renderHomepage()}
       <ThemeSelectionModal 
         isOpen={showThemeModal} 
         onClose={() => setShowThemeModal(false)} 
       />
-    </>
+    </ErrorBoundary>
   );
 };

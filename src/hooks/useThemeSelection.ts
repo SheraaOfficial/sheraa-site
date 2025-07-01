@@ -6,17 +6,30 @@ import { useTheme } from '@/contexts/ThemeContext';
 export const useThemeSelection = () => {
   const [hasSelectedTheme, setHasSelectedTheme] = useLocalStorage('sheraa-theme-selected', false);
   const [showThemeModal, setShowThemeModal] = useState(false);
-  const { currentTheme } = useTheme();
+  
+  // Safely get theme context - don't crash if not available
+  let currentTheme;
+  try {
+    const themeContext = useTheme();
+    currentTheme = themeContext.currentTheme;
+  } catch (error) {
+    console.warn('Theme context not available, using default');
+    currentTheme = 'dynamic';
+  }
 
   useEffect(() => {
-    // Check if user has made a theme selection
-    if (!hasSelectedTheme) {
-      // Small delay to allow page to load before showing modal
-      const timer = setTimeout(() => {
-        setShowThemeModal(true);
-      }, 1000);
-      
-      return () => clearTimeout(timer);
+    try {
+      // Check if user has made a theme selection
+      if (!hasSelectedTheme) {
+        // Small delay to allow page to load before showing modal
+        const timer = setTimeout(() => {
+          setShowThemeModal(true);
+        }, 1000);
+        
+        return () => clearTimeout(timer);
+      }
+    } catch (error) {
+      console.warn('Error in theme selection effect:', error);
     }
   }, [hasSelectedTheme]);
 
