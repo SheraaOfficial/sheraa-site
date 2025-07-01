@@ -84,15 +84,17 @@ const CinematicHomepage: React.FC = () => (
 );
 
 const UltimateHomepage: React.FC = () => (
-  <MainLayout>
+  <MainLayout className="sheraa-gradient-bg">
     <UltimateHero />
-    <ImpactMetricsSection />
-    <ProgramsJourneySection />
-    <StartupEcosystemSection />
-    <SEFHighlightSection />
-    <CommunityPartnersSection />
-    <WhySharjahSection />
-    <ReadyToStartSection />
+    <div className="bg-white dark:bg-sheraa-dark">
+      <ImpactMetricsSection />
+      <ProgramsJourneySection />
+      <StartupEcosystemSection />
+      <SEFHighlightSection />
+      <CommunityPartnersSection />
+      <WhySharjahSection />
+      <ReadyToStartSection />
+    </div>
     <CyclingStickyCornerCTA />
     <ThemeSelector />
   </MainLayout>
@@ -119,7 +121,7 @@ export const ThemeAwareHomepage: React.FC = () => {
       case 'ultimate':
         return <UltimateHomepage />;
       default:
-        return <NewIndex />;
+        return <UltimateHomepage />;
     }
   };
 

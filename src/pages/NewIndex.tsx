@@ -17,34 +17,36 @@ import { ThemeSelector } from "@/components/theme/ThemeSelector";
 
 const NewIndex: React.FC = () => {
   return (
-    <MainLayout className="bg-white dark:bg-sheraa-dark">
-      {/* Critical above-the-fold content */}
+    <MainLayout className="sheraa-gradient-bg">
+      {/* Critical above-the-fold content with Sheraa branding */}
       <UltimateHero />
       <DealDockMarquee />
       
-      {/* High priority content */}
-      <ImpactMetricsSection />
-      <ProgramsJourneySection />
-      
-      {/* Medium priority content with performance optimization */}
-      <PerformanceOptimizer componentName="Sheraa Testimonials" priority="medium" height={600}>
-        <SheraaTestimonials />
-      </PerformanceOptimizer>
-      
-      <PerformanceOptimizer componentName="Startup Ecosystem" priority="medium">
-        <StartupEcosystemSection />
-      </PerformanceOptimizer>
-      
-      <PerformanceOptimizer componentName="SEF Highlight" priority="low">
-        <SEFHighlightSection />
-      </PerformanceOptimizer>
-      
-      <PerformanceOptimizer componentName="Community Partners" priority="low">
-        <CommunityPartnersSection />
-      </PerformanceOptimizer>
-      
-      <WhySharjahSection />
-      <ReadyToStartSection />
+      {/* High priority content with Sheraa background */}
+      <div className="bg-white dark:bg-sheraa-dark">
+        <ImpactMetricsSection />
+        <ProgramsJourneySection />
+        
+        {/* Medium priority content with performance optimization */}
+        <PerformanceOptimizer componentName="Sheraa Testimonials" priority="medium" height={600}>
+          <SheraaTestimonials />
+        </PerformanceOptimizer>
+        
+        <PerformanceOptimizer componentName="Startup Ecosystem" priority="medium">
+          <StartupEcosystemSection />
+        </PerformanceOptimizer>
+        
+        <PerformanceOptimizer componentName="SEF Highlight" priority="low">
+          <SEFHighlightSection />
+        </PerformanceOptimizer>
+        
+        <PerformanceOptimizer componentName="Community Partners" priority="low">
+          <CommunityPartnersSection />
+        </PerformanceOptimizer>
+        
+        <WhySharjahSection />
+        <ReadyToStartSection />
+      </div>
       
       {/* Enhanced Cycling Sticky CTA */}
       <CyclingStickyCornerCTA />

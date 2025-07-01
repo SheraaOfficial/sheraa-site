@@ -36,7 +36,7 @@ function App() {
                     <AccessibilityProvider>
                       <PerformanceProvider>
                         <SEOHead />
-                        <div className="min-h-screen bg-background text-foreground">
+                        <div className="min-h-screen bg-background text-foreground sheraa-gradient-bg">
                           <Toaster />
                           <AppRoutes />
                         </div>
