@@ -5,7 +5,6 @@ import { ErrorBoundary } from 'react-error-boundary';
 import ScrollToTop from "@/components/utils/ScrollToTop";
 import { ThemeAwareHomepage } from "@/components/homepage/ThemeAwareHomepage";
 import { SafeThemeAwareHomepage } from "@/components/homepage/SafeThemeAwareHomepage";
-import EditorCompatibilityWrapper from "@/components/debug/EditorCompatibilityWrapper";
 import ThemePreviewPage from "@/pages/themes/ThemePreviewPage";
 import NotFound from "@/pages/NotFound";
 
@@ -111,7 +110,7 @@ const AppRoutes: React.FC = () => {
     <ErrorBoundary FallbackComponent={ErrorFallback}>
       <ScrollToTop />
       <Routes>
-        {/* Homepage with editor compatibility wrapper */}
+        {/* Homepage */}
         <Route path="/" element={
           <ErrorBoundary FallbackComponent={({ error, resetErrorBoundary }) => (
             <div className="min-h-screen flex items-center justify-center bg-background">
@@ -124,7 +123,7 @@ const AppRoutes: React.FC = () => {
               </div>
             </div>
           )}>
-            <EditorCompatibilityWrapper />
+            <ThemeAwareHomepage />
           </ErrorBoundary>
         } />
         
