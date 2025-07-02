@@ -1,55 +1,39 @@
-
-import * as React from "react"
-import { cn } from "@/lib/utils"
-
-interface RetroGridProps {
-  className?: string
-  fadeDirection?: "top" | "bottom" | "left" | "right" | "all" | "none"
-  fadeSize?: "sm" | "md" | "lg"
-  cellSize?: "sm" | "md" | "lg"
-}
+import { cn } from "@/lib/utils";
 
 export function RetroGrid({
   className,
-  fadeDirection = "bottom",
-  fadeSize = "md",
-  cellSize = "md",
-}: RetroGridProps) {
-  // Calculate fade gradient based on direction
-  const fadeSizeMap = {
-    sm: "10%",
-    md: "20%",
-    lg: "30%",
-  }
-  
-  const cellSizeMap = {
-    sm: "1rem",
-    md: "2rem",
-    lg: "3rem",
-  }
-  
-  const fadeStyle = {
-    none: "none",
-    top: `linear-gradient(to top, transparent 0%, var(--background) ${fadeSizeMap[fadeSize]})`,
-    bottom: `linear-gradient(to bottom, transparent 0%, var(--background) ${fadeSizeMap[fadeSize]})`,
-    left: `linear-gradient(to left, transparent 0%, var(--background) ${fadeSizeMap[fadeSize]})`,
-    right: `linear-gradient(to right, transparent 0%, var(--background) ${fadeSizeMap[fadeSize]})`,
-    all: `radial-gradient(circle at center, transparent 0%, var(--background) ${fadeSizeMap[fadeSize]})`,
-  }
-
+  angle = 65,
+}: {
+  className?: string;
+  angle?: number;
+}) {
   return (
     <div
       className={cn(
-        "absolute inset-0 z-0 opacity-20",
-        className
+        "pointer-events-none absolute size-full overflow-hidden opacity-50 [perspective:200px]",
+        className,
       )}
-      style={{
-        backgroundSize: `${cellSizeMap[cellSize]} ${cellSizeMap[cellSize]}`,
-        backgroundImage: `linear-gradient(to right, var(--sheraa-primary) / 10% 1px, transparent 1px), 
-                         linear-gradient(to bottom, var(--sheraa-primary) / 10% 1px, transparent 1px)`,
-        maskImage: fadeStyle[fadeDirection],
-        WebkitMaskImage: fadeStyle[fadeDirection],
-      }}
-    />
-  )
+      style={{ "--grid-angle": `${angle}deg` } as React.CSSProperties}
+    >
+      {/* Grid */}
+      <div className="absolute inset-0 [transform:rotateX(var(--grid-angle))]">
+        <div
+          className={cn(
+            "animate-grid",
+
+            "[background-repeat:repeat] [background-size:60px_60px] [height:300vh] [inset:0%_0px] [margin-left:-50%] [transform-origin:100%_0_0] [width:600vw]",
+
+            // Light Styles
+            "[background-image:linear-gradient(to_right,rgba(0,0,0,0.3)_1px,transparent_0),linear-gradient(to_bottom,rgba(0,0,0,0.3)_1px,transparent_0)]",
+
+            // Dark styles
+            "dark:[background-image:linear-gradient(to_right,rgba(255,255,255,0.2)_1px,transparent_0),linear-gradient(to_bottom,rgba(255,255,255,0.2)_1px,transparent_0)]",
+          )}
+        />
+      </div>
+
+      {/* Background Gradient */}
+      <div className="absolute inset-0 bg-gradient-to-t from-white to-transparent to-90% dark:from-black" />
+    </div>
+  );
 }

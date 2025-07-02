@@ -28,7 +28,7 @@ export function HeroSection() {
       className="relative min-h-[90vh] flex flex-col justify-center overflow-hidden bg-inherit"
     >
       {/* Enhanced background elements */}
-      <RetroGrid fadeDirection="bottom" fadeSize="lg" className="opacity-60" />
+      <RetroGrid className="opacity-60" />
       
       <div 
         className="absolute inset-0 -z-10 size-full"

@@ -147,6 +147,10 @@ const config: Config = {
         "sheraa-shimmer": {
           "0%, 100%": { backgroundPosition: "200% 0" },
           "50%": { backgroundPosition: "-200% 0" }
+        },
+        "grid": {
+          "0%": { transform: "translateY(-50%)" },
+          "100%": { transform: "translateY(0)" }
         }
       },
       animation: {
@@ -162,7 +166,8 @@ const config: Config = {
         "glow": "glow 2s ease-in-out infinite",
         "enter": "fade-in 0.3s ease-out, scale-in 0.2s ease-out",
         "exit": "fade-out 0.3s ease-out, scale-out 0.2s ease-out",
-        "sheraa-shimmer": "sheraa-shimmer 3s ease-in-out infinite"
+        "sheraa-shimmer": "sheraa-shimmer 3s ease-in-out infinite",
+        "grid": "grid 15s linear infinite"
       },
       backgroundImage: {
         'sheraa-gradient-primary': 'linear-gradient(135deg, hsl(var(--sheraa-primary)), hsl(var(--sheraa-accent)))',
