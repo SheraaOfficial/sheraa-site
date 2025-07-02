@@ -18,10 +18,10 @@ const Index = () => {
       <ImmersiveHero />
       <ImpactMetricsSection />
       <ProgramsJourneySection />
-      <StartupEcosystemSection />
       <SEFHighlightSection />
       <CommunityPartnersSection />
       <WhySharjahSection />
+      <StartupEcosystemSection />
       <ReadyToStartSection />
       
       <CyclingStickyCornerCTA />
