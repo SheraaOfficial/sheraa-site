@@ -91,6 +91,10 @@ import DealDockInvestorApplyPage from "@/pages/programs/deal-dock/DealDockInvest
 import StartupDojoApplyPage from "@/pages/programs/startup-dojo/StartupDojoApplyPage";
 import AccessSharjahChallengeApplyPage from "@/pages/programs/access-sharjah/AccessSharjahChallengeApplyPage";
 
+// V3 Adult Entrepreneur Persona Pages
+import AdultEntrepreneurIndex from "@/pages/v3/AdultEntrepreneurIndex";
+import ProgramMatchPage from "@/pages/v3/ProgramMatchPage";
+
 const ErrorFallback = ({ error }: { error: Error }) => (
   <div className="min-h-screen flex items-center justify-center">
     <div className="text-center">
@@ -231,6 +235,10 @@ const AppRoutes: React.FC = () => {
         <Route path="/perfume/gallery" element={<PerfumeGalleryPage />} />
         <Route path="/perfume/pricing" element={<PerfumePricingPage />} />
         
+        {/* V3 Adult Entrepreneur Persona Routes */}
+        <Route path="/v3" element={<AdultEntrepreneurIndex />} />
+        <Route path="/v3/program-match" element={<ProgramMatchPage />} />
+
         {/* Legacy redirects for backwards compatibility */}
         <Route path="/login" element={<Navigate to="/auth/login" replace />} />
         <Route path="/signup" element={<Navigate to="/auth/signup" replace />} />
@@ -238,7 +246,7 @@ const AppRoutes: React.FC = () => {
         <Route path="/profile-setup" element={<Navigate to="/profile/setup" replace />} />
         <Route path="/privacy" element={<Navigate to="/privacy-policy" replace />} />
         <Route path="/terms" element={<Navigate to="/terms-of-use" replace />} />
-        
+
         {/* 404 Fallback */}
         <Route path="*" element={<NotFound />} />
       </Routes>
