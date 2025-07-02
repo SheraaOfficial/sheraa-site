@@ -16,7 +16,7 @@ import {
   type StatItem,
   type ProcessStep
 } from '@/components/common';
-import { ImmersiveVideoHero } from '@/components/hero/ImmersiveVideoHero';
+import { CinematicVideoHero } from '@/components/hero/CinematicVideoHero';
 import { ScrollRevealSection } from '@/components/hero/ScrollRevealSection';
 import { EnhancedCard, EnhancedCardContent, EnhancedCardHeader } from '@/components/ui/enhanced-card';
 import { ParallaxSection } from '@/components/parallax';
@@ -156,12 +156,14 @@ const DealDockPage: React.FC = () => {
 
   return (
     <MainLayout>
-      {/* Immersive Video Hero */}
-      <ImmersiveVideoHero
+      {/* Enhanced Cinematic Video Hero */}
+      <CinematicVideoHero
         videoId="mr1oWGH48FY"
         title="Deal Dock"
         subtitle="Where Startups Meet Capital"
         showScrollIndicator={true}
+        overlay="gradient"
+        interactive={true}
       />
 
       {/* Main Content with Scroll Reveal */}
