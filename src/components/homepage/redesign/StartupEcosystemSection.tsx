@@ -53,7 +53,7 @@ export const StartupEcosystemSection: React.FC = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white">
-            Meet Our Success Stories
+            sheraa startups
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
             Real companies, real results. See how entrepreneurs like you are 

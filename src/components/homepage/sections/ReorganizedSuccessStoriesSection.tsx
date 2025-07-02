@@ -66,7 +66,7 @@ export const ReorganizedSuccessStoriesSection: React.FC = () => {
           </div>
           
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white">
-            Meet Our Success Stories
+            sheraa startups
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-8">
             Real companies, real results. See how entrepreneurs like you are 
