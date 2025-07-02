@@ -20,33 +20,33 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <HelmetProvider>
-        <BrowserRouter>
-          <ThemeProvider 
-            defaultTheme="light" 
-            storageKey="sheraa-ui-theme"
-            attribute="class"
-            enableSystem={false}
-            disableTransitionOnChange={false}
-          >
-            <HomepageThemeProvider>
-              <ExperienceThemeProvider>
-                <AuthProvider>
-                  <LanguageProvider>
-                    <AccessibilityProvider>
-                      <PerformanceProvider>
+        <ThemeProvider 
+          defaultTheme="light" 
+          storageKey="sheraa-ui-theme"
+          attribute="class"
+          enableSystem={false}
+          disableTransitionOnChange={false}
+        >
+          <HomepageThemeProvider>
+            <ExperienceThemeProvider>
+              <AuthProvider>
+                <LanguageProvider>
+                  <AccessibilityProvider>
+                    <PerformanceProvider>
+                      <BrowserRouter>
                         <SEOHead />
                         <div className="min-h-screen bg-background text-foreground sheraa-gradient-bg">
                           <Toaster />
                           <AppRoutes />
                         </div>
-                      </PerformanceProvider>
-                    </AccessibilityProvider>
-                  </LanguageProvider>
-                </AuthProvider>
-              </ExperienceThemeProvider>
-            </HomepageThemeProvider>
-          </ThemeProvider>
-        </BrowserRouter>
+                      </BrowserRouter>
+                    </PerformanceProvider>
+                  </AccessibilityProvider>
+                </LanguageProvider>
+              </AuthProvider>
+            </ExperienceThemeProvider>
+          </HomepageThemeProvider>
+        </ThemeProvider>
       </HelmetProvider>
     </QueryClientProvider>
   );
