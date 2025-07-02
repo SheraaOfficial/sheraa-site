@@ -6,8 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
     <!-- Security Headers -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.gpteng.co https://*.lovable.dev https://*.gpteng.co 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://lovable.dev https://*.lovable.dev data: blob:; connect-src 'self' https://api.sheraa.ae https://*.lovable.dev https://*.gpteng.co; frame-src 'self' https://*.lovable.dev; worker-src 'self' blob:; object-src 'none';">
-    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.gpteng.co https://*.lovable.dev https://*.gpteng.co https://www.googletagmanager.com https://static.cloudflareinsights.com data: 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://lovable.dev https://*.lovable.dev data: blob:; connect-src 'self' https://api.sheraa.ae https://*.lovable.dev https://*.gpteng.co; frame-src 'self' https://*.lovable.dev; worker-src 'self' blob:; object-src 'none';">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
     
@@ -49,7 +48,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
     <!-- Preload Critical Resources -->
-    <link rel="preload" href="/src/main.tsx" as="script">
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" as="style">
     
     <!-- Styles -->
@@ -146,16 +144,16 @@
     }
     </script>
 
-    <!-- Analytics (if needed) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=YOUR_GA_ID"></script>
+    <!-- Analytics placeholder - replace YOUR_GA_ID with actual ID when needed -->
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'YOUR_GA_ID', {
-        'anonymize_ip': true,
-        'cookie_flags': 'SameSite=None;Secure'
-      });
+      // Google Analytics placeholder - remove if not using
+      if (typeof gtag === 'undefined') {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        // Uncomment and replace YOUR_GA_ID when ready to use analytics
+        // gtag('js', new Date());
+        // gtag('config', 'YOUR_GA_ID');
+      }
     </script>
   </head>
 
