@@ -1,9 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { RetroGrid } from '@/components/ui/retro-grid';
 
 export const ImmersiveAnimatedBackground: React.FC = () => {
   return (
     <div className="absolute inset-0 overflow-hidden">
+      {/* Retro Grid Background */}
+      <RetroGrid className="opacity-30" />
+      
       {/* Base gradient background */}
       <motion.div
         className="absolute inset-0 bg-gradient-to-br from-background via-sheraa-light/20 to-sheraa-primary/10 dark:from-sheraa-dark dark:via-sheraa-dark/80 dark:to-sheraa-primary/20"
