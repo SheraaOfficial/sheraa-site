@@ -1,15 +1,12 @@
 
 import React from 'react';
 import { EnhancedMultilingualHeroContent } from '../homepage/hero/EnhancedMultilingualHeroContent';
-import { GradientBackground } from '@/components/ui/advanced-motion';
+import { ImmersiveAnimatedBackground } from './ImmersiveAnimatedBackground';
 
 export const ImmersiveHero: React.FC = () => {
   return (
     <section className="relative min-h-screen overflow-hidden">
-      <GradientBackground variant="primary" className="absolute inset-0">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(13,148,136,0.15),transparent_70%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_60%,rgba(20,184,166,0.1),transparent_70%)]" />
-      </GradientBackground>
+      <ImmersiveAnimatedBackground />
       
       <div className="container mx-auto px-4 relative z-10 min-h-screen flex items-center">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center w-full">

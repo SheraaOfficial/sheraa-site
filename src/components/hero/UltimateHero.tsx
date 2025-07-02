@@ -97,18 +97,6 @@ const UltimateHero = () => {
         <div className="w-full max-w-7xl mx-auto">
           <div className="text-center space-y-8">
             {/* Hero Badge with Enhanced Contrast */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-sheraa-bg-primary/95 dark:bg-sheraa-bg-secondary/95 backdrop-blur-xl border border-sheraa-border sheraa-shadow"
-            >
-              <Sparkles className="w-5 h-5 text-sheraa-primary animate-pulse" />
-              <span className="text-sm md:text-base font-bold sheraa-gradient-text">
-                🚀 Sharjah&apos;s Premier Startup Accelerator - Where Dreams Become Reality
-              </span>
-              <ArrowRight className="w-4 h-4 text-sheraa-primary" />
-            </motion.div>
 
             {/* Main Headline with Enhanced Text Contrast */}
             <div className="space-y-6">

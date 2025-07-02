@@ -32,7 +32,7 @@ export const SEFHighlightSection: React.FC = () => {
           <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-sheraa-sef-primary/20 to-sheraa-sef-accent/20 border border-sheraa-sef-primary/30 mb-6">
             <Sparkles className="w-5 h-5 text-sheraa-sef-primary animate-pulse" />
             <span className="text-sm font-bold bg-gradient-to-r from-sheraa-sef-primary to-sheraa-sef-accent bg-clip-text text-transparent">
-              The Region's Premier Entrepreneurship Festival
+              The Region's Largest Entrepreneurship Festival
             </span>
           </div>
           
