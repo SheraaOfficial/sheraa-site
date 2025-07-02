@@ -40,7 +40,7 @@ import MembershipApplyPage from "@/pages/community/membership/apply";
 import MembershipConfirmationPage from "@/pages/community/membership/confirmation";
 import MembershipSuccessStoriesPage from "@/pages/community/membership/success-stories";
 import PartnershipsPage from "@/pages/community/partnerships/index";
-import StartupsPage from "@/pages/community/startups/index";
+import CommunityStartupsPage from "@/pages/community/startups/index";
 import StartupDirectory from "@/pages/community/StartupDirectory";
 
 // Events pages
@@ -73,6 +73,7 @@ import Contact from "@/pages/contact/index";
 import CareersPage from "@/pages/careers/index";
 import EligibilityPage from "@/pages/eligibility/EligibilityCheckerPage";
 import ImpactReportPage from "@/pages/impact-report/index";
+import StartupsMainPage from "@/pages/startups/StartupsPage";
 import CommunityFeedPage from "@/pages/feed/index";
 import PrivacyPolicyPage from "@/pages/privacy-policy/index";
 import TermsOfUsePage from "@/pages/terms-of-use/index";
@@ -176,6 +177,7 @@ const AppRoutes: React.FC = () => {
         {/* Legacy Resources redirects */}
         <Route path="/resources" element={<Navigate to="/insights" replace />} />
         <Route path="/resources/*" element={<Navigate to="/insights" replace />} />
+        <Route path="/resources/impact-reports" element={<Navigate to="/insights/impact-reports" replace />} />
         
         {/* Community Routes */}
         <Route path="/community" element={<CommunityPage />} />
@@ -185,7 +187,8 @@ const AppRoutes: React.FC = () => {
         <Route path="/community/membership/confirmation" element={<MembershipConfirmationPage />} />
         <Route path="/community/membership/success-stories" element={<MembershipSuccessStoriesPage />} />
         <Route path="/community/partnerships" element={<PartnershipsPage />} />
-        <Route path="/community/startups" element={<StartupsPage />} />
+        <Route path="/community/startups" element={<StartupDirectory />} />
+        <Route path="/startups" element={<StartupsMainPage />} />
         
         {/* Events Routes */}
         <Route path="/events" element={<EventsPage />} />

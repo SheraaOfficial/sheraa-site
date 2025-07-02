@@ -140,8 +140,8 @@ const CommunityStartups: React.FC = () => {
                 whileTap={{ scale: 0.95 }}
               >
                 <Button asChild size="lg" className="bg-sheraa-primary hover:bg-sheraa-primary/90 px-8 py-6 text-lg shadow-xl">
-                  <Link to="/community/join" className="flex items-center gap-2">
-                    Join Our Community
+                  <Link to="/startups" className="flex items-center gap-2">
+                    Explore Full Directory
                     <motion.div
                       animate={{ x: [0, 5, 0] }}
                       transition={{ duration: 1.5, repeat: Infinity }}

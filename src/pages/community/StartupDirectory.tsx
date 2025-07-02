@@ -78,6 +78,18 @@ const StartupDirectory: React.FC = () => {
               <p className="text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed mb-8">
                 Discover our dynamic portfolio of innovative startups that are transforming industries, creating jobs, and generating significant impact across the region.
               </p>
+              
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <StartupSubmissionForm trigger={
+                  <Button size="lg" className="bg-sheraa-primary hover:bg-sheraa-primary/90 px-8 py-6">
+                    <Plus className="w-4 h-4 mr-2" />
+                    Submit Your Startup
+                  </Button>
+                } />
+                <Button asChild variant="outline" size="lg" className="border-sheraa-primary/30 text-sheraa-primary hover:bg-sheraa-primary/10 px-8 py-6">
+                  <Link to="/programs">Explore Programs</Link>
+                </Button>
+              </div>
             </motion.div>
 
             {/* Stats */}

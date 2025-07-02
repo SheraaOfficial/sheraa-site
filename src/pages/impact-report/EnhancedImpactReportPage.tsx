@@ -138,7 +138,7 @@ const EnhancedImpactReportPage: React.FC = () => {
         title="Impact That Speaks Volumes"
         subtitle="Measuring Our Collective Success"
         showScrollIndicator={true}
-        overlay="particles"
+        overlay="gradient"
         interactive={true}
       />
 
