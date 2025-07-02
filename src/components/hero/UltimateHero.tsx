@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { GradientButton } from "@/components/ui/gradient-button";
+import { RetroGrid } from "@/components/ui/retro-grid";
 import { Link } from "react-router-dom";
 import { ArrowRight, Star, Sparkles, Rocket, Users, TrendingUp, Award, Globe, Zap } from "lucide-react";
 
@@ -54,11 +55,11 @@ const UltimateHero = () => {
     <section className="relative min-h-screen overflow-hidden sheraa-gradient-bg pt-20">
       {/* Enhanced Background Effects with Better Contrast */}
       <div className="absolute inset-0 overflow-hidden">
+        {/* Retro Grid Background */}
+        <RetroGrid className="opacity-30" />
+        
         <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-sheraa-primary/15 to-sheraa-accent/8 rounded-full blur-3xl animate-pulse" />
         <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-sheraa-secondary/12 to-sheraa-orange/8 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
-        
-        {/* Grid Pattern with Better Contrast */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--sheraa-primary))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--sheraa-primary))_1px,transparent_1px)] bg-[size:14px_24px] opacity-[0.03] dark:opacity-[0.05]" />
       </div>
 
       {/* Floating Elements with Enhanced Colors */}
