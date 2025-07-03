@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
+import { toast } from "@/hooks/use-toast";
 import { 
   Target, 
   Clock, 
@@ -15,7 +16,9 @@ import {
   Star,
   Medal,
   Crown,
-  CheckCircle
+  CheckCircle,
+  Eye,
+  Share2
 } from "lucide-react";
 
 interface Challenge {
@@ -154,6 +157,40 @@ const ChallengeFeed = () => {
 
   const joinChallenge = (challengeId: string) => {
     setJoinedChallenges(prev => [...prev, challengeId]);
+    toast({
+      title: "🎉 Challenge joined!",
+      description: "You're now part of this exciting challenge. Good luck!",
+      duration: 3000,
+    });
+  };
+
+  const viewChallengeDetails = (challengeId: string) => {
+    toast({
+      title: "Challenge details",
+      description: "Opening detailed challenge information...",
+      duration: 2000,
+    });
+  };
+
+  const shareChallenge = (challengeId: string) => {
+    const challenge = challenges.find(c => c.id === challengeId);
+    if (challenge) {
+      const shareText = `Check out this challenge: ${challenge.title}! Join me at Sheraa's Challenge Feed 🔥`;
+      if (navigator.share) {
+        navigator.share({
+          title: challenge.title,
+          text: shareText,
+          url: window.location.href
+        });
+      } else {
+        navigator.clipboard.writeText(shareText);
+        toast({
+          title: "Challenge shared! 📋",
+          description: "Link copied to clipboard!",
+          duration: 2000,
+        });
+      }
+    }
   };
 
   const filteredChallenges = challenges.filter(challenge => challenge.status === activeTab);
@@ -319,7 +356,20 @@ const ChallengeFeed = () => {
                         Join Challenge
                       </Button>
                     )}
-                    <Button variant="outline">View Details</Button>
+                    <Button 
+                      variant="outline"
+                      onClick={() => viewChallengeDetails(challenge.id)}
+                    >
+                      <Eye className="w-4 h-4 mr-2" />
+                      Details
+                    </Button>
+                    <Button 
+                      variant="outline"
+                      size="sm"
+                      onClick={() => shareChallenge(challenge.id)}
+                    >
+                      <Share2 className="w-4 h-4" />
+                    </Button>
                   </div>
                 </CardContent>
               </Card>

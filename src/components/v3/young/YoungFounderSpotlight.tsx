@@ -136,6 +136,9 @@ const YoungFounderSpotlight = () => {
         videoRef.current.play();
       }
       setIsPlaying(!isPlaying);
+    } else {
+      // Fallback for when no video element exists
+      setIsPlaying(!isPlaying);
     }
   };
 
@@ -186,6 +189,18 @@ const YoungFounderSpotlight = () => {
               style={{ backgroundImage: `url(${currentFounder.thumbnailUrl})` }}
             >
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30" />
+              
+              {/* Video Element (hidden for now, showing as background image) */}
+              <video
+                ref={videoRef}
+                className="absolute inset-0 w-full h-full object-cover opacity-0"
+                muted={isMuted}
+                loop
+                onPlay={() => setIsPlaying(true)}
+                onPause={() => setIsPlaying(false)}
+              >
+                <source src={currentFounder.videoUrl} type="video/mp4" />
+              </video>
               
               {/* Play/Pause Overlay */}
               <div 

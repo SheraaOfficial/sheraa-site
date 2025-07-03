@@ -5,7 +5,9 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { Share2, Download, Trophy, Target, Lightbulb, Users, TrendingUp } from "lucide-react";
+import { toast } from "@/hooks/use-toast";
 import confetti from "canvas-confetti";
+import SocialShare from "./SocialShare";
 
 interface Question {
   id: number;
@@ -276,19 +278,44 @@ const IdeaValidatorGame = () => {
               </ul>
             </div>
             
-            <div className="grid grid-cols-2 gap-3 mb-6">
-              <Button onClick={shareResult} variant="outline" className="flex items-center gap-2">
-                <Share2 className="w-4 h-4" />
-                Share Results
+            <SocialShare result={result} />
+            
+            <div className="grid grid-cols-2 gap-3 mb-6 mt-6">
+              <Button 
+                onClick={() => {
+                  const url = '/v3/young/peer-matching';
+                  window.location.href = url;
+                }} 
+                variant="outline" 
+                className="flex items-center gap-2"
+              >
+                <Users className="w-4 h-4" />
+                Find Co-founders
               </Button>
-              <Button variant="outline" className="flex items-center gap-2">
+              <Button 
+                onClick={() => {
+                  toast({
+                    title: "Downloading roadmap! 📋",
+                    description: "Your personalized action plan is being prepared...",
+                    duration: 3000,
+                  });
+                }}
+                variant="outline" 
+                className="flex items-center gap-2"
+              >
                 <Download className="w-4 h-4" />
                 Download Plan
               </Button>
             </div>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <Button className="young-gradient-dopamine text-white font-bold">
+              <Button 
+                onClick={() => {
+                  const url = '/programs/startup-dojo';
+                  window.location.href = url;
+                }}
+                className="young-gradient-dopamine text-white font-bold"
+              >
                 Join Startup Dojo
               </Button>
               <Button variant="outline" onClick={resetQuiz}>

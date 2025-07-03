@@ -1,6 +1,6 @@
 import React from "react";
 import MainLayout from "@/components/layouts/MainLayout";
-import PeerMatchingSystem from "@/components/v3/young/PeerMatchingSystem";
+import EnhancedPeerMatchingSystem from "@/components/v3/young/EnhancedPeerMatchingSystem";
 import YoungEntrepreneurNavigation from "@/components/v3/young/YoungEntrepreneurNavigation";
 import { Card, CardContent } from "@/components/ui/card";
 import { Heart, Users, TrendingUp, MessageCircle } from "lucide-react";
@@ -50,7 +50,7 @@ const PeerMatchingPage: React.FC = () => {
           </div>
 
           {/* Matching System */}
-          <PeerMatchingSystem />
+          <EnhancedPeerMatchingSystem />
         </div>
       </section>
     </MainLayout>
