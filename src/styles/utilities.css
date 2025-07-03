@@ -1,0 +1,89 @@
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* RTL-specific utilities */
+  .rtl\:rotate-y-180 {
+    transform: rotateY(180deg);
+  }
+  
+  .rtl\:scale-x-[-1] {
+    transform: scaleX(-1);
+  }
+
+  /* Enhanced Sheraa Brand Utilities */
+  .sheraa-gradient-text {
+    @apply bg-gradient-to-r from-sheraa-primary to-sheraa-accent bg-clip-text text-transparent;
+  }
+
+  .sheraa-gradient-bg {
+    background: linear-gradient(135deg, hsl(var(--sheraa-primary) / 0.05), hsl(var(--sheraa-accent) / 0.03));
+  }
+
+  .dark .sheraa-gradient-bg {
+    background: linear-gradient(135deg, hsl(var(--sheraa-primary) / 0.08), hsl(var(--sheraa-accent) / 0.05));
+  }
+
+  .sheraa-shadow {
+    box-shadow: 0 10px 25px hsl(var(--sheraa-primary) / 0.15);
+  }
+
+  .sheraa-shadow-lg {
+    box-shadow: 0 20px 40px hsl(var(--sheraa-primary) / 0.2);
+  }
+
+  /* Enhanced contrast utilities */
+  .sheraa-text-contrast {
+    color: hsl(var(--sheraa-text-primary));
+  }
+
+  .sheraa-bg-contrast {
+    background-color: hsl(var(--sheraa-bg-primary));
+  }
+
+  .sheraa-border-contrast {
+    border-color: hsl(var(--sheraa-border));
+  }
+
+  /* Focus and accessibility improvements */
+  .focus-visible:focus {
+    outline: 2px solid hsl(var(--sheraa-primary));
+    outline-offset: 2px;
+  }
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --sheraa-primary: 0 0% 0%;
+    --sheraa-accent: 0 0% 20%;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .animate-float,
+  .animate-glow,
+  .animate-spin-slow,
+  .text-shimmer {
+    animation: none !important;
+  }
+}

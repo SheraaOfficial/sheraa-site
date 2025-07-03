@@ -1,0 +1,113 @@
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800;900&display=swap");
+@import "./sheraa-brand-colors.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* System colors - unchanged */
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222.2 84% 4.9%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222.2 84% 4.9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+    --radius: 0.5rem;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+  }
+
+  .dark {
+    /* Dark theme system colors */
+    --background: 228 71% 8%;
+    --foreground: 216 40% 94%;
+    --card: 228 71% 12%;
+    --card-foreground: 216 40% 94%;
+    --popover: 228 71% 12%;
+    --popover-foreground: 216 40% 94%;
+    --primary: 216 40% 94%;
+    --primary-foreground: 228 71% 8%;
+    --secondary: 228 57% 18%;
+    --secondary-foreground: 216 40% 94%;
+    --muted: 228 57% 18%;
+    --muted-foreground: 215 20.2% 70%;
+    --accent: 228 57% 18%;
+    --accent-foreground: 216 40% 94%;
+    --destructive: 0 62.8% 50%;
+    --destructive-foreground: 216 40% 94%;
+    --border: 228 50% 25%;
+    --input: 228 57% 20%;
+    --ring: 216 40% 94%;
+    --chart-1: 220 70% 60%;
+    --chart-2: 160 60% 55%;
+    --chart-3: 30 80% 65%;
+    --chart-4: 280 65% 70%;
+    --chart-5: 340 75% 65%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Plus Jakarta Sans", "Inter", sans-serif;
+    font-feature-settings: "cv11", "ss01";
+    font-variation-settings: "opsz" 32;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* RTL Support */
+  [dir="rtl"] {
+    font-family: "Noto Sans Arabic", "Plus Jakarta Sans", system-ui, sans-serif;
+  }
+
+  [dir="rtl"] .font-sans {
+    font-family: "Noto Sans Arabic", system-ui, sans-serif;
+  }
+
+  /* Enhanced scrollbar styling with Sheraa brand colors */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--sheraa-bg-secondary));
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, hsl(var(--sheraa-primary)), hsl(var(--sheraa-accent)));
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(to bottom, hsl(var(--sheraa-accent)), hsl(var(--sheraa-primary)));
+  }
+}
