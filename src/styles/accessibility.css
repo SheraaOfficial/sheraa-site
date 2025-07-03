@@ -106,3 +106,62 @@
     min-width: 44px;
   }
 }
+
+/* Young entrepreneur specific accessibility */
+.young-accessible-focus {
+  outline: 3px solid var(--sheraa-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.young-accessible-focus:focus-visible {
+  outline: 3px solid var(--sheraa-primary);
+  outline-offset: 2px;
+}
+
+/* High contrast adjustments for young pages */
+.high-contrast .young-gradient-dopamine {
+  background: var(--sheraa-primary) !important;
+  border: 2px solid var(--border-color) !important;
+}
+
+.high-contrast .young-particle-bg {
+  background: var(--background-color) !important;
+}
+
+/* Large text support for young components */
+.large-text .young-text-responsive {
+  font-size: 1.125rem;
+}
+
+.extra-large-text .young-text-responsive {
+  font-size: 1.25rem;
+}
+
+/* Reduced motion for young animations */
+.reduce-motion .young-gradient-dopamine {
+  animation: none !important;
+}
+
+.reduce-motion .young-dopamine-shadow {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Mobile-first accessibility */
+@media (max-width: 767px) {
+  .young-mobile-accessible {
+    font-size: 16px; /* Prevent zoom on iOS */
+    line-height: 1.5;
+  }
+  
+  .young-mobile-touch-target {
+    min-height: 48px;
+    min-width: 48px;
+    padding: 12px;
+  }
+  
+  /* Ensure adequate spacing for finger navigation */
+  .young-mobile-nav button {
+    margin: 4px;
+  }
+}

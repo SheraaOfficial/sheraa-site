@@ -196,16 +196,16 @@ const ChallengeFeed = () => {
   const filteredChallenges = challenges.filter(challenge => challenge.status === activeTab);
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
+    <main id="main-content" className="max-w-4xl mx-auto p-6 mobile-optimized young-mobile-accessible">
       {/* Header */}
-      <div className="text-center mb-8">
-        <h1 className="text-4xl font-black mb-4 young-gradient-text">
+      <header className="text-center mb-8">
+        <h1 className="text-4xl font-black mb-4 young-gradient-text young-text-responsive">
           🔥 Live Challenges
         </h1>
-        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+        <p className="text-lg text-gray-600 max-w-2xl mx-auto young-text-responsive">
           Join exciting challenges, compete with peers, and win amazing prizes while building real entrepreneurial skills!
         </p>
-      </div>
+      </header>
 
       {/* Trending Banner */}
       <motion.div
@@ -239,16 +239,24 @@ const ChallengeFeed = () => {
 
       {/* Tabs */}
       <div className="flex justify-center mb-6">
-        <div className="flex bg-gray-100 rounded-full p-1">
+        <div 
+          className="flex bg-gray-100 rounded-full p-1"
+          role="tablist"
+          aria-label="Challenge status filter"
+        >
           {["active", "completed", "upcoming"].map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab as any)}
-              className={`px-6 py-2 rounded-full font-semibold text-sm transition-all ${
+              className={`px-6 py-2 rounded-full font-semibold text-sm transition-all tap-target young-accessible-focus ${
                 activeTab === tab
                   ? "young-gradient-dopamine text-white shadow-lg"
                   : "text-gray-600 hover:text-gray-900"
               }`}
+              role="tab"
+              aria-selected={activeTab === tab}
+              aria-controls={`${tab}-challenges`}
+              id={`tab-${tab}`}
             >
               {tab.charAt(0).toUpperCase() + tab.slice(1)}
             </button>
@@ -349,12 +357,13 @@ const ChallengeFeed = () => {
                         Joined
                       </Button>
                     ) : (
-                      <Button 
-                        onClick={() => joinChallenge(challenge.id)}
-                        className="flex-1 young-gradient-dopamine text-white font-bold"
-                      >
-                        Join Challenge
-                      </Button>
+                    <Button 
+                      onClick={() => joinChallenge(challenge.id)}
+                      className="flex-1 young-gradient-dopamine text-white font-bold tap-target young-accessible-focus"
+                      aria-label={`Join ${challenge.title} challenge`}
+                    >
+                      Join Challenge
+                    </Button>
                     )}
                     <Button 
                       variant="outline"
@@ -428,7 +437,7 @@ const ChallengeFeed = () => {
           </CardContent>
         </Card>
       </motion.div>
-    </div>
+    </main>
   );
 };
 

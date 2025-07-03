@@ -67,3 +67,58 @@ html.reduce-effects .shadow-2xl {
     scroll-behavior: auto !important;
   }
 }
+
+/* Young entrepreneur mobile optimizations */
+.young-mobile-optimized {
+  /* Improve touch performance */
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* Video performance optimizations for mobile */
+@media (max-width: 767px) {
+  .young-video-container video {
+    will-change: transform;
+    transform: translateZ(0);
+  }
+  
+  .young-video-container.playing video {
+    opacity: 1;
+  }
+  
+  .young-video-container:not(.playing) video {
+    opacity: 0;
+  }
+}
+
+/* Performance optimizations for mobile devices */
+.mobile-device .young-particle-bg {
+  background-image: none !important;
+}
+
+.mobile-device .young-complex-animation {
+  animation: none !important;
+}
+
+/* iOS specific optimizations */
+@supports (-webkit-touch-callout: none) {
+  .young-ios-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+}
+
+/* Android specific optimizations */
+@media screen and (max-width: 767px) and (orientation: portrait) {
+  .young-android-keyboard-adjust {
+    min-height: calc(100vh - env(keyboard-inset-height, 0px));
+  }
+}
+
+/* PWA optimizations */
+@media (display-mode: standalone) {
+  .young-pwa-optimized {
+    padding-top: env(safe-area-inset-top);
+  }
+}

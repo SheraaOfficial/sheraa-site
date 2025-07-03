@@ -172,9 +172,18 @@ const YoungFounderSpotlight = () => {
   }, []);
 
   return (
-    <div className="relative max-w-md mx-auto h-screen bg-black overflow-hidden">
+    <div className="relative max-w-md mx-auto h-screen bg-black overflow-hidden young-mobile-optimized">
+      {/* Screen reader instructions */}
+      <div className="sr-only">
+        Use arrow keys up and down to navigate stories, space bar to pause/play, or swipe on touch devices
+      </div>
+      
       {/* Video Container */}
-      <div className="relative w-full h-full">
+      <div 
+        className="relative w-full h-full young-video-container" 
+        role="main"
+        aria-label="Young founder video stories"
+      >
         <AnimatePresence mode="wait">
           <motion.div
             key={currentStory}
@@ -198,14 +207,19 @@ const YoungFounderSpotlight = () => {
                 loop
                 onPlay={() => setIsPlaying(true)}
                 onPause={() => setIsPlaying(false)}
+                aria-label={`Video story of ${currentFounder.name}, founder of ${currentFounder.company}`}
+                preload="metadata"
               >
                 <source src={currentFounder.videoUrl} type="video/mp4" />
+                <track kind="captions" src={`${currentFounder.videoUrl}.vtt`} srcLang="en" label="English" default />
               </video>
               
               {/* Play/Pause Overlay */}
-              <div 
-                className="absolute inset-0 flex items-center justify-center cursor-pointer"
+              <button
+                className="absolute inset-0 flex items-center justify-center bg-transparent border-0 cursor-pointer tap-target"
                 onClick={togglePlay}
+                aria-label={isPlaying ? "Pause video" : "Play video"}
+                type="button"
               >
                 {!isPlaying && (
                   <motion.div
@@ -216,7 +230,7 @@ const YoungFounderSpotlight = () => {
                     <Play className="w-8 h-8 text-white ml-1" />
                   </motion.div>
                 )}
-              </div>
+              </button>
             </div>
           </motion.div>
         </AnimatePresence>
@@ -232,9 +246,15 @@ const YoungFounderSpotlight = () => {
               variant="ghost"
               size="sm"
               onClick={toggleMute}
-              className="text-white hover:bg-white/20"
+              className="text-white hover:bg-white/20 tap-target young-accessible-focus"
+              aria-label={isMuted ? "Unmute video" : "Mute video"}
             >
-              {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
+              {isMuted ? (
+                <VolumeX className="w-4 h-4" aria-hidden="true" />
+              ) : (
+                <Volume2 className="w-4 h-4" aria-hidden="true" />
+              )}
+              <span className="sr-only">{isMuted ? "Unmuted" : "Muted"}</span>
             </Button>
           </div>
         </div>
@@ -338,13 +358,17 @@ const YoungFounderSpotlight = () => {
         </div>
 
         {/* Navigation Areas */}
-        <div 
-          className="absolute left-0 top-0 w-1/2 h-full z-10 cursor-pointer"
+        <button
+          className="absolute left-0 top-0 w-1/2 h-full z-10 bg-transparent border-0 cursor-pointer tap-target"
           onClick={handlePrevious}
+          aria-label="Previous founder story"
+          type="button"
         />
-        <div 
-          className="absolute right-0 top-0 w-1/2 h-full z-10 cursor-pointer"
+        <button
+          className="absolute right-0 top-0 w-1/2 h-full z-10 bg-transparent border-0 cursor-pointer tap-target"
           onClick={handleNext}
+          aria-label="Next founder story"
+          type="button"
         />
 
         {/* Bottom Instructions */}
