@@ -244,6 +244,11 @@ const AppRoutes: React.FC = () => {
         
         {/* V3 Young Entrepreneur Persona Routes */}
         <Route path="/v3/young" element={<YoungEntrepreneurIndex />} />
+        <Route path="/v3/young/idea-validator" element={<IdeaValidatorPage />} />
+        <Route path="/v3/young/founders" element={<FoundersPage />} />
+        <Route path="/v3/young/challenges" element={<ChallengesPage />} />
+        <Route path="/v3/young/hubs" element={<HubFinderPage />} />
+        <Route path="/v3/young/peer-matching" element={<PeerMatchingPage />} />
 
         {/* Legacy redirects for backwards compatibility */}
         <Route path="/login" element={<Navigate to="/auth/login" replace />} />
