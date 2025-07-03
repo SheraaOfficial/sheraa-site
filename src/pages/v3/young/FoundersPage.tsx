@@ -1,6 +1,7 @@
 import React from "react";
 import MainLayout from "@/components/layouts/MainLayout";
 import YoungFounderSpotlight from "@/components/v3/young/YoungFounderSpotlight";
+import YoungEntrepreneurNavigation from "@/components/v3/young/YoungEntrepreneurNavigation";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Play, Heart, Users, TrendingUp } from "lucide-react";
@@ -31,6 +32,7 @@ const FoundersPage: React.FC = () => {
 
   return (
     <MainLayout>
+      <YoungEntrepreneurNavigation />
       <section className="py-16 bg-black text-white min-h-screen">
         <div className="container mx-auto px-4">
           {/* Header */}

@@ -1,6 +1,7 @@
 import React from "react";
 import MainLayout from "@/components/layouts/MainLayout";
 import PeerMatchingSystem from "@/components/v3/young/PeerMatchingSystem";
+import YoungEntrepreneurNavigation from "@/components/v3/young/YoungEntrepreneurNavigation";
 import { Card, CardContent } from "@/components/ui/card";
 import { Heart, Users, TrendingUp, MessageCircle } from "lucide-react";
 
@@ -30,6 +31,7 @@ const PeerMatchingPage: React.FC = () => {
 
   return (
     <MainLayout>
+      <YoungEntrepreneurNavigation />
       <section className="py-16 young-particle-bg bg-gradient-to-br from-white via-pink-50/30 to-purple-50/30 min-h-screen">
         <div className="container mx-auto px-4">
           {/* Header Stats */}

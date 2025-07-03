@@ -1,6 +1,7 @@
 import React from "react";
 import MainLayout from "@/components/layouts/MainLayout";
 import UniversityHubFinder from "@/components/v3/young/UniversityHubFinder";
+import YoungEntrepreneurNavigation from "@/components/v3/young/YoungEntrepreneurNavigation";
 import { Card, CardContent } from "@/components/ui/card";
 import { MapPin, Users, Calendar, Trophy } from "lucide-react";
 
@@ -30,6 +31,7 @@ const HubFinderPage: React.FC = () => {
 
   return (
     <MainLayout>
+      <YoungEntrepreneurNavigation />
       <section className="py-16 bg-gradient-to-br from-white via-blue-50/30 to-green-50/30 min-h-screen">
         <div className="container mx-auto px-4">
           {/* Benefits Grid */}

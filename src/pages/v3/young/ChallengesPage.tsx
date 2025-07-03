@@ -1,6 +1,7 @@
 import React from "react";
 import MainLayout from "@/components/layouts/MainLayout";
 import ChallengeFeed from "@/components/v3/young/ChallengeFeed";
+import YoungEntrepreneurNavigation from "@/components/v3/young/YoungEntrepreneurNavigation";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Trophy, Target, Users, Clock } from "lucide-react";
@@ -35,6 +36,7 @@ const ChallengesPage: React.FC = () => {
 
   return (
     <MainLayout>
+      <YoungEntrepreneurNavigation />
       <section className="py-16 young-particle-bg bg-gradient-to-br from-white via-purple-50/30 to-pink-50/30 min-h-screen">
         <div className="container mx-auto px-4">
           {/* How It Works */}
