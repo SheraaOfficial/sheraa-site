@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useRef } from "react";
+
+import React, { useState, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { GradientButton } from "@/components/ui/gradient-button";
 import { Sparkles } from "@/components/ui/sparkles";
 import { VerticalCutReveal } from "@/components/ui/vertical-cut-reveal";
-import { Gravity, MatterBody } from "@/components/ui/gravity";
 import { Link } from "react-router-dom";
-import { ArrowRight, Play, Rocket, Users, Trophy, Lightbulb, Star } from "lucide-react";
+import { ArrowRight, Play, Rocket, Users, Trophy, Lightbulb, Heart, Star, Zap, Coffee, BookOpen, Smartphone } from "lucide-react";
 
 const EnhancedYoungEntrepreneurHero = () => {
   const [mounted, setMounted] = useState(false);
@@ -19,83 +19,97 @@ const EnhancedYoungEntrepreneurHero = () => {
   useEffect(() => {
     setMounted(true);
     
-    // Show welcome for 4 seconds, then transition to main hero
     const timer = setTimeout(() => {
       setShowWelcome(false);
       setTimeout(() => setShowMainHero(true), 500);
-    }, 4000);
+    }, 3000);
 
     return () => clearTimeout(timer);
   }, []);
 
-  const entrepreneurshipWords = [
-    { text: "Innovation", color: "young-gradient-dopamine" },
-    { text: "Startup", color: "young-gradient-energy" },
-    { text: "Venture", color: "young-gradient-success" },
-    { text: "Pitch", color: "young-gradient-dopamine" },
-    { text: "Funding", color: "young-gradient-energy" },
-    { text: "Scale", color: "young-gradient-success" },
-    { text: "Disrupt", color: "young-gradient-dopamine" },
-    { text: "MVP", color: "young-gradient-energy" },
-    { text: "Growth", color: "young-gradient-success" },
-    { text: "Impact", color: "young-gradient-dopamine" }
-  ];
-
-  const engagementHooks = [
+  const bentoCards = [
     {
       icon: Rocket,
-      title: "Interactive Idea Validator Tool",
-      subtitle: "3-min quiz",
-      color: "young-gradient-dopamine"
+      title: "That 3AM Idea?",
+      subtitle: "Let's make it your empire",
+      color: "young-gradient-dopamine",
+      size: "large"
     },
     {
-      icon: Trophy,
-      title: "Young Entrepreneur Competition", 
-      subtitle: "AED 50K prizes",
-      color: "young-gradient-energy"
+      icon: Heart,
+      title: "No Suits Required",
+      subtitle: "Just pure passion",
+      color: "young-gradient-energy",
+      size: "small"
     },
     {
-      icon: Lightbulb,
-      title: "Free Innovation Workshops",
-      subtitle: "Weekly events",
-      color: "young-gradient-success"
+      icon: Coffee,
+      title: "Student Budget?",
+      subtitle: "We got you covered",
+      color: "young-gradient-success",
+      size: "medium"
     },
     {
       icon: Users,
-      title: "Peer Mentorship Network",
-      subtitle: "Connect with founders",
-      color: "young-gradient-dopamine"
+      title: "Find Your Tribe",
+      subtitle: "Connect with fellow dreamers",
+      color: "young-gradient-dreamy",
+      size: "medium"
+    },
+    {
+      icon: Trophy,
+      title: "AED 50K Prizes",
+      subtitle: "Your ideas = Real money",
+      color: "young-gradient-energy",
+      size: "large"
+    },
+    {
+      icon: BookOpen,
+      title: "From Classroom to CEO",
+      subtitle: "Skip the boring stuff",
+      color: "young-gradient-dopamine",
+      size: "small"
     }
   ];
 
-  const trustIndicators = [
-    { icon: "🎓", text: "University Partners: AUS & UoS" },
-    { icon: "🏅", text: "500+ Student Success Stories" },
-    { icon: "🌍", text: "Students from 25+ Countries" }
+  const socialProof = [
+    { emoji: "🎓", text: "500+ Student Founders", highlight: true },
+    { emoji: "💰", text: "AED 2M+ Raised by Gen Z", highlight: false },
+    { emoji: "🌍", text: "25+ Countries Represented", highlight: false },
+    { emoji: "🔥", text: "Trending in UAE Universities", highlight: true }
   ];
 
-  // Welcome Stage Component
   const WelcomeStage = () => (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: showWelcome ? 1 : 0 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
-      className="absolute inset-0 z-50 bg-gradient-to-br from-purple-900 via-indigo-900 to-pink-900 flex items-center justify-center"
+      className="absolute inset-0 z-50 young-gradient-animated flex items-center justify-center"
     >
       <div className="text-center text-white">
+        <motion.div
+          initial={{ scale: 0.5, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ delay: 0.5, duration: 0.8, type: "spring" }}
+          className="mb-8"
+        >
+          <div className="text-6xl md:text-8xl mb-4">🚀</div>
+        </motion.div>
+        
         <VerticalCutReveal
           splitBy="characters"
-          staggerDuration={0.05}
+          staggerDuration={0.03}
           staggerFrom="center"
           transition={{
             type: "spring",
             stiffness: 200,
             damping: 21,
+            delay: 1,
           }}
-          containerClassName="text-4xl md:text-6xl lg:text-7xl font-black mb-6"
+          containerClassName="text-3xl md:text-5xl font-black mb-4"
         >
-          Welcome to Your Journey! 🚀
+          Your moment is NOW! ✨
         </VerticalCutReveal>
         
         <VerticalCutReveal
@@ -106,58 +120,49 @@ const EnhancedYoungEntrepreneurHero = () => {
             type: "spring",
             stiffness: 200,
             damping: 21,
-            delay: 1.5,
+            delay: 2,
           }}
-          containerClassName="text-xl md:text-2xl opacity-90"
+          containerClassName="text-lg md:text-xl opacity-90"
         >
-          Where Crazy Ideas Become Reality
+          Stop scrolling. Start building.
         </VerticalCutReveal>
       </div>
     </motion.div>
   );
 
-  // Gradient Bars Background
-  const GradientBarsBackground = () => {
-    const numBars = 12;
-    
-    const calculateHeight = (index: number, total: number) => {
-      const position = index / (total - 1);
-      const maxHeight = 100;
-      const minHeight = 30;
-      const center = 0.5;
-      const distanceFromCenter = Math.abs(position - center);
-      const heightPercentage = Math.pow(distanceFromCenter * 2, 1.2);
-      return minHeight + (maxHeight - minHeight) * heightPercentage;
-    };
+  const BentoGrid = () => (
+    <div className="grid grid-cols-6 grid-rows-4 gap-4 max-w-4xl mx-auto h-80 mb-8">
+      {bentoCards.map((card, index) => {
+        const gridClasses = {
+          large: index === 0 ? "col-span-3 row-span-2" : index === 4 ? "col-span-3 row-span-2" : "",
+          medium: "col-span-2 row-span-2",
+          small: "col-span-1 row-span-2"
+        };
 
-    return (
-      <div className="absolute inset-0 z-0 overflow-hidden opacity-20">
-        <div className="flex h-full">
-          {Array.from({ length: numBars }).map((_, index) => {
-            const height = calculateHeight(index, numBars);
-            return (
-              <div
-                key={index}
-                style={{
-                  flex: `1 0 calc(100% / ${numBars})`,
-                  maxWidth: `calc(100% / ${numBars})`,
-                  height: '100%',
-                  background: 'linear-gradient(to top, hsl(var(--sheraa-primary)), transparent)',
-                  transform: `scaleY(${height / 100})`,
-                  transformOrigin: 'bottom',
-                  transition: 'transform 0.5s ease-in-out',
-                  animation: 'pulseBar 2s ease-in-out infinite alternate',
-                  animationDelay: `${index * 0.1}s`,
-                }}
-              />
-            );
-          })}
-        </div>
-      </div>
-    );
-  };
+        return (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.1 + index * 0.1, type: "spring" }}
+            whileHover={{ 
+              scale: 1.05,
+              rotate: Math.random() * 4 - 2,
+              transition: { duration: 0.2 }
+            }}
+            className={`${gridClasses[card.size]} young-bento-card p-4 flex flex-col justify-center items-center text-center cursor-pointer group`}
+          >
+            <div className={`w-12 h-12 ${card.color} rounded-full flex items-center justify-center mb-3 group-hover:animate-micro-bounce`}>
+              <card.icon className="w-6 h-6 text-white" />
+            </div>
+            <h3 className="font-bold text-sm md:text-base text-gray-800 mb-1">{card.title}</h3>
+            <p className="text-xs md:text-sm text-gray-600">{card.subtitle}</p>
+          </motion.div>
+        );
+      })}
+    </div>
+  );
 
-  // Main Hero Content
   const MainHeroContent = () => (
     <motion.div 
       style={{ y, opacity }}
@@ -166,36 +171,7 @@ const EnhancedYoungEntrepreneurHero = () => {
       transition={{ duration: 0.8 }}
       className="container mx-auto px-4 relative z-10 min-h-screen flex items-center"
     >
-      <div className="w-full max-w-4xl mx-auto text-center space-y-8">
-        {/* Floating Words Physics */}
-        <div className="absolute inset-0 pointer-events-none">
-          <Gravity 
-            gravity={{ x: 0, y: 0.3 }} 
-            className="w-full h-full"
-            debug={false}
-            addTopWall={false}
-          >
-            {entrepreneurshipWords.map((word, index) => (
-              <MatterBody
-                key={index}
-                matterBodyOptions={{ 
-                  friction: 0.3, 
-                  restitution: 0.4,
-                  density: 0.0008
-                }}
-                x={`${20 + (index * 8) % 60}%`}
-                y={`${10 + (index * 12) % 40}%`}
-                angle={Math.random() * 20 - 10}
-                bodyType="circle"
-              >
-                <div className={`text-sm md:text-base ${word.color} text-white rounded-full px-4 py-2 shadow-lg backdrop-blur-sm cursor-grab hover:cursor-grabbing`}>
-                  {word.text}
-                </div>
-              </MatterBody>
-            ))}
-          </Gravity>
-        </div>
-
+      <div className="w-full max-w-6xl mx-auto text-center space-y-8">
         {/* Main Headline */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -203,107 +179,109 @@ const EnhancedYoungEntrepreneurHero = () => {
           transition={{ duration: 0.8, delay: 0.1 }}
           className="space-y-6 relative z-20"
         >
+          <div className="inline-flex items-center gap-2 px-4 py-2 young-glass-card text-sm font-medium text-gray-700 mb-4">
+            <Zap className="w-4 h-4 text-yellow-500" />
+            <span>Trending at UAE Universities</span>
+            <Star className="w-4 h-4 text-yellow-500" />
+          </div>
+
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[0.9]">
             <span className="young-gradient-text">
-              Your Crazy Idea Could Change the World
+              That Random 3AM Idea?
             </span>
-            <span className="block text-4xl md:text-5xl">🚀</span>
+            <br />
+            <span className="text-gray-800">
+              Let's Make It Your Empire
+            </span>
+            <span className="block text-4xl md:text-5xl mt-2">👑</span>
           </h1>
           
-          <p className="text-lg md:text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
-            Join 1,000+ young innovators building the future from Sharjah
+          <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            Stop overthinking. Start building. Join 500+ student entrepreneurs who turned their dorm room dreams into real businesses.
             <br />
-            <span className="text-base text-gray-600 font-medium">
-              (No business experience required - we'll teach you everything)
+            <span className="text-base text-gray-500 font-medium">
+              (Your parents will finally understand what you're doing with your life 😉)
             </span>
           </p>
         </motion.div>
 
-        {/* Engagement Hooks */}
+        {/* Bento Grid Cards */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto relative z-20"
+          className="relative z-20"
         >
-          {engagementHooks.map((hook, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.5 + index * 0.1 }}
-              whileHover={{ 
-                scale: 1.05,
-                transition: { duration: 0.2 }
-              }}
-              className="group cursor-pointer"
-            >
-              <div className={`p-4 rounded-2xl ${hook.color} young-dopamine-shadow group-hover:shadow-2xl transition-all duration-300`}>
-                <div className="flex flex-col items-center text-center space-y-2 text-white">
-                  <hook.icon className="w-8 h-8" />
-                  <div>
-                    <h3 className="font-bold text-sm leading-tight">{hook.title}</h3>
-                    <p className="text-xs opacity-90">{hook.subtitle}</p>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          ))}
+          <BentoGrid />
         </motion.div>
 
         {/* Action Buttons */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
           className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-6 relative z-20"
         >
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+          <motion.div 
+            whileHover={{ scale: 1.05 }} 
+            whileTap={{ scale: 0.95 }}
+            className="animate-bounce-in"
+          >
             <GradientButton 
               asChild 
               size="lg" 
-              className="young-gradient-dopamine text-white px-8 py-4 h-14 text-lg font-bold min-w-[220px] rounded-2xl shadow-2xl border-0 hover:shadow-3xl transition-all duration-300"
+              className="young-gradient-dopamine text-white px-8 py-6 h-16 text-lg font-bold min-w-[260px] rounded-3xl shadow-xl border-0 hover:shadow-2xl transition-all duration-300"
             >
               <Link to="/v3/young/idea-validator" className="flex items-center gap-3">
-                Start Your Journey
+                <Smartphone className="w-5 h-5" />
+                Validate My Idea (3 min)
                 <ArrowRight className="w-5 h-5" />
               </Link>
             </GradientButton>
           </motion.div>
 
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+          <motion.div 
+            whileHover={{ scale: 1.05 }} 
+            whileTap={{ scale: 0.95 }}
+            className="animate-bounce-in"
+            style={{ animationDelay: "0.2s" }}
+          >
             <Button 
               asChild 
               size="lg" 
-              variant="outline" 
-              className="border-2 border-purple-400 text-purple-600 hover:bg-purple-50 px-8 py-4 h-14 text-lg font-semibold min-w-[220px] rounded-2xl bg-white/80 backdrop-blur-sm"
+              className="border-2 border-gray-300 text-gray-700 hover:bg-gray-100 px-8 py-6 h-16 text-lg font-semibold min-w-[260px] rounded-3xl bg-white/80 backdrop-blur-sm shadow-lg"
             >
               <Link to="/v3/young/founders" className="flex items-center gap-3">
                 <Play className="w-4 h-4" />
-                Meet Young Founders
+                Watch Success Stories
               </Link>
             </Button>
           </motion.div>
         </motion.div>
 
-        {/* Trust Indicators */}
+        {/* Social Proof */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.2, duration: 0.8 }}
+          transition={{ delay: 0.9, duration: 0.8 }}
           className="pt-8 relative z-20"
         >
-          <div className="flex flex-wrap justify-center gap-6 text-sm">
-            {trustIndicators.map((indicator, index) => (
+          <div className="flex flex-wrap justify-center gap-4 text-sm">
+            {socialProof.map((item, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.4 + index * 0.1 }}
-                className="flex items-center gap-2 px-4 py-2 bg-white/60 backdrop-blur-sm rounded-full border border-purple-200/50"
+                transition={{ delay: 1.1 + index * 0.1 }}
+                className={`flex items-center gap-2 px-4 py-3 rounded-2xl transition-all duration-300 ${
+                  item.highlight 
+                    ? 'young-glass-card text-gray-800 font-semibold' 
+                    : 'bg-white/40 text-gray-600 hover:bg-white/60'
+                }`}
               >
-                <span className="text-lg">{indicator.icon}</span>
-                <span className="text-gray-700 font-medium">{indicator.text}</span>
+                <span className="text-lg">{item.emoji}</span>
+                <span>{item.text}</span>
+                {item.highlight && <Zap className="w-4 h-4 text-yellow-500" />}
               </motion.div>
             ))}
           </div>
@@ -315,13 +293,12 @@ const EnhancedYoungEntrepreneurHero = () => {
   if (!mounted) return null;
 
   return (
-    <section className="relative min-h-screen overflow-hidden young-particle-bg bg-gradient-to-br from-white via-purple-50/30 to-pink-50/30 pt-20">
+    <section className="relative min-h-screen overflow-hidden young-particle-bg bg-gradient-to-br from-white via-blue-50/20 to-purple-50/20 pt-20">
       {/* Animated Background Effects */}
       <div className="absolute inset-0 overflow-hidden">
-        <Sparkles className="opacity-40">
+        <Sparkles className="opacity-30">
           <div className="w-full h-full" />
         </Sparkles>
-        <GradientBarsBackground />
         <div className="absolute -top-40 -right-40 w-96 h-96 young-gradient-dopamine rounded-full blur-3xl opacity-20" />
         <div className="absolute top-1/2 -left-40 w-80 h-80 young-gradient-energy rounded-full blur-3xl opacity-15" />
         <div className="absolute -bottom-40 right-1/4 w-72 h-72 young-gradient-success rounded-full blur-3xl opacity-10" />

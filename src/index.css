@@ -1,4 +1,6 @@
+
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800;900&display=swap");
 @import "./styles/sheraa-brand-colors.css";
 @tailwind base;
@@ -34,10 +36,21 @@
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
 
-    /* Young entrepreneur gradients */
-    --young-gradient-dopamine: linear-gradient(135deg, hsl(280, 100%, 70%), hsl(320, 100%, 60%));
-    --young-gradient-energy: linear-gradient(135deg, hsl(45, 100%, 60%), hsl(25, 100%, 55%));
-    --young-gradient-success: linear-gradient(135deg, hsl(160, 100%, 40%), hsl(120, 100%, 35%));
+    /* Gen Z Trending Color Palette */
+    --young-soft-mint: 150 100% 85%;
+    --young-warm-coral: 15 100% 75%;
+    --young-lavender: 260 60% 80%;
+    --young-butter-yellow: 45 100% 85%;
+    --young-sage-green: 120 25% 75%;
+    --young-peach: 25 100% 80%;
+    --young-sky-blue: 200 100% 85%;
+    --young-rose-pink: 340 100% 85%;
+
+    /* Updated Young Entrepreneur Gradients */
+    --young-gradient-dopamine: linear-gradient(135deg, hsl(var(--young-lavender)), hsl(var(--young-rose-pink)));
+    --young-gradient-energy: linear-gradient(135deg, hsl(var(--young-warm-coral)), hsl(var(--young-butter-yellow)));
+    --young-gradient-success: linear-gradient(135deg, hsl(var(--young-soft-mint)), hsl(var(--young-sage-green)));
+    --young-gradient-dreamy: linear-gradient(135deg, hsl(var(--young-peach)), hsl(var(--young-sky-blue)));
   }
 
   .dark {
@@ -81,7 +94,7 @@
   
   body {
     @apply bg-background text-foreground;
-    font-family: "Inter", sans-serif;
+    font-family: "Plus Jakarta Sans", "Inter", sans-serif;
     font-feature-settings: "cv11", "ss01";
     font-variation-settings: "opsz" 32;
     scroll-behavior: smooth;
@@ -94,7 +107,7 @@
 
   /* RTL Support */
   [dir="rtl"] {
-    font-family: "Noto Sans Arabic", "Inter", system-ui, sans-serif;
+    font-family: "Noto Sans Arabic", "Plus Jakarta Sans", system-ui, sans-serif;
   }
 
   [dir="rtl"] .font-sans {
@@ -122,14 +135,14 @@
   /* Enhanced glassmorphism with proper contrast */
   .glass-effect {
     backdrop-filter: blur(20px);
-    background: hsl(var(--sheraa-bg-primary) / 0.9);
-    border: 1px solid hsl(var(--sheraa-border));
-    box-shadow: 0 25px 45px hsl(var(--sheraa-primary) / 0.1);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   }
 
   .dark .glass-effect {
-    background: hsl(var(--sheraa-bg-secondary) / 0.9);
-    border: 1px solid hsl(var(--sheraa-border));
+    background: rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
   /* Enhanced gradients with better contrast */
@@ -249,9 +262,9 @@
     border-color: hsl(var(--sheraa-border));
   }
 
-  /* Young Entrepreneur Gen Z Utilities */
+  /* Gen Z Trending Utilities */
   .young-gradient-text {
-    background: linear-gradient(135deg, #8B5CF6, #EC4899);
+    background: var(--young-gradient-dopamine);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -269,8 +282,17 @@
     background: var(--young-gradient-success);
   }
 
+  .young-gradient-dreamy {
+    background: var(--young-gradient-dreamy);
+  }
+
   .young-gradient-animated {
-    background: linear-gradient(270deg, #8B5CF6, #EC4899, #F97316, #EAB308);
+    background: linear-gradient(270deg, 
+      hsl(var(--young-lavender)), 
+      hsl(var(--young-rose-pink)), 
+      hsl(var(--young-warm-coral)), 
+      hsl(var(--young-butter-yellow))
+    );
     background-size: 400% 400%;
     animation: young-gradient-shift 8s ease infinite;
   }
@@ -287,22 +309,45 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: radial-gradient(circle at 20% 80%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(236, 72, 153, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(249, 115, 22, 0.1) 0%, transparent 50%);
+    background: 
+      radial-gradient(circle at 20% 80%, hsl(var(--young-soft-mint) / 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, hsl(var(--young-lavender) / 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 40% 40%, hsl(var(--young-warm-coral) / 0.1) 0%, transparent 50%);
     animation: young-particle-float 20s ease-in-out infinite;
   }
 
+  .young-glass-card {
+    backdrop-filter: blur(20px);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+  }
+
+  .young-bento-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 24px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .young-bento-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12);
+  }
+
   .young-dopamine-shadow {
-    box-shadow: 0 20px 40px rgba(139, 92, 246, 0.2), 0 10px 20px rgba(236, 72, 153, 0.1);
+    box-shadow: 0 20px 40px hsl(var(--young-lavender) / 0.3), 0 10px 20px hsl(var(--young-rose-pink) / 0.2);
   }
 
   .young-energy-shadow {
-    box-shadow: 0 20px 40px rgba(249, 115, 22, 0.2), 0 10px 20px rgba(234, 179, 8, 0.1);
+    box-shadow: 0 20px 40px hsl(var(--young-warm-coral) / 0.3), 0 10px 20px hsl(var(--young-butter-yellow) / 0.2);
   }
 
   .young-success-shadow {
-    box-shadow: 0 20px 40px rgba(16, 185, 129, 0.2), 0 10px 20px rgba(6, 182, 212, 0.1);
+    box-shadow: 0 20px 40px hsl(var(--young-soft-mint) / 0.3), 0 10px 20px hsl(var(--young-sage-green) / 0.2);
   }
 }
 
@@ -369,6 +414,26 @@
   }
 }
 
+@keyframes bounce-in {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes micro-bounce {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-2px); }
+}
+
 .animate-marquee {
   animation: marquee 30s linear infinite;
 }
@@ -379,6 +444,14 @@
 
 .animate-slide-in-left {
   animation: slideInLeft 0.6s ease-out;
+}
+
+.animate-bounce-in {
+  animation: bounce-in 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.animate-micro-bounce {
+  animation: micro-bounce 2s ease-in-out infinite;
 }
 
 /* Focus and accessibility improvements */

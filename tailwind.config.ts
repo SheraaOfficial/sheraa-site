@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 const config: Config = {
@@ -20,7 +19,7 @@ const config: Config = {
     },
     extend: {
       fontFamily: {
-        sans: ["Inter", "system-ui", "sans-serif"],
+        sans: ["Plus Jakarta Sans", "Inter", "system-ui", "sans-serif"],
         serif: ["Playfair Display", "serif"],
         arabic: ["Noto Sans Arabic", "system-ui", "sans-serif"],
       },
@@ -66,7 +65,6 @@ const config: Config = {
           orange: "hsl(var(--sheraa-orange))",
           dark: "hsl(var(--sheraa-dark))",
           light: "hsl(var(--sheraa-light))",
-          // Enhanced semantic colors
           'bg-primary': "hsl(var(--sheraa-bg-primary))",
           'bg-secondary': "hsl(var(--sheraa-bg-secondary))",
           'text-primary': "hsl(var(--sheraa-text-primary))",
@@ -77,18 +75,16 @@ const config: Config = {
             secondary: "#a855f7",
           }
         },
-        // Gen Z Young Entrepreneur Color Palette
+        // Gen Z Trending Color Palette
         young: {
-          'electric-purple': '#8B5CF6',
-          'neon-pink': '#EC4899',
-          'bright-orange': '#F97316',
-          'bright-yellow': '#EAB308',
-          'vibrant-green': '#10B981',
-          'dopamine-primary': 'hsl(271 91% 65%)', // Electric Purple
-          'dopamine-secondary': 'hsl(329 86% 70%)', // Neon Pink
-          'energy-primary': 'hsl(24 95% 53%)', // Bright Orange
-          'energy-secondary': 'hsl(45 93% 47%)', // Yellow
-          'success': 'hsl(166 76% 37%)', // Vibrant Green
+          'soft-mint': 'hsl(var(--young-soft-mint))',
+          'warm-coral': 'hsl(var(--young-warm-coral))',
+          'lavender': 'hsl(var(--young-lavender))',
+          'butter-yellow': 'hsl(var(--young-butter-yellow))',
+          'sage-green': 'hsl(var(--young-sage-green))',
+          'peach': 'hsl(var(--young-peach))',
+          'sky-blue': 'hsl(var(--young-sky-blue))',
+          'rose-pink': 'hsl(var(--young-rose-pink))',
         },
         // Official Sheraa Brand Colors (for specific use cases)
         'sheraa-brand': {
@@ -164,6 +160,20 @@ const config: Config = {
         "grid": {
           "0%": { transform: "translateY(-50%)" },
           "100%": { transform: "translateY(0)" }
+        },
+        "bounce-in": {
+          "0%": { transform: "scale(0.8)", opacity: "0" },
+          "50%": { transform: "scale(1.05)", opacity: "0.8" },
+          "100%": { transform: "scale(1)", opacity: "1" }
+        },
+        "micro-bounce": {
+          "0%, 100%": { transform: "translateY(0px)" },
+          "50%": { transform: "translateY(-2px)" }
+        },
+        "young-gradient-shift": {
+          "0%": { backgroundPosition: "0% 50%" },
+          "50%": { backgroundPosition: "100% 50%" },
+          "100%": { backgroundPosition: "0% 50%" }
         }
       },
       animation: {
@@ -180,7 +190,9 @@ const config: Config = {
         "enter": "fade-in 0.3s ease-out, scale-in 0.2s ease-out",
         "exit": "fade-out 0.3s ease-out, scale-out 0.2s ease-out",
         "sheraa-shimmer": "sheraa-shimmer 3s ease-in-out infinite",
-        "grid": "grid 15s linear infinite"
+        "grid": "grid 15s linear infinite",
+        "bounce-in": "bounce-in 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55)",
+        "micro-bounce": "micro-bounce 2s ease-in-out infinite"
       },
       backgroundImage: {
         'sheraa-gradient-primary': 'linear-gradient(135deg, hsl(var(--sheraa-primary)), hsl(var(--sheraa-accent)))',
@@ -190,12 +202,11 @@ const config: Config = {
         'sheraa-gradient-educate': 'linear-gradient(135deg, #F4A460, hsl(var(--sheraa-orange)))',
         'sheraa-gradient-accelerate': 'linear-gradient(135deg, #FA8072, hsl(var(--sheraa-secondary)))',
         'sheraa-gradient-grow': 'linear-gradient(135deg, #48D1CC, hsl(var(--sheraa-accent)))',
-        // Young Entrepreneur Dopamine Gradients
-        'young-dopamine': 'linear-gradient(135deg, #8B5CF6, #EC4899)',
-        'young-energy': 'linear-gradient(135deg, #F97316, #EAB308)',
-        'young-success': 'linear-gradient(135deg, #10B981, #06B6D4)',
-        'young-electric': 'linear-gradient(45deg, #8B5CF6, #A855F7, #EC4899)',
-        'young-animated': 'linear-gradient(270deg, #8B5CF6, #EC4899, #F97316, #EAB308)',
+        'young-dopamine': 'var(--young-gradient-dopamine)',
+        'young-energy': 'var(--young-gradient-energy)',
+        'young-success': 'var(--young-gradient-success)',
+        'young-dreamy': 'var(--young-gradient-dreamy)',
+        'young-animated': 'linear-gradient(270deg, hsl(var(--young-lavender)), hsl(var(--young-rose-pink)), hsl(var(--young-warm-coral)), hsl(var(--young-butter-yellow)))',
       }
     },
   },
