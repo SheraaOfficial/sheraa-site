@@ -6,6 +6,13 @@ import { Heart, MessageCircle, Share2, Play, Pause, Volume2, VolumeX } from "luc
 import { useFounderStories, useStoryInteractions } from "@/hooks/useFounderStories";
 import type { FounderStory } from "@/hooks/useFounderStories";
 
+interface FounderStats {
+  revenue?: string;
+  users?: string;
+  funding?: string;
+  team_size?: string;
+}
+
 const YoungFounderSpotlight = () => {
   const [currentStory, setCurrentStory] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -152,7 +159,7 @@ const YoungFounderSpotlight = () => {
           <div className="flex justify-between items-center">
             <div className="text-white">
               <div className="text-xs opacity-75">Young Founders</div>
-              <div className="text-sm font-semibold">{currentStory + 1} / {founderStories.length}</div>
+              <div className="text-sm font-semibold">{currentStory + 1} / {stories.length}</div>
             </div>
             <Button
               variant="ghost"
@@ -195,8 +202,8 @@ const YoungFounderSpotlight = () => {
             </h3>
             <p className="text-lg mb-2">{currentFounder.description}</p>
             <div className="flex items-center gap-4 text-sm opacity-90 mb-3">
-              <span>📈 {currentFounder.stats.revenue}</span>
-              <span>👥 {currentFounder.stats.users}</span>
+              <span>📈 {(currentFounder.stats as FounderStats)?.revenue || 'N/A'}</span>
+              <span>👥 {(currentFounder.stats as FounderStats)?.users || 'N/A'}</span>
               <span>🏆 {currentFounder.category}</span>
             </div>
             
@@ -224,12 +231,12 @@ const YoungFounderSpotlight = () => {
             className="flex flex-col items-center text-white"
           >
             <div className={`w-12 h-12 rounded-full flex items-center justify-center ${
-              liked ? 'bg-red-500' : 'bg-white/20 backdrop-blur-sm'
+              hasLiked(currentFounder.id) ? 'bg-red-500' : 'bg-white/20 backdrop-blur-sm'
             }`}>
-              <Heart className={`w-6 h-6 ${liked ? 'fill-white' : ''}`} />
+              <Heart className={`w-6 h-6 ${hasLiked(currentFounder.id) ? 'fill-white' : ''}`} />
             </div>
             <span className="text-xs mt-1 font-semibold">
-              {(currentFounder.likes + (liked ? 1 : 0)).toLocaleString()}
+              {currentFounder.likes_count.toLocaleString()}
             </span>
           </motion.button>
 
@@ -242,7 +249,7 @@ const YoungFounderSpotlight = () => {
               <MessageCircle className="w-6 h-6" />
             </div>
             <span className="text-xs mt-1 font-semibold">
-              {currentFounder.comments}
+              {currentFounder.comments_count}
             </span>
           </motion.button>
 
@@ -255,14 +262,14 @@ const YoungFounderSpotlight = () => {
               <Share2 className="w-6 h-6" />
             </div>
             <span className="text-xs mt-1 font-semibold">
-              {currentFounder.shares}
+              {currentFounder.shares_count}
             </span>
           </motion.button>
 
           {/* Profile Picture */}
           <div className="w-12 h-12 rounded-full border-2 border-white overflow-hidden">
             <img 
-              src={currentFounder.thumbnailUrl} 
+              src={currentFounder.thumbnail_url} 
               alt={currentFounder.name}
               className="w-full h-full object-cover"
             />
