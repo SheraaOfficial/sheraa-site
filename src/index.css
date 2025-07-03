@@ -258,15 +258,15 @@
   }
 
   .young-gradient-dopamine {
-    background: linear-gradient(135deg, #8B5CF6, #EC4899);
+    background: var(--young-gradient-dopamine);
   }
 
   .young-gradient-energy {
-    background: linear-gradient(135deg, #F97316, #EAB308);
+    background: var(--young-gradient-energy);
   }
 
   .young-gradient-success {
-    background: linear-gradient(135deg, #10B981, #06B6D4);
+    background: var(--young-gradient-success);
   }
 
   .young-gradient-animated {
@@ -299,6 +299,10 @@
 
   .young-energy-shadow {
     box-shadow: 0 20px 40px rgba(249, 115, 22, 0.2), 0 10px 20px rgba(234, 179, 8, 0.1);
+  }
+
+  .young-success-shadow {
+    box-shadow: 0 20px 40px rgba(16, 185, 129, 0.2), 0 10px 20px rgba(6, 182, 212, 0.1);
   }
 }
 
