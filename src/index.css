@@ -1,4 +1,3 @@
-
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800;900&display=swap");
 @import "./styles/sheraa-brand-colors.css";
@@ -28,53 +27,24 @@
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
-  --radius: 0.5rem;
-  
-  /* Young entrepreneur gradients */
-  --young-gradient-dopamine: linear-gradient(135deg, hsl(280, 100%, 70%), hsl(320, 100%, 60%));
-  --young-gradient-energy: linear-gradient(135deg, hsl(45, 100%, 60%), hsl(25, 100%, 55%));
-  --young-gradient-success: linear-gradient(135deg, hsl(160, 100%, 40%), hsl(120, 100%, 35%));
-}
-
-@keyframes pulseBar {
-  0%, 100% { transform: scaleY(0.8); }
-  50% { transform: scaleY(1.2); }
-}
-
-.young-gradient-dopamine {
-  background: var(--young-gradient-dopamine);
-}
-
-.young-gradient-energy {
-  background: var(--young-gradient-energy);
-}
-
-.young-gradient-success {
-  background: var(--young-gradient-success);
-}
-
-.young-gradient-text {
-  background: var(--young-gradient-dopamine);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.young-dopamine-shadow {
-  box-shadow: 0 10px 30px -5px hsl(280, 100%, 70%, 0.3);
-}
+    --radius: 0.5rem;
     --chart-1: 12 76% 61%;
     --chart-2: 173 58% 39%;
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
+
+    /* Young entrepreneur gradients */
+    --young-gradient-dopamine: linear-gradient(135deg, hsl(280, 100%, 70%), hsl(320, 100%, 60%));
+    --young-gradient-energy: linear-gradient(135deg, hsl(45, 100%, 60%), hsl(25, 100%, 55%));
+    --young-gradient-success: linear-gradient(135deg, hsl(160, 100%, 40%), hsl(120, 100%, 35%));
   }
 
   .dark {
     /* Dark theme system colors */
-    --background: 228 71% 8%; /* Very dark navy for main background */
-    --foreground: 216 40% 94%; /* Light gray for main text */
-    --card: 228 71% 12%; /* Navy blue for cards */
+    --background: 228 71% 8%;
+    --foreground: 216 40% 94%;
+    --card: 228 71% 12%;
     --card-foreground: 216 40% 94%;
     --popover: 228 71% 12%;
     --popover-foreground: 216 40% 94%;
@@ -83,20 +53,25 @@
     --secondary: 228 57% 18%;
     --secondary-foreground: 216 40% 94%;
     --muted: 228 57% 18%;
-    --muted-foreground: 215 20.2% 70%; /* Lighter for better readability */
+    --muted-foreground: 215 20.2% 70%;
     --accent: 228 57% 18%;
     --accent-foreground: 216 40% 94%;
-    --destructive: 0 62.8% 50%; /* Brighter for visibility */
+    --destructive: 0 62.8% 50%;
     --destructive-foreground: 216 40% 94%;
-    --border: 228 50% 25%; /* More visible borders */
-    --input: 228 57% 20%; /* Slightly lighter inputs */
+    --border: 228 50% 25%;
+    --input: 228 57% 20%;
     --ring: 216 40% 94%;
-    --chart-1: 220 70% 60%; /* Brighter charts */
+    --chart-1: 220 70% 60%;
     --chart-2: 160 60% 55%;
     --chart-3: 30 80% 65%;
     --chart-4: 280 65% 70%;
     --chart-5: 340 75% 65%;
   }
+}
+
+@keyframes pulseBar {
+  0%, 100% { transform: scaleY(0.8); }
+  50% { transform: scaleY(1.2); }
 }
 
 @layer base {
@@ -326,8 +301,6 @@
     box-shadow: 0 20px 40px rgba(249, 115, 22, 0.2), 0 10px 20px rgba(234, 179, 8, 0.1);
   }
 }
-
-/* ... keep existing code (custom animations, focus styles, print styles, high contrast, reduced motion) the same ... */
 
 /* Custom animations */
 @keyframes marquee {
