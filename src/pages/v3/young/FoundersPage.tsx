@@ -1,17 +1,13 @@
-import React, { useEffect } from "react";
+
+import React from "react";
 import MainLayout from "@/components/layouts/MainLayout";
-import YoungFounderSpotlight from "@/components/v3/young/YoungFounderSpotlight";
+import SimplifiedYoungFounderSpotlight from "@/components/v3/young/SimplifiedYoungFounderSpotlight";
 import YoungEntrepreneurNavigation from "@/components/v3/young/YoungEntrepreneurNavigation";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Play, Heart, Users, TrendingUp } from "lucide-react";
-import useAccessibility from "@/hooks/useAccessibility";
-import useMobileOptimization from "@/hooks/useMobileOptimization";
 
 const FoundersPage: React.FC = () => {
-  const { preferences } = useAccessibility();
-  const deviceInfo = useMobileOptimization();
-  
   const stats = [
     {
       icon: Users,
@@ -38,8 +34,8 @@ const FoundersPage: React.FC = () => {
   return (
     <MainLayout>
       <YoungEntrepreneurNavigation />
-      <section className="py-16 bg-black text-white min-h-screen young-mobile-optimized young-ios-safe">
-        <div className="container mx-auto px-4 mobile-optimized">
+      <section className="py-16 bg-black text-white min-h-screen">
+        <div className="container mx-auto px-4">
           {/* Header */}
           <div className="text-center mb-8">
             <h1 className="text-4xl md:text-5xl font-black mb-4 young-gradient-text">
@@ -70,7 +66,7 @@ const FoundersPage: React.FC = () => {
 
           {/* Video Feed */}
           <div className="flex justify-center">
-            <YoungFounderSpotlight />
+            <SimplifiedYoungFounderSpotlight />
           </div>
 
           {/* Submit Story CTA */}
