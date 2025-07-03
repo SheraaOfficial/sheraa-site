@@ -95,6 +95,9 @@ import AccessSharjahChallengeApplyPage from "@/pages/programs/access-sharjah/Acc
 import AdultEntrepreneurIndex from "@/pages/v3/AdultEntrepreneurIndex";
 import ProgramMatchPage from "@/pages/v3/ProgramMatchPage";
 
+// V3 Young Entrepreneur Persona Pages
+import YoungEntrepreneurIndex from "@/pages/v3/young/YoungEntrepreneurIndex";
+
 const ErrorFallback = ({ error }: { error: Error }) => (
   <div className="min-h-screen flex items-center justify-center">
     <div className="text-center">
@@ -238,6 +241,9 @@ const AppRoutes: React.FC = () => {
         {/* V3 Adult Entrepreneur Persona Routes */}
         <Route path="/v3" element={<AdultEntrepreneurIndex />} />
         <Route path="/v3/program-match" element={<ProgramMatchPage />} />
+        
+        {/* V3 Young Entrepreneur Persona Routes */}
+        <Route path="/v3/young" element={<YoungEntrepreneurIndex />} />
 
         {/* Legacy redirects for backwards compatibility */}
         <Route path="/login" element={<Navigate to="/auth/login" replace />} />

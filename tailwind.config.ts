@@ -77,6 +77,19 @@ const config: Config = {
             secondary: "#a855f7",
           }
         },
+        // Gen Z Young Entrepreneur Color Palette
+        young: {
+          'electric-purple': '#8B5CF6',
+          'neon-pink': '#EC4899',
+          'bright-orange': '#F97316',
+          'bright-yellow': '#EAB308',
+          'vibrant-green': '#10B981',
+          'dopamine-primary': 'hsl(271 91% 65%)', // Electric Purple
+          'dopamine-secondary': 'hsl(329 86% 70%)', // Neon Pink
+          'energy-primary': 'hsl(24 95% 53%)', // Bright Orange
+          'energy-secondary': 'hsl(45 93% 47%)', // Yellow
+          'success': 'hsl(166 76% 37%)', // Vibrant Green
+        },
         // Official Sheraa Brand Colors (for specific use cases)
         'sheraa-brand': {
           'ik-blue': '#286CB4',
@@ -177,6 +190,12 @@ const config: Config = {
         'sheraa-gradient-educate': 'linear-gradient(135deg, #F4A460, hsl(var(--sheraa-orange)))',
         'sheraa-gradient-accelerate': 'linear-gradient(135deg, #FA8072, hsl(var(--sheraa-secondary)))',
         'sheraa-gradient-grow': 'linear-gradient(135deg, #48D1CC, hsl(var(--sheraa-accent)))',
+        // Young Entrepreneur Dopamine Gradients
+        'young-dopamine': 'linear-gradient(135deg, #8B5CF6, #EC4899)',
+        'young-energy': 'linear-gradient(135deg, #F97316, #EAB308)',
+        'young-success': 'linear-gradient(135deg, #10B981, #06B6D4)',
+        'young-electric': 'linear-gradient(45deg, #8B5CF6, #A855F7, #EC4899)',
+        'young-animated': 'linear-gradient(270deg, #8B5CF6, #EC4899, #F97316, #EAB308)',
       }
     },
   },
