@@ -97,6 +97,11 @@ import ProgramMatchPage from "@/pages/v3/ProgramMatchPage";
 
 // V3 Young Entrepreneur Persona Pages
 import YoungEntrepreneurIndex from "@/pages/v3/young/YoungEntrepreneurIndex";
+import IdeaValidatorPage from "@/pages/v3/young/IdeaValidatorPage";
+import FoundersPage from "@/pages/v3/young/FoundersPage";
+import ChallengesPage from "@/pages/v3/young/ChallengesPage";
+import HubFinderPage from "@/pages/v3/young/HubFinderPage";
+import PeerMatchingPage from "@/pages/v3/young/PeerMatchingPage";
 
 const ErrorFallback = ({ error }: { error: Error }) => (
   <div className="min-h-screen flex items-center justify-center">
