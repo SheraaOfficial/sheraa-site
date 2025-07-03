@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { ErrorBoundary } from 'react-error-boundary';
@@ -102,6 +101,9 @@ import FoundersPage from "@/pages/v3/young/FoundersPage";
 import ChallengesPage from "@/pages/v3/young/ChallengesPage";
 import HubFinderPage from "@/pages/v3/young/HubFinderPage";
 import PeerMatchingPage from "@/pages/v3/young/PeerMatchingPage";
+
+// V3 General Entrepreneur Persona Pages
+import GeneralEntrepreneurIndex from "@/pages/v3/general/GeneralEntrepreneurIndex";
 
 const ErrorFallback = ({ error }: { error: Error }) => (
   <div className="min-h-screen flex items-center justify-center">
@@ -254,6 +256,9 @@ const AppRoutes: React.FC = () => {
         <Route path="/v3/young/challenges" element={<ChallengesPage />} />
         <Route path="/v3/young/hubs" element={<HubFinderPage />} />
         <Route path="/v3/young/peer-matching" element={<PeerMatchingPage />} />
+
+        {/* V3 General Entrepreneur Persona Routes */}
+        <Route path="/v3/general" element={<GeneralEntrepreneurIndex />} />
 
         {/* Legacy redirects for backwards compatibility */}
         <Route path="/login" element={<Navigate to="/auth/login" replace />} />

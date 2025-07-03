@@ -1,132 +1,36 @@
-
-/* Sheraa Official Brand Colors - Enhanced for Light/Dark Themes */
 :root {
-  /* Core Sheraa Brand Colors (unchanged) */
-  --sheraa-ik-blue: #286CB4;
-  --sheraa-ik-blue-rgb: 40, 108, 180;
-  --sheraa-red-accent: #E85A5A;
-  --sheraa-red-accent-rgb: 232, 90, 90;
-  --sheraa-malibu-blue: #87CEEB;
-  --sheraa-malibu-blue-rgb: 135, 206, 235;
-  --sheraa-sandy-brown: #F4A460;
-  --sheraa-sandy-brown-rgb: 244, 164, 96;
-  --sheraa-salmon: #FA8072;
-  --sheraa-salmon-rgb: 250, 128, 114;
-  --sheraa-turquoise: #48D1CC;
-  --sheraa-turquoise-rgb: 72, 209, 204;
-  --sheraa-light-gray: #EAEFF4;
-  --sheraa-light-gray-rgb: 234, 239, 244;
-  --sheraa-navy-blue: #0E1630;
-  --sheraa-navy-blue-rgb: 14, 22, 48;
+  /* Sheraa Brand Colors */
+  --sheraa-primary: 234 86% 48%;  /* Electric Indigo */
+  --sheraa-secondary: 49 94% 54%; /* Cyber Grape */
+  --sheraa-accent: 330 76% 58%;    /* Neon Fuchsia */
+  --sheraa-teal: 170 100% 40%;     /* Vibrant Teal */
+  --sheraa-orange: 40 100% 50%;    /* Electric Tangerine */
+  --sheraa-dark: 240 10% 10%;      /* Deep Charcoal */
+  --sheraa-light: 0 0% 95%;        /* Ultra Light Gray */
+
+  /* Contrast-Optimized Background & Text Colors */
+  --sheraa-bg-primary: 0 0% 100%;       /* White */
+  --sheraa-bg-secondary: 240 10% 98%;    /* Very Light Gray */
+  --sheraa-text-primary: 240 10% 10%;    /* Deep Charcoal */
+  --sheraa-text-secondary: 240 5% 40%;   /* Medium Gray */
+  --sheraa-border: 240 5% 80%;          /* Light Gray */
+
+  /* General Entrepreneur Portal Colors */
+  --mocha-mousse: 160 130 109; /* #A0826D */
+  --deep-navy: 30 41 59; /* #1E293B */
+  --warm-gold: 245 158 11; /* #F59E0B */
+  --warm-white: 254 251 247; /* #FEFBF7 */
+  --charcoal: 55 65 81; /* #374151 */
   
-  /* Light Theme Optimized Colors */
-  --sheraa-primary: 211 80% 43%; /* IK Blue - strong contrast on light */
-  --sheraa-secondary: 9 78% 60%; /* Red Accent - slightly muted for light backgrounds */
-  --sheraa-accent: 180 62% 45%; /* Turquoise - darker for light backgrounds */
-  --sheraa-teal: 180 62% 45%; /* Same as accent */
-  --sheraa-orange: 27 88% 57%; /* Sandy Brown - darker for contrast */
-  --sheraa-light: 216 40% 98%; /* Pure white/very light gray */
-  --sheraa-dark: 228 71% 12%; /* Navy Blue for text */
-  
-  /* Light Theme Background & Text */
-  --sheraa-bg-primary: 0 0% 100%; /* Pure white */
-  --sheraa-bg-secondary: 216 40% 98%; /* Very light gray */
-  --sheraa-text-primary: 228 71% 12%; /* Navy blue for high contrast */
-  --sheraa-text-secondary: 228 50% 35%; /* Lighter navy for secondary text */
-  --sheraa-border: 216 40% 88%; /* Light border */
-}
-
-/* Dark Theme Optimized Colors */
-.dark {
-  /* Dark Theme Colors - Enhanced for visibility */
-  --sheraa-primary: 211 80% 65%; /* Brighter IK Blue for dark backgrounds */
-  --sheraa-secondary: 9 78% 75%; /* Brighter Red Accent */
-  --sheraa-accent: 180 62% 70%; /* Brighter Turquoise */
-  --sheraa-teal: 180 62% 70%; /* Same as accent */
-  --sheraa-orange: 27 88% 75%; /* Brighter Sandy Brown */
-  --sheraa-light: 228 71% 15%; /* Dark navy as background */
-  --sheraa-dark: 216 40% 92%; /* Light gray for text */
-  
-  /* Dark Theme Background & Text */
-  --sheraa-bg-primary: 228 71% 8%; /* Very dark navy */
-  --sheraa-bg-secondary: 228 71% 12%; /* Navy blue */
-  --sheraa-text-primary: 216 40% 94%; /* Light gray for high contrast */
-  --sheraa-text-secondary: 216 30% 75%; /* Slightly darker for secondary text */
-  --sheraa-border: 228 50% 25%; /* Dark border with some visibility */
-}
-
-/* Enhanced Gradient Utilities */
-.sheraa-gradient-primary {
-  background: linear-gradient(135deg, hsl(var(--sheraa-primary)), hsl(var(--sheraa-accent)));
-}
-
-.sheraa-gradient-accent {
-  background: linear-gradient(135deg, hsl(var(--sheraa-secondary)), hsl(var(--sheraa-orange)));
-}
-
-.sheraa-gradient-inspire {
-  background: linear-gradient(135deg, var(--sheraa-malibu-blue), hsl(var(--sheraa-primary)));
-}
-
-.sheraa-gradient-subtle-bg {
-  background: linear-gradient(135deg, hsl(var(--sheraa-primary) / 0.05), hsl(var(--sheraa-accent) / 0.03));
-}
-
-/* Dark theme gradient adjustments */
-.dark .sheraa-gradient-subtle-bg {
-  background: linear-gradient(135deg, hsl(var(--sheraa-primary) / 0.08), hsl(var(--sheraa-accent) / 0.05));
-}
-
-/* Text Color Utilities with Better Contrast */
-.text-sheraa-primary { color: hsl(var(--sheraa-primary)); }
-.text-sheraa-secondary { color: hsl(var(--sheraa-secondary)); }
-.text-sheraa-accent { color: hsl(var(--sheraa-accent)); }
-.text-sheraa-orange { color: hsl(var(--sheraa-orange)); }
-.text-sheraa-text-primary { color: hsl(var(--sheraa-text-primary)); }
-.text-sheraa-text-secondary { color: hsl(var(--sheraa-text-secondary)); }
-
-/* Background Color Utilities */
-.bg-sheraa-primary { background-color: hsl(var(--sheraa-primary)); }
-.bg-sheraa-secondary { background-color: hsl(var(--sheraa-secondary)); }
-.bg-sheraa-accent { background-color: hsl(var(--sheraa-accent)); }
-.bg-sheraa-orange { background-color: hsl(var(--sheraa-orange)); }
-.bg-sheraa-light { background-color: hsl(var(--sheraa-light)); }
-.bg-sheraa-dark { background-color: hsl(var(--sheraa-dark)); }
-.bg-sheraa-bg-primary { background-color: hsl(var(--sheraa-bg-primary)); }
-.bg-sheraa-bg-secondary { background-color: hsl(var(--sheraa-bg-secondary)); }
-
-/* Border Color Utilities */
-.border-sheraa-primary { border-color: hsl(var(--sheraa-primary)); }
-.border-sheraa-secondary { border-color: hsl(var(--sheraa-secondary)); }
-.border-sheraa-accent { border-color: hsl(var(--sheraa-accent)); }
-.border-sheraa-border { border-color: hsl(var(--sheraa-border)); }
-
-/* Enhanced Component Styles with Better Contrast */
-.sheraa-card-primary {
-  background: hsl(var(--sheraa-bg-secondary));
-  border: 1px solid hsl(var(--sheraa-border));
-  color: hsl(var(--sheraa-text-primary));
-}
-
-.sheraa-button-primary {
-  background: linear-gradient(135deg, hsl(var(--sheraa-primary)), hsl(var(--sheraa-accent)));
-  color: white;
-  border: none;
-}
-
-.sheraa-button-primary:hover {
-  background: linear-gradient(135deg, hsl(var(--sheraa-primary) / 0.9), hsl(var(--sheraa-accent) / 0.9));
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px hsl(var(--sheraa-primary) / 0.3);
-}
-
-.sheraa-button-secondary {
-  background: hsl(var(--sheraa-bg-primary));
-  color: hsl(var(--sheraa-primary));
-  border: 1px solid hsl(var(--sheraa-border));
-}
-
-.sheraa-button-secondary:hover {
-  background: hsl(var(--sheraa-primary) / 0.1);
-  border-color: hsl(var(--sheraa-primary));
+  /* Mocha Mousse Variations */
+  --mocha-50: 252 251 248;
+  --mocha-100: 248 243 237;
+  --mocha-200: 238 223 207;
+  --mocha-300: 220 191 165;
+  --mocha-400: 192 156 131;
+  --mocha-500: 160 130 109; /* Primary */
+  --mocha-600: 138 112 94;
+  --mocha-700: 115 93 78;
+  --mocha-800: 92 74 62;
+  --mocha-900: 69 56 47;
 }
