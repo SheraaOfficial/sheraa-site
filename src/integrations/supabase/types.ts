@@ -83,6 +83,204 @@ export type Database = {
         }
         Relationships: []
       }
+      challenge_participations: {
+        Row: {
+          challenge_id: string
+          challenge_title: string
+          challenge_type: string
+          completed_at: string | null
+          created_at: string
+          id: string
+          prizes: string[] | null
+          rank: number | null
+          registered_at: string
+          score: number | null
+          status: string
+          submission_data: Json | null
+          submitted_at: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          challenge_id: string
+          challenge_title: string
+          challenge_type: string
+          completed_at?: string | null
+          created_at?: string
+          id?: string
+          prizes?: string[] | null
+          rank?: number | null
+          registered_at?: string
+          score?: number | null
+          status?: string
+          submission_data?: Json | null
+          submitted_at?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          challenge_id?: string
+          challenge_title?: string
+          challenge_type?: string
+          completed_at?: string | null
+          created_at?: string
+          id?: string
+          prizes?: string[] | null
+          rank?: number | null
+          registered_at?: string
+          score?: number | null
+          status?: string
+          submission_data?: Json | null
+          submitted_at?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "challenge_participations_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      founder_stories: {
+        Row: {
+          achievements: string[] | null
+          age: number
+          category: string
+          comments_count: number | null
+          company: string
+          created_at: string
+          description: string
+          hashtags: string[] | null
+          id: string
+          is_featured: boolean | null
+          is_published: boolean | null
+          likes_count: number | null
+          name: string
+          published_at: string | null
+          shares_count: number | null
+          stats: Json | null
+          story_content: string
+          thumbnail_url: string | null
+          updated_at: string
+          user_id: string
+          video_url: string | null
+        }
+        Insert: {
+          achievements?: string[] | null
+          age: number
+          category: string
+          comments_count?: number | null
+          company: string
+          created_at?: string
+          description: string
+          hashtags?: string[] | null
+          id?: string
+          is_featured?: boolean | null
+          is_published?: boolean | null
+          likes_count?: number | null
+          name: string
+          published_at?: string | null
+          shares_count?: number | null
+          stats?: Json | null
+          story_content: string
+          thumbnail_url?: string | null
+          updated_at?: string
+          user_id: string
+          video_url?: string | null
+        }
+        Update: {
+          achievements?: string[] | null
+          age?: number
+          category?: string
+          comments_count?: number | null
+          company?: string
+          created_at?: string
+          description?: string
+          hashtags?: string[] | null
+          id?: string
+          is_featured?: boolean | null
+          is_published?: boolean | null
+          likes_count?: number | null
+          name?: string
+          published_at?: string | null
+          shares_count?: number | null
+          stats?: Json | null
+          story_content?: string
+          thumbnail_url?: string | null
+          updated_at?: string
+          user_id?: string
+          video_url?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "founder_stories_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      idea_validator_sessions: {
+        Row: {
+          completed_at: string | null
+          created_at: string
+          feedback: string | null
+          id: string
+          idea_description: string
+          idea_title: string
+          problem_statement: string | null
+          responses: Json | null
+          score: number | null
+          solution_description: string | null
+          target_market: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string
+          feedback?: string | null
+          id?: string
+          idea_description: string
+          idea_title: string
+          problem_statement?: string | null
+          responses?: Json | null
+          score?: number | null
+          solution_description?: string | null
+          target_market?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string
+          feedback?: string | null
+          id?: string
+          idea_description?: string
+          idea_title?: string
+          problem_statement?: string | null
+          responses?: Json | null
+          score?: number | null
+          solution_description?: string | null
+          target_market?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "idea_validator_sessions_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       notifications: {
         Row: {
           action_text: string | null
@@ -121,6 +319,66 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      peer_matches: {
+        Row: {
+          common_interests: string[] | null
+          common_skills: string[] | null
+          compatibility_score: number | null
+          conversation_started: boolean | null
+          created_at: string
+          id: string
+          match_reason: string | null
+          match_type: string
+          matched_user_id: string
+          requester_id: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          common_interests?: string[] | null
+          common_skills?: string[] | null
+          compatibility_score?: number | null
+          conversation_started?: boolean | null
+          created_at?: string
+          id?: string
+          match_reason?: string | null
+          match_type: string
+          matched_user_id: string
+          requester_id: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          common_interests?: string[] | null
+          common_skills?: string[] | null
+          compatibility_score?: number | null
+          conversation_started?: boolean | null
+          created_at?: string
+          id?: string
+          match_reason?: string | null
+          match_type?: string
+          matched_user_id?: string
+          requester_id?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "peer_matches_matched_user_id_fkey"
+            columns: ["matched_user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "peer_matches_requester_id_fkey"
+            columns: ["requester_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       profiles: {
         Row: {
@@ -172,6 +430,101 @@ export type Database = {
           website?: string | null
         }
         Relationships: []
+      }
+      story_interactions: {
+        Row: {
+          comment_text: string | null
+          created_at: string
+          id: string
+          interaction_type: string
+          story_id: string
+          user_id: string
+        }
+        Insert: {
+          comment_text?: string | null
+          created_at?: string
+          id?: string
+          interaction_type: string
+          story_id: string
+          user_id: string
+        }
+        Update: {
+          comment_text?: string | null
+          created_at?: string
+          id?: string
+          interaction_type?: string
+          story_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "story_interactions_story_id_fkey"
+            columns: ["story_id"]
+            isOneToOne: false
+            referencedRelation: "founder_stories"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "story_interactions_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      young_entrepreneur_profiles: {
+        Row: {
+          created_at: string
+          entrepreneurship_experience: string | null
+          goals: string[] | null
+          graduation_year: number | null
+          id: string
+          interests: string[] | null
+          progress_data: Json | null
+          skills: string[] | null
+          study_field: string | null
+          university: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          entrepreneurship_experience?: string | null
+          goals?: string[] | null
+          graduation_year?: number | null
+          id?: string
+          interests?: string[] | null
+          progress_data?: Json | null
+          skills?: string[] | null
+          study_field?: string | null
+          university?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          entrepreneurship_experience?: string | null
+          goals?: string[] | null
+          graduation_year?: number | null
+          id?: string
+          interests?: string[] | null
+          progress_data?: Json | null
+          skills?: string[] | null
+          study_field?: string | null
+          university?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "young_entrepreneur_profiles_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {

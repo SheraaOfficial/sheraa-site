@@ -3,129 +3,36 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Heart, MessageCircle, Share2, Play, Pause, Volume2, VolumeX } from "lucide-react";
-
-interface FounderStory {
-  id: string;
-  name: string;
-  age: number;
-  company: string;
-  description: string;
-  videoUrl: string;
-  thumbnailUrl: string;
-  stats: {
-    revenue: string;
-    users: string;
-    team: number;
-    funding: string;
-  };
-  achievements: string[];
-  likes: number;
-  comments: number;
-  shares: number;
-  category: string;
-  hashtags: string[];
-}
+import { useFounderStories, useStoryInteractions } from "@/hooks/useFounderStories";
+import type { FounderStory } from "@/hooks/useFounderStories";
 
 const YoungFounderSpotlight = () => {
   const [currentStory, setCurrentStory] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
-  const [liked, setLiked] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  const founderStories: FounderStory[] = [
-    {
-      id: "1",
-      name: "Amira Al-Zahra",
-      age: 19,
-      company: "StudyBuddy",
-      description: "From failing math to AED 100K revenue 📚💰",
-      videoUrl: "/api/placeholder/400/600",
-      thumbnailUrl: "https://images.unsplash.com/photo-1494790108755-2616b72ad5b4",
-      stats: {
-        revenue: "AED 100K",
-        users: "2,500+",
-        team: 6,
-        funding: "Pre-seed"
-      },
-      achievements: [
-        "Started at age 17",
-        "Revenue in Year 1: AED 100K",
-        "Students helped: 2,500+",
-        "Team size: 6 friends"
-      ],
-      likes: 1247,
-      comments: 89,
-      shares: 156,
-      category: "EdTech",
-      hashtags: ["#YoungEntrepreneur", "#EdTech", "#StudentSuccess", "#MadeInSharjah"]
-    },
-    {
-      id: "2",
-      name: "Omar Hassan",
-      age: 20,
-      company: "EcoCase",
-      description: "Turning plastic waste into phone cases 📱♻️",
-      videoUrl: "/api/placeholder/400/600",
-      thumbnailUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d",
-      stats: {
-        revenue: "AED 250K",
-        users: "3,000",
-        team: 8,
-        funding: "Seed"
-      },
-      achievements: [
-        "Plastic bottles saved: 10,000+",
-        "Products sold: 3,000",
-        "Countries shipping to: 12",
-        "Awards won: 3"
-      ],
-      likes: 2156,
-      comments: 234,
-      shares: 445,
-      category: "Sustainability",
-      hashtags: ["#Sustainability", "#PhoneCases", "#ClimateAction", "#YoungCEO"]
-    },
-    {
-      id: "3",
-      name: "Fatima & Sarah",
-      age: 18,
-      company: "Period Power",
-      description: "How we got 1M views fighting period poverty 🩸",
-      videoUrl: "/api/placeholder/400/600",
-      thumbnailUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2",
-      stats: {
-        revenue: "Non-profit",
-        users: "50 schools",
-        team: 200,
-        funding: "Grants"
-      },
-      achievements: [
-        "Hygiene kits distributed: 5,000",
-        "Schools reached: 50",
-        "Volunteers recruited: 200+",
-        "Media features: 15"
-      ],
-      likes: 5678,
-      comments: 456,
-      shares: 1234,
-      category: "Social Impact",
-      hashtags: ["#PeriodPoverty", "#SocialImpact", "#WomenEmpowerment", "#TwinPower"]
-    }
-  ];
+  const { stories, loading } = useFounderStories();
+  const { toggleLike, hasLiked } = useStoryInteractions();
 
-  const currentFounder = founderStories[currentStory];
+  const currentFounder = stories[currentStory];
+
+  if (loading || !stories.length) {
+    return (
+      <div className="relative max-w-md mx-auto h-screen bg-black flex items-center justify-center">
+        <div className="text-white">Loading founder stories...</div>
+      </div>
+    );
+  }
 
   const handleNext = () => {
-    setCurrentStory((prev) => (prev + 1) % founderStories.length);
+    setCurrentStory((prev) => (prev + 1) % stories.length);
     setIsPlaying(false);
-    setLiked(false);
   };
 
   const handlePrevious = () => {
-    setCurrentStory((prev) => (prev - 1 + founderStories.length) % founderStories.length);
+    setCurrentStory((prev) => (prev - 1 + stories.length) % stories.length);
     setIsPlaying(false);
-    setLiked(false);
   };
 
   const togglePlay = () => {
@@ -137,7 +44,6 @@ const YoungFounderSpotlight = () => {
       }
       setIsPlaying(!isPlaying);
     } else {
-      // Fallback for when no video element exists
       setIsPlaying(!isPlaying);
     }
   };
@@ -149,8 +55,14 @@ const YoungFounderSpotlight = () => {
     }
   };
 
-  const handleLike = () => {
-    setLiked(!liked);
+  const handleLike = async () => {
+    if (currentFounder) {
+      try {
+        await toggleLike(currentFounder.id);
+      } catch (error) {
+        console.error('Error toggling like:', error);
+      }
+    }
   };
 
   useEffect(() => {
@@ -195,7 +107,7 @@ const YoungFounderSpotlight = () => {
             {/* Background Image/Video Placeholder */}
             <div 
               className="w-full h-full bg-cover bg-center relative"
-              style={{ backgroundImage: `url(${currentFounder.thumbnailUrl})` }}
+              style={{ backgroundImage: `url(${currentFounder.thumbnail_url || ''})` }}
             >
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30" />
               
@@ -210,8 +122,8 @@ const YoungFounderSpotlight = () => {
                 aria-label={`Video story of ${currentFounder.name}, founder of ${currentFounder.company}`}
                 preload="metadata"
               >
-                <source src={currentFounder.videoUrl} type="video/mp4" />
-                <track kind="captions" src={`${currentFounder.videoUrl}.vtt`} srcLang="en" label="English" default />
+                <source src={currentFounder.video_url || ''} type="video/mp4" />
+                <track kind="captions" src={`${currentFounder.video_url || ''}.vtt`} srcLang="en" label="English" default />
               </video>
               
               {/* Play/Pause Overlay */}
