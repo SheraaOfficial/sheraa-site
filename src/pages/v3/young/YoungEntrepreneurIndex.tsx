@@ -1,6 +1,6 @@
 import React from "react";
 import MainLayout from "@/components/layouts/MainLayout";
-import YoungEntrepreneurHero from "@/components/v3/young/YoungEntrepreneurHero";
+import EnhancedYoungEntrepreneurHero from "@/components/v3/young/EnhancedYoungEntrepreneurHero";
 import YoungEntrepreneurNavigation from "@/components/v3/young/YoungEntrepreneurNavigation";
 import { CyclingStickyCornerCTA } from "@/components/ui/cycling-sticky-cta";
 
@@ -9,7 +9,7 @@ const YoungEntrepreneurIndex: React.FC = () => {
     <MainLayout>
       <YoungEntrepreneurNavigation />
       {/* Hero Section - Young Entrepreneur Focused */}
-      <YoungEntrepreneurHero />
+      <EnhancedYoungEntrepreneurHero />
       
       {/* Placeholder for upcoming components */}
       <section className="py-16 bg-gray-50">
