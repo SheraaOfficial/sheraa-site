@@ -105,6 +105,9 @@ import PeerMatchingPage from "@/pages/v3/young/PeerMatchingPage";
 // V3 General Entrepreneur Persona Pages
 import GeneralEntrepreneurIndex from "@/pages/v3/general/GeneralEntrepreneurIndex";
 
+// V3 Ecosystem Hub
+import EcosystemHub from "@/pages/v3/EcosystemHub";
+
 // V3 Stakeholder Persona Pages
 import StakeholdersIndex from "@/pages/v3/stakeholders/StakeholdersIndex";
 
@@ -248,8 +251,11 @@ const AppRoutes: React.FC = () => {
         <Route path="/perfume/gallery" element={<PerfumeGalleryPage />} />
         <Route path="/perfume/pricing" element={<PerfumePricingPage />} />
         
+        {/* V3 Ecosystem Hub - Intelligent Persona Routing */}
+        <Route path="/v3" element={<EcosystemHub />} />
+        
         {/* V3 Adult Entrepreneur Persona Routes */}
-        <Route path="/v3" element={<AdultEntrepreneurIndex />} />
+        <Route path="/v3/entrepreneurs" element={<AdultEntrepreneurIndex />} />
         <Route path="/v3/program-match" element={<ProgramMatchPage />} />
         
         {/* V3 Young Entrepreneur Persona Routes */}
