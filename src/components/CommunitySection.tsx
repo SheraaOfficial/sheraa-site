@@ -51,7 +51,7 @@ const CommunitySection = () => {
       opacity: 1,
       y: 0,
       transition: {
-        type: "tween",
+        type: "tween" as const,
         duration: 0.2
       }
     }

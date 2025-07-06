@@ -61,7 +61,7 @@ const PartnersSection = () => {
       opacity: 1,
       y: 0,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         stiffness: 100
       }
     }
