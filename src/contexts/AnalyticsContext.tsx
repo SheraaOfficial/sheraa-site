@@ -35,11 +35,21 @@ export const AnalyticsProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     pageViews: 1,
     interactions: 0,
     timeSpent: 0,
-    deviceType: window.innerWidth < 768 ? 'mobile' : window.innerWidth < 1024 ? 'tablet' : 'desktop',
+    deviceType: 'desktop', // Default value, will be updated in useEffect
     country: 'unknown',
     personaViewed: [],
     conversionEvents: []
   }));
+
+  useEffect(() => {
+    // Set device type safely on client side only
+    if (typeof window !== 'undefined') {
+      setAnalytics(prev => ({
+        ...prev,
+        deviceType: window.innerWidth < 768 ? 'mobile' : window.innerWidth < 1024 ? 'tablet' : 'desktop'
+      }));
+    }
+  }, []);
 
   useEffect(() => {
     // Detect country on mount

@@ -8,6 +8,7 @@ import { AuthProvider } from './contexts/AuthContext';
 import { LanguageProvider } from './contexts/LanguageContext';
 import { ExperienceThemeProvider } from './contexts/ExperienceThemeContext';
 import { HomepageThemeProvider } from './contexts/ThemeContext';
+import { AnalyticsProvider } from './contexts/AnalyticsContext';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { HelmetProvider } from 'react-helmet-async';
 import { AccessibilityProvider } from '@/components/accessibility/AccessibilityProvider';
@@ -33,13 +34,15 @@ function App() {
                 <LanguageProvider>
                   <AccessibilityProvider>
                     <PerformanceProvider>
-                      <BrowserRouter>
-                        <SEOHead />
-                        <div className="min-h-screen bg-background text-foreground sheraa-gradient-bg">
-                          <Toaster />
-                          <AppRoutes />
-                        </div>
-                      </BrowserRouter>
+                      <AnalyticsProvider>
+                        <BrowserRouter>
+                          <SEOHead />
+                          <div className="min-h-screen bg-background text-foreground sheraa-gradient-bg">
+                            <Toaster />
+                            <AppRoutes />
+                          </div>
+                        </BrowserRouter>
+                      </AnalyticsProvider>
                     </PerformanceProvider>
                   </AccessibilityProvider>
                 </LanguageProvider>
