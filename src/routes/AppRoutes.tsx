@@ -105,6 +105,9 @@ import PeerMatchingPage from "@/pages/v3/young/PeerMatchingPage";
 // V3 General Entrepreneur Persona Pages
 import GeneralEntrepreneurIndex from "@/pages/v3/general/GeneralEntrepreneurIndex";
 
+// V3 Stakeholder Persona Pages
+import StakeholdersIndex from "@/pages/v3/stakeholders/StakeholdersIndex";
+
 const ErrorFallback = ({ error }: { error: Error }) => (
   <div className="min-h-screen flex items-center justify-center">
     <div className="text-center">
@@ -259,6 +262,9 @@ const AppRoutes: React.FC = () => {
 
         {/* V3 General Entrepreneur Persona Routes */}
         <Route path="/v3/general" element={<GeneralEntrepreneurIndex />} />
+
+        {/* V3 Stakeholder Persona Routes */}
+        <Route path="/v3/stakeholders" element={<StakeholdersIndex />} />
 
         {/* Legacy redirects for backwards compatibility */}
         <Route path="/login" element={<Navigate to="/auth/login" replace />} />
