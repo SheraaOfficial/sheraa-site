@@ -134,7 +134,7 @@ const InteractiveLearningHub: React.FC = () => {
           >
             Master the fundamentals through hands-on learning. Track your progress 
             and earn certificates as you build your entrepreneurial knowledge.
-          </p>
+          </motion.p>
           
           {/* Overall Progress */}
           <div className="max-w-md mx-auto">

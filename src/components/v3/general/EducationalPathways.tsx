@@ -3,7 +3,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Lightbulb, Trophy, Gear, Users, Clock, ArrowRight } from "lucide-react";
+import { Lightbulb, Trophy, Settings, Users, Clock, ArrowRight } from "lucide-react";
 
 const EducationalPathways: React.FC = () => {
   const pathways = [
@@ -30,7 +30,7 @@ const EducationalPathways: React.FC = () => {
     {
       id: 3,
       title: "Test Your Idea",
-      icon: Gear,
+      icon: Settings,
       description: "Have a business idea? See if it has potential",
       content: "Idea validation quiz, market research basics, feedback tools",
       time: "20 minutes",
