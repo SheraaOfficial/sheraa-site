@@ -13,8 +13,14 @@ import {
   Globe2,
   Smartphone,
   Clock,
-  MapPin
+  MapPin,
+  Brain,
+  Target
 } from "lucide-react";
+import { useABTesting } from "@/hooks/useABTesting";
+import { useAnalytics } from "@/contexts/AnalyticsContext";
+import SmartRouting from "@/components/v3/intelligence/SmartRouting";
+import CrossPersonaIntelligence from "@/components/v3/intelligence/CrossPersonaIntelligence";
 
 interface UserContext {
   isUAE: boolean;
@@ -25,6 +31,9 @@ interface UserContext {
 
 const EcosystemHub: React.FC = () => {
   const navigate = useNavigate();
+  const { trackEvent, trackPersonaView, getEngagementScore } = useAnalytics();
+  const routingTest = useABTesting('ecosystem-hub-routing');
+  
   const [userContext, setUserContext] = useState<UserContext>({
     isUAE: false,
     isMobile: false,
@@ -32,6 +41,11 @@ const EcosystemHub: React.FC = () => {
     timestamp: new Date()
   });
   const [greeting, setGreeting] = useState<string>("");
+  const [smartRecommendation, setSmartRecommendation] = useState<{
+    personaId: string;
+    confidence: number;
+  } | null>(null);
+  const [showCrossPersonaIntelligence, setShowCrossPersonaIntelligence] = useState(false);
 
   useEffect(() => {
     // Detect user context
@@ -127,9 +141,31 @@ const EcosystemHub: React.FC = () => {
   };
 
   const handlePersonaSelect = (path: string, personaId: string) => {
-    // Store preference for return visits
+    // Enhanced analytics tracking
+    trackPersonaView(personaId);
+    trackEvent('persona_selected', { 
+      persona_id: personaId,
+      variant: routingTest.variant,
+      confidence: smartRecommendation?.confidence || 0,
+      engagement_score: getEngagementScore()
+    });
+
+    // Store advanced preference data
+    const advancedPreferences = {
+      preferredPersona: personaId,
+      lastVisit: new Date().toISOString(),
+      selectionMethod: smartRecommendation ? 'ai_recommended' : 'manual_selection',
+      confidence: smartRecommendation?.confidence || 0,
+      variant: routingTest.variant
+    };
+    
     localStorage.setItem('preferredPersona', personaId);
     localStorage.setItem('lastVisit', new Date().toISOString());
+    localStorage.setItem('advanced_preferences', JSON.stringify(advancedPreferences));
+
+    // Track A/B test conversion
+    routingTest.trackConversion('persona_selection', smartRecommendation?.confidence || 50);
+    
     navigate(path);
   };
 
@@ -172,7 +208,50 @@ const EcosystemHub: React.FC = () => {
             <Clock className="w-4 h-4 mr-2" />
             {userContext.isBusinessHours ? "Business Hours" : "After Hours"}
           </div>
+          <div className="flex items-center">
+            <Brain className="w-4 h-4 mr-2" />
+            A/B Variant: {routingTest.variant}
+          </div>
         </div>
+      </div>
+
+      {/* A/B Testing Variants */}
+      <div className="max-w-7xl mx-auto px-4 mb-8">
+        {/* Variant A: Direct Selection (Current) */}
+        {routingTest.variant === 'A' && (
+          <div className="text-center mb-4">
+            <Badge className="bg-blue-500/20 text-blue-300 border-blue-500/30">
+              Classic Experience
+            </Badge>
+          </div>
+        )}
+
+        {/* Variant B: AI-First Approach */}
+        {routingTest.variant === 'B' && (
+          <SmartRouting 
+            userContext={userContext}
+            onPersonaRecommendation={(personaId, confidence) => {
+              setSmartRecommendation({ personaId, confidence });
+            }}
+          />
+        )}
+
+        {/* Variant C: Hybrid Smart Recommendations */}
+        {routingTest.variant === 'C' && smartRecommendation && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-center mb-6"
+          >
+            <Badge className="bg-purple-500/20 text-purple-300 border-purple-500/30 mb-2">
+              <Target className="w-3 h-3 mr-1" />
+              Smart Recommendation: {smartRecommendation.confidence}% match
+            </Badge>
+            <p className="text-gray-300 text-sm">
+              Based on your profile, we recommend starting with the highlighted persona
+            </p>
+          </motion.div>
+        )}
       </div>
 
       {/* Persona Selection Grid */}
@@ -240,6 +319,25 @@ const EcosystemHub: React.FC = () => {
           ))}
         </div>
 
+        {/* Cross-Persona Intelligence */}
+        {showCrossPersonaIntelligence && (
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            className="mt-12"
+          >
+            <CrossPersonaIntelligence 
+              currentPersona={smartRecommendation?.personaId || recommendedPersona}
+              userProfile={{
+                interests: [],
+                sector: undefined,
+                stage: undefined
+              }}
+            />
+          </motion.div>
+        )}
+
         {/* Quick Access Links */}
         <motion.div
           initial={{ opacity: 0 }}
@@ -255,7 +353,10 @@ const EcosystemHub: React.FC = () => {
               variant="outline" 
               size="sm"
               className="border-white/30 text-white hover:bg-white/10"
-              onClick={() => navigate('/programs')}
+              onClick={() => {
+                trackEvent('quick_access_click', { target: 'programs' });
+                navigate('/programs');
+              }}
             >
               All Programs
             </Button>
@@ -263,7 +364,10 @@ const EcosystemHub: React.FC = () => {
               variant="outline" 
               size="sm"
               className="border-white/30 text-white hover:bg-white/10"
-              onClick={() => navigate('/events/sef-landing')}
+              onClick={() => {
+                trackEvent('quick_access_click', { target: 'sef' });
+                navigate('/events/sef-landing');
+              }}
             >
               SEF 2026
             </Button>
@@ -271,9 +375,20 @@ const EcosystemHub: React.FC = () => {
               variant="outline" 
               size="sm"
               className="border-white/30 text-white hover:bg-white/10"
-              onClick={() => navigate('/community')}
+              onClick={() => {
+                trackEvent('quick_access_click', { target: 'community' });
+                navigate('/community');
+              }}
             >
               Join Community
+            </Button>
+            <Button 
+              variant="outline" 
+              size="sm"
+              className="border-white/30 text-white hover:bg-white/10"
+              onClick={() => setShowCrossPersonaIntelligence(!showCrossPersonaIntelligence)}
+            >
+              {showCrossPersonaIntelligence ? 'Hide' : 'Show'} Smart Connections
             </Button>
           </div>
         </motion.div>
