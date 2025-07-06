@@ -23,6 +23,16 @@
   
   /* Young Theme Color */
   --young-soft-mint: 160 60% 75%; /* Soft mint for young theme */
+
+  /* V3 Persona-Specific Colors */
+  --v3-entrepreneurs-bg: 234 86% 48%; /* Electric Indigo */
+  --v3-entrepreneurs-accent: 49 94% 54%; /* Cyber Grape */
+  --v3-students-bg: 170 100% 40%; /* Vibrant Teal */  
+  --v3-students-accent: 160 60% 75%; /* Soft Mint */
+  --v3-community-bg: 40 100% 50%; /* Electric Tangerine */
+  --v3-community-accent: 330 76% 58%; /* Neon Fuchsia */
+  --v3-stakeholders-bg: 43 90% 49%; /* Warm Gold */
+  --v3-stakeholders-accent: 240 10% 10%; /* Deep Charcoal */
   
   /* Mocha Mousse Variations */
   --mocha-50: 252 251 248;
