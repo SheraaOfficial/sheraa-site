@@ -11,10 +11,10 @@ import { useABTesting } from "@/hooks/useABTesting";
 import { useAnalytics } from "@/contexts/AnalyticsContext";
 import SmartRouting from "@/components/v3/intelligence/SmartRouting";
 import CrossPersonaIntelligence from "@/components/v3/intelligence/CrossPersonaIntelligence";
-import ImmersivePersonaGrid from "@/components/v3/ecosystem/ImmersivePersonaGrid";
+import RevolutionaryPersonaGrid from "@/components/v3/ecosystem/RevolutionaryPersonaGrid";
 import ContextDisplay from "@/components/v3/ecosystem/ContextDisplay";
 import QuickAccessLinks from "@/components/v3/ecosystem/QuickAccessLinks";
-import DynamicParticleSystem from "@/components/v3/effects/DynamicParticleSystem";
+import RevolutionaryParticleSystem from "@/components/v3/effects/RevolutionaryParticleSystem";
 import InteractiveCursor from "@/components/v3/effects/InteractiveCursor";
 
 interface UserContext {
@@ -42,6 +42,7 @@ const EcosystemHub: React.FC = () => {
   } | null>(null);
   const [showCrossPersonaIntelligence, setShowCrossPersonaIntelligence] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [activePersona, setActivePersona] = useState<string | null>(null);
 
   // Track mouse position for particle interactions
   useEffect(() => {
@@ -178,14 +179,15 @@ const EcosystemHub: React.FC = () => {
   const recommendedPersona = getSmartRecommendation();
 
   return (
-    <div className="min-h-screen v3-cosmic-bg relative overflow-hidden">
+    <div className="min-h-screen v3-revolutionary-bg relative overflow-hidden">
       {/* Interactive Cursor */}
       <InteractiveCursor />
       
-      {/* Dynamic Particle System */}
-      <DynamicParticleSystem 
+      {/* Revolutionary Particle System */}
+      <RevolutionaryParticleSystem 
         mousePosition={mousePosition} 
-        intensity="medium" 
+        activePersona={activePersona || recommendedPersona}
+        intensity="revolutionary" 
       />
       
       <ContextDisplay 
@@ -199,7 +201,7 @@ const EcosystemHub: React.FC = () => {
           initial={{ opacity: 0, y: -20, filter: "blur(10px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           transition={{ duration: 1.2, delay: 0.2 }}
-          className="text-4xl lg:text-7xl font-black mb-6 v3-gradient-heading"
+          className="text-4xl lg:text-7xl font-black mb-6 v3-revolutionary-heading"
         >
           {greeting}
         </motion.h1>
@@ -227,10 +229,11 @@ const EcosystemHub: React.FC = () => {
 
       {/* Immersive Persona Selection Grid */}
       <div className="max-w-7xl mx-auto px-4 pb-16 relative z-10">
-        <ImmersivePersonaGrid
+        <RevolutionaryPersonaGrid
           personas={personas}
           recommendedPersona={smartRecommendation?.personaId || recommendedPersona}
           onPersonaSelect={handlePersonaSelect}
+          onPersonaHover={setActivePersona}
         />
 
         {/* Cross-Persona Intelligence */}
