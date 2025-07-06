@@ -209,7 +209,7 @@ export const AdvancedHero: React.FC = () => {
                     }}
                     transition={{ 
                       duration: 1, 
-                      ease: "easeOutCubic" as const,
+                      ease: "easeOut",
                     }}
                   >
                     <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent font-black tracking-tight">

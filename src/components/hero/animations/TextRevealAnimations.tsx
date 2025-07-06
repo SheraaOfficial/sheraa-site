@@ -44,7 +44,7 @@ export const TextRevealAnimations: React.FC<TextRevealAnimationsProps> = ({
                 delay: 0.8 + (index * 0.1),
                 type: "spring",
                 bounce: 0.4,
-                ease: "easeOutCubic"
+                ease: "easeOut"
               }}
               whileHover={{
                 scale: 1.05,

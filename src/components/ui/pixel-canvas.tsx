@@ -2,6 +2,23 @@
 
 import * as React from "react"
 
+// Declare the custom element type for TypeScript
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      'pixel-canvas': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> & {
+        'data-gap'?: string | number;
+        'data-speed'?: string | number;
+        'data-colors'?: string;
+        'data-variant'?: "default" | "icon";
+        'data-no-focus'?: string;
+        style?: React.CSSProperties;
+        className?: string;
+      };
+    }
+  }
+}
+
 // Pixel class for animation
 class Pixel {
   width: number

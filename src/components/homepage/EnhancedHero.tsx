@@ -127,7 +127,7 @@ const EnhancedHero = () => {
                       initial={{ opacity: 0, y: 50, rotateX: -90 }}
                       animate={{ opacity: 1, y: 0, rotateX: 0 }}
                       exit={{ opacity: 0, y: -50, rotateX: 90 }}
-                      transition={{ duration: 0.6, ease: "easeOutCubic" }}
+                      transition={{ duration: 0.6, ease: "easeOut" }}
                     >
                       {titles[titleIndex]}
                     </motion.span>

@@ -28,7 +28,7 @@ const itemVariants = {
     scale: 1.05,
     y: -2,
     transition: {
-      type: "spring",
+      type: "spring" as const,
       stiffness: 400,
       damping: 17
     }
@@ -47,7 +47,7 @@ const glowVariants = {
     filter: "blur(0px)",
     transition: {
       duration: 0.3,
-      ease: "easeOut"
+      ease: "easeOut" as const
     },
   },
 };

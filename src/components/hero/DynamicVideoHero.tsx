@@ -241,8 +241,8 @@ export const DynamicVideoHero: React.FC = () => {
                         }}
                         transition={{ 
                           duration: 1, 
-                          ease: "easeOutCubic" as const,
-                          type: "spring",
+                          ease: "easeOut",
+                          type: "spring" as const,
                           bounce: 0.4
                         }}
                       >
