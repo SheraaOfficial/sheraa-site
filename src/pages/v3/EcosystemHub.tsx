@@ -25,6 +25,7 @@ interface UserContext {
 }
 
 const EcosystemHub: React.FC = () => {
+  console.log("EcosystemHub component loading...");
   const navigate = useNavigate();
   const { trackEvent, trackPersonaView, getEngagementScore } = useAnalytics();
   const routingTest = useABTesting('ecosystem-hub-routing');

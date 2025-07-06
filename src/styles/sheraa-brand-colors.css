@@ -16,11 +16,13 @@
   --sheraa-border: 240 5% 80%;          /* Light Gray */
 
   /* General Entrepreneur Portal Colors */
-  --mocha-mousse: 160 130 109; /* #A0826D */
-  --deep-navy: 30 41 59; /* #1E293B */
-  --warm-gold: 245 158 11; /* #F59E0B */
-  --warm-white: 254 251 247; /* #FEFBF7 */
-  --charcoal: 55 65 81; /* #374151 */
+  --deep-navy: 227 26% 14%; /* #1E293B in HSL */
+  --warm-gold: 43 90% 49%; /* #F59E0B in HSL */
+  --warm-white: 32 44% 98%; /* #FEFBF7 in HSL */
+  --charcoal: 220 13% 25%; /* #374151 in HSL */
+  
+  /* Young Theme Color */
+  --young-soft-mint: 160 60% 75%; /* Soft mint for young theme */
   
   /* Mocha Mousse Variations */
   --mocha-50: 252 251 248;

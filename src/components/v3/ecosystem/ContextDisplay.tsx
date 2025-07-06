@@ -33,9 +33,9 @@ const ContextDisplay: React.FC<ContextDisplayProps> = ({
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <Badge className="bg-[#F59E0B]/20 text-[#F59E0B] border-[#F59E0B]/30 px-4 py-2 mb-4">
+          <Badge className="bg-[hsl(var(--sheraa-primary))/20] text-[hsl(var(--sheraa-primary))] border-[hsl(var(--sheraa-primary))/30] px-4 py-2 mb-4">
             <Crown className="w-4 h-4 mr-2" />
-            Under Royal Patronage • Government Backed
+            SHERAA • Innovation Ecosystem
           </Badge>
         </motion.div>
       </div>
