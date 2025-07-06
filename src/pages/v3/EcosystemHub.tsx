@@ -11,9 +11,11 @@ import { useABTesting } from "@/hooks/useABTesting";
 import { useAnalytics } from "@/contexts/AnalyticsContext";
 import SmartRouting from "@/components/v3/intelligence/SmartRouting";
 import CrossPersonaIntelligence from "@/components/v3/intelligence/CrossPersonaIntelligence";
-import PersonaGrid from "@/components/v3/ecosystem/PersonaGrid";
+import ImmersivePersonaGrid from "@/components/v3/ecosystem/ImmersivePersonaGrid";
 import ContextDisplay from "@/components/v3/ecosystem/ContextDisplay";
 import QuickAccessLinks from "@/components/v3/ecosystem/QuickAccessLinks";
+import DynamicParticleSystem from "@/components/v3/effects/DynamicParticleSystem";
+import InteractiveCursor from "@/components/v3/effects/InteractiveCursor";
 
 interface UserContext {
   isUAE: boolean;
@@ -39,6 +41,17 @@ const EcosystemHub: React.FC = () => {
     confidence: number;
   } | null>(null);
   const [showCrossPersonaIntelligence, setShowCrossPersonaIntelligence] = useState(false);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  // Track mouse position for particle interactions
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
 
   useEffect(() => {
     // Detect user context
@@ -83,7 +96,7 @@ const EcosystemHub: React.FC = () => {
       description: "Scale your tech-enabled venture with funding, mentorship, and market access",
       icon: Rocket,
       path: "/v3/entrepreneurs",
-      color: "from-blue-500 to-purple-600",
+      color: "v3-gradient-entrepreneurs",
       audience: "mobile",
       stats: "180+ Startups Supported"
     },
@@ -94,7 +107,7 @@ const EcosystemHub: React.FC = () => {
       description: "Transform your ideas into viable businesses through our youth programs",
       icon: GraduationCap,
       path: "/v3/young",
-      color: "from-green-500 to-teal-600",
+      color: "v3-gradient-students",
       audience: "mobile",
       stats: "18,000+ Youth Upskilled"
     },
@@ -105,7 +118,7 @@ const EcosystemHub: React.FC = () => {
       description: "Join Sharjah's innovation community and discover collaboration opportunities",
       icon: Users,
       path: "/v3/general",
-      color: "from-orange-500 to-red-600",
+      color: "v3-gradient-community",
       audience: "general",
       stats: "140+ Ecosystem Partners"
     },
@@ -116,7 +129,7 @@ const EcosystemHub: React.FC = () => {
       description: "Access exclusive deal flow, portfolio analytics, and strategic partnerships",
       icon: Crown,
       path: "/v3/stakeholders",
-      color: "from-amber-500 to-yellow-600",
+      color: "v3-gradient-stakeholders",
       audience: "desktop",
       stats: "$248M+ Portfolio Revenue"
     }
@@ -165,27 +178,36 @@ const EcosystemHub: React.FC = () => {
   const recommendedPersona = getSmartRecommendation();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#1E293B] via-[#334155] to-[#475569]">
+    <div className="min-h-screen v3-cosmic-bg relative overflow-hidden">
+      {/* Interactive Cursor */}
+      <InteractiveCursor />
+      
+      {/* Dynamic Particle System */}
+      <DynamicParticleSystem 
+        mousePosition={mousePosition} 
+        intensity="medium" 
+      />
+      
       <ContextDisplay 
         userContext={userContext}
         variant={routingTest.variant}
         smartRecommendation={smartRecommendation}
       />
       
-      <div className="text-center">
+      <div className="text-center relative z-10 pt-24 pb-16">
         <motion.h1
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-4xl lg:text-6xl font-bold text-white mb-4"
+          initial={{ opacity: 0, y: -20, filter: "blur(10px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          transition={{ duration: 1.2, delay: 0.2 }}
+          className="text-4xl lg:text-7xl font-black mb-6 v3-gradient-heading"
         >
           {greeting}
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-xl text-gray-300 max-w-3xl mx-auto px-4 mb-12"
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="text-xl text-white/80 max-w-4xl mx-auto px-4 mb-16 leading-relaxed"
         >
           Choose your entrepreneurial journey in Sharjah's thriving innovation ecosystem
         </motion.p>
@@ -203,9 +225,9 @@ const EcosystemHub: React.FC = () => {
         </div>
       )}
 
-      {/* Persona Selection Grid */}
-      <div className="max-w-7xl mx-auto px-4 pb-16">
-        <PersonaGrid
+      {/* Immersive Persona Selection Grid */}
+      <div className="max-w-7xl mx-auto px-4 pb-16 relative z-10">
+        <ImmersivePersonaGrid
           personas={personas}
           recommendedPersona={smartRecommendation?.personaId || recommendedPersona}
           onPersonaSelect={handlePersonaSelect}
