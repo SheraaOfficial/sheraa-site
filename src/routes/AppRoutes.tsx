@@ -109,6 +109,9 @@ import GeneralEntrepreneurIndex from "@/pages/v3/general/GeneralEntrepreneurInde
 import EcosystemHub from "@/pages/v3/EcosystemHub";
 import AdvancedEcosystemDashboard from "@/pages/v3/AdvancedEcosystemDashboard";
 
+// V5 Launch Dashboard
+import LaunchDashboard from "@/pages/v5/LaunchDashboard";
+
 // V3 Stakeholder Persona Pages
 import StakeholdersIndex from "@/pages/v3/stakeholders/StakeholdersIndex";
 
@@ -255,6 +258,7 @@ const AppRoutes: React.FC = () => {
         {/* V3 Ecosystem Hub - Intelligent Persona Routing */}
         <Route path="/v3" element={<EcosystemHub />} />
         <Route path="/v3/advanced-dashboard" element={<AdvancedEcosystemDashboard />} />
+        <Route path="/v5/launch-dashboard" element={<LaunchDashboard />} />
         
         {/* V3 Adult Entrepreneur Persona Routes */}
         <Route path="/v3/entrepreneurs" element={<AdultEntrepreneurIndex />} />
