@@ -118,7 +118,7 @@ export const CinematicHero: React.FC = () => {
                   }}
                   transition={{ 
                     duration: 0.8, 
-                    ease: "easeOutCubic",
+                    ease: "easeOutCubic" as const,
                   }}
                 >
                   <div className="flex items-center gap-4">

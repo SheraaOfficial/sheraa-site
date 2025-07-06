@@ -33,8 +33,8 @@ const itemVariants = {
     rotateX: 0,
     transition: {
       duration: 1.2,
-      ease: [0.165, 0.84, 0.44, 1],
-      type: "spring",
+      ease: [0.165, 0.84, 0.44, 1] as const,
+        type: "spring" as const,
       stiffness: 100,
       damping: 15
     }
@@ -57,8 +57,8 @@ const wordVariants = {
     filter: "blur(0px)",
     transition: {
       duration: 1.2,
-      ease: [0.23, 1, 0.32, 1],
-      type: "spring",
+      ease: [0.23, 1, 0.32, 1] as const,
+      type: "spring" as const,
       stiffness: 80,
       damping: 12
     }
@@ -71,7 +71,7 @@ const wordVariants = {
     filter: "blur(10px)",
     transition: {
       duration: 0.8,
-      ease: [0.76, 0, 0.24, 1]
+      ease: [0.76, 0, 0.24, 1] as const
     }
   }
 };
@@ -137,7 +137,7 @@ export const SophisticatedHeroAnimation: React.FC = () => {
           transition={{
             duration: 15,
             repeat: Infinity,
-            ease: "easeInOut",
+      ease: "easeInOut" as const,
           }}
         />
         
@@ -151,7 +151,7 @@ export const SophisticatedHeroAnimation: React.FC = () => {
           transition={{
             duration: 20,
             repeat: Infinity,
-            ease: "easeInOut",
+        ease: "easeInOut" as const,
             delay: 3,
           }}
         />
@@ -185,8 +185,8 @@ export const SophisticatedHeroAnimation: React.FC = () => {
                 duration: 12 + index,
                 delay: item.delay,
                 repeat: Infinity,
-                ease: "easeInOut",
-                rotate: { duration: 20, repeat: Infinity, ease: "linear" },
+        ease: "easeInOut" as const,
+                rotate: { duration: 20, repeat: Infinity, ease: "linear" as const },
               }}
             >
               <IconComponent size={item.size} />
@@ -213,7 +213,7 @@ export const SophisticatedHeroAnimation: React.FC = () => {
               duration: 8 + Math.random() * 4,
               repeat: Infinity,
               delay: Math.random() * 5,
-              ease: "easeInOut",
+        ease: "easeInOut" as const,
             }}
           />
         ))}
@@ -238,7 +238,7 @@ export const SophisticatedHeroAnimation: React.FC = () => {
                 scale: [1, 1.2, 1],
               }}
               transition={{ 
-                rotate: { duration: 8, repeat: Infinity, ease: "linear" },
+                rotate: { duration: 8, repeat: Infinity, ease: "linear" as const },
                 scale: { duration: 2, repeat: Infinity },
               }}
             >
@@ -273,8 +273,8 @@ export const SophisticatedHeroAnimation: React.FC = () => {
                   }}
                   transition={{ 
                     backgroundPosition: { duration: 8, repeat: Infinity, repeatType: "reverse" },
-                    filter: { duration: 1.5, ease: "easeOut" },
-                    scale: { duration: 1.5, ease: "easeOut" }
+                    filter: { duration: 1.5, ease: "easeOut" as const },
+                    scale: { duration: 1.5, ease: "easeOut" as const }
                   }}
                   style={{ backgroundSize: "400% 400%" }}
                 >
@@ -302,7 +302,7 @@ export const SophisticatedHeroAnimation: React.FC = () => {
                         transition={{
                           duration: 3,
                           repeat: Infinity,
-                          ease: "easeInOut"
+          ease: "easeInOut" as const
                         }}
                         className="bg-gradient-to-r from-sheraa-orange via-sheraa-primary to-sheraa-teal bg-clip-text text-transparent"
                         style={{ backgroundSize: "300% 300%" }}
@@ -375,7 +375,7 @@ export const SophisticatedHeroAnimation: React.FC = () => {
                     className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-12"
                     initial={{ x: "-200%" }}
                     whileHover={{ x: "200%" }}
-                    transition={{ duration: 1.2, ease: "easeInOut" }}
+                    transition={{ duration: 1.2, ease: "easeInOut" as const }}
                   />
                 </Link>
               </GradientButton>
@@ -399,7 +399,7 @@ export const SophisticatedHeroAnimation: React.FC = () => {
                       scale: [1, 1.2, 1]
                     }}
                     transition={{ 
-                      rotate: { duration: 4, repeat: Infinity, ease: "linear" },
+                      rotate: { duration: 4, repeat: Infinity, ease: "linear" as const },
                       scale: { duration: 2, repeat: Infinity }
                     }}
                   >
@@ -430,7 +430,7 @@ export const SophisticatedHeroAnimation: React.FC = () => {
                   transition={{ 
                     delay: 2 + (index * 0.15), 
                     duration: 0.8,
-                    type: "spring",
+        type: "spring" as const,
                     stiffness: 150,
                     damping: 12
                   }}
@@ -438,7 +438,7 @@ export const SophisticatedHeroAnimation: React.FC = () => {
                     scale: 1.15, 
                     y: -10,
                     rotateY: 10,
-                    transition: { type: "spring", stiffness: 300 }
+                    transition: { type: "spring" as const, stiffness: 300 }
                   }}
                 >
                   <motion.div
@@ -448,7 +448,7 @@ export const SophisticatedHeroAnimation: React.FC = () => {
                       duration: 3,
                       repeat: Infinity,
                       delay: index * 0.5,
-                      ease: "easeInOut"
+        ease: "easeInOut" as const
                     }}
                   >
                     <IconComponent className={`w-8 h-8 text-${stat.color} mx-auto`} />
@@ -475,7 +475,7 @@ export const SophisticatedHeroAnimation: React.FC = () => {
         <motion.div
           initial={{ opacity: 0, scale: 0.7, rotateY: -25 }}
           animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-          transition={{ duration: 1.5, delay: 1, ease: "easeOutCubic" }}
+          transition={{ duration: 1.5, delay: 1, ease: "easeOutCubic" as const }}
           className="hidden lg:flex justify-center items-center relative"
         >
           <div className="relative w-full max-w-2xl aspect-square">
@@ -488,7 +488,7 @@ export const SophisticatedHeroAnimation: React.FC = () => {
                 transition={{ 
                   duration: 20 + i * 5, 
                   repeat: Infinity, 
-                  ease: "linear" 
+          ease: "linear" as const
                 }}
                 style={{
                   borderImage: `linear-gradient(45deg, rgba(var(--sheraa-primary), 0.3), rgba(var(--sheraa-teal), 0.2), rgba(var(--sheraa-orange), 0.3)) 1`
@@ -511,7 +511,7 @@ export const SophisticatedHeroAnimation: React.FC = () => {
               transition={{ 
                 duration: 8, 
                 repeat: Infinity, 
-                ease: "easeInOut" 
+        ease: "easeInOut" as const
               }}
             >
               <motion.div
@@ -562,19 +562,19 @@ export const SophisticatedHeroAnimation: React.FC = () => {
                   }}
                   transition={{ 
                     delay: 1.5 + (i * 0.2), 
-                    type: "spring",
+      type: "spring" as const,
                     stiffness: 120,
                     damping: 15,
                     y: {
                       duration: 4,
                       repeat: Infinity,
-                      ease: "easeInOut",
+                      ease: "easeInOut" as const,
                       delay: i * 0.3
                     },
                     rotateY: {
                       duration: 8,
                       repeat: Infinity,
-                      ease: "linear",
+                      ease: "linear" as const,
                       delay: i * 0.5
                     }
                   }}

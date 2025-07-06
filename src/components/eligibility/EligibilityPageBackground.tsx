@@ -9,11 +9,11 @@ export const EligibilityPageBackground: React.FC = () => {
       opacity: [0, 0.8, 0],
       scale: [0.5, 1.2, 0.5],
       y: [0, -100, 0],
-      transition: {
-        duration: 3,
-        repeat: Infinity,
-        ease: "easeInOut"
-      }
+        transition: {
+          duration: 3,
+          repeat: Infinity,
+          ease: "easeInOut" as const
+        }
     }
   };
 
