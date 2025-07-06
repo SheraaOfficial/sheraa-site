@@ -125,6 +125,12 @@ export const HomepageThemeProvider: React.FC<ThemeProviderProps> = ({ children }
   const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {
+    // Only run on client side
+    if (typeof window === 'undefined') {
+      setIsInitialized(true);
+      return;
+    }
+
     try {
       // Safely check URL parameters for theme selection
       const urlParams = new URLSearchParams(window.location.search);

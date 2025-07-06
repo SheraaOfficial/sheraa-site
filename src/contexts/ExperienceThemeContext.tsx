@@ -18,15 +18,17 @@ interface ExperienceThemeProviderProps {
 }
 
 export const ExperienceThemeProvider: React.FC<ExperienceThemeProviderProps> = ({ children }) => {
-  const [theme, setTheme] = useState<ExperienceTheme>(() => {
+  const [theme, setTheme] = useState<ExperienceTheme>('main');
+
+  useEffect(() => {
+    // Only run on client side to prevent hydration mismatches
     if (typeof window !== 'undefined') {
       const savedTheme = localStorage.getItem('sheraa-experience-theme') as ExperienceTheme;
       if (savedTheme && ['main', 'sef', 'dashboard'].includes(savedTheme)) {
-        return savedTheme;
+        setTheme(savedTheme);
       }
     }
-    return 'main';
-  });
+  }, []);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
