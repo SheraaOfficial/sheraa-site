@@ -101,7 +101,7 @@ const AdvancedAnalyticsIntegration: React.FC = () => {
         window.gtag = function() {
           window.dataLayer.push(arguments);
         };
-        window.gtag('js', new Date());
+        window.gtag('js', new Date().toISOString());
         window.gtag('config', 'GA_MEASUREMENT_ID', {
           page_title: 'Sheraa V3 Ecosystem',
           page_location: window.location.href,
