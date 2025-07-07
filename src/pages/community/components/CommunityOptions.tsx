@@ -66,7 +66,7 @@ export const CommunityOptions: React.FC = () => {
       scale: 1,
       transition: {
         duration: 0.6,
-        ease: "backOut"
+        ease: "easeOut" as const
       }
     }
   };

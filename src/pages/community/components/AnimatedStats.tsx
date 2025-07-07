@@ -39,7 +39,7 @@ export const AnimatedStats: React.FC = () => {
       scale: 1,
       transition: {
         duration: 0.6,
-        ease: "backOut"
+        ease: "easeOut" as const
       }
     }
   };
@@ -99,7 +99,7 @@ export const AnimatedStats: React.FC = () => {
                     className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-sheraa-primary to-sheraa-secondary bg-clip-text text-transparent mb-2 relative z-10"
                     initial={{ scale: 0 }}
                     animate={isInView ? { scale: 1 } : {}}
-                    transition={{ delay: 0.5 + index * 0.1, duration: 0.5, ease: "backOut" }}
+                    transition={{ delay: 0.5 + index * 0.1, duration: 0.5, ease: "easeOut" as const }}
                   >
                     {stat.number}
                   </motion.div>

@@ -475,7 +475,7 @@ export const SophisticatedHeroAnimation: React.FC = () => {
         <motion.div
           initial={{ opacity: 0, scale: 0.7, rotateY: -25 }}
           animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-          transition={{ duration: 1.5, delay: 1, ease: "easeOutCubic" as const }}
+          transition={{ duration: 1.5, delay: 1, ease: "easeOut" as const }}
           className="hidden lg:flex justify-center items-center relative"
         >
           <div className="relative w-full max-w-2xl aspect-square">

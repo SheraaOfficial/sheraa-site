@@ -168,7 +168,7 @@ export const SophisticatedHero: React.FC = () => {
                           initial={{ y: 100, opacity: 0, rotateX: -90 }}
                           animate={{ y: 0, opacity: 1, rotateX: 0 }}
                           exit={{ y: -100, opacity: 0, rotateX: 90 }}
-                          transition={{ duration: 0.8, ease: "easeOutCubic" as const }}
+                          transition={{ duration: 0.8, ease: "easeOut" as const }}
                         >
                           {floatingWords[currentWordIndex]}
                         </motion.span>
@@ -266,7 +266,7 @@ export const SophisticatedHero: React.FC = () => {
             <motion.div
               initial={{ opacity: 0, scale: 0.8, rotateY: -30 }}
               animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-              transition={{ delay: 0.8, duration: 1, ease: "easeOutCubic" as const }}
+              transition={{ delay: 0.8, duration: 1, ease: "easeOut" as const }}
               className="relative"
             >
               <div className="relative w-full max-w-lg mx-auto">

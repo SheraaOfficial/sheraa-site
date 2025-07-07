@@ -112,8 +112,8 @@ const RevolutionaryPersonaGrid: React.FC<RevolutionaryPersonaGridProps> = ({
         transition: {
           duration: 1.2,
           delay: i * 0.2,
-          ease: [0.16, 1, 0.3, 1],
-          type: "spring",
+          ease: "easeOut" as const,
+          type: "spring" as const,
           bounce: 0.3
         }
       })
