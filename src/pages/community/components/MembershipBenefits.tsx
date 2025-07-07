@@ -80,7 +80,7 @@ export const MembershipBenefits: React.FC = () => {
       y: 0,
       transition: {
         duration: 0.8,
-        ease: "backOut"
+        ease: "easeOut" as const
       }
     }
   };
@@ -92,7 +92,7 @@ export const MembershipBenefits: React.FC = () => {
       x: 0,
       transition: {
         duration: 0.6,
-        ease: "easeOut"
+        ease: "easeOut" as const
       }
     }
   };

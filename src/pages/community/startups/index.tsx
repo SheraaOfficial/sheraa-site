@@ -37,7 +37,7 @@ const CommunityStartups: React.FC = () => {
       opacity: 1,
       transition: {
         duration: 0.6,
-        ease: "easeOut"
+        ease: "easeOut" as const
       }
     }
   };
@@ -49,7 +49,7 @@ const CommunityStartups: React.FC = () => {
       transition: {
         duration: 6,
         repeat: Infinity,
-        ease: "easeInOut"
+        ease: "easeInOut" as const
       }
     }
   };
@@ -97,7 +97,7 @@ const CommunityStartups: React.FC = () => {
             >
               <motion.div
                 animate={{ rotate: 360 }}
-                transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                transition={{ duration: 8, repeat: Infinity, ease: "linear" as const }}
               >
                 <Sparkles className="w-5 h-5 text-sheraa-primary" />
               </motion.div>
@@ -118,7 +118,7 @@ const CommunityStartups: React.FC = () => {
                 className="inline-block bg-gradient-to-r from-sheraa-secondary to-sheraa-orange bg-clip-text text-transparent"
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                transition={{ delay: 1, duration: 0.8, ease: "backOut" }}
+                transition={{ delay: 1, duration: 0.8, ease: "easeOut" as const }}
               >
                 from Sharjah
               </motion.span>
