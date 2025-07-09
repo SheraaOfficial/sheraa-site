@@ -26,6 +26,8 @@ const LoadingFallback = () => (
 
 // Safe theme renderer with fallbacks
 export const SafeThemeAwareHomepage: React.FC = () => {
+  console.log('SafeThemeAwareHomepage: Starting render');
+  
   let currentTheme = 'dynamic'; // Default fallback
   
   // Safely try to get theme from URL or context
@@ -35,10 +37,12 @@ export const SafeThemeAwareHomepage: React.FC = () => {
       const themeParam = urlParams.get('theme');
       if (themeParam) {
         currentTheme = themeParam;
+        console.log('SafeThemeAwareHomepage: Theme from URL:', themeParam);
       }
     }
+    console.log('SafeThemeAwareHomepage: Using theme:', currentTheme);
   } catch (error) {
-    console.warn('Could not read theme from URL, using default');
+    console.error('SafeThemeAwareHomepage: Error reading theme from URL:', error);
     // Fallback to basic homepage on any error
     return (
       <Suspense fallback={<LoadingFallback />}>
@@ -48,9 +52,12 @@ export const SafeThemeAwareHomepage: React.FC = () => {
   }
 
   const renderTheme = () => {
+    console.log('SafeThemeAwareHomepage: renderTheme called with theme:', currentTheme);
+    
     try {
       switch (currentTheme) {
         case 'corporate':
+          console.log('SafeThemeAwareHomepage: Rendering CorporateHomepage');
           return (
             <Suspense fallback={<LoadingFallback />}>
               <CorporateHomepage />
@@ -59,6 +66,7 @@ export const SafeThemeAwareHomepage: React.FC = () => {
         case 'dynamic':
         case 'ultimate':
         default:
+          console.log('SafeThemeAwareHomepage: Rendering UltimateHomepage');
           return (
             <Suspense fallback={<LoadingFallback />}>
               <UltimateHomepage />
@@ -66,7 +74,7 @@ export const SafeThemeAwareHomepage: React.FC = () => {
           );
       }
     } catch (error) {
-      console.error('Theme rendering error:', error);
+      console.error('SafeThemeAwareHomepage: Theme rendering error:', error);
       // Ultimate fallback
       return (
         <Suspense fallback={<LoadingFallback />}>
