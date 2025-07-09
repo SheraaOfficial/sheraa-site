@@ -100,6 +100,35 @@ html.reduce-effects .shadow-2xl {
   animation: none !important;
 }
 
+/* Enhanced mobile optimizations for v3 */
+.low-performance * {
+  will-change: auto !important;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.battery-saver * {
+  animation-duration: 0.1s !important;
+  transition-duration: 0.1s !important;
+}
+
+.mobile-optimized {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+/* Touch gesture indicators */
+.gesture-indicator {
+  position: fixed;
+  pointer-events: none;
+  z-index: 1000;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+  width: 60px;
+  height: 60px;
+  transform: translate(-50%, -50%);
+}
+
 /* iOS specific optimizations */
 @supports (-webkit-touch-callout: none) {
   .young-ios-safe {
