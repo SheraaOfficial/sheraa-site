@@ -15,13 +15,15 @@ interface ScrollStorytellingProps {
   persona: 'young' | 'adult' | 'stakeholder' | 'general';
   onChapterChange?: (chapterId: string) => void;
   className?: string;
+  children?: React.ReactNode;
 }
 
 export const ScrollStorytellingFramework: React.FC<ScrollStorytellingProps> = ({
   chapters,
   persona,
   onChapterChange,
-  className = ""
+  className = "",
+  children
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeChapter, setActiveChapter] = useState<string>(chapters[0]?.id || '');
@@ -111,6 +113,9 @@ export const ScrollStorytellingFramework: React.FC<ScrollStorytellingProps> = ({
           />
         ))}
       </div>
+
+      {/* Children (Base layer like parallax system) */}
+      {children}
 
       {/* Chapters */}
       <div className="space-y-0">
