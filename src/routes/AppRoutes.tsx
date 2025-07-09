@@ -2,8 +2,7 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { ErrorBoundary } from 'react-error-boundary';
 import ScrollToTop from "@/components/utils/ScrollToTop";
-import { ThemeAwareHomepage } from "@/components/homepage/ThemeAwareHomepage";
-import { SafeThemeAwareHomepage } from "@/components/homepage/SafeThemeAwareHomepage";
+import { SimpleHomepage } from "@/components/homepage/SimpleHomepage";
 import ThemePreviewPage from "@/pages/themes/ThemePreviewPage";
 import NotFound from "@/pages/NotFound";
 import { ErrorFallback } from "@/components/layout/ErrorFallback";
@@ -23,8 +22,8 @@ const AppRoutes: React.FC = () => {
     <ErrorBoundary FallbackComponent={ErrorFallback}>
       <ScrollToTop />
       <Routes>
-        {/* Homepage - Safe fallback to prevent hook errors */}
-        <Route path="/" element={<SafeThemeAwareHomepage />} />
+        {/* Homepage - Emergency simple fallback */}
+        <Route path="/" element={<SimpleHomepage />} />
         
         {/* Test Homepage - Stable alternative */}
         <Route path="/home2" element={<Home2 />} />
