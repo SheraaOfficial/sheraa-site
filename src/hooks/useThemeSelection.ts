@@ -7,9 +7,15 @@ export const useThemeSelection = () => {
   const [hasSelectedTheme, setHasSelectedTheme] = useLocalStorage('sheraa-theme-selected', false);
   const [showThemeModal, setShowThemeModal] = useState(false);
   
-  // Always call hooks at top level - no conditional usage
-  const themeContext = useTheme();
-  const currentTheme = themeContext?.currentTheme || 'dynamic';
+  // Safely get theme context - don't crash if not available
+  let currentTheme;
+  try {
+    const themeContext = useTheme();
+    currentTheme = themeContext.currentTheme;
+  } catch (error) {
+    console.warn('Theme context not available, using default');
+    currentTheme = 'dynamic';
+  }
 
   useEffect(() => {
     try {

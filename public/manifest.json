@@ -5,7 +5,7 @@
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#2563eb",
+  "theme_color": "#YOUR_PRIMARY_COLOR",
   "orientation": "portrait-primary",
   "icons": [
     {
@@ -94,5 +94,6 @@
   "dir": "ltr",
   "prefer_related_applications": false,
   "related_applications": [],
-  "scope": "/"
+  "scope": "/",
+  "iarc_rating_id": "YOUR_IARC_RATING_ID"
 } 

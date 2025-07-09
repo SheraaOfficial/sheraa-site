@@ -221,14 +221,7 @@ export const HomepageThemeProvider: React.FC<ThemeProviderProps> = ({ children }
 export const useTheme = (): ThemeContextType => {
   const context = useContext(ThemeContext);
   if (!context) {
-    // Return safe defaults instead of throwing
-    return {
-      currentTheme: 'dynamic',
-      setTheme: () => {},
-      availableThemes: themeMetadata,
-      isPreviewMode: false,
-      setPreviewMode: () => {}
-    };
+    throw new Error('useTheme must be used within a ThemeProvider');
   }
   return context;
 };
