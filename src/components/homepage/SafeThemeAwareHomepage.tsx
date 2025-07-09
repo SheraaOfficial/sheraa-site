@@ -3,15 +3,21 @@ import { ComprehensiveErrorBoundary, LazyLoadingErrorFallback } from '@/componen
 
 // Lazy load all theme components to prevent initial loading issues
 const UltimateHomepage = React.lazy(() => 
-  import('@/pages/NewIndex').then(module => ({ default: module.default }))
+  import('@/pages/NewIndex').then(module => ({ default: module.default })).catch(error => {
+    console.error('Failed to load UltimateHomepage:', error);
+    return import('@/components/homepage/SimpleHomepage');
+  })
 );
 
 const CorporateHomepage = React.lazy(() => 
-  import('@/pages/Index').then(module => ({ default: module.default }))
+  import('@/pages/Index').then(module => ({ default: module.default })).catch(error => {
+    console.error('Failed to load CorporateHomepage:', error);
+    return import('@/components/homepage/SimpleHomepage');
+  })
 );
 
-const DynamicHomepage = React.lazy(() => 
-  import('@/pages/NewIndex').then(module => ({ default: module.default }))
+const SimpleHomepage = React.lazy(() => 
+  import('@/components/homepage/SimpleHomepage').then(module => ({ default: module.default }))
 );
 
 // Simple loading component
@@ -54,31 +60,50 @@ export const SafeThemeAwareHomepage: React.FC = () => {
   const renderTheme = () => {
     console.log('SafeThemeAwareHomepage: renderTheme called with theme:', currentTheme);
     
+    // Progressive fallback strategy: Corporate -> Ultimate -> Simple
     try {
       switch (currentTheme) {
         case 'corporate':
           console.log('SafeThemeAwareHomepage: Rendering CorporateHomepage');
           return (
-            <Suspense fallback={<LoadingFallback />}>
-              <CorporateHomepage />
-            </Suspense>
+            <ComprehensiveErrorBoundary 
+              fallback={() => (
+                <Suspense fallback={<LoadingFallback />}>
+                  <UltimateHomepage />
+                </Suspense>
+              )}
+              maxRetries={1}
+            >
+              <Suspense fallback={<LoadingFallback />}>
+                <CorporateHomepage />
+              </Suspense>
+            </ComprehensiveErrorBoundary>
           );
         case 'dynamic':
         case 'ultimate':
         default:
           console.log('SafeThemeAwareHomepage: Rendering UltimateHomepage');
           return (
-            <Suspense fallback={<LoadingFallback />}>
-              <UltimateHomepage />
-            </Suspense>
+            <ComprehensiveErrorBoundary 
+              fallback={() => (
+                <Suspense fallback={<LoadingFallback />}>
+                  <SimpleHomepage />
+                </Suspense>
+              )}
+              maxRetries={1}
+            >
+              <Suspense fallback={<LoadingFallback />}>
+                <UltimateHomepage />
+              </Suspense>
+            </ComprehensiveErrorBoundary>
           );
       }
     } catch (error) {
-      console.error('SafeThemeAwareHomepage: Theme rendering error:', error);
-      // Ultimate fallback
+      console.error('SafeThemeAwareHomepage: Critical theme rendering error:', error);
+      // Final safety net
       return (
         <Suspense fallback={<LoadingFallback />}>
-          <UltimateHomepage />
+          <SimpleHomepage />
         </Suspense>
       );
     }
