@@ -96,6 +96,7 @@ import ProgramMatchPage from "@/pages/v3/ProgramMatchPage";
 
 // V3 Young Entrepreneur Persona Pages
 import YoungEntrepreneurIndex from "@/pages/v3/young/YoungEntrepreneurIndex";
+import YoungGamifiedDashboard from "@/pages/v3/young/YoungGamifiedDashboard";
 import IdeaValidatorPage from "@/pages/v3/young/IdeaValidatorPage";
 import FoundersPage from "@/pages/v3/young/FoundersPage";
 import ChallengesPage from "@/pages/v3/young/ChallengesPage";
@@ -266,6 +267,11 @@ const AppRoutes: React.FC = () => {
         
         {/* V3 Young Entrepreneur Persona Routes */}
         <Route path="/v3/young" element={<YoungEntrepreneurIndex />} />
+        <Route path="/v3/young/dashboard" element={
+          <React.Suspense fallback={<div className="p-8 text-center">Loading Gamified Dashboard...</div>}>
+            <YoungGamifiedDashboard />
+          </React.Suspense>
+        } />
         <Route path="/v3/young/idea-validator" element={<IdeaValidatorPage />} />
         <Route path="/v3/young/founders" element={<FoundersPage />} />
         <Route path="/v3/young/challenges" element={<ChallengesPage />} />

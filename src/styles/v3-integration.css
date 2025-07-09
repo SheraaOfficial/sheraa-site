@@ -1,0 +1,194 @@
+/* V3 Integration CSS - Connects all modern components */
+
+/* 2025 Design Trend Activation */
+.kinetic-text {
+  @apply transition-all duration-700 ease-out;
+  transform-style: preserve-3d;
+}
+
+.kinetic-text:hover {
+  transform: perspective(1000px) rotateX(5deg) rotateY(-2deg);
+  text-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Organic Morphing Backgrounds */
+.organic-morph {
+  background: linear-gradient(45deg, 
+    hsl(var(--primary)) 0%, 
+    hsl(var(--secondary)) 25%, 
+    hsl(var(--accent)) 50%, 
+    hsl(var(--primary)) 75%, 
+    hsl(var(--secondary)) 100%);
+  background-size: 400% 400%;
+  animation: organic-flow 12s ease-in-out infinite;
+}
+
+@keyframes organic-flow {
+  0%, 100% { background-position: 0% 50%; }
+  25% { background-position: 100% 50%; }
+  50% { background-position: 100% 100%; }
+  75% { background-position: 0% 100%; }
+}
+
+/* Velocity-based Gradients */
+.velocity-gradient {
+  background: linear-gradient(135deg, 
+    hsl(var(--primary)/0.8) 0%, 
+    hsl(var(--secondary)/0.6) 50%, 
+    hsl(var(--accent)/0.4) 100%);
+  background-attachment: fixed;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Young Entrepreneur Specific Styles */
+.young-gradient-text {
+  background: linear-gradient(135deg, 
+    hsl(var(--v3-young-primary)) 0%, 
+    hsl(var(--v3-young-secondary)) 50%, 
+    hsl(var(--v3-young-accent)) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: gradient-shift 3s ease-in-out infinite;
+}
+
+@keyframes gradient-shift {
+  0%, 100% { filter: hue-rotate(0deg); }
+  50% { filter: hue-rotate(30deg); }
+}
+
+/* Brutalist Glassmorphism Integration */
+.brutalist-glass-container {
+  backdrop-filter: blur(20px) saturate(180%);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Magnetic Cursor Effects */
+.magnetic-element {
+  transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
+}
+
+.magnetic-element:hover {
+  transform: scale(1.05);
+}
+
+/* Enhanced Mobile Optimizations */
+@media (max-width: 768px) {
+  .kinetic-text {
+    animation: none; /* Reduce animations on mobile */
+  }
+  
+  .organic-morph {
+    animation-duration: 20s; /* Slower animations for battery life */
+  }
+  
+  .magnetic-element {
+    transition-duration: 0.1s; /* Faster transitions for touch */
+  }
+}
+
+/* Performance Optimizations */
+.reduce-animations .kinetic-text,
+.reduce-animations .organic-morph {
+  animation: none !important;
+  transition: none !important;
+}
+
+.reduce-effects .brutalist-glass-container {
+  backdrop-filter: none;
+  background: rgba(255, 255, 255, 0.95);
+}
+
+/* Cross-Component Magnetic System */
+.magnetic-field {
+  position: relative;
+  overflow: hidden;
+}
+
+.magnetic-field::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, 
+    rgba(var(--primary-rgb), 0.02) 0%, 
+    transparent 70%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.magnetic-field:hover::before {
+  opacity: 1;
+}
+
+/* Elastic Scroll Physics Integration */
+.elastic-scroll-container {
+  overscroll-behavior: contain;
+  scroll-behavior: smooth;
+}
+
+/* Cursor Trail Integration */
+.cursor-trail-active {
+  cursor: none;
+}
+
+.cursor-trail-active * {
+  cursor: none;
+}
+
+/* Achievement System Animations */
+.achievement-unlock {
+  animation: achievement-celebration 0.8s ease-out;
+}
+
+@keyframes achievement-celebration {
+  0% { transform: scale(0.8) rotate(-5deg); opacity: 0; }
+  50% { transform: scale(1.1) rotate(2deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+/* Swipeable Cards Enhancement */
+.swipeable-card {
+  touch-action: pan-y;
+  user-select: none;
+  will-change: transform;
+}
+
+/* Real-time Performance Monitoring */
+.performance-indicator {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 9999;
+  padding: 4px 8px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  font-size: 10px;
+  border-radius: 4px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.performance-indicator.show {
+  opacity: 1;
+}
+
+/* Proximity Reveal Effects */
+.proximity-reveal {
+  opacity: 0.3;
+  transform: translateY(20px);
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.proximity-reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}

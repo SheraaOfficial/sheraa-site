@@ -117,6 +117,25 @@ html.reduce-effects .shadow-2xl {
   scroll-behavior: smooth;
 }
 
+/* V3 Mobile Integration */
+@media (max-width: 768px) {
+  .magnetic-cursor-container {
+    pointer-events: none; /* Disable on mobile */
+  }
+  
+  .kinetic-text {
+    animation-duration: 1s; /* Shorter animations for mobile */
+  }
+  
+  .brutalist-glass-container {
+    backdrop-filter: blur(10px); /* Reduced blur for performance */
+  }
+  
+  .organic-morph {
+    animation-duration: 8s; /* Slower for battery life */
+  }
+}
+
 /* Touch gesture indicators */
 .gesture-indicator {
   position: fixed;
