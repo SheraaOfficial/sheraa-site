@@ -16,15 +16,33 @@ const DYNAMIC_ASSETS = [
   '/api/resources'
 ];
 
-// Install event - cache static assets
+// Install event - cache static assets with graceful error handling
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then((cache) => {
+      .then(async (cache) => {
         console.log('Opened cache');
-        return cache.addAll(STATIC_ASSETS);
+        
+        // Cache static assets individually with error handling
+        const cachePromises = STATIC_ASSETS.map(async (asset) => {
+          try {
+            await cache.add(asset);
+            console.log('Successfully cached:', asset);
+          } catch (error) {
+            console.warn('Failed to cache asset:', asset, error);
+            // Continue with other assets even if one fails
+          }
+        });
+        
+        await Promise.allSettled(cachePromises);
+        console.log('Cache installation completed');
       })
       .then(() => self.skipWaiting())
+      .catch((error) => {
+        console.error('Cache installation failed:', error);
+        // Allow service worker to install even if caching fails
+        self.skipWaiting();
+      })
   );
 });
 
@@ -82,11 +100,16 @@ self.addEventListener('fetch', (event) => {
 
             return response;
           })
-          .catch(() => {
+          .catch((error) => {
+            console.warn('Fetch failed for:', event.request.url, error);
             // Return offline fallback for HTML requests
-            if (event.request.headers.get('accept').includes('text/html')) {
-              return caches.match('/offline.html');
+            if (event.request.headers.get('accept') && event.request.headers.get('accept').includes('text/html')) {
+              return caches.match('/') || new Response('<h1>Offline</h1><p>Please check your connection</p>', {
+                headers: { 'Content-Type': 'text/html' }
+              });
             }
+            // Return empty response for other requests
+            return new Response('', { status: 503 });
           });
       })
   );

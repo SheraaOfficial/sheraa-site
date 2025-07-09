@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { ErrorBoundary, ThemeErrorFallback } from '@/components/layout/ErrorBoundary';
+import { ComprehensiveErrorBoundary, LazyLoadingErrorFallback } from '@/components/layout/ComprehensiveErrorBoundary';
 
 // Lazy load all theme components to prevent initial loading issues
 const UltimateHomepage = React.lazy(() => 
@@ -77,8 +77,15 @@ export const SafeThemeAwareHomepage: React.FC = () => {
   };
 
   return (
-    <ErrorBoundary fallback={ThemeErrorFallback}>
+    <ComprehensiveErrorBoundary 
+      fallback={LazyLoadingErrorFallback}
+      onError={(error, errorInfo) => {
+        console.error('Theme loading error:', error);
+        console.error('Error info:', errorInfo);
+      }}
+      maxRetries={2}
+    >
       {renderTheme()}
-    </ErrorBoundary>
+    </ComprehensiveErrorBoundary>
   );
 };
