@@ -2,7 +2,7 @@
 import React from "react";
 import MainLayout from "@/components/layouts/MainLayout";
 import GeneralNavigation from "@/components/v3/general/GeneralNavigation";
-import GeneralHeroSection from "@/components/v3/general/GeneralHeroSection";
+import ImmersiveGeneralHero from "@/components/v3/ImmersiveGeneralHero";
 import EducationalPathways from "@/components/v3/general/EducationalPathways";
 import InteractiveLearningHub from "@/components/v3/general/InteractiveLearningHub";
 import CommunityFeaturesSection from "@/components/v3/general/CommunityFeaturesSection";
@@ -14,7 +14,7 @@ const GeneralEntrepreneurIndex: React.FC = () => {
   return (
     <MainLayout>
       <GeneralNavigation />
-      <GeneralHeroSection />
+      <ImmersiveGeneralHero />
       <EducationalPathways />
       <InteractiveLearningHub />
       <CommunityFeaturesSection />

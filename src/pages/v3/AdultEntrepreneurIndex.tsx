@@ -1,6 +1,6 @@
 import React from "react";
 import MainLayout from "@/components/layouts/MainLayout";
-import AdultEntrepreneurHero from "@/components/v3/AdultEntrepreneurHero";
+import ImmersiveAdultEntrepreneurHero from "@/components/v3/ImmersiveAdultEntrepreneurHero";
 import ProgramMatchingQuiz from "@/components/v3/ProgramMatchingQuiz";
 import SuccessStoryCarousel from "@/components/v3/SuccessStoryCarousel";
 import { ImpactMetricsSection } from "@/components/homepage/redesign/ImpactMetricsSection";
@@ -13,7 +13,7 @@ const AdultEntrepreneurIndex: React.FC = () => {
   return (
     <MainLayout>
       {/* Hero Section - Adult Entrepreneur Focused */}
-      <AdultEntrepreneurHero />
+      <ImmersiveAdultEntrepreneurHero />
       
       {/* Program Matching Quiz */}
       <section className="py-16 bg-gray-50">
