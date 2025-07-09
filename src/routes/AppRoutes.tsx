@@ -16,28 +16,18 @@ import { CommunityRoutes } from "./CommunityRoutes";
 import { EventsRoutes } from "./EventsRoutes";
 import { V3Routes } from "./V3Routes";
 import { CoreRoutes } from "./CoreRoutes";
+import Home2 from "@/pages/Home2";
 
 const AppRoutes: React.FC = () => {
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback}>
       <ScrollToTop />
       <Routes>
-        {/* Homepage */}
-        <Route path="/" element={
-          <ErrorBoundary FallbackComponent={({ error, resetErrorBoundary }) => (
-            <div className="min-h-screen flex items-center justify-center bg-background">
-              <div className="text-center p-8">
-                <h2 className="text-xl font-bold mb-3">Loading Error</h2>
-                <p className="text-muted-foreground mb-4 text-sm">
-                  Error: {error.message}
-                </p>
-                <SafeThemeAwareHomepage />
-              </div>
-            </div>
-          )}>
-            <ThemeAwareHomepage />
-          </ErrorBoundary>
-        } />
+        {/* Homepage - Safe fallback to prevent hook errors */}
+        <Route path="/" element={<SafeThemeAwareHomepage />} />
+        
+        {/* Test Homepage - Stable alternative */}
+        <Route path="/home2" element={<Home2 />} />
         
         {/* Theme showcase route */}
         <Route path="/themes/preview" element={<ThemePreviewPage />} />
