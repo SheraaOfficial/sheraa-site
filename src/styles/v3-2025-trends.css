@@ -1,0 +1,77 @@
+@layer utilities {
+  /* 2025 Design Trends Implementation */
+  
+  /* Brutalist Neo-Glassmorphism */
+  .brutalist-neo-glass {
+    background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+    backdrop-filter: blur(40px) saturate(200%) brightness(120%);
+    border: 2px solid rgba(255,255,255,0.15);
+    border-radius: 24px;
+    box-shadow: 
+      0 25px 50px -12px rgba(0,0,0,0.25),
+      0 0 0 1px rgba(255,255,255,0.05),
+      inset 0 1px 0 rgba(255,255,255,0.2);
+  }
+
+  /* Kinetic Typography Animations */
+  .kinetic-text {
+    animation: kinetic-morph 4s ease-in-out infinite;
+  }
+
+  @keyframes kinetic-morph {
+    0%, 100% { transform: translateY(0) rotateX(0) scale(1); }
+    25% { transform: translateY(-5px) rotateX(2deg) scale(1.02); }
+    50% { transform: translateY(0) rotateX(-1deg) scale(0.98); }
+    75% { transform: translateY(2px) rotateX(1deg) scale(1.01); }
+  }
+
+  /* Magnetic Cursor Effects */
+  .magnetic-element {
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .magnetic-element:hover {
+    transform: scale(1.05) translateZ(0);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+  }
+
+  /* Organic Shape Morphing */
+  .organic-morph {
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    animation: organic-shape 8s ease-in-out infinite;
+  }
+
+  @keyframes organic-shape {
+    0%, 100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+    25% { border-radius: 58% 42% 75% 25% / 76% 46% 54% 24%; }
+    50% { border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%; }
+    75% { border-radius: 33% 67% 58% 42% / 63% 68% 32% 37%; }
+  }
+
+  /* Velocity-based Gradient Shifts */
+  .velocity-gradient {
+    background: linear-gradient(45deg, var(--sheraa-primary), var(--sheraa-teal), var(--sheraa-secondary));
+    background-size: 400% 400%;
+    animation: velocity-shift 3s ease infinite;
+  }
+
+  @keyframes velocity-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* Elastic Scroll Physics */
+  .elastic-scroll {
+    transform-origin: center center;
+    will-change: transform;
+  }
+
+  /* Performance Optimizations */
+  .v3-2025-optimized {
+    contain: layout style paint;
+    content-visibility: auto;
+    will-change: transform;
+    backface-visibility: hidden;
+  }
+}
