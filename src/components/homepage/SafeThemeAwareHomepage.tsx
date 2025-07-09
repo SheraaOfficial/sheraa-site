@@ -39,24 +39,40 @@ export const SafeThemeAwareHomepage: React.FC = () => {
     }
   } catch (error) {
     console.warn('Could not read theme from URL, using default');
+    // Fallback to basic homepage on any error
+    return (
+      <Suspense fallback={<LoadingFallback />}>
+        <UltimateHomepage />
+      </Suspense>
+    );
   }
 
   const renderTheme = () => {
-    switch (currentTheme) {
-      case 'corporate':
-        return (
-          <Suspense fallback={<LoadingFallback />}>
-            <CorporateHomepage />
-          </Suspense>
-        );
-      case 'dynamic':
-      case 'ultimate':
-      default:
-        return (
-          <Suspense fallback={<LoadingFallback />}>
-            <UltimateHomepage />
-          </Suspense>
-        );
+    try {
+      switch (currentTheme) {
+        case 'corporate':
+          return (
+            <Suspense fallback={<LoadingFallback />}>
+              <CorporateHomepage />
+            </Suspense>
+          );
+        case 'dynamic':
+        case 'ultimate':
+        default:
+          return (
+            <Suspense fallback={<LoadingFallback />}>
+              <UltimateHomepage />
+            </Suspense>
+          );
+      }
+    } catch (error) {
+      console.error('Theme rendering error:', error);
+      // Ultimate fallback
+      return (
+        <Suspense fallback={<LoadingFallback />}>
+          <UltimateHomepage />
+        </Suspense>
+      );
     }
   };
 
