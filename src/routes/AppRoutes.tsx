@@ -92,10 +92,12 @@ import AccessSharjahChallengeApplyPage from "@/pages/programs/access-sharjah/Acc
 
 // V3 Adult Entrepreneur Persona Pages
 import AdultEntrepreneurIndex from "@/pages/v3/AdultEntrepreneurIndex";
+import AdultEntrepreneurOp2 from "@/pages/v3/AdultEntrepreneurOp2";
 import ProgramMatchPage from "@/pages/v3/ProgramMatchPage";
 
 // V3 Young Entrepreneur Persona Pages
 import YoungEntrepreneurIndex from "@/pages/v3/young/YoungEntrepreneurIndex";
+import YoungEntrepreneurOp2 from "@/pages/v3/young/YoungEntrepreneurOp2";
 import YoungGamifiedDashboard from "@/pages/v3/young/YoungGamifiedDashboard";
 import IdeaValidatorPage from "@/pages/v3/young/IdeaValidatorPage";
 import FoundersPage from "@/pages/v3/young/FoundersPage";
@@ -105,6 +107,7 @@ import PeerMatchingPage from "@/pages/v3/young/PeerMatchingPage";
 
 // V3 General Entrepreneur Persona Pages
 import GeneralEntrepreneurIndex from "@/pages/v3/general/GeneralEntrepreneurIndex";
+import GeneralEntrepreneurOp2 from "@/pages/v3/general/GeneralEntrepreneurOp2";
 
 // V3 Ecosystem Hub
 import EcosystemHub from "@/pages/v3/EcosystemHub";
@@ -115,6 +118,7 @@ import LaunchDashboard from "@/pages/v5/LaunchDashboard";
 
 // V3 Stakeholder Persona Pages
 import StakeholdersIndex from "@/pages/v3/stakeholders/StakeholdersIndex";
+import StakeholdersOp2 from "@/pages/v3/stakeholders/StakeholdersOp2";
 
 const ErrorFallback = ({ error }: { error: Error }) => (
   <div className="min-h-screen flex items-center justify-center">
@@ -263,10 +267,12 @@ const AppRoutes: React.FC = () => {
         
         {/* V3 Adult Entrepreneur Persona Routes */}
         <Route path="/v3/entrepreneurs" element={<AdultEntrepreneurIndex />} />
+        <Route path="/v3/entrepreneurs/op2" element={<AdultEntrepreneurOp2 />} />
         <Route path="/v3/program-match" element={<ProgramMatchPage />} />
         
         {/* V3 Young Entrepreneur Persona Routes */}
         <Route path="/v3/young" element={<YoungEntrepreneurIndex />} />
+        <Route path="/v3/young/op2" element={<YoungEntrepreneurOp2 />} />
         <Route path="/v3/young/dashboard" element={
           <React.Suspense fallback={<div className="p-8 text-center">Loading Gamified Dashboard...</div>}>
             <YoungGamifiedDashboard />
@@ -280,9 +286,11 @@ const AppRoutes: React.FC = () => {
 
         {/* V3 General Entrepreneur Persona Routes */}
         <Route path="/v3/general" element={<GeneralEntrepreneurIndex />} />
+        <Route path="/v3/general/op2" element={<GeneralEntrepreneurOp2 />} />
 
         {/* V3 Stakeholder Persona Routes */}
         <Route path="/v3/stakeholders" element={<StakeholdersIndex />} />
+        <Route path="/v3/stakeholders/op2" element={<StakeholdersOp2 />} />
 
         {/* Legacy redirects for backwards compatibility */}
         <Route path="/login" element={<Navigate to="/auth/login" replace />} />
