@@ -2,11 +2,8 @@ const CACHE_NAME = 'sheraa-cache-v1';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
-  '/manifest.json',
-  '/icons/icon-192x192.png',
-  '/icons/icon-512x512.png',
-  '/screenshots/home.png',
-  '/screenshots/programs.png'
+  '/src/main.tsx',
+  '/manifest.json'
 ];
 
 // Dynamic assets to cache
@@ -74,18 +71,35 @@ self.addEventListener('fetch', (event) => {
             // Clone the response
             const responseToCache = response.clone();
 
-            // Cache the response
-            caches.open(CACHE_NAME)
-              .then((cache) => {
-                cache.put(event.request, responseToCache);
-              });
+            // Cache the response for static assets only
+            if (event.request.url.includes('.js') || 
+                event.request.url.includes('.css') || 
+                event.request.url.includes('.png') || 
+                event.request.url.includes('.jpg') || 
+                event.request.url.includes('.ico')) {
+              caches.open(CACHE_NAME)
+                .then((cache) => {
+                  cache.put(event.request, responseToCache);
+                });
+            }
 
             return response;
           })
           .catch(() => {
             // Return offline fallback for HTML requests
-            if (event.request.headers.get('accept').includes('text/html')) {
-              return caches.match('/offline.html');
+            if (event.request.headers.get('accept')?.includes('text/html')) {
+              return new Response(
+                `<!DOCTYPE html>
+                <html>
+                <head><title>Offline - Sheraa</title></head>
+                <body style="font-family: Arial, sans-serif; text-align: center; padding: 50px;">
+                  <h1>You're Offline</h1>
+                  <p>Please check your internet connection and try again.</p>
+                  <button onclick="window.location.reload()">Retry</button>
+                </body>
+                </html>`,
+                { headers: { 'Content-Type': 'text/html' } }
+              );
             }
           });
       })
