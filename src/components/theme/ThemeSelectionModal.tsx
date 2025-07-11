@@ -5,8 +5,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { useTheme, HomepageTheme } from '@/contexts/ThemeContext';
-import { themeMetadata } from '@/contexts/ThemeContext';
+import { useTheme, HomepageTheme, themeMetadata } from '@/contexts/ThemeContext';
 import { useLocalStorage } from '@/hooks/use-local-storage';
 import { 
   Users, Zap, Camera, Sparkles, Play, Film, Grid, 
