@@ -1,7 +1,8 @@
 
 import React from "react";
 import MainLayout from "@/components/layouts/MainLayout";
-import { ImmersiveHero } from "@/components/hero/ImmersiveHero";
+import { Hub71InspiredHero } from "@/components/hero/Hub71InspiredHero";
+import { WhatsHappeningSection } from "@/components/homepage/sections/WhatsHappeningSection";
 import { ImpactMetricsSection } from "@/components/homepage/redesign/ImpactMetricsSection";
 import { ProgramsJourneySection } from "@/components/homepage/redesign/ProgramsJourneySection";
 import { StartupEcosystemSection } from "@/components/homepage/redesign/StartupEcosystemSection";
@@ -15,7 +16,8 @@ import { ThemeSelector } from "@/components/theme/ThemeSelector";
 const Index = () => {
   return (
     <MainLayout>
-      <ImmersiveHero />
+      <Hub71InspiredHero />
+      <WhatsHappeningSection />
       <ImpactMetricsSection />
       <ProgramsJourneySection />
       <SEFHighlightSection />
