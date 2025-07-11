@@ -2,8 +2,7 @@ import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { ErrorBoundary } from 'react-error-boundary';
 import ScrollToTop from "@/components/utils/ScrollToTop";
-import { ThemeAwareHomepage } from "@/components/homepage/ThemeAwareHomepage";
-import { SafeThemeAwareHomepage } from "@/components/homepage/SafeThemeAwareHomepage";
+import Index from "@/pages/Index";
 import ThemePreviewPage from "@/pages/themes/ThemePreviewPage";
 import NotFound from "@/pages/NotFound";
 
@@ -149,11 +148,16 @@ const AppRoutes: React.FC = () => {
                 <p className="text-muted-foreground mb-4 text-sm">
                   Error: {error.message}
                 </p>
-                <SafeThemeAwareHomepage />
+                <button 
+                  onClick={() => window.location.reload()} 
+                  className="px-4 py-2 bg-sheraa-primary text-white rounded hover:bg-sheraa-primary/90"
+                >
+                  Reload Page
+                </button>
               </div>
             </div>
           )}>
-            <ThemeAwareHomepage />
+            <Index />
           </ErrorBoundary>
         } />
         

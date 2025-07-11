@@ -5,6 +5,9 @@ import App from './App';
 import './styles/mobile-optimizations.css';
 import './index.css';
 
+// Add debugging for React module loading
+console.log('React is available:', typeof StrictMode !== 'undefined');
+
 // Ensure we have a root element
 const rootElement = document.getElementById('root');
 if (!rootElement) {
@@ -14,8 +17,14 @@ if (!rootElement) {
 // Create root and render app
 const root = createRoot(rootElement);
 
-root.render(
-  <StrictMode>
-    <App />
-  </StrictMode>
-);
+try {
+  root.render(
+    <StrictMode>
+      <App />
+    </StrictMode>
+  );
+} catch (error) {
+  console.error('Error rendering app:', error);
+  // Fallback render without StrictMode
+  root.render(<App />);
+}
