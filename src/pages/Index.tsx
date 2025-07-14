@@ -1,35 +1,22 @@
 
 import React from "react";
 import MainLayout from "@/components/layouts/MainLayout";
-import { Hub71InspiredHero } from "@/components/hero/Hub71InspiredHero";
-import { WhatsHappeningSection } from "@/components/homepage/sections/WhatsHappeningSection";
-import { ImpactMetricsSection } from "@/components/homepage/redesign/ImpactMetricsSection";
-import { ProgramsJourneySection } from "@/components/homepage/redesign/ProgramsJourneySection";
-import { StartupEcosystemSection } from "@/components/homepage/redesign/StartupEcosystemSection";
-import { SEFHighlightSection } from "@/components/homepage/redesign/SEFHighlightSection";
-import { CommunityPartnersSection } from "@/components/homepage/redesign/CommunityPartnersSection";
-import { WhySharjahSection } from "@/components/homepage/sections/WhySharjahSection";
-import { ReadyToStartSection } from "@/components/homepage/sections/ReadyToStartSection";
-import { CyclingStickyCornerCTA } from "@/components/ui/cycling-sticky-cta";
-import { ThemeSelector } from "@/components/theme/ThemeSelector";
+import SimpleHero from "@/components/hero/SimpleHero";
+import ValuePropsSection from "@/components/homepage/simple/ValuePropsSection";
+import SimpleProgramsSection from "@/components/homepage/simple/SimpleProgramsSection";
+import SimplePartnersSection from "@/components/homepage/simple/SimplePartnersSection";
+import AboutSharjahSection from "@/components/homepage/simple/AboutSharjahSection";
+import AboutSheraaSection from "@/components/homepage/simple/AboutSheraaSection";
 
 const Index = () => {
   return (
     <MainLayout>
-      <Hub71InspiredHero />
-      <WhatsHappeningSection />
-      <ImpactMetricsSection />
-      <ProgramsJourneySection />
-      <SEFHighlightSection />
-      <CommunityPartnersSection />
-      <WhySharjahSection />
-      <StartupEcosystemSection />
-      <ReadyToStartSection />
-      
-      <CyclingStickyCornerCTA />
-      
-      {/* Theme Selector for Preview */}
-      <ThemeSelector />
+      <SimpleHero />
+      <ValuePropsSection />
+      <SimpleProgramsSection />
+      <SimplePartnersSection />
+      <AboutSharjahSection />
+      <AboutSheraaSection />
     </MainLayout>
   );
 };

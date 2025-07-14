@@ -2,8 +2,8 @@
 import React from "react";
 import { Helmet } from 'react-helmet-async';
 import { cn } from "@/lib/utils";
-import { SophisticatedNavigation } from "@/components/navigation/SophisticatedNavigation";
-import Footer from "@/components/Footer";
+import SimpleNavigation from "@/components/navigation/SimpleNavigation";
+import SimpleFooter from "@/components/layouts/SimpleFooter";
 import SEOHead from "@/components/SEO/SEOHead";
 import { useLanguage } from '@/contexts/LanguageContext';
 
@@ -58,12 +58,12 @@ const MainLayout: React.FC<MainLayoutProps> = ({
         style={backgroundStyle}
         dir={language === 'ar' ? 'rtl' : 'ltr'}
       >
-        <SophisticatedNavigation />
+        <SimpleNavigation />
         {/* Add proper spacing for fixed navigation */}
         <main className="flex-1 pt-20">
           {children}
         </main>
-        <Footer />
+        <SimpleFooter />
       </div>
     </>
   );
