@@ -37,20 +37,28 @@ export class ErrorBoundary extends Component<Props, State> {
       return (
         <div className="min-h-screen flex items-center justify-center bg-background">
           <div className="text-center p-8 max-w-md mx-auto">
-            <h2 className="text-xl font-bold mb-4 text-foreground">Something went wrong</h2>
+            <h2 className="text-xl font-bold mb-4 text-foreground">
+              {this.state.error.message.includes('LanguageProvider') ? 
+                'Language Loading Error' : 
+                'Something went wrong'
+              }
+            </h2>
             <p className="text-muted-foreground mb-4 text-sm">
-              {this.state.error.message}
+              {this.state.error.message.includes('LanguageProvider') ? 
+                'Language context is loading. Please wait a moment...' : 
+                this.state.error.message
+              }
             </p>
             <div className="space-x-4">
               <button 
                 onClick={this.resetError}
-                className="px-4 py-2 bg-sheraa-primary text-white rounded hover:bg-sheraa-primary/90 transition-colors"
+                className="px-4 py-2 bg-primary text-primary-foreground rounded hover:bg-primary/90 transition-colors"
               >
                 Try Again
               </button>
               <button 
                 onClick={() => window.location.href = '/'}
-                className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition-colors"
+                className="px-4 py-2 bg-secondary text-secondary-foreground rounded hover:bg-secondary/80 transition-colors"
               >
                 Go Home
               </button>

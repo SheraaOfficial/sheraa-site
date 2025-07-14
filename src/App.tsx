@@ -7,6 +7,7 @@ import AppRoutes from './routes/AppRoutes';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { HelmetProvider } from 'react-helmet-async';
 import { ErrorBoundary } from '@/components/errors/ErrorBoundary';
+import { LanguageProvider } from '@/contexts/LanguageContext';
 
 // Create QueryClient outside component to avoid recreating
 const queryClient = new QueryClient({
@@ -30,12 +31,14 @@ function App() {
             enableSystem={false}
             disableTransitionOnChange={false}
           >
-            <BrowserRouter>
-              <div className="min-h-screen bg-background text-foreground">
-                <Toaster />
-                <AppRoutes />
-              </div>
-            </BrowserRouter>
+            <LanguageProvider>
+              <BrowserRouter>
+                <div className="min-h-screen bg-background text-foreground">
+                  <Toaster />
+                  <AppRoutes />
+                </div>
+              </BrowserRouter>
+            </LanguageProvider>
           </ThemeProvider>
         </QueryClientProvider>
       </HelmetProvider>
