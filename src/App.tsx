@@ -8,6 +8,8 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { HelmetProvider } from 'react-helmet-async';
 import { ErrorBoundary } from '@/components/errors/ErrorBoundary';
 import { LanguageProvider } from '@/contexts/LanguageContext';
+import { ExperienceThemeProvider } from '@/contexts/ExperienceThemeContext';
+import { HomepageThemeProvider } from '@/contexts/ThemeContext';
 
 // Create QueryClient outside component to avoid recreating
 const queryClient = new QueryClient({
@@ -32,12 +34,16 @@ function App() {
             disableTransitionOnChange={false}
           >
             <LanguageProvider>
-              <BrowserRouter>
-                <div className="min-h-screen bg-background text-foreground">
-                  <Toaster />
-                  <AppRoutes />
-                </div>
-              </BrowserRouter>
+              <ExperienceThemeProvider>
+                <HomepageThemeProvider>
+                  <BrowserRouter>
+                    <div className="min-h-screen bg-background text-foreground">
+                      <Toaster />
+                      <AppRoutes />
+                    </div>
+                  </BrowserRouter>
+                </HomepageThemeProvider>
+              </ExperienceThemeProvider>
             </LanguageProvider>
           </ThemeProvider>
         </QueryClientProvider>

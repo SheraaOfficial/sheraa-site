@@ -40,12 +40,16 @@ export class ErrorBoundary extends Component<Props, State> {
             <h2 className="text-xl font-bold mb-4 text-foreground">
               {this.state.error.message.includes('LanguageProvider') ? 
                 'Language Loading Error' : 
+                this.state.error.message.includes('ExperienceThemeProvider') ?
+                'Experience Theme Loading Error' :
+                this.state.error.message.includes('ThemeProvider') ?
+                'Theme Loading Error' :
                 'Something went wrong'
               }
             </h2>
             <p className="text-muted-foreground mb-4 text-sm">
-              {this.state.error.message.includes('LanguageProvider') ? 
-                'Language context is loading. Please wait a moment...' : 
+              {this.state.error.message.includes('Provider') ? 
+                'Application context is loading. Please wait a moment...' : 
                 this.state.error.message
               }
             </p>
@@ -57,10 +61,10 @@ export class ErrorBoundary extends Component<Props, State> {
                 Try Again
               </button>
               <button 
-                onClick={() => window.location.href = '/'}
+                onClick={() => window.location.reload()}
                 className="px-4 py-2 bg-secondary text-secondary-foreground rounded hover:bg-secondary/80 transition-colors"
               >
-                Go Home
+                Reload Page
               </button>
             </div>
           </div>
