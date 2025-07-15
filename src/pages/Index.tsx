@@ -1,22 +1,22 @@
 
 import React from "react";
 import MainLayout from "@/components/layouts/MainLayout";
-import SimpleHero from "@/components/hero/SimpleHero";
-import ValuePropsSection from "@/components/homepage/simple/ValuePropsSection";
-import SimpleProgramsSection from "@/components/homepage/simple/SimpleProgramsSection";
-import SimplePartnersSection from "@/components/homepage/simple/SimplePartnersSection";
-import AboutSharjahSection from "@/components/homepage/simple/AboutSharjahSection";
-import AboutSheraaSection from "@/components/homepage/simple/AboutSheraaSection";
+import EnhancedHero from "@/components/hero/EnhancedHero";
+import FounderFirstValueProps from "@/components/homepage/simple/FounderFirstValueProps";
+import AuthenticProgramsSection from "@/components/homepage/simple/AuthenticProgramsSection";
+import EcosystemPartnersSection from "@/components/homepage/simple/EcosystemPartnersSection";
+import InnovationCapitalSection from "@/components/homepage/simple/InnovationCapitalSection";
+import ChangemakersAboutSection from "@/components/homepage/simple/ChangemakersAboutSection";
 
 const Index = () => {
   return (
     <MainLayout>
-      <SimpleHero />
-      <ValuePropsSection />
-      <SimpleProgramsSection />
-      <SimplePartnersSection />
-      <AboutSharjahSection />
-      <AboutSheraaSection />
+      <EnhancedHero />
+      <FounderFirstValueProps />
+      <AuthenticProgramsSection />
+      <EcosystemPartnersSection />
+      <InnovationCapitalSection />
+      <ChangemakersAboutSection />
     </MainLayout>
   );
 };
