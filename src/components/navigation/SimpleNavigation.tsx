@@ -7,7 +7,7 @@ const SimpleNavigation: React.FC = () => {
 
   const navItems = [
     { name: 'Programs', path: '/programs' },
-    { name: 'Portfolio', path: '/portfolio' },
+    { name: 'Startups Community', path: '/portfolio' },
     { name: 'Community', path: '/community' },
     { name: 'About', path: '/about' },
   ];

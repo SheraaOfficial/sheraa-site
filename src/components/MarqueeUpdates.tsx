@@ -7,31 +7,39 @@ const MarqueeUpdates = () => {
   const updates = [
     {
       icon: <Calendar className="w-4 h-4" />,
-      text: "Startup Innovation Workshop - April 30th, 2025",
+      text: "S3 Incubator Demo Day - May 15th | Watch 12 startups pitch to investors",
     },
     {
       icon: <Clock className="w-4 h-4" />,
-      text: "Access Sharjah Challenge Applications Open Until May 15th",
+      text: "Access Sharjah Challenge 2025 Applications Open Until June 30th",
     },
     {
       icon: <Megaphone className="w-4 h-4" />,
-      text: "Join Our Entrepreneurship Bootcamp - Starting June 1st",
+      text: "Startup Dojo Summer Program - Applications open for university students",
     },
     {
       icon: <Award className="w-4 h-4" />,
-      text: "Spotlight: Candam Technologies - Waste Management Innovation",
+      text: "Congratulations to Candam Technologies on their $68K pilot with BEEAH Group",
     },
     {
       icon: <Star className="w-4 h-4" />,
-      text: "S3 Incubator - New Cohort Applications Close May 10th",
+      text: "New S3 Cohort Starting August - Apply for $30K equity-free funding",
     },
     {
       icon: <Users className="w-4 h-4" />,
-      text: "Founder Fridays - Networking Event Every Week at 4PM",
+      text: "Founder Fridays Every Week at 4PM - Network with the ecosystem",
     },
     {
       icon: <Calendar className="w-4 h-4" />,
-      text: "Sharjah Entrepreneurship Festival - Early Bird Tickets Available",
+      text: "Sharjah Entrepreneurship Festival 2026 - Save the date: January 31-Feb 1",
+    },
+    {
+      icon: <Award className="w-4 h-4" />,
+      text: "52% of our supported startups are women-led - Breaking barriers together",
+    },
+    {
+      icon: <Star className="w-4 h-4" />,
+      text: "71% startup survival rate - Well above global average through quality support",
     },
   ];
 
