@@ -2,27 +2,25 @@
 import React from "react";
 import MainLayout from "@/components/layouts/MainLayout";
 import EnhancedHero from "@/components/hero/EnhancedHero";
-import WhoWeAreSection from "@/components/homepage/WhoWeAreSection";
+import ImpactMetricsSnapshot from "@/components/homepage/enhanced/ImpactMetricsSnapshot";
 import MarqueeUpdates from "@/components/MarqueeUpdates";
-import WhatsHappeningSection from "@/components/homepage/WhatsHappeningSection";
-import FounderFirstValueProps from "@/components/homepage/simple/FounderFirstValueProps";
+import PersonaEventsSection from "@/components/homepage/enhanced/PersonaEventsSection";
 import AuthenticProgramsSection from "@/components/homepage/simple/AuthenticProgramsSection";
 import EcosystemPartnersSection from "@/components/homepage/simple/EcosystemPartnersSection";
-import InnovationCapitalSection from "@/components/homepage/simple/InnovationCapitalSection";
-import ChangemakersAboutSection from "@/components/homepage/simple/ChangemakersAboutSection";
+import WhySharjahSection from "@/components/homepage/enhanced/WhySharjahSection";
+import CTASection from "@/components/homepage/enhanced/CTASection";
 
 const Index = () => {
   return (
     <MainLayout>
       <EnhancedHero />
-      <WhoWeAreSection />
+      <ImpactMetricsSnapshot />
       <MarqueeUpdates />
-      <WhatsHappeningSection />
-      <FounderFirstValueProps />
+      <PersonaEventsSection />
       <AuthenticProgramsSection />
       <EcosystemPartnersSection />
-      <InnovationCapitalSection />
-      <ChangemakersAboutSection />
+      <WhySharjahSection />
+      <CTASection />
     </MainLayout>
   );
 };

@@ -2,7 +2,8 @@
 import React from "react";
 import { Helmet } from 'react-helmet-async';
 import { cn } from "@/lib/utils";
-import SimpleNavigation from "@/components/navigation/SimpleNavigation";
+import EnhancedNavigation from "@/components/navigation/EnhancedNavigation";
+import StickyChallengeBanner from "@/components/navigation/StickyChallengeBanner";
 import SimpleFooter from "@/components/layouts/SimpleFooter";
 import SEOHead from "@/components/SEO/SEOHead";
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -58,9 +59,10 @@ const MainLayout: React.FC<MainLayoutProps> = ({
         style={backgroundStyle}
         dir={language === 'ar' ? 'rtl' : 'ltr'}
       >
-        <SimpleNavigation />
-        {/* Add proper spacing for fixed navigation */}
-        <main className="flex-1 pt-20">
+        <StickyChallengeBanner />
+        <EnhancedNavigation />
+        {/* Add proper spacing for sticky banner and navigation */}
+        <main className="flex-1 pt-[120px]">
           {children}
         </main>
         <SimpleFooter />
