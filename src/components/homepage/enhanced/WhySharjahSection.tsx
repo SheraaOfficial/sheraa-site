@@ -96,8 +96,8 @@ const WhySharjahSection: React.FC = () => {
             </h2>
           </div>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-            Discover why Sharjah has become the emirate of choice for entrepreneurs, 
-            offering unique advantages that make it the perfect launchpad for your startup journey.
+            Leverage Sharjah's strategic location, business-friendly environment, and thriving innovation clusters. 
+            Experience the emirate's unique ability to blend collective strength with individual creativity.
           </p>
           
           {/* Quick Stats */}

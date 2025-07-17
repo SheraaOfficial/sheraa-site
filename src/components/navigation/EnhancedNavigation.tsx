@@ -51,7 +51,7 @@ const EnhancedNavigation: React.FC = () => {
         { name: t('nav.events.sef'), path: '/sef', desc: t('nav.events.sef.desc') }
       ]
     },
-    { name: t('nav.sef'), path: '/sef', special: true }
+    { name: t('nav.sef'), path: '/sef' }
   ];
 
   const isActive = (path: string) => {
@@ -79,20 +79,6 @@ const EnhancedNavigation: React.FC = () => {
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-1">
             {navItems.map((item) => {
-              if (item.special) {
-                return (
-                  <Button
-                    key={item.name}
-                    variant="outline"
-                    size="sm"
-                    asChild
-                    className="bg-gradient-to-r from-orange-500 to-red-500 text-white border-0 hover:from-orange-600 hover:to-red-600"
-                  >
-                    <Link to={item.path}>{item.name}</Link>
-                  </Button>
-                );
-              }
-
               if (item.dropdown) {
                 return (
                   <div

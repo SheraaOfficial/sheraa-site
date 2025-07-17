@@ -7,52 +7,52 @@ const MarqueeUpdates = () => {
   const updates = [
     {
       icon: <Calendar className="w-4 h-4" />,
-      text: "🚀 S3 Incubator Demo Day - May 15th | 12 startups pitching to investors at SRTIP",
+      text: "🚀 S3 Incubator Demo Day - May 15th | 12 promising startups pitching to investors & ecosystem partners",
       urgent: true
     },
     {
       icon: <Clock className="w-4 h-4" />,
-      text: "⏰ Access Sharjah Challenge 2025 - Last 30 days to apply | AED 250K+ contracts available",
+      text: "🎯 Access Sharjah Challenge 2025: POC contracts worth AED 250K+ available for global startups",
       urgent: true
     },
     {
       icon: <Megaphone className="w-4 h-4" />,
-      text: "📚 Startup Dojo Summer Program now accepting applications from UAE university students",
+      text: "💡 Startup Dojo Summer Program: 8-week intensive incubation for university students",
       urgent: false
     },
     {
       icon: <Award className="w-4 h-4" />,
-      text: "🎉 Candam Technologies wins $68K BEEAH pilot | RecySmart deployed across University City",
+      text: "🏆 52% of Sheraa startups are women-led - Breaking barriers together in entrepreneurship",
       urgent: false
     },
     {
       icon: <Star className="w-4 h-4" />,
-      text: "💰 S3 Cohort 12 launching August | $30K equity-free funding + 6-month intensive program",
+      text: "🤝 140+ ecosystem partners supporting Sharjah's innovation journey and startup growth",
       urgent: false
     },
     {
       icon: <Users className="w-4 h-4" />,
-      text: "☕ Founder Fridays weekly at Sheraa HQ | Meet mentors, investors & fellow entrepreneurs",
+      text: "📈 Sharjah climbs to 7th place in MENA startup ecosystem rankings - Rising innovation hub",
       urgent: false
     },
     {
       icon: <Calendar className="w-4 h-4" />,
-      text: "🎪 SEF 2026 announced | Jan 31-Feb 1 at SRTIP | 15,000+ expected changemakers",
+      text: "🌟 SEF 2026 planning underway - The region's premier entrepreneurship festival returns",
       urgent: false
     },
     {
       icon: <Award className="w-4 h-4" />,
-      text: "👩‍💼 52% women-led startups in our portfolio | Leading diversity in MENA entrepreneurship",
+      text: "💼 18,000+ youth upskilled through Sheraa's entrepreneurship programs and initiatives",
       urgent: false
     },
     {
       icon: <Star className="w-4 h-4" />,
-      text: "📊 71% startup survival rate | 3x global average through Sheraa's founder-first approach",
+      text: "📊 71% startup survival rate - Well above global average through founder-first support",
       urgent: false
     },
     {
       icon: <Megaphone className="w-4 h-4" />,
-      text: "🌍 180+ startups supported | $248M+ revenue generated | 1,900+ jobs created",
+      text: "🌍 180+ startups supported | $248M+ revenue generated | 1,900+ jobs created in ecosystem",
       urgent: false
     },
   ];

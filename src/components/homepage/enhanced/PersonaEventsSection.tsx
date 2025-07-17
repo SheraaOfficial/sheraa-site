@@ -136,11 +136,11 @@ const PersonaEventsSection: React.FC = () => {
           className="text-center mb-12"
         >
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            What's Currently Happening at Sheraa
+            Your Journey Starts Here: Programs Tailored for Growth
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Discover events, workshops, and programs tailored to your entrepreneurial journey. 
-            From student ideation to scaling ventures globally.
+            From validating your initial idea to scaling globally, Sheraa offers structured support, 
+            expert guidance, and access to critical resources at every stage.
           </p>
         </motion.div>
 

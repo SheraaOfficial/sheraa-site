@@ -68,10 +68,11 @@ const ImpactMetricsSnapshot: React.FC = () => {
           className="text-center mb-12"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            {t('impact.title')}
+            Impact That Speaks Volumes
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            {t('impact.subtitle')}
+            We measure our success by the success of our founders and the growth of Sharjah's innovation ecosystem. 
+            Our commitment translates into tangible results.
           </p>
         </motion.div>
 
