@@ -4,7 +4,8 @@ import { motion } from 'framer-motion';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { useTheme, themeMetadata } from '@/contexts/ThemeContext';
+import { useTheme } from '@/contexts/ThemeContext';
+import { themeMetadata } from '@/contexts/ThemeContext';
 import { Users, Zap, Eye, Download, BarChart, Camera, Play, Film, Sparkles, Grid } from 'lucide-react';
 
 export const ThemeShowcase: React.FC = () => {
