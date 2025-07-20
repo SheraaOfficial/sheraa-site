@@ -7,7 +7,7 @@ const HomepageMarquee = () => {
   const updates = [
     {
       icon: <Calendar className="w-4 h-4" />,
-      text: "SEF 2026: The Region's Largest Entrepreneurship Festival - Jan 31 - Feb 1",
+      text: "SEF: The Region's Largest Entrepreneurship Festival - Jan 31 - Feb 1",
       highlight: true,
       category: "event"
     },

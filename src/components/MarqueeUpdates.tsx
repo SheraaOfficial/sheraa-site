@@ -37,7 +37,7 @@ const MarqueeUpdates = () => {
     },
     {
       icon: <Calendar className="w-4 h-4" />,
-      text: "🌟 SEF 2026 planning underway - The region's premier entrepreneurship festival returns",
+      text: "🌟 SEF planning underway - The region's premier entrepreneurship festival returns",
       urgent: false
     },
     {

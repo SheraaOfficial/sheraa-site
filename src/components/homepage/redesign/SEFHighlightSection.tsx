@@ -37,7 +37,7 @@ export const SEFHighlightSection: React.FC = () => {
           </div>
           
           <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-sheraa-sef-primary via-sheraa-sef-accent to-sheraa-sef-primary bg-clip-text text-transparent leading-tight">
-            SEF 2026: Where We Belong
+            SEF: Where We Belong
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed">
             Experience the energy of the Sharjah Entrepreneurship Festival, bringing together thousands 
@@ -93,7 +93,7 @@ export const SEFHighlightSection: React.FC = () => {
           <Button asChild size="lg" className="group bg-gradient-to-r from-sheraa-sef-primary to-sheraa-sef-accent hover:from-sheraa-sef-primary/90 hover:to-sheraa-sef-accent/90 text-white shadow-2xl hover:shadow-sheraa-sef-primary/25 transition-all duration-300">
             <Link to="/events/sef-landing" className="flex items-center gap-2">
               <Sparkles className="w-5 h-5 animate-pulse" />
-              Learn More About SEF 2026
+              Learn More About SEF
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </Link>
           </Button>

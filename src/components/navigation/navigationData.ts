@@ -54,7 +54,7 @@ export const navigationItems: NavigationItem[] = [
       { name: 'All Events', path: '/events' },
       { name: 'Upcoming Events', path: '/events/upcoming' },
       { name: 'Past Events', path: '/events/past' },
-      { name: 'SEF 2026', path: '/events/sef' }
+      { name: 'SEF', path: '/events/sef' }
     ]
   },
   {
@@ -108,7 +108,7 @@ export const navigationItems: NavigationItem[] = [
     ]
   },
   {
-    name: 'SEF 2026',
+    name: 'SEF',
     path: '/events/sef',
     icon: Award,
     special: true

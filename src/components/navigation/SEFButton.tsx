@@ -33,7 +33,7 @@ export const SEFButton: React.FC<SEFButtonProps> = ({ path }) => {
       
       {/* Text with special highlighting */}
       <span className="text-sm font-black tracking-wide relative">
-        SEF'26
+        SEF
       </span>
 
       {/* Sparkle animation */}

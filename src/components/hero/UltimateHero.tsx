@@ -108,24 +108,15 @@ const UltimateHero = () => {
                 transition={{ duration: 0.8, delay: 0.2 }}
               >
                 <span className="block text-sheraa-text-primary mb-2">
-                  Turn Your
+                  Start.
                 </span>
                 <div className="relative h-[1.1em] overflow-hidden">
-                  {mounted && (
-                    <motion.span
-                      key={currentWordIndex}
-                      className="absolute inset-0 sheraa-gradient-text"
-                      initial={{ opacity: 0, y: 100, rotateX: -90 }}
-                      animate={{ opacity: 1, y: 0, rotateX: 0 }}
-                      exit={{ opacity: 0, y: -100, rotateX: 90 }}
-                      transition={{ duration: 0.7, ease: "easeOut" }}
-                    >
-                      {inspirationalWords[currentWordIndex]}
-                    </motion.span>
-                  )}
+                  <span className="block sheraa-gradient-text">
+                    Grow.
+                  </span>
                 </div>
                 <span className="block text-sheraa-text-primary">
-                  Into Reality
+                  Scale.
                 </span>
               </motion.h1>
 
@@ -135,8 +126,11 @@ const UltimateHero = () => {
                 transition={{ duration: 0.8, delay: 0.5 }}
                 className="text-xl md:text-2xl lg:text-3xl text-sheraa-text-secondary max-w-4xl mx-auto leading-relaxed font-medium"
               >
-                Join the <span className="font-bold text-sheraa-primary">fastest-growing startup ecosystem</span> in the Middle East. 
-                From idea validation to global scaling - we&apos;re your complete success partner.
+                <span className="block text-lg md:text-xl mb-4 text-sheraa-primary font-bold">
+                  Sharjah's Leading Startup Community
+                </span>
+                Connect with founders, access funding, and scale your startup with the support of 
+                <span className="font-bold text-sheraa-primary"> 180+ successful entrepreneurs</span> who've raised $248M+ collectively.
               </motion.p>
             </div>
 
@@ -192,7 +186,7 @@ const UltimateHero = () => {
                   className="group relative overflow-hidden bg-gradient-to-r from-sheraa-primary to-sheraa-accent hover:from-sheraa-primary/90 hover:to-sheraa-accent/90 sheraa-shadow-lg hover:sheraa-shadow px-8 py-4 text-lg font-bold"
                 >
                   <Link to="/programs" className="flex items-center gap-3">
-                    <span className="relative z-10">🚀 Start Your Success Journey</span>
+                    <span className="relative z-10">Find Co-founders & Get Mentorship</span>
                     <motion.div
                       animate={{ x: [0, 5, 0] }}
                       transition={{ duration: 1.5, repeat: Infinity }}
@@ -214,7 +208,7 @@ const UltimateHero = () => {
                   className="border-2 border-sheraa-primary/50 text-sheraa-primary hover:bg-sheraa-primary/10 dark:border-sheraa-primary/70 dark:hover:bg-sheraa-primary/20 backdrop-blur-sm px-8 py-4 text-lg font-bold"
                 >
                   <Link to="/community/startups" className="flex items-center gap-3">
-                    💫 See Success Stories
+                    Access Funding & Investment
                     <Star className="w-5 h-5 text-sheraa-orange" />
                   </Link>
                 </Button>
